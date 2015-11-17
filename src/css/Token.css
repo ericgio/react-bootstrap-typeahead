@@ -1,0 +1,27 @@
+/* Token */
+.token {
+  background-color: #e7f4ff;
+  border: 0;
+  border-radius: 2px;
+  color: #1f8dd6;
+  float: left;
+  line-height: 1em;
+  margin: 0 3px 3px 0;
+  padding: 4px 21px 4px 7px;
+  position: relative;
+}
+.token:focus,
+.token-selected {
+  background-color: #1f8dd6;
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+}
+
+.token-close-button {
+  bottom: 0;
+  padding: 3px 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

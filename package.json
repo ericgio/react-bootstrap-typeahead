@@ -7,6 +7,8 @@
     "example": "example"
   },
   "scripts": {
+    "dev": "webpack -w --progress --colors",
+    "build": "webpack -p --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -18,16 +20,21 @@
   "author": "ericgio",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.0.15",
+    "babel-core": "^5.8.33",
     "babel-loader": "^5.3.2",
+    "css-loader": "^0.21.0",
     "jsx-loader": "^0.13.2",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.2"
   },
   "dependencies": {
     "classnames": "^2.2.0",
-    "react": "^0.14.1",
+    "react": "^0.14.2",
     "react-bootstrap": "^0.27.3",
-    "react-dom": "^0.14.1"
+    "react-dom": "^0.14.2",
+    "react-input-autosize": "^0.6.2",
+    "react-onclickoutside": "^4.1.1",
+    "underscore": "^1.8.3"
   },
   "repository": {
     "type": "git",

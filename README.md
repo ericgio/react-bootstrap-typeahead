@@ -1,2 +1,2 @@
-# React Bootstrap Tokenizer
-React-based tokenizer component that uses Bootstrap themes for styling.
+# React Bootstrap Typeahead
+React-based typeahead component that uses Bootstrap themes for styling and supports multiple selections (tokenizer).

@@ -1,13 +1,14 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: __dirname + '/src/tokenizer.js',
+  entry: __dirname + '/example/example.js',
   output: {
-    filename: 'index.js'
+    filename:  __dirname + '/example/index.js'
   },
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['babel-loader', 'jsx-loader'], exclude: /node_modules/ },
+      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.(css|scss)$/, loader: 'style-loader!css-loader' },
     ]
   },
   plugins: [

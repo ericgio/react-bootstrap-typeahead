@@ -1,0 +1,12 @@
+.bootstrap-typeahead {
+  cursor: text;
+  position: relative;
+}
+
+.bootstrap-typeahead .dropdown-menu {
+  overflow: scroll;
+  right: 0;
+}
+.bootstrap-typeahead .dropdown-menu > li a:focus {
+  outline: none;
+}
