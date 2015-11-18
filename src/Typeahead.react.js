@@ -1,9 +1,9 @@
-import _ from 'underscore';
 import MenuItem from './MenuItem.react';
 import React from 'react';
 
-import {findDOMNode} from 'react-dom';
 import cx from 'classnames';
+import {findDOMNode} from 'react-dom';
+import {filter, map, pluck, sortBy} from 'lodash/collection';
 import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
@@ -49,7 +49,7 @@ var Typeahead = React.createClass({
       defaultSelected: [],
       maxHeight: 300,
       labelKey: labelKey,
-      sortBy: options => _.sortBy(options, labelKey),
+      sortBy: options => sortBy(options, labelKey),
     };
   },
 
@@ -57,12 +57,13 @@ var Typeahead = React.createClass({
     var {defaultSelected, options, sortBy} = this.props;
 
     // Filter out any pre-selected options from the available set.
-    var selectedIds = _.pluck(defaultSelected, 'id');
-    var options = _.filter(options, (option) => {
+    var selectedIds = pluck(defaultSelected, 'id');
+    var options = filter(options, (option) => {
       return selectedIds.indexOf(option.id) === -1;
     });
 
     return {
+      filteredOptions: sortBy(options),
       focusedMenuItem: null,
       options: sortBy(options),
       selected: defaultSelected,
@@ -80,11 +81,14 @@ var Typeahead = React.createClass({
     }
 
     var input = cloneElement(child, {
+      filteredOptions: this.state.filteredOptions,
       labelKey: this.props.labelKey,
+      onAdd: this._handleAddOption,
       onChange: this._handleTextChange,
       onFocus: this._handleFocus,
       onKeyDown: this._handleKeydown,
       onRemove: this._handleRemoveOption,
+      ref: (ref) => this._input = ref,
       selected: this.state.selected,
       text: this.state.text,
     });
@@ -115,14 +119,9 @@ var Typeahead = React.createClass({
   },
 
   _renderDropdownItems: function() {
-    var text = this.state.text.toLowerCase();
-    var options = _.filter(this.state.options, (option) => {
-      var label = option[this.props.labelKey];
-      return label.toLowerCase().indexOf(text) !== -1;
-    });
-
-    return options.length ?
-      _.map(options, this._renderDropdownItem) :
+    var {filteredOptions} = this.state;
+    return filteredOptions.length ?
+      map(filteredOptions, this._renderDropdownItem) :
       <MenuItem disabled>No matches found.</MenuItem>;
   },
 
@@ -148,9 +147,16 @@ var Typeahead = React.createClass({
   },
 
   _handleTextChange: function(e) {
+    var text = e.target.value;
+    var filteredOptions = filter(this.state.options, (option) => {
+      var label = option[this.props.labelKey];
+      return label.toLowerCase().indexOf(text.toLowerCase()) !== -1;
+    });
+
     this.setState({
+      filteredOptions: filteredOptions,
       showDropdown: true,
-      text: e.target.value
+      text: text
     });
   },
 
@@ -170,20 +176,33 @@ var Typeahead = React.createClass({
         }
 
         if (e.keyCode === keyCode.UP) {
-          // Get the previous item or go back to the bottom if we're at the top.
-          focusedMenuItem =
-            (focusedMenuItem && focusedMenuItem.previousSibling) ||
-            list.lastChild;
+          if (!focusedMenuItem) {
+            // The input is focused and the user pressed the down key; select
+            // the first item in the list.
+            focusedMenuItem = list.lastChild;
+          } else {
+            focusedMenuItem = focusedMenuItem.previousSibling || null;
+          }
         } else {
           // keyCode.DOWN
-          // Get the next item or go back to the top if we're at the bottom.
-          focusedMenuItem =
-            (focusedMenuItem && focusedMenuItem.nextSibling) ||
-            list.firstChild;
+          if (!focusedMenuItem) {
+            // The input is focused and the user pressed the down key; select
+            // the first item in the list.
+            focusedMenuItem = list.firstChild;
+          } else {
+            focusedMenuItem = focusedMenuItem.nextSibling || null;
+          }
         }
 
-        // Select the link in the menu item.
-        focusedMenuItem.firstChild.focus();
+        if (focusedMenuItem) {
+          // Select the link in the menu item.
+          focusedMenuItem.firstChild.focus();          
+        } else {
+          // If there's no focused item, it means we're at the beginning or the
+          // end of the menu. Focus the input.
+          findDOMNode(this._input).focus();
+        }
+
         this.setState({focusedMenuItem: focusedMenuItem});
         break;
       case keyCode.ESC:
@@ -202,10 +221,10 @@ var Typeahead = React.createClass({
   },
 
   _handleAddOption: function(selectedOption) {
-    var {multiple, onChange, sortBy} = this.props;
+    var {multiple, labelKey, onChange, sortBy} = this.props;
 
     // Remove the selected option from the list of possible options.
-    var options = _.filter(this.state.options, function(option) {
+    var options = filter(this.state.options, function(option) {
       return option.id !== selectedOption.id;
     });
 
@@ -226,14 +245,14 @@ var Typeahead = React.createClass({
       options: sortBy(options),
       selected: selected,
       showDropdown: false,
-      text: ''
+      text: multiple ? '' : selectedOption[labelKey]
     });
 
     onChange && onChange(selected);
   },
 
   _handleRemoveOption: function(removedOption) {
-    var selected = _.filter(this.state.selected, function(option) {
+    var selected = filter(this.state.selected, function(option) {
       return option.id !== removedOption.id;
     });
 

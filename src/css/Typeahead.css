@@ -10,3 +10,23 @@
 .bootstrap-typeahead .dropdown-menu > li a:focus {
   outline: none;
 }
+
+.bootstrap-typeahead-input {
+  position: relative;
+}
+
+.bootstrap-typeahead-input-main {
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.bootstrap-typeahead-input-hint {
+  border-color: transparent;
+  bottom: 0;
+  color: #aaa;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}

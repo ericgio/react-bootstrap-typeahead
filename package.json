@@ -1,7 +1,7 @@
 {
-  "name": "react-bootstrap-tokenizer",
+  "name": "react-bootstrap-typeahead",
   "version": "0.1.0",
-  "description": "React-based tokenizer using the Bootstrap theme",
+  "description": "React-based typeahead using the Bootstrap theme",
   "main": "src/index.js",
   "directories": {
     "example": "example"
@@ -20,7 +20,7 @@
     "react-bootstrap-tokenizer",
     "react-bootstrap-typeahead",
     "tokenizer",
-    "typeahead",
+    "typeahead"
   ],
   "author": "ericgio",
   "license": "MIT",
@@ -33,12 +33,11 @@
   },
   "dependencies": {
     "classnames": "^2.2.0",
+    "lodash": "^3.10.1",
     "react": "^0.14.2",
-    "react-bootstrap": "^0.27.3",
     "react-dom": "^0.14.2",
     "react-input-autosize": "^0.6.2",
-    "react-onclickoutside": "^4.1.1",
-    "underscore": "^1.8.3"
+    "react-onclickoutside": "^4.1.1"
   },
   "repository": {
     "type": "git",

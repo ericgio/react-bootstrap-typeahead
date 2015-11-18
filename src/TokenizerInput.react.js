@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import AutosizeInput from 'react-input-autosize';
 import MenuItem from './MenuItem.react';
 import React from 'react';
@@ -7,6 +6,7 @@ import Token from './Token.react';
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
 import keyCode from './keyCode';
+import {map} from 'lodash/collection';
 
 let {cloneElement, PropTypes} = React;
 
@@ -44,8 +44,10 @@ var TokenizerInput = React.createClass({
           'clearfix',
           className
         )}
-        onClick={this._handleTokenizerClick}>
-        {_.map(selected, this._renderToken)}
+        onClick={this._handleInputFocus}
+        onFocus={this._handleInputFocus}
+        tabIndex={0}>
+        {map(selected, this._renderToken)}
         <AutosizeInput
           {...this.props}
           className="bootstrap-tokenizer-input"
@@ -94,7 +96,7 @@ var TokenizerInput = React.createClass({
     this.props.onKeyDown && this.props.onKeyDown(e);
   },
 
-  _handleTokenizerClick: function(e) {
+  _handleInputFocus: function(e) {
     // If the user clicks anywhere inside the tokenizer besides a token,
     // focus the input.
     this._input.focus();
