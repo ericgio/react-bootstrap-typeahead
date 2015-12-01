@@ -1,5 +1,4 @@
 import AutosizeInput from 'react-input-autosize';
-import MenuItem from './MenuItem.react';
 import React from 'react';
 import Token from './Token.react';
 
@@ -53,7 +52,7 @@ var TokenizerInput = React.createClass({
           className="bootstrap-tokenizer-input"
           onKeyDown={this._handleKeydown}
           placeholder={selected.length ? null : placeholder}
-          ref={(ref) => this._input = ref}
+          ref="input"
           type="text"
           value={text}
         />
@@ -79,7 +78,7 @@ var TokenizerInput = React.createClass({
         // or right arrow keys.
         break;
       case keyCode.BACKSPACE:
-        var inputNode = findDOMNode(this._input);
+        var inputNode = findDOMNode(this.refs.input);
         if (
           inputNode &&
           inputNode.contains(document.activeElement) &&
@@ -99,7 +98,7 @@ var TokenizerInput = React.createClass({
   _handleInputFocus: function(e) {
     // If the user clicks anywhere inside the tokenizer besides a token,
     // focus the input.
-    this._input.focus();
+    this.refs.input.focus();
   },
 });
 

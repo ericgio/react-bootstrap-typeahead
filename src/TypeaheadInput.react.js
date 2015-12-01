@@ -3,6 +3,7 @@ import React from 'react';
 import cx from 'classnames';
 import {first} from 'lodash/array';
 import keyCode from './keyCode';
+import onClickOutside from 'react-onclickoutside';
 
 var {PropTypes} = React;
 
@@ -16,9 +17,13 @@ require('./css/Typeahead.css');
 var TypeaheadInput = React.createClass({
   displayName: 'TypeaheadInput',
 
+  mixins: [onClickOutside],
+
   propTypes: {
     filteredOptions: PropTypes.array,
     focusedOption: PropTypes.string,
+    labelKey: PropTypes.string,
+    onChange: PropTypes.func,
     selected: PropTypes.array,
   },
 
@@ -31,15 +36,16 @@ var TypeaheadInput = React.createClass({
         tabIndex={0}>
         <input
           {...this.props}
-          className={cx('bootstrap-typeahead-input-main', 'form-control')}
-          onChange={this._handleChange}
+          className={cx({
+            'has-selection': this.props.selected.length
+          }, 'bootstrap-typeahead-input-main', 'form-control')}
           onKeyDown={this._handleKeydown}
-          ref={(ref) => this._input = ref}
+          ref="input"
           type="text"
           value={this.props.text}
         />
         <input
-          className={cx('bootstrap-typeahead-input-hint', 'form-control')}
+          className="bootstrap-typeahead-input-hint form-control"
           value={this._getHintText()}
         />
       </div>
@@ -53,8 +59,8 @@ var TypeaheadInput = React.createClass({
     // Only show the hint if...
     if (
       // ...the input is focused.
-      this._input === document.activeElement &&
-      // ...there's input text.
+      this.refs.input === document.activeElement &&
+      // ...the input contains text.
       text &&
       // ...the input text corresponds to the beginning of the first option.
       firstOption &&
@@ -64,23 +70,21 @@ var TypeaheadInput = React.createClass({
     }
   },
 
-  _handleChange: function(e) {
-    this.props.onChange && this.props.onChange(e);
-  },
-
+  /**
+   * If the containing parent div is focused or clicked, focus the input.
+   */
   _handleInputFocus: function(e) {
-    this._input.focus();
+    this.refs.input.focus();
   },
 
   _handleKeydown: function(e) {
     switch (e.keyCode) {
       case keyCode.ESC:
-        this._input.blur();
+        this.refs.input.blur();
         break;
       case keyCode.RIGHT:
-      case keyCode.TAB:
-        // Autocomplete the selection if there's a hint.
-        if (this._getHintText()) {
+        // Autocomplete the selection if there's a hint and no selection yet.
+        if (this._getHintText() && !this.props.selected.length) {
           var {filteredOptions, onAdd} = this.props;
           onAdd && onAdd(first(filteredOptions));
         }
@@ -88,11 +92,17 @@ var TypeaheadInput = React.createClass({
       case keyCode.BACKSPACE:
         // Remove the selection if we start deleting it.
         var {onRemove, selected} = this.props;
-        first(selected) && onRemove && onRemove(first(selected));
+        selected.length && onRemove && onRemove(first(selected));
         break;
     }
 
     this.props.onKeyDown && this.props.onKeyDown(e);
+  },
+
+  handleClickOutside: function(e) {
+    // Force blur so that input is no longer the active element. For some
+    // reason, it's taking 2 clicks to fully blur the input otherwise.
+    this.refs.input.blur();
   },
 });
 

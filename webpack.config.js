@@ -13,6 +13,7 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
+    /*
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,
@@ -22,6 +23,7 @@ module.exports = {
         except: ['$', 'exports', 'require']
       }
     })
+    */
   ],
   resolve: {
     extensions: ['', '.js']

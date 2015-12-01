@@ -1,9 +1,10 @@
-import MenuItem from './MenuItem.react';
 import React from 'react';
 
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
-import {filter, map, pluck, sortBy} from 'lodash/collection';
+import {first} from 'lodash/array';
+import {filter, findWhere} from 'lodash/collection';
+import {isEqual} from 'lodash/lang';
 import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
@@ -30,156 +31,111 @@ var Typeahead = React.createClass({
      */
     labelKey: PropTypes.string,
     /**
-     * Maximum height of the dropdown, in pixels.
+     * Whether or not multiple selections are allowed.
      */
-    maxHeight: PropTypes.number,
+    multiple: PropTypes.bool,
     /**
      * Full set of options, including pre-selected options.
      */
     options: PropTypes.array.isRequired,
-    /**
-     * Function by which to sort the list of available options.
-     */
-    sortBy: PropTypes.func,
   },
 
   getDefaultProps: function() {
-    var labelKey = 'label';
     return {
       defaultSelected: [],
-      maxHeight: 300,
-      labelKey: labelKey,
-      sortBy: options => sortBy(options, labelKey),
+      labelKey: 'label',
+      multiple: false,
     };
   },
 
   getInitialState: function() {
-    var {defaultSelected, options, sortBy} = this.props;
-
-    // Filter out any pre-selected options from the available set.
-    var selectedIds = pluck(defaultSelected, 'id');
-    var options = filter(options, (option) => {
-      return selectedIds.indexOf(option.id) === -1;
-    });
+    var {defaultSelected, labelKey, multiple} = this.props;
+    var selected = multiple ? defaultSelected : defaultSelected.slice(0, 1);
 
     return {
-      filteredOptions: sortBy(options),
       focusedMenuItem: null,
-      options: sortBy(options),
-      selected: defaultSelected,
-      showDropdown: false,
-      text: ''
+      selected: selected,
+      showMenu: false,
+      text: (!multiple && first(selected) && first(selected)[labelKey]) || ''
     };
   },
 
   render: function() {
-    var child = this.props.children;
-    if (React.Children.count(child) !== 1) {
-      throw new Error(
-        'ReactBootstrapTypeahead must have one and only one child.'
-      );
-    }
+    var {children, labelKey, multiple, options} = this.props;
+    var {selected, text} = this.state;
 
-    var input = cloneElement(child, {
-      filteredOptions: this.state.filteredOptions,
-      labelKey: this.props.labelKey,
+    // Filter out options that don't match the input string or, if multiple
+    // selections are allowed, that have already been selected.
+    var filteredOptions = filter(options, (option) => {
+      return !(
+        option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 ||
+        multiple && findWhere(selected, option)
+      );
+    });
+
+    var input = cloneElement(children[0], {
+      filteredOptions: filteredOptions,
+      labelKey: labelKey,
       onAdd: this._handleAddOption,
       onChange: this._handleTextChange,
       onFocus: this._handleFocus,
       onKeyDown: this._handleKeydown,
       onRemove: this._handleRemoveOption,
-      ref: (ref) => this._input = ref,
-      selected: this.state.selected,
-      text: this.state.text,
+      ref: 'input',
+      selected: selected,
+      text: text,
     });
 
+    var menu;
+    if (this.state.showMenu) {
+      menu = cloneElement(children[1], {
+        onClick: this._handleAddOption,
+        onKeyDown: this._handleKeydown,
+        options: filteredOptions,
+        ref: 'menu',
+      });
+    }
+
     return (
-      <div
-        className={cx('bootstrap-typeahead', {
-          'open': this.state.showDropdown
-        })}>
+      <div className="bootstrap-typeahead open">
         {input}
-        {this._renderDropdown()}
+        {menu}
       </div>
     );
   },
 
-  _renderDropdown: function() {
-    if (this.state.showDropdown) {
-      return (
-        <ul
-          className="dropdown-menu"
-          onKeyDown={this._handleKeydown}
-          ref="list"
-          style={{maxHeight: this.props.maxHeight + 'px'}}>
-          {this._renderDropdownItems()}
-        </ul>
-      );
-    }
-  },
-
-  _renderDropdownItems: function() {
-    var {filteredOptions} = this.state;
-    return filteredOptions.length ?
-      map(filteredOptions, this._renderDropdownItem) :
-      <MenuItem disabled>No matches found.</MenuItem>;
-  },
-
-  _renderDropdownItem: function(option, idx) {
-    return (
-      <MenuItem
-        key={idx}
-        onClick={this._handleAddOption.bind(this, option)}>
-        {option[this.props.labelKey]}
-      </MenuItem>
-    );
-  },
-
-  _hideDropdown: function() {
-    this.setState({
-      showDropdown: false,
-      focusedMenuItem: null
-    });
-  },
-
   _handleFocus: function() {
-    this.setState({showDropdown: true});
+    this.setState({showMenu: true});
   },
 
   _handleTextChange: function(e) {
-    var text = e.target.value;
-    var filteredOptions = filter(this.state.options, (option) => {
-      var label = option[this.props.labelKey];
-      return label.toLowerCase().indexOf(text.toLowerCase()) !== -1;
-    });
-
     this.setState({
-      filteredOptions: filteredOptions,
-      showDropdown: true,
-      text: text
+      showMenu: true,
+      text: e.target.value
     });
   },
 
   _handleKeydown: function(e) {
-    var {focusedMenuItem} = this.state;
+    var {focusedMenuItem, text} = this.state;
 
     switch (e.keyCode) {
       case keyCode.UP:
       case keyCode.DOWN:
+      case keyCode.TAB:
         // Prevent page from scrolling when pressing up or down.
         e.preventDefault();
 
-        // Try to get the menu list. It won't be there if there are no results.
-        var list = this.refs.list && findDOMNode(this.refs.list);
-        if (!list) {
+        // Look for the menu. It won't be there if there are no results.
+        var menu = this.refs.menu && findDOMNode(this.refs.menu);
+        if (!menu) {
           return;
         }
 
         if (e.keyCode === keyCode.UP) {
           if (!focusedMenuItem) {
             // The input is focused and the user pressed the down key; select
-            // the first item in the list.
-            focusedMenuItem = list.lastChild;
+            // the first menu item.
+            focusedMenuItem = menu.lastChild;
           } else {
             focusedMenuItem = focusedMenuItem.previousSibling || null;
           }
@@ -187,8 +143,8 @@ var Typeahead = React.createClass({
           // keyCode.DOWN
           if (!focusedMenuItem) {
             // The input is focused and the user pressed the down key; select
-            // the first item in the list.
-            focusedMenuItem = list.firstChild;
+            // the first menu item.
+            focusedMenuItem = menu.firstChild;
           } else {
             focusedMenuItem = focusedMenuItem.nextSibling || null;
           }
@@ -196,11 +152,11 @@ var Typeahead = React.createClass({
 
         if (focusedMenuItem) {
           // Select the link in the menu item.
-          focusedMenuItem.firstChild.focus();          
+          focusedMenuItem.firstChild.focus();
         } else {
           // If there's no focused item, it means we're at the beginning or the
           // end of the menu. Focus the input.
-          findDOMNode(this._input).focus();
+          findDOMNode(this.refs.input).focus();
         }
 
         this.setState({focusedMenuItem: focusedMenuItem});
@@ -221,31 +177,26 @@ var Typeahead = React.createClass({
   },
 
   _handleAddOption: function(selectedOption) {
-    var {multiple, labelKey, onChange, sortBy} = this.props;
-
-    // Remove the selected option from the list of possible options.
-    var options = filter(this.state.options, function(option) {
-      return option.id !== selectedOption.id;
-    });
+    var {multiple, labelKey, onChange} = this.props;
 
     var selected;
+    var text;
     if (multiple) {
       // If multiple selections are allowed, add the new selection to the
       // existing selections.
       selected = this.state.selected.concat(selectedOption);
+      text = '';
     } else {
-      // If only a single selection is allowed, completely replace the existing
-      // selection with the new one and add the existing one back to the list
-      // of possibilities.
+      // If only a single selection is allowed, replace the existing selection
+      // with the new one.
       selected = [selectedOption];
-      options = options.concat(this.state.selected);
+      text = selectedOption[labelKey];
     }
 
     this.setState({
-      options: sortBy(options),
       selected: selected,
-      showDropdown: false,
-      text: multiple ? '' : selectedOption[labelKey]
+      showMenu: false,
+      text: text,
     });
 
     onChange && onChange(selected);
@@ -253,16 +204,12 @@ var Typeahead = React.createClass({
 
   _handleRemoveOption: function(removedOption) {
     var selected = filter(this.state.selected, function(option) {
-      return option.id !== removedOption.id;
+      return !isEqual(option, removedOption);
     });
 
-    // Merge the removed option back into the main list.
-    var options = [removedOption].concat(this.state.options);
-
     this.setState({
-      options: this.props.sortBy(options),
       selected: selected,
-      showDropdown: false,
+      showMenu: false,
     });
 
     this.props.onChange && this.props.onChange(selected);
@@ -272,7 +219,14 @@ var Typeahead = React.createClass({
    * From `onClickOutside` mixin.
    */
   handleClickOutside: function(e) {
-    this._hideDropdown(); 
+    this._hideDropdown();
+  },
+
+  _hideDropdown: function() {
+    this.setState({
+      showMenu: false,
+      focusedMenuItem: null
+    });
   },
 });
 

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TokenizerInput from '../src/TokenizerInput.react';
 import Typeahead from '../src/Typeahead.react';
 import TypeaheadInput from '../src/TypeaheadInput.react';
+import TypeaheadMenu from '../src/TypeaheadMenu.react';
 
 let states = [
   'Alabama',
@@ -17,6 +18,7 @@ let states = [
   'Georgia',
   'Hawaii',
   'Idaho',
+  'Illinois',
   'Indiana',
   'Iowa',
   'Kansas',
@@ -85,6 +87,7 @@ let Example = React.createClass({
             onChange={this._handleChange}
             options={states}>
             <TypeaheadInput placeholder="Choose a state..." />
+            <TypeaheadMenu />
           </Typeahead>
           <h3>Tokenizer</h3>
           <Typeahead
@@ -93,6 +96,7 @@ let Example = React.createClass({
             onChange={this._handleChange}
             options={states}>
             <TokenizerInput placeholder="Choose a state..." />
+            <TypeaheadMenu />
           </Typeahead>
         </div>
       </div>
