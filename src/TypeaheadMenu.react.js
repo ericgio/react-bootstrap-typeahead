@@ -47,7 +47,6 @@ const TypeaheadMenu = React.createClass({
   getDefaultProps: function() {
     return {
       emptyLabel: 'No matches found.',
-      labelKey: 'label',
       maxHeight: 300,
     };
   },
