@@ -1,9 +1,9 @@
-import React from 'react';
+var React = require('react');
 
-import cx from 'classnames';
-import {head, isEmpty} from 'lodash';
-import keyCode from './keyCode';
-import onClickOutside from 'react-onclickoutside';
+var cx = require('classnames');
+var {head, isEmpty} = require('lodash');
+var keyCode = require('./keyCode');
+var onClickOutside = require('react-onclickoutside');
 
 var {PropTypes} = React;
 

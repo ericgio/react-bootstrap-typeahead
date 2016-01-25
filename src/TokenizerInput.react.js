@@ -1,13 +1,13 @@
-import AutosizeInput from 'react-input-autosize';
-import React from 'react';
-import Token from './Token.react';
+var AutosizeInput = require('react-input-autosize');
+var React = require('react');
+var Token = require('./Token.react');
 
-import cx from 'classnames';
-import {findDOMNode} from 'react-dom';
-import keyCode from './keyCode';
-import {map} from 'lodash';
+var cx = require('classnames');
+var {findDOMNode} = require('react-dom');
+var keyCode = require('./keyCode');
+var {map} = require('lodash');
 
-const {cloneElement, PropTypes} = React;
+var {cloneElement, PropTypes} = React;
 
 require('./css/Tokenizer.css');
 

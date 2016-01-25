@@ -1,9 +1,9 @@
-import React from 'react';
-import {findDOMNode} from 'react-dom';
+var React = require('react');
+var {findDOMNode} = require('react-dom');
 
-import cx from 'classnames';
-import keyCode from './keyCode';
-import onClickOutside from 'react-onclickoutside';
+var cx = require('classnames');
+var keyCode = require('./keyCode');
+var onClickOutside = require('react-onclickoutside');
 
 require('./css/Token.css');
 

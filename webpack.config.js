@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: __dirname + '/src/index.js',
+  entry: __dirname + '/index.js',
   output: {
     filename:  __dirname + '/dist/react-bootstrap-typeahead.js'
   },

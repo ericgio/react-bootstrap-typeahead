@@ -19582,25 +19582,15 @@
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(18);
 
-	var _react = __webpack_require__(18);
+	var _require = __webpack_require__(21);
 
-	var _react2 = _interopRequireDefault(_react);
+	var findDOMNode = _require.findDOMNode;
 
-	var _reactDom = __webpack_require__(21);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _keyCode = __webpack_require__(27);
-
-	var _keyCode2 = _interopRequireDefault(_keyCode);
-
-	var _reactOnclickoutside = __webpack_require__(39);
-
-	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
+	var cx = __webpack_require__(20);
+	var keyCode = __webpack_require__(27);
+	var onClickOutside = __webpack_require__(39);
 
 	__webpack_require__(175);
 
@@ -19610,17 +19600,17 @@
 	 * Individual token component, generally displayed within the TokenizerInput
 	 * component, but can also be rendered on its own.
 	 */
-	var Token = _react2['default'].createClass({
+	var Token = React.createClass({
 	  displayName: 'Token',
 
-	  mixins: [_reactOnclickoutside2['default']],
+	  mixins: [onClickOutside],
 
 	  propTypes: {
 	    /**
 	     * Handler for removing/deleting the token. If not defined, the token will
 	     * be rendered in a read-only state.
 	     */
-	    onRemove: _react2['default'].PropTypes.func
+	    onRemove: React.PropTypes.func
 	  },
 
 	  getInitialState: function getInitialState() {
@@ -19634,10 +19624,10 @@
 	  },
 
 	  _renderRemoveableToken: function _renderRemoveableToken() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'button',
 	      {
-	        className: (0, _classnames2['default'])('token', 'token-removeable', {
+	        className: cx('token', 'token-removeable', {
 	          'token-selected': this.state.selected
 	        }, this.props.className),
 	        onBlur: this._handleBlur,
@@ -19646,7 +19636,7 @@
 	        onKeyDown: this._handleKeyDown,
 	        tabIndex: 0 },
 	      this.props.children,
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'span',
 	        { className: 'token-close-button', onClick: this._handleRemove },
 	        '×'
@@ -19655,17 +19645,17 @@
 	  },
 
 	  _renderToken: function _renderToken() {
-	    var classnames = (0, _classnames2['default'])('token', this.props.className);
+	    var classnames = cx('token', this.props.className);
 
 	    if (this.props.href) {
-	      return _react2['default'].createElement(
+	      return React.createElement(
 	        'a',
 	        { className: classnames, href: this.props.href },
 	        this.props.children
 	      );
 	    }
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      { className: classnames },
 	      this.props.children
@@ -19673,13 +19663,13 @@
 	  },
 
 	  _handleBlur: function _handleBlur(e) {
-	    (0, _reactDom.findDOMNode)(this).blur();
+	    findDOMNode(this).blur();
 	    this.setState({ selected: false });
 	  },
 
 	  _handleKeyDown: function _handleKeyDown(e) {
 	    switch (e.keyCode) {
-	      case _keyCode2['default'].BACKSPACE:
+	      case keyCode.BACKSPACE:
 	        if (this.state.selected) {
 	          // Prevent backspace keypress from triggering the browser "back"
 	          // action.
@@ -23866,34 +23856,23 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var AutosizeInput = __webpack_require__(103);
+	var React = __webpack_require__(18);
+	var Token = __webpack_require__(60);
 
-	var _reactInputAutosize = __webpack_require__(103);
+	var cx = __webpack_require__(20);
 
-	var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
+	var _require = __webpack_require__(21);
 
-	var _react = __webpack_require__(18);
+	var findDOMNode = _require.findDOMNode;
 
-	var _react2 = _interopRequireDefault(_react);
+	var keyCode = __webpack_require__(27);
 
-	var _TokenReact = __webpack_require__(60);
+	var _require2 = __webpack_require__(28);
 
-	var _TokenReact2 = _interopRequireDefault(_TokenReact);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _reactDom = __webpack_require__(21);
-
-	var _keyCode = __webpack_require__(27);
-
-	var _keyCode2 = _interopRequireDefault(_keyCode);
-
-	var _lodash = __webpack_require__(28);
-
-	var cloneElement = _react2['default'].cloneElement;
-	var PropTypes = _react2['default'].PropTypes;
+	var map = _require2.map;
+	var cloneElement = React.cloneElement;
+	var PropTypes = React.PropTypes;
 
 	__webpack_require__(176);
 
@@ -23903,7 +23882,7 @@
 	 * Accepts multiple selections from a Typeahead component and renders them as
 	 * tokens within an input.
 	 */
-	var TokenizerInput = _react2['default'].createClass({
+	var TokenizerInput = React.createClass({
 	  displayName: 'TokenizerInput',
 
 	  propTypes: {
@@ -23922,15 +23901,15 @@
 	    var selected = _props.selected;
 	    var text = _props.text;
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      {
-	        className: (0, _classnames2['default'])('bootstrap-tokenizer', 'form-control', 'clearfix', className),
+	        className: cx('bootstrap-tokenizer', 'form-control', 'clearfix', className),
 	        onClick: this._handleInputFocus,
 	        onFocus: this._handleInputFocus,
 	        tabIndex: 0 },
 	      selected.map(this._renderToken),
-	      _react2['default'].createElement(_reactInputAutosize2['default'], _extends({}, this.props, {
+	      React.createElement(AutosizeInput, _extends({}, this.props, {
 	        className: 'bootstrap-tokenizer-input',
 	        inputStyle: {
 	          backgroundColor: 'inherit',
@@ -23952,8 +23931,8 @@
 	    var onRemove = _props2.onRemove;
 	    var labelKey = _props2.labelKey;
 
-	    return _react2['default'].createElement(
-	      _TokenReact2['default'],
+	    return React.createElement(
+	      Token,
 	      {
 	        key: idx,
 	        onRemove: onRemove.bind(null, option) },
@@ -23963,13 +23942,13 @@
 
 	  _handleKeydown: function _handleKeydown(e) {
 	    switch (e.keyCode) {
-	      case _keyCode2['default'].LEFT:
-	      case _keyCode2['default'].RIGHT:
+	      case keyCode.LEFT:
+	      case keyCode.RIGHT:
 	        // TODO: Tab forward and backward through tokens when user clicks left
 	        // or right arrow keys.
 	        break;
-	      case _keyCode2['default'].BACKSPACE:
-	        var inputNode = (0, _reactDom.findDOMNode)(this.refs.input);
+	      case keyCode.BACKSPACE:
+	        var inputNode = findDOMNode(this.refs.input);
 	        if (inputNode && inputNode.contains(document.activeElement) && !this.props.text) {
 	          // If the input is selected and there is no text, select the last
 	          // token when the user hits backspace.
@@ -23997,52 +23976,40 @@
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(18);
 
-	var _react = __webpack_require__(18);
+	var TokenizerInput = __webpack_require__(96);
+	var TypeaheadInput = __webpack_require__(98);
+	var TypeaheadMenu = __webpack_require__(99);
 
-	var _react2 = _interopRequireDefault(_react);
+	var cx = __webpack_require__(20);
 
-	var _TokenizerInputReact = __webpack_require__(96);
+	var _require = __webpack_require__(21);
 
-	var _TokenizerInputReact2 = _interopRequireDefault(_TokenizerInputReact);
+	var findDOMNode = _require.findDOMNode;
 
-	var _TypeaheadInputReact = __webpack_require__(98);
+	var _require2 = __webpack_require__(28);
 
-	var _TypeaheadInputReact2 = _interopRequireDefault(_TypeaheadInputReact);
+	var find = _require2.find;
+	var head = _require2.head;
+	var isEmpty = _require2.isEmpty;
+	var isEqual = _require2.isEqual;
 
-	var _TypeaheadMenuReact = __webpack_require__(99);
+	var keyCode = __webpack_require__(27);
+	var onClickOutside = __webpack_require__(39);
 
-	var _TypeaheadMenuReact2 = _interopRequireDefault(_TypeaheadMenuReact);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _reactDom = __webpack_require__(21);
-
-	var _lodash = __webpack_require__(28);
-
-	var _keyCode = __webpack_require__(27);
-
-	var _keyCode2 = _interopRequireDefault(_keyCode);
-
-	var _reactOnclickoutside = __webpack_require__(39);
-
-	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
-
-	var cloneElement = _react2['default'].cloneElement;
-	var PropTypes = _react2['default'].PropTypes;
+	var cloneElement = React.cloneElement;
+	var PropTypes = React.PropTypes;
 
 	__webpack_require__(95);
 
 	/**
 	 * Typeahead
 	 */
-	var Typeahead = _react2['default'].createClass({
+	var Typeahead = React.createClass({
 	  displayName: 'Typeahead',
 
-	  mixins: [_reactOnclickoutside2['default']],
+	  mixins: [onClickOutside],
 
 	  propTypes: {
 	    defaultSelected: PropTypes.array,
@@ -24084,7 +24051,7 @@
 	    var multiple = _props.multiple;
 	    var selected = _props.selected;
 
-	    var selected = !(0, _lodash.isEmpty)(defaultSelected) ? defaultSelected : selected;
+	    var selected = !isEmpty(defaultSelected) ? defaultSelected : selected;
 
 	    return {
 	      focusedMenuItem: null,
@@ -24095,7 +24062,7 @@
 	  },
 
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (!(0, _lodash.isEqual)(this.props.selected, nextProps.selected)) {
+	    if (!isEqual(this.props.selected, nextProps.selected)) {
 	      // If new selections are passed in via props, treat the component as a
 	      // controlled input.
 	      this.setState({ selected: nextProps.selected });
@@ -24119,12 +24086,12 @@
 	    // Filter out options that don't match the input string or, if multiple
 	    // selections are allowed, that have already been selected.
 	    var filteredOptions = options.filter(function (option) {
-	      return !(option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 || multiple && (0, _lodash.find)(selected, option));
+	      return !(option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 || multiple && find(selected, option));
 	    });
 
 	    var menu;
 	    if (this.state.showMenu) {
-	      menu = _react2['default'].createElement(_TypeaheadMenuReact2['default'], {
+	      menu = React.createElement(TypeaheadMenu, {
 	        emptyLabel: this.props.emptyLabel,
 	        labelKey: labelKey,
 	        maxHeight: this.props.maxHeight,
@@ -24135,20 +24102,20 @@
 	      });
 	    }
 
-	    var InputComponent = _TokenizerInputReact2['default'];
+	    var InputComponent = TokenizerInput;
 
 	    if (!multiple) {
-	      InputComponent = _TypeaheadInputReact2['default'];
-	      selected = (0, _lodash.head)(selected);
+	      InputComponent = TypeaheadInput;
+	      selected = head(selected);
 	      text = selected && selected[labelKey] || text;
 	    }
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      {
 	        className: 'bootstrap-typeahead open',
 	        style: { position: 'relative' } },
-	      _react2['default'].createElement(InputComponent, {
+	      React.createElement(InputComponent, {
 	        filteredOptions: filteredOptions,
 	        labelKey: labelKey,
 	        onAdd: this._handleAddOption,
@@ -24182,19 +24149,19 @@
 	    var text = _state2.text;
 
 	    switch (e.keyCode) {
-	      case _keyCode2['default'].UP:
-	      case _keyCode2['default'].DOWN:
-	      case _keyCode2['default'].TAB:
+	      case keyCode.UP:
+	      case keyCode.DOWN:
+	      case keyCode.TAB:
 	        // Prevent page from scrolling when pressing up or down.
 	        e.preventDefault();
 
 	        // Look for the menu. It won't be there if there are no results.
-	        var menu = this.refs.menu && (0, _reactDom.findDOMNode)(this.refs.menu);
+	        var menu = this.refs.menu && findDOMNode(this.refs.menu);
 	        if (!menu) {
 	          return;
 	        }
 
-	        if (e.keyCode === _keyCode2['default'].UP) {
+	        if (e.keyCode === keyCode.UP) {
 	          if (!focusedMenuItem) {
 	            // The input is focused and the user pressed the down key; select
 	            // the first menu item.
@@ -24219,17 +24186,17 @@
 	        } else {
 	          // If there's no focused item, it means we're at the beginning or the
 	          // end of the menu. Focus the input.
-	          (0, _reactDom.findDOMNode)(this.refs.input).focus();
+	          findDOMNode(this.refs.input).focus();
 	        }
 
 	        this.setState({ focusedMenuItem: focusedMenuItem });
 	        break;
-	      case _keyCode2['default'].ESC:
+	      case keyCode.ESC:
 	        // Prevent things like unintentionally closing dialogs.
 	        e.stopPropagation();
 	        this._hideDropdown();
 	        break;
-	      case _keyCode2['default'].RETURN:
+	      case keyCode.RETURN:
 	        if (focusedMenuItem) {
 	          // Simulate clicking on the anchor.
 	          focusedMenuItem.firstChild.click();
@@ -24272,7 +24239,7 @@
 	  _handleRemoveOption: function _handleRemoveOption(removedOption) {
 	    var selected = this.state.selected.slice();
 	    selected = selected.filter(function (option) {
-	      return !(0, _lodash.isEqual)(option, removedOption);
+	      return !isEqual(option, removedOption);
 	    });
 
 	    this.setState({
@@ -24308,27 +24275,19 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(18);
 
-	var _react = __webpack_require__(18);
+	var cx = __webpack_require__(20);
 
-	var _react2 = _interopRequireDefault(_react);
+	var _require = __webpack_require__(28);
 
-	var _classnames = __webpack_require__(20);
+	var head = _require.head;
+	var isEmpty = _require.isEmpty;
 
-	var _classnames2 = _interopRequireDefault(_classnames);
+	var keyCode = __webpack_require__(27);
+	var onClickOutside = __webpack_require__(39);
 
-	var _lodash = __webpack_require__(28);
-
-	var _keyCode = __webpack_require__(27);
-
-	var _keyCode2 = _interopRequireDefault(_keyCode);
-
-	var _reactOnclickoutside = __webpack_require__(39);
-
-	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
-
-	var PropTypes = _react2['default'].PropTypes;
+	var PropTypes = React.PropTypes;
 
 	__webpack_require__(95);
 
@@ -24337,10 +24296,10 @@
 	 *
 	 * Handles a single selection from the Typeahead component.
 	 */
-	var TypeaheadInput = _react2['default'].createClass({
+	var TypeaheadInput = React.createClass({
 	  displayName: 'TypeaheadInput',
 
-	  mixins: [_reactOnclickoutside2['default']],
+	  mixins: [onClickOutside],
 
 	  propTypes: {
 	    filteredOptions: PropTypes.array,
@@ -24351,15 +24310,15 @@
 	  },
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      {
-	        className: (0, _classnames2['default'])('bootstrap-typeahead-input', this.props.className),
+	        className: cx('bootstrap-typeahead-input', this.props.className),
 	        onClick: this._handleInputFocus,
 	        onFocus: this._handleInputFocus,
 	        tabIndex: 0 },
-	      _react2['default'].createElement('input', _extends({}, this.props, {
-	        className: (0, _classnames2['default'])('bootstrap-typeahead-input-main', 'form-control', {
+	      React.createElement('input', _extends({}, this.props, {
+	        className: cx('bootstrap-typeahead-input-main', 'form-control', {
 	          'has-selection': !this.props.selected
 	        }),
 	        onKeyDown: this._handleKeydown,
@@ -24373,7 +24332,7 @@
 	        type: 'text',
 	        value: this._getInputValue()
 	      })),
-	      _react2['default'].createElement('input', {
+	      React.createElement('input', {
 	        className: 'bootstrap-typeahead-input-hint form-control',
 	        style: {
 	          borderColor: 'transparent',
@@ -24404,7 +24363,7 @@
 	    var labelKey = _props2.labelKey;
 	    var text = _props2.text;
 
-	    var firstOption = (0, _lodash.head)(filteredOptions);
+	    var firstOption = head(filteredOptions);
 
 	    // Only show the hint if...
 	    if (
@@ -24433,16 +24392,16 @@
 	    var selected = _props3.selected;
 
 	    switch (e.keyCode) {
-	      case _keyCode2['default'].ESC:
+	      case keyCode.ESC:
 	        this.refs.input.blur();
 	        break;
-	      case _keyCode2['default'].RIGHT:
+	      case keyCode.RIGHT:
 	        // Autocomplete the selection if there's a hint and no selection yet.
 	        if (this._getHintText() && !selected) {
-	          onAdd && onAdd((0, _lodash.head)(filteredOptions));
+	          onAdd && onAdd(head(filteredOptions));
 	        }
 	        break;
-	      case _keyCode2['default'].BACKSPACE:
+	      case keyCode.BACKSPACE:
 	        // Remove the selection if we start deleting it.
 	        selected && onRemove && onRemove(selected);
 	        break;
@@ -24468,39 +24427,32 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(18);
 
-	var _react = __webpack_require__(18);
+	var cx = __webpack_require__(20);
+	var PropTypes = React.PropTypes;
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var PropTypes = _react2['default'].PropTypes;
-
-	var Menu = _react2['default'].createClass({
+	var Menu = React.createClass({
 	  displayName: 'Menu',
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'ul',
 	      _extends({}, this.props, {
-	        className: (0, _classnames2['default'])('dropdown-menu', this.props.className) }),
+	        className: cx('dropdown-menu', this.props.className) }),
 	      this.props.children
 	    );
 	  }
 	});
 
-	var MenuItem = _react2['default'].createClass({
+	var MenuItem = React.createClass({
 	  displayName: 'MenuItem',
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'li',
-	      { className: (0, _classnames2['default'])({ 'disabled': this.props.disabled }) },
-	      _react2['default'].createElement(
+	      { className: cx({ 'disabled': this.props.disabled }) },
+	      React.createElement(
 	        'a',
 	        { href: '#', onClick: this._handleClick },
 	        this.props.children
@@ -24514,7 +24466,7 @@
 	  }
 	});
 
-	var TypeaheadMenu = _react2['default'].createClass({
+	var TypeaheadMenu = React.createClass({
 	  displayName: 'TypeaheadMenu',
 
 	  propTypes: {
@@ -24527,7 +24479,6 @@
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      emptyLabel: 'No matches found.',
-	      labelKey: 'label',
 	      maxHeight: 300
 	    };
 	  },
@@ -24538,13 +24489,13 @@
 	    var onKeyDown = _props.onKeyDown;
 	    var options = _props.options;
 
-	    var items = options.length ? options.map(this._renderDropdownItem) : _react2['default'].createElement(
+	    var items = options.length ? options.map(this._renderDropdownItem) : React.createElement(
 	      MenuItem,
 	      { disabled: true },
 	      this.props.emptyLabel
 	    );
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      Menu,
 	      {
 	        onKeyDown: onKeyDown,
@@ -24557,7 +24508,7 @@
 	  },
 
 	  _renderDropdownItem: function _renderDropdownItem(option, idx) {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      MenuItem,
 	      {
 	        key: idx,

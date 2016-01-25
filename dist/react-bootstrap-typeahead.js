@@ -46,23 +46,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
+	var Typeahead = __webpack_require__(97);
 
-	function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
-
-	var _TokenizerInputReact = __webpack_require__(60);
-
-	exports.TokenizerInput = _interopRequire(_TokenizerInputReact);
-
-	var _TypeaheadReact = __webpack_require__(98);
-
-	exports.Typeahead = _interopRequire(_TypeaheadReact);
-
-	var _TypeaheadInputReact = __webpack_require__(61);
-
-	exports.TypeaheadInput = _interopRequire(_TypeaheadInputReact);
+	module.exports = Typeahead;
 
 /***/ },
 /* 1 */
@@ -392,12 +378,12 @@
 	var DOMProperty = __webpack_require__(15);
 	var ReactBrowserEventEmitter = __webpack_require__(28);
 	var ReactCurrentOwner = __webpack_require__(12);
-	var ReactDOMFeatureFlags = __webpack_require__(69);
+	var ReactDOMFeatureFlags = __webpack_require__(67);
 	var ReactElement = __webpack_require__(7);
-	var ReactEmptyComponentRegistry = __webpack_require__(76);
+	var ReactEmptyComponentRegistry = __webpack_require__(74);
 	var ReactInstanceHandles = __webpack_require__(18);
 	var ReactInstanceMap = __webpack_require__(23);
-	var ReactMarkupChecksum = __webpack_require__(79);
+	var ReactMarkupChecksum = __webpack_require__(77);
 	var ReactPerf = __webpack_require__(8);
 	var ReactReconciler = __webpack_require__(16);
 	var ReactUpdateQueue = __webpack_require__(46);
@@ -405,7 +391,7 @@
 
 	var assign = __webpack_require__(3);
 	var emptyObject = __webpack_require__(25);
-	var containsNode = __webpack_require__(91);
+	var containsNode = __webpack_require__(89);
 	var instantiateReactComponent = __webpack_require__(53);
 	var invariant = __webpack_require__(2);
 	var setInnerHTML = __webpack_require__(35);
@@ -2705,7 +2691,7 @@
 
 	'use strict';
 
-	var ReactRootIndex = __webpack_require__(84);
+	var ReactRootIndex = __webpack_require__(82);
 
 	var invariant = __webpack_require__(2);
 
@@ -3075,12 +3061,12 @@
 
 	'use strict';
 
-	var EventPluginRegistry = __webpack_require__(64);
+	var EventPluginRegistry = __webpack_require__(62);
 	var EventPluginUtils = __webpack_require__(112);
-	var ReactErrorUtils = __webpack_require__(77);
+	var ReactErrorUtils = __webpack_require__(75);
 
-	var accumulateInto = __webpack_require__(86);
-	var forEachAccumulated = __webpack_require__(87);
+	var accumulateInto = __webpack_require__(84);
+	var forEachAccumulated = __webpack_require__(85);
 	var invariant = __webpack_require__(2);
 	var warning = __webpack_require__(4);
 
@@ -3365,8 +3351,8 @@
 
 	var warning = __webpack_require__(4);
 
-	var accumulateInto = __webpack_require__(86);
-	var forEachAccumulated = __webpack_require__(87);
+	var accumulateInto = __webpack_require__(84);
+	var forEachAccumulated = __webpack_require__(85);
 
 	var PropagationPhases = EventConstants.PropagationPhases;
 	var getListener = EventPluginHub.getListener;
@@ -3658,7 +3644,7 @@
 
 	'use strict';
 
-	module.exports = __webpack_require__(68);
+	module.exports = __webpack_require__(66);
 
 
 /***/ },
@@ -3681,10 +3667,10 @@
 
 	var EventConstants = __webpack_require__(11);
 	var EventPluginHub = __webpack_require__(21);
-	var EventPluginRegistry = __webpack_require__(64);
+	var EventPluginRegistry = __webpack_require__(62);
 	var ReactEventEmitterMixin = __webpack_require__(129);
 	var ReactPerf = __webpack_require__(8);
-	var ViewportMetrics = __webpack_require__(85);
+	var ViewportMetrics = __webpack_require__(83);
 
 	var assign = __webpack_require__(3);
 	var isEventSupported = __webpack_require__(54);
@@ -4066,7 +4052,7 @@
 	'use strict';
 
 	var SyntheticUIEvent = __webpack_require__(24);
-	var ViewportMetrics = __webpack_require__(85);
+	var ViewportMetrics = __webpack_require__(83);
 
 	var getEventModifierState = __webpack_require__(50);
 
@@ -17480,7 +17466,7 @@
 
 	'use strict';
 
-	var ReactPropTypes = __webpack_require__(83);
+	var ReactPropTypes = __webpack_require__(81);
 	var ReactPropTypeLocations = __webpack_require__(30);
 
 	var invariant = __webpack_require__(2);
@@ -17723,7 +17709,7 @@
 
 	'use strict';
 
-	var DOMChildrenOperations = __webpack_require__(63);
+	var DOMChildrenOperations = __webpack_require__(61);
 	var DOMPropertyOperations = __webpack_require__(41);
 	var ReactMount = __webpack_require__(6);
 	var ReactPerf = __webpack_require__(8);
@@ -18344,8 +18330,8 @@
 	'use strict';
 
 	var ReactCompositeComponent = __webpack_require__(118);
-	var ReactEmptyComponent = __webpack_require__(75);
-	var ReactNativeComponent = __webpack_require__(81);
+	var ReactEmptyComponent = __webpack_require__(73);
+	var ReactNativeComponent = __webpack_require__(79);
 
 	var assign = __webpack_require__(3);
 	var invariant = __webpack_require__(2);
@@ -19421,299 +19407,6 @@
 
 /***/ },
 /* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _reactInputAutosize = __webpack_require__(103);
-
-	var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
-
-	var _react = __webpack_require__(19);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _TokenReact = __webpack_require__(97);
-
-	var _TokenReact2 = _interopRequireDefault(_TokenReact);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _reactDom = __webpack_require__(27);
-
-	var _keyCode = __webpack_require__(26);
-
-	var _keyCode2 = _interopRequireDefault(_keyCode);
-
-	var _lodash = __webpack_require__(38);
-
-	var cloneElement = _react2['default'].cloneElement;
-	var PropTypes = _react2['default'].PropTypes;
-
-	__webpack_require__(176);
-
-	/**
-	 * TokenizerInput
-	 *
-	 * Accepts multiple selections from a Typeahead component and renders them as
-	 * tokens within an input.
-	 */
-	var TokenizerInput = _react2['default'].createClass({
-	  displayName: 'TokenizerInput',
-
-	  propTypes: {
-	    labelKey: PropTypes.string,
-	    /**
-	     * Input element placeholder text.
-	     */
-	    placeholder: PropTypes.string,
-	    selected: PropTypes.array
-	  },
-
-	  render: function render() {
-	    var _props = this.props;
-	    var className = _props.className;
-	    var placeholder = _props.placeholder;
-	    var selected = _props.selected;
-	    var text = _props.text;
-
-	    return _react2['default'].createElement(
-	      'div',
-	      {
-	        className: (0, _classnames2['default'])('bootstrap-tokenizer', 'form-control', 'clearfix', className),
-	        onClick: this._handleInputFocus,
-	        onFocus: this._handleInputFocus,
-	        tabIndex: 0 },
-	      selected.map(this._renderToken),
-	      _react2['default'].createElement(_reactInputAutosize2['default'], _extends({}, this.props, {
-	        className: 'bootstrap-tokenizer-input',
-	        inputStyle: {
-	          backgroundColor: 'inherit',
-	          border: 0,
-	          outline: 'none',
-	          padding: 0
-	        },
-	        onKeyDown: this._handleKeydown,
-	        placeholder: selected.length ? null : placeholder,
-	        ref: 'input',
-	        type: 'text',
-	        value: text
-	      }))
-	    );
-	  },
-
-	  _renderToken: function _renderToken(option, idx) {
-	    var _props2 = this.props;
-	    var onRemove = _props2.onRemove;
-	    var labelKey = _props2.labelKey;
-
-	    return _react2['default'].createElement(
-	      _TokenReact2['default'],
-	      {
-	        key: idx,
-	        onRemove: onRemove.bind(null, option) },
-	      option[labelKey]
-	    );
-	  },
-
-	  _handleKeydown: function _handleKeydown(e) {
-	    switch (e.keyCode) {
-	      case _keyCode2['default'].LEFT:
-	      case _keyCode2['default'].RIGHT:
-	        // TODO: Tab forward and backward through tokens when user clicks left
-	        // or right arrow keys.
-	        break;
-	      case _keyCode2['default'].BACKSPACE:
-	        var inputNode = (0, _reactDom.findDOMNode)(this.refs.input);
-	        if (inputNode && inputNode.contains(document.activeElement) && !this.props.text) {
-	          // If the input is selected and there is no text, select the last
-	          // token when the user hits backspace.
-	          var sibling = inputNode.previousSibling;
-	          sibling && sibling.focus();
-	        }
-	        break;
-	    }
-
-	    this.props.onKeyDown && this.props.onKeyDown(e);
-	  },
-
-	  _handleInputFocus: function _handleInputFocus(e) {
-	    // If the user clicks anywhere inside the tokenizer besides a token,
-	    // focus the input.
-	    this.refs.input.focus();
-	  }
-	});
-
-	module.exports = TokenizerInput;
-
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(19);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _lodash = __webpack_require__(38);
-
-	var _keyCode = __webpack_require__(26);
-
-	var _keyCode2 = _interopRequireDefault(_keyCode);
-
-	var _reactOnclickoutside = __webpack_require__(39);
-
-	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
-
-	var PropTypes = _react2['default'].PropTypes;
-
-	__webpack_require__(96);
-
-	/**
-	 * TypeaheadInput
-	 *
-	 * Handles a single selection from the Typeahead component.
-	 */
-	var TypeaheadInput = _react2['default'].createClass({
-	  displayName: 'TypeaheadInput',
-
-	  mixins: [_reactOnclickoutside2['default']],
-
-	  propTypes: {
-	    filteredOptions: PropTypes.array,
-	    labelKey: PropTypes.string,
-	    onChange: PropTypes.func,
-	    selected: PropTypes.object,
-	    text: PropTypes.string
-	  },
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'div',
-	      {
-	        className: (0, _classnames2['default'])('bootstrap-typeahead-input', this.props.className),
-	        onClick: this._handleInputFocus,
-	        onFocus: this._handleInputFocus,
-	        tabIndex: 0 },
-	      _react2['default'].createElement('input', _extends({}, this.props, {
-	        className: (0, _classnames2['default'])('bootstrap-typeahead-input-main', 'form-control', {
-	          'has-selection': !this.props.selected
-	        }),
-	        onKeyDown: this._handleKeydown,
-	        ref: 'input',
-	        style: {
-	          backgroundColor: 'transparent',
-	          display: 'block',
-	          position: 'relative',
-	          zIndex: 1
-	        },
-	        type: 'text',
-	        value: this._getInputValue()
-	      })),
-	      _react2['default'].createElement('input', {
-	        className: 'bootstrap-typeahead-input-hint form-control',
-	        style: {
-	          borderColor: 'transparent',
-	          bottom: 0,
-	          display: 'block',
-	          position: 'absolute',
-	          top: 0,
-	          width: '100%',
-	          zIndex: 0
-	        },
-	        value: this._getHintText()
-	      })
-	    );
-	  },
-
-	  _getInputValue: function _getInputValue() {
-	    var _props = this.props;
-	    var labelKey = _props.labelKey;
-	    var selected = _props.selected;
-	    var text = _props.text;
-
-	    return selected ? selected[labelKey] : text;
-	  },
-
-	  _getHintText: function _getHintText() {
-	    var _props2 = this.props;
-	    var filteredOptions = _props2.filteredOptions;
-	    var labelKey = _props2.labelKey;
-	    var text = _props2.text;
-
-	    var firstOption = (0, _lodash.head)(filteredOptions);
-
-	    // Only show the hint if...
-	    if (
-	    // ...the input is focused.
-	    this.refs.input === document.activeElement &&
-	    // ...the input contains text.
-	    text &&
-	    // ...the input text corresponds to the beginning of the first option.
-	    firstOption && firstOption[labelKey].indexOf(text) === 0) {
-	      return firstOption[labelKey];
-	    }
-	  },
-
-	  /**
-	   * If the containing parent div is focused or clicked, focus the input.
-	   */
-	  _handleInputFocus: function _handleInputFocus(e) {
-	    this.refs.input.focus();
-	  },
-
-	  _handleKeydown: function _handleKeydown(e) {
-	    var _props3 = this.props;
-	    var filteredOptions = _props3.filteredOptions;
-	    var onAdd = _props3.onAdd;
-	    var onRemove = _props3.onRemove;
-	    var selected = _props3.selected;
-
-	    switch (e.keyCode) {
-	      case _keyCode2['default'].ESC:
-	        this.refs.input.blur();
-	        break;
-	      case _keyCode2['default'].RIGHT:
-	        // Autocomplete the selection if there's a hint and no selection yet.
-	        if (this._getHintText() && !selected) {
-	          onAdd && onAdd((0, _lodash.head)(filteredOptions));
-	        }
-	        break;
-	      case _keyCode2['default'].BACKSPACE:
-	        // Remove the selection if we start deleting it.
-	        selected && onRemove && onRemove(selected);
-	        break;
-	    }
-
-	    this.props.onKeyDown && this.props.onKeyDown(e);
-	  },
-
-	  handleClickOutside: function handleClickOutside(e) {
-	    // Force blur so that input is no longer the active element. For some
-	    // reason, it's taking 2 clicks to fully blur the input otherwise.
-	    this.refs.input.blur();
-	  }
-	});
-
-	module.exports = TypeaheadInput;
-
-/***/ },
-/* 62 */
 /***/ function(module, exports) {
 
 	/**
@@ -19857,7 +19550,7 @@
 	module.exports = CSSProperty;
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -19875,7 +19568,7 @@
 	'use strict';
 
 	var Danger = __webpack_require__(109);
-	var ReactMultiChildUpdateTypes = __webpack_require__(80);
+	var ReactMultiChildUpdateTypes = __webpack_require__(78);
 	var ReactPerf = __webpack_require__(8);
 
 	var setInnerHTML = __webpack_require__(35);
@@ -19992,7 +19685,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 64 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20218,7 +19911,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 65 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20405,7 +20098,7 @@
 	module.exports = ReactChildren;
 
 /***/ },
-/* 66 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20421,11 +20114,11 @@
 
 	'use strict';
 
-	var ReactComponent = __webpack_require__(67);
+	var ReactComponent = __webpack_require__(65);
 	var ReactElement = __webpack_require__(7);
 	var ReactPropTypeLocations = __webpack_require__(30);
 	var ReactPropTypeLocationNames = __webpack_require__(29);
-	var ReactNoopUpdateQueue = __webpack_require__(82);
+	var ReactNoopUpdateQueue = __webpack_require__(80);
 
 	var assign = __webpack_require__(3);
 	var emptyObject = __webpack_require__(25);
@@ -21182,7 +20875,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 67 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21198,7 +20891,7 @@
 
 	'use strict';
 
-	var ReactNoopUpdateQueue = __webpack_require__(82);
+	var ReactNoopUpdateQueue = __webpack_require__(80);
 
 	var canDefineProperty = __webpack_require__(33);
 	var emptyObject = __webpack_require__(25);
@@ -21310,7 +21003,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21329,8 +21022,8 @@
 	'use strict';
 
 	var ReactCurrentOwner = __webpack_require__(12);
-	var ReactDOMTextComponent = __webpack_require__(71);
-	var ReactDefaultInjection = __webpack_require__(73);
+	var ReactDOMTextComponent = __webpack_require__(69);
+	var ReactDefaultInjection = __webpack_require__(71);
 	var ReactInstanceHandles = __webpack_require__(18);
 	var ReactMount = __webpack_require__(6);
 	var ReactPerf = __webpack_require__(8);
@@ -21408,7 +21101,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 69 */
+/* 67 */
 /***/ function(module, exports) {
 
 	/**
@@ -21431,7 +21124,7 @@
 	module.exports = ReactDOMFeatureFlags;
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21625,7 +21318,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21642,7 +21335,7 @@
 
 	'use strict';
 
-	var DOMChildrenOperations = __webpack_require__(63);
+	var DOMChildrenOperations = __webpack_require__(61);
 	var DOMPropertyOperations = __webpack_require__(41);
 	var ReactComponentBrowserEnvironment = __webpack_require__(43);
 	var ReactMount = __webpack_require__(6);
@@ -21758,7 +21451,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 72 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21830,7 +21523,7 @@
 	module.exports = ReactDefaultBatchingStrategy;
 
 /***/ },
-/* 73 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -21855,9 +21548,9 @@
 	var HTMLDOMPropertyConfig = __webpack_require__(114);
 	var ReactBrowserComponentMixin = __webpack_require__(116);
 	var ReactComponentBrowserEnvironment = __webpack_require__(43);
-	var ReactDefaultBatchingStrategy = __webpack_require__(72);
+	var ReactDefaultBatchingStrategy = __webpack_require__(70);
 	var ReactDOMComponent = __webpack_require__(120);
-	var ReactDOMTextComponent = __webpack_require__(71);
+	var ReactDOMTextComponent = __webpack_require__(69);
 	var ReactEventListener = __webpack_require__(130);
 	var ReactInjection = __webpack_require__(131);
 	var ReactInstanceHandles = __webpack_require__(18);
@@ -21933,7 +21626,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 74 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22220,7 +21913,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 75 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22237,7 +21930,7 @@
 	'use strict';
 
 	var ReactElement = __webpack_require__(7);
-	var ReactEmptyComponentRegistry = __webpack_require__(76);
+	var ReactEmptyComponentRegistry = __webpack_require__(74);
 	var ReactReconciler = __webpack_require__(16);
 
 	var assign = __webpack_require__(3);
@@ -22276,7 +21969,7 @@
 	module.exports = ReactEmptyComponent;
 
 /***/ },
-/* 76 */
+/* 74 */
 /***/ function(module, exports) {
 
 	/**
@@ -22329,7 +22022,7 @@
 	module.exports = ReactEmptyComponentRegistry;
 
 /***/ },
-/* 77 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22412,7 +22105,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 78 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22430,9 +22123,9 @@
 
 	var ReactDOMSelection = __webpack_require__(124);
 
-	var containsNode = __webpack_require__(91);
-	var focusNode = __webpack_require__(92);
-	var getActiveElement = __webpack_require__(93);
+	var containsNode = __webpack_require__(89);
+	var focusNode = __webpack_require__(90);
+	var getActiveElement = __webpack_require__(91);
 
 	function isInDocument(node) {
 	  return containsNode(document.documentElement, node);
@@ -22541,7 +22234,7 @@
 	module.exports = ReactInputSelection;
 
 /***/ },
-/* 79 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22591,7 +22284,7 @@
 	module.exports = ReactMarkupChecksum;
 
 /***/ },
-/* 80 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22628,7 +22321,7 @@
 	module.exports = ReactMultiChildUpdateTypes;
 
 /***/ },
-/* 81 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22728,7 +22421,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 82 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22852,7 +22545,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 83 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23213,7 +22906,7 @@
 	module.exports = ReactPropTypes;
 
 /***/ },
-/* 84 */
+/* 82 */
 /***/ function(module, exports) {
 
 	/**
@@ -23247,7 +22940,7 @@
 	module.exports = ReactRootIndex;
 
 /***/ },
-/* 85 */
+/* 83 */
 /***/ function(module, exports) {
 
 	/**
@@ -23279,7 +22972,7 @@
 	module.exports = ViewportMetrics;
 
 /***/ },
-/* 86 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23344,7 +23037,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 87 */
+/* 85 */
 /***/ function(module, exports) {
 
 	/**
@@ -23378,7 +23071,7 @@
 	module.exports = forEachAccumulated;
 
 /***/ },
-/* 88 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23416,7 +23109,7 @@
 	module.exports = getTextContentAccessor;
 
 /***/ },
-/* 89 */
+/* 87 */
 /***/ function(module, exports) {
 
 	/**
@@ -23461,7 +23154,7 @@
 	module.exports = isTextInputElement;
 
 /***/ },
-/* 90 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23551,7 +23244,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 91 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23611,7 +23304,7 @@
 	module.exports = containsNode;
 
 /***/ },
-/* 92 */
+/* 90 */
 /***/ function(module, exports) {
 
 	/**
@@ -23642,7 +23335,7 @@
 	module.exports = focusNode;
 
 /***/ },
-/* 93 */
+/* 91 */
 /***/ function(module, exports) {
 
 	/**
@@ -23680,7 +23373,7 @@
 	module.exports = getActiveElement;
 
 /***/ },
-/* 94 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23781,7 +23474,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 95 */
+/* 93 */
 /***/ function(module, exports) {
 
 	/**
@@ -23836,7 +23529,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 96 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -23862,30 +23555,20 @@
 	}
 
 /***/ },
-/* 97 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(19);
 
-	var _react = __webpack_require__(19);
+	var _require = __webpack_require__(27);
 
-	var _react2 = _interopRequireDefault(_react);
+	var findDOMNode = _require.findDOMNode;
 
-	var _reactDom = __webpack_require__(27);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _keyCode = __webpack_require__(26);
-
-	var _keyCode2 = _interopRequireDefault(_keyCode);
-
-	var _reactOnclickoutside = __webpack_require__(39);
-
-	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
+	var cx = __webpack_require__(20);
+	var keyCode = __webpack_require__(26);
+	var onClickOutside = __webpack_require__(39);
 
 	__webpack_require__(175);
 
@@ -23895,17 +23578,17 @@
 	 * Individual token component, generally displayed within the TokenizerInput
 	 * component, but can also be rendered on its own.
 	 */
-	var Token = _react2['default'].createClass({
+	var Token = React.createClass({
 	  displayName: 'Token',
 
-	  mixins: [_reactOnclickoutside2['default']],
+	  mixins: [onClickOutside],
 
 	  propTypes: {
 	    /**
 	     * Handler for removing/deleting the token. If not defined, the token will
 	     * be rendered in a read-only state.
 	     */
-	    onRemove: _react2['default'].PropTypes.func
+	    onRemove: React.PropTypes.func
 	  },
 
 	  getInitialState: function getInitialState() {
@@ -23919,10 +23602,10 @@
 	  },
 
 	  _renderRemoveableToken: function _renderRemoveableToken() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'button',
 	      {
-	        className: (0, _classnames2['default'])('token', 'token-removeable', {
+	        className: cx('token', 'token-removeable', {
 	          'token-selected': this.state.selected
 	        }, this.props.className),
 	        onBlur: this._handleBlur,
@@ -23931,7 +23614,7 @@
 	        onKeyDown: this._handleKeyDown,
 	        tabIndex: 0 },
 	      this.props.children,
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'span',
 	        { className: 'token-close-button', onClick: this._handleRemove },
 	        '×'
@@ -23940,17 +23623,17 @@
 	  },
 
 	  _renderToken: function _renderToken() {
-	    var classnames = (0, _classnames2['default'])('token', this.props.className);
+	    var classnames = cx('token', this.props.className);
 
 	    if (this.props.href) {
-	      return _react2['default'].createElement(
+	      return React.createElement(
 	        'a',
 	        { className: classnames, href: this.props.href },
 	        this.props.children
 	      );
 	    }
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      { className: classnames },
 	      this.props.children
@@ -23958,13 +23641,13 @@
 	  },
 
 	  _handleBlur: function _handleBlur(e) {
-	    (0, _reactDom.findDOMNode)(this).blur();
+	    findDOMNode(this).blur();
 	    this.setState({ selected: false });
 	  },
 
 	  _handleKeyDown: function _handleKeyDown(e) {
 	    switch (e.keyCode) {
-	      case _keyCode2['default'].BACKSPACE:
+	      case keyCode.BACKSPACE:
 	        if (this.state.selected) {
 	          // Prevent backspace keypress from triggering the browser "back"
 	          // action.
@@ -23995,57 +23678,167 @@
 	module.exports = Token;
 
 /***/ },
-/* 98 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _react = __webpack_require__(19);
+	var AutosizeInput = __webpack_require__(103);
+	var React = __webpack_require__(19);
+	var Token = __webpack_require__(95);
 
-	var _react2 = _interopRequireDefault(_react);
+	var cx = __webpack_require__(20);
 
-	var _TokenizerInputReact = __webpack_require__(60);
+	var _require = __webpack_require__(27);
 
-	var _TokenizerInputReact2 = _interopRequireDefault(_TokenizerInputReact);
+	var findDOMNode = _require.findDOMNode;
 
-	var _TypeaheadInputReact = __webpack_require__(61);
+	var keyCode = __webpack_require__(26);
 
-	var _TypeaheadInputReact2 = _interopRequireDefault(_TypeaheadInputReact);
+	var _require2 = __webpack_require__(38);
 
-	var _TypeaheadMenuReact = __webpack_require__(99);
+	var map = _require2.map;
+	var cloneElement = React.cloneElement;
+	var PropTypes = React.PropTypes;
 
-	var _TypeaheadMenuReact2 = _interopRequireDefault(_TypeaheadMenuReact);
+	__webpack_require__(176);
 
-	var _classnames = __webpack_require__(20);
+	/**
+	 * TokenizerInput
+	 *
+	 * Accepts multiple selections from a Typeahead component and renders them as
+	 * tokens within an input.
+	 */
+	var TokenizerInput = React.createClass({
+	  displayName: 'TokenizerInput',
 
-	var _classnames2 = _interopRequireDefault(_classnames);
+	  propTypes: {
+	    labelKey: PropTypes.string,
+	    /**
+	     * Input element placeholder text.
+	     */
+	    placeholder: PropTypes.string,
+	    selected: PropTypes.array
+	  },
 
-	var _reactDom = __webpack_require__(27);
+	  render: function render() {
+	    var _props = this.props;
+	    var className = _props.className;
+	    var placeholder = _props.placeholder;
+	    var selected = _props.selected;
+	    var text = _props.text;
 
-	var _lodash = __webpack_require__(38);
+	    return React.createElement(
+	      'div',
+	      {
+	        className: cx('bootstrap-tokenizer', 'form-control', 'clearfix', className),
+	        onClick: this._handleInputFocus,
+	        onFocus: this._handleInputFocus,
+	        tabIndex: 0 },
+	      selected.map(this._renderToken),
+	      React.createElement(AutosizeInput, _extends({}, this.props, {
+	        className: 'bootstrap-tokenizer-input',
+	        inputStyle: {
+	          backgroundColor: 'inherit',
+	          border: 0,
+	          outline: 'none',
+	          padding: 0
+	        },
+	        onKeyDown: this._handleKeydown,
+	        placeholder: selected.length ? null : placeholder,
+	        ref: 'input',
+	        type: 'text',
+	        value: text
+	      }))
+	    );
+	  },
 
-	var _keyCode = __webpack_require__(26);
+	  _renderToken: function _renderToken(option, idx) {
+	    var _props2 = this.props;
+	    var onRemove = _props2.onRemove;
+	    var labelKey = _props2.labelKey;
 
-	var _keyCode2 = _interopRequireDefault(_keyCode);
+	    return React.createElement(
+	      Token,
+	      {
+	        key: idx,
+	        onRemove: onRemove.bind(null, option) },
+	      option[labelKey]
+	    );
+	  },
 
-	var _reactOnclickoutside = __webpack_require__(39);
+	  _handleKeydown: function _handleKeydown(e) {
+	    switch (e.keyCode) {
+	      case keyCode.LEFT:
+	      case keyCode.RIGHT:
+	        // TODO: Tab forward and backward through tokens when user clicks left
+	        // or right arrow keys.
+	        break;
+	      case keyCode.BACKSPACE:
+	        var inputNode = findDOMNode(this.refs.input);
+	        if (inputNode && inputNode.contains(document.activeElement) && !this.props.text) {
+	          // If the input is selected and there is no text, select the last
+	          // token when the user hits backspace.
+	          var sibling = inputNode.previousSibling;
+	          sibling && sibling.focus();
+	        }
+	        break;
+	    }
 
-	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
+	    this.props.onKeyDown && this.props.onKeyDown(e);
+	  },
 
-	var cloneElement = _react2['default'].cloneElement;
-	var PropTypes = _react2['default'].PropTypes;
+	  _handleInputFocus: function _handleInputFocus(e) {
+	    // If the user clicks anywhere inside the tokenizer besides a token,
+	    // focus the input.
+	    this.refs.input.focus();
+	  }
+	});
 
-	__webpack_require__(96);
+	module.exports = TokenizerInput;
+
+/***/ },
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(19);
+
+	var TokenizerInput = __webpack_require__(96);
+	var TypeaheadInput = __webpack_require__(98);
+	var TypeaheadMenu = __webpack_require__(99);
+
+	var cx = __webpack_require__(20);
+
+	var _require = __webpack_require__(27);
+
+	var findDOMNode = _require.findDOMNode;
+
+	var _require2 = __webpack_require__(38);
+
+	var find = _require2.find;
+	var head = _require2.head;
+	var isEmpty = _require2.isEmpty;
+	var isEqual = _require2.isEqual;
+
+	var keyCode = __webpack_require__(26);
+	var onClickOutside = __webpack_require__(39);
+
+	var cloneElement = React.cloneElement;
+	var PropTypes = React.PropTypes;
+
+	__webpack_require__(94);
 
 	/**
 	 * Typeahead
 	 */
-	var Typeahead = _react2['default'].createClass({
+	var Typeahead = React.createClass({
 	  displayName: 'Typeahead',
 
-	  mixins: [_reactOnclickoutside2['default']],
+	  mixins: [onClickOutside],
 
 	  propTypes: {
 	    defaultSelected: PropTypes.array,
@@ -24087,7 +23880,7 @@
 	    var multiple = _props.multiple;
 	    var selected = _props.selected;
 
-	    var selected = !(0, _lodash.isEmpty)(defaultSelected) ? defaultSelected : selected;
+	    var selected = !isEmpty(defaultSelected) ? defaultSelected : selected;
 
 	    return {
 	      focusedMenuItem: null,
@@ -24098,7 +23891,7 @@
 	  },
 
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (!(0, _lodash.isEqual)(this.props.selected, nextProps.selected)) {
+	    if (!isEqual(this.props.selected, nextProps.selected)) {
 	      // If new selections are passed in via props, treat the component as a
 	      // controlled input.
 	      this.setState({ selected: nextProps.selected });
@@ -24122,12 +23915,12 @@
 	    // Filter out options that don't match the input string or, if multiple
 	    // selections are allowed, that have already been selected.
 	    var filteredOptions = options.filter(function (option) {
-	      return !(option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 || multiple && (0, _lodash.find)(selected, option));
+	      return !(option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 || multiple && find(selected, option));
 	    });
 
 	    var menu;
 	    if (this.state.showMenu) {
-	      menu = _react2['default'].createElement(_TypeaheadMenuReact2['default'], {
+	      menu = React.createElement(TypeaheadMenu, {
 	        emptyLabel: this.props.emptyLabel,
 	        labelKey: labelKey,
 	        maxHeight: this.props.maxHeight,
@@ -24138,20 +23931,20 @@
 	      });
 	    }
 
-	    var InputComponent = _TokenizerInputReact2['default'];
+	    var InputComponent = TokenizerInput;
 
 	    if (!multiple) {
-	      InputComponent = _TypeaheadInputReact2['default'];
-	      selected = (0, _lodash.head)(selected);
+	      InputComponent = TypeaheadInput;
+	      selected = head(selected);
 	      text = selected && selected[labelKey] || text;
 	    }
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      {
 	        className: 'bootstrap-typeahead open',
 	        style: { position: 'relative' } },
-	      _react2['default'].createElement(InputComponent, {
+	      React.createElement(InputComponent, {
 	        filteredOptions: filteredOptions,
 	        labelKey: labelKey,
 	        onAdd: this._handleAddOption,
@@ -24185,19 +23978,19 @@
 	    var text = _state2.text;
 
 	    switch (e.keyCode) {
-	      case _keyCode2['default'].UP:
-	      case _keyCode2['default'].DOWN:
-	      case _keyCode2['default'].TAB:
+	      case keyCode.UP:
+	      case keyCode.DOWN:
+	      case keyCode.TAB:
 	        // Prevent page from scrolling when pressing up or down.
 	        e.preventDefault();
 
 	        // Look for the menu. It won't be there if there are no results.
-	        var menu = this.refs.menu && (0, _reactDom.findDOMNode)(this.refs.menu);
+	        var menu = this.refs.menu && findDOMNode(this.refs.menu);
 	        if (!menu) {
 	          return;
 	        }
 
-	        if (e.keyCode === _keyCode2['default'].UP) {
+	        if (e.keyCode === keyCode.UP) {
 	          if (!focusedMenuItem) {
 	            // The input is focused and the user pressed the down key; select
 	            // the first menu item.
@@ -24222,17 +24015,17 @@
 	        } else {
 	          // If there's no focused item, it means we're at the beginning or the
 	          // end of the menu. Focus the input.
-	          (0, _reactDom.findDOMNode)(this.refs.input).focus();
+	          findDOMNode(this.refs.input).focus();
 	        }
 
 	        this.setState({ focusedMenuItem: focusedMenuItem });
 	        break;
-	      case _keyCode2['default'].ESC:
+	      case keyCode.ESC:
 	        // Prevent things like unintentionally closing dialogs.
 	        e.stopPropagation();
 	        this._hideDropdown();
 	        break;
-	      case _keyCode2['default'].RETURN:
+	      case keyCode.RETURN:
 	        if (focusedMenuItem) {
 	          // Simulate clicking on the anchor.
 	          focusedMenuItem.firstChild.click();
@@ -24275,7 +24068,7 @@
 	  _handleRemoveOption: function _handleRemoveOption(removedOption) {
 	    var selected = this.state.selected.slice();
 	    selected = selected.filter(function (option) {
-	      return !(0, _lodash.isEqual)(option, removedOption);
+	      return !isEqual(option, removedOption);
 	    });
 
 	    this.setState({
@@ -24304,6 +24097,158 @@
 	module.exports = Typeahead;
 
 /***/ },
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var React = __webpack_require__(19);
+
+	var cx = __webpack_require__(20);
+
+	var _require = __webpack_require__(38);
+
+	var head = _require.head;
+	var isEmpty = _require.isEmpty;
+
+	var keyCode = __webpack_require__(26);
+	var onClickOutside = __webpack_require__(39);
+
+	var PropTypes = React.PropTypes;
+
+	__webpack_require__(94);
+
+	/**
+	 * TypeaheadInput
+	 *
+	 * Handles a single selection from the Typeahead component.
+	 */
+	var TypeaheadInput = React.createClass({
+	  displayName: 'TypeaheadInput',
+
+	  mixins: [onClickOutside],
+
+	  propTypes: {
+	    filteredOptions: PropTypes.array,
+	    labelKey: PropTypes.string,
+	    onChange: PropTypes.func,
+	    selected: PropTypes.object,
+	    text: PropTypes.string
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      {
+	        className: cx('bootstrap-typeahead-input', this.props.className),
+	        onClick: this._handleInputFocus,
+	        onFocus: this._handleInputFocus,
+	        tabIndex: 0 },
+	      React.createElement('input', _extends({}, this.props, {
+	        className: cx('bootstrap-typeahead-input-main', 'form-control', {
+	          'has-selection': !this.props.selected
+	        }),
+	        onKeyDown: this._handleKeydown,
+	        ref: 'input',
+	        style: {
+	          backgroundColor: 'transparent',
+	          display: 'block',
+	          position: 'relative',
+	          zIndex: 1
+	        },
+	        type: 'text',
+	        value: this._getInputValue()
+	      })),
+	      React.createElement('input', {
+	        className: 'bootstrap-typeahead-input-hint form-control',
+	        style: {
+	          borderColor: 'transparent',
+	          bottom: 0,
+	          display: 'block',
+	          position: 'absolute',
+	          top: 0,
+	          width: '100%',
+	          zIndex: 0
+	        },
+	        value: this._getHintText()
+	      })
+	    );
+	  },
+
+	  _getInputValue: function _getInputValue() {
+	    var _props = this.props;
+	    var labelKey = _props.labelKey;
+	    var selected = _props.selected;
+	    var text = _props.text;
+
+	    return selected ? selected[labelKey] : text;
+	  },
+
+	  _getHintText: function _getHintText() {
+	    var _props2 = this.props;
+	    var filteredOptions = _props2.filteredOptions;
+	    var labelKey = _props2.labelKey;
+	    var text = _props2.text;
+
+	    var firstOption = head(filteredOptions);
+
+	    // Only show the hint if...
+	    if (
+	    // ...the input is focused.
+	    this.refs.input === document.activeElement &&
+	    // ...the input contains text.
+	    text &&
+	    // ...the input text corresponds to the beginning of the first option.
+	    firstOption && firstOption[labelKey].indexOf(text) === 0) {
+	      return firstOption[labelKey];
+	    }
+	  },
+
+	  /**
+	   * If the containing parent div is focused or clicked, focus the input.
+	   */
+	  _handleInputFocus: function _handleInputFocus(e) {
+	    this.refs.input.focus();
+	  },
+
+	  _handleKeydown: function _handleKeydown(e) {
+	    var _props3 = this.props;
+	    var filteredOptions = _props3.filteredOptions;
+	    var onAdd = _props3.onAdd;
+	    var onRemove = _props3.onRemove;
+	    var selected = _props3.selected;
+
+	    switch (e.keyCode) {
+	      case keyCode.ESC:
+	        this.refs.input.blur();
+	        break;
+	      case keyCode.RIGHT:
+	        // Autocomplete the selection if there's a hint and no selection yet.
+	        if (this._getHintText() && !selected) {
+	          onAdd && onAdd(head(filteredOptions));
+	        }
+	        break;
+	      case keyCode.BACKSPACE:
+	        // Remove the selection if we start deleting it.
+	        selected && onRemove && onRemove(selected);
+	        break;
+	    }
+
+	    this.props.onKeyDown && this.props.onKeyDown(e);
+	  },
+
+	  handleClickOutside: function handleClickOutside(e) {
+	    // Force blur so that input is no longer the active element. For some
+	    // reason, it's taking 2 clicks to fully blur the input otherwise.
+	    this.refs.input.blur();
+	  }
+	});
+
+	module.exports = TypeaheadInput;
+
+/***/ },
 /* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24311,39 +24256,32 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(19);
 
-	var _react = __webpack_require__(19);
+	var cx = __webpack_require__(20);
+	var PropTypes = React.PropTypes;
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(20);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var PropTypes = _react2['default'].PropTypes;
-
-	var Menu = _react2['default'].createClass({
+	var Menu = React.createClass({
 	  displayName: 'Menu',
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'ul',
 	      _extends({}, this.props, {
-	        className: (0, _classnames2['default'])('dropdown-menu', this.props.className) }),
+	        className: cx('dropdown-menu', this.props.className) }),
 	      this.props.children
 	    );
 	  }
 	});
 
-	var MenuItem = _react2['default'].createClass({
+	var MenuItem = React.createClass({
 	  displayName: 'MenuItem',
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'li',
-	      { className: (0, _classnames2['default'])({ 'disabled': this.props.disabled }) },
-	      _react2['default'].createElement(
+	      { className: cx({ 'disabled': this.props.disabled }) },
+	      React.createElement(
 	        'a',
 	        { href: '#', onClick: this._handleClick },
 	        this.props.children
@@ -24357,7 +24295,7 @@
 	  }
 	});
 
-	var TypeaheadMenu = _react2['default'].createClass({
+	var TypeaheadMenu = React.createClass({
 	  displayName: 'TypeaheadMenu',
 
 	  propTypes: {
@@ -24370,7 +24308,6 @@
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      emptyLabel: 'No matches found.',
-	      labelKey: 'label',
 	      maxHeight: 300
 	    };
 	  },
@@ -24381,13 +24318,13 @@
 	    var onKeyDown = _props.onKeyDown;
 	    var options = _props.options;
 
-	    var items = options.length ? options.map(this._renderDropdownItem) : _react2['default'].createElement(
+	    var items = options.length ? options.map(this._renderDropdownItem) : React.createElement(
 	      MenuItem,
 	      { disabled: true },
 	      this.props.emptyLabel
 	    );
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      Menu,
 	      {
 	        onKeyDown: onKeyDown,
@@ -24400,7 +24337,7 @@
 	  },
 
 	  _renderDropdownItem: function _renderDropdownItem(option, idx) {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      MenuItem,
 	      {
 	        key: idx,
@@ -24599,7 +24536,7 @@
 	var ReactMount = __webpack_require__(6);
 
 	var findDOMNode = __webpack_require__(48);
-	var focusNode = __webpack_require__(92);
+	var focusNode = __webpack_require__(90);
 
 	var Mixin = {
 	  componentDidMount: function () {
@@ -25047,7 +24984,7 @@
 
 	'use strict';
 
-	var CSSProperty = __webpack_require__(62);
+	var CSSProperty = __webpack_require__(60);
 	var ExecutionEnvironment = __webpack_require__(5);
 	var ReactPerf = __webpack_require__(8);
 
@@ -25236,7 +25173,7 @@
 
 	var getEventTarget = __webpack_require__(51);
 	var isEventSupported = __webpack_require__(54);
-	var isTextInputElement = __webpack_require__(89);
+	var isTextInputElement = __webpack_require__(87);
 	var keyOf = __webpack_require__(14);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -25586,7 +25523,7 @@
 
 	var createNodesFromMarkup = __webpack_require__(164);
 	var emptyFunction = __webpack_require__(10);
-	var getMarkupWrap = __webpack_require__(94);
+	var getMarkupWrap = __webpack_require__(92);
 	var invariant = __webpack_require__(2);
 
 	var OPEN_TAG_NAME_EXP = /^(<[^ \/>]+)/;
@@ -25894,7 +25831,7 @@
 	'use strict';
 
 	var EventConstants = __webpack_require__(11);
-	var ReactErrorUtils = __webpack_require__(77);
+	var ReactErrorUtils = __webpack_require__(75);
 
 	var invariant = __webpack_require__(2);
 	var warning = __webpack_require__(4);
@@ -26105,7 +26042,7 @@
 	var PooledClass = __webpack_require__(13);
 
 	var assign = __webpack_require__(3);
-	var getTextContentAccessor = __webpack_require__(88);
+	var getTextContentAccessor = __webpack_require__(86);
 
 	/**
 	 * This helper class stores information about text content of a target node,
@@ -26436,7 +26373,7 @@
 
 	'use strict';
 
-	var ReactDOM = __webpack_require__(68);
+	var ReactDOM = __webpack_require__(66);
 	var ReactDOMServer = __webpack_require__(125);
 	var ReactIsomorphic = __webpack_require__(132);
 
@@ -27418,7 +27355,7 @@
 	var ReactDOMButton = __webpack_require__(119);
 	var ReactDOMInput = __webpack_require__(122);
 	var ReactDOMOption = __webpack_require__(123);
-	var ReactDOMSelect = __webpack_require__(70);
+	var ReactDOMSelect = __webpack_require__(68);
 	var ReactDOMTextarea = __webpack_require__(126);
 	var ReactMount = __webpack_require__(6);
 	var ReactMultiChild = __webpack_require__(133);
@@ -27433,7 +27370,7 @@
 	var keyOf = __webpack_require__(14);
 	var setInnerHTML = __webpack_require__(35);
 	var setTextContent = __webpack_require__(55);
-	var shallowEqual = __webpack_require__(95);
+	var shallowEqual = __webpack_require__(93);
 	var validateDOMNesting = __webpack_require__(58);
 	var warning = __webpack_require__(4);
 
@@ -28375,7 +28312,7 @@
 	'use strict';
 
 	var ReactElement = __webpack_require__(7);
-	var ReactElementValidator = __webpack_require__(74);
+	var ReactElementValidator = __webpack_require__(72);
 
 	var mapObject = __webpack_require__(170);
 
@@ -28715,8 +28652,8 @@
 
 	'use strict';
 
-	var ReactChildren = __webpack_require__(65);
-	var ReactDOMSelect = __webpack_require__(70);
+	var ReactChildren = __webpack_require__(63);
+	var ReactDOMSelect = __webpack_require__(68);
 
 	var assign = __webpack_require__(3);
 	var warning = __webpack_require__(4);
@@ -28810,7 +28747,7 @@
 	var ExecutionEnvironment = __webpack_require__(5);
 
 	var getNodeForCharacterOffset = __webpack_require__(157);
-	var getTextContentAccessor = __webpack_require__(88);
+	var getTextContentAccessor = __webpack_require__(86);
 
 	/**
 	 * While `isCollapsed` is available on the Selection object and `collapsed`
@@ -29024,7 +28961,7 @@
 
 	'use strict';
 
-	var ReactDefaultInjection = __webpack_require__(73);
+	var ReactDefaultInjection = __webpack_require__(71);
 	var ReactServerRendering = __webpack_require__(138);
 	var ReactVersion = __webpack_require__(47);
 
@@ -29664,7 +29601,7 @@
 
 	'use strict';
 
-	var EventListener = __webpack_require__(90);
+	var EventListener = __webpack_require__(88);
 	var ExecutionEnvironment = __webpack_require__(5);
 	var PooledClass = __webpack_require__(13);
 	var ReactInstanceHandles = __webpack_require__(18);
@@ -29882,12 +29819,12 @@
 	var DOMProperty = __webpack_require__(15);
 	var EventPluginHub = __webpack_require__(21);
 	var ReactComponentEnvironment = __webpack_require__(44);
-	var ReactClass = __webpack_require__(66);
-	var ReactEmptyComponent = __webpack_require__(75);
+	var ReactClass = __webpack_require__(64);
+	var ReactEmptyComponent = __webpack_require__(73);
 	var ReactBrowserEventEmitter = __webpack_require__(28);
-	var ReactNativeComponent = __webpack_require__(81);
+	var ReactNativeComponent = __webpack_require__(79);
 	var ReactPerf = __webpack_require__(8);
-	var ReactRootIndex = __webpack_require__(84);
+	var ReactRootIndex = __webpack_require__(82);
 	var ReactUpdates = __webpack_require__(9);
 
 	var ReactInjection = {
@@ -29922,13 +29859,13 @@
 
 	'use strict';
 
-	var ReactChildren = __webpack_require__(65);
-	var ReactComponent = __webpack_require__(67);
-	var ReactClass = __webpack_require__(66);
+	var ReactChildren = __webpack_require__(63);
+	var ReactComponent = __webpack_require__(65);
+	var ReactClass = __webpack_require__(64);
 	var ReactDOMFactories = __webpack_require__(121);
 	var ReactElement = __webpack_require__(7);
-	var ReactElementValidator = __webpack_require__(74);
-	var ReactPropTypes = __webpack_require__(83);
+	var ReactElementValidator = __webpack_require__(72);
+	var ReactPropTypes = __webpack_require__(81);
 	var ReactVersion = __webpack_require__(47);
 
 	var assign = __webpack_require__(3);
@@ -30004,7 +29941,7 @@
 	'use strict';
 
 	var ReactComponentEnvironment = __webpack_require__(44);
-	var ReactMultiChildUpdateTypes = __webpack_require__(80);
+	var ReactMultiChildUpdateTypes = __webpack_require__(78);
 
 	var ReactCurrentOwner = __webpack_require__(12);
 	var ReactReconciler = __webpack_require__(16);
@@ -30605,8 +30542,8 @@
 	var CallbackQueue = __webpack_require__(40);
 	var PooledClass = __webpack_require__(13);
 	var ReactBrowserEventEmitter = __webpack_require__(28);
-	var ReactDOMFeatureFlags = __webpack_require__(69);
-	var ReactInputSelection = __webpack_require__(78);
+	var ReactDOMFeatureFlags = __webpack_require__(67);
+	var ReactInputSelection = __webpack_require__(76);
 	var Transaction = __webpack_require__(32);
 
 	var assign = __webpack_require__(3);
@@ -30868,10 +30805,10 @@
 	 */
 	'use strict';
 
-	var ReactDefaultBatchingStrategy = __webpack_require__(72);
+	var ReactDefaultBatchingStrategy = __webpack_require__(70);
 	var ReactElement = __webpack_require__(7);
 	var ReactInstanceHandles = __webpack_require__(18);
-	var ReactMarkupChecksum = __webpack_require__(79);
+	var ReactMarkupChecksum = __webpack_require__(77);
 	var ReactServerBatchingStrategy = __webpack_require__(137);
 	var ReactServerRenderingTransaction = __webpack_require__(139);
 	var ReactUpdates = __webpack_require__(9);
@@ -31184,13 +31121,13 @@
 	var EventConstants = __webpack_require__(11);
 	var EventPropagators = __webpack_require__(22);
 	var ExecutionEnvironment = __webpack_require__(5);
-	var ReactInputSelection = __webpack_require__(78);
+	var ReactInputSelection = __webpack_require__(76);
 	var SyntheticEvent = __webpack_require__(17);
 
-	var getActiveElement = __webpack_require__(93);
-	var isTextInputElement = __webpack_require__(89);
+	var getActiveElement = __webpack_require__(91);
+	var isTextInputElement = __webpack_require__(87);
 	var keyOf = __webpack_require__(14);
-	var shallowEqual = __webpack_require__(95);
+	var shallowEqual = __webpack_require__(93);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -31422,7 +31359,7 @@
 	'use strict';
 
 	var EventConstants = __webpack_require__(11);
-	var EventListener = __webpack_require__(90);
+	var EventListener = __webpack_require__(88);
 	var EventPropagators = __webpack_require__(22);
 	var ReactMount = __webpack_require__(6);
 	var SyntheticClipboardEvent = __webpack_require__(144);
@@ -32476,7 +32413,7 @@
 
 	'use strict';
 
-	var CSSProperty = __webpack_require__(62);
+	var CSSProperty = __webpack_require__(60);
 
 	var isUnitlessNumber = CSSProperty.isUnitlessNumber;
 
@@ -33098,7 +33035,7 @@
 	var ExecutionEnvironment = __webpack_require__(5);
 
 	var createArrayFromMixed = __webpack_require__(163);
-	var getMarkupWrap = __webpack_require__(94);
+	var getMarkupWrap = __webpack_require__(92);
 	var invariant = __webpack_require__(2);
 
 	/**
