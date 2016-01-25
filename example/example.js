@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TokenizerInput from '../src/TokenizerInput.react';
+import Token from '../src/Token.react';
 import Typeahead from '../src/Typeahead.react';
-import TypeaheadInput from '../src/TypeaheadInput.react';
-import TypeaheadMenu from '../src/TypeaheadMenu.react';
+
+import {head, map} from 'lodash';
 
 let states = [
   'Alabama',
@@ -60,52 +60,111 @@ let states = [
 states = states.map((state, idx) => {
   return {
     id: idx,
-    label: state
+    label: state,
   };
 });
 
 
-let Example = React.createClass({
+const Example = React.createClass({
 
   getInitialState: function() {
     return {
+      multiple: false,
+      preSelected: false,
       selected: []
     };
   },
 
   render: function() {
+    const {multiple, preSelected, selected} = this.state;
+
     return (
       <div>
         <div className="jumbotron">
           <div className="container">
-            <h1>React Bootstrap Typeahead</h1>
+            <h2>React Bootstrap Typeahead Example</h2>
           </div>
         </div>
         <div className="container">
-          <h3>Typeahead</h3>
           <Typeahead
-            onChange={this._handleChange}
-            options={states}>
-            <TypeaheadInput placeholder="Choose a state..." />
-            <TypeaheadMenu />
-          </Typeahead>
-          <h3>Tokenizer</h3>
-          <Typeahead
-            defaultSelected={states.slice(0, 3)}
-            multiple
-            onChange={this._handleChange}
-            options={states}>
-            <TokenizerInput placeholder="Choose a state..." />
-            <TypeaheadMenu />
-          </Typeahead>
+            selected={selected}
+            multiple={multiple}
+            onChange={(selected) => {
+              this.setState({selected})
+            }}
+            options={states}
+            placeholder="Choose a state..."
+          />
+          <div style={{margin: '20px 0 0 0'}}>
+            <h4>Options</h4>
+            <div className="form-group">
+              <div className="checkbox">
+                <label>
+                  <input
+                    checked={multiple}
+                    onChange={this._handleMultipleChange}
+                    type="checkbox"
+                  />
+                  Multiple Selections
+                </label>
+              </div>
+              <div className="checkbox">
+                <label>
+                  <input
+                    checked={preSelected}
+                    onChange={this._handlePreSelectionChange}
+                    type="checkbox"
+                  />
+                  Pre-Selected Options
+                </label>
+              </div>
+            </div>
+          </div>
+          <div style={{margin: '20px 0 0 0'}}>
+            <h4>Selected State(s)</h4>
+            {selected.map(this._renderSelections)}
+          </div>
         </div>
       </div>
     );
   },
 
-  _handleChange: function(selected) {
-    this.setState({selected: selected});
-  }
+  _renderSelections: function(state) {
+    return (
+      <div
+        key={state.id}
+        style={{
+          display: 'inline-block',
+          margin: '0 3px 0 0'
+        }}>
+        <Token>{state.label}</Token>
+      </div>
+    );
+  },
+
+  _handleMultipleChange: function(e) {
+    let {checked} = e.target;
+    let newSelection = this.state.selected.slice();
+    
+    if (!checked) {
+      newSelection.splice(1, newSelection.length);
+    }
+
+    this.setState({
+      multiple: checked,
+      selected: newSelection || []
+    });
+  },
+
+  _handlePreSelectionChange: function(e) {
+    let count = this.state.multiple ? 4 : 1;
+    let {checked} = e.target;
+
+    this.setState({
+      preSelected: checked,
+      selected: checked ? states.slice(0, count) : [],
+    });
+  },
 });
 
 ReactDOM.render(<Example />, document.getElementById('root'));

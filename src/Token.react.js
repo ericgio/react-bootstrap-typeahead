@@ -41,8 +41,7 @@ var Token = React.createClass({
   _renderRemoveableToken: function() {
     return (
       <button
-        className={cx({
-          'token': true,
+        className={cx('token', 'token-removeable', {
           'token-selected': this.state.selected
         }, this.props.className)}
         onBlur={this._handleBlur}
@@ -59,10 +58,7 @@ var Token = React.createClass({
   },
 
   _renderToken: function() {
-    var classnames = cx(
-      'token token-display-only',
-      this.props.className
-    );
+    var classnames = cx('token', this.props.className);
 
     if (this.props.href) {
       return (

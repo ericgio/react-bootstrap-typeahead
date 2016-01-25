@@ -5,9 +5,9 @@ import Token from './Token.react';
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
 import keyCode from './keyCode';
-import {map} from 'lodash/collection';
+import {map} from 'lodash';
 
-let {cloneElement, PropTypes} = React;
+const {cloneElement, PropTypes} = React;
 
 require('./css/Tokenizer.css');
 
@@ -21,14 +21,11 @@ var TokenizerInput = React.createClass({
   displayName: 'TokenizerInput',
 
   propTypes: {
-    /**
-     * Pass a custom token element to handle special rendering or behavior.
-     */
-    customToken: PropTypes.element,
+    labelKey: PropTypes.string,
     /**
      * Input element placeholder text.
      */
-    placeholder: React.PropTypes.string,
+    placeholder: PropTypes.string,
     selected: PropTypes.array,
   },
 
@@ -46,10 +43,16 @@ var TokenizerInput = React.createClass({
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
         tabIndex={0}>
-        {map(selected, this._renderToken)}
+        {selected.map(this._renderToken)}
         <AutosizeInput
           {...this.props}
           className="bootstrap-tokenizer-input"
+          inputStyle={{
+            backgroundColor: 'inherit',
+            border: 0,
+            outline: 'none',
+            padding: 0,
+          }}
           onKeyDown={this._handleKeydown}
           placeholder={selected.length ? null : placeholder}
           ref="input"
@@ -61,13 +64,15 @@ var TokenizerInput = React.createClass({
   },
 
   _renderToken: function(option, idx) {
-    var {customToken, onRemove, labelKey} = this.props;
+    var {onRemove, labelKey} = this.props;
 
-    // Use custom token element if available.
-    return cloneElement(customToken || <Token />, {
-      key: idx,
-      onRemove: onRemove.bind(null, option),
-    }, option[labelKey]);
+    return (
+      <Token
+        key={idx}
+        onRemove={onRemove.bind(null, option)}>
+        {option[labelKey]}
+      </Token>
+    );
   },
 
   _handleKeydown: function(e) {

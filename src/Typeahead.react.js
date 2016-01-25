@@ -1,35 +1,39 @@
 import React from 'react';
 
+import TokenizerInput from './TokenizerInput.react';
+import TypeaheadInput from './TypeaheadInput.react';
+import TypeaheadMenu from './TypeaheadMenu.react';
+
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
-import {first} from 'lodash/array';
-import {filter, findWhere} from 'lodash/collection';
-import {isEqual} from 'lodash/lang';
+import {find, head, isEmpty, isEqual} from 'lodash';
 import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
-var {cloneElement, PropTypes} = React;
+const {cloneElement, PropTypes} = React;
 
 require('./css/Typeahead.css');
 
 /**
  * Typeahead
  */
-var Typeahead = React.createClass({
+const Typeahead = React.createClass({
   displayName: 'Typeahead',
 
   mixins: [onClickOutside],
 
   propTypes: {
-    /**
-     * Pre-selected options to display as tokens by default.
-     */
     defaultSelected: PropTypes.array,
+    /**
+     * Message to display in the menu if there are no valid results.
+     */
+    emptyLabel: PropTypes.string,
     /**
      * Specify which option key to use for display. By default, the selector
      * will use the `label` key.
      */
     labelKey: PropTypes.string,
+    maxHeight: PropTypes.number,
     /**
      * Whether or not multiple selections are allowed.
      */
@@ -38,6 +42,8 @@ var Typeahead = React.createClass({
      * Full set of options, including pre-selected options.
      */
     options: PropTypes.array.isRequired,
+    placeholder: PropTypes.string,
+    selected: PropTypes.array,
   },
 
   getDefaultProps: function() {
@@ -45,19 +51,32 @@ var Typeahead = React.createClass({
       defaultSelected: [],
       labelKey: 'label',
       multiple: false,
+      selected: [],
     };
   },
 
   getInitialState: function() {
-    var {defaultSelected, labelKey, multiple} = this.props;
-    var selected = multiple ? defaultSelected : defaultSelected.slice(0, 1);
+    var {defaultSelected, labelKey, multiple, selected} = this.props;
+    var selected = !isEmpty(defaultSelected) ? defaultSelected : selected;
 
     return {
       focusedMenuItem: null,
       selected: selected,
       showMenu: false,
-      text: (!multiple && first(selected) && first(selected)[labelKey]) || ''
+      text: ''
     };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (!isEqual(this.props.selected, nextProps.selected)) {
+      // If new selections are passed in via props, treat the component as a
+      // controlled input.
+      this.setState({selected: nextProps.selected});
+    }
+
+    if (this.props.multiple !== nextProps.multiple) {
+      this.setState({text: ''});
+    }
   },
 
   render: function() {
@@ -66,39 +85,52 @@ var Typeahead = React.createClass({
 
     // Filter out options that don't match the input string or, if multiple
     // selections are allowed, that have already been selected.
-    var filteredOptions = filter(options, (option) => {
+    var filteredOptions = options.filter((option) => {
       return !(
         option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 ||
-        multiple && findWhere(selected, option)
+        multiple && find(selected, option)
       );
-    });
-
-    var input = cloneElement(children[0], {
-      filteredOptions: filteredOptions,
-      labelKey: labelKey,
-      onAdd: this._handleAddOption,
-      onChange: this._handleTextChange,
-      onFocus: this._handleFocus,
-      onKeyDown: this._handleKeydown,
-      onRemove: this._handleRemoveOption,
-      ref: 'input',
-      selected: selected,
-      text: text,
     });
 
     var menu;
     if (this.state.showMenu) {
-      menu = cloneElement(children[1], {
-        onClick: this._handleAddOption,
-        onKeyDown: this._handleKeydown,
-        options: filteredOptions,
-        ref: 'menu',
-      });
+      menu =
+        <TypeaheadMenu
+          emptyLabel={this.props.emptyLabel}
+          labelKey={labelKey}
+          maxHeight={this.props.maxHeight}
+          onClick={this._handleAddOption}
+          onKeyDown={this._handleKeydown}
+          options={filteredOptions}
+          ref="menu"
+        />
+    }
+
+    var InputComponent = TokenizerInput;
+
+    if (!multiple) {
+      InputComponent = TypeaheadInput;
+      selected = head(selected);
+      text = (selected && selected[labelKey]) || text;
     }
 
     return (
-      <div className="bootstrap-typeahead open">
-        {input}
+      <div
+        className="bootstrap-typeahead open"
+        style={{position: 'relative'}}>
+        <InputComponent
+          filteredOptions={filteredOptions}
+          labelKey={labelKey}
+          onAdd={this._handleAddOption}
+          onChange={this._handleTextChange}
+          onFocus={this._handleFocus}
+          onKeyDown={this._handleKeydown}
+          onRemove={this._handleRemoveOption}
+          placeholder={this.props.placeholder}
+          ref="input"
+          selected={selected}
+          text={text}
+        />
         {menu}
       </div>
     );
@@ -159,7 +191,7 @@ var Typeahead = React.createClass({
           findDOMNode(this.refs.input).focus();
         }
 
-        this.setState({focusedMenuItem: focusedMenuItem});
+        this.setState({focusedMenuItem});
         break;
       case keyCode.ESC:
         // Prevent things like unintentionally closing dialogs.
@@ -181,6 +213,7 @@ var Typeahead = React.createClass({
 
     var selected;
     var text;
+
     if (multiple) {
       // If multiple selections are allowed, add the new selection to the
       // existing selections.
@@ -194,21 +227,20 @@ var Typeahead = React.createClass({
     }
 
     this.setState({
-      selected: selected,
+      selected,
       showMenu: false,
-      text: text,
+      text,
     });
 
     onChange && onChange(selected);
   },
 
   _handleRemoveOption: function(removedOption) {
-    var selected = filter(this.state.selected, function(option) {
-      return !isEqual(option, removedOption);
-    });
+    var selected = this.state.selected.slice();
+    selected = selected.filter((option) => !isEqual(option, removedOption));
 
     this.setState({
-      selected: selected,
+      selected,
       showMenu: false,
     });
 

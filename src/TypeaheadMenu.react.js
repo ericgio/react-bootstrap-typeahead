@@ -1,17 +1,45 @@
-import Menu from './Menu.react';
-import MenuItem from './MenuItem.react';
 import React from 'react';
 
 import cx from 'classnames';
-import {map} from 'lodash/collection';
-var {PropTypes} = React;
+const {PropTypes} = React;
 
-var TypeaheadMenu = React.createClass({
+const Menu = React.createClass({
+  render: function() {
+    return (
+      <ul
+        {...this.props}
+        className={cx('dropdown-menu', this.props.className)}>
+        {this.props.children}
+      </ul>
+    );
+  }
+});
+
+const MenuItem = React.createClass({
+  displayName: 'MenuItem',
+
+  render: function() {
+    return (
+      <li className={cx({'disabled': this.props.disabled})}>
+        <a href="#" onClick={this._handleClick}>
+          {this.props.children}
+        </a>
+      </li>
+    );
+  },
+
+  _handleClick: function(e) {
+    e.preventDefault();
+    this.props.onClick && this.props.onClick();
+  }
+});
+
+const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',
 
   propTypes: {
     emptyLabel: PropTypes.string,
-    labelKey: PropTypes.string,
+    labelKey: PropTypes.string.isRequired,
     maxHeight: PropTypes.number,
     options: PropTypes.array,
   },
@@ -28,13 +56,16 @@ var TypeaheadMenu = React.createClass({
     var {maxHeight, onKeyDown, options} = this.props;
 
     var items = options.length ?
-      map(options, this._renderDropdownItem) :
+      options.map(this._renderDropdownItem) :
       <MenuItem disabled>{this.props.emptyLabel}</MenuItem>;
 
     return (
       <Menu
         onKeyDown={onKeyDown}
-        style={{maxHeight: maxHeight + 'px'}}>
+        style={{
+          maxHeight: maxHeight + 'px',
+          right: 0,
+        }}>
         {items}
       </Menu>
     );

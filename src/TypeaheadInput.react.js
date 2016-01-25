@@ -1,7 +1,7 @@
 import React from 'react';
 
 import cx from 'classnames';
-import {first} from 'lodash/array';
+import {head, isEmpty} from 'lodash';
 import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
@@ -21,10 +21,10 @@ var TypeaheadInput = React.createClass({
 
   propTypes: {
     filteredOptions: PropTypes.array,
-    focusedOption: PropTypes.string,
     labelKey: PropTypes.string,
     onChange: PropTypes.func,
-    selected: PropTypes.array,
+    selected: PropTypes.object,
+    text: PropTypes.string,
   },
 
   render: function() {
@@ -36,25 +36,45 @@ var TypeaheadInput = React.createClass({
         tabIndex={0}>
         <input
           {...this.props}
-          className={cx({
-            'has-selection': this.props.selected.length
-          }, 'bootstrap-typeahead-input-main', 'form-control')}
+          className={cx('bootstrap-typeahead-input-main', 'form-control', {
+            'has-selection': !this.props.selected
+          })}
           onKeyDown={this._handleKeydown}
           ref="input"
+          style={{
+            backgroundColor: 'transparent',
+            display: 'block',
+            position: 'relative',
+            zIndex: 1,
+          }}
           type="text"
-          value={this.props.text}
+          value={this._getInputValue()}
         />
         <input
           className="bootstrap-typeahead-input-hint form-control"
+          style={{
+            borderColor: 'transparent',
+            bottom: 0,
+            display: 'block',
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+            zIndex: 0,
+          }}
           value={this._getHintText()}
         />
       </div>
     );
   },
 
+  _getInputValue: function() {
+    var {labelKey, selected, text} = this.props;
+    return selected ? selected[labelKey] : text;
+  },
+
   _getHintText: function() {
     var {filteredOptions, labelKey, text} = this.props;
-    var firstOption = first(filteredOptions);
+    var firstOption = head(filteredOptions);
 
     // Only show the hint if...
     if (
@@ -78,21 +98,21 @@ var TypeaheadInput = React.createClass({
   },
 
   _handleKeydown: function(e) {
+    var {filteredOptions, onAdd, onRemove, selected} = this.props;
+
     switch (e.keyCode) {
       case keyCode.ESC:
         this.refs.input.blur();
         break;
       case keyCode.RIGHT:
         // Autocomplete the selection if there's a hint and no selection yet.
-        if (this._getHintText() && !this.props.selected.length) {
-          var {filteredOptions, onAdd} = this.props;
-          onAdd && onAdd(first(filteredOptions));
+        if (this._getHintText() && !selected) {
+          onAdd && onAdd(head(filteredOptions));
         }
         break;
       case keyCode.BACKSPACE:
         // Remove the selection if we start deleting it.
-        var {onRemove, selected} = this.props;
-        selected.length && onRemove && onRemove(first(selected));
+        selected && onRemove && onRemove(selected);
         break;
     }
 
