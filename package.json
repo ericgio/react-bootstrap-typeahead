@@ -43,5 +43,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ericgio/react-bootstrap-typeahead.git"
-  }
+  },
+  "bugs": "https://github.com/ericgio/react-bootstrap-typeahead/issues"
 }
