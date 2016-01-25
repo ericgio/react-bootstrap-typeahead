@@ -1,9 +1,9 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: __dirname + '/example/example.js',
+  entry: __dirname + '/src/index.js',
   output: {
-    filename:  __dirname + '/example/index.js'
+    filename:  __dirname + '/dist/react-bootstrap-typeahead.js'
   },
   module: {
     loaders: [
@@ -13,15 +13,6 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false,
-      },
-      mangle: {
-        except: ['$', 'exports', 'require']
-      }
-    })
   ],
   resolve: {
     extensions: ['', '.js']

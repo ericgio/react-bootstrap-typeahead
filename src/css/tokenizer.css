@@ -1,14 +1,9 @@
 .bootstrap-tokenizer {
+  cursor: text;
   height: auto;
   padding: 5px 12px 2px 12px;
 }
 
 .bootstrap-tokenizer-input {
-  float: left;
   margin: 1px 0 4px;
-}
-.bootstrap-tokenizer-input input {
-  border: 0;
-  outline: none;
-  padding: 0;
 }
