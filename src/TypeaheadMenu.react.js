@@ -1,9 +1,11 @@
-var React = require('react');
+'use strict';
 
-var cx = require('classnames');
-var {PropTypes} = React;
+import React from 'react';
 
-var Menu = React.createClass({
+import cx from 'classnames';
+const {PropTypes} = React;
+
+const Menu = React.createClass({
   render: function() {
     return (
       <ul
@@ -15,7 +17,7 @@ var Menu = React.createClass({
   }
 });
 
-var MenuItem = React.createClass({
+const MenuItem = React.createClass({
   displayName: 'MenuItem',
 
   render: function() {
@@ -34,7 +36,7 @@ var MenuItem = React.createClass({
   }
 });
 
-var TypeaheadMenu = React.createClass({
+const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',
 
   propTypes: {

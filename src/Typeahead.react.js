@@ -1,23 +1,25 @@
-var React = require('react');
+'use strict';
 
-var TokenizerInput = require('./TokenizerInput.react');
-var TypeaheadInput = require('./TypeaheadInput.react');
-var TypeaheadMenu = require('./TypeaheadMenu.react');
+import React from 'react';
 
-var cx = require('classnames');
-var {findDOMNode} = require('react-dom');
-var {find, head, isEmpty, isEqual} = require('lodash');
-var keyCode = require('./keyCode');
-var onClickOutside = require('react-onclickoutside');
+import TokenizerInput from './TokenizerInput.react';
+import TypeaheadInput from './TypeaheadInput.react';
+import TypeaheadMenu from './TypeaheadMenu.react';
 
-var {cloneElement, PropTypes} = React;
+import cx from 'classnames';
+import {findDOMNode} from 'react-dom';
+import {find, head, isEmpty, isEqual} from 'lodash';
+import keyCode from './keyCode';
+import onClickOutside from 'react-onclickoutside';
 
-require('./css/Typeahead.css');
+const {cloneElement, PropTypes} = React;
+
+require('../css/Typeahead.css');
 
 /**
  * Typeahead
  */
-var Typeahead = React.createClass({
+const Typeahead = React.createClass({
   displayName: 'Typeahead',
 
   mixins: [onClickOutside],

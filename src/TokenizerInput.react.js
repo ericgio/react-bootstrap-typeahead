@@ -1,15 +1,17 @@
-var AutosizeInput = require('react-input-autosize');
-var React = require('react');
-var Token = require('./Token.react');
+'use strict';
 
-var cx = require('classnames');
-var {findDOMNode} = require('react-dom');
-var keyCode = require('./keyCode');
-var {map} = require('lodash');
+import AutosizeInput from 'react-input-autosize';
+import React from 'react';
+import Token from './Token.react';
 
-var {cloneElement, PropTypes} = React;
+import cx from 'classnames';
+import {findDOMNode} from 'react-dom';
+import keyCode from './keyCode';
+import {map} from 'lodash';
 
-require('./css/Tokenizer.css');
+const {cloneElement, PropTypes} = React;
+
+require('../css/Tokenizer.css');
 
 /**
  * TokenizerInput
@@ -17,7 +19,7 @@ require('./css/Tokenizer.css');
  * Accepts multiple selections from a Typeahead component and renders them as
  * tokens within an input.
  */
-var TokenizerInput = React.createClass({
+const TokenizerInput = React.createClass({
   displayName: 'TokenizerInput',
 
   propTypes: {

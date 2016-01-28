@@ -1,3 +1,3 @@
-var Typeahead = require('./src/Typeahead.react');
+var Typeahead = require('./lib/Typeahead.react');
 
 module.exports = Typeahead;

@@ -1,20 +1,22 @@
-var React = require('react');
+'use strict';
 
-var cx = require('classnames');
-var {head, isEmpty} = require('lodash');
-var keyCode = require('./keyCode');
-var onClickOutside = require('react-onclickoutside');
+import React from 'react';
 
-var {PropTypes} = React;
+import cx from 'classnames';
+import {head, isEmpty} from 'lodash';
+import keyCode from './keyCode';
+import onClickOutside from 'react-onclickoutside';
 
-require('./css/Typeahead.css');
+const {PropTypes} = React;
+
+require('../css/Typeahead.css');
 
 /**
  * TypeaheadInput
  *
  * Handles a single selection from the Typeahead component.
  */
-var TypeaheadInput = React.createClass({
+const TypeaheadInput = React.createClass({
   displayName: 'TypeaheadInput',
 
   mixins: [onClickOutside],

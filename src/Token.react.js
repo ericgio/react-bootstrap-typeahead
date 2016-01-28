@@ -1,11 +1,13 @@
-var React = require('react');
-var {findDOMNode} = require('react-dom');
+'use strict';
 
-var cx = require('classnames');
-var keyCode = require('./keyCode');
-var onClickOutside = require('react-onclickoutside');
+import React from 'react';
+import {findDOMNode} from 'react-dom';
 
-require('./css/Token.css');
+import cx from 'classnames';
+import keyCode from './keyCode';
+import onClickOutside from 'react-onclickoutside';
+
+require('../css/Token.css');
 
 /**
  * Token
@@ -13,7 +15,7 @@ require('./css/Token.css');
  * Individual token component, generally displayed within the TokenizerInput
  * component, but can also be rendered on its own.
  */
-var Token = React.createClass({
+const Token = React.createClass({
   displayName: 'Token',
 
   mixins: [onClickOutside],
