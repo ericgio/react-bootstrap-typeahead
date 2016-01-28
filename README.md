@@ -8,15 +8,17 @@ It is highly recommended that you use npm to install the module in your project 
 npm install react-bootstrap-typeahead
 ```
 
-If you want to use the component in a standalone manner, both an unminified development version and a minified production version are included in the `dist` folder.
+If you want to use the component in a standalone manner, both an unminified development version and a minified production version are included in the `build` folder.
 
 ## Usage
 `react-bootstrap-typeahead` works very much like any standard `input` element. It requires an array of options to display, similar to a `select`. 
 
 ```
+var Typeahead = require('react-bootstrap-typeahead');
+
 <Typeahead
   onChange={this._handleChange}
-  options={data}
+  options={myData}
 />
 ```
 
@@ -27,7 +29,7 @@ If you want to use the component in a standalone manner, both an unminified deve
 <Typeahead
   multiple
   onChange={this._handleChange}
-  options={data}
+  options={myData}
 />
 ```
 
@@ -37,7 +39,7 @@ Like an `input`, the component can be controlled or uncontrolled. Use the `selec
 ```
 <Typeahead
   onChange={this._handleChange}
-  options={data}
+  options={myData}
   selected={selected}
 />
 ```
@@ -45,10 +47,25 @@ Like an `input`, the component can be controlled or uncontrolled. Use the `selec
 ## Data
 `react-bootstrap-typeahead` has some expectations about the shape of your data. It expects an array of objects, each of which should have a string property to be used as the label for display. By default, the key is named `label`, but you can specify a different key via the `labelKey` prop.
 
+```
+var myData = [
+  {id: 1, name: 'John'},
+  {id: 2, name: 'Miles'},
+  {id: 3, name: 'Charles'},
+  {id: 4, name: 'Herbie'},
+];
+
+<Typeahead
+  labelKey="name"
+  onChange={this._handleChange}
+  options={myData}
+/>
+```
+
 As far as the source of the data, the component simply handles rendering and selection. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
 
 ## Example
-An example file is included with the module. Simply open `index.html` in a browser.
+An example file is included with the module. Simply open `index.html` in a browser. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
 ## Documentation
 
