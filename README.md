@@ -1,6 +1,9 @@
 # React Bootstrap Typeahead
 React-based typeahead component that uses standard the Bootstrap theme for as a base and supports both single- and multi-selection. Try a [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
+[![npm](https://img.shields.io/npm/v/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
+[![npm](https://img.shields.io/npm/dm/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
+
 ## Installation
 It is highly recommended that you use npm to install the module in your project and build using a tool like webpack or browserify.
 
