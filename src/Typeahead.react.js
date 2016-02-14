@@ -6,13 +6,12 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
-import {find, head, isEmpty, isEqual} from 'lodash';
+import {clone, find, head, isEmpty, isEqual} from 'lodash';
 import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
-const {cloneElement, PropTypes} = React;
+const {PropTypes} = React;
 
 require('../css/Typeahead.css');
 
@@ -58,14 +57,13 @@ const Typeahead = React.createClass({
   },
 
   getInitialState: function() {
-    var {defaultSelected, labelKey, multiple, selected} = this.props;
-    var selected = !isEmpty(defaultSelected) ? defaultSelected : selected;
+    const {defaultSelected, selected} = this.props;
 
     return {
       focusedMenuItem: null,
-      selected: selected,
+      selected: !isEmpty(defaultSelected) ? defaultSelected : selected,
       showMenu: false,
-      text: ''
+      text: '',
     };
   },
 
@@ -82,7 +80,7 @@ const Typeahead = React.createClass({
   },
 
   render: function() {
-    var {children, labelKey, multiple, options} = this.props;
+    var {labelKey, multiple, options} = this.props;
     var {selected, text} = this.state;
 
     // Filter out options that don't match the input string or, if multiple
@@ -105,7 +103,7 @@ const Typeahead = React.createClass({
           onKeyDown={this._handleKeydown}
           options={filteredOptions}
           ref="menu"
-        />
+        />;
     }
 
     var InputComponent = TokenizerInput;
@@ -145,12 +143,12 @@ const Typeahead = React.createClass({
   _handleTextChange: function(e) {
     this.setState({
       showMenu: true,
-      text: e.target.value
+      text: e.target.value,
     });
   },
 
   _handleKeydown: function(e) {
-    var {focusedMenuItem, text} = this.state;
+    let focusedMenuItem = clone(this.state.focusedMenuItem);
 
     switch (e.keyCode) {
       case keyCode.UP:
@@ -259,7 +257,7 @@ const Typeahead = React.createClass({
   _hideDropdown: function() {
     this.setState({
       showMenu: false,
-      focusedMenuItem: null
+      focusedMenuItem: null,
     });
   },
 });

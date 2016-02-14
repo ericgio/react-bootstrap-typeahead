@@ -13,6 +13,7 @@
     "build-dev": "webpack --progress --colors --config webpack.build.config.js --output-file react-bootstrap-typeahead.js",
     "build-prod": "webpack -p --progress --colors --config webpack.build.config.js --output-file react-bootstrap-typeahead.min.js",
     "build": "npm run build-lib && npm run build-dev && npm run build-prod && npm run build-example",
+    "lint": "eslint src && eslint example/example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

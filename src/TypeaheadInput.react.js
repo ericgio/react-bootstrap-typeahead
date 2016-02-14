@@ -3,7 +3,7 @@
 import React from 'react';
 
 import cx from 'classnames';
-import {head, isEmpty} from 'lodash';
+import {head} from 'lodash';
 import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
@@ -39,7 +39,7 @@ const TypeaheadInput = React.createClass({
         <input
           {...this.props}
           className={cx('bootstrap-typeahead-input-main', 'form-control', {
-            'has-selection': !this.props.selected
+            'has-selection': !this.props.selected,
           })}
           onKeyDown={this._handleKeydown}
           ref="input"

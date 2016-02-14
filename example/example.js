@@ -5,8 +5,6 @@ import ReactDOM from 'react-dom';
 import Token from '../src/Token.react';
 import Typeahead from '../src/Typeahead.react';
 
-import {head, map} from 'lodash';
-
 let states = [
   'Alabama',
   'Alaska',
@@ -57,7 +55,7 @@ let states = [
   'Washington',
   'West Virginia',
   'Wisconsin',
-  'Wyoming'
+  'Wyoming',
 ];
 states = states.map((state, idx) => {
   return {
@@ -73,7 +71,7 @@ const Example = React.createClass({
     return {
       multiple: false,
       preSelected: false,
-      selected: []
+      selected: [],
     };
   },
 
@@ -92,7 +90,7 @@ const Example = React.createClass({
             selected={selected}
             multiple={multiple}
             onChange={(selected) => {
-              this.setState({selected})
+              this.setState({selected});
             }}
             options={states}
             placeholder="Choose a state..."
@@ -137,7 +135,7 @@ const Example = React.createClass({
         key={state.id}
         style={{
           display: 'inline-block',
-          margin: '0 3px 0 0'
+          margin: '0 3px 0 0',
         }}>
         <Token>{state.label}</Token>
       </div>
@@ -154,7 +152,7 @@ const Example = React.createClass({
 
     this.setState({
       multiple: checked,
-      selected: newSelection || []
+      selected: newSelection || [],
     });
   },
 

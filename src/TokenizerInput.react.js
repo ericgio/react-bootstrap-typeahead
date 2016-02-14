@@ -7,9 +7,8 @@ import Token from './Token.react';
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
 import keyCode from './keyCode';
-import {map} from 'lodash';
 
-const {cloneElement, PropTypes} = React;
+const {PropTypes} = React;
 
 require('../css/Tokenizer.css');
 

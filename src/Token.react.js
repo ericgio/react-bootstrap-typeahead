@@ -25,12 +25,12 @@ const Token = React.createClass({
      * Handler for removing/deleting the token. If not defined, the token will
      * be rendered in a read-only state.
      */
-    onRemove: React.PropTypes.func
+    onRemove: React.PropTypes.func,
   },
 
   getInitialState: function() {
     return {
-      selected: false
+      selected: false,
     };
   },
 
@@ -44,7 +44,7 @@ const Token = React.createClass({
     return (
       <button
         className={cx('token', 'token-removeable', {
-          'token-selected': this.state.selected
+          'token-selected': this.state.selected,
         }, this.props.className)}
         onBlur={this._handleBlur}
         onClick={this._handleSelect}

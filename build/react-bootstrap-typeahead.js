@@ -46,7 +46,7 @@
 
 	'use strict';
 	
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -62,19 +62,15 @@
 	
 	var _TypeaheadMenu2 = _interopRequireDefault(_TypeaheadMenu);
 	
-	var _classnames = __webpack_require__(1);
-	
-	var _classnames2 = _interopRequireDefault(_classnames);
-	
 	var _reactDom = __webpack_require__(6);
 	
-	var _lodash = __webpack_require__(7);
+	var _lodash = __webpack_require__(9);
 	
-	var _keyCode = __webpack_require__(3);
+	var _keyCode = __webpack_require__(2);
 	
 	var _keyCode2 = _interopRequireDefault(_keyCode);
 	
-	var _reactOnclickoutside = __webpack_require__(8);
+	var _reactOnclickoutside = __webpack_require__(7);
 	
 	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
 	
@@ -82,10 +78,9 @@
 	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 	
-	var cloneElement = _react2['default'].cloneElement;
 	var PropTypes = _react2['default'].PropTypes;
 	
-	__webpack_require__(9);
+	__webpack_require__(8);
 	
 	/**
 	 * Typeahead
@@ -131,15 +126,11 @@
 	  getInitialState: function getInitialState() {
 	    var _props = this.props;
 	    var defaultSelected = _props.defaultSelected;
-	    var labelKey = _props.labelKey;
-	    var multiple = _props.multiple;
 	    var selected = _props.selected;
-	
-	    var selected = !(0, _lodash.isEmpty)(defaultSelected) ? defaultSelected : selected;
 	
 	    return {
 	      focusedMenuItem: null,
-	      selected: selected,
+	      selected: !(0, _lodash.isEmpty)(defaultSelected) ? defaultSelected : selected,
 	      showMenu: false,
 	      text: ''
 	    };
@@ -159,7 +150,6 @@
 	
 	  render: function render() {
 	    var _props2 = this.props;
-	    var children = _props2.children;
 	    var labelKey = _props2.labelKey;
 	    var multiple = _props2.multiple;
 	    var options = _props2.options;
@@ -224,9 +214,7 @@
 	  },
 	
 	  _handleKeydown: function _handleKeydown(e) {
-	    var _state2 = this.state;
-	    var focusedMenuItem = _state2.focusedMenuItem;
-	    var text = _state2.text;
+	    var focusedMenuItem = (0, _lodash.clone)(this.state.focusedMenuItem);
 	
 	    switch (e.keyCode) {
 	      case _keyCode2['default'].UP:
@@ -346,10 +334,40 @@
 	});
 	
 	module.exports = Typeahead;
-	//# sourceMappingURL=Typeahead.react.js.map
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	module.exports = React;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	/**
+	 * KeyCode
+	 *
+	 * Map of common (non-printable) keycodes for the `keydown` and `keyup` events.
+	 * Note that `keypress` handles things differently and may not return the same
+	 * values.
+	 */
+	module.exports = {
+	  BACKSPACE: 8,
+	  TAB: 9,
+	  RETURN: 13,
+	  ESC: 27,
+	  SPACE: 32,
+	  LEFT: 37,
+	  UP: 38,
+	  RIGHT: 39,
+	  DOWN: 40
+	};
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -401,38 +419,6 @@
 		}
 	}());
 
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	module.exports = React;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	/**
-	 * KeyCode
-	 *
-	 * Map of common (non-printable) keycodes for the `keydown` and `keyup` events.
-	 * Note that `keypress` handles things differently and may not return the same
-	 * values.
-	 */
-	module.exports = {
-	  BACKSPACE: 8,
-	  TAB: 9,
-	  RETURN: 13,
-	  ESC: 27,
-	  SPACE: 32,
-	  LEFT: 37,
-	  UP: 38,
-	  RIGHT: 39,
-	  DOWN: 40
-	};
-	//# sourceMappingURL=keyCode.js.map
 
 /***/ },
 /* 4 */
@@ -754,16 +740,10 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = lodash;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
 	module.exports = onClickOutside;
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -789,26 +769,32 @@
 	}
 
 /***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = lodash;
+
+/***/ },
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactDom = __webpack_require__(6);
 	
-	var _classnames = __webpack_require__(1);
+	var _classnames = __webpack_require__(3);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _keyCode = __webpack_require__(3);
+	var _keyCode = __webpack_require__(2);
 	
 	var _keyCode2 = _interopRequireDefault(_keyCode);
 	
-	var _reactOnclickoutside = __webpack_require__(8);
+	var _reactOnclickoutside = __webpack_require__(7);
 	
 	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
 	
@@ -905,7 +891,6 @@
 	});
 	
 	module.exports = Token;
-	//# sourceMappingURL=Token.react.js.map
 
 /***/ },
 /* 11 */
@@ -927,7 +912,7 @@
 	
 	var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 	
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -935,23 +920,20 @@
 	
 	var _Token2 = _interopRequireDefault(_Token);
 	
-	var _classnames = __webpack_require__(1);
+	var _classnames = __webpack_require__(3);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
 	var _reactDom = __webpack_require__(6);
 	
-	var _keyCode = __webpack_require__(3);
+	var _keyCode = __webpack_require__(2);
 	
 	var _keyCode2 = _interopRequireDefault(_keyCode);
-	
-	var _lodash = __webpack_require__(7);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 	
-	var cloneElement = _react2['default'].cloneElement;
 	var PropTypes = _react2['default'].PropTypes;
 	
 	__webpack_require__(18);
@@ -1040,7 +1022,6 @@
 	});
 	
 	module.exports = TokenizerInput;
-	//# sourceMappingURL=TokenizerInput.react.js.map
 
 /***/ },
 /* 12 */
@@ -1058,21 +1039,21 @@
 	  }return target;
 	};
 	
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(1);
+	var _classnames = __webpack_require__(3);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _lodash = __webpack_require__(7);
+	var _lodash = __webpack_require__(9);
 	
-	var _keyCode = __webpack_require__(3);
+	var _keyCode = __webpack_require__(2);
 	
 	var _keyCode2 = _interopRequireDefault(_keyCode);
 	
-	var _reactOnclickoutside = __webpack_require__(8);
+	var _reactOnclickoutside = __webpack_require__(7);
 	
 	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
 	
@@ -1082,7 +1063,7 @@
 	
 	var PropTypes = _react2['default'].PropTypes;
 	
-	__webpack_require__(9);
+	__webpack_require__(8);
 	
 	/**
 	 * TypeaheadInput
@@ -1206,7 +1187,6 @@
 	});
 	
 	module.exports = TypeaheadInput;
-	//# sourceMappingURL=TypeaheadInput.react.js.map
 
 /***/ },
 /* 13 */
@@ -1224,11 +1204,11 @@
 	  }return target;
 	};
 	
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(1);
+	var _classnames = __webpack_require__(3);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -1301,7 +1281,6 @@
 	});
 	
 	module.exports = TypeaheadMenu;
-	//# sourceMappingURL=TypeaheadMenu.react.js.map
 
 /***/ },
 /* 14 */

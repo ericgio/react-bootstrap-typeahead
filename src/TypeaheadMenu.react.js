@@ -14,7 +14,7 @@ const Menu = React.createClass({
         {this.props.children}
       </ul>
     );
-  }
+  },
 });
 
 const MenuItem = React.createClass({
@@ -33,7 +33,7 @@ const MenuItem = React.createClass({
   _handleClick: function(e) {
     e.preventDefault();
     this.props.onClick && this.props.onClick();
-  }
+  },
 });
 
 const TypeaheadMenu = React.createClass({
