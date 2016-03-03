@@ -29,7 +29,7 @@ const TypeaheadInput = React.createClass({
     text: PropTypes.string,
   },
 
-  render: function() {
+  render() {
     return (
       <div
         className={cx('bootstrap-typeahead-input', this.props.className)}
@@ -69,14 +69,14 @@ const TypeaheadInput = React.createClass({
     );
   },
 
-  _getInputValue: function() {
-    var {labelKey, selected, text} = this.props;
+  _getInputValue() {
+    const {labelKey, selected, text} = this.props;
     return selected ? selected[labelKey] : text;
   },
 
-  _getHintText: function() {
-    var {filteredOptions, labelKey, text} = this.props;
-    var firstOption = head(filteredOptions);
+  _getHintText() {
+    const {filteredOptions, labelKey, text} = this.props;
+    let firstOption = head(filteredOptions);
 
     // Only show the hint if...
     if (
@@ -100,7 +100,7 @@ const TypeaheadInput = React.createClass({
   },
 
   _handleKeydown: function(e) {
-    var {filteredOptions, onAdd, onRemove, selected} = this.props;
+    const {filteredOptions, onAdd, onRemove, selected} = this.props;
 
     switch (e.keyCode) {
       case keyCode.ESC:
@@ -128,4 +128,4 @@ const TypeaheadInput = React.createClass({
   },
 });
 
-module.exports = TypeaheadInput;
+export default TypeaheadInput;

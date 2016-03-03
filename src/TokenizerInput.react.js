@@ -30,8 +30,8 @@ const TokenizerInput = React.createClass({
     selected: PropTypes.array,
   },
 
-  render: function() {
-    var {className, placeholder, selected, text} = this.props;
+  render() {
+    const {className, placeholder, selected, text} = this.props;
 
     return (
       <div
@@ -64,8 +64,8 @@ const TokenizerInput = React.createClass({
     );
   },
 
-  _renderToken: function(option, idx) {
-    var {onRemove, labelKey} = this.props;
+  _renderToken(option, idx) {
+    let {onRemove, labelKey} = this.props;
 
     return (
       <Token
@@ -84,7 +84,7 @@ const TokenizerInput = React.createClass({
         // or right arrow keys.
         break;
       case keyCode.BACKSPACE:
-        var inputNode = findDOMNode(this.refs.input);
+        let inputNode = findDOMNode(this.refs.input);
         if (
           inputNode &&
           inputNode.contains(document.activeElement) &&
@@ -92,7 +92,7 @@ const TokenizerInput = React.createClass({
         ) {
           // If the input is selected and there is no text, select the last
           // token when the user hits backspace.
-          var sibling = inputNode.previousSibling;
+          let sibling = inputNode.previousSibling;
           sibling && sibling.focus();
         }
         break;
@@ -108,4 +108,4 @@ const TokenizerInput = React.createClass({
   },
 });
 
-module.exports = TokenizerInput;
+export default TokenizerInput;

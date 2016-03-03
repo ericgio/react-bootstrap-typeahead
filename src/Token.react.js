@@ -28,19 +28,19 @@ const Token = React.createClass({
     onRemove: React.PropTypes.func,
   },
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       selected: false,
     };
   },
 
-  render: function() {
+  render() {
     return this.props.onRemove ?
       this._renderRemoveableToken() :
       this._renderToken();
   },
 
-  _renderRemoveableToken: function() {
+  _renderRemoveableToken() {
     return (
       <button
         className={cx('token', 'token-removeable', {
@@ -59,8 +59,8 @@ const Token = React.createClass({
     );
   },
 
-  _renderToken: function() {
-    var classnames = cx('token', this.props.className);
+  _renderToken() {
+    let classnames = cx('token', this.props.className);
 
     if (this.props.href) {
       return (
@@ -77,12 +77,12 @@ const Token = React.createClass({
     );
   },
 
-  _handleBlur: function(e) {
+  _handleBlur(e) {
     findDOMNode(this).blur();
     this.setState({selected: false});
   },
 
-  _handleKeyDown: function(e) {
+  _handleKeyDown(e) {
     switch (e.keyCode) {
       case keyCode.BACKSPACE:
         if (this.state.selected) {
@@ -98,18 +98,18 @@ const Token = React.createClass({
   /**
    * From `onClickOutside` mixin.
    */
-  handleClickOutside: function(e) {
+  handleClickOutside(e) {
     this._handleBlur();
   },
 
-  _handleRemove: function(e) {
+  _handleRemove(e) {
     this.props.onRemove && this.props.onRemove();
   },
 
-  _handleSelect: function(e) {
+  _handleSelect(e) {
     e.stopPropagation();
     this.setState({selected: true});
   },
 });
 
-module.exports = Token;
+export default Token;

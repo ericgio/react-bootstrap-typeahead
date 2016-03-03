@@ -46,7 +46,7 @@ const Typeahead = React.createClass({
     selected: PropTypes.array,
   },
 
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       defaultSelected: [],
       labelKey: 'label',
@@ -55,7 +55,7 @@ const Typeahead = React.createClass({
     };
   },
 
-  getInitialState: function() {
+  getInitialState() {
     const {defaultSelected, selected} = this.props;
 
     return {
@@ -66,7 +66,7 @@ const Typeahead = React.createClass({
     };
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.selected, nextProps.selected)) {
       // If new selections are passed in via props, treat the component as a
       // controlled input.
@@ -78,20 +78,20 @@ const Typeahead = React.createClass({
     }
   },
 
-  render: function() {
-    var {labelKey, multiple, options} = this.props;
-    var {activeIndex, selected, text} = this.state;
+  render() {
+    const {labelKey, multiple, options} = this.props;
+    let {activeIndex, selected, text} = this.state;
 
     // Filter out options that don't match the input string or, if multiple
     // selections are allowed, that have already been selected.
-    var filteredOptions = options.filter((option) => {
+    let filteredOptions = options.filter((option) => {
       return !(
         option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 ||
         multiple && find(selected, option)
       );
     });
 
-    var menu;
+    let menu;
     if (this.state.showMenu) {
       menu =
         <TypeaheadMenu
@@ -104,7 +104,7 @@ const Typeahead = React.createClass({
         />;
     }
 
-    var InputComponent = TokenizerInput;
+    let InputComponent = TokenizerInput;
 
     if (!multiple) {
       InputComponent = TypeaheadInput;
@@ -134,11 +134,11 @@ const Typeahead = React.createClass({
     );
   },
 
-  _handleFocus: function() {
+  _handleFocus() {
     this.setState({showMenu: true});
   },
 
-  _handleTextChange: function(e) {
+  _handleTextChange(e) {
     this.setState({
       activeIndex: 0,
       showMenu: true,
@@ -146,7 +146,7 @@ const Typeahead = React.createClass({
     });
   },
 
-  _handleKeydown: function(options, e) {
+  _handleKeydown(options, e) {
     let {activeIndex} = this.state;
 
     switch (e.keyCode) {
@@ -187,11 +187,11 @@ const Typeahead = React.createClass({
     }
   },
 
-  _handleAddOption: function(selectedOption) {
-    var {multiple, labelKey, onChange} = this.props;
+  _handleAddOption(selectedOption) {
+    const {multiple, labelKey, onChange} = this.props;
 
-    var selected;
-    var text;
+    let selected;
+    let text;
 
     if (multiple) {
       // If multiple selections are allowed, add the new selection to the
@@ -215,8 +215,8 @@ const Typeahead = React.createClass({
     onChange && onChange(selected);
   },
 
-  _handleRemoveOption: function(removedOption) {
-    var selected = this.state.selected.slice();
+  _handleRemoveOption(removedOption) {
+    let selected = this.state.selected.slice();
     selected = selected.filter((option) => !isEqual(option, removedOption));
 
     this.setState({
@@ -231,11 +231,11 @@ const Typeahead = React.createClass({
   /**
    * From `onClickOutside` mixin.
    */
-  handleClickOutside: function(e) {
+  handleClickOutside(e) {
     this._hideDropdown();
   },
 
-  _hideDropdown: function() {
+  _hideDropdown() {
     this.setState({
       activeIndex: 0,
       showMenu: false,
@@ -243,4 +243,4 @@ const Typeahead = React.createClass({
   },
 });
 
-module.exports = Typeahead;
+export default Typeahead;

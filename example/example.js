@@ -67,7 +67,7 @@ states = states.map((state, idx) => {
 
 const Example = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       multiple: false,
       preSelected: false,
@@ -75,7 +75,7 @@ const Example = React.createClass({
     };
   },
 
-  render: function() {
+  render() {
     const {multiple, preSelected, selected} = this.state;
 
     return (
@@ -129,7 +129,7 @@ const Example = React.createClass({
     );
   },
 
-  _renderSelections: function(state) {
+  _renderSelections(state) {
     return (
       <div
         key={state.id}
@@ -142,7 +142,7 @@ const Example = React.createClass({
     );
   },
 
-  _handleMultipleChange: function(e) {
+  _handleMultipleChange(e) {
     let {checked} = e.target;
     let newSelection = this.state.selected.slice();
     
@@ -156,7 +156,7 @@ const Example = React.createClass({
     });
   },
 
-  _handlePreSelectionChange: function(e) {
+  _handlePreSelectionChange(e) {
     let count = this.state.multiple ? 4 : 1;
     let {checked} = e.target;
 

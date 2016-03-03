@@ -22,13 +22,13 @@ const Menu = React.createClass({
 const MenuItem = React.createClass({
   displayName: 'MenuItem',
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.active) {
       findDOMNode(this).firstChild.focus();
     }
   },
 
-  render: function() {
+  render() {
     return (
       <li
         className={cx({
@@ -42,7 +42,7 @@ const MenuItem = React.createClass({
     );
   },
 
-  _handleClick: function(e) {
+  _handleClick(e) {
     e.preventDefault();
     this.props.onClick && this.props.onClick();
   },
@@ -59,17 +59,17 @@ const TypeaheadMenu = React.createClass({
     options: PropTypes.array,
   },
 
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       emptyLabel: 'No matches found.',
       maxHeight: 300,
     };
   },
 
-  render: function() {
-    var {maxHeight, options} = this.props;
+  render() {
+    const {maxHeight, options} = this.props;
 
-    var items = options.length ?
+    let items = options.length ?
       options.map(this._renderDropdownItem) :
       <MenuItem disabled>{this.props.emptyLabel}</MenuItem>;
 
@@ -84,7 +84,7 @@ const TypeaheadMenu = React.createClass({
     );
   },
 
-  _renderDropdownItem: function(option, idx) {
+  _renderDropdownItem(option, idx) {
     const {activeIndex, onClick} = this.props;
 
     return (
@@ -98,4 +98,4 @@ const TypeaheadMenu = React.createClass({
   },
 });
 
-module.exports = TypeaheadMenu;
+export default TypeaheadMenu;
