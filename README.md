@@ -76,6 +76,7 @@ An example file is included with the module. Simply open `index.html` in a brows
 Name | Type | Default | Description
 -----|------|---------|------------
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
+disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 labelKey | string | 'label' | Specify which option key to use for display. By default, the selector will use the `label` key.
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.

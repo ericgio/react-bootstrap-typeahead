@@ -64,11 +64,11 @@ states = states.map((state, idx) => {
   };
 });
 
-
 const Example = React.createClass({
 
   getInitialState() {
     return {
+      disabled: false,
       multiple: false,
       preSelected: false,
       selected: [],
@@ -76,7 +76,7 @@ const Example = React.createClass({
   },
 
   render() {
-    const {multiple, preSelected, selected} = this.state;
+    const {disabled, multiple, preSelected, selected} = this.state;
 
     return (
       <div>
@@ -87,13 +87,12 @@ const Example = React.createClass({
         </div>
         <div className="container">
           <Typeahead
-            selected={selected}
+            disabled={disabled}
             multiple={multiple}
-            onChange={(selected) => {
-              this.setState({selected});
-            }}
+            onChange={(selected) => this.setState({selected})}
             options={states}
             placeholder="Choose a state..."
+            selected={selected}
           />
           <div style={{margin: '20px 0 0 0'}}>
             <h4>Options</h4>
@@ -101,8 +100,20 @@ const Example = React.createClass({
               <div className="checkbox">
                 <label>
                   <input
+                    checked={disabled}
+                    name="disabled"
+                    onChange={this._handleChange}
+                    type="checkbox"
+                  />
+                  Disabled
+                </label>
+              </div>
+              <div className="checkbox">
+                <label>
+                  <input
                     checked={multiple}
-                    onChange={this._handleMultipleChange}
+                    name="multiple"
+                    onChange={this._handleChange}
                     type="checkbox"
                   />
                   Multiple Selections
@@ -112,7 +123,8 @@ const Example = React.createClass({
                 <label>
                   <input
                     checked={preSelected}
-                    onChange={this._handlePreSelectionChange}
+                    name="preSelected"
+                    onChange={this._handleChange}
                     type="checkbox"
                   />
                   Pre-Selected Options
@@ -142,28 +154,25 @@ const Example = React.createClass({
     );
   },
 
-  _handleMultipleChange(e) {
-    let {checked} = e.target;
-    let newSelection = this.state.selected.slice();
-    
-    if (!checked) {
-      newSelection.splice(1, newSelection.length);
+  _handleChange(e) {
+    const {checked, name} = e.target;
+
+    let newState = {};
+    newState[name] = checked;
+
+    switch (name) {
+      case 'preSelected':
+        let count = this.state.multiple ? 4 : 1;
+        newState.selected = checked ? states.slice(0, count) : [];
+        break;
+      case 'multiple':
+        let newSelection = this.state.selected.slice();
+        !checked && newSelection.splice(1, newSelection.length);
+        newState.selected = newSelection || [];
+        break;
     }
 
-    this.setState({
-      multiple: checked,
-      selected: newSelection || [],
-    });
-  },
-
-  _handlePreSelectionChange(e) {
-    let count = this.state.multiple ? 4 : 1;
-    let {checked} = e.target;
-
-    this.setState({
-      preSelected: checked,
-      selected: checked ? states.slice(0, count) : [],
-    });
+    this.setState(newState);
   },
 });
 

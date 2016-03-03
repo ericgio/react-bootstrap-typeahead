@@ -22,6 +22,7 @@ const TokenizerInput = React.createClass({
   displayName: 'TokenizerInput',
 
   propTypes: {
+    disabled: PropTypes.bool,
     labelKey: PropTypes.string,
     /**
      * Input element placeholder text.
@@ -31,7 +32,7 @@ const TokenizerInput = React.createClass({
   },
 
   render() {
-    const {className, placeholder, selected, text} = this.props;
+    const {className, disabled, placeholder, selected, text} = this.props;
 
     return (
       <div
@@ -41,9 +42,10 @@ const TokenizerInput = React.createClass({
           'clearfix',
           className
         )}
+        disabled={disabled}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
-        tabIndex={0}>
+        tabIndex={disabled ? -1 : 0}>
         {selected.map(this._renderToken)}
         <AutosizeInput
           {...this.props}
@@ -51,6 +53,7 @@ const TokenizerInput = React.createClass({
           inputStyle={{
             backgroundColor: 'inherit',
             border: 0,
+            cursor: 'inherit',
             outline: 'none',
             padding: 0,
           }}
@@ -65,10 +68,11 @@ const TokenizerInput = React.createClass({
   },
 
   _renderToken(option, idx) {
-    let {onRemove, labelKey} = this.props;
+    const {disabled, labelKey, onRemove} = this.props;
 
     return (
       <Token
+        disabled={disabled}
         key={idx}
         onRemove={onRemove.bind(null, option)}>
         {option[labelKey]}
@@ -101,7 +105,12 @@ const TokenizerInput = React.createClass({
     this.props.onKeyDown && this.props.onKeyDown(e);
   },
 
-  _handleInputFocus: function(e) {
+  _handleInputFocus: function(e, e2, e3) {
+    if (this.props.disabled) {
+      e.target.blur();
+      return;
+    }
+
     // If the user clicks anywhere inside the tokenizer besides a token,
     // focus the input.
     this.refs.input.focus();

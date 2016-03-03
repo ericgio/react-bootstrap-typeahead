@@ -25,6 +25,11 @@ const Typeahead = React.createClass({
   propTypes: {
     defaultSelected: PropTypes.array,
     /**
+     * Whether to disable the input. Will also disable selections when
+     * `multiple={true}`.
+     */
+    disabled: PropTypes.bool,
+    /**
      * Message to display in the menu if there are no valid results.
      */
     emptyLabel: PropTypes.string,
@@ -117,6 +122,7 @@ const Typeahead = React.createClass({
         className="bootstrap-typeahead open"
         style={{position: 'relative'}}>
         <InputComponent
+          disabled={this.props.disabled}
           filteredOptions={filteredOptions}
           labelKey={labelKey}
           onAdd={this._handleAddOption}

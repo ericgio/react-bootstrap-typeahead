@@ -77,6 +77,7 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
+	      disabled: false,
 	      multiple: false,
 	      preSelected: false,
 	      selected: []
@@ -87,6 +88,7 @@
 	    var _this = this;
 
 	    var _state = this.state;
+	    var disabled = _state.disabled;
 	    var multiple = _state.multiple;
 	    var preSelected = _state.preSelected;
 	    var selected = _state.selected;
@@ -111,13 +113,14 @@
 	        'div',
 	        { className: 'container' },
 	        _react2['default'].createElement(_srcTypeaheadReact2['default'], {
-	          selected: selected,
+	          disabled: disabled,
 	          multiple: multiple,
 	          onChange: function (selected) {
-	            _this.setState({ selected: selected });
+	            return _this.setState({ selected: selected });
 	          },
 	          options: states,
-	          placeholder: 'Choose a state...'
+	          placeholder: 'Choose a state...',
+	          selected: selected
 	        }),
 	        _react2['default'].createElement(
 	          'div',
@@ -137,8 +140,24 @@
 	                'label',
 	                null,
 	                _react2['default'].createElement('input', {
+	                  checked: disabled,
+	                  name: 'disabled',
+	                  onChange: this._handleChange,
+	                  type: 'checkbox'
+	                }),
+	                'Disabled'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'checkbox' },
+	              _react2['default'].createElement(
+	                'label',
+	                null,
+	                _react2['default'].createElement('input', {
 	                  checked: multiple,
-	                  onChange: this._handleMultipleChange,
+	                  name: 'multiple',
+	                  onChange: this._handleChange,
 	                  type: 'checkbox'
 	                }),
 	                'Multiple Selections'
@@ -152,7 +171,8 @@
 	                null,
 	                _react2['default'].createElement('input', {
 	                  checked: preSelected,
-	                  onChange: this._handlePreSelectionChange,
+	                  name: 'preSelected',
+	                  onChange: this._handleChange,
 	                  type: 'checkbox'
 	                }),
 	                'Pre-Selected Options'
@@ -191,29 +211,27 @@
 	    );
 	  },
 
-	  _handleMultipleChange: function _handleMultipleChange(e) {
-	    var checked = e.target.checked;
+	  _handleChange: function _handleChange(e) {
+	    var _e$target = e.target;
+	    var checked = _e$target.checked;
+	    var name = _e$target.name;
 
-	    var newSelection = this.state.selected.slice();
+	    var newState = {};
+	    newState[name] = checked;
 
-	    if (!checked) {
-	      newSelection.splice(1, newSelection.length);
+	    switch (name) {
+	      case 'preSelected':
+	        var count = this.state.multiple ? 4 : 1;
+	        newState.selected = checked ? states.slice(0, count) : [];
+	        break;
+	      case 'multiple':
+	        var newSelection = this.state.selected.slice();
+	        !checked && newSelection.splice(1, newSelection.length);
+	        newState.selected = newSelection || [];
+	        break;
 	    }
 
-	    this.setState({
-	      multiple: checked,
-	      selected: newSelection || []
-	    });
-	  },
-
-	  _handlePreSelectionChange: function _handlePreSelectionChange(e) {
-	    var count = this.state.multiple ? 4 : 1;
-	    var checked = e.target.checked;
-
-	    this.setState({
-	      preSelected: checked,
-	      selected: checked ? states.slice(0, count) : []
-	    });
+	    this.setState(newState);
 	  }
 	});
 
@@ -7274,7 +7292,7 @@
 	  },
 
 	  render: function render() {
-	    return this.props.onRemove ? this._renderRemoveableToken() : this._renderToken();
+	    return this.props.onRemove && !this.props.disabled ? this._renderRemoveableToken() : this._renderToken();
 	  },
 
 	  _renderRemoveableToken: function _renderRemoveableToken() {
@@ -7292,26 +7310,31 @@
 	      this.props.children,
 	      _react2['default'].createElement(
 	        'span',
-	        { className: 'token-close-button', onClick: this._handleRemove },
+	        { className: 'close-button', onClick: this._handleRemove },
 	        '×'
 	      )
 	    );
 	  },
 
 	  _renderToken: function _renderToken() {
-	    var classnames = (0, _classnames2['default'])('token', this.props.className);
+	    var _props = this.props;
+	    var className = _props.className;
+	    var disabled = _props.disabled;
+	    var href = _props.href;
 
-	    if (this.props.href) {
+	    var classnames = (0, _classnames2['default'])('token', className);
+
+	    if (href) {
 	      return _react2['default'].createElement(
 	        'a',
-	        { className: classnames, href: this.props.href },
+	        { className: classnames, disabled: disabled, href: href },
 	        this.props.children
 	      );
 	    }
 
 	    return _react2['default'].createElement(
 	      'div',
-	      { className: classnames },
+	      { className: classnames, disabled: disabled },
 	      this.props.children
 	    );
 	  },
@@ -23911,6 +23934,7 @@
 	  displayName: 'TokenizerInput',
 
 	  propTypes: {
+	    disabled: PropTypes.bool,
 	    labelKey: PropTypes.string,
 	    /**
 	     * Input element placeholder text.
@@ -23922,6 +23946,7 @@
 	  render: function render() {
 	    var _props = this.props;
 	    var className = _props.className;
+	    var disabled = _props.disabled;
 	    var placeholder = _props.placeholder;
 	    var selected = _props.selected;
 	    var text = _props.text;
@@ -23930,15 +23955,17 @@
 	      'div',
 	      {
 	        className: (0, _classnames2['default'])('bootstrap-tokenizer', 'form-control', 'clearfix', className),
+	        disabled: disabled,
 	        onClick: this._handleInputFocus,
 	        onFocus: this._handleInputFocus,
-	        tabIndex: 0 },
+	        tabIndex: disabled ? -1 : 0 },
 	      selected.map(this._renderToken),
 	      _react2['default'].createElement(_reactInputAutosize2['default'], _extends({}, this.props, {
 	        className: 'bootstrap-tokenizer-input',
 	        inputStyle: {
 	          backgroundColor: 'inherit',
 	          border: 0,
+	          cursor: 'inherit',
 	          outline: 'none',
 	          padding: 0
 	        },
@@ -23953,12 +23980,14 @@
 
 	  _renderToken: function _renderToken(option, idx) {
 	    var _props2 = this.props;
-	    var onRemove = _props2.onRemove;
+	    var disabled = _props2.disabled;
 	    var labelKey = _props2.labelKey;
+	    var onRemove = _props2.onRemove;
 
 	    return _react2['default'].createElement(
 	      _TokenReact2['default'],
 	      {
+	        disabled: disabled,
 	        key: idx,
 	        onRemove: onRemove.bind(null, option) },
 	      option[labelKey]
@@ -23986,7 +24015,12 @@
 	    this.props.onKeyDown && this.props.onKeyDown(e);
 	  },
 
-	  _handleInputFocus: function _handleInputFocus(e) {
+	  _handleInputFocus: function _handleInputFocus(e, e2, e3) {
+	    if (this.props.disabled) {
+	      e.target.blur();
+	      return;
+	    }
+
 	    // If the user clicks anywhere inside the tokenizer besides a token,
 	    // focus the input.
 	    this.refs.input.focus();
@@ -24046,6 +24080,11 @@
 
 	  propTypes: {
 	    defaultSelected: PropTypes.array,
+	    /**
+	     * Whether to disable the input. Will also disable selections when
+	     * `multiple={true}`.
+	     */
+	    disabled: PropTypes.bool,
 	    /**
 	     * Message to display in the menu if there are no valid results.
 	     */
@@ -24144,6 +24183,7 @@
 	        className: 'bootstrap-typeahead open',
 	        style: { position: 'relative' } },
 	      _react2['default'].createElement(InputComponent, {
+	        disabled: this.props.disabled,
 	        filteredOptions: filteredOptions,
 	        labelKey: labelKey,
 	        onAdd: this._handleAddOption,
@@ -24324,6 +24364,7 @@
 	  mixins: [_reactOnclickoutside2['default']],
 
 	  propTypes: {
+	    disabled: PropTypes.bool,
 	    filteredOptions: PropTypes.array,
 	    labelKey: PropTypes.string,
 	    onChange: PropTypes.func,
@@ -24338,6 +24379,7 @@
 	        className: (0, _classnames2['default'])('bootstrap-typeahead-input', this.props.className),
 	        onClick: this._handleInputFocus,
 	        onFocus: this._handleInputFocus,
+	        style: { outline: 'none' },
 	        tabIndex: 0 },
 	      _react2['default'].createElement('input', _extends({}, this.props, {
 	        className: (0, _classnames2['default'])('bootstrap-typeahead-input-main', 'form-control', {
@@ -24346,7 +24388,7 @@
 	        onKeyDown: this._handleKeydown,
 	        ref: 'input',
 	        style: {
-	          backgroundColor: 'transparent',
+	          backgroundColor: !this.props.disabled && 'transparent',
 	          display: 'block',
 	          position: 'relative',
 	          zIndex: 1
@@ -24359,6 +24401,7 @@
 	        style: {
 	          borderColor: 'transparent',
 	          bottom: 0,
+	          boxShadow: 'none',
 	          display: 'block',
 	          position: 'absolute',
 	          top: 0,
@@ -24580,7 +24623,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Token */\n.token {\n  background-color: #e7f4ff;\n  border: 0;\n  border-radius: 2px;\n  color: #1f8dd6;\n  display: inline-block;\n  line-height: 1em;\n  padding: 4px 7px;\n  position: relative;\n}\n.token:focus,\n.token-removeable {\n  padding-right: 21px;\n}\n.token-selected {\n  background-color: #1f8dd6;\n  color: #fff;\n  outline: none;\n  text-decoration: none;\n}\n\n.bootstrap-tokenizer .token {\n  margin: 0 3px 3px 0;\n}\n\n.token-close-button {\n  bottom: 0;\n  padding: 3px 7px;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n", ""]);
+	exports.push([module.id, "/* Token */\n.token {\n  background-color: #e7f4ff;\n  border: 0;\n  border-radius: 2px;\n  color: #1f8dd6;\n  display: inline-block;\n  line-height: 1em;\n  padding: 4px 7px;\n  position: relative;\n}\n.token:focus,\n.token-removeable {\n  padding-right: 21px;\n}\n.token-selected {\n  background-color: #1f8dd6;\n  color: #fff;\n  outline: none;\n  text-decoration: none;\n}\n\n.bootstrap-tokenizer .token {\n  margin: 0 3px 3px 0;\n}\n\n.token .close-button {\n  bottom: 0;\n  padding: 3px 7px;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n", ""]);
 
 	// exports
 

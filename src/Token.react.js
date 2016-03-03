@@ -35,7 +35,7 @@ const Token = React.createClass({
   },
 
   render() {
-    return this.props.onRemove ?
+    return this.props.onRemove && !this.props.disabled ?
       this._renderRemoveableToken() :
       this._renderToken();
   },
@@ -52,7 +52,7 @@ const Token = React.createClass({
         onKeyDown={this._handleKeyDown}
         tabIndex={0}>
         {this.props.children}
-        <span className="token-close-button" onClick={this._handleRemove}>
+        <span className="close-button" onClick={this._handleRemove}>
           &times;
         </span>
       </button>
@@ -60,18 +60,19 @@ const Token = React.createClass({
   },
 
   _renderToken() {
-    let classnames = cx('token', this.props.className);
+    const {className, disabled, href} = this.props;
+    let classnames = cx('token', className);
 
-    if (this.props.href) {
+    if (href) {
       return (
-        <a className={classnames} href={this.props.href}>
+        <a className={classnames} disabled={disabled} href={href}>
           {this.props.children}
         </a>
       );
     }
 
     return (
-      <div className={classnames}>
+      <div className={classnames} disabled={disabled}>
         {this.props.children}
       </div>
     );

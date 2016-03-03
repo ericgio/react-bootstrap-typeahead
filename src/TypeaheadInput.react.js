@@ -22,6 +22,7 @@ const TypeaheadInput = React.createClass({
   mixins: [onClickOutside],
 
   propTypes: {
+    disabled: PropTypes.bool,
     filteredOptions: PropTypes.array,
     labelKey: PropTypes.string,
     onChange: PropTypes.func,
@@ -35,6 +36,7 @@ const TypeaheadInput = React.createClass({
         className={cx('bootstrap-typeahead-input', this.props.className)}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
+        style={{outline: 'none'}}
         tabIndex={0}>
         <input
           {...this.props}
@@ -44,7 +46,7 @@ const TypeaheadInput = React.createClass({
           onKeyDown={this._handleKeydown}
           ref="input"
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: !this.props.disabled && 'transparent',
             display: 'block',
             position: 'relative',
             zIndex: 1,
@@ -57,6 +59,7 @@ const TypeaheadInput = React.createClass({
           style={{
             borderColor: 'transparent',
             bottom: 0,
+            boxShadow: 'none',
             display: 'block',
             position: 'absolute',
             top: 0,

@@ -24,7 +24,7 @@
   margin: 0 3px 3px 0;
 }
 
-.token-close-button {
+.token .close-button {
   bottom: 0;
   padding: 3px 7px;
   position: absolute;
