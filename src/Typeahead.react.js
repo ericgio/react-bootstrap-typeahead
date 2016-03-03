@@ -6,9 +6,8 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {findDOMNode} from 'react-dom';
-import {clone, find, head, isEmpty, isEqual} from 'lodash';
-import keyCode from './keyCode';
+import {find, head, isEmpty, isEqual} from 'lodash';
+import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
 const {PropTypes} = React;
@@ -60,7 +59,7 @@ const Typeahead = React.createClass({
     const {defaultSelected, selected} = this.props;
 
     return {
-      focusedMenuItem: null,
+      activeIndex: 0,
       selected: !isEmpty(defaultSelected) ? defaultSelected : selected,
       showMenu: false,
       text: '',
@@ -81,7 +80,7 @@ const Typeahead = React.createClass({
 
   render: function() {
     var {labelKey, multiple, options} = this.props;
-    var {selected, text} = this.state;
+    var {activeIndex, selected, text} = this.state;
 
     // Filter out options that don't match the input string or, if multiple
     // selections are allowed, that have already been selected.
@@ -96,13 +95,12 @@ const Typeahead = React.createClass({
     if (this.state.showMenu) {
       menu =
         <TypeaheadMenu
+          activeIndex={activeIndex}
           emptyLabel={this.props.emptyLabel}
           labelKey={labelKey}
           maxHeight={this.props.maxHeight}
           onClick={this._handleAddOption}
-          onKeyDown={this._handleKeydown}
           options={filteredOptions}
-          ref="menu"
         />;
     }
 
@@ -124,7 +122,7 @@ const Typeahead = React.createClass({
           onAdd={this._handleAddOption}
           onChange={this._handleTextChange}
           onFocus={this._handleFocus}
-          onKeyDown={this._handleKeydown}
+          onKeyDown={this._handleKeydown.bind(null, filteredOptions)}
           onRemove={this._handleRemoveOption}
           placeholder={this.props.placeholder}
           ref="input"
@@ -142,68 +140,49 @@ const Typeahead = React.createClass({
 
   _handleTextChange: function(e) {
     this.setState({
+      activeIndex: 0,
       showMenu: true,
       text: e.target.value,
     });
   },
 
-  _handleKeydown: function(e) {
-    let focusedMenuItem = clone(this.state.focusedMenuItem);
+  _handleKeydown: function(options, e) {
+    let {activeIndex} = this.state;
 
     switch (e.keyCode) {
-      case keyCode.UP:
-      case keyCode.DOWN:
-      case keyCode.TAB:
-        // Prevent page from scrolling when pressing up or down.
+      case BACKSPACE:
+        // Don't let the browser go back.
+        e.stopPropagation();
+        break;
+      case UP:
+        // Prevent page from scrolling.
         e.preventDefault();
 
-        // Look for the menu. It won't be there if there are no results.
-        var menu = this.refs.menu && findDOMNode(this.refs.menu);
-        if (!menu) {
-          return;
+        activeIndex--;
+        if (activeIndex < 0) {
+          activeIndex = options.length - 1;
         }
-
-        if (e.keyCode === keyCode.UP) {
-          if (!focusedMenuItem) {
-            // The input is focused and the user pressed the down key; select
-            // the first menu item.
-            focusedMenuItem = menu.lastChild;
-          } else {
-            focusedMenuItem = focusedMenuItem.previousSibling || null;
-          }
-        } else {
-          // keyCode.DOWN
-          if (!focusedMenuItem) {
-            // The input is focused and the user pressed the down key; select
-            // the first menu item.
-            focusedMenuItem = menu.firstChild;
-          } else {
-            focusedMenuItem = focusedMenuItem.nextSibling || null;
-          }
-        }
-
-        if (focusedMenuItem) {
-          // Select the link in the menu item.
-          focusedMenuItem.firstChild.focus();
-        } else {
-          // If there's no focused item, it means we're at the beginning or the
-          // end of the menu. Focus the input.
-          findDOMNode(this.refs.input).focus();
-        }
-
-        this.setState({focusedMenuItem});
+        this.setState({activeIndex});
         break;
-      case keyCode.ESC:
+      case DOWN:
+      case TAB:
+        // Prevent page from scrolling.
+        e.preventDefault();
+
+        activeIndex++;
+        if (activeIndex === options.length) {
+          activeIndex = 0;
+        }
+        this.setState({activeIndex});
+        break;
+      case ESC:
         // Prevent things like unintentionally closing dialogs.
         e.stopPropagation();
         this._hideDropdown();
         break;
-      case keyCode.RETURN:
-        if (focusedMenuItem) {
-          // Simulate clicking on the anchor.
-          focusedMenuItem.firstChild.click();
-          this._hideDropdown();
-        }
+      case RETURN:
+        let selected = options[activeIndex];
+        selected && this._handleAddOption(selected);
         break;
     }
   },
@@ -227,6 +206,7 @@ const Typeahead = React.createClass({
     }
 
     this.setState({
+      activeIndex: 0,
       selected,
       showMenu: false,
       text,
@@ -240,6 +220,7 @@ const Typeahead = React.createClass({
     selected = selected.filter((option) => !isEqual(option, removedOption));
 
     this.setState({
+      activeIndex: 0,
       selected,
       showMenu: false,
     });
@@ -256,8 +237,8 @@ const Typeahead = React.createClass({
 
   _hideDropdown: function() {
     this.setState({
+      activeIndex: 0,
       showMenu: false,
-      focusedMenuItem: null,
     });
   },
 });

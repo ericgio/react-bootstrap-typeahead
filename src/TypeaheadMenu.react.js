@@ -1,8 +1,10 @@
 'use strict';
 
 import React from 'react';
+import {findDOMNode} from 'react-dom';
 
 import cx from 'classnames';
+
 const {PropTypes} = React;
 
 const Menu = React.createClass({
@@ -20,9 +22,19 @@ const Menu = React.createClass({
 const MenuItem = React.createClass({
   displayName: 'MenuItem',
 
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.active) {
+      findDOMNode(this).firstChild.focus();
+    }
+  },
+
   render: function() {
     return (
-      <li className={cx({'disabled': this.props.disabled})}>
+      <li
+        className={cx({
+          'active': this.props.active,
+          'disabled': this.props.disabled,
+        })}>
         <a href="#" onClick={this._handleClick}>
           {this.props.children}
         </a>
@@ -40,6 +52,7 @@ const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',
 
   propTypes: {
+    activeIndex: PropTypes.number,
     emptyLabel: PropTypes.string,
     labelKey: PropTypes.string.isRequired,
     maxHeight: PropTypes.number,
@@ -54,7 +67,7 @@ const TypeaheadMenu = React.createClass({
   },
 
   render: function() {
-    var {maxHeight, onKeyDown, options} = this.props;
+    var {maxHeight, options} = this.props;
 
     var items = options.length ?
       options.map(this._renderDropdownItem) :
@@ -62,7 +75,6 @@ const TypeaheadMenu = React.createClass({
 
     return (
       <Menu
-        onKeyDown={onKeyDown}
         style={{
           maxHeight: maxHeight + 'px',
           right: 0,
@@ -73,10 +85,13 @@ const TypeaheadMenu = React.createClass({
   },
 
   _renderDropdownItem: function(option, idx) {
+    const {activeIndex, onClick} = this.props;
+
     return (
       <MenuItem
+        active={idx === activeIndex}
         key={idx}
-        onClick={this.props.onClick.bind(null, option)}>
+        onClick={onClick.bind(null, option)}>
         {option[this.props.labelKey]}
       </MenuItem>
     );
