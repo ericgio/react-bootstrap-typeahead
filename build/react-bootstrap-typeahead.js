@@ -46,6 +46,10 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -62,13 +66,9 @@
 	
 	var _TypeaheadMenu2 = _interopRequireDefault(_TypeaheadMenu);
 	
-	var _reactDom = __webpack_require__(6);
-	
 	var _lodash = __webpack_require__(9);
 	
 	var _keyCode = __webpack_require__(2);
-	
-	var _keyCode2 = _interopRequireDefault(_keyCode);
 	
 	var _reactOnclickoutside = __webpack_require__(7);
 	
@@ -122,20 +122,18 @@
 	      selected: []
 	    };
 	  },
-	
 	  getInitialState: function getInitialState() {
 	    var _props = this.props;
 	    var defaultSelected = _props.defaultSelected;
 	    var selected = _props.selected;
 	
 	    return {
-	      focusedMenuItem: null,
+	      activeIndex: 0,
 	      selected: !(0, _lodash.isEmpty)(defaultSelected) ? defaultSelected : selected,
 	      showMenu: false,
 	      text: ''
 	    };
 	  },
-	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if (!(0, _lodash.isEqual)(this.props.selected, nextProps.selected)) {
 	      // If new selections are passed in via props, treat the component as a
@@ -147,13 +145,13 @@
 	      this.setState({ text: '' });
 	    }
 	  },
-	
 	  render: function render() {
 	    var _props2 = this.props;
 	    var labelKey = _props2.labelKey;
 	    var multiple = _props2.multiple;
 	    var options = _props2.options;
 	    var _state = this.state;
+	    var activeIndex = _state.activeIndex;
 	    var selected = _state.selected;
 	    var text = _state.text;
 	
@@ -164,16 +162,15 @@
 	      return !(option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 || multiple && (0, _lodash.find)(selected, option));
 	    });
 	
-	    var menu;
+	    var menu = undefined;
 	    if (this.state.showMenu) {
 	      menu = _react2['default'].createElement(_TypeaheadMenu2['default'], {
+	        activeIndex: activeIndex,
 	        emptyLabel: this.props.emptyLabel,
 	        labelKey: labelKey,
 	        maxHeight: this.props.maxHeight,
 	        onClick: this._handleAddOption,
-	        onKeyDown: this._handleKeydown,
-	        options: filteredOptions,
-	        ref: 'menu'
+	        options: filteredOptions
 	      });
 	    }
 	
@@ -193,7 +190,7 @@
 	      onAdd: this._handleAddOption,
 	      onChange: this._handleTextChange,
 	      onFocus: this._handleFocus,
-	      onKeyDown: this._handleKeydown,
+	      onKeyDown: this._handleKeydown.bind(null, filteredOptions),
 	      onRemove: this._handleRemoveOption,
 	      placeholder: this.props.placeholder,
 	      ref: 'input',
@@ -201,87 +198,64 @@
 	      text: text
 	    }), menu);
 	  },
-	
 	  _handleFocus: function _handleFocus() {
 	    this.setState({ showMenu: true });
 	  },
-	
 	  _handleTextChange: function _handleTextChange(e) {
 	    this.setState({
+	      activeIndex: 0,
 	      showMenu: true,
 	      text: e.target.value
 	    });
 	  },
-	
-	  _handleKeydown: function _handleKeydown(e) {
-	    var focusedMenuItem = (0, _lodash.clone)(this.state.focusedMenuItem);
+	  _handleKeydown: function _handleKeydown(options, e) {
+	    var activeIndex = this.state.activeIndex;
 	
 	    switch (e.keyCode) {
-	      case _keyCode2['default'].UP:
-	      case _keyCode2['default'].DOWN:
-	      case _keyCode2['default'].TAB:
-	        // Prevent page from scrolling when pressing up or down.
+	      case _keyCode.BACKSPACE:
+	        // Don't let the browser go back.
+	        e.stopPropagation();
+	        break;
+	      case _keyCode.UP:
+	        // Prevent page from scrolling.
 	        e.preventDefault();
 	
-	        // Look for the menu. It won't be there if there are no results.
-	        var menu = this.refs.menu && (0, _reactDom.findDOMNode)(this.refs.menu);
-	        if (!menu) {
-	          return;
+	        activeIndex--;
+	        if (activeIndex < 0) {
+	          activeIndex = options.length - 1;
 	        }
-	
-	        if (e.keyCode === _keyCode2['default'].UP) {
-	          if (!focusedMenuItem) {
-	            // The input is focused and the user pressed the down key; select
-	            // the first menu item.
-	            focusedMenuItem = menu.lastChild;
-	          } else {
-	            focusedMenuItem = focusedMenuItem.previousSibling || null;
-	          }
-	        } else {
-	          // keyCode.DOWN
-	          if (!focusedMenuItem) {
-	            // The input is focused and the user pressed the down key; select
-	            // the first menu item.
-	            focusedMenuItem = menu.firstChild;
-	          } else {
-	            focusedMenuItem = focusedMenuItem.nextSibling || null;
-	          }
-	        }
-	
-	        if (focusedMenuItem) {
-	          // Select the link in the menu item.
-	          focusedMenuItem.firstChild.focus();
-	        } else {
-	          // If there's no focused item, it means we're at the beginning or the
-	          // end of the menu. Focus the input.
-	          (0, _reactDom.findDOMNode)(this.refs.input).focus();
-	        }
-	
-	        this.setState({ focusedMenuItem: focusedMenuItem });
+	        this.setState({ activeIndex: activeIndex });
 	        break;
-	      case _keyCode2['default'].ESC:
+	      case _keyCode.DOWN:
+	      case _keyCode.TAB:
+	        // Prevent page from scrolling.
+	        e.preventDefault();
+	
+	        activeIndex++;
+	        if (activeIndex === options.length) {
+	          activeIndex = 0;
+	        }
+	        this.setState({ activeIndex: activeIndex });
+	        break;
+	      case _keyCode.ESC:
 	        // Prevent things like unintentionally closing dialogs.
 	        e.stopPropagation();
 	        this._hideDropdown();
 	        break;
-	      case _keyCode2['default'].RETURN:
-	        if (focusedMenuItem) {
-	          // Simulate clicking on the anchor.
-	          focusedMenuItem.firstChild.click();
-	          this._hideDropdown();
-	        }
+	      case _keyCode.RETURN:
+	        var selected = options[activeIndex];
+	        selected && this._handleAddOption(selected);
 	        break;
 	    }
 	  },
-	
 	  _handleAddOption: function _handleAddOption(selectedOption) {
 	    var _props3 = this.props;
 	    var multiple = _props3.multiple;
 	    var labelKey = _props3.labelKey;
 	    var onChange = _props3.onChange;
 	
-	    var selected;
-	    var text;
+	    var selected = undefined;
+	    var text = undefined;
 	
 	    if (multiple) {
 	      // If multiple selections are allowed, add the new selection to the
@@ -296,6 +270,7 @@
 	    }
 	
 	    this.setState({
+	      activeIndex: 0,
 	      selected: selected,
 	      showMenu: false,
 	      text: text
@@ -303,7 +278,6 @@
 	
 	    onChange && onChange(selected);
 	  },
-	
 	  _handleRemoveOption: function _handleRemoveOption(removedOption) {
 	    var selected = this.state.selected.slice();
 	    selected = selected.filter(function (option) {
@@ -311,6 +285,7 @@
 	    });
 	
 	    this.setState({
+	      activeIndex: 0,
 	      selected: selected,
 	      showMenu: false
 	    });
@@ -324,16 +299,15 @@
 	  handleClickOutside: function handleClickOutside(e) {
 	    this._hideDropdown();
 	  },
-	
 	  _hideDropdown: function _hideDropdown() {
 	    this.setState({
-	      showMenu: false,
-	      focusedMenuItem: null
+	      activeIndex: 0,
+	      showMenu: false
 	    });
 	  }
 	});
 	
-	module.exports = Typeahead;
+	exports['default'] = Typeahead;
 
 /***/ },
 /* 1 */
@@ -780,6 +754,10 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -828,11 +806,9 @@
 	      selected: false
 	    };
 	  },
-	
 	  render: function render() {
 	    return this.props.onRemove ? this._renderRemoveableToken() : this._renderToken();
 	  },
-	
 	  _renderRemoveableToken: function _renderRemoveableToken() {
 	    return _react2['default'].createElement('button', {
 	      className: (0, _classnames2['default'])('token', 'token-removeable', {
@@ -844,7 +820,6 @@
 	      onKeyDown: this._handleKeyDown,
 	      tabIndex: 0 }, this.props.children, _react2['default'].createElement('span', { className: 'token-close-button', onClick: this._handleRemove }, '×'));
 	  },
-	
 	  _renderToken: function _renderToken() {
 	    var classnames = (0, _classnames2['default'])('token', this.props.className);
 	
@@ -854,12 +829,10 @@
 	
 	    return _react2['default'].createElement('div', { className: classnames }, this.props.children);
 	  },
-	
 	  _handleBlur: function _handleBlur(e) {
 	    (0, _reactDom.findDOMNode)(this).blur();
 	    this.setState({ selected: false });
 	  },
-	
 	  _handleKeyDown: function _handleKeyDown(e) {
 	    switch (e.keyCode) {
 	      case _keyCode2['default'].BACKSPACE:
@@ -879,18 +852,16 @@
 	  handleClickOutside: function handleClickOutside(e) {
 	    this._handleBlur();
 	  },
-	
 	  _handleRemove: function _handleRemove(e) {
 	    this.props.onRemove && this.props.onRemove();
 	  },
-	
 	  _handleSelect: function _handleSelect(e) {
 	    e.stopPropagation();
 	    this.setState({ selected: true });
 	  }
 	});
 	
-	module.exports = Token;
+	exports['default'] = Token;
 
 /***/ },
 /* 11 */
@@ -907,6 +878,10 @@
 	    }
 	  }return target;
 	};
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _reactInputAutosize = __webpack_require__(19);
 	
@@ -982,7 +957,6 @@
 	      value: text
 	    })));
 	  },
-	
 	  _renderToken: function _renderToken(option, idx) {
 	    var _props2 = this.props;
 	    var onRemove = _props2.onRemove;
@@ -1021,7 +995,7 @@
 	  }
 	});
 	
-	module.exports = TokenizerInput;
+	exports['default'] = TokenizerInput;
 
 /***/ },
 /* 12 */
@@ -1038,6 +1012,10 @@
 	    }
 	  }return target;
 	};
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _react = __webpack_require__(1);
 	
@@ -1116,7 +1094,6 @@
 	      value: this._getHintText()
 	    }));
 	  },
-	
 	  _getInputValue: function _getInputValue() {
 	    var _props = this.props;
 	    var labelKey = _props.labelKey;
@@ -1125,7 +1102,6 @@
 	
 	    return selected ? selected[labelKey] : text;
 	  },
-	
 	  _getHintText: function _getHintText() {
 	    var _props2 = this.props;
 	    var filteredOptions = _props2.filteredOptions;
@@ -1186,7 +1162,7 @@
 	  }
 	});
 	
-	module.exports = TypeaheadInput;
+	exports['default'] = TypeaheadInput;
 
 /***/ },
 /* 13 */
@@ -1204,9 +1180,15 @@
 	  }return target;
 	};
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(6);
 	
 	var _classnames = __webpack_require__(3);
 	
@@ -1230,10 +1212,18 @@
 	var MenuItem = _react2['default'].createClass({
 	  displayName: 'MenuItem',
 	
-	  render: function render() {
-	    return _react2['default'].createElement('li', { className: (0, _classnames2['default'])({ 'disabled': this.props.disabled }) }, _react2['default'].createElement('a', { href: '#', onClick: this._handleClick }, this.props.children));
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.active) {
+	      (0, _reactDom.findDOMNode)(this).firstChild.focus();
+	    }
 	  },
-	
+	  render: function render() {
+	    return _react2['default'].createElement('li', {
+	      className: (0, _classnames2['default'])({
+	        'active': this.props.active,
+	        'disabled': this.props.disabled
+	      }) }, _react2['default'].createElement('a', { href: '#', onClick: this._handleClick }, this.props.children));
+	  },
 	  _handleClick: function _handleClick(e) {
 	    e.preventDefault();
 	    this.props.onClick && this.props.onClick();
@@ -1244,6 +1234,7 @@
 	  displayName: 'TypeaheadMenu',
 	
 	  propTypes: {
+	    activeIndex: PropTypes.number,
 	    emptyLabel: PropTypes.string,
 	    labelKey: PropTypes.string.isRequired,
 	    maxHeight: PropTypes.number,
@@ -1256,31 +1247,32 @@
 	      maxHeight: 300
 	    };
 	  },
-	
 	  render: function render() {
 	    var _props = this.props;
 	    var maxHeight = _props.maxHeight;
-	    var onKeyDown = _props.onKeyDown;
 	    var options = _props.options;
 	
 	    var items = options.length ? options.map(this._renderDropdownItem) : _react2['default'].createElement(MenuItem, { disabled: true }, this.props.emptyLabel);
 	
 	    return _react2['default'].createElement(Menu, {
-	      onKeyDown: onKeyDown,
 	      style: {
 	        maxHeight: maxHeight + 'px',
 	        right: 0
 	      } }, items);
 	  },
-	
 	  _renderDropdownItem: function _renderDropdownItem(option, idx) {
+	    var _props2 = this.props;
+	    var activeIndex = _props2.activeIndex;
+	    var onClick = _props2.onClick;
+	
 	    return _react2['default'].createElement(MenuItem, {
+	      active: idx === activeIndex,
 	      key: idx,
-	      onClick: this.props.onClick.bind(null, option) }, option[this.props.labelKey]);
+	      onClick: onClick.bind(null, option) }, option[this.props.labelKey]);
 	  }
 	});
 	
-	module.exports = TypeaheadMenu;
+	exports['default'] = TypeaheadMenu;
 
 /***/ },
 /* 14 */
