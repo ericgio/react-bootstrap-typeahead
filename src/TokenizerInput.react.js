@@ -10,8 +10,6 @@ import keyCode from './keyCode';
 
 const {PropTypes} = React;
 
-require('../css/Tokenizer.css');
-
 /**
  * TokenizerInput
  *

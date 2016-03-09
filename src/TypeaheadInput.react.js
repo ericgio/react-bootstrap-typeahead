@@ -9,8 +9,6 @@ import onClickOutside from 'react-onclickoutside';
 
 const {PropTypes} = React;
 
-require('../css/Typeahead.css');
-
 /**
  * TypeaheadInput
  *

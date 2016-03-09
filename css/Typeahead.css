@@ -8,3 +8,13 @@
 .bootstrap-typeahead-input-hint {
   color: #aaa;
 }
+
+.bootstrap-tokenizer {
+  cursor: text;
+  height: auto;
+  padding: 5px 12px 2px 12px;
+}
+
+.bootstrap-tokenizer-input {
+  margin: 1px 0 4px;
+}
