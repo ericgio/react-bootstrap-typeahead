@@ -6,7 +6,7 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {find, head, isEmpty, isEqual} from 'lodash';
+import {find, head, isEmpty, isEqual, uniqueId} from 'lodash';
 import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import onClickOutside from 'react-onclickoutside';
 
@@ -23,6 +23,16 @@ const Typeahead = React.createClass({
   mixins: [onClickOutside],
 
   propTypes: {
+    /**
+     * Allows the creation of new selections on the fly. Note that any new items
+     * will be added to the list of selections, but not the list of original
+     * options unless handled as such by `Typeahead`'s parent.
+     */
+    allowNew: PropTypes.bool,
+    /**
+     * Specify any pre-selected options. Use only if you want the component to
+     * be uncontrolled.
+     */
     defaultSelected: PropTypes.array,
     /**
      * Whether to disable the input. Will also disable selections when
@@ -38,21 +48,37 @@ const Typeahead = React.createClass({
      * will use the `label` key.
      */
     labelKey: PropTypes.string,
+    /**
+     * Maximum height of the dropdown menu, in px.
+     */
     maxHeight: PropTypes.number,
     /**
      * Whether or not multiple selections are allowed.
      */
     multiple: PropTypes.bool,
     /**
+     * Provides the ability to specify a prefix before the user-entered text to
+     * indicate that the selection will be new. No-op unless `allowNew={true}`.
+     */
+    newSelectionPrefix: PropTypes.string,
+    /**
      * Full set of options, including pre-selected options.
      */
     options: PropTypes.array.isRequired,
+    /**
+     * Placeholder text for the input.
+     */
     placeholder: PropTypes.string,
+    /**
+     * The selected option(s) displayed in the input. Use this prop if you want
+     * to control the component via its parent.
+     */
     selected: PropTypes.array,
   },
 
   getDefaultProps() {
     return {
+      allowNew: false,
       defaultSelected: [],
       labelKey: 'label',
       multiple: false,
@@ -95,6 +121,15 @@ const Typeahead = React.createClass({
         multiple && find(selected, option)
       );
     });
+
+    if (!filteredOptions.length && this.props.allowNew) {
+      let newOption = {
+        id: uniqueId('new-id-'),
+        customOption: true,
+      };
+      newOption[labelKey] = text;
+      filteredOptions = [newOption];
+    }
 
     let menu;
     if (this.state.showMenu) {

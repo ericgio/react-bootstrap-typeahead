@@ -76,7 +76,7 @@ const Example = React.createClass({
   },
 
   render() {
-    const {disabled, multiple, preSelected, selected} = this.state;
+    const {allowNew, disabled, multiple, preSelected, selected} = this.state;
 
     return (
       <div>
@@ -87,6 +87,7 @@ const Example = React.createClass({
         </div>
         <div className="container">
           <Typeahead
+            allowNew={allowNew}
             disabled={disabled}
             multiple={multiple}
             onChange={(selected) => this.setState({selected})}
@@ -128,6 +129,17 @@ const Example = React.createClass({
                     type="checkbox"
                   />
                   Pre-Selected Options
+                </label>
+              </div>
+              <div className="checkbox">
+                <label>
+                  <input
+                    checked={allowNew}
+                    name="allowNew"
+                    onChange={this._handleChange}
+                    type="checkbox"
+                  />
+                  Allow Custom Options
                 </label>
               </div>
             </div>

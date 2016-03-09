@@ -56,6 +56,7 @@ const TypeaheadMenu = React.createClass({
     emptyLabel: PropTypes.string,
     labelKey: PropTypes.string.isRequired,
     maxHeight: PropTypes.number,
+    newSelectionPrefix: PropTypes.string,
     options: PropTypes.array,
   },
 
@@ -63,6 +64,7 @@ const TypeaheadMenu = React.createClass({
     return {
       emptyLabel: 'No matches found.',
       maxHeight: 300,
+      newSelectionPrefix: 'New selection:',
     };
   },
 
@@ -85,14 +87,19 @@ const TypeaheadMenu = React.createClass({
   },
 
   _renderDropdownItem(option, idx) {
-    const {activeIndex, onClick} = this.props;
+    const {activeIndex, newSelectionPrefix, onClick} = this.props;
+
+    let label = option[this.props.labelKey];
+    if (option.customOption) {
+      label = `${newSelectionPrefix} ${label}`;
+    }
 
     return (
       <MenuItem
         active={idx === activeIndex}
         key={idx}
         onClick={onClick.bind(null, option)}>
-        {option[this.props.labelKey]}
+        {label}
       </MenuItem>
     );
   },

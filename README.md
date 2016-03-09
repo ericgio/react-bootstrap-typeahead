@@ -75,15 +75,17 @@ An example file is included with the module. Simply open `index.html` in a brows
 ### Props
 Name | Type | Default | Description
 -----|------|---------|------------
+allowNew | boolean | false | Allows the creation of new selections on the fly. Note that any new items will be added to the list of selections, but not the list of original options unless handled as such by `Typeahead`'s parent.
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 labelKey | string | 'label' | Specify which option key to use for display. By default, the selector will use the `label` key.
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
 multiple | boolean | `false` | Whether or not multiple selections are allowed.
+newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 options `required` | array | | Full set of options, including any pre-selected options.
 placeholder | string | | Placeholder text for the input.
-selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via it's parent.
+selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
 
 ## Future Enhancements
 - [ ] Custom `Token` and `MenuItem` rendering
