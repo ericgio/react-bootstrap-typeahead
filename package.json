@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-typeahead",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "React-based typeahead using the Bootstrap theme",
   "main": "index.js",
   "directories": {

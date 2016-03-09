@@ -54,23 +54,23 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _TokenizerInput = __webpack_require__(11);
+	var _TokenizerInput = __webpack_require__(10);
 	
 	var _TokenizerInput2 = _interopRequireDefault(_TokenizerInput);
 	
-	var _TypeaheadInput = __webpack_require__(12);
+	var _TypeaheadInput = __webpack_require__(11);
 	
 	var _TypeaheadInput2 = _interopRequireDefault(_TypeaheadInput);
 	
-	var _TypeaheadMenu = __webpack_require__(13);
+	var _TypeaheadMenu = __webpack_require__(12);
 	
 	var _TypeaheadMenu2 = _interopRequireDefault(_TypeaheadMenu);
 	
-	var _lodash = __webpack_require__(9);
+	var _lodash = __webpack_require__(8);
 	
 	var _keyCode = __webpack_require__(2);
 	
-	var _reactOnclickoutside = __webpack_require__(7);
+	var _reactOnclickoutside = __webpack_require__(5);
 	
 	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
 	
@@ -80,7 +80,7 @@
 	
 	var PropTypes = _react2['default'].PropTypes;
 	
-	__webpack_require__(8);
+	__webpack_require__(16);
 	
 	/**
 	 * Typeahead
@@ -91,7 +91,22 @@
 	  mixins: [_reactOnclickoutside2['default']],
 	
 	  propTypes: {
+	    /**
+	     * Allows the creation of new selections on the fly. Note that any new items
+	     * will be added to the list of selections, but not the list of original
+	     * options unless handled as such by `Typeahead`'s parent.
+	     */
+	    allowNew: PropTypes.bool,
+	    /**
+	     * Specify any pre-selected options. Use only if you want the component to
+	     * be uncontrolled.
+	     */
 	    defaultSelected: PropTypes.array,
+	    /**
+	     * Whether to disable the input. Will also disable selections when
+	     * `multiple={true}`.
+	     */
+	    disabled: PropTypes.bool,
 	    /**
 	     * Message to display in the menu if there are no valid results.
 	     */
@@ -101,21 +116,37 @@
 	     * will use the `label` key.
 	     */
 	    labelKey: PropTypes.string,
+	    /**
+	     * Maximum height of the dropdown menu, in px.
+	     */
 	    maxHeight: PropTypes.number,
 	    /**
 	     * Whether or not multiple selections are allowed.
 	     */
 	    multiple: PropTypes.bool,
 	    /**
+	     * Provides the ability to specify a prefix before the user-entered text to
+	     * indicate that the selection will be new. No-op unless `allowNew={true}`.
+	     */
+	    newSelectionPrefix: PropTypes.string,
+	    /**
 	     * Full set of options, including pre-selected options.
 	     */
 	    options: PropTypes.array.isRequired,
+	    /**
+	     * Placeholder text for the input.
+	     */
 	    placeholder: PropTypes.string,
+	    /**
+	     * The selected option(s) displayed in the input. Use this prop if you want
+	     * to control the component via its parent.
+	     */
 	    selected: PropTypes.array
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
 	    return {
+	      allowNew: false,
 	      defaultSelected: [],
 	      labelKey: 'label',
 	      multiple: false,
@@ -162,6 +193,15 @@
 	      return !(option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 || multiple && (0, _lodash.find)(selected, option));
 	    });
 	
+	    if (!filteredOptions.length && this.props.allowNew) {
+	      var newOption = {
+	        id: (0, _lodash.uniqueId)('new-id-'),
+	        customOption: true
+	      };
+	      newOption[labelKey] = text;
+	      filteredOptions = [newOption];
+	    }
+	
 	    var menu = undefined;
 	    if (this.state.showMenu) {
 	      menu = _react2['default'].createElement(_TypeaheadMenu2['default'], {
@@ -185,6 +225,7 @@
 	    return _react2['default'].createElement('div', {
 	      className: 'bootstrap-typeahead open',
 	      style: { position: 'relative' } }, _react2['default'].createElement(InputComponent, {
+	      disabled: this.props.disabled,
 	      filteredOptions: filteredOptions,
 	      labelKey: labelKey,
 	      onAdd: this._handleAddOption,
@@ -398,6 +439,18 @@
 /* 4 */
 /***/ function(module, exports) {
 
+	module.exports = ReactDOM;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = onClickOutside;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
 		Author Tobias Koppers @sokra
@@ -451,7 +504,7 @@
 
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -705,51 +758,13 @@
 
 
 /***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	module.exports = ReactDOM;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = onClickOutside;
-
-/***/ },
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(16);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(5)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./Typeahead.css", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./Typeahead.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = lodash;
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -762,7 +777,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(6);
+	var _reactDom = __webpack_require__(4);
 	
 	var _classnames = __webpack_require__(3);
 	
@@ -772,7 +787,7 @@
 	
 	var _keyCode2 = _interopRequireDefault(_keyCode);
 	
-	var _reactOnclickoutside = __webpack_require__(7);
+	var _reactOnclickoutside = __webpack_require__(5);
 	
 	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
 	
@@ -780,7 +795,7 @@
 	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 	
-	__webpack_require__(17);
+	__webpack_require__(15);
 	
 	/**
 	 * Token
@@ -807,7 +822,7 @@
 	    };
 	  },
 	  render: function render() {
-	    return this.props.onRemove ? this._renderRemoveableToken() : this._renderToken();
+	    return this.props.onRemove && !this.props.disabled ? this._renderRemoveableToken() : this._renderToken();
 	  },
 	  _renderRemoveableToken: function _renderRemoveableToken() {
 	    return _react2['default'].createElement('button', {
@@ -818,16 +833,21 @@
 	      onClick: this._handleSelect,
 	      onFocus: this._handleSelect,
 	      onKeyDown: this._handleKeyDown,
-	      tabIndex: 0 }, this.props.children, _react2['default'].createElement('span', { className: 'token-close-button', onClick: this._handleRemove }, '×'));
+	      tabIndex: 0 }, this.props.children, _react2['default'].createElement('span', { className: 'close-button', onClick: this._handleRemove }, '×'));
 	  },
 	  _renderToken: function _renderToken() {
-	    var classnames = (0, _classnames2['default'])('token', this.props.className);
+	    var _props = this.props;
+	    var className = _props.className;
+	    var disabled = _props.disabled;
+	    var href = _props.href;
 	
-	    if (this.props.href) {
-	      return _react2['default'].createElement('a', { className: classnames, href: this.props.href }, this.props.children);
+	    var classnames = (0, _classnames2['default'])('token', className);
+	
+	    if (href) {
+	      return _react2['default'].createElement('a', { className: classnames, disabled: disabled, href: href }, this.props.children);
 	    }
 	
-	    return _react2['default'].createElement('div', { className: classnames }, this.props.children);
+	    return _react2['default'].createElement('div', { className: classnames, disabled: disabled }, this.props.children);
 	  },
 	  _handleBlur: function _handleBlur(e) {
 	    (0, _reactDom.findDOMNode)(this).blur();
@@ -864,7 +884,7 @@
 	exports['default'] = Token;
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -883,7 +903,7 @@
 	  value: true
 	});
 	
-	var _reactInputAutosize = __webpack_require__(19);
+	var _reactInputAutosize = __webpack_require__(17);
 	
 	var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 	
@@ -891,7 +911,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Token = __webpack_require__(10);
+	var _Token = __webpack_require__(9);
 	
 	var _Token2 = _interopRequireDefault(_Token);
 	
@@ -899,7 +919,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _reactDom = __webpack_require__(6);
+	var _reactDom = __webpack_require__(4);
 	
 	var _keyCode = __webpack_require__(2);
 	
@@ -911,18 +931,18 @@
 	
 	var PropTypes = _react2['default'].PropTypes;
 	
-	__webpack_require__(18);
-	
 	/**
 	 * TokenizerInput
 	 *
 	 * Accepts multiple selections from a Typeahead component and renders them as
 	 * tokens within an input.
 	 */
+	
 	var TokenizerInput = _react2['default'].createClass({
 	  displayName: 'TokenizerInput',
 	
 	  propTypes: {
+	    disabled: PropTypes.bool,
 	    labelKey: PropTypes.string,
 	    /**
 	     * Input element placeholder text.
@@ -934,19 +954,22 @@
 	  render: function render() {
 	    var _props = this.props;
 	    var className = _props.className;
+	    var disabled = _props.disabled;
 	    var placeholder = _props.placeholder;
 	    var selected = _props.selected;
 	    var text = _props.text;
 	
 	    return _react2['default'].createElement('div', {
 	      className: (0, _classnames2['default'])('bootstrap-tokenizer', 'form-control', 'clearfix', className),
+	      disabled: disabled,
 	      onClick: this._handleInputFocus,
 	      onFocus: this._handleInputFocus,
-	      tabIndex: 0 }, selected.map(this._renderToken), _react2['default'].createElement(_reactInputAutosize2['default'], _extends({}, this.props, {
+	      tabIndex: disabled ? -1 : 0 }, selected.map(this._renderToken), _react2['default'].createElement(_reactInputAutosize2['default'], _extends({}, this.props, {
 	      className: 'bootstrap-tokenizer-input',
 	      inputStyle: {
 	        backgroundColor: 'inherit',
 	        border: 0,
+	        cursor: 'inherit',
 	        outline: 'none',
 	        padding: 0
 	      },
@@ -959,10 +982,12 @@
 	  },
 	  _renderToken: function _renderToken(option, idx) {
 	    var _props2 = this.props;
-	    var onRemove = _props2.onRemove;
+	    var disabled = _props2.disabled;
 	    var labelKey = _props2.labelKey;
+	    var onRemove = _props2.onRemove;
 	
 	    return _react2['default'].createElement(_Token2['default'], {
+	      disabled: disabled,
 	      key: idx,
 	      onRemove: onRemove.bind(null, option) }, option[labelKey]);
 	  },
@@ -988,7 +1013,12 @@
 	    this.props.onKeyDown && this.props.onKeyDown(e);
 	  },
 	
-	  _handleInputFocus: function _handleInputFocus(e) {
+	  _handleInputFocus: function _handleInputFocus(e, e2, e3) {
+	    if (this.props.disabled) {
+	      e.target.blur();
+	      return;
+	    }
+	
 	    // If the user clicks anywhere inside the tokenizer besides a token,
 	    // focus the input.
 	    this.refs.input.focus();
@@ -998,7 +1028,7 @@
 	exports['default'] = TokenizerInput;
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1025,13 +1055,13 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _lodash = __webpack_require__(9);
+	var _lodash = __webpack_require__(8);
 	
 	var _keyCode = __webpack_require__(2);
 	
 	var _keyCode2 = _interopRequireDefault(_keyCode);
 	
-	var _reactOnclickoutside = __webpack_require__(7);
+	var _reactOnclickoutside = __webpack_require__(5);
 	
 	var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
 	
@@ -1041,19 +1071,19 @@
 	
 	var PropTypes = _react2['default'].PropTypes;
 	
-	__webpack_require__(8);
-	
 	/**
 	 * TypeaheadInput
 	 *
 	 * Handles a single selection from the Typeahead component.
 	 */
+	
 	var TypeaheadInput = _react2['default'].createClass({
 	  displayName: 'TypeaheadInput',
 	
 	  mixins: [_reactOnclickoutside2['default']],
 	
 	  propTypes: {
+	    disabled: PropTypes.bool,
 	    filteredOptions: PropTypes.array,
 	    labelKey: PropTypes.string,
 	    onChange: PropTypes.func,
@@ -1066,6 +1096,7 @@
 	      className: (0, _classnames2['default'])('bootstrap-typeahead-input', this.props.className),
 	      onClick: this._handleInputFocus,
 	      onFocus: this._handleInputFocus,
+	      style: { outline: 'none' },
 	      tabIndex: 0 }, _react2['default'].createElement('input', _extends({}, this.props, {
 	      className: (0, _classnames2['default'])('bootstrap-typeahead-input-main', 'form-control', {
 	        'has-selection': !this.props.selected
@@ -1073,7 +1104,7 @@
 	      onKeyDown: this._handleKeydown,
 	      ref: 'input',
 	      style: {
-	        backgroundColor: 'transparent',
+	        backgroundColor: !this.props.disabled && 'transparent',
 	        display: 'block',
 	        position: 'relative',
 	        zIndex: 1
@@ -1085,6 +1116,7 @@
 	      style: {
 	        borderColor: 'transparent',
 	        bottom: 0,
+	        boxShadow: 'none',
 	        display: 'block',
 	        position: 'absolute',
 	        top: 0,
@@ -1165,7 +1197,7 @@
 	exports['default'] = TypeaheadInput;
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1188,7 +1220,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(6);
+	var _reactDom = __webpack_require__(4);
 	
 	var _classnames = __webpack_require__(3);
 	
@@ -1238,13 +1270,15 @@
 	    emptyLabel: PropTypes.string,
 	    labelKey: PropTypes.string.isRequired,
 	    maxHeight: PropTypes.number,
+	    newSelectionPrefix: PropTypes.string,
 	    options: PropTypes.array
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      emptyLabel: 'No matches found.',
-	      maxHeight: 300
+	      maxHeight: 300,
+	      newSelectionPrefix: 'New selection:'
 	    };
 	  },
 	  render: function render() {
@@ -1263,27 +1297,47 @@
 	  _renderDropdownItem: function _renderDropdownItem(option, idx) {
 	    var _props2 = this.props;
 	    var activeIndex = _props2.activeIndex;
+	    var newSelectionPrefix = _props2.newSelectionPrefix;
 	    var onClick = _props2.onClick;
+	
+	    var label = option[this.props.labelKey];
+	    if (option.customOption) {
+	      label = newSelectionPrefix + ' ' + label;
+	    }
 	
 	    return _react2['default'].createElement(MenuItem, {
 	      active: idx === activeIndex,
 	      key: idx,
-	      onClick: onClick.bind(null, option) }, option[this.props.labelKey]);
+	      onClick: onClick.bind(null, option) }, label);
 	  }
 	});
 	
 	exports['default'] = TypeaheadMenu;
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(4)();
+	exports = module.exports = __webpack_require__(6)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "/* Token */\n.token {\n  background-color: #e7f4ff;\n  border: 0;\n  border-radius: 2px;\n  color: #1f8dd6;\n  display: inline-block;\n  line-height: 1em;\n  padding: 4px 7px;\n  position: relative;\n}\n.token:focus,\n.token-removeable {\n  padding-right: 21px;\n}\n.token-selected {\n  background-color: #1f8dd6;\n  color: #fff;\n  outline: none;\n  text-decoration: none;\n}\n\n.bootstrap-tokenizer .token {\n  margin: 0 3px 3px 0;\n}\n\n.token-close-button {\n  bottom: 0;\n  padding: 3px 7px;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n", ""]);
+	exports.push([module.id, "/* Token */\n.token {\n  background-color: #e7f4ff;\n  border: 0;\n  border-radius: 2px;\n  color: #1f8dd6;\n  display: inline-block;\n  line-height: 1em;\n  padding: 4px 7px;\n  position: relative;\n}\n.token:focus,\n.token-removeable {\n  padding-right: 21px;\n}\n.token-selected {\n  background-color: #1f8dd6;\n  color: #fff;\n  outline: none;\n  text-decoration: none;\n}\n\n.bootstrap-tokenizer .token {\n  margin: 0 3px 3px 0;\n}\n\n.token .close-button {\n  bottom: 0;\n  padding: 3px 7px;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(6)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".bootstrap-typeahead .dropdown-menu {\n  overflow: scroll;\n}\n.bootstrap-typeahead .dropdown-menu > li a:focus {\n  outline: none;\n}\n\n.bootstrap-typeahead-input-hint {\n  color: #aaa;\n}\n\n.bootstrap-tokenizer {\n  cursor: text;\n  height: auto;\n  padding: 5px 12px 2px 12px;\n}\n\n.bootstrap-tokenizer-input {\n  margin: 1px 0 4px;\n}\n", ""]);
 	
 	// exports
 
@@ -1292,41 +1346,13 @@
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(4)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".bootstrap-tokenizer {\n  cursor: text;\n  height: auto;\n  padding: 5px 12px 2px 12px;\n}\n\n.bootstrap-tokenizer-input {\n  margin: 1px 0 4px;\n}\n", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(4)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".bootstrap-typeahead .dropdown-menu {\n  overflow: scroll;\n}\n.bootstrap-typeahead .dropdown-menu > li a:focus {\n  outline: none;\n}\n\n.bootstrap-typeahead-input-hint {\n  color: #aaa;\n}\n", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(14);
+	var content = __webpack_require__(13);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(5)(content, {});
+	var update = __webpack_require__(7)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1343,23 +1369,23 @@
 	}
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(15);
+	var content = __webpack_require__(14);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(5)(content, {});
+	var update = __webpack_require__(7)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./Tokenizer.css", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./Tokenizer.css");
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./Typeahead.css", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./Typeahead.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -1369,7 +1395,7 @@
 	}
 
 /***/ },
-/* 19 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = AutosizeInput;
