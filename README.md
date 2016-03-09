@@ -89,5 +89,5 @@ selected | array | `[]` | The selected option(s) displayed in the input. Use thi
 
 ## Future Enhancements
 - [ ] Custom `Token` and `MenuItem` rendering
-- [ ] Create a new data item on the fly
+- [x] Create a new data item on the fly
 - [ ] Test coverage
