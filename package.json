@@ -1,19 +1,16 @@
 {
   "name": "react-bootstrap-typeahead",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "React-based typeahead using the Bootstrap theme",
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "example": "example"
   },
   "scripts": {
-    "dev": "webpack -w --progress --colors",
-    "build-example": "webpack --progress --colors",
-    "build-lib": "babel ./src --out-dir ./lib --presets es2015,react",
-    "build-dev": "webpack --progress --colors --config webpack.build.config.js --output-file react-bootstrap-typeahead.js",
-    "build-prod": "webpack -p --progress --colors --config webpack.build.config.js --output-file react-bootstrap-typeahead.min.js",
-    "build": "npm run lint && npm run build-lib && npm run build-dev && npm run build-prod && npm run build-example",
-    "lint": "eslint src && eslint example/example.js",
+    "dev": "./scripts/buildExample.sh",
+    "build": "./scripts/build.sh",
+    "lint": "eslint .",
+    "prepublish": "npm run lint && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
