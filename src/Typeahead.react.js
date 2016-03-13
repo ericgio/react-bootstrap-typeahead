@@ -222,8 +222,10 @@ const Typeahead = React.createClass({
         this._hideDropdown();
         break;
       case RETURN:
-        let selected = options[activeIndex];
-        selected && this._handleAddOption(selected);
+        if (this.state.showMenu) {
+          let selected = options[activeIndex];
+          selected && this._handleAddOption(selected);
+        }
         break;
     }
   },
