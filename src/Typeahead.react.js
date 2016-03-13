@@ -110,8 +110,8 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {labelKey, multiple, options} = this.props;
-    let {activeIndex, selected, text} = this.state;
+    const {allowNew, labelKey, multiple, options} = this.props;
+    const {activeIndex, selected, showMenu, text} = this.state;
 
     // Filter out options that don't match the input string or, if multiple
     // selections are allowed, that have already been selected.
@@ -122,7 +122,7 @@ const Typeahead = React.createClass({
       );
     });
 
-    if (!filteredOptions.length && this.props.allowNew) {
+    if (!filteredOptions.length && allowNew && !!text.trim()) {
       let newOption = {
         id: uniqueId('new-id-'),
         customOption: true,
@@ -132,7 +132,7 @@ const Typeahead = React.createClass({
     }
 
     let menu;
-    if (this.state.showMenu) {
+    if (showMenu) {
       menu =
         <TypeaheadMenu
           activeIndex={activeIndex}
@@ -145,11 +145,13 @@ const Typeahead = React.createClass({
     }
 
     let InputComponent = TokenizerInput;
+    let inputText = text;
+    let selectedItems = selected.slice();
 
     if (!multiple) {
       InputComponent = TypeaheadInput;
-      selected = head(selected);
-      text = (selected && selected[labelKey]) || text;
+      selectedItems = head(selectedItems);
+      inputText = (selectedItems && selectedItems[labelKey]) || text;
     }
 
     return (
@@ -167,8 +169,8 @@ const Typeahead = React.createClass({
           onRemove={this._handleRemoveOption}
           placeholder={this.props.placeholder}
           ref="input"
-          selected={selected}
-          text={text}
+          selected={selectedItems}
+          text={inputText}
         />
         {menu}
       </div>
