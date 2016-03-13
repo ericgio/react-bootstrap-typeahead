@@ -5,13 +5,13 @@ React-based typeahead component that uses standard the Bootstrap theme for as a 
 [![npm](https://img.shields.io/npm/dm/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
 
 ## Installation
-It is highly recommended that you use npm to install the module in your project and build using a tool like webpack or browserify.
+Use NPM to install the module in your project and build using a tool like webpack or browserify.
 
 ```
 npm install react-bootstrap-typeahead
 ```
 
-If you want to use the component in a standalone manner, both an unminified development version and a minified production version are included in the `build` folder.
+To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
 
 ## Usage
 `react-bootstrap-typeahead` works very much like any standard `input` element. It requires an array of options to display, similar to a `select`. 
@@ -68,7 +68,7 @@ var myData = [
 As far as the source of the data, the component simply handles rendering and selection. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
 
 ## Example
-An example file is included with the module. Simply open `index.html` in a browser. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
+An example file is included with the project. Simply open `index.html` in a browser. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
 ## Documentation
 
