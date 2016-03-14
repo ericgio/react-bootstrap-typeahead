@@ -1,5 +1,6 @@
 'use strict';
 
+import Highlight from 'react-highlighter';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
@@ -8,7 +9,7 @@ import cx from 'classnames';
 const {PropTypes} = React;
 
 const Menu = React.createClass({
-  render: function() {
+  render() {
     return (
       <ul
         {...this.props}
@@ -58,6 +59,7 @@ const TypeaheadMenu = React.createClass({
     maxHeight: PropTypes.number,
     newSelectionPrefix: PropTypes.string,
     options: PropTypes.array,
+    text: PropTypes.string.isRequired,
   },
 
   getDefaultProps() {
@@ -72,7 +74,7 @@ const TypeaheadMenu = React.createClass({
     const {maxHeight, options} = this.props;
 
     let items = options.length ?
-      options.map(this._renderDropdownItem) :
+      options.map(this._renderMenuItem) :
       <MenuItem disabled>{this.props.emptyLabel}</MenuItem>;
 
     return (
@@ -86,20 +88,24 @@ const TypeaheadMenu = React.createClass({
     );
   },
 
-  _renderDropdownItem(option, idx) {
-    const {activeIndex, newSelectionPrefix, onClick} = this.props;
-
-    let label = option[this.props.labelKey];
-    if (option.customOption) {
-      label = `${newSelectionPrefix} ${label}`;
-    }
+  _renderMenuItem(option, idx) {
+    const {
+      activeIndex,
+      labelKey,
+      newSelectionPrefix,
+      onClick,
+      text
+    } = this.props;
 
     return (
       <MenuItem
         active={idx === activeIndex}
         key={idx}
         onClick={onClick.bind(null, option)}>
-        {label}
+        {option.customOption && `${newSelectionPrefix} `}
+        <Highlight search={text}>
+          {option[labelKey]}
+        </Highlight>
       </MenuItem>
     );
   },

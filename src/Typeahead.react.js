@@ -131,6 +131,16 @@ const Typeahead = React.createClass({
       filteredOptions = [newOption];
     }
 
+    let InputComponent = TokenizerInput;
+    let inputText = text;
+    let selectedItems = selected.slice();
+
+    if (!multiple) {
+      InputComponent = TypeaheadInput;
+      selectedItems = head(selectedItems);
+      inputText = (selectedItems && selectedItems[labelKey]) || text;
+    }
+
     let menu;
     if (showMenu) {
       menu =
@@ -141,17 +151,8 @@ const Typeahead = React.createClass({
           maxHeight={this.props.maxHeight}
           onClick={this._handleAddOption}
           options={filteredOptions}
+          text={inputText}
         />;
-    }
-
-    let InputComponent = TokenizerInput;
-    let inputText = text;
-    let selectedItems = selected.slice();
-
-    if (!multiple) {
-      InputComponent = TypeaheadInput;
-      selectedItems = head(selectedItems);
-      inputText = (selectedItems && selectedItems[labelKey]) || text;
     }
 
     return (

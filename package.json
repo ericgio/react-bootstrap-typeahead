@@ -42,6 +42,7 @@
     "lodash": "^3.10.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
+    "react-highlighter": "^0.3.1",
     "react-input-autosize": "^0.6.2",
     "react-onclickoutside": "^4.1.1"
   },
