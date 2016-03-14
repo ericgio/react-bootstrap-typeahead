@@ -1,12 +1,10 @@
 'use strict';
 
 import Highlight from 'react-highlighter';
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 
 import cx from 'classnames';
-
-const {PropTypes} = React;
 
 const Menu = React.createClass({
   render() {

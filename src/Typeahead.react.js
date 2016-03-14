@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
@@ -9,8 +9,6 @@ import TypeaheadMenu from './TypeaheadMenu.react';
 import {find, head, isEmpty, isEqual, uniqueId} from 'lodash';
 import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import onClickOutside from 'react-onclickoutside';
-
-const {PropTypes} = React;
 
 require('../css/Typeahead.css');
 

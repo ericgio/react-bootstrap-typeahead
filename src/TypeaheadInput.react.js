@@ -1,13 +1,11 @@
 'use strict';
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import cx from 'classnames';
 import {head} from 'lodash';
 import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
-
-const {PropTypes} = React;
 
 /**
  * TypeaheadInput

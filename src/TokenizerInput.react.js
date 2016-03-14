@@ -1,14 +1,12 @@
 'use strict';
 
 import AutosizeInput from 'react-input-autosize';
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Token from './Token.react';
 
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
 import keyCode from './keyCode';
-
-const {PropTypes} = React;
 
 /**
  * TokenizerInput

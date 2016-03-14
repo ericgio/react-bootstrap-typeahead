@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 
 import cx from 'classnames';
@@ -25,7 +25,7 @@ const Token = React.createClass({
      * Handler for removing/deleting the token. If not defined, the token will
      * be rendered in a read-only state.
      */
-    onRemove: React.PropTypes.func,
+    onRemove: PropTypes.func,
   },
 
   getInitialState() {
