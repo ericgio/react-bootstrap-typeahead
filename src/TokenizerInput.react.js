@@ -78,7 +78,7 @@ const TokenizerInput = React.createClass({
     );
   },
 
-  _handleKeydown: function(e) {
+  _handleKeydown(e) {
     switch (e.keyCode) {
       case keyCode.LEFT:
       case keyCode.RIGHT:
@@ -103,7 +103,7 @@ const TokenizerInput = React.createClass({
     this.props.onKeyDown && this.props.onKeyDown(e);
   },
 
-  _handleInputFocus: function(e, e2, e3) {
+  _handleInputFocus(e) {
     if (this.props.disabled) {
       e.target.blur();
       return;

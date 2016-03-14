@@ -96,11 +96,11 @@ const TypeaheadInput = React.createClass({
   /**
    * If the containing parent div is focused or clicked, focus the input.
    */
-  _handleInputFocus: function(e) {
+  _handleInputFocus(e) {
     this.refs.input.focus();
   },
 
-  _handleKeydown: function(e) {
+  _handleKeydown(e) {
     const {filteredOptions, onAdd, onRemove, selected} = this.props;
 
     switch (e.keyCode) {
@@ -122,7 +122,7 @@ const TypeaheadInput = React.createClass({
     this.props.onKeyDown && this.props.onKeyDown(e);
   },
 
-  handleClickOutside: function(e) {
+  handleClickOutside(e) {
     // Force blur so that input is no longer the active element. For some
     // reason, it's taking 2 clicks to fully blur the input otherwise.
     this.refs.input.blur();
