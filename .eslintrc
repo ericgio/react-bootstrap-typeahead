@@ -5,10 +5,11 @@
     "react/react-in-jsx-scope": 2,
     "comma-dangle": [2, "always-multiline"],
     "indent": [2, 2, {"SwitchCase": 1}],
+    "linebreak-style": [2, "unix"],
+    "max-len": [2, 80],
     "no-unused-vars": [2, {"args": "none"}],
     "quotes": [2, "single"],
-    "linebreak-style": [2, "unix"],
-    "semi": [2, "always"],
+    "semi": [2, "always"]
   },
   "env": {
     "browser": true,

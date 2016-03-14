@@ -94,7 +94,7 @@ const TypeaheadMenu = React.createClass({
       labelKey,
       newSelectionPrefix,
       onClick,
-      text
+      text,
     } = this.props;
 
     return (
