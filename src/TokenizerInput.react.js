@@ -29,7 +29,7 @@ const TokenizerInput = React.createClass({
 
   getInitialState() {
     return {
-      focused: true,
+      focused: false,
     };
   },
 
