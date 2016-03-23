@@ -1,5 +1,5 @@
 /* Token */
-.token {
+.bootstrap-tokenizer .token {
   background-color: #e7f4ff;
   border: 0;
   border-radius: 2px;
@@ -9,11 +9,11 @@
   padding: 4px 7px;
   position: relative;
 }
-.token:focus,
-.token-removeable {
+.bootstrap-tokenizer .token:focus,
+.bootstrap-tokenizer .token-removeable {
   padding-right: 21px;
 }
-.token-selected {
+.bootstrap-tokenizer .token-selected {
   background-color: #1f8dd6;
   color: #fff;
   outline: none;
@@ -24,7 +24,7 @@
   margin: 0 3px 3px 0;
 }
 
-.token .close-button {
+.bootstrap-tokenizer .token .close-button {
   bottom: 0;
   padding: 3px 7px;
   position: absolute;

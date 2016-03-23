@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Token from '../src/Token.react';
 import Typeahead from '../src/Typeahead.react';
 
 let states = [
@@ -146,22 +145,9 @@ const Example = React.createClass({
           </div>
           <div style={{margin: '20px 0 0 0'}}>
             <h4>Selected State(s)</h4>
-            {selected.map(this._renderSelections)}
+            {selected.map((state) => state.label).join(', ')}
           </div>
         </div>
-      </div>
-    );
-  },
-
-  _renderSelections(state) {
-    return (
-      <div
-        key={state.id}
-        style={{
-          display: 'inline-block',
-          margin: '0 3px 0 0',
-        }}>
-        <Token>{state.label}</Token>
       </div>
     );
   },
