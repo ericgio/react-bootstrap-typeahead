@@ -70,7 +70,7 @@ var myData = [
 As far as the source of the data, the component simply handles rendering and selection. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
 
 ## Example
-An example file is included with the project. Simply open `index.html` in a browser. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
+An example file is included with the NPM module. Simply open `example/index.html` in a browser. If you're using the repository code, you'll need to run `npm run example` to build the example index file. You can then open the HTML file as described above. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
 ## Documentation
 
@@ -88,8 +88,3 @@ newSelectionPrefix | string | 'New selection:' | Provides the ability to specify
 options `required` | array | | Full set of options, including any pre-selected options.
 placeholder | string | | Placeholder text for the input.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
-
-## Future Enhancements
-- [ ] Custom `Token` and `MenuItem` rendering
-- [x] Create a new data item on the fly
-- [ ] Test coverage
