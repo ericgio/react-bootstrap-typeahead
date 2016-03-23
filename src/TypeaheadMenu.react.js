@@ -7,6 +7,8 @@ import {findDOMNode} from 'react-dom';
 import cx from 'classnames';
 
 const Menu = React.createClass({
+  displayName: 'MenuItem',
+
   render() {
     return (
       <ul
@@ -57,6 +59,7 @@ const TypeaheadMenu = React.createClass({
     maxHeight: PropTypes.number,
     newSelectionPrefix: PropTypes.string,
     options: PropTypes.array,
+    renderMenuItem: PropTypes.func,
     text: PropTypes.string.isRequired,
   },
 
@@ -69,10 +72,14 @@ const TypeaheadMenu = React.createClass({
   },
 
   render() {
-    const {maxHeight, options} = this.props;
+    const {maxHeight, options, renderMenuItem} = this.props;
+
+    let renderer =
+      (renderMenuItem && renderMenuItem.bind(null, this.props)) ||
+      this._renderMenuItem;
 
     let items = options.length ?
-      options.map(this._renderMenuItem) :
+      options.map(renderer) :
       <MenuItem disabled>{this.props.emptyLabel}</MenuItem>;
 
     return (
