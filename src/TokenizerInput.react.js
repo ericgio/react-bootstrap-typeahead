@@ -28,15 +28,14 @@ const TokenizerInput = React.createClass({
   },
 
   render() {
-    const {className, disabled, placeholder, selected, text} = this.props;
+    const {disabled, placeholder, selected, text} = this.props;
 
     return (
       <div
         className={cx(
           'bootstrap-tokenizer',
           'form-control',
-          'clearfix',
-          className
+          'clearfix'
         )}
         disabled={disabled}
         onClick={this._handleInputFocus}
@@ -49,6 +48,7 @@ const TokenizerInput = React.createClass({
           inputStyle={{
             backgroundColor: 'inherit',
             border: 0,
+            boxShadow: 'none',
             cursor: 'inherit',
             outline: 'none',
             padding: 0,

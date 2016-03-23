@@ -167,7 +167,6 @@ const Typeahead = React.createClass({
           onKeyDown={this._handleKeydown.bind(null, filteredOptions)}
           onRemove={this._handleRemoveOption}
           placeholder={this.props.placeholder}
-          ref="input"
           selected={selectedItems}
           text={inputText}
         />
