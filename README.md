@@ -69,6 +69,21 @@ var myData = [
 
 As far as the source of the data, the component simply handles rendering and selection. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
 
+## Rendering
+`react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
+
+### `renderMenuItem`
+Allows you to control rendering of the entire menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
+```
+<Typeahead
+  options={options}
+  renderMenuItem={(props, option, idx) => {
+    /* Render your custom menu item here */
+  }}
+/>
+```
+**Note:** Using `renderMenuItem` will completely override the default method, and some behaviors may need to be re-implemented.
+
 ## Example
 An example file is included with the NPM module. Simply open `example/index.html` in a browser. If you're using the repository code, you'll need to run `npm run example` to build the example index file. You can then open the HTML file as described above. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
@@ -87,4 +102,5 @@ multiple | boolean | `false` | Whether or not multiple selections are allowed.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 options `required` | array | | Full set of options, including any pre-selected options.
 placeholder | string | | Placeholder text for the input.
+renderMenuItem | function | | Provides a hook for custom rendering of menu items. Note that this will completely override the default method, and some behaviors may need to be re-implemented.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
