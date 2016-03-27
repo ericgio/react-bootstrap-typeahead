@@ -120,8 +120,18 @@ const Typeahead = React.createClass({
     // Filter out options that don't match the input string or, if multiple
     // selections are allowed, that have already been selected.
     let filteredOptions = options.filter((option) => {
+      let labelString = option[labelKey];
+
+      if (!labelString || typeof labelString !== 'string') {
+        throw new Error(
+          'One or more options does not have a valid label string. Please ' +
+          'check the `labelKey` prop to ensure that it matches the correct ' +
+          'option key and provides a string for filtering and display.'
+        );
+      }
+
       return !(
-        option[labelKey].toLowerCase().indexOf(text.toLowerCase()) === -1 ||
+        labelString.toLowerCase().indexOf(text.toLowerCase()) === -1 ||
         multiple && find(selected, option)
       );
     });
