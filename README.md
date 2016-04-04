@@ -12,6 +12,7 @@ Use NPM to install the module in your project and build using a tool like webpac
 ```
 npm install react-bootstrap-typeahead
 ```
+Browserify users will need to use [browserify-css](https://www.npmjs.com/package/browserify-css) (or something similar) to handle the CSS bundling.
 
 To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
 
