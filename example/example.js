@@ -5,7 +5,10 @@ import ReactDOM from 'react-dom';
 import Typeahead from '../src/Typeahead.react';
 
 import cx from 'classnames';
+import {range} from 'lodash';
 import states from './exampleData';
+
+const CENSUS_URL = 'http://www.census.gov/2010census/data/';
 
 const Checkbox = function(props) {
   return (
@@ -13,6 +16,7 @@ const Checkbox = function(props) {
       <label>
         <input
           checked={props.checked}
+          disabled={props.disabled}
           name={props.name}
           onChange={props.onChange}
           type="checkbox"
@@ -30,6 +34,7 @@ const Example = React.createClass({
       allowNew: false,
       customMenuItem: false,
       disabled: false,
+      largeDataSet: false,
       multiple: false,
       preSelected: false,
       selected: [],
@@ -41,6 +46,7 @@ const Example = React.createClass({
       allowNew,
       customMenuItem,
       disabled,
+      largeDataSet,
       multiple,
       preSelected,
       selected,
@@ -50,6 +56,15 @@ const Example = React.createClass({
     if (customMenuItem) {
       props.renderMenuItem = this._renderMenuItem;
     }
+
+    let bigData = range(0, 2000).map((option) => {
+      return {name: option.toString()};
+    });
+
+    let dataSourceLink =
+      <a href={CENSUS_URL} target="_blank">
+        U.S. Census Bureau
+      </a>;
 
     return (
       <div className="example">
@@ -63,10 +78,12 @@ const Example = React.createClass({
             {...props}
             labelKey="name"
             onChange={(selected) => this.setState({selected})}
-            options={states}
+            options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
           />
-          {this._renderPopulationDataSource()}
+          <div className="example-data-source">
+            Data Source: {dataSourceLink}
+          </div>
           <div className="example-section">
             <h4>Options</h4>
             <div className="form-group">
@@ -90,6 +107,7 @@ const Example = React.createClass({
               />
               <Checkbox
                 checked={customMenuItem}
+                disabled={largeDataSet}
                 label="Custom Menu Item"
                 name="customMenuItem"
                 onChange={this._handleChange}
@@ -100,26 +118,19 @@ const Example = React.createClass({
                 name="allowNew"
                 onChange={this._handleChange}
               />
+              <Checkbox
+                checked={largeDataSet}
+                label="Large Data Set (Paginate Results)"
+                name="largeDataSet"
+                onChange={this._handleChange}
+              />
             </div>
           </div>
           <div className="example-section">
-            <h4>Selected State(s)</h4>
-            {selected.map((state) => state.label).join(', ')}
+            <h4>Selected Options</h4>
+            {selected.map((option) => option.name).join(', ')}
           </div>
         </div>
-      </div>
-    );
-  },
-
-  _renderPopulationDataSource() {
-    let link =
-      <a href="http://www.census.gov/2010census/data/" target="_blank">
-        U.S. Census Bureau
-      </a>;
-
-    return (
-      <div className="example-data-source">
-        Data Source: {link}
       </div>
     );
   },
@@ -144,6 +155,9 @@ const Example = React.createClass({
     newState[name] = checked;
 
     switch (name) {
+      case 'largeDataSet':
+        newState.customMenuItem = false;
+        break;
       case 'preSelected':
         let count = this.state.multiple ? 4 : 1;
         newState.selected = checked ? states.slice(0, count) : [];

@@ -6,19 +6,15 @@ import {findDOMNode} from 'react-dom';
 
 import cx from 'classnames';
 
-const Menu = React.createClass({
-  displayName: 'MenuItem',
-
-  render() {
-    return (
-      <ul
-        {...this.props}
-        className={cx('dropdown-menu', this.props.className)}>
-        {this.props.children}
-      </ul>
-    );
-  },
-});
+const Menu = (props) => {
+  return (
+    <ul
+      {...props}
+      className={cx('dropdown-menu', props.className)}>
+      {props.children}
+    </ul>
+  );
+};
 
 const MenuItem = React.createClass({
   displayName: 'MenuItem',
@@ -35,7 +31,7 @@ const MenuItem = React.createClass({
         className={cx({
           'active': this.props.active,
           'disabled': this.props.disabled,
-        })}>
+        }, this.props.className)}>
         <a href="#" onClick={this._handleClick}>
           {this.props.children}
         </a>
@@ -55,6 +51,7 @@ const TypeaheadMenu = React.createClass({
   propTypes: {
     activeIndex: PropTypes.number,
     emptyLabel: PropTypes.string,
+    initialResultCount: PropTypes.number,
     labelKey: PropTypes.string.isRequired,
     maxHeight: PropTypes.number,
     newSelectionPrefix: PropTypes.string,
@@ -66,29 +63,60 @@ const TypeaheadMenu = React.createClass({
   getDefaultProps() {
     return {
       emptyLabel: 'No matches found.',
+      initialResultCount: 100,
       maxHeight: 300,
       newSelectionPrefix: 'New selection:',
+    };
+  },
+
+  getInitialState() {
+    return {
+      /**
+       * Max number of results to display, for performance reasons. If this
+       * number is less than the number of available results, the user will see
+       * an option to display more results.
+       */
+      resultCount: this.props.initialResultCount,
     };
   },
 
   render() {
     const {maxHeight, options, renderMenuItem} = this.props;
 
-    let renderer =
-      (renderMenuItem && renderMenuItem.bind(null, this.props)) ||
-      this._renderMenuItem;
+    let renderer = this._renderMenuItem;
+    if (renderMenuItem) {
+      renderer = renderMenuItem.bind(null, this.props);
+    }
 
-    let items = options.length ?
-      options.map(renderer) :
+    // Render the max number of results or all results.
+    let results = options.slice(0, this.state.resultCount || options.length);
+    results = results.length ?
+      results.map(renderer) :
       <MenuItem disabled>{this.props.emptyLabel}</MenuItem>;
+
+    // Allow user to see more results, if available.
+    let paginationItem;
+    let separator;
+    if (results.length < options.length) {
+      paginationItem =
+        <MenuItem
+          className="bootstrap-typeahead-menu-paginator"
+          onClick={this._handlePagination}>
+          Display next {this.props.initialResultCount} results...
+        </MenuItem>;
+      separator = <li role="separator" className="divider" />;
+    }
 
     return (
       <Menu
+        className="bootstrap-typeahead-menu"
         style={{
           maxHeight: maxHeight + 'px',
           right: 0,
         }}>
-        {items}
+        {results}
+        {separator}
+        {paginationItem}
       </Menu>
     );
   },
@@ -113,6 +141,11 @@ const TypeaheadMenu = React.createClass({
         </Highlight>
       </MenuItem>
     );
+  },
+
+  _handlePagination(e) {
+    let resultCount = this.state.resultCount + this.props.initialResultCount;
+    this.setState({resultCount});
   },
 });
 

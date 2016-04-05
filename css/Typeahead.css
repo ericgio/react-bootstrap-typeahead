@@ -9,6 +9,10 @@
   color: #aaa;
 }
 
+.bootstrap-typeahead-menu-paginator {
+  text-align: center;
+}
+
 .bootstrap-tokenizer {
   cursor: text;
   height: auto;

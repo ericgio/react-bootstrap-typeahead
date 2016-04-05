@@ -64,6 +64,13 @@ const Typeahead = React.createClass({
      */
     options: PropTypes.array.isRequired,
     /**
+     * For large option sets, initially display a subset of results for improved
+     * performance. If users scroll to the end, the last item will be a link to
+     * display the next set of results. Value represents the number of results
+     * to display. `0` will display all results.
+     */
+    paginateResults: PropTypes.number,
+    /**
      * Placeholder text for the input.
      */
     placeholder: PropTypes.string,
@@ -165,6 +172,7 @@ const Typeahead = React.createClass({
           maxHeight={this.props.maxHeight}
           onClick={this._handleAddOption}
           options={filteredOptions}
+          initialResultCount={this.props.paginateResults}
           renderMenuItem={this.props.renderMenuItem}
           text={inputText}
         />;
