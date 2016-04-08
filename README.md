@@ -73,6 +73,10 @@ As far as the source of the data, the component simply handles rendering and sel
 ## Rendering
 `react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
 
+### `overflowTo`
+By default the dropdown will be sized to match the width of the input element. If you have options that are larger than the input box you may specify `overflowTo="right"` or `overflowTo="left"` which will size the dropdown to match it's content and align to the right or the left of the input box
+
+
 ### `renderMenuItem`
 Allows you to control rendering of the entire menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
 ```
@@ -104,4 +108,5 @@ newSelectionPrefix | string | 'New selection:' | Provides the ability to specify
 options `required` | array | | Full set of options, including any pre-selected options.
 placeholder | string | | Placeholder text for the input.
 renderMenuItem | function | | Provides a hook for custom rendering of menu items. Note that this will completely override the default method, and some behaviors may need to be re-implemented.
+overflowTo | string | none | Sizes the dropdown to match it's content and aligns it to the right or the left of the input box. Use 'left' or 'right'
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
