@@ -7,7 +7,7 @@ import Typeahead from '../src/Typeahead.react';
 import cx from 'classnames';
 import {range} from 'lodash';
 import states from './exampleData';
-
+import longLines from './exampleShakespeare';
 const CENSUS_URL = 'http://www.census.gov/2010census/data/';
 
 const Checkbox = function(props) {
@@ -27,6 +27,23 @@ const Checkbox = function(props) {
   );
 };
 
+const Radio = function(props) {
+  return (
+      <div className="radio-inline">
+        <label>
+          <input
+              checked={props.checked}
+              name={props.name}
+              value={props.value}
+              onChange={props.onChange}
+              type="radio"
+          />
+          {props.label}
+        </label>
+      </div>
+  );
+};
+
 const Example = React.createClass({
 
   getInitialState() {
@@ -38,6 +55,7 @@ const Example = React.createClass({
       multiple: false,
       preSelected: false,
       selected: [],
+      overflowTo: ''
     };
   },
 
@@ -50,6 +68,7 @@ const Example = React.createClass({
       multiple,
       preSelected,
       selected,
+      overflowTo,
     } = this.state;
 
     let props = {allowNew, disabled, multiple, selected};
@@ -130,6 +149,45 @@ const Example = React.createClass({
             <h4>Selected Options</h4>
             {selected.map((option) => option.name).join(', ')}
           </div>
+          <hr />
+          <div className="example-section">
+            <h4>Dropdown overflow</h4>
+            <div>By default the typeahead dropdown will be the same size as the input (text) element. However in some
+            cases you may want it to be larger and dropdown to the right or the left.
+            </div>
+            <div className="overflow-section">
+              <label style={{marginRight: '20px'}}>Overflow to:</label>
+              <Radio
+                  checked={"" === overflowTo}
+                  value=""
+                  label="No overflow"
+                  name="overflowTo"
+                  onChange={this._handleOverflowChange}
+              />
+              <Radio
+                  checked={"right" === overflowTo}
+                  value="right"
+                  label="Right"
+                  name="overflowTo"
+                  onChange={this._handleOverflowChange}
+              />
+              <Radio
+                  checked={"left" === overflowTo}
+                  value="left"
+                  label="Left"
+                  name="overflowTo"
+                  onChange={this._handleOverflowChange}
+              />
+            </div>
+            <div style={{width:'200px'}}>
+              <Typeahead
+                  labelKey="name"
+                  options={longLines}
+                  placeholder="Shakespeare quotes..."
+                  overflowTo={overflowTo}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -169,6 +227,13 @@ const Example = React.createClass({
         break;
     }
 
+    this.setState(newState);
+  },
+
+  _handleOverflowChange(e) {
+    const {name, value} = e.target;
+    let newState = {};
+    newState[name] = value;
     this.setState(newState);
   },
 });

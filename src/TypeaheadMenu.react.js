@@ -58,6 +58,7 @@ const TypeaheadMenu = React.createClass({
     options: PropTypes.array,
     renderMenuItem: PropTypes.func,
     text: PropTypes.string.isRequired,
+    overflowTo: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -66,6 +67,7 @@ const TypeaheadMenu = React.createClass({
       initialResultCount: 100,
       maxHeight: 300,
       newSelectionPrefix: 'New selection:',
+      overflowTo: '',
     };
   },
 
@@ -81,7 +83,7 @@ const TypeaheadMenu = React.createClass({
   },
 
   render() {
-    const {maxHeight, options, renderMenuItem} = this.props;
+    const {maxHeight, options, renderMenuItem, overflowTo} = this.props;
 
     let renderer = this._renderMenuItem;
     if (renderMenuItem) {
@@ -107,13 +109,20 @@ const TypeaheadMenu = React.createClass({
       separator = <li role="separator" className="divider" />;
     }
 
+    let menuClassNames = "bootstrap-typeahead-menu";
+    let menuStyles = { maxHeight: maxHeight + 'px' };
+    if ("left" === overflowTo) {
+      menuClassNames += " dropdown-menu-right"
+    } else if ("right" === overflowTo) {
+      // no op
+    } else {
+      menuStyles['right'] = 0;
+    }
+    console.log(menuStyles);
     return (
       <Menu
-        className="bootstrap-typeahead-menu"
-        style={{
-          maxHeight: maxHeight + 'px',
-          right: 0,
-        }}>
+        className={menuClassNames}
+        style={menuStyles}>
         {results}
         {separator}
         {paginationItem}

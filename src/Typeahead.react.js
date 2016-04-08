@@ -85,6 +85,11 @@ const Typeahead = React.createClass({
      * to control the component via its parent.
      */
     selected: PropTypes.array,
+    /**
+     * Specifies whether the dropdown should align to the left or the right of
+     * the input box. Valid options are 'left' (default) or 'right'
+     */
+    overflowTo: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -94,6 +99,7 @@ const Typeahead = React.createClass({
       labelKey: 'label',
       multiple: false,
       selected: [],
+      overflowTo: '',
     };
   },
 
@@ -121,7 +127,7 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {allowNew, labelKey, multiple, options} = this.props;
+    const {allowNew, labelKey, multiple, options, overflowTo} = this.props;
     const {activeIndex, selected, showMenu, text} = this.state;
 
     // Filter out options that don't match the input string or, if multiple
@@ -175,6 +181,7 @@ const Typeahead = React.createClass({
           initialResultCount={this.props.paginateResults}
           renderMenuItem={this.props.renderMenuItem}
           text={inputText}
+          overflowTo={overflowTo}
         />;
     }
 
