@@ -40,7 +40,7 @@ const Token = React.createClass({
 
   _renderRemoveableToken() {
     return (
-      <button
+      <div
         className={cx('token', 'token-removeable', {
           'token-selected': this.state.selected,
         }, this.props.className)}
@@ -50,10 +50,13 @@ const Token = React.createClass({
         onKeyDown={this._handleKeyDown}
         tabIndex={0}>
         {this.props.children}
-        <span className="close-button" onClick={this._handleRemove}>
+        <span
+          className="close-button"
+          onClick={this._handleRemove}
+          role="button">
           &times;
         </span>
-      </button>
+      </div>
     );
   },
 
