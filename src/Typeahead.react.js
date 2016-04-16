@@ -60,6 +60,14 @@ const Typeahead = React.createClass({
      */
     newSelectionPrefix: PropTypes.string,
     /**
+     * Callback for handling selected values.
+     */
+    onChange: PropTypes.func,
+    /**
+     * Callback for handling changes to the user-input text.
+     */
+    onInputChange: PropTypes.func,
+    /**
      * Full set of options, including pre-selected options.
      */
     options: PropTypes.array.isRequired,
@@ -203,11 +211,14 @@ const Typeahead = React.createClass({
   },
 
   _handleTextChange(e) {
+    let text = e.target.value;
     this.setState({
       activeIndex: 0,
       showMenu: true,
-      text: e.target.value,
+      text,
     });
+
+    this.props.onInputChange && this.props.onInputChange(text);
   },
 
   _handleKeydown(options, e) {
@@ -254,7 +265,7 @@ const Typeahead = React.createClass({
   },
 
   _handleAddOption(selectedOption) {
-    const {multiple, labelKey, onChange} = this.props;
+    const {multiple, labelKey, onChange, onInputChange} = this.props;
 
     let selected;
     let text;
@@ -279,6 +290,7 @@ const Typeahead = React.createClass({
     });
 
     onChange && onChange(selected);
+    onInputChange && onInputChange(text);
   },
 
   _handleRemoveOption(removedOption) {

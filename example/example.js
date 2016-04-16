@@ -24,6 +24,15 @@ const Checkbox = (props) => {
   );
 };
 
+const ExampleSection = (props) => {
+  return (
+    <div className="example-section">
+      <h4>{props.title}</h4>
+      {props.children}
+    </div>
+  );
+};
+
 const Example = React.createClass({
 
   getInitialState() {
@@ -35,6 +44,7 @@ const Example = React.createClass({
       multiple: false,
       preSelected: false,
       selected: [],
+      text: '',
     };
   },
 
@@ -47,6 +57,7 @@ const Example = React.createClass({
       multiple,
       preSelected,
       selected,
+      text,
     } = this.state;
 
     let props = {allowNew, disabled, multiple, selected};
@@ -71,11 +82,12 @@ const Example = React.createClass({
             {...props}
             labelKey="name"
             onChange={(selected) => this.setState({selected})}
+            onInputChange={(text) => this.setState({text})}
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
           />
           <div className="example-section">
-            <h4>Options</h4>
+            <h4>Typeahead Options</h4>
             <div className="form-group">
               <Checkbox
                 checked={disabled}
@@ -116,10 +128,12 @@ const Example = React.createClass({
               />
             </div>
           </div>
-          <div className="example-section">
-            <h4>Selected Options</h4>
+          <ExampleSection title="Selected Items">
             {selected.map((option) => option.name).join(', ')}
-          </div>
+          </ExampleSection>
+          <ExampleSection title="Input Text">
+            {text}
+          </ExampleSection>
         </div>
       </div>
     );
