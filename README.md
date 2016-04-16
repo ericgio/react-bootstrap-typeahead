@@ -106,6 +106,8 @@ labelKey | string | 'label' | Specify which option key to use for display. By de
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
 multiple | boolean | `false` | Whether or not multiple selections are allowed.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
+onChange | function | | Callback for handling selected values.
+onInputChange | function | | Callback for handling changes to the user-input text.
 options `required` | array | | Full set of options, including any pre-selected options.
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
