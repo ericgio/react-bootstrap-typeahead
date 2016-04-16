@@ -81,7 +81,7 @@ const TypeaheadMenu = React.createClass({
   },
 
   render() {
-    const {maxHeight, options, renderMenuItem} = this.props;
+    const {maxHeight, options} = this.props;
 
     // Render the max number of results or all results.
     let results = options.slice(0, this.state.resultCount || options.length);
@@ -99,7 +99,7 @@ const TypeaheadMenu = React.createClass({
           onClick={this._handlePagination}>
           Display next {this.props.initialResultCount} results...
         </MenuItem>;
-      separator = <li role="separator" className="divider" />;
+      separator = <li className="divider" role="separator" />;
     }
 
     return (

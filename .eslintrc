@@ -1,16 +1,4 @@
 {
-  "rules": {
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/react-in-jsx-scope": 2,
-    "comma-dangle": [2, "always-multiline"],
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "linebreak-style": [2, "unix"],
-    "max-len": [2, 80],
-    "no-unused-vars": [2, {"args": "none"}],
-    "quotes": [2, "single"],
-    "semi": [2, "always"]
-  },
   "env": {
     "browser": true,
     "commonjs": true,
@@ -18,18 +6,47 @@
   },
   "extends": "eslint:recommended",
   "ecmaFeatures": {
-    "arrowFunctions": true,
-    "blockBindings": true,
-    "classes": true,
-    "destructuring": true,
     "jsx": true,
-    "experimentalObjectRestSpread": true,
-    "modules": true,
-    "spread": true,
-    "templateStrings": true,
   },
   "globals": {},
+  "parser": "babel-eslint",
   "plugins": [
     "react"
-  ]
+  ],
+  "rules": {
+    "array-bracket-spacing": [1, "never"],
+    "comma-spacing": [1, {"before": false, "after": true}],
+    "computed-property-spacing": [1, "never"],
+    "comma-dangle": [2, "always-multiline"],
+    "eqeqeq": [2, "allow-null"],
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "jsx-quotes": [1, "prefer-double"],
+    "key-spacing": [1, {"beforeColon": false, "afterColon": true}],
+    "linebreak-style": [2, "unix"],
+    "max-len": [1, 80, 2, {
+      "ignorePattern": "\\s.+=\\s*require\\s*\\(",
+      "ignoreUrls": true
+    }],
+    "no-case-declarations": 0,
+    "no-debugger": 2,
+    "no-undef": 2,
+    "no-unreachable": 2,
+    "no-unused-vars": [2, {"args": "none"}],
+    "object-curly-spacing": [1, "never"],
+    "quotes": [2, "single", "avoid-escape"],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+    "react/jsx-closing-bracket-location": [1, {
+      "nonEmpty": "after-props",
+      "selfClosing": "tag-aligned"
+    }],
+    "react/jsx-no-undef": 2,
+    "react/jsx-key": 1,
+    "react/jsx-sort-props": [1, {"ignoreCase": true}],
+    "react/no-direct-mutation-state": 2,
+    "semi": [2, "always"],
+    "space-before-function-paren": [1, "never"],
+    "space-in-parens": [1, "never"],
+  },
 }

@@ -4,13 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Typeahead from '../src/Typeahead.react';
 
-import cx from 'classnames';
 import {range} from 'lodash';
 import states from './exampleData';
 
-const CENSUS_URL = 'http://www.census.gov/2010census/data/';
-
-const Checkbox = function(props) {
+const Checkbox = (props) => {
   return (
     <div className="checkbox">
       <label>

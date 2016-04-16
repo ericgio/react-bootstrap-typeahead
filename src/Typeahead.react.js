@@ -166,11 +166,11 @@ const Typeahead = React.createClass({
         <TypeaheadMenu
           activeIndex={activeIndex}
           emptyLabel={this.props.emptyLabel}
+          initialResultCount={this.props.paginateResults}
           labelKey={labelKey}
           maxHeight={this.props.maxHeight}
           onClick={this._handleAddOption}
           options={filteredOptions}
-          initialResultCount={this.props.paginateResults}
           renderMenuItemChildren={this.props.renderMenuItemChildren}
           text={inputText}
         />;
