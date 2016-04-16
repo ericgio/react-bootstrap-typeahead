@@ -13,9 +13,9 @@ Use NPM to install the module in your project and build using a tool like webpac
 npm install react-bootstrap-typeahead
 ```
 
-To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
+Make sure you have the appropriate CSS loaders ([See notes below](#css)).
 
-Make sure you have the appropriate CSS loaders ([See CSS notes below](#css)).
+To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
 
 ## Usage
 `react-bootstrap-typeahead` works very much like any standard `input` element. It requires an array of options to display, similar to a `select`. 
