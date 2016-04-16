@@ -56,7 +56,7 @@ const TypeaheadMenu = React.createClass({
     maxHeight: PropTypes.number,
     newSelectionPrefix: PropTypes.string,
     options: PropTypes.array,
-    renderMenuItem: PropTypes.func,
+    renderMenuItemChildren: PropTypes.func,
     text: PropTypes.string.isRequired,
   },
 
@@ -83,15 +83,10 @@ const TypeaheadMenu = React.createClass({
   render() {
     const {maxHeight, options, renderMenuItem} = this.props;
 
-    let renderer = this._renderMenuItem;
-    if (renderMenuItem) {
-      renderer = renderMenuItem.bind(null, this.props);
-    }
-
     // Render the max number of results or all results.
     let results = options.slice(0, this.state.resultCount || options.length);
     results = results.length ?
-      results.map(renderer) :
+      results.map(this._renderMenuItem) :
       <MenuItem disabled>{this.props.emptyLabel}</MenuItem>;
 
     // Allow user to see more results, if available.
@@ -127,20 +122,26 @@ const TypeaheadMenu = React.createClass({
       labelKey,
       newSelectionPrefix,
       onClick,
+      renderMenuItemChildren,
       text,
     } = this.props;
 
-    return (
-      <MenuItem
-        active={idx === activeIndex}
-        key={idx}
-        onClick={onClick.bind(null, option)}>
+    let menuItemProps = {
+      active: idx === activeIndex,
+      key: idx,
+      onClick: onClick.bind(null, option),
+    };
+
+    return renderMenuItemChildren ?
+      <MenuItem {...menuItemProps}>
+        {renderMenuItemChildren(this.props, option, idx)}
+      </MenuItem> :
+      <MenuItem {...menuItemProps}>
         {option.customOption && `${newSelectionPrefix} `}
         <Highlight search={text}>
           {option[labelKey]}
         </Highlight>
-      </MenuItem>
-    );
+      </MenuItem>;
   },
 
   _handlePagination(e) {

@@ -32,7 +32,7 @@ const Example = React.createClass({
   getInitialState() {
     return {
       allowNew: false,
-      customMenuItem: false,
+      customMenuItemChildren: false,
       disabled: false,
       largeDataSet: false,
       multiple: false,
@@ -44,7 +44,7 @@ const Example = React.createClass({
   render() {
     const {
       allowNew,
-      customMenuItem,
+      customMenuItemChildren,
       disabled,
       largeDataSet,
       multiple,
@@ -53,18 +53,14 @@ const Example = React.createClass({
     } = this.state;
 
     let props = {allowNew, disabled, multiple, selected};
-    if (customMenuItem) {
-      props.renderMenuItem = this._renderMenuItem;
+
+    if (customMenuItemChildren) {
+      props.renderMenuItemChildren = this._renderMenuItemChildren;
     }
 
     let bigData = range(0, 2000).map((option) => {
       return {name: option.toString()};
     });
-
-    let dataSourceLink =
-      <a href={CENSUS_URL} target="_blank">
-        U.S. Census Bureau
-      </a>;
 
     return (
       <div className="example">
@@ -81,46 +77,43 @@ const Example = React.createClass({
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
           />
-          <div className="example-data-source">
-            Data Source: {dataSourceLink}
-          </div>
           <div className="example-section">
             <h4>Options</h4>
             <div className="form-group">
               <Checkbox
                 checked={disabled}
-                label="Disabled"
+                label="Disable input"
                 name="disabled"
                 onChange={this._handleChange}
               />
               <Checkbox
                 checked={multiple}
-                label="Multiple Selections"
+                label="Allow multiple selections (tokenizer)"
                 name="multiple"
                 onChange={this._handleChange}
               />
               <Checkbox
                 checked={preSelected}
-                label="Pre-Selected Options"
+                label="Pre-populate the input"
                 name="preSelected"
                 onChange={this._handleChange}
               />
               <Checkbox
-                checked={customMenuItem}
+                checked={customMenuItemChildren}
                 disabled={largeDataSet}
-                label="Custom Menu Item"
-                name="customMenuItem"
+                label="Customize menu item children"
+                name="customMenuItemChildren"
                 onChange={this._handleChange}
               />
               <Checkbox
                 checked={allowNew}
-                label="Allow Custom Options"
+                label="Create new options on the fly"
                 name="allowNew"
                 onChange={this._handleChange}
               />
               <Checkbox
                 checked={largeDataSet}
-                label="Large Data Set (Paginate Results)"
+                label="Paginate large data sets"
                 name="largeDataSet"
                 onChange={this._handleChange}
               />
@@ -135,16 +128,12 @@ const Example = React.createClass({
     );
   },
 
-  _renderMenuItem(props, option, idx) {
+  _renderMenuItemChildren(props, option, idx) {
     return (
-      <li className={cx({'active': idx === props.activeIndex})} key={idx}>
-        <a href="#" onClick={props.onClick.bind(null, option)}>
-          <strong>{option.name}</strong>
-          <div>
-            Population: {option.population.toLocaleString()}
-          </div>
-        </a>
-      </li>
+      <div>
+        <strong>{option.name}</strong>
+        <div>Population: {option.population.toLocaleString()}</div>
+      </div>
     );
   },
 
@@ -156,7 +145,7 @@ const Example = React.createClass({
 
     switch (name) {
       case 'largeDataSet':
-        newState.customMenuItem = false;
+        newState.customMenuItemChildren = false;
         break;
       case 'preSelected':
         let count = this.state.multiple ? 4 : 1;

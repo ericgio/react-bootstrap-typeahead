@@ -12,9 +12,10 @@ Use NPM to install the module in your project and build using a tool like webpac
 ```
 npm install react-bootstrap-typeahead
 ```
-Browserify users will need to use [browserify-css](https://www.npmjs.com/package/browserify-css) (or something similar) to handle the CSS bundling.
 
 To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
+
+Make sure you have the appropriate CSS loaders ([See CSS notes below](#css)).
 
 ## Usage
 `react-bootstrap-typeahead` works very much like any standard `input` element. It requires an array of options to display, similar to a `select`. 
@@ -73,17 +74,21 @@ As far as the source of the data, the component simply handles rendering and sel
 ## Rendering
 `react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
 
-### `renderMenuItem`
-Allows you to control rendering of the entire menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
+### `renderMenuItemChildren`
+Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
 ```
 <Typeahead
   options={options}
-  renderMenuItem={(props, option, idx) => {
+  renderMenuItemChildren={(props, option, idx) => {
     /* Render your custom menu item here */
   }}
 />
 ```
-**Note:** Using `renderMenuItem` will completely override the default method, and some behaviors may need to be re-implemented.
+
+## CSS
+The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. There is a small amount, which is bundled with the JS files.
+
+Browserify users will need to use [browserify-css](https://www.npmjs.com/package/browserify-css) (or something similar) to handle the CSS bundling, while Webpack user will need to use [css-loader](https://www.npmjs.com/package/css-loader) and/or [style-loader](https://www.npmjs.com/package/style-loader) in their webpack config file.
 
 ## Example
 An example file is included with the NPM module. Simply open `example/index.html` in a browser. If you're using the repository code, you'll need to run `npm run example` to build the example index file. You can then open the HTML file as described above. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
@@ -103,5 +108,5 @@ multiple | boolean | `false` | Whether or not multiple selections are allowed.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 options `required` | array | | Full set of options, including any pre-selected options.
 placeholder | string | | Placeholder text for the input.
-renderMenuItem | function | | Provides a hook for custom rendering of menu items. Note that this will completely override the default method, and some behaviors may need to be re-implemented.
+renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.

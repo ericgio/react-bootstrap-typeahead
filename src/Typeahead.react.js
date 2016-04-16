@@ -75,11 +75,9 @@ const Typeahead = React.createClass({
      */
     placeholder: PropTypes.string,
     /**
-     * Provides a hook for custom rendering of menu items. Note that this will
-     * completely override the default method, and some behaviors may need to be
-     * re-implemented.
+     * Provides a hook for customized rendering of menu item contents.
      */
-    renderMenuItem: PropTypes.func,
+    renderMenuItemChildren: PropTypes.func,
     /**
      * The selected option(s) displayed in the input. Use this prop if you want
      * to control the component via its parent.
@@ -173,7 +171,7 @@ const Typeahead = React.createClass({
           onClick={this._handleAddOption}
           options={filteredOptions}
           initialResultCount={this.props.paginateResults}
-          renderMenuItem={this.props.renderMenuItem}
+          renderMenuItemChildren={this.props.renderMenuItemChildren}
           text={inputText}
         />;
     }
