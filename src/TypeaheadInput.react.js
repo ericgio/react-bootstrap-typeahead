@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import cx from 'classnames';
 import {head} from 'lodash';
 import keyCode from './keyCode';
-import onClickOutside from 'react-onclickoutside';
+import listensToClickOutside from 'react-onclickoutside/decorator';
 
 /**
  * TypeaheadInput
@@ -14,8 +14,6 @@ import onClickOutside from 'react-onclickoutside';
  */
 const TypeaheadInput = React.createClass({
   displayName: 'TypeaheadInput',
-
-  mixins: [onClickOutside],
 
   propTypes: {
     disabled: PropTypes.bool,
@@ -127,4 +125,4 @@ const TypeaheadInput = React.createClass({
   },
 });
 
-export default TypeaheadInput;
+export default listensToClickOutside(TypeaheadInput);

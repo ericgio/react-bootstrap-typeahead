@@ -5,7 +5,7 @@ import {findDOMNode} from 'react-dom';
 
 import cx from 'classnames';
 import keyCode from './keyCode';
-import onClickOutside from 'react-onclickoutside';
+import listensToClickOutside from 'react-onclickoutside/decorator';
 
 require('../css/Token.css');
 
@@ -17,8 +17,6 @@ require('../css/Token.css');
  */
 const Token = React.createClass({
   displayName: 'Token',
-
-  mixins: [onClickOutside],
 
   propTypes: {
     /**
@@ -113,4 +111,4 @@ const Token = React.createClass({
   },
 });
 
-export default Token;
+export default listensToClickOutside(Token);
