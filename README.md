@@ -13,7 +13,7 @@ Use NPM to install the module in your project and build using a tool like webpac
 npm install react-bootstrap-typeahead
 ```
 
-Make sure you have the appropriate CSS loaders ([See notes below](#css)).
+Make sure you have the appropriate CSS loaders ([see notes below](#css)).
 
 To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
 
@@ -80,7 +80,7 @@ Allows you to control the contents of a menu item. Your function will be passed 
 <Typeahead
   options={options}
   renderMenuItemChildren={(props, option, idx) => {
-    /* Render your custom menu item here */
+    /* Render custom contents here */
   }}
 />
 ```
