@@ -1,6 +1,10 @@
 .bootstrap-typeahead .dropdown-menu {
   overflow: scroll;
 }
+.bootstrap-typeahead .dropdown-menu > li a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .bootstrap-typeahead .dropdown-menu > li a:focus {
   outline: none;
 }
