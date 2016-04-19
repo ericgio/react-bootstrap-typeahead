@@ -228,24 +228,18 @@ const Typeahead = React.createClass({
         e.stopPropagation();
         break;
       case UP:
-        // Prevent page from scrolling.
-        e.preventDefault();
-
-        activeIndex--;
-        if (activeIndex < 0) {
-          activeIndex = options.length - 1;
-        }
-        this.setState({activeIndex});
-        break;
       case DOWN:
       case TAB:
         // Prevent page from scrolling.
         e.preventDefault();
 
-        activeIndex++;
-        if (activeIndex === options.length) {
-          activeIndex = 0;
-        }
+        // Increment or decrement index based on user keystroke.
+        activeIndex +=
+          e.keyCode === UP || (e.keyCode === TAB && e.shiftKey) ? -1 : 1;
+
+        // If we've reached the end, go back to the beginning or vice-versa.
+        activeIndex = (activeIndex + options.length) % options.length;
+
         this.setState({activeIndex});
         break;
       case ESC:
