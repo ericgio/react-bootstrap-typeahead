@@ -6,11 +6,12 @@
   color: #1f8dd6;
   display: inline-block;
   line-height: 1em;
+  margin: 0 3px 3px 0;
   padding: 4px 7px;
   position: relative;
 }
-.bootstrap-tokenizer .token:focus,
 .bootstrap-tokenizer .token-removeable {
+  cursor: pointer;
   padding-right: 21px;
 }
 .bootstrap-tokenizer .token-selected {
@@ -18,10 +19,6 @@
   color: #fff;
   outline: none;
   text-decoration: none;
-}
-
-.bootstrap-tokenizer .token {
-  margin: 0 3px 3px 0;
 }
 
 .bootstrap-tokenizer .token .close-button {
