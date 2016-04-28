@@ -18,7 +18,7 @@ const Checkbox = (props) => {
           onChange={props.onChange}
           type="checkbox"
         />
-        {props.label}
+        {props.children || props.label}
       </label>
     </div>
   );
@@ -66,9 +66,7 @@ const Example = React.createClass({
       props.renderMenuItemChildren = this._renderMenuItemChildren;
     }
 
-    let bigData = range(0, 2000).map((option) => {
-      return {name: option.toString()};
-    });
+    let bigData = range(0, 2000).map((option) => ({name: option.toString()}));
 
     return (
       <div className="example">
@@ -86,53 +84,52 @@ const Example = React.createClass({
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
           />
-          <div className="example-section">
-            <h4>Typeahead Options</h4>
+          <ExampleSection title="Typeahead Options">
             <div className="form-group">
               <Checkbox
                 checked={disabled}
-                label="Disable input"
                 name="disabled"
-                onChange={this._handleChange}
-              />
+                onChange={this._handleChange}>
+                Disable input
+              </Checkbox>
               <Checkbox
                 checked={multiple}
-                label="Allow multiple selections (tokenizer)"
                 name="multiple"
-                onChange={this._handleChange}
-              />
+                onChange={this._handleChange}>
+                Allow multiple selections (tokenizer)
+              </Checkbox>
               <Checkbox
                 checked={preSelected}
-                label="Pre-populate the input"
                 name="preSelected"
-                onChange={this._handleChange}
-              />
+                onChange={this._handleChange}>
+                Pre-populate the input
+              </Checkbox>
               <Checkbox
                 checked={customMenuItemChildren}
                 disabled={largeDataSet}
-                label="Customize menu item children"
                 name="customMenuItemChildren"
-                onChange={this._handleChange}
-              />
+                onChange={this._handleChange}>
+                Customize menu item children
+              </Checkbox>
               <Checkbox
                 checked={allowNew}
-                label="Create new options on the fly"
                 name="allowNew"
-                onChange={this._handleChange}
-              />
+                onChange={this._handleChange}>
+                Create new options on the fly
+              </Checkbox>
               <Checkbox
                 checked={largeDataSet}
-                label="Paginate large data sets"
                 name="largeDataSet"
-                onChange={this._handleChange}
-              />
+                onChange={this._handleChange}>
+                Paginate large data sets
+              </Checkbox>
             </div>
-          </div>
+          </ExampleSection>
           <ExampleSection title="Selected Items">
-            {selected.map((option) => option.name).join(', ')}
+            {this._renderSelectedItems(selected)}
           </ExampleSection>
           <ExampleSection title="Input Text">
-            {text}
+            {text || <div className="text-muted">No text.</div>}
           </ExampleSection>
         </div>
       </div>
@@ -140,12 +137,18 @@ const Example = React.createClass({
   },
 
   _renderMenuItemChildren(props, option, idx) {
-    return (
-      <div>
-        <strong>{option.name}</strong>
-        <div>Population: {option.population.toLocaleString()}</div>
-      </div>
-    );
+    return [
+      <strong key="name">{option.name}</strong>,
+      <div key="population">
+        Population: {option.population.toLocaleString()}
+      </div>,
+    ];
+  },
+
+  _renderSelectedItems(selected) {
+    return selected && selected.length ?
+      selected.map((option) => option.name).join(', ') :
+      <div className="text-muted">No items selected.</div>;
   },
 
   _handleChange(e) {
