@@ -1,5 +1,5 @@
 .bootstrap-typeahead .dropdown-menu {
-  overflow: scroll;
+  overflow: auto;
 }
 .bootstrap-typeahead .dropdown-menu > li a {
   overflow: hidden;
