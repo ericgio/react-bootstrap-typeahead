@@ -20,6 +20,13 @@ const Typeahead = React.createClass({
 
   propTypes: {
     /**
+     * Specify menu alignment. The default value is `justify`, which makes the
+     * menu as wide as the input and truncates long values. Specifying `left`
+     * or `right` will align the menu to that side and the width will be
+     * determined by the length of menu item values.
+     */
+    align: PropTypes.oneOf(['justify', 'left', 'right']),
+    /**
      * Allows the creation of new selections on the fly. Note that any new items
      * will be added to the list of selections, but not the list of original
      * options unless handled as such by `Typeahead`'s parent.
@@ -171,6 +178,7 @@ const Typeahead = React.createClass({
       menu =
         <TypeaheadMenu
           activeIndex={activeIndex}
+          align={this.props.align}
           emptyLabel={this.props.emptyLabel}
           initialResultCount={this.props.paginateResults}
           labelKey={labelKey}
@@ -299,7 +307,7 @@ const Typeahead = React.createClass({
   },
 
   /**
-   * From `onClickOutside` mixin.
+   * From `listensToClickOutside` HOC.
    */
   handleClickOutside(e) {
     this._hideDropdown();

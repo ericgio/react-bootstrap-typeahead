@@ -37,6 +37,8 @@ const Example = React.createClass({
 
   getInitialState() {
     return {
+      align: 'justify',
+      alignMenu: false,
       allowNew: false,
       customMenuItemChildren: false,
       disabled: false,
@@ -50,6 +52,8 @@ const Example = React.createClass({
 
   render() {
     const {
+      align,
+      alignMenu,
       allowNew,
       customMenuItemChildren,
       disabled,
@@ -78,6 +82,7 @@ const Example = React.createClass({
         <div className="container">
           <Typeahead
             {...props}
+            align={align}
             labelKey="name"
             onChange={(selected) => this.setState({selected})}
             onInputChange={(text) => this.setState({text})}
@@ -123,6 +128,12 @@ const Example = React.createClass({
                 onChange={this._handleChange}>
                 Paginate large data sets
               </Checkbox>
+              <Checkbox
+                checked={alignMenu}
+                name="alignMenu"
+                onChange={this._handleChange}>
+                Align menu: {this._renderAlignmentSelector()}
+              </Checkbox>
             </div>
           </ExampleSection>
           <ExampleSection title="Selected Items">
@@ -151,6 +162,21 @@ const Example = React.createClass({
       <div className="text-muted">No items selected.</div>;
   },
 
+  _renderAlignmentSelector() {
+    const {align, alignMenu} = this.state;
+
+    return (
+      <select
+        disabled={!alignMenu}
+        onChange={(e) => this.setState({align: e.target.value})}
+        value={align}>
+        <option value="justify">Justify (default)</option>
+        <option value="left">Left</option>
+        <option value="right">Right</option>
+      </select>
+    );
+  },
+
   _handleChange(e) {
     const {checked, name} = e.target;
 
@@ -158,6 +184,11 @@ const Example = React.createClass({
     newState[name] = checked;
 
     switch (name) {
+      case 'alignMenu':
+        if (!checked) {
+          newState.align = this.getInitialState().align;
+        }
+        break;
       case 'largeDataSet':
         newState.customMenuItemChildren = false;
         break;

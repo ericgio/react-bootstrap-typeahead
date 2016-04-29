@@ -9,6 +9,10 @@
   outline: none;
 }
 
+.bootstrap-typeahead .dropdown-menu-justify {
+  right: 0;
+}
+
 .bootstrap-typeahead-input-hint {
   color: #aaa;
 }

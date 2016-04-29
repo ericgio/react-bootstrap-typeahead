@@ -50,6 +50,7 @@ const TypeaheadMenu = React.createClass({
 
   propTypes: {
     activeIndex: PropTypes.number,
+    align: PropTypes.oneOf(['justify', 'left', 'right']),
     emptyLabel: PropTypes.string,
     initialResultCount: PropTypes.number,
     labelKey: PropTypes.string.isRequired,
@@ -62,6 +63,7 @@ const TypeaheadMenu = React.createClass({
 
   getDefaultProps() {
     return {
+      align: 'justify',
       emptyLabel: 'No matches found.',
       initialResultCount: 100,
       maxHeight: 300,
@@ -81,7 +83,7 @@ const TypeaheadMenu = React.createClass({
   },
 
   render() {
-    const {maxHeight, options} = this.props;
+    const {align, maxHeight, options} = this.props;
 
     // Render the max number of results or all results.
     let results = options.slice(0, this.state.resultCount || options.length);
@@ -104,11 +106,11 @@ const TypeaheadMenu = React.createClass({
 
     return (
       <Menu
-        className="bootstrap-typeahead-menu"
-        style={{
-          maxHeight: maxHeight + 'px',
-          right: 0,
-        }}>
+        className={cx('bootstrap-typeahead-menu', {
+          'dropdown-menu-justify': align === 'justify',
+          'dropdown-menu-right': align === 'right',
+        })}
+        style={{maxHeight: maxHeight + 'px'}}>
         {results}
         {separator}
         {paginationItem}
