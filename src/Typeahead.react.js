@@ -10,8 +10,6 @@ import {find, head, isEmpty, isEqual, uniqueId} from 'lodash';
 import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import listensToClickOutside from 'react-onclickoutside/decorator';
 
-require('../css/Typeahead.css');
-
 /**
  * Typeahead
  */

@@ -110,7 +110,10 @@ const TypeaheadMenu = React.createClass({
           'dropdown-menu-justify': align === 'justify',
           'dropdown-menu-right': align === 'right',
         })}
-        style={{maxHeight: maxHeight + 'px'}}>
+        style={{
+          maxHeight: maxHeight + 'px',
+          overflow: 'auto',
+        }}>
         {results}
         {separator}
         {paginationItem}

@@ -7,6 +7,9 @@ import Typeahead from '../src/Typeahead.react';
 import {range} from 'lodash';
 import states from './exampleData';
 
+require('../css/Token.css');
+require('../css/Typeahead.css');
+
 const Checkbox = (props) => {
   return (
     <div className="checkbox">

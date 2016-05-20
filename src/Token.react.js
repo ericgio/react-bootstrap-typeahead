@@ -7,8 +7,6 @@ import cx from 'classnames';
 import keyCode from './keyCode';
 import listensToClickOutside from 'react-onclickoutside/decorator';
 
-require('../css/Token.css');
-
 /**
  * Token
  *

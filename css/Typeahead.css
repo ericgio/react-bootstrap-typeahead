@@ -1,6 +1,3 @@
-.bootstrap-typeahead .dropdown-menu {
-  overflow: auto;
-}
 .bootstrap-typeahead .dropdown-menu > li a {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -22,8 +19,6 @@
 }
 
 .bootstrap-tokenizer {
-  cursor: text;
-  height: auto;
   padding: 5px 12px 2px 12px;
 }
 

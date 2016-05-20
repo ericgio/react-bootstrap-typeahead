@@ -47,6 +47,10 @@ const TokenizerInput = React.createClass({
         disabled={disabled}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
+        style={{
+          cursor: 'text',
+          height: 'auto',
+        }}
         tabIndex={-1}>
         {selected.map(this._renderToken)}
         <AutosizeInput
