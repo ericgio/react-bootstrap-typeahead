@@ -6,7 +6,7 @@ import Token from './Token.react';
 
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
-import keyCode from './keyCode';
+import {BACKSPACE, LEFT, RIGHT} from './keyCode';
 
 /**
  * TokenizerInput
@@ -40,14 +40,14 @@ const TokenizerInput = React.createClass({
       <div
         className={cx(
           'bootstrap-tokenizer',
-          'form-control',
           'clearfix',
+          'form-control',
           {'focus': this.state.focused}
         )}
         disabled={disabled}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
-        tabIndex={disabled ? -1 : 0}>
+        tabIndex={-1}>
         {selected.map(this._renderToken)}
         <AutosizeInput
           {...this.props}
@@ -86,16 +86,12 @@ const TokenizerInput = React.createClass({
 
   _handleBlur(e) {
     this.setState({focused: false});
+    this.props.onBlur();
   },
 
   _handleKeydown(e) {
     switch (e.keyCode) {
-      case keyCode.LEFT:
-      case keyCode.RIGHT:
-        // TODO: Tab forward and backward through tokens when user clicks left
-        // or right arrow keys.
-        break;
-      case keyCode.BACKSPACE:
+      case BACKSPACE:
         let inputNode = findDOMNode(this.refs.input);
         if (
           inputNode &&
@@ -107,6 +103,11 @@ const TokenizerInput = React.createClass({
           let sibling = inputNode.previousSibling;
           sibling && sibling.focus();
         }
+        break;
+      case LEFT:
+      case RIGHT:
+        // TODO: Tab forward and backward through tokens when user clicks left
+        // or right arrow keys.
         break;
     }
 

@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 
 import cx from 'classnames';
 import {head} from 'lodash';
-import keyCode from './keyCode';
+import {BACKSPACE, ESC, RIGHT, TAB} from './keyCode';
 import listensToClickOutside from 'react-onclickoutside/decorator';
 
 /**
@@ -30,13 +30,13 @@ const TypeaheadInput = React.createClass({
         className={cx('bootstrap-typeahead-input', this.props.className)}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
-        style={{outline: 'none'}}
-        tabIndex={0}>
+        style={{outline: 'none'}}>
         <input
           {...this.props}
           className={cx('bootstrap-typeahead-input-main', 'form-control', {
             'has-selection': !this.props.selected,
           })}
+          onBlur={this._handleBlur}
           onKeyDown={this._handleKeydown}
           ref="input"
           style={{
@@ -60,6 +60,7 @@ const TypeaheadInput = React.createClass({
             width: '100%',
             zIndex: 0,
           }}
+          tabIndex={-1}
           value={this._getHintText()}
         />
       </div>
@@ -89,6 +90,10 @@ const TypeaheadInput = React.createClass({
     }
   },
 
+  _handleBlur(e) {
+    this.props.onBlur();
+  },
+
   /**
    * If the containing parent div is focused or clicked, focus the input.
    */
@@ -100,16 +105,17 @@ const TypeaheadInput = React.createClass({
     const {filteredOptions, onAdd, onRemove, selected} = this.props;
 
     switch (e.keyCode) {
-      case keyCode.ESC:
+      case ESC:
+      case TAB:
         this.refs.input.blur();
         break;
-      case keyCode.RIGHT:
+      case RIGHT:
         // Autocomplete the selection if there's a hint and no selection yet.
         if (this._getHintText() && !selected) {
           onAdd && onAdd(head(filteredOptions));
         }
         break;
-      case keyCode.BACKSPACE:
+      case BACKSPACE:
         // Remove the selection if we start deleting it.
         selected && onRemove && onRemove(selected);
         break;
