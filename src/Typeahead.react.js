@@ -7,7 +7,7 @@ import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import {find, head, isEmpty, isEqual, uniqueId} from 'lodash';
-import {BACKSPACE, DOWN, ESC, RETURN, UP} from './keyCode';
+import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import listensToClickOutside from 'react-onclickoutside/decorator';
 
 require('../css/Typeahead.css');
@@ -199,7 +199,6 @@ const Typeahead = React.createClass({
           filteredOptions={filteredOptions}
           labelKey={labelKey}
           onAdd={this._handleAddOption}
-          onBlur={this._handleBlur}
           onChange={this._handleTextChange}
           onFocus={this._handleFocus}
           onKeyDown={this._handleKeydown.bind(null, filteredOptions)}
@@ -211,10 +210,6 @@ const Typeahead = React.createClass({
         {menu}
       </div>
     );
-  },
-
-  _handleBlur() {
-    this._hideDropdown();
   },
 
   _handleFocus() {
@@ -254,6 +249,7 @@ const Typeahead = React.createClass({
         this.setState({activeIndex});
         break;
       case ESC:
+      case TAB:
         // Prevent things like unintentionally closing dialogs.
         e.stopPropagation();
         this._hideDropdown();

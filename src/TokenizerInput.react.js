@@ -6,7 +6,7 @@ import Token from './Token.react';
 
 import cx from 'classnames';
 import {findDOMNode} from 'react-dom';
-import {BACKSPACE, LEFT, RIGHT} from './keyCode';
+import {BACKSPACE} from './keyCode';
 
 /**
  * TokenizerInput
@@ -86,7 +86,6 @@ const TokenizerInput = React.createClass({
 
   _handleBlur(e) {
     this.setState({focused: false});
-    this.props.onBlur();
   },
 
   _handleKeydown(e) {
@@ -103,11 +102,6 @@ const TokenizerInput = React.createClass({
           let sibling = inputNode.previousSibling;
           sibling && sibling.focus();
         }
-        break;
-      case LEFT:
-      case RIGHT:
-        // TODO: Tab forward and backward through tokens when user clicks left
-        // or right arrow keys.
         break;
     }
 
