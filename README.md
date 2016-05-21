@@ -14,8 +14,6 @@ Use NPM to install the module in your project and build using a tool like webpac
 npm install react-bootstrap-typeahead
 ```
 
-Make sure you have the appropriate CSS loaders ([see notes below](#css)).
-
 To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
 
 ## Usage
@@ -87,9 +85,7 @@ Allows you to control the contents of a menu item. Your function will be passed 
 ```
 
 ## CSS
-The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. There is a small amount, which is bundled with the JS files.
-
-Browserify users will need to use [browserify-css](https://www.npmjs.com/package/browserify-css) (or something similar) to handle the CSS bundling, while Webpack user will need to use [css-loader](https://www.npmjs.com/package/css-loader) and/or [style-loader](https://www.npmjs.com/package/style-loader) in their webpack config file.
+The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal styling is included in `Typeahead.css` and `Token.css` and should ideally be included wherever you're using the component.
 
 ## Example
 An example file is included with the NPM module. Simply open `example/index.html` in a browser. If you're using the repository code, you'll need to run `npm run example` to build the example index file. You can then open the HTML file as described above. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
