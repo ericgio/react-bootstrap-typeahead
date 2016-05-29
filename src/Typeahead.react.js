@@ -181,6 +181,7 @@ const Typeahead = React.createClass({
           initialResultCount={this.props.paginateResults}
           labelKey={labelKey}
           maxHeight={this.props.maxHeight}
+          newSelectionPrefix={this.props.newSelectionPrefix}
           onClick={this._handleAddOption}
           options={filteredOptions}
           renderMenuItemChildren={this.props.renderMenuItemChildren}
