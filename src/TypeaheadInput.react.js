@@ -18,6 +18,7 @@ const TypeaheadInput = React.createClass({
     disabled: PropTypes.bool,
     filteredOptions: PropTypes.array,
     labelKey: PropTypes.string,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func,
     selected: PropTypes.object,
     text: PropTypes.string,
@@ -36,6 +37,7 @@ const TypeaheadInput = React.createClass({
           className={cx('bootstrap-typeahead-input-main', 'form-control', {
             'has-selection': !this.props.selected,
           })}
+          onBlur={this.props.onBlur}
           onKeyDown={this._handleKeydown}
           ref="input"
           style={{

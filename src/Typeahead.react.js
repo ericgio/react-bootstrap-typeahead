@@ -62,6 +62,7 @@ const Typeahead = React.createClass({
      * indicate that the selection will be new. No-op unless `allowNew={true}`.
      */
     newSelectionPrefix: PropTypes.string,
+    onBlur: PropTypes.func,
     /**
      * Callback for handling selected values.
      */
@@ -198,6 +199,7 @@ const Typeahead = React.createClass({
           filteredOptions={filteredOptions}
           labelKey={labelKey}
           onAdd={this._handleAddOption}
+          onBlur={this.props.onBlur}
           onChange={this._handleTextChange}
           onFocus={this._handleFocus}
           onKeyDown={this._handleKeydown.bind(null, filteredOptions)}

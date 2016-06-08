@@ -90,6 +90,7 @@ const TokenizerInput = React.createClass({
 
   _handleBlur(e) {
     this.setState({focused: false});
+    this.props.onBlur && this.props.onBlur(e);
   },
 
   _handleKeydown(e) {
