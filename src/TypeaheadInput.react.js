@@ -31,9 +31,11 @@ const TypeaheadInput = React.createClass({
   },
 
   render() {
+    const {className, disabled, selected, text} = this.props;
+
     return (
       <div
-        className={cx('bootstrap-typeahead-input', this.props.className)}
+        className={cx('bootstrap-typeahead-input', className)}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
         style={{outline: 'none'}}
@@ -41,19 +43,19 @@ const TypeaheadInput = React.createClass({
         <input
           {...this.props}
           className={cx('bootstrap-typeahead-input-main', 'form-control', {
-            'has-selection': !this.props.selected,
+            'has-selection': !selected,
           })}
           onBlur={this._handleBlur}
           onKeyDown={this._handleKeydown}
           ref="input"
           style={{
-            backgroundColor: !this.props.disabled && 'transparent',
+            backgroundColor: !disabled && 'transparent',
             display: 'block',
             position: 'relative',
             zIndex: 1,
           }}
           type="text"
-          value={this._getInputValue()}
+          value={text}
         />
         <input
           className="bootstrap-typeahead-input-hint form-control"
@@ -73,11 +75,6 @@ const TypeaheadInput = React.createClass({
         />
       </div>
     );
-  },
-
-  _getInputValue() {
-    const {labelKey, selected, text} = this.props;
-    return selected ? selected[labelKey] : text;
   },
 
   _getHintText() {
