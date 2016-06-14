@@ -24,6 +24,12 @@ const TypeaheadInput = React.createClass({
     text: PropTypes.string,
   },
 
+  getInitialState() {
+    return {
+      isFocused: false,
+    };
+  },
+
   render() {
     return (
       <div
@@ -37,7 +43,7 @@ const TypeaheadInput = React.createClass({
           className={cx('bootstrap-typeahead-input-main', 'form-control', {
             'has-selection': !this.props.selected,
           })}
-          onBlur={this.props.onBlur}
+          onBlur={this._handleBlur}
           onKeyDown={this._handleKeydown}
           ref="input"
           style={{
@@ -81,7 +87,7 @@ const TypeaheadInput = React.createClass({
     // Only show the hint if...
     if (
       // ...the input is focused.
-      this.refs.input === document.activeElement &&
+      this.state.isFocused &&
       // ...the input contains text.
       text &&
       // ...the input text corresponds to the beginning of the first option.
@@ -90,12 +96,20 @@ const TypeaheadInput = React.createClass({
     ) {
       return firstOption[labelKey];
     }
+
+    return '';
+  },
+
+  _handleBlur(e) {
+    this.setState({isFocused: false});
+    this.props.onBlur && this.props.onBlur(e);
   },
 
   /**
    * If the containing parent div is focused or clicked, focus the input.
    */
   _handleInputFocus(e) {
+    this.setState({isFocused: true});
     this.refs.input.focus();
   },
 
