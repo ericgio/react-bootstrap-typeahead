@@ -108,13 +108,24 @@ const Typeahead = React.createClass({
   },
 
   getInitialState() {
-    const {defaultSelected, selected} = this.props;
+    const {defaultSelected, labelKey, multiple} = this.props;
+
+    let selected = this.props.selected.slice();
+    if (!isEmpty(defaultSelected)) {
+      selected = defaultSelected;
+    }
+
+    let selectedText = !isEmpty(selected) && head(selected)[labelKey];
+    let text = '';
+    if (!multiple && selectedText) {
+      text = selectedText;
+    }
 
     return {
       activeIndex: 0,
-      selected: !isEmpty(defaultSelected) ? defaultSelected : selected,
+      selected,
       showMenu: false,
-      text: '',
+      text,
     };
   },
 
