@@ -111,4 +111,4 @@ options `required` | array | | Full set of options, including any pre-selected o
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
-hideMenuIfEmpty | boolean | false | Allows to hide the dropdown menu when the input field is empty
+hideMenuIfEmpty | boolean | false | Allows to hide the dropdown menu when the input field is empty.

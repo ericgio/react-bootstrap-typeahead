@@ -50,7 +50,7 @@ const Example = React.createClass({
       preSelected: false,
       selected: [],
       text: '',
-      hideMenuIfEmpty: false
+      hideMenuIfEmpty: false,
     };
   },
 
@@ -66,7 +66,7 @@ const Example = React.createClass({
       preSelected,
       selected,
       text,
-      hideMenuIfEmpty
+      hideMenuIfEmpty,
     } = this.state;
 
     let props = {allowNew, disabled, multiple, selected};
@@ -88,11 +88,11 @@ const Example = React.createClass({
           <Typeahead
             {...props}
             align={align}
+            hideMenuIfEmpty={hideMenuIfEmpty}
             labelKey="name"
             onChange={(selected) => this.setState({selected})}
             onInputChange={(text) => this.setState({text})}
             options={largeDataSet ? bigData : states}
-            hideMenuIfEmpty={hideMenuIfEmpty}
             placeholder="Choose a state..."
           />
           <ExampleSection title="Typeahead Options">
