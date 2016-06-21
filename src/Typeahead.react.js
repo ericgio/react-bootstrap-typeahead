@@ -95,6 +95,10 @@ const Typeahead = React.createClass({
      * to control the component via its parent.
      */
     selected: PropTypes.array,
+    /**
+     * Allows to control whether the dropdown menu is shown or not when the input field is empty
+     */
+    hideMenuIfEmpty: PropTypes.bool
   },
 
   getDefaultProps() {
@@ -225,11 +229,16 @@ const Typeahead = React.createClass({
   },
 
   _handleFocus() {
-    this.setState({showMenu: true});
+    let { hideMenuIfEmpty } = this.props;
+    let { text } = this.state;
+    let showMenu = (hideMenuIfEmpty) ? text.length > 0 : true;
+    this.setState({ showMenu });
   },
 
   _handleTextChange(e) {
+    let { hideMenuIfEmpty } = this.props;
     let text = e.target.value;
+    let showMenu = (hideMenuIfEmpty) ? text.length > 0 : true;
 
     // Clear any selections when text is entered.
     const {selected} = this.state;
@@ -239,7 +248,7 @@ const Typeahead = React.createClass({
 
     this.setState({
       activeIndex: 0,
-      showMenu: true,
+      showMenu: showMenu,
       text,
     });
 
