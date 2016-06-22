@@ -36,6 +36,12 @@ const ExampleSection = (props) => {
   );
 };
 
+const inputTextChange = function(text, showMenu){
+  this.setState({text});
+  if(showMenu)
+    showMenu(text !== '');
+};
+
 const Example = React.createClass({
 
   getInitialState() {
@@ -50,7 +56,7 @@ const Example = React.createClass({
       preSelected: false,
       selected: [],
       text: '',
-      hideMenuIfEmpty: false,
+      showMenuOnFocus: true,
     };
   },
 
@@ -66,7 +72,7 @@ const Example = React.createClass({
       preSelected,
       selected,
       text,
-      hideMenuIfEmpty,
+      showMenuOnFocus,
     } = this.state;
 
     let props = {allowNew, disabled, multiple, selected};
@@ -88,12 +94,12 @@ const Example = React.createClass({
           <Typeahead
             {...props}
             align={align}
-            hideMenuIfEmpty={hideMenuIfEmpty}
             labelKey="name"
             onChange={(selected) => this.setState({selected})}
-            onInputChange={(text) => this.setState({text})}
+            onInputChange={inputTextChange.bind(this)}
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
+            showMenuOnFocus={showMenuOnFocus}
           />
           <ExampleSection title="Typeahead Options">
             <div className="form-group">
@@ -141,10 +147,10 @@ const Example = React.createClass({
                 Align menu: {this._renderAlignmentSelector()}
               </Checkbox>
               <Checkbox
-                  checked={hideMenuIfEmpty}
-                  name="hideMenuIfEmpty"
+                  checked={showMenuOnFocus}
+                  name="showMenuOnFocus"
                   onChange={this._handleChange}>
-                  Hide dropdown menu if input is empty
+                Show menu on focus: {this._handleChange}
               </Checkbox>
             </div>
           </ExampleSection>
@@ -213,8 +219,8 @@ const Example = React.createClass({
         !checked && newSelection.splice(1, newSelection.length);
         newState.selected = newSelection || [];
         break;
-      case 'hideMenuIfEmpty':
-        newState.hideMenuIfEmpty = checked;
+      case 'showMenuOnFocus':
+        newState.showMenuOnFocus = checked;
         break;
     }
 

@@ -106,9 +106,9 @@ multiple | boolean | `false` | Whether or not multiple selections are allowed.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Callback fired when the input is blurred. Receives an event.
 onChange | function | | Callback fired whenever items are added or removed. Receives an array of the selected options.
-onInputChange | function | | Callback fired when user-input text changes. Receives the text string.
+onInputChange | function | | Callback fired when user-input text changes. Receives the text string and a callback to control the visibility of the menu.
 options `required` | array | | Full set of options, including any pre-selected options.
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
-hideMenuIfEmpty | boolean | false | Allows to hide the dropdown menu when the input field is empty.
+showMenuOnFocus | boolean | true | Allows to show or hide the dropdown menu when focusing the input field.
