@@ -50,6 +50,7 @@ const Example = React.createClass({
       preSelected: false,
       selected: [],
       text: '',
+      showMenuOnFocus: true,
     };
   },
 
@@ -65,6 +66,7 @@ const Example = React.createClass({
       preSelected,
       selected,
       text,
+      showMenuOnFocus,
     } = this.state;
 
     let props = {allowNew, disabled, multiple, selected};
@@ -91,6 +93,7 @@ const Example = React.createClass({
             onInputChange={(text) => this.setState({text})}
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
+            showMenuOnFocus={showMenuOnFocus}
           />
           <ExampleSection title="Typeahead Options">
             <div className="form-group">
@@ -136,6 +139,12 @@ const Example = React.createClass({
                 name="alignMenu"
                 onChange={this._handleChange}>
                 Align menu: {this._renderAlignmentSelector()}
+              </Checkbox>
+              <Checkbox
+                  checked={showMenuOnFocus}
+                  name="showMenuOnFocus"
+                  onChange={this._handleChange}>
+                Show menu on focus: {this._handleChange}
               </Checkbox>
             </div>
           </ExampleSection>
@@ -203,6 +212,9 @@ const Example = React.createClass({
         let newSelection = this.state.selected.slice();
         !checked && newSelection.splice(1, newSelection.length);
         newState.selected = newSelection || [];
+        break;
+      case 'showMenuOnFocus':
+        newState.showMenuOnFocus = checked;
         break;
     }
 

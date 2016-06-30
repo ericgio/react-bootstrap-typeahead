@@ -95,6 +95,10 @@ const Typeahead = React.createClass({
      * to control the component via its parent.
      */
     selected: PropTypes.array,
+    /**
+     * Whether to show the menu on focus
+     */
+    showMenuOnFocus: PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -104,6 +108,7 @@ const Typeahead = React.createClass({
       labelKey: 'label',
       multiple: false,
       selected: [],
+      showMenuOnFocus: true,
     };
   },
 
@@ -225,7 +230,7 @@ const Typeahead = React.createClass({
   },
 
   _handleFocus() {
-    this.setState({showMenu: true});
+    this.setState({showMenu: this.props.showMenuOnFocus});
   },
 
   _handleTextChange(e) {
