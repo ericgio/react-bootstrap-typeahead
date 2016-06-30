@@ -36,12 +36,6 @@ const ExampleSection = (props) => {
   );
 };
 
-const inputTextChange = function(text, showMenu){
-  this.setState({text});
-  if(showMenu)
-    showMenu(text !== '');
-};
-
 const Example = React.createClass({
 
   getInitialState() {
@@ -96,7 +90,7 @@ const Example = React.createClass({
             align={align}
             labelKey="name"
             onChange={(selected) => this.setState({selected})}
-            onInputChange={inputTextChange.bind(this)}
+            onInputChange={(text) => this.setState({text})}
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
             showMenuOnFocus={showMenuOnFocus}

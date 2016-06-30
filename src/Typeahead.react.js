@@ -248,8 +248,7 @@ const Typeahead = React.createClass({
       text,
     });
 
-    this.props.onInputChange &&
-    this.props.onInputChange(text, this.handleShowMenu);
+    this.props.onInputChange && this.props.onInputChange(text);
   },
 
   _handleKeydown(options, e) {
@@ -342,10 +341,6 @@ const Typeahead = React.createClass({
       activeIndex: 0,
       showMenu: false,
     });
-  },
-
-  handleShowMenu(showMenu){
-    this.setState({showMenu});
   },
 });
 
