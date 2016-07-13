@@ -175,10 +175,11 @@ const Example = React.createClass({
   _renderMenuHeader(options, results) {
     return (
       <div style={{marginLeft: '20px'}}>
-        Custom header: <strong>{results.length > 0 ? results.length : 0 } items found</strong>
-        <hr style={{ marginTop: '5px', marginBottom: '5px' }}/>
+        Custom header:
+        <strong>{results.length > 0 ? results.length : 0} items found</strong>
+        <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
       </div>
-    )
+    );
   },
 
   _renderSelectedItems(selected) {

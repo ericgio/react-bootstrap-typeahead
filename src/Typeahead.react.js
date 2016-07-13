@@ -200,8 +200,8 @@ const Typeahead = React.createClass({
           newSelectionPrefix={this.props.newSelectionPrefix}
           onClick={this._handleAddOption}
           options={filteredOptions}
-          renderMenuItemChildren={this.props.renderMenuItemChildren}
           renderMenuHeader={this.props.renderMenuHeader}
+          renderMenuItemChildren={this.props.renderMenuItemChildren}
           text={inputText}
         />;
     }
