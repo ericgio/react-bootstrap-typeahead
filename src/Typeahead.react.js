@@ -91,6 +91,10 @@ const Typeahead = React.createClass({
      */
     renderMenuItemChildren: PropTypes.func,
     /**
+     * Provides a hook for rendering a header for the menu.
+     */
+    renderMenuHeader: PropTypes.func,
+    /**
      * The selected option(s) displayed in the input. Use this prop if you want
      * to control the component via its parent.
      */
@@ -196,6 +200,7 @@ const Typeahead = React.createClass({
           newSelectionPrefix={this.props.newSelectionPrefix}
           onClick={this._handleAddOption}
           options={filteredOptions}
+          renderMenuHeader={this.props.renderMenuHeader}
           renderMenuItemChildren={this.props.renderMenuItemChildren}
           text={inputText}
         />;

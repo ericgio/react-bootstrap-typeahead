@@ -58,6 +58,7 @@ const TypeaheadMenu = React.createClass({
     newSelectionPrefix: PropTypes.string,
     options: PropTypes.array,
     renderMenuItemChildren: PropTypes.func,
+    renderMenuHeader: PropTypes.func,
     text: PropTypes.string.isRequired,
   },
 
@@ -83,7 +84,7 @@ const TypeaheadMenu = React.createClass({
   },
 
   render() {
-    const {align, maxHeight, options} = this.props;
+    const {align, maxHeight, options, renderMenuHeader} = this.props;
 
     // Render the max number of results or all results.
     let results = options.slice(0, this.state.resultCount || options.length);
@@ -114,6 +115,7 @@ const TypeaheadMenu = React.createClass({
           maxHeight: maxHeight + 'px',
           overflow: 'auto',
         }}>
+        {renderMenuHeader && renderMenuHeader(options, results)}
         {results}
         {separator}
         {paginationItem}

@@ -44,6 +44,7 @@ const Example = React.createClass({
       alignMenu: false,
       allowNew: false,
       customMenuItemChildren: false,
+      customMenuHeader: false,
       disabled: false,
       largeDataSet: false,
       multiple: false,
@@ -59,6 +60,7 @@ const Example = React.createClass({
       alignMenu,
       allowNew,
       customMenuItemChildren,
+      customMenuHeader,
       disabled,
       largeDataSet,
       multiple,
@@ -71,6 +73,10 @@ const Example = React.createClass({
 
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
+    }
+
+    if (customMenuHeader) {
+      props.renderMenuHeader = this._renderMenuHeader;
     }
 
     let bigData = range(0, 2000).map((option) => ({name: option.toString()}));
@@ -120,6 +126,13 @@ const Example = React.createClass({
                 Customize menu item children
               </Checkbox>
               <Checkbox
+                checked={customMenuHeader}
+                disabled={largeDataSet}
+                name="customMenuHeader"
+                onChange={this._handleChange}>
+                Render custom menu header
+              </Checkbox>
+              <Checkbox
                 checked={allowNew}
                 name="allowNew"
                 onChange={this._handleChange}>
@@ -157,6 +170,16 @@ const Example = React.createClass({
         Population: {option.population.toLocaleString()}
       </div>,
     ];
+  },
+
+  _renderMenuHeader(options, results) {
+    return (
+      <div style={{marginLeft: '20px'}}>
+        Custom header:
+        <strong>{results.length > 0 ? results.length : 0} items found</strong>
+        <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
+      </div>
+    );
   },
 
   _renderSelectedItems(selected) {
