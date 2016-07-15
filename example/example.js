@@ -10,6 +10,8 @@ import states from './exampleData';
 require('../css/Token.css');
 require('../css/Typeahead.css');
 
+const NO_INPUT_MESSAGE = 'No text.';
+
 const Checkbox = (props) => {
   return (
     <div className="checkbox">
@@ -91,6 +93,7 @@ const Example = React.createClass({
             onInputChange={(text) => this.setState({text})}
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
+            selected={selected}
           />
           <ExampleSection title="Typeahead Options">
             <div className="form-group">
@@ -137,13 +140,18 @@ const Example = React.createClass({
                 onChange={this._handleChange}>
                 Align menu: {this._renderAlignmentSelector()}
               </Checkbox>
+              <button
+                className="btn btn-default"
+                onClick={this._handleClear}>
+                Clear Input
+              </button>
             </div>
           </ExampleSection>
           <ExampleSection title="Selected Items">
             {this._renderSelectedItems(selected)}
           </ExampleSection>
           <ExampleSection title="Input Text">
-            {text || <div className="text-muted">No text.</div>}
+            {text || <div className="text-muted">{NO_INPUT_MESSAGE}</div>}
           </ExampleSection>
         </div>
       </div>
@@ -207,6 +215,13 @@ const Example = React.createClass({
     }
 
     this.setState(newState);
+  },
+
+  _handleClear(e) {
+    this.setState({
+      selected: [],
+      text: this.NO_INPUT_MESSAGE,
+    });
   },
 });
 
