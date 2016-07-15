@@ -108,35 +108,34 @@ const Typeahead = React.createClass({
   },
 
   getInitialState() {
-    const {defaultSelected, labelKey, multiple} = this.props;
+    let {defaultSelected, labelKey, multiple, selected} = this.props;
 
-    let selected = this.props.selected.slice();
+    selected = selected.slice();
     if (!isEmpty(defaultSelected)) {
       selected = defaultSelected;
-    }
-
-    let selectedText = !isEmpty(selected) && head(selected)[labelKey];
-    let text = '';
-    if (!multiple && selectedText) {
-      text = selectedText;
     }
 
     return {
       activeIndex: 0,
       selected,
       showMenu: false,
-      text,
+      text: this._getText(labelKey, multiple, selected),
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.selected, nextProps.selected)) {
+    let {labelKey, multiple, selected} = nextProps;
+
+    if (!isEqual(this.props.selected, selected)) {
       // If new selections are passed in via props, treat the component as a
       // controlled input.
-      this.setState({selected: nextProps.selected});
+      this.setState({
+        selected,
+        text: this._getText(labelKey, multiple, selected),
+      });
     }
 
-    if (this.props.multiple !== nextProps.multiple) {
+    if (this.props.multiple !== multiple) {
       this.setState({text: ''});
     }
   },
@@ -222,6 +221,16 @@ const Typeahead = React.createClass({
         {menu}
       </div>
     );
+  },
+
+  _getText(labelKey, multiple, selected) {
+    let selectedText = !isEmpty(selected) && head(selected)[labelKey];
+
+    if (!multiple && selectedText) {
+      return selectedText;
+    }
+
+    return '';
   },
 
   _handleFocus() {
