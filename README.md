@@ -111,3 +111,4 @@ options `required` | array | | Full set of options, including any pre-selected o
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
+useTabCompletion | boolean | false | Allows the use of TAB key to select from Typeahead menu
