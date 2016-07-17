@@ -54,6 +54,10 @@ const Typeahead = React.createClass({
      */
     maxHeight: PropTypes.number,
     /**
+     * Number of input characters that must be entered before showing results.
+     */
+    minLength: PropTypes.number,
+    /**
      * Whether or not multiple selections are allowed.
      */
     multiple: PropTypes.bool,
@@ -102,6 +106,7 @@ const Typeahead = React.createClass({
       allowNew: false,
       defaultSelected: [],
       labelKey: 'label',
+      minLength: 0,
       multiple: false,
       selected: [],
     };
@@ -142,27 +147,10 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {allowNew, labelKey, multiple, options} = this.props;
+    const {allowNew, labelKey, minLength, multiple} = this.props;
     const {activeIndex, selected, showMenu, text} = this.state;
 
-    // Filter out options that don't match the input string or, if multiple
-    // selections are allowed, that have already been selected.
-    let filteredOptions = options.filter((option) => {
-      let labelString = option[labelKey];
-
-      if (!labelString || typeof labelString !== 'string') {
-        throw new Error(
-          'One or more options does not have a valid label string. Please ' +
-          'check the `labelKey` prop to ensure that it matches the correct ' +
-          'option key and provides a string for filtering and display.'
-        );
-      }
-
-      return !(
-        labelString.toLowerCase().indexOf(text.toLowerCase()) === -1 ||
-        multiple && find(selected, option)
-      );
-    });
+    let filteredOptions = this._getFilteredOptions();
 
     if (!filteredOptions.length && allowNew && !!text.trim()) {
       let newOption = {
@@ -184,7 +172,7 @@ const Typeahead = React.createClass({
     }
 
     let menu;
-    if (showMenu) {
+    if (showMenu && text.length >= minLength) {
       menu =
         <TypeaheadMenu
           activeIndex={activeIndex}
@@ -222,6 +210,36 @@ const Typeahead = React.createClass({
         {menu}
       </div>
     );
+  },
+
+  /**
+   * Filter out options that don't match the input string or, if multiple
+   * selections are allowed, that have already been selected.
+   */
+  _getFilteredOptions() {
+    const {labelKey, minLength, multiple, options} = this.props;
+    const {selected, text} = this.state;
+
+    if (text.length < minLength) {
+      return [];
+    }
+
+    return options.filter(option => {
+      let labelString = option[labelKey];
+
+      if (!labelString || typeof labelString !== 'string') {
+        throw new Error(
+          'One or more options does not have a valid label string. Please ' +
+          'check the `labelKey` prop to ensure that it matches the correct ' +
+          'option key and provides a string for filtering and display.'
+        );
+      }
+
+      return !(
+        labelString.toLowerCase().indexOf(text.toLowerCase()) === -1 ||
+        multiple && find(selected, option)
+      );
+    });
   },
 
   _handleFocus() {

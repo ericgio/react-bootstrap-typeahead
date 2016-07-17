@@ -102,6 +102,7 @@ disabled | boolean | | Whether to disable the input. Will also disable selection
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 labelKey | string | 'label' | Specify which option key to use for display. By default, the selector will use the `label` key.
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
+minLength | number | `0` | Number of input characters that must be entered before showing results.
 multiple | boolean | `false` | Whether or not multiple selections are allowed.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Callback fired when the input is blurred. Receives an event.

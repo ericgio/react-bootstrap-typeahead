@@ -46,6 +46,7 @@ const Example = React.createClass({
       customMenuItemChildren: false,
       disabled: false,
       largeDataSet: false,
+      minLength: 0,
       multiple: false,
       preSelected: false,
       selected: [],
@@ -61,6 +62,7 @@ const Example = React.createClass({
       customMenuItemChildren,
       disabled,
       largeDataSet,
+      minLength,
       multiple,
       preSelected,
       selected,
@@ -87,6 +89,7 @@ const Example = React.createClass({
             {...props}
             align={align}
             labelKey="name"
+            minLength={minLength}
             onChange={(selected) => this.setState({selected})}
             onInputChange={(text) => this.setState({text})}
             options={largeDataSet ? bigData : states}
@@ -136,6 +139,12 @@ const Example = React.createClass({
                 name="alignMenu"
                 onChange={this._handleChange}>
                 Align menu: {this._renderAlignmentSelector()}
+              </Checkbox>
+              <Checkbox
+                checked={!!minLength}
+                name="minLength"
+                onChange={this._handleChange}>
+                Require minimum text input before showing results
               </Checkbox>
             </div>
           </ExampleSection>
@@ -198,6 +207,9 @@ const Example = React.createClass({
       case 'preSelected':
         let count = this.state.multiple ? 4 : 1;
         newState.selected = checked ? states.slice(0, count) : [];
+        break;
+      case 'minLength':
+        newState.minLength = checked ? 1 : 0;
         break;
       case 'multiple':
         let newSelection = this.state.selected.slice();
