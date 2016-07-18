@@ -288,8 +288,8 @@ const Typeahead = React.createClass({
       case ESC:
       case TAB:
         // Prevent things like unintentionally closing dialogs.
-        e.stopPropagation();
-        this._hideDropdown();
+        // e.stopPropagation();
+        // this._hideDropdown();
         break;
       case RETURN:
         if (this.state.showMenu) {

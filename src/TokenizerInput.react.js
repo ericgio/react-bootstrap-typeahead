@@ -20,9 +20,6 @@ const TokenizerInput = React.createClass({
   propTypes: {
     disabled: PropTypes.bool,
     labelKey: PropTypes.string,
-    /**
-     * Input element placeholder text.
-     */
     placeholder: PropTypes.string,
     selected: PropTypes.array,
   },
@@ -54,8 +51,8 @@ const TokenizerInput = React.createClass({
         tabIndex={-1}>
         {selected.map(this._renderToken)}
         <AutosizeInput
-          {...this.props}
           className="bootstrap-tokenizer-input"
+          disabled={disabled}
           inputStyle={{
             backgroundColor: 'inherit',
             border: 0,
@@ -65,6 +62,8 @@ const TokenizerInput = React.createClass({
             padding: 0,
           }}
           onBlur={this._handleBlur}
+          onChange={this.props.onChange}
+          onFocus={this.props.onFocus}
           onKeyDown={this._handleKeydown}
           placeholder={selected.length ? null : placeholder}
           ref="input"

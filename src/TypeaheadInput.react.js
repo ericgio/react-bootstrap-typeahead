@@ -3,8 +3,8 @@
 import React, {PropTypes} from 'react';
 
 import cx from 'classnames';
-import {head} from 'lodash';
-import {BACKSPACE, RIGHT} from './keyCode';
+import {head, pick} from 'lodash';
+import {BACKSPACE, RIGHT, TAB} from './keyCode';
 
 /**
  * TypeaheadInput
@@ -20,6 +20,8 @@ const TypeaheadInput = React.createClass({
     labelKey: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    placeholder: PropTypes.string,
     selected: PropTypes.object,
     text: PropTypes.string,
   },
@@ -32,6 +34,12 @@ const TypeaheadInput = React.createClass({
 
   render() {
     const {className, disabled, selected, text} = this.props;
+    const inputProps = pick(this.props, [
+      'disabled',
+      'onChange',
+      'onFocus',
+      'placeholder',
+    ]);
 
     return (
       <div
@@ -41,7 +49,7 @@ const TypeaheadInput = React.createClass({
         style={{outline: 'none'}}
         tabIndex={-1}>
         <input
-          {...this.props}
+          {...inputProps}
           className={cx('bootstrap-typeahead-input-main', 'form-control', {
             'has-selection': !selected,
           })}
@@ -115,8 +123,10 @@ const TypeaheadInput = React.createClass({
 
     switch (e.keyCode) {
       case RIGHT:
+      case TAB:
         // Autocomplete the selection if there's a hint and no selection yet.
         if (this._getHintText() && !selected) {
+          e.stopPropagation();
           onAdd && onAdd(head(filteredOptions));
         }
         break;
