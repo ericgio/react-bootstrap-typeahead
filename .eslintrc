@@ -15,6 +15,7 @@
   ],
   "rules": {
     "array-bracket-spacing": [1, "never"],
+    "arrow-parens": [2, "as-needed"],
     "comma-spacing": [1, {"before": false, "after": true}],
     "computed-property-spacing": [1, "never"],
     "comma-dangle": [2, "always-multiline"],

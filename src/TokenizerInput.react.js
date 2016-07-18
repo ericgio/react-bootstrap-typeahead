@@ -82,7 +82,7 @@ const TokenizerInput = React.createClass({
       <Token
         disabled={disabled}
         key={idx}
-        onRemove={onRemove.bind(null, option)}>
+        onRemove={() => onRemove(option)}>
         {option[labelKey]}
       </Token>
     );

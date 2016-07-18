@@ -6,15 +6,13 @@ import {findDOMNode} from 'react-dom';
 
 import cx from 'classnames';
 
-const Menu = (props) => {
-  return (
-    <ul
-      {...props}
-      className={cx('dropdown-menu', props.className)}>
-      {props.children}
-    </ul>
-  );
-};
+const Menu = props => (
+  <ul
+    {...props}
+    className={cx('dropdown-menu', props.className)}>
+    {props.children}
+  </ul>
+);
 
 const MenuItem = React.createClass({
   displayName: 'MenuItem',
@@ -26,14 +24,16 @@ const MenuItem = React.createClass({
   },
 
   render() {
+    const {active, children, className, disabled} = this.props;
+
     return (
       <li
         className={cx({
-          'active': this.props.active,
-          'disabled': this.props.disabled,
-        }, this.props.className)}>
+          'active': active,
+          'disabled': disabled,
+        }, className)}>
         <a href="#" onClick={this._handleClick}>
-          {this.props.children}
+          {children}
         </a>
       </li>
     );
@@ -134,7 +134,7 @@ const TypeaheadMenu = React.createClass({
     let menuItemProps = {
       active: idx === activeIndex,
       key: idx,
-      onClick: onClick.bind(null, option),
+      onClick: () => onClick(option),
     };
 
     return renderMenuItemChildren ?

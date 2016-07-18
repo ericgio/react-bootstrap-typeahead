@@ -201,7 +201,7 @@ const Typeahead = React.createClass({
           onBlur={this.props.onBlur}
           onChange={this._handleTextChange}
           onFocus={this._handleFocus}
-          onKeyDown={this._handleKeydown.bind(null, filteredOptions)}
+          onKeyDown={e => this._handleKeydown(filteredOptions, e)}
           onRemove={this._handleRemoveOption}
           placeholder={this.props.placeholder}
           selected={selectedItems}
@@ -331,7 +331,7 @@ const Typeahead = React.createClass({
 
   _handleRemoveOption(removedOption) {
     let selected = this.state.selected.slice();
-    selected = selected.filter((option) => !isEqual(option, removedOption));
+    selected = selected.filter(option => !isEqual(option, removedOption));
 
     this.setState({
       activeIndex: 0,
