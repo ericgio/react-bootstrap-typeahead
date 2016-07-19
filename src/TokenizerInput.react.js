@@ -66,7 +66,7 @@ const TokenizerInput = React.createClass({
           onFocus={this.props.onFocus}
           onKeyDown={this._handleKeydown}
           placeholder={selected.length ? null : placeholder}
-          ref="input"
+          ref={ref => this.input = ref}
           type="text"
           value={text}
         />
@@ -75,7 +75,7 @@ const TokenizerInput = React.createClass({
   },
 
   blur() {
-    this.refs.input.blur();
+    this.input.blur();
   },
 
   focus() {
@@ -107,7 +107,7 @@ const TokenizerInput = React.createClass({
   _handleKeydown(e) {
     switch (e.keyCode) {
       case BACKSPACE:
-        let inputNode = findDOMNode(this.refs.input);
+        let inputNode = findDOMNode(this.input);
         if (
           inputNode &&
           inputNode.contains(document.activeElement) &&
@@ -132,7 +132,7 @@ const TokenizerInput = React.createClass({
 
     // If the user clicks anywhere inside the tokenizer besides a token,
     // focus the input.
-    this.refs.input.focus();
+    this.input.focus();
     this.setState({isFocused: true});
   },
 });

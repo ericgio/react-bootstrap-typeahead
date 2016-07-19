@@ -58,7 +58,7 @@ const TypeaheadInput = React.createClass({
           onBlur={this._handleBlur}
           onChange={this._handleChange}
           onKeyDown={this._handleKeydown}
-          ref="input"
+          ref={(ref) => this.input = ref}
           style={{
             backgroundColor: !disabled && 'transparent',
             display: 'block',
@@ -160,7 +160,7 @@ const TypeaheadInput = React.createClass({
    */
   _handleInputFocus(e) {
     this.setState({isFocused: true});
-    this.refs.input.focus();
+    this.input.focus();
   },
 
   _handleKeydown(e) {
