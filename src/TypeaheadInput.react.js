@@ -87,7 +87,8 @@ const TypeaheadInput = React.createClass({
 
   _getHintText() {
     const {filteredOptions, labelKey, text} = this.props;
-    let firstOption = head(filteredOptions);
+    const firstOption = head(filteredOptions);
+    const firstOptionString = firstOption && firstOption[labelKey];
 
     // Only show the hint if...
     if (
@@ -96,10 +97,15 @@ const TypeaheadInput = React.createClass({
       // ...the input contains text.
       text &&
       // ...the input text corresponds to the beginning of the first option.
-      firstOption &&
-      firstOption[labelKey].indexOf(text) === 0
+      firstOptionString &&
+      firstOptionString.toLowerCase().indexOf(text.toLowerCase()) === 0
     ) {
-      return firstOption[labelKey];
+      // Text matching is case-insensitive, so to display the hint correctly,
+      // splice the input text with the rest of the actual string.
+      return text + firstOptionString.slice(
+        text.length,
+        firstOptionString.length
+      );
     }
 
     return '';
