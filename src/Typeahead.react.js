@@ -99,6 +99,10 @@ const Typeahead = React.createClass({
      * to control the component via its parent.
      */
     selected: PropTypes.array,
+    /**
+     * Allows the use of TAB key to select from Typeahead menu
+     */
+    useTabCompletion: _react.PropTypes.bool
   },
 
   getDefaultProps() {
@@ -109,6 +113,7 @@ const Typeahead = React.createClass({
       minLength: 0,
       multiple: false,
       selected: [],
+      useTabCompletion: false
     };
   },
 
@@ -291,10 +296,19 @@ const Typeahead = React.createClass({
         this.setState({activeIndex});
         break;
       case ESC:
-      case TAB:
         // Prevent things like unintentionally closing dialogs.
         e.stopPropagation();
         this._hideDropdown();
+        break;
+      case TAB:
+        if (this.props.useTabCompletion && this.state.showMenu) {
+          e.stopPropagation();
+          var selected = options[activeIndex];
+          selected && this._handleAddOption(selected);
+        } else {
+          e.stopPropagation();
+          this._hideDropdown();
+        }
         break;
       case RETURN:
         if (this.state.showMenu) {
