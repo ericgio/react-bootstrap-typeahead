@@ -198,7 +198,7 @@ const Typeahead = React.createClass({
           filteredOptions={filteredOptions}
           labelKey={labelKey}
           onAdd={this._handleAddOption}
-          onBlur={this.props.onBlur}
+          onBlur={this._handleBlur}
           onChange={this._handleTextChange}
           onFocus={this._handleFocus}
           onKeyDown={e => this._handleKeydown(filteredOptions, e)}
@@ -240,6 +240,11 @@ const Typeahead = React.createClass({
         multiple && find(selected, option)
       );
     });
+  },
+
+  _handleBlur(e) {
+    this._hideDropdown();
+    this.props.onBlur && this.props.onBlur(e);
   },
 
   _handleFocus() {

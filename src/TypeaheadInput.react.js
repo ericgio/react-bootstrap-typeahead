@@ -132,7 +132,7 @@ const TypeaheadInput = React.createClass({
       case TAB:
         // Autocomplete the selection if there's a hint and no selection yet.
         if (this._getHintText() && !selected) {
-          e.stopPropagation();
+          e.preventDefault();
           onAdd && onAdd(head(filteredOptions));
         }
         break;
