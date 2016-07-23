@@ -137,7 +137,7 @@ const TypeaheadInput = React.createClass({
   },
 
   _handleKeydown(e) {
-    const {filteredOptions, onAdd, onRemove, selected} = this.props;
+    const {filteredOptions, onAdd, selected} = this.props;
 
     switch (e.keyCode) {
       case RIGHT:

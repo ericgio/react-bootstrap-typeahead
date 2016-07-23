@@ -6,7 +6,7 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {find, head, isEmpty, isEqual, uniqueId} from 'lodash';
+import {find, isEmpty, isEqual, uniqueId} from 'lodash';
 import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import listensToClickOutside from 'react-onclickoutside/decorator';
 
@@ -113,7 +113,7 @@ const Typeahead = React.createClass({
   },
 
   getInitialState() {
-    const {defaultSelected, labelKey} = this.props;
+    const {defaultSelected} = this.props;
 
     let selected = this.props.selected.slice();
     if (!isEmpty(defaultSelected)) {
@@ -213,7 +213,7 @@ const Typeahead = React.createClass({
     }
 
     return options.filter(option => {
-      let labelString = option[labelKey];
+      const labelString = option[labelKey];
 
       if (!labelString || typeof labelString !== 'string') {
         throw new Error(
