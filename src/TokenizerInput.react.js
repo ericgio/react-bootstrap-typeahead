@@ -62,7 +62,7 @@ const TokenizerInput = React.createClass({
             padding: 0,
           }}
           onBlur={this._handleBlur}
-          onChange={this.props.onChange}
+          onChange={this._handleChange}
           onFocus={this.props.onFocus}
           onKeyDown={this._handleKeydown}
           placeholder={selected.length ? null : placeholder}
@@ -90,6 +90,10 @@ const TokenizerInput = React.createClass({
   _handleBlur(e) {
     this.setState({focused: false});
     this.props.onBlur && this.props.onBlur(e);
+  },
+
+  _handleChange(e) {
+    this.props.onChange && this.props.onChange(e.target.value);
   },
 
   _handleKeydown(e) {

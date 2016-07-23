@@ -240,15 +240,7 @@ const Typeahead = React.createClass({
     this.setState({showMenu: true});
   },
 
-  _handleTextChange(e) {
-    let text = e.target.value;
-
-    // Clear any selections when text is entered.
-    const {selected} = this.state;
-    if (!this.props.multiple && !isEmpty(selected)) {
-      this._handleRemoveOption(head(selected));
-    }
-
+  _handleTextChange(text) {
     this.setState({
       activeIndex: 0,
       showMenu: true,

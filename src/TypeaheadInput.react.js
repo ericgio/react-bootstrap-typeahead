@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 
 import cx from 'classnames';
 import {head, pick} from 'lodash';
-import {BACKSPACE, RIGHT, TAB} from './keyCode';
+import {RIGHT, TAB} from './keyCode';
 
 /**
  * TypeaheadInput
@@ -57,6 +57,7 @@ const TypeaheadInput = React.createClass({
             'has-selection': !selected,
           })}
           onBlur={this._handleBlur}
+          onChange={this._handleChange}
           onKeyDown={this._handleKeydown}
           ref="input"
           style={{
@@ -119,6 +120,14 @@ const TypeaheadInput = React.createClass({
     this.props.onBlur && this.props.onBlur(e);
   },
 
+  _handleChange(e) {
+    // Clear any selections when text is entered.
+    const {onRemove, selected} = this.props;
+    !!selected.length && onRemove(head(selected));
+
+    this.props.onChange && this.props.onChange(e.target.value);
+  },
+
   /**
    * If the containing parent div is focused or clicked, focus the input.
    */
@@ -138,10 +147,6 @@ const TypeaheadInput = React.createClass({
           e.preventDefault();
           onAdd && onAdd(head(filteredOptions));
         }
-        break;
-      case BACKSPACE:
-        // Remove the selection if we start deleting it.
-        selected && onRemove && onRemove(selected);
         break;
     }
 
