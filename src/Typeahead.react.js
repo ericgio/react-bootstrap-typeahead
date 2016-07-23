@@ -113,35 +113,31 @@ const Typeahead = React.createClass({
   },
 
   getInitialState() {
-    const {defaultSelected, labelKey, multiple} = this.props;
+    const {defaultSelected, labelKey} = this.props;
 
     let selected = this.props.selected.slice();
     if (!isEmpty(defaultSelected)) {
       selected = defaultSelected;
     }
 
-    let selectedText = !isEmpty(selected) && head(selected)[labelKey];
-    let text = '';
-    if (!multiple && selectedText) {
-      text = selectedText;
-    }
-
     return {
       activeIndex: 0,
       selected,
       showMenu: false,
-      text,
+      text: '',
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.selected, nextProps.selected)) {
+    const {multiple, selected} = nextProps;
+
+    if (!isEqual(selected, this.props.selected)) {
       // If new selections are passed in via props, treat the component as a
       // controlled input.
-      this.setState({selected: nextProps.selected});
+      this.setState({selected});
     }
 
-    if (this.props.multiple !== nextProps.multiple) {
+    if (multiple !== this.props.multiple) {
       this.setState({text: ''});
     }
   },
@@ -161,16 +157,6 @@ const Typeahead = React.createClass({
       filteredOptions = [newOption];
     }
 
-    let InputComponent = TokenizerInput;
-    let inputText = text;
-    let selectedItems = selected.slice();
-
-    if (!multiple) {
-      InputComponent = TypeaheadInput;
-      selectedItems = head(selectedItems);
-      inputText = (selectedItems && selectedItems[labelKey]) || text;
-    }
-
     let menu;
     if (showMenu && text.length >= minLength) {
       menu =
@@ -185,9 +171,11 @@ const Typeahead = React.createClass({
           onClick={this._handleAddOption}
           options={filteredOptions}
           renderMenuItemChildren={this.props.renderMenuItemChildren}
-          text={inputText}
+          text={text}
         />;
     }
+
+    let InputComponent = multiple ? TokenizerInput : TypeaheadInput;
 
     return (
       <div
@@ -204,8 +192,8 @@ const Typeahead = React.createClass({
           onKeyDown={e => this._handleKeydown(filteredOptions, e)}
           onRemove={this._handleRemoveOption}
           placeholder={this.props.placeholder}
-          selected={selectedItems}
-          text={inputText}
+          selected={selected.slice()}
+          text={text}
         />
         {menu}
       </div>

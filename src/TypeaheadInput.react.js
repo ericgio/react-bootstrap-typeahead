@@ -22,7 +22,7 @@ const TypeaheadInput = React.createClass({
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     placeholder: PropTypes.string,
-    selected: PropTypes.object,
+    selected: PropTypes.array,
     text: PropTypes.string,
   },
 
@@ -33,13 +33,16 @@ const TypeaheadInput = React.createClass({
   },
 
   render() {
-    const {className, disabled, selected, text} = this.props;
+    const {className, disabled, labelKey, selected, text} = this.props;
     const inputProps = pick(this.props, [
       'disabled',
       'onChange',
       'onFocus',
       'placeholder',
     ]);
+
+    let selectedItem = !!selected.length && head(selected);
+    let inputText = selectedItem[labelKey] || text;
 
     return (
       <div
@@ -63,7 +66,7 @@ const TypeaheadInput = React.createClass({
             zIndex: 1,
           }}
           type="text"
-          value={text}
+          value={inputText}
         />
         <input
           className="bootstrap-typeahead-input-hint form-control"
@@ -131,7 +134,7 @@ const TypeaheadInput = React.createClass({
       case RIGHT:
       case TAB:
         // Autocomplete the selection if there's a hint and no selection yet.
-        if (this._getHintText() && !selected) {
+        if (this._getHintText() && !selected.length) {
           e.preventDefault();
           onAdd && onAdd(head(filteredOptions));
         }
