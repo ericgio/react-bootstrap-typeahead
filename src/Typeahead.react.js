@@ -124,7 +124,7 @@ const Typeahead = React.createClass({
     }
 
     return {
-      activeIndex: 0,
+      activeIndex: -1,
       selected,
       showMenu: false,
       text: '',
@@ -288,7 +288,11 @@ const Typeahead = React.createClass({
         activeIndex += e.keyCode === UP ? -1 : 1;
 
         // If we've reached the end, go back to the beginning or vice-versa.
-        activeIndex = (activeIndex + options.length) % options.length;
+        if (activeIndex === options.length) {
+          activeIndex = -1;
+        } else if (activeIndex === -2) {
+          activeIndex = options.length - 1;
+        }
 
         this.setState({activeIndex});
         break;
