@@ -143,30 +143,13 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {labelKey, multiple} = this.props;
-    const {selected, text} = this.state;
-
     let filteredOptions = this._getFilteredOptions();
-    let InputComponent = multiple ? TokenizerInput : TypeaheadInput;
 
     return (
       <div
         className="bootstrap-typeahead open"
         style={{position: 'relative'}}>
-        <InputComponent
-          disabled={this.props.disabled}
-          labelKey={labelKey}
-          onAdd={this._handleAddOption}
-          onBlur={this._handleBlur}
-          onChange={this._handleTextChange}
-          onFocus={this._handleFocus}
-          onKeyDown={e => this._handleKeydown(filteredOptions, e)}
-          onRemove={this._handleRemoveOption}
-          options={filteredOptions}
-          placeholder={this.props.placeholder}
-          selected={selected.slice()}
-          text={text}
-        />
+        {this._renderInput(filteredOptions)}
         {this._renderMenu(filteredOptions)}
       </div>
     );
@@ -210,6 +193,29 @@ const Typeahead = React.createClass({
     }
 
     return filteredOptions;
+  },
+
+  _renderInput(filteredOptions) {
+    const {labelKey, multiple} = this.props;
+    const {selected, text} = this.state;
+    const Input = multiple ? TokenizerInput : TypeaheadInput;
+    const inputProps = pick(this.props, ['disabled', 'placeholder']);
+
+    return (
+      <Input
+        {...inputProps}
+        labelKey={labelKey}
+        onAdd={this._handleAddOption}
+        onBlur={this._handleBlur}
+        onChange={this._handleTextChange}
+        onFocus={this._handleFocus}
+        onKeyDown={e => this._handleKeydown(filteredOptions, e)}
+        onRemove={this._handleRemoveOption}
+        options={filteredOptions}
+        selected={selected.slice()}
+        text={text}
+      />
+    );
   },
 
   _renderMenu(filteredOptions) {
