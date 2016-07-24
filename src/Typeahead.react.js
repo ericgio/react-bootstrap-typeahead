@@ -143,19 +143,10 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {allowNew, labelKey, minLength, multiple} = this.props;
+    const {labelKey, minLength, multiple} = this.props;
     const {activeIndex, selected, showMenu, text} = this.state;
 
     let filteredOptions = this._getFilteredOptions();
-
-    if (!filteredOptions.length && allowNew && !!text.trim()) {
-      let newOption = {
-        id: uniqueId('new-id-'),
-        customOption: true,
-      };
-      newOption[labelKey] = text;
-      filteredOptions = [newOption];
-    }
 
     let menu;
     if (showMenu && text.length >= minLength) {
@@ -205,16 +196,15 @@ const Typeahead = React.createClass({
    * selections are allowed, that have already been selected.
    */
   _getFilteredOptions() {
-    const {labelKey, minLength, multiple, options} = this.props;
+    const {allowNew, labelKey, minLength, multiple, options} = this.props;
     const {selected, text} = this.state;
 
     if (text.length < minLength) {
       return [];
     }
 
-    return options.filter(option => {
+    let filteredOptions = options.filter(option => {
       const labelString = option[labelKey];
-
       if (!labelString || typeof labelString !== 'string') {
         throw new Error(
           'One or more options does not have a valid label string. Please ' +
@@ -228,6 +218,17 @@ const Typeahead = React.createClass({
         multiple && find(selected, option)
       );
     });
+
+    if (!filteredOptions.length && allowNew && !!text.trim()) {
+      let newOption = {
+        id: uniqueId('new-id-'),
+        customOption: true,
+      };
+      newOption[labelKey] = text;
+      filteredOptions = [newOption];
+    }
+
+    return filteredOptions;
   },
 
   _handleBlur(e) {
