@@ -137,13 +137,23 @@ const TypeaheadInput = React.createClass({
   },
 
   _handleKeydown(e) {
-    const {options, onAdd, selected} = this.props;
+    const {options, onAdd, selected, text} = this.props;
 
     switch (e.keyCode) {
       case RIGHT:
       case TAB:
-        // Autocomplete the selection if there's a hint and no selection yet.
-        if (this._getHintText() && !selected.length) {
+        const cursorPos = this.refs.input.selectionStart;
+
+        // Autocomplete the selection if all of the following are true:
+        if (
+          // There's a hint.
+          this._getHintText() &&
+          // There's no current selection.
+          !selected.length &&
+          // The input cursor is at the end of the text string when the user
+          // hits the right arrow key.
+          !(e.keyCode === RIGHT && cursorPos !== text.length)
+        ) {
           e.preventDefault();
           onAdd && onAdd(head(options));
         }
