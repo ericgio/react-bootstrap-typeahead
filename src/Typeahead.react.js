@@ -6,7 +6,7 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {find, isEmpty, isEqual, uniqueId} from 'lodash';
+import {find, isEmpty, isEqual, pick, uniqueId} from 'lodash';
 import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import listensToClickOutside from 'react-onclickoutside/decorator';
 
@@ -143,29 +143,10 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {labelKey, minLength, multiple} = this.props;
-    const {activeIndex, selected, showMenu, text} = this.state;
+    const {labelKey, multiple} = this.props;
+    const {selected, text} = this.state;
 
     let filteredOptions = this._getFilteredOptions();
-
-    let menu;
-    if (showMenu && text.length >= minLength) {
-      menu =
-        <TypeaheadMenu
-          activeIndex={activeIndex}
-          align={this.props.align}
-          emptyLabel={this.props.emptyLabel}
-          initialResultCount={this.props.paginateResults}
-          labelKey={labelKey}
-          maxHeight={this.props.maxHeight}
-          newSelectionPrefix={this.props.newSelectionPrefix}
-          onClick={this._handleAddOption}
-          options={filteredOptions}
-          renderMenuItemChildren={this.props.renderMenuItemChildren}
-          text={text}
-        />;
-    }
-
     let InputComponent = multiple ? TokenizerInput : TypeaheadInput;
 
     return (
@@ -186,7 +167,7 @@ const Typeahead = React.createClass({
           selected={selected.slice()}
           text={text}
         />
-        {menu}
+        {this._renderMenu(filteredOptions)}
       </div>
     );
   },
@@ -229,6 +210,35 @@ const Typeahead = React.createClass({
     }
 
     return filteredOptions;
+  },
+
+  _renderMenu(filteredOptions) {
+    const {labelKey, minLength} = this.props;
+    const {activeIndex, showMenu, text} = this.state;
+
+    if (!(showMenu && text.length >= minLength)) {
+      return null;
+    }
+
+    const menuProps = pick(this.props, [
+      'align',
+      'emptyLabel',
+      'maxHeight',
+      'newSelectionPrefix',
+      'renderMenuItemChildren',
+    ]);
+
+    return (
+      <TypeaheadMenu
+        {...menuProps}
+        activeIndex={activeIndex}
+        initialResultCount={this.props.paginateResults}
+        labelKey={labelKey}
+        onClick={this._handleAddOption}
+        options={filteredOptions}
+        text={text}
+      />
+    );
   },
 
   _handleBlur(e) {
