@@ -243,7 +243,8 @@ const Typeahead = React.createClass({
   },
 
   _handleBlur(e) {
-    this._hideDropdown();
+    // Note: Don't hide the menu here, since that interferes with other actions
+    // like making a selection by clicking on a menu item.
     this.props.onBlur && this.props.onBlur(e);
   },
 
