@@ -258,8 +258,9 @@ const Typeahead = React.createClass({
   },
 
   _handleTextChange(text) {
+    const {activeIndex} = this.getInitialState();
     this.setState({
-      activeIndex: 0,
+      activeIndex,
       showMenu: true,
       text,
     });
@@ -321,12 +322,8 @@ const Typeahead = React.createClass({
       text = selectedOption[labelKey];
     }
 
-    this.setState({
-      activeIndex: 0,
-      selected,
-      showMenu: false,
-      text,
-    });
+    this.setState({selected, text});
+    this._hideDropdown();
 
     onChange && onChange(selected);
     onInputChange && onInputChange(text);
@@ -336,11 +333,8 @@ const Typeahead = React.createClass({
     let selected = this.state.selected.slice();
     selected = selected.filter(option => !isEqual(option, removedOption));
 
-    this.setState({
-      activeIndex: 0,
-      selected,
-      showMenu: false,
-    });
+    this.setState({selected});
+    this._hideDropdown();
 
     this.props.onChange && this.props.onChange(selected);
   },
@@ -353,9 +347,10 @@ const Typeahead = React.createClass({
   },
 
   _hideDropdown() {
+    const {activeIndex, showMenu} = this.getInitialState();
     this.setState({
-      activeIndex: 0,
-      showMenu: false,
+      activeIndex,
+      showMenu,
     });
   },
 });
