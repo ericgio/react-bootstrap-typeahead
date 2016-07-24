@@ -16,11 +16,11 @@ const TypeaheadInput = React.createClass({
 
   propTypes: {
     disabled: PropTypes.bool,
-    filteredOptions: PropTypes.array,
     labelKey: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    options: PropTypes.array,
     placeholder: PropTypes.string,
     selected: PropTypes.array,
     text: PropTypes.string,
@@ -90,8 +90,8 @@ const TypeaheadInput = React.createClass({
   },
 
   _getHintText() {
-    const {filteredOptions, labelKey, text} = this.props;
-    const firstOption = head(filteredOptions);
+    const {options, labelKey, text} = this.props;
+    const firstOption = head(options);
     const firstOptionString = firstOption && firstOption[labelKey];
 
     // Only show the hint if...
@@ -137,7 +137,7 @@ const TypeaheadInput = React.createClass({
   },
 
   _handleKeydown(e) {
-    const {filteredOptions, onAdd, selected} = this.props;
+    const {options, onAdd, selected} = this.props;
 
     switch (e.keyCode) {
       case RIGHT:
@@ -145,7 +145,7 @@ const TypeaheadInput = React.createClass({
         // Autocomplete the selection if there's a hint and no selection yet.
         if (this._getHintText() && !selected.length) {
           e.preventDefault();
-          onAdd && onAdd(head(filteredOptions));
+          onAdd && onAdd(head(options));
         }
         break;
     }

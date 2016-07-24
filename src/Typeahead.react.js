@@ -183,7 +183,6 @@ const Typeahead = React.createClass({
         style={{position: 'relative'}}>
         <InputComponent
           disabled={this.props.disabled}
-          filteredOptions={filteredOptions}
           labelKey={labelKey}
           onAdd={this._handleAddOption}
           onBlur={this._handleBlur}
@@ -191,6 +190,7 @@ const Typeahead = React.createClass({
           onFocus={this._handleFocus}
           onKeyDown={e => this._handleKeydown(filteredOptions, e)}
           onRemove={this._handleRemoveOption}
+          options={filteredOptions}
           placeholder={this.props.placeholder}
           selected={selected.slice()}
           text={text}
