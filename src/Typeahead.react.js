@@ -200,13 +200,14 @@ const Typeahead = React.createClass({
 
   _renderInput(filteredOptions) {
     const {labelKey, multiple} = this.props;
-    const {selected, text} = this.state;
+    const {activeIndex, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
     const inputProps = pick(this.props, ['disabled', 'placeholder']);
 
     return (
       <Input
         {...inputProps}
+        activeIndex={activeIndex}
         labelKey={labelKey}
         onAdd={this._handleAddOption}
         onBlur={this._handleBlur}

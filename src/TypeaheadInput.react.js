@@ -32,17 +32,14 @@ const TypeaheadInput = React.createClass({
     };
   },
 
-  render() {
-    const {className, disabled, labelKey, selected, text} = this.props;
-    const inputProps = pick(this.props, [
-      'disabled',
-      'onChange',
-      'onFocus',
-      'placeholder',
-    ]);
+  componentDidUpdate(prevProps, prevState) {
+    const inputText = this._getInputText();
+    this.refs.input.selectionStart = inputText.length;
+  },
 
-    let selectedItem = !!selected.length && head(selected);
-    let inputText = selectedItem[labelKey] || text;
+  render() {
+    const {className, disabled, selected} = this.props;
+    const inputProps = pick(this.props, ['disabled', 'onFocus', 'placeholder']);
 
     return (
       <div
@@ -54,7 +51,7 @@ const TypeaheadInput = React.createClass({
         <input
           {...inputProps}
           className={cx('bootstrap-typeahead-input-main', 'form-control', {
-            'has-selection': !selected,
+            'has-selection': !!selected.length,
           })}
           onBlur={this._handleBlur}
           onChange={this._handleChange}
@@ -67,7 +64,7 @@ const TypeaheadInput = React.createClass({
             zIndex: 1,
           }}
           type="text"
-          value={inputText}
+          value={this._getInputText()}
         />
         <input
           className="bootstrap-typeahead-input-hint form-control"
@@ -90,17 +87,19 @@ const TypeaheadInput = React.createClass({
   },
 
   _getHintText() {
-    const {options, labelKey, text} = this.props;
+    const {activeIndex, options, labelKey, text} = this.props;
     const firstOption = head(options);
     const firstOptionString = firstOption && firstOption[labelKey];
 
-    // Only show the hint if...
+    // Only show the hint if:
     if (
-      // ...the input is focused.
+      // The input is focused.
       this.state.isFocused &&
-      // ...the input contains text.
+      // The input contains text.
       text &&
-      // ...the input text corresponds to the beginning of the first option.
+      // None of the menu options are focused.
+      activeIndex === -1 &&
+      // The input text corresponds to the beginning of the first option.
       firstOptionString &&
       firstOptionString.toLowerCase().indexOf(text.toLowerCase()) === 0
     ) {
@@ -113,6 +112,21 @@ const TypeaheadInput = React.createClass({
     }
 
     return '';
+  },
+
+  _getInputText() {
+    const {activeIndex, labelKey, options, selected, text} = this.props;
+
+    let selectedItem = !!selected.length && head(selected);
+    if (selectedItem) {
+      return selectedItem[labelKey];
+    }
+
+    if (activeIndex >= 0) {
+      return options[activeIndex][labelKey];
+    }
+
+    return text;
   },
 
   _handleBlur(e) {
@@ -137,17 +151,18 @@ const TypeaheadInput = React.createClass({
   },
 
   _handleKeydown(e) {
-    const {options, onAdd, selected, text} = this.props;
+    const {activeIndex, options, onAdd, selected, text} = this.props;
 
     switch (e.keyCode) {
       case RIGHT:
       case TAB:
         const cursorPos = this.refs.input.selectionStart;
+        const hasHintText = !!this._getHintText();
 
         // Autocomplete the selection if all of the following are true:
         if (
-          // There's a hint.
-          this._getHintText() &&
+          // There's a hint or a menu item is highlighted.
+          (hasHintText || activeIndex !== -1) &&
           // There's no current selection.
           !selected.length &&
           // The input cursor is at the end of the text string when the user
@@ -155,7 +170,12 @@ const TypeaheadInput = React.createClass({
           !(e.keyCode === RIGHT && cursorPos !== text.length)
         ) {
           e.preventDefault();
-          onAdd && onAdd(head(options));
+
+          const selectedOption = hasHintText ?
+            head(options) :
+            options[activeIndex];
+
+          onAdd && onAdd(selectedOption);
         }
         break;
     }
