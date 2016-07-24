@@ -89,11 +89,11 @@ const TokenizerInput = React.createClass({
 
   _handleBlur(e) {
     this.setState({isFocused: false});
-    this.props.onBlur && this.props.onBlur(e);
+    this.props.onBlur(e);
   },
 
   _handleChange(e) {
-    this.props.onChange && this.props.onChange(e.target.value);
+    this.props.onChange(e.target.value);
   },
 
   _handleKeydown(e) {
@@ -113,7 +113,7 @@ const TokenizerInput = React.createClass({
         break;
     }
 
-    this.props.onKeyDown && this.props.onKeyDown(e);
+    this.props.onKeyDown(e);
   },
 
   _handleInputFocus(e) {

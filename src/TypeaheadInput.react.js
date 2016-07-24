@@ -117,7 +117,7 @@ const TypeaheadInput = React.createClass({
 
   _handleBlur(e) {
     this.setState({isFocused: false});
-    this.props.onBlur && this.props.onBlur(e);
+    this.props.onBlur(e);
   },
 
   _handleChange(e) {
@@ -125,7 +125,7 @@ const TypeaheadInput = React.createClass({
     const {onRemove, selected} = this.props;
     !!selected.length && onRemove(head(selected));
 
-    this.props.onChange && this.props.onChange(e.target.value);
+    this.props.onChange(e.target.value);
   },
 
   /**
@@ -150,7 +150,7 @@ const TypeaheadInput = React.createClass({
         break;
     }
 
-    this.props.onKeyDown && this.props.onKeyDown(e);
+    this.props.onKeyDown(e);
   },
 });
 

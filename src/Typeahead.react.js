@@ -6,7 +6,7 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {find, isEmpty, isEqual, pick, uniqueId} from 'lodash';
+import {find, isEmpty, isEqual, noop, pick, uniqueId} from 'lodash';
 import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 import listensToClickOutside from 'react-onclickoutside/decorator';
 
@@ -106,6 +106,9 @@ const Typeahead = React.createClass({
       allowNew: false,
       defaultSelected: [],
       labelKey: 'label',
+      onBlur: noop,
+      onChange: noop,
+      onInputChange: noop,
       minLength: 0,
       multiple: false,
       selected: [],
@@ -250,7 +253,7 @@ const Typeahead = React.createClass({
   _handleBlur(e) {
     // Note: Don't hide the menu here, since that interferes with other actions
     // like making a selection by clicking on a menu item.
-    this.props.onBlur && this.props.onBlur(e);
+    this.props.onBlur(e);
   },
 
   _handleFocus() {
@@ -265,7 +268,7 @@ const Typeahead = React.createClass({
       text,
     });
 
-    this.props.onInputChange && this.props.onInputChange(text);
+    this.props.onInputChange(text);
   },
 
   _handleKeydown(options, e) {
@@ -325,8 +328,8 @@ const Typeahead = React.createClass({
     this.setState({selected, text});
     this._hideDropdown();
 
-    onChange && onChange(selected);
-    onInputChange && onInputChange(text);
+    onChange(selected);
+    onInputChange(text);
   },
 
   _handleRemoveOption(removedOption) {
@@ -336,7 +339,7 @@ const Typeahead = React.createClass({
     this.setState({selected});
     this._hideDropdown();
 
-    this.props.onChange && this.props.onChange(selected);
+    this.props.onChange(selected);
   },
 
   /**
