@@ -26,7 +26,7 @@ const TokenizerInput = React.createClass({
 
   getInitialState() {
     return {
-      focused: false,
+      isFocused: false,
     };
   },
 
@@ -39,7 +39,7 @@ const TokenizerInput = React.createClass({
           'bootstrap-tokenizer',
           'clearfix',
           'form-control',
-          {'focus': this.state.focused}
+          {'focus': this.state.isFocused}
         )}
         disabled={disabled}
         onClick={this._handleInputFocus}
@@ -88,7 +88,7 @@ const TokenizerInput = React.createClass({
   },
 
   _handleBlur(e) {
-    this.setState({focused: false});
+    this.setState({isFocused: false});
     this.props.onBlur && this.props.onBlur(e);
   },
 
@@ -125,7 +125,7 @@ const TokenizerInput = React.createClass({
     // If the user clicks anywhere inside the tokenizer besides a token,
     // focus the input.
     this.refs.input.focus();
-    this.setState({focused: true});
+    this.setState({isFocused: true});
   },
 });
 
