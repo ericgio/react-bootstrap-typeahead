@@ -158,6 +158,20 @@ const Typeahead = React.createClass({
     );
   },
 
+  clear() {
+    const selected = [];
+    const text = '';
+
+    this.setState({
+      ...this.getInitialState(),
+      selected,
+      text,
+    });
+
+    this.props.onChange(selected);
+    this.props.onInputChange(text);
+  },
+
   /**
    * Filter out options that don't match the input string or, if multiple
    * selections are allowed, that have already been selected.

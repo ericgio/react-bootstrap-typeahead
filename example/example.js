@@ -90,6 +90,8 @@ const Example = React.createClass({
             onInputChange={text => this.setState({text})}
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
+            ref="typeahead"
+            selected={selected}
           />
           <ExampleSection title="Typeahead Options">
             <div className="form-group">
@@ -142,6 +144,11 @@ const Example = React.createClass({
                 onChange={this._handleChange}>
                 Require minimum text input before showing results
               </Checkbox>
+              <button
+                className="btn btn-default"
+                onClick={this._handleClear}>
+                Clear Input
+              </button>
             </div>
           </ExampleSection>
           <ExampleSection title="Selected Items">
@@ -215,6 +222,10 @@ const Example = React.createClass({
     }
 
     this.setState(newState);
+  },
+
+  _handleClear(e) {
+    this.refs.typeahead.getInstance().clear();
   },
 });
 
