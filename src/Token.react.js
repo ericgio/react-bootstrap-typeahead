@@ -5,7 +5,7 @@ import {findDOMNode} from 'react-dom';
 
 import cx from 'classnames';
 import keyCode from './keyCode';
-import listensToClickOutside from 'react-onclickoutside/decorator';
+import onClickOutside from 'react-onclickoutside';
 
 /**
  * Token
@@ -112,4 +112,4 @@ const Token = React.createClass({
   },
 });
 
-export default listensToClickOutside(Token);
+export default onClickOutside(Token);

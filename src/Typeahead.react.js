@@ -8,7 +8,7 @@ import TypeaheadMenu from './TypeaheadMenu.react';
 
 import {find, isEmpty, isEqual, noop, pick, uniqueId} from 'lodash';
 import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
-import listensToClickOutside from 'react-onclickoutside/decorator';
+import onClickOutside from 'react-onclickoutside';
 
 /**
  * Typeahead
@@ -363,4 +363,4 @@ const Typeahead = React.createClass({
   },
 });
 
-export default listensToClickOutside(Typeahead);
+export default onClickOutside(Typeahead);
