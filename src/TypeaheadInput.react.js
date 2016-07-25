@@ -88,7 +88,7 @@ const TypeaheadInput = React.createClass({
   },
 
   _getHintText() {
-    const {activeIndex, options, labelKey, text} = this.props;
+    const {activeIndex, options, labelKey, selected, text} = this.props;
     const firstOption = head(options);
     const firstOptionString = firstOption && firstOption[labelKey];
 
@@ -100,6 +100,8 @@ const TypeaheadInput = React.createClass({
       text &&
       // None of the menu options are focused.
       activeIndex === -1 &&
+      // There are no current selections.
+      !selected.length &&
       // The input text corresponds to the beginning of the first option.
       firstOptionString &&
       firstOptionString.toLowerCase().indexOf(text.toLowerCase()) === 0
