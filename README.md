@@ -124,3 +124,6 @@ The component tries to use as little CSS as possible, relying primarily on Boots
 
 ## Example
 An example file is included with the NPM module. Simply open `example/index.html` in a browser. If you're using the repository code, you'll need to run `npm run example` to build the example index file. You can then open the HTML file as described above. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
+
+## License
+[MIT](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/LICENSE.md)
