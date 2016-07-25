@@ -158,6 +158,10 @@ const Typeahead = React.createClass({
     );
   },
 
+  /**
+   * Public method to allow external clearing of the input. Clears both text
+   * and selection(s).
+   */
   clear() {
     const selected = [];
     const text = '';
