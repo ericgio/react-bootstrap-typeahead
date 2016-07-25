@@ -73,6 +73,7 @@ const TypeaheadInput = React.createClass({
             bottom: 0,
             boxShadow: 'none',
             display: 'block',
+            opacity: 0.6,
             position: 'absolute',
             top: 0,
             width: '100%',
