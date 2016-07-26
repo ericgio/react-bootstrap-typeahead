@@ -1,51 +1,11 @@
 'use strict';
 
+import cx from 'classnames';
 import Highlight from 'react-highlighter';
 import React, {PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
 
-import cx from 'classnames';
-
-const Menu = props => (
-  <ul
-    {...props}
-    className={cx('dropdown-menu', props.className)}>
-    {props.children}
-  </ul>
-);
-
-const MenuItem = React.createClass({
-  displayName: 'MenuItem',
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.active) {
-      findDOMNode(this).firstChild.focus();
-    }
-  },
-
-  render() {
-    const {active, children, className, disabled} = this.props;
-
-    return (
-      <li
-        className={cx({
-          'active': active,
-          'disabled': disabled,
-        }, className)}>
-        <a href="#" onClick={this._handleClick}>
-          {children}
-        </a>
-      </li>
-    );
-  },
-
-  _handleClick(e) {
-    const {disabled, onClick} = this.props;
-
-    e.preventDefault();
-    !disabled && onClick && onClick();
-  },
-});
+import Menu from './Menu.react';
+import MenuItem from './MenuItem.react';
 
 const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',
