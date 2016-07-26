@@ -10,6 +10,13 @@ import states from './exampleData';
 require('../css/Token.css');
 require('../css/Typeahead.css');
 
+const Button = props => (
+  <button
+    {...props}
+    className="btn btn-default"
+  />
+);
+
 const Checkbox = props => (
   <div className="checkbox">
     <label>
@@ -144,11 +151,18 @@ const Example = React.createClass({
                 onChange={this._handleChange}>
                 Require minimum text input before showing results
               </Checkbox>
-              <button
-                className="btn btn-default"
-                onClick={this._handleClear}>
-                Clear Input
-              </button>
+            </div>
+          </ExampleSection>
+          <ExampleSection title="Typeahead Methods">
+            <div className="btn-toolbar">
+              <Button
+                onClick={() => this.refs.typeahead.getInstance().clear()}>
+                Clear
+              </Button>
+              <Button
+                onClick={() => this.refs.typeahead.getInstance().focus()}>
+                Focus
+              </Button>
             </div>
           </ExampleSection>
           <ExampleSection title="Selected Items">
@@ -222,10 +236,6 @@ const Example = React.createClass({
     }
 
     this.setState(newState);
-  },
-
-  _handleClear(e) {
-    this.refs.typeahead.getInstance().clear();
   },
 });
 

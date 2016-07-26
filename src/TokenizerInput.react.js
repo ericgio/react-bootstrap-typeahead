@@ -74,6 +74,10 @@ const TokenizerInput = React.createClass({
     );
   },
 
+  focus() {
+    this._handleInputFocus();
+  },
+
   _renderToken(option, idx) {
     const {disabled, labelKey, onRemove} = this.props;
 

@@ -84,19 +84,24 @@ Allows you to control the contents of a menu item. Your function will be passed 
 />
 ```
 ## Public Methods
-
-### `clear()`
-The `clear` method provides an easy way to externally reset the input. Calling the method will clear both text and selection(s). To use the method, add a ref to your typeahead instance:
+To access the component's public methods, add a ref to your typeahead instance:
 ```
 <Typeahead ref="typeahead" ... />
 ```
-You can then access the ref from a handler function:
+then access the ref from your handler:
 ```
 <button onClick={() => this.refs.typeahead.getInstance().clear()}>
   Clear Typeahead
 </button>
 ```
-Note that you *must* use `getInstance` to get the typeahead instance. This is because `react-bootstrap-typeahead` is wrapped by the [`react-onclickoutside`](https://github.com/Pomax/react-onclickoutside) higher-order component, so the `clear` method is not directly available. See [`react-onclickoutside`'s documentation](https://github.com/Pomax/react-onclickoutside#but-how-can-i-access-my-component-it-has-an-api-that-i-rely-on) for more.
+
+Note that you *must* use `getInstance` to get the typeahead instance. This is because `react-bootstrap-typeahead` is wrapped by the [`react-onclickoutside`](https://github.com/Pomax/react-onclickoutside) higher-order component, so the `clear` method is not directly available. See [`react-onclickoutside`'s documentation](https://github.com/Pomax/react-onclickoutside#but-how-can-i-access-my-component-it-has-an-api-that-i-rely-on) for more information.
+
+### `clear()`
+Provides an easy way to reset the input. Calling the method will clear both text and selection(s).
+
+### `focus()`
+Provides a programmatic way to focus the input.
 
 ## Props
 Name | Type | Default | Description
