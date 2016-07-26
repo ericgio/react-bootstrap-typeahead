@@ -163,12 +163,14 @@ const Typeahead = React.createClass({
    * and selection(s).
    */
   clear() {
+    const {activeIndex, showMenu} = this.getInitialState();
     const selected = [];
     const text = '';
 
     this.setState({
-      ...this.getInitialState(),
+      activeIndex,
       selected,
+      showMenu,
       text,
     });
 
