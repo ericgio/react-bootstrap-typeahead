@@ -1,21 +1,9 @@
-var webpack = require('webpack');
+var webpackBaseConfig = require('./webpack.base.config');
 
-module.exports = {
+module.exports = Object.assign(webpackBaseConfig, {
   entry: './example/example.js',
   output: {
     path: './example',
     filename:  'index.js'
   },
-  module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.(css|scss)$/, loader: 'style-loader!css-loader' },
-    ]
-  },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-  ],
-  resolve: {
-    extensions: ['', '.js']
-  }
-};
+});
