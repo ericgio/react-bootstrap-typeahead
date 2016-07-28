@@ -40,8 +40,10 @@ const MenuItem = React.createClass({
   },
 
   _handleClick(e) {
+    const {disabled, onClick} = this.props;
+
     e.preventDefault();
-    this.props.onClick && this.props.onClick();
+    !disabled && onClick && onClick();
   },
 });
 
