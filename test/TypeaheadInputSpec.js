@@ -41,7 +41,7 @@ describe('<TypeaheadInput>', () => {
     const inputNode = getInputNode(instance);
 
     expect(inputNode.value).to.equal('California');
-  });  
+  });
 
   it('displays a hint', () => {
     const instance = ReactTestUtils.renderIntoDocument(
