@@ -7,7 +7,7 @@ rm -rf build
 
 # Build ES5 modules to lib
 rm -rf lib
-./node_modules/.bin/babel src --out-dir lib --presets es2015,react
+./node_modules/.bin/babel src --out-dir lib --presets es2015,react --plugins lodash
 
 # Build example file
 rm example/index.js
