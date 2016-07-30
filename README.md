@@ -115,6 +115,7 @@ onBlur | function | | Callback fired when the input is blurred. Receives an even
 onChange | function | | Callback fired whenever items are added or removed. Receives an array of the selected options.
 onInputChange | function | | Callback fired when user-input text changes. Receives the text string.
 options `required` | array | | Full set of options, including any pre-selected options.
+paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.

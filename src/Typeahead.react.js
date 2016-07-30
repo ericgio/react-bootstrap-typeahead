@@ -87,6 +87,10 @@ const Typeahead = React.createClass({
      */
     paginateResults: PropTypes.number,
     /**
+     * Prompt displayed when large data sets are paginated.
+     */
+    paginationText: PropTypes.string,
+    /**
      * Placeholder text for the input.
      */
     placeholder: PropTypes.string,

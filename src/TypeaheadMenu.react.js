@@ -19,6 +19,7 @@ const TypeaheadMenu = React.createClass({
     maxHeight: PropTypes.number,
     newSelectionPrefix: PropTypes.string,
     options: PropTypes.array,
+    paginationText: PropTypes.string,
     renderMenuItemChildren: PropTypes.func,
     text: PropTypes.string.isRequired,
   },
@@ -30,6 +31,7 @@ const TypeaheadMenu = React.createClass({
       initialResultCount: 100,
       maxHeight: 300,
       newSelectionPrefix: 'New selection:',
+      paginationText: 'Display additional results...',
     };
   },
 
@@ -45,26 +47,15 @@ const TypeaheadMenu = React.createClass({
   },
 
   render() {
-    const {align, maxHeight, options} = this.props;
+    const {align, emptyLabel, maxHeight, options} = this.props;
 
     // Render the max number of results or all results.
-    let results = options.slice(0, this.state.resultCount || options.length);
-    results = results.length ?
+    const results = options.slice(0, this.state.resultCount || options.length);
+    const menuItems = results.length ?
       results.map(this._renderMenuItem) :
-      <MenuItem disabled>{this.props.emptyLabel}</MenuItem>;
-
-    // Allow user to see more results, if available.
-    let paginationItem;
-    let separator;
-    if (results.length < options.length) {
-      paginationItem =
-        <MenuItem
-          className="bootstrap-typeahead-menu-paginator"
-          onClick={this._handlePagination}>
-          Display next {this.props.initialResultCount} results...
-        </MenuItem>;
-      separator = <li className="divider" role="separator" />;
-    }
+      <MenuItem disabled>
+        {emptyLabel}
+      </MenuItem>;
 
     return (
       <Menu
@@ -76,9 +67,8 @@ const TypeaheadMenu = React.createClass({
           maxHeight: maxHeight + 'px',
           overflow: 'auto',
         }}>
-        {results}
-        {separator}
-        {paginationItem}
+        {menuItems}
+        {this._renderPaginationMenuItem(results)}
       </Menu>
     );
   },
@@ -109,6 +99,29 @@ const TypeaheadMenu = React.createClass({
           {option[labelKey]}
         </Highlight>
       </MenuItem>;
+  },
+
+  /**
+   * Allow user to see more results, if available.
+   */
+  _renderPaginationMenuItem(results) {
+    const {options, paginationText} = this.props;
+
+    if (results.length < options.length) {
+      return [
+        <li
+          className="divider"
+          key="pagination-item-divider"
+          role="separator"
+        />,
+        <MenuItem
+          className="bootstrap-typeahead-menu-paginator"
+          key="pagination-item"
+          onClick={this._handlePagination}>
+          {paginationText}
+        </MenuItem>,
+      ];
+    }
   },
 
   _handlePagination(e) {
