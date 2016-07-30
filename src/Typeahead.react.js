@@ -66,9 +66,13 @@ const Typeahead = React.createClass({
      * indicate that the selection will be new. No-op unless `allowNew={true}`.
      */
     newSelectionPrefix: PropTypes.string,
+    /**
+     * Callback fired when the input is blurred. Receives an event.
+     */
     onBlur: PropTypes.func,
     /**
-     * Callback for handling selected values.
+     * Callback fired whenever items are added or removed. Receives an array of
+     * the selected options.
      */
     onChange: PropTypes.func,
     /**

@@ -115,6 +115,7 @@ onBlur | function | | Callback fired when the input is blurred. Receives an even
 onChange | function | | Callback fired whenever items are added or removed. Receives an array of the selected options.
 onInputChange | function | | Callback fired when user-input text changes. Receives the text string.
 options `required` | array | | Full set of options, including any pre-selected options.
+paginateResults | number | 100 | For large option sets, initially display a subset of results for improved performance. If users scroll to the end, the last item will be a link to display the next set of results. Value represents the number of results to display. `0` will display all results.
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
