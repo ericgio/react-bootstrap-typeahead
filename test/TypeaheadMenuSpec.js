@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import {range} from 'lodash';
 import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 
@@ -6,6 +7,8 @@ import MenuItem from '../src/MenuItem.react';
 import TypeaheadMenu from '../src/TypeaheadMenu.react';
 
 import states from '../example/exampleData';
+
+const bigData = range(0, 300).map(option => ({label: option.toString()}));
 
 function getMenuInstance(props={}) {
   return ReactTestUtils.renderIntoDocument(
@@ -52,6 +55,31 @@ describe('<TypeaheadMenu>', () => {
 
     expect(menuItems.length).to.equal(1);
     expect(menuItems[0].props.children).to.equal('No matches found.');
+  });
+
+  it('paginates long data sets', () => {
+    const instance = getMenuInstance({options: bigData});
+    const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-menu-paginator'
+    );
+    expect(paginatorNode).to.exist;
+    expect(paginatorNode.firstChild.innerHTML).to.equal(
+      'Display additional results...'
+    );
+  });
+
+  it('displays custom pagination text', () => {
+    const paginationText = 'See All';
+    const instance = getMenuInstance({
+      options: bigData,
+      paginationText,
+    });
+    const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-menu-paginator'
+    );
+    expect(paginatorNode.firstChild.innerHTML).to.equal(paginationText);
   });
 
 });

@@ -96,6 +96,7 @@ const Example = React.createClass({
             onChange={selected => this.setState({selected})}
             onInputChange={text => this.setState({text})}
             options={largeDataSet ? bigData : states}
+            paginationText="Something different"
             placeholder="Choose a state..."
             ref="typeahead"
             selected={selected}

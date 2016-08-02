@@ -236,6 +236,7 @@ const Typeahead = React.createClass({
       'emptyLabel',
       'maxHeight',
       'newSelectionPrefix',
+      'paginationText',
       'renderMenuItemChildren',
     ]);
 

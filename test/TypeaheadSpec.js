@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import {range} from 'lodash';
 import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 
@@ -100,6 +101,27 @@ describe('<Typeahead>', () => {
     );
 
     expect(input.props.disabled).to.be.true;
+  });
+
+  it('should display a menu item for pagination', () => {
+    const options = range(0, 300).map(option => ({label: option.toString()}));
+    const paginationText = 'See More';
+    const instance = ReactTestUtils.renderIntoDocument(
+      <Typeahead options={options} paginationText={paginationText} />
+    );
+    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-input-main'
+    );
+    ReactTestUtils.Simulate.focus(inputNode);
+
+    const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-menu-paginator'
+    );
+
+    expect(paginatorNode).to.exist;
+    expect(paginatorNode.firstChild.innerHTML).to.equal(paginationText);
   });
 
 });
