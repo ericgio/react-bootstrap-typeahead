@@ -2,7 +2,7 @@ var webpackBaseConfig = require('./webpack.base.config');
 
 module.exports = function(config) {
   config.set({
-    browsers: ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'],
     frameworks: ['mocha', 'chai'],
     singleRun: true,
     files: [
