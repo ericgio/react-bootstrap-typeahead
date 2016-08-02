@@ -6,9 +6,11 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {find, isEmpty, isEqual, noop, pick, uniqueId} from 'lodash';
-import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
+import getFilteredOptions from './getFilteredOptions';
+import {isEmpty, isEqual, noop, pick} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
+
+import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 
 /**
  * Typeahead
@@ -154,7 +156,9 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    let filteredOptions = this._getFilteredOptions();
+    const {options, ...props} = this.props;
+    const {selected, text} = this.state;
+    const filteredOptions = getFilteredOptions(options, text, selected, props);
 
     return (
       <div
@@ -192,46 +196,6 @@ const Typeahead = React.createClass({
 
   focus() {
     this.refs.input.focus();
-  },
-
-  /**
-   * Filter out options that don't match the input string or, if multiple
-   * selections are allowed, that have already been selected.
-   */
-  _getFilteredOptions() {
-    const {allowNew, labelKey, minLength, multiple, options} = this.props;
-    const {selected, text} = this.state;
-
-    if (text.length < minLength) {
-      return [];
-    }
-
-    let filteredOptions = options.filter(option => {
-      const labelString = option[labelKey];
-      if (!labelString || typeof labelString !== 'string') {
-        throw new Error(
-          'One or more options does not have a valid label string. Please ' +
-          'check the `labelKey` prop to ensure that it matches the correct ' +
-          'option key and provides a string for filtering and display.'
-        );
-      }
-
-      return !(
-        labelString.toLowerCase().indexOf(text.toLowerCase()) === -1 ||
-        multiple && find(selected, o => isEqual(o, option))
-      );
-    });
-
-    if (!filteredOptions.length && allowNew && !!text.trim()) {
-      let newOption = {
-        id: uniqueId('new-id-'),
-        customOption: true,
-      };
-      newOption[labelKey] = text;
-      filteredOptions = [newOption];
-    }
-
-    return filteredOptions;
   },
 
   _renderInput(filteredOptions) {
