@@ -4,5 +4,4 @@ example/index.js
 lib
 **/node_modules
 scripts
-test
 **/webpack*.config.js

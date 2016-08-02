@@ -1,4 +1,4 @@
-import {noop} from 'lodash';
+import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 

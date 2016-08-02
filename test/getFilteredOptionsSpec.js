@@ -1,3 +1,5 @@
+import {expect} from 'chai';
+
 import getFilteredOptions from '../src/getFilteredOptions';
 import states from '../example/exampleData';
 

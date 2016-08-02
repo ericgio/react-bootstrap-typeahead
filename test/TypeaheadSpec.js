@@ -1,11 +1,10 @@
+import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 
-import MenuItem from '../src/MenuItem.react';
 import TokenizerInput from '../src/TokenizerInput.react';
 import Typeahead from '../src/Typeahead.react';
 import TypeaheadInput from '../src/TypeaheadInput.react';
-import TypeaheadMenu from '../src/TypeaheadMenu.react';
 
 import states from '../example/exampleData';
 
