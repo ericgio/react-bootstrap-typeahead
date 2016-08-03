@@ -7,6 +7,9 @@ import Typeahead from '../src/Typeahead.react';
 import {range} from 'lodash';
 import states from './exampleData';
 
+const bigData = range(0, 2000).map(option => ({name: option.toString()}));
+const PRESELECTED_COUNT = 4;
+
 require('../css/Token.css');
 require('../css/Typeahead.css');
 
@@ -77,8 +80,6 @@ const Example = React.createClass({
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
     }
-
-    let bigData = range(0, 2000).map(option => ({name: option.toString()}));
 
     return (
       <div className="example">
@@ -220,10 +221,15 @@ const Example = React.createClass({
         break;
       case 'largeDataSet':
         newState.customMenuItemChildren = false;
+        if (this.state.preSelected) {
+          const options = checked ? bigData : states;
+          newState.selected = options.slice(0, PRESELECTED_COUNT);
+        }
         break;
       case 'preSelected':
-        let count = this.state.multiple ? 4 : 1;
-        newState.selected = checked ? states.slice(0, count) : [];
+        let count = this.state.multiple ? PRESELECTED_COUNT : 1;
+        let options = this.state.largeDataSet ? bigData : states;
+        newState.selected = checked ? options.slice(0, count) : [];
         break;
       case 'minLength':
         newState.minLength = checked ? 1 : 0;
