@@ -1,6 +1,11 @@
-src
-scripts
-webpack.config.js
-webpack.example.config.js
 .babelrc
+.eslintignore
 .eslintrc
+.gitignore
+.npmignore
+.travis.yml
+*.js
+example
+scripts
+src
+test
