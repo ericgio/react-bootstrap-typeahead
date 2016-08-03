@@ -3,6 +3,7 @@
 import React, {PropTypes} from 'react';
 
 import cx from 'classnames';
+import getHintText from './getHintText';
 import getInputText from './getInputText';
 import {head} from 'lodash';
 import {RIGHT, TAB} from './keyCode';
@@ -93,7 +94,7 @@ const TypeaheadInput = React.createClass({
           }}
           tabIndex={-1}
           type="text"
-          value={this._getHintText()}
+          value={getHintText(this.props, this.state.isFocused)}
         />
       </div>
     );
@@ -105,36 +106,6 @@ const TypeaheadInput = React.createClass({
 
   focus() {
     this._handleInputFocus();
-  },
-
-  _getHintText() {
-    const {activeIndex, options, labelKey, selected, text} = this.props;
-    const firstOption = head(options);
-    const firstOptionString = firstOption && firstOption[labelKey];
-
-    // Only show the hint if:
-    if (
-      // The input is focused.
-      this.state.isFocused &&
-      // The input contains text.
-      text &&
-      // None of the menu options are focused.
-      activeIndex === -1 &&
-      // There are no current selections.
-      !selected.length &&
-      // The input text corresponds to the beginning of the first option.
-      firstOptionString &&
-      firstOptionString.toLowerCase().indexOf(text.toLowerCase()) === 0
-    ) {
-      // Text matching is case-insensitive, so to display the hint correctly,
-      // splice the input text with the rest of the actual string.
-      return text + firstOptionString.slice(
-        text.length,
-        firstOptionString.length
-      );
-    }
-
-    return '';
   },
 
   _handleBlur(e) {
@@ -165,7 +136,7 @@ const TypeaheadInput = React.createClass({
       case RIGHT:
       case TAB:
         const cursorPos = this.refs.input.selectionStart;
-        const hasHintText = !!this._getHintText();
+        const hasHintText = !!getHintText(this.props, this.state.isFocused);
 
         // Autocomplete the selection if all of the following are true:
         if (
