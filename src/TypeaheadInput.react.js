@@ -3,6 +3,7 @@
 import React, {PropTypes} from 'react';
 
 import cx from 'classnames';
+import getInputText from './getInputText';
 import {head} from 'lodash';
 import {RIGHT, TAB} from './keyCode';
 
@@ -35,7 +36,7 @@ const TypeaheadInput = React.createClass({
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.activeIndex !== prevProps.activeIndex) {
-      const inputText = this._getInputText();
+      const inputText = getInputText(this.props);
       this.refs.input.selectionStart = inputText.length;
     }
   },
@@ -75,7 +76,7 @@ const TypeaheadInput = React.createClass({
             zIndex: 1,
           }}
           type="text"
-          value={this._getInputText()}
+          value={getInputText(this.props)}
         />
         <input
           className="bootstrap-typeahead-input-hint form-control"
@@ -134,21 +135,6 @@ const TypeaheadInput = React.createClass({
     }
 
     return '';
-  },
-
-  _getInputText() {
-    const {activeIndex, labelKey, options, selected, text} = this.props;
-
-    let selectedItem = !!selected.length && head(selected);
-    if (selectedItem) {
-      return selectedItem[labelKey];
-    }
-
-    if (activeIndex >= 0) {
-      return options[activeIndex][labelKey];
-    }
-
-    return text;
   },
 
   _handleBlur(e) {
