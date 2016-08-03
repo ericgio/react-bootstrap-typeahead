@@ -1,10 +1,10 @@
-var webpackBaseConfig = require('./webpack.base.config');
+var webpackConfigBase = require('./webpack.config.base');
 
-module.exports = Object.assign(webpackBaseConfig, {
+module.exports = Object.assign(webpackConfigBase, {
   entry: './src/index',
   output: {
     path: './dist',
-    filename: 'react-bootstrap-typeahead.min.js',
+    filename: 'react-bootstrap-typeahead.js',
     library: 'ReactBootstrapTypeahead',
     libraryTarget: 'umd'
   },

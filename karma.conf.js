@@ -1,5 +1,5 @@
 /* eslint-env node */
-var webpackBaseConfig = require('./webpack.base.config');
+var webpackConfigBase = require('./webpack.config.base');
 
 module.exports = function(config) {
   config.set({
@@ -19,7 +19,7 @@ module.exports = function(config) {
       'tests.webpack.js': ['webpack', 'sourcemap'],
     },
     reporters: ['dots'],
-    webpack: Object.assign(webpackBaseConfig, {
+    webpack: Object.assign(webpackConfigBase, {
       devtool: 'inline-source-map',
     }),
     webpackServer: {
