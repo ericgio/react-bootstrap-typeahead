@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Typeahead from '../src/Typeahead.react';
 
+import cx from 'classnames';
 import {range} from 'lodash';
 import states from './exampleData';
 
@@ -21,7 +22,7 @@ const Button = props => (
 );
 
 const Checkbox = props => (
-  <div className="checkbox">
+  <div className={cx('checkbox', {'disabled': props.disabled})}>
     <label>
       <input
         checked={props.checked}

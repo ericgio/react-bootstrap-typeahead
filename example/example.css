@@ -5,3 +5,7 @@
 .example-section {
   margin-top: 20px;
 }
+
+.disabled > label {
+  color: #aaa;
+}
