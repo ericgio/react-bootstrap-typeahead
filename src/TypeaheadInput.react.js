@@ -33,8 +33,10 @@ const TypeaheadInput = React.createClass({
   },
 
   componentDidUpdate(prevProps, prevState) {
-    const inputText = this._getInputText();
-    this.refs.input.selectionStart = inputText.length;
+    if (this.props.activeIndex !== prevProps.activeIndex) {
+      const inputText = this._getInputText();
+      this.refs.input.selectionStart = inputText.length;
+    }
   },
 
   render() {
