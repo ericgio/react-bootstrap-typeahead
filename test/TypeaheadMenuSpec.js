@@ -6,15 +6,15 @@ import ReactTestUtils from 'react/lib/ReactTestUtils';
 import MenuItem from '../src/MenuItem.react';
 import TypeaheadMenu from '../src/TypeaheadMenu.react';
 
-import states from '../example/exampleData';
+import options from '../example/exampleData';
 
-const bigData = range(0, 300).map(option => ({label: option.toString()}));
+const bigData = range(0, 300).map(option => ({name: option.toString()}));
 
 function getMenuInstance(props={}) {
   return ReactTestUtils.renderIntoDocument(
     <TypeaheadMenu
-      labelKey=""
-      options={states}
+      labelKey="name"
+      options={options}
       text=""
       {...props}
     />

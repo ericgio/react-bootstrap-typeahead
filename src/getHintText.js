@@ -1,9 +1,11 @@
 import {head} from 'lodash';
+import getOptionLabel from './getOptionLabel';
 
 function getHintText(props, isFocused) {
   const {activeIndex, labelKey, options, selected, text} = props;
   const firstOption = head(options);
-  const firstOptionString = firstOption && firstOption[labelKey];
+  const firstOptionString =
+    firstOption && getOptionLabel(firstOption, labelKey);
 
   // Only show the hint if:
   if (

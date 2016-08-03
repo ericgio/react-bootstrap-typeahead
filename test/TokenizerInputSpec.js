@@ -4,17 +4,20 @@ import ReactTestUtils from 'react/lib/ReactTestUtils';
 
 import TokenizerInput from '../src/TokenizerInput.react';
 
-import states from '../example/exampleData';
+import options from '../example/exampleData';
+
+let props = {
+  labelKey: 'name',
+  options,
+  selected: [],
+  text: '',
+};
 
 describe('<TokenizerInput>', () => {
 
   it('renders a TokenizerInput', () => {
     const instance = ReactTestUtils.renderIntoDocument(
-      <TokenizerInput
-        options={[]}
-        selected={[]}
-        text=""
-      />
+      <TokenizerInput {...props} />
     );
     const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
@@ -25,12 +28,9 @@ describe('<TokenizerInput>', () => {
   });
 
   it('renders tokens in the tokenizer', () => {
+    props.selected = options.slice(0, 3);
     const instance = ReactTestUtils.renderIntoDocument(
-      <TokenizerInput
-        options={states}
-        selected={states.slice(0, 3)}
-        text=""
-      />
+      <TokenizerInput {...props} />
     );
     const tokens = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,

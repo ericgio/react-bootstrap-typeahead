@@ -5,10 +5,11 @@ import ReactDOM from 'react-dom';
 import Typeahead from '../src/Typeahead.react';
 
 import cx from 'classnames';
+import getOptionLabel from '../src/getOptionLabel';
 import {range} from 'lodash';
 import states from './exampleData';
 
-const bigData = range(0, 2000).map(option => ({name: option.toString()}));
+const bigData = range(0, 2000).map(option => option.toString());
 const PRESELECTED_COUNT = 4;
 
 require('../css/Token.css');
@@ -190,7 +191,7 @@ const Example = React.createClass({
 
   _renderSelectedItems(selected) {
     return selected && selected.length ?
-      selected.map(option => option.name).join(', ') :
+      selected.map(option => getOptionLabel(option, 'name')).join(', ') :
       <div className="text-muted">No items selected.</div>;
   },
 

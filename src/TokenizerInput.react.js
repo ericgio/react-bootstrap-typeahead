@@ -5,7 +5,9 @@ import React, {PropTypes} from 'react';
 import Token from './Token.react';
 
 import cx from 'classnames';
+import getOptionLabel from './getOptionLabel';
 import {findDOMNode} from 'react-dom';
+
 import {BACKSPACE} from './keyCode';
 
 /**
@@ -90,7 +92,7 @@ const TokenizerInput = React.createClass({
         disabled={disabled}
         key={idx}
         onRemove={() => onRemove(option)}>
-        {option[labelKey]}
+        {getOptionLabel(option, labelKey)}
       </Token>
     );
   },

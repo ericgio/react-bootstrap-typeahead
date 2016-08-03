@@ -7,6 +7,8 @@ import React, {PropTypes} from 'react';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
+import getOptionLabel from './getOptionLabel';
+
 const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',
 
@@ -106,7 +108,7 @@ const TypeaheadMenu = React.createClass({
       </MenuItem> :
       <MenuItem {...menuItemProps}>
         <Highlight search={text}>
-          {option[labelKey]}
+          {getOptionLabel(option, labelKey)}
         </Highlight>
       </MenuItem>;
   },

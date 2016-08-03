@@ -1,4 +1,5 @@
 import {find, isEqual, uniqueId} from 'lodash';
+import getOptionLabel from './getOptionLabel';
 
 /**
  * Filter out options that don't match the input string or, if multiple
@@ -13,14 +14,7 @@ function getFilteredOptions(options=[], text='', selected=[], props={}) {
 
   let exactMatchFound = false;
   let filteredOptions = options.filter(option => {
-    const labelString = option[labelKey];
-    if (!labelString || typeof labelString !== 'string') {
-      throw new Error(
-        'One or more options does not have a valid label string. Please ' +
-        'check the `labelKey` prop to ensure that it matches the correct ' +
-        'option key and provides a string for filtering and display.'
-      );
-    }
+    const labelString = getOptionLabel(option, labelKey);
 
     if (labelString === text) {
       exactMatchFound = true;

@@ -7,6 +7,7 @@ import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import getFilteredOptions from './getFilteredOptions';
+import getOptionLabel from './getOptionLabel';
 import {isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 
@@ -347,7 +348,7 @@ const Typeahead = React.createClass({
       // If only a single selection is allowed, replace the existing selection
       // with the new one.
       selected = [selectedOption];
-      text = selectedOption[labelKey];
+      text = getOptionLabel(selectedOption, labelKey);
     }
 
     this.setState({selected, text});

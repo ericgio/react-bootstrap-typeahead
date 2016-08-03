@@ -57,9 +57,31 @@ Like an `input`, the component can be [controlled](https://facebook.github.io/re
 ```
 
 ## Data
-`react-bootstrap-typeahead` has some expectations about the shape of your data. It expects an array of objects, each of which should have a string property to be used as the label for display. By default, the key is named `label`, but you can specify a different key via the `labelKey` prop.
+`react-bootstrap-typeahead` accepts an array of either strings or objects. If you pass in objects, each one should have a string property to be used as the label for display. By default, the key is named `label`, but you can specify a different key via the `labelKey` prop. If you pass an array of strings, the `labelKey` prop will be ignored.
+
+The component will throw an error if any options are something other than a string or object with a valid `labelKey`.
+
+The following are valid data structures:
 
 ```
+// Array of strings.
+var myData = [
+  'John',
+  'Miles',
+  'Charles',
+  'Herbie',
+];
+
+// Array of objects with default `labelKey`.
+var myData = [
+  {id: 1, label: 'John'},
+  {id: 2, label: 'Miles'},
+  {id: 3, label: 'Charles'},
+  {id: 4, label: 'Herbie'},
+];
+
+// Array of objects with custom `labelKey`.
+// The `labelKey` prop must be set to 'name' in this case.
 var myData = [
   {id: 1, name: 'John'},
   {id: 2, name: 'Miles'},
@@ -67,14 +89,21 @@ var myData = [
   {id: 4, name: 'Herbie'},
 ];
 
-<Typeahead
-  labelKey="name"
-  onChange={this._handleChange}
-  options={myData}
-/>
+// Mixed array of strings and objects.
+// Note: while valid, this is NOT recommended.
+var myData = [
+  'John',
+  'Miles',
+  {id: 3, label: 'Charles'},
+  'Herbie',
+];
 ```
 
-As far as the source of the data, the component simply handles rendering and selection. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
+### Duplicate Data
+You may have unexpected results if your data contains duplicate options. For this reason, it is highly recommended that you pass in objects with unique identifiers (eg: an id) if possible.
+
+### Data Sources
+The component simply handles rendering and selection of the data that is passed in. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
 
 ## Rendering
 `react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
@@ -89,6 +118,7 @@ Allows you to control the contents of a menu item. Your function will be passed 
   }}
 />
 ```
+
 ## Public Methods
 To access the component's public methods, add a ref to your typeahead instance:
 ```
@@ -116,7 +146,7 @@ Provides a programmatic way to focus the input.
 Name | Type | Default | Description
 -----|------|---------|------------
 align | string | 'justify' | Specify menu alignment. The default value is `justify`, which makes the menu as wide as the input and truncates long values. Specifying `left` or `right` will align the menu to that side and the width will be determined by the length of menu item values.
-allowNew | boolean | false | Allows the creation of new selections on the fly. Note that any new items will be added to the list of selections, but not the list of original options unless handled as such by `Typeahead`'s parent.
+allowNew | boolean | false | Allows the creation of new selections on the fly. Any new items will be added to the list of selections, but not the list of original options unless handled as such by `Typeahead`'s parent. The newly added item will *always* be returned as an object even if the other options are simply strings, so be sure your `onChange` callback can handle this.
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.

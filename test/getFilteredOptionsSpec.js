@@ -11,12 +11,22 @@ let props = {
 
 describe('getFilteredOptions', () => {
 
-  it('returns some filtered results', () => {
+  it('returns filtered results for an array of objects', () => {
     const filteredOptions = getFilteredOptions(states, 'Ca', [], props);
     expect(filteredOptions).to.deep.equal([
       {name: 'California', population: 37254503},
       {name: 'North Carolina', population: 9535692},
       {name: 'South Carolina', population: 4625401},
+    ]);
+  });
+
+  it('returns filtered results for an array of strings', () => {
+    const options = states.map(s => s.name);
+    const filteredOptions = getFilteredOptions(options, 'Ca', [], props);
+    expect(filteredOptions).to.deep.equal([
+      'California',
+      'North Carolina',
+      'South Carolina',
     ]);
   });
 
