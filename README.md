@@ -8,17 +8,14 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 Please note that this library is under active development and the APIs may change.
 
 ## Installation
-Use NPM to install the module in your project and build using a tool like webpack or browserify.
-
+Use NPM to install the module in your project:
 ```
-npm install react-bootstrap-typeahead
+npm install --save react-bootstrap-typeahead
 ```
-
-To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
+Minified and unminified UMD modules are also included in the NPM package, or you can clone the project and `npm run build` to generate these files.
 
 ## Usage
-`react-bootstrap-typeahead` works very much like any standard `input` element. It requires an array of options to display, similar to a `select`. 
-
+The component behaves similar to other form elements. It requires an array of options to be displayed, similar to a `select`.
 ```
 var Typeahead = require('react-bootstrap-typeahead');
 
@@ -29,7 +26,7 @@ var Typeahead = require('react-bootstrap-typeahead');
 ```
 
 ### Single & Multi-Selection
-`react-bootstrap-typeahead` allows single-selection by default, but also supports multi-selection. Simply set the `multiple` prop and the component turns into a tokenizer:
+The component provides single-selection by default, but also supports multi-selection. Simply set the `multiple` prop and the component turns into a tokenizer:
 
 ```
 <Typeahead
@@ -40,7 +37,7 @@ var Typeahead = require('react-bootstrap-typeahead');
 ```
 
 ### Controlled vs. Uncontrolled
-Like an `input`, the component can be controlled or uncontrolled. Use the `selected` prop to control it via the parent, or `defaultSelected` to optionally set defaults and then allow the component to control itself.
+Like an `input`, the component can be [controlled](https://facebook.github.io/react/docs/forms.html#controlled-components) or [uncontrolled](https://facebook.github.io/react/docs/forms.html#uncontrolled-components). Use the `selected` prop to control it via the parent, or `defaultSelected` to optionally set defaults and then allow the component to control itself.
 
 ```
 <Typeahead
@@ -133,7 +130,7 @@ selected | array | `[]` | The selected option(s) displayed in the input. Use thi
 The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal styling is included in `Typeahead.css` and `Token.css` and should ideally be included wherever you're using the component.
 
 ## Example
-An example file is included with the NPM module. Simply open `example/index.html` in a browser. If you're using the repository code, you'll need to run `npm run example` to build the example index file. You can then open the HTML file as described above. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
+To modify the example, clone the repository, `npm install` and `npm run example` to build the example index file. You can then open the HTML file locally in a browser. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
 ## License
 [MIT](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/LICENSE.md)
