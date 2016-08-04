@@ -2,6 +2,7 @@
 
 import cx from 'classnames';
 import {noop} from 'lodash';
+import scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
@@ -16,9 +17,9 @@ const MenuItem = React.createClass({
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.active) {
-      // This ensures that if the menu items exceed the max-height of the menu,
-      // the menu will scroll up or down as the user hits the arrow keys.
-      findDOMNode(this).firstChild.focus();
+      // Ensures that if the menu items exceed the bounds of the menu, the
+      // menu will scroll up or down as the user hits the arrow keys.
+      scrollIntoViewIfNeeded(findDOMNode(this));
     }
   },
 

@@ -10,7 +10,7 @@ import getFilteredOptions from './getFilteredOptions';
 import {isEmpty, isEqual, noop, pick} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 
-import {BACKSPACE, DOWN, ESC, RETURN, TAB, UP} from './keyCode';
+import {DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 
 /**
  * Typeahead
@@ -278,15 +278,8 @@ const Typeahead = React.createClass({
     let {activeIndex} = this.state;
 
     switch (e.keyCode) {
-      case BACKSPACE:
-        // Don't let the browser go back.
-        e.stopPropagation();
-        break;
       case UP:
       case DOWN:
-        // Prevent page from scrolling.
-        e.preventDefault();
-
         // Don't cycle through the options if the menu is hidden.
         if (!this.state.showMenu) {
           return;
@@ -306,11 +299,15 @@ const Typeahead = React.createClass({
         break;
       case ESC:
       case TAB:
-        // Prevent things like unintentionally closing dialogs.
-        e.stopPropagation();
+        // Prevent closing dialogs.
+        e.keyCode === ESC && e.preventDefault();
+
         this._hideDropdown();
         break;
       case RETURN:
+        // Prevent submitting forms.
+        e.preventDefault();
+
         if (this.state.showMenu) {
           let selected = options[activeIndex];
           selected && this._handleAddOption(selected);
