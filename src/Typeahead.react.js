@@ -287,6 +287,11 @@ const Typeahead = React.createClass({
         // Prevent page from scrolling.
         e.preventDefault();
 
+        // Don't cycle through the options if the menu is hidden.
+        if (!this.state.showMenu) {
+          return;
+        }
+
         // Increment or decrement index based on user keystroke.
         activeIndex += e.keyCode === UP ? -1 : 1;
 
