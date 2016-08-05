@@ -4,8 +4,12 @@
 .gitignore
 .npmignore
 .travis.yml
-*.js
-example
-scripts
-src
-test
+
+karma.conf.js
+tests.webpack.js
+**/webpack.*.js
+
+example/
+scripts/
+src/
+test/
