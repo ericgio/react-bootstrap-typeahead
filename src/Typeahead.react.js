@@ -285,6 +285,9 @@ const Typeahead = React.createClass({
           return;
         }
 
+        // Prevents input cursor from going to the beginning when pressing up.
+        e.preventDefault();
+
         // Increment or decrement index based on user keystroke.
         activeIndex += e.keyCode === UP ? -1 : 1;
 
