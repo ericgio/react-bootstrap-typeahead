@@ -348,6 +348,9 @@ const Typeahead = React.createClass({
     let selected = this.state.selected.slice();
     selected = selected.filter(option => !isEqual(option, removedOption));
 
+    // Make sure the input stays focused after the item is removed.
+    this.focus();
+
     this.setState({selected});
     this._hideDropdown();
 
