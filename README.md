@@ -132,5 +132,12 @@ The component tries to use as little CSS as possible, relying primarily on Boots
 ## Example
 To modify the example, clone the repository, `npm install` and `npm run example` to build the example index file. You can then open the HTML file locally in a browser. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
+## Browser Support
+Recent versions of the following are supported:
+- Chrome
+- Firefox
+- IE (10/11)
+- Safari
+
 ## License
 [MIT](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/LICENSE.md)
