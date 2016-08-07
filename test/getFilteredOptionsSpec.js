@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import {last} from 'lodash';
 
 import getFilteredOptions from '../src/getFilteredOptions';
 import states from '../example/exampleData';
@@ -57,7 +58,7 @@ describe('getFilteredOptions', () => {
     expect(filteredOptions.length).to.equal(0);
   });
 
-  it('returns a custom option if `allowNew=true`', () => {
+  it('displays a custom option if no matches are found', () => {
     const text = 'zzz';
     props.allowNew = true;
     const filteredOptions = getFilteredOptions(states, text, [], props);
@@ -65,6 +66,16 @@ describe('getFilteredOptions', () => {
     expect(filteredOptions.length).to.equal(1);
     expect(filteredOptions[0][props.labelKey]).to.equal(text);
     expect(filteredOptions[0].customOption).to.be.true;
+  });
+
+  it('displays a custom option when no exact matches are found', () => {
+    const text = 'Ala';
+    props.allowNew = true;
+    const filteredOptions = getFilteredOptions(states, text, [], props);
+
+    expect(filteredOptions.length).to.equal(3); // Alabama, Alaska, [Custom]
+    expect(last(filteredOptions)[props.labelKey]).to.equal(text);
+    expect(last(filteredOptions).customOption).to.be.true;
   });
 
 });

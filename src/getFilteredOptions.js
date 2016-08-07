@@ -11,6 +11,7 @@ function getFilteredOptions(options=[], text='', selected=[], props={}) {
     return [];
   }
 
+  let exactMatchFound = false;
   let filteredOptions = options.filter(option => {
     const labelString = option[labelKey];
     if (!labelString || typeof labelString !== 'string') {
@@ -21,19 +22,27 @@ function getFilteredOptions(options=[], text='', selected=[], props={}) {
       );
     }
 
+    if (labelString === text) {
+      exactMatchFound = true;
+    }
+
     return !(
       labelString.toLowerCase().indexOf(text.toLowerCase()) === -1 ||
       multiple && find(selected, o => isEqual(o, option))
     );
   });
 
-  if (!filteredOptions.length && allowNew && !!text.trim()) {
+  if (
+    allowNew &&
+    !!text.trim() &&
+    !(filteredOptions.length && exactMatchFound)
+  ) {
     let newOption = {
       id: uniqueId('new-id-'),
       customOption: true,
     };
     newOption[labelKey] = text;
-    filteredOptions = [newOption];
+    filteredOptions.push(newOption);
   }
 
   return filteredOptions;
