@@ -30,7 +30,7 @@ const TypeaheadMenu = React.createClass({
       emptyLabel: 'No matches found.',
       initialResultCount: 100,
       maxHeight: 300,
-      newSelectionPrefix: 'New selection:',
+      newSelectionPrefix: 'New selection: ',
       paginationText: 'Display additional results...',
     };
   },
@@ -89,12 +89,22 @@ const TypeaheadMenu = React.createClass({
       onClick: () => onClick(option),
     };
 
+    if (option.customOption) {
+      return (
+        <MenuItem {...menuItemProps}>
+          {newSelectionPrefix}
+          <Highlight search={text}>
+            {option[labelKey]}
+          </Highlight>
+        </MenuItem>
+      );
+    }
+
     return renderMenuItemChildren ?
       <MenuItem {...menuItemProps}>
         {renderMenuItemChildren(this.props, option, idx)}
       </MenuItem> :
       <MenuItem {...menuItemProps}>
-        {option.customOption && `${newSelectionPrefix} `}
         <Highlight search={text}>
           {option[labelKey]}
         </Highlight>
