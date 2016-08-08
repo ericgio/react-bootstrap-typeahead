@@ -1,6 +1,5 @@
 'use strict';
 
-import cx from 'classnames';
 import React, {PropTypes} from 'react';
 
 import TokenizerInput from './TokenizerInput.react';
@@ -180,7 +179,7 @@ const Typeahead = React.createClass({
   },
 
   blur() {
-    this.refs.input.blur();
+    this.input.blur();
   },
 
   /**
@@ -204,7 +203,7 @@ const Typeahead = React.createClass({
   },
 
   focus() {
-    this.refs.input.focus();
+    this.input.focus();
   },
 
   _renderInput(filteredOptions) {
@@ -225,7 +224,7 @@ const Typeahead = React.createClass({
         onKeyDown={e => this._handleKeydown(filteredOptions, e)}
         onRemove={this._handleRemoveOption}
         options={filteredOptions}
-        ref="input"
+        ref={ref => this.input = ref}
         selected={selected.slice()}
         text={text}
       />
@@ -233,7 +232,12 @@ const Typeahead = React.createClass({
   },
 
   _renderMenu(filteredOptions) {
-    const {labelKey, minLength} = this.props;
+    const {
+      labelKey,
+      minLength,
+      typeaheadMenuClassName,
+      typeaheadMenuWrapperClassName,
+    } = this.props;
     const {activeIndex, showMenu, text} = this.state;
 
     if (!(showMenu && text.length >= minLength)) {
@@ -249,19 +253,28 @@ const Typeahead = React.createClass({
       'renderMenuItemChildren',
     ]);
 
-    return (
-      <div className={cx(this.props.typeaheadMenuWrapperClassName)}>
-        <TypeaheadMenu
-          {...menuProps}
-          activeIndex={activeIndex}
-          initialResultCount={this.props.paginateResults}
-          labelKey={labelKey}
-          onClick={this._handleAddOption}
-          options={filteredOptions}
-          text={text}
-        />
-    </div>
+    let typeaheadMenu = (
+      <TypeaheadMenu
+        {...menuProps}
+        activeIndex={activeIndex}
+        className={typeaheadMenuClassName}
+        initialResultCount={this.props.paginateResults}
+        labelKey={labelKey}
+        onClick={this._handleAddOption}
+        options={filteredOptions}
+        text={text}
+      />
     );
+
+    if (typeaheadMenuWrapperClassName) {
+      return (
+        <div className={typeaheadMenuWrapperClassName}>
+          {typeaheadMenu}
+        </div>
+      );
+    }
+
+    return typeaheadMenu;
   },
 
   _handleBlur(e) {

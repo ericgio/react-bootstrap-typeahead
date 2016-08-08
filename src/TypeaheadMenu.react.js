@@ -13,6 +13,7 @@ const TypeaheadMenu = React.createClass({
   propTypes: {
     activeIndex: PropTypes.number,
     align: PropTypes.oneOf(['justify', 'left', 'right']),
+    className: PropTypes.string,
     emptyLabel: PropTypes.string,
     initialResultCount: PropTypes.number,
     labelKey: PropTypes.string.isRequired,
