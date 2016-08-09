@@ -11,12 +11,32 @@ import states from '../example/exampleData';
 
 const bigData = range(0, 500).map(o => o.toString());
 
+let baseProps = {
+  options: [],
+};
+
+function getInputNode(instance) {
+  return ReactTestUtils.findRenderedDOMComponentWithClass(
+    instance,
+    'bootstrap-typeahead-input-main'
+  );
+}
+
+function getMenuNode(instance) {
+  return ReactTestUtils.findRenderedDOMComponentWithClass(
+    instance,
+    'bootstrap-typeahead-menu'
+  );
+}
+
+function getTypeaheadInstance(props) {
+  return ReactTestUtils.renderIntoDocument(<Typeahead {...props} />);
+}
+
 describe('<Typeahead>', () => {
 
   it('should have a TypeaheadInput', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead options={[]} />
-    );
+    const instance = getTypeaheadInstance(baseProps);
     const input = ReactTestUtils.findRenderedComponentWithType(
       instance,
       TypeaheadInput
@@ -26,9 +46,10 @@ describe('<Typeahead>', () => {
   });
 
   it('should have a TokenizerInput when `multiple` is `true`', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead multiple options={[]} />
-    );
+    const instance = getTypeaheadInstance({
+      ...baseProps,
+      multiple: true,
+    });
     const tokenizer = ReactTestUtils.findRenderedComponentWithType(
       instance,
       TokenizerInput
@@ -40,14 +61,12 @@ describe('<Typeahead>', () => {
   it(
     'should display tokens when selections are passed into the tokenizer',
     () => {
-      const instance = ReactTestUtils.renderIntoDocument(
-        <Typeahead
-          labelKey="name"
-          multiple
-          options={states}
-          selected={states.slice(0, 3)}
-        />
-      );
+      const instance = getTypeaheadInstance({
+        labelKey: "name",
+        multiple: true,
+        options: states,
+        selected: states.slice(0, 3),
+      });
       const tokens = ReactTestUtils.scryRenderedDOMComponentsWithClass(
         instance,
         'token'
@@ -58,31 +77,21 @@ describe('<Typeahead>', () => {
   );
 
   it('should display a menu when the input is focused', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead options={[]} />
-    );
-    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'bootstrap-typeahead-input-main'
-    );
+    const instance = getTypeaheadInstance(baseProps);
+    const inputNode = getInputNode(instance);
     ReactTestUtils.Simulate.focus(inputNode);
 
-    const menuNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'bootstrap-typeahead-menu'
-    );
+    const menuNode = getMenuNode(instance);
 
     expect(menuNode).to.exist;
   });
 
   it('should not display a menu on focus when `minLength = 1`', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead minLength={1} options={[]} />
-    );
-    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'bootstrap-typeahead-input-main'
-    );
+    const instance = getTypeaheadInstance({
+      ...baseProps,
+      minLength: 1,
+    });
+    const inputNode = getInputNode(instance);
     ReactTestUtils.Simulate.focus(inputNode);
 
     const menuNode = ReactTestUtils.scryRenderedDOMComponentsWithClass(
@@ -94,9 +103,10 @@ describe('<Typeahead>', () => {
   });
 
   it('should disable the input if the component is disabled', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead disabled options={[]} />
-    );
+    const instance = getTypeaheadInstance({
+      ...baseProps,
+      disabled: true,
+    });
     const input = ReactTestUtils.findRenderedComponentWithType(
       instance,
       TypeaheadInput
@@ -107,13 +117,11 @@ describe('<Typeahead>', () => {
 
   it('should display a menu item for pagination', () => {
     const paginationText = 'See More';
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead options={bigData} paginationText={paginationText} />
-    );
-    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'bootstrap-typeahead-input-main'
-    );
+    const instance = getTypeaheadInstance({
+      options: bigData,
+      paginationText,
+    });
+    const inputNode = getInputNode(instance);
     ReactTestUtils.Simulate.focus(inputNode);
 
     const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
@@ -129,10 +137,7 @@ describe('<Typeahead>', () => {
     const instance = ReactTestUtils.renderIntoDocument(
       <Typeahead options={bigData} paginate={false} />
     );
-    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'bootstrap-typeahead-input-main'
-    );
+    const inputNode = getInputNode(instance);
     ReactTestUtils.Simulate.focus(inputNode);
 
     const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
