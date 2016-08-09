@@ -19,11 +19,32 @@ import {BACKSPACE} from './keyCode';
 const TokenizerInput = React.createClass({
   displayName: 'TokenizerInput',
 
+  /**
+   * In addition to the propTypes below, the following props are automatically
+   * passed down by `Typeahead.react`:
+   *
+   *  - activeIndex
+   *  - labelKey
+   *  - onAdd
+   *  - onBlur
+   *  - onChange
+   *  - onClick
+   *  - onFocus
+   *  - onKeydown
+   *  - onRemove
+   *  - options
+   *  - selected
+   *  - text
+   */
   propTypes: {
+    /**
+     * Whether to disable the input and all selections.
+     */
     disabled: PropTypes.bool,
-    labelKey: PropTypes.string,
+    /**
+     * Placeholder text for the input.
+     */
     placeholder: PropTypes.string,
-    selected: PropTypes.array,
   },
 
   getInitialState() {

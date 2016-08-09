@@ -12,18 +12,47 @@ import getOptionLabel from './getOptionLabel';
 const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',
 
+  /**
+   * In addition to the propTypes below, the following props are automatically
+   * passed down by `Typeahead.react`:
+   *
+   *  - activeIndex
+   *  - labelKey
+   *  - onClick
+   *  - onPaginate
+   *  - options
+   *  - paginate
+   *  - text
+   */
   propTypes: {
-    activeIndex: PropTypes.number,
+    /**
+     * Specify menu alignment. The default value is `justify`, which makes the
+     * menu as wide as the input and truncates long values. Specifying `left`
+     * or `right` will align the menu to that side and the width will be
+     * determined by the length of menu item values.
+     */
     align: PropTypes.oneOf(['justify', 'left', 'right']),
+    /**
+     * Message to display in the menu if there are no valid results.
+     */
     emptyLabel: PropTypes.string,
-    labelKey: PropTypes.string.isRequired,
+    /**
+     * Maximum height of the dropdown menu, in px.
+     */
     maxHeight: PropTypes.number,
+    /**
+     * Provides the ability to specify a prefix before the user-entered text to
+     * indicate that the selection will be new. No-op unless `allowNew={true}`.
+     */
     newSelectionPrefix: PropTypes.string,
-    options: PropTypes.array,
-    paginate: PropTypes.bool,
+    /**
+     * Prompt displayed when large data sets are paginated.
+     */
     paginationText: PropTypes.string,
+    /**
+     * Provides a hook for customized rendering of menu item contents.
+     */
     renderMenuItemChildren: PropTypes.func,
-    text: PropTypes.string.isRequired,
   },
 
   getDefaultProps() {

@@ -22,13 +22,6 @@ const Typeahead = React.createClass({
 
   propTypes: {
     /**
-     * Specify menu alignment. The default value is `justify`, which makes the
-     * menu as wide as the input and truncates long values. Specifying `left`
-     * or `right` will align the menu to that side and the width will be
-     * determined by the length of menu item values.
-     */
-    align: PropTypes.oneOf(['justify', 'left', 'right']),
-    /**
      * Allows the creation of new selections on the fly. Note that any new items
      * will be added to the list of selections, but not the list of original
      * options unless handled as such by `Typeahead`'s parent.
@@ -40,23 +33,10 @@ const Typeahead = React.createClass({
      */
     defaultSelected: PropTypes.array,
     /**
-     * Whether to disable the input. Will also disable selections when
-     * `multiple={true}`.
-     */
-    disabled: PropTypes.bool,
-    /**
-     * Message to display in the menu if there are no valid results.
-     */
-    emptyLabel: PropTypes.string,
-    /**
      * Specify which option key to use for display. By default, the selector
      * will use the `label` key.
      */
     labelKey: PropTypes.string,
-    /**
-     * Maximum height of the dropdown menu, in px.
-     */
-    maxHeight: PropTypes.number,
     /**
      * Number of input characters that must be entered before showing results.
      */
@@ -65,15 +45,6 @@ const Typeahead = React.createClass({
      * Whether or not multiple selections are allowed.
      */
     multiple: PropTypes.bool,
-    /**
-     * Name property for the input.
-     */
-    name: PropTypes.string,
-    /**
-     * Provides the ability to specify a prefix before the user-entered text to
-     * indicate that the selection will be new. No-op unless `allowNew={true}`.
-     */
-    newSelectionPrefix: PropTypes.string,
     /**
      * Callback fired when the input is blurred. Receives an event.
      */
@@ -98,18 +69,6 @@ const Typeahead = React.createClass({
      * to display. `0` will display all results.
      */
     paginateResults: PropTypes.number,
-    /**
-     * Prompt displayed when large data sets are paginated.
-     */
-    paginationText: PropTypes.string,
-    /**
-     * Placeholder text for the input.
-     */
-    placeholder: PropTypes.string,
-    /**
-     * Provides a hook for customized rendering of menu item contents.
-     */
-    renderMenuItemChildren: PropTypes.func,
     /**
      * The selected option(s) displayed in the input. Use this prop if you want
      * to control the component via its parent.

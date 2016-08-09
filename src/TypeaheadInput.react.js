@@ -16,17 +16,36 @@ import {RIGHT, TAB} from './keyCode';
 const TypeaheadInput = React.createClass({
   displayName: 'TypeaheadInput',
 
+  /**
+   * In addition to the propTypes below, the following props are automatically
+   * passed down by `Typeahead.react`:
+   *
+   *  - activeIndex
+   *  - labelKey
+   *  - onAdd
+   *  - onBlur
+   *  - onChange
+   *  - onClick
+   *  - onFocus
+   *  - onKeydown
+   *  - onRemove
+   *  - options
+   *  - selected
+   *  - text
+   */
   propTypes: {
+    /**
+     * Whether to disable the input and any selection, if present.
+     */
     disabled: PropTypes.bool,
-    labelKey: PropTypes.string,
+    /**
+     * Name property for the input.
+     */
     name: PropTypes.string,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    options: PropTypes.array,
+    /**
+     * Placeholder text for the input.
+     */
     placeholder: PropTypes.string,
-    selected: PropTypes.array,
-    text: PropTypes.string,
   },
 
   getInitialState() {
