@@ -9,6 +9,8 @@ import TypeaheadInput from '../src/TypeaheadInput.react';
 
 import states from '../example/exampleData';
 
+const bigData = range(0, 500).map(o => o.toString());
+
 describe('<Typeahead>', () => {
 
   it('should have a TypeaheadInput', () => {
@@ -104,10 +106,9 @@ describe('<Typeahead>', () => {
   });
 
   it('should display a menu item for pagination', () => {
-    const options = range(0, 300).map(option => ({label: option.toString()}));
     const paginationText = 'See More';
     const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead options={options} paginationText={paginationText} />
+      <Typeahead options={bigData} paginationText={paginationText} />
     );
     const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
@@ -122,6 +123,24 @@ describe('<Typeahead>', () => {
 
     expect(paginatorNode).to.exist;
     expect(paginatorNode.firstChild.innerHTML).to.equal(paginationText);
+  });
+
+  it('should not display a menu item for pagination', () => {
+    const instance = ReactTestUtils.renderIntoDocument(
+      <Typeahead options={bigData} paginate={false} />
+    );
+    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-input-main'
+    );
+    ReactTestUtils.Simulate.focus(inputNode);
+
+    const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+      instance,
+      'bootstrap-typeahead-menu-paginator'
+    );
+
+    expect(paginatorNodes.length).to.equal(0);
   });
 
 });

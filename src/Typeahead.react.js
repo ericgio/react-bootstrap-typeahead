@@ -14,6 +14,14 @@ import onClickOutside from 'react-onclickoutside';
 
 import {DOWN, ESC, RETURN, TAB, UP} from './keyCode';
 
+// TODO: Remove once `paginateResults` is completely deprecated.
+function getMaxResults(props) {
+  const {maxResults, paginateResults} = props;
+
+  // Use `maxResults` unless `paginateResults` is set.
+  return paginateResults == null ? maxResults : paginateResults;
+}
+
 /**
  * Typeahead
  */
@@ -37,6 +45,12 @@ const Typeahead = React.createClass({
      * will use the `label` key.
      */
     labelKey: PropTypes.string,
+    /**
+     * Maximum number of results to display by default. Mostly done for
+     * performance reasons so as not to render too many DOM nodes in the case of
+     * large data sets.
+     */
+    maxResults: PropTypes.number,
     /**
      * Number of input characters that must be entered before showing results.
      */
@@ -63,10 +77,12 @@ const Typeahead = React.createClass({
      */
     options: PropTypes.array.isRequired,
     /**
-     * For large option sets, initially display a subset of results for improved
-     * performance. If users scroll to the end, the last item will be a link to
-     * display the next set of results. Value represents the number of results
-     * to display. `0` will display all results.
+     * Give user the ability to display additional results if the number of
+     * results exceeds `maxResults`.
+     */
+    paginate: PropTypes.bool,
+    /**
+     * DEPRECATED. Use `maxResults` and `paginate` instead.
      */
     paginateResults: PropTypes.number,
     /**
@@ -81,18 +97,19 @@ const Typeahead = React.createClass({
       allowNew: false,
       defaultSelected: [],
       labelKey: 'label',
+      maxResults: 100,
       onBlur: noop,
       onChange: noop,
       onInputChange: noop,
       minLength: 0,
       multiple: false,
-      paginateResults: 100,
+      paginate: true,
       selected: [],
     };
   },
 
   getInitialState() {
-    const {defaultSelected} = this.props;
+    const {defaultSelected, paginateResults} = this.props;
 
     let selected = this.props.selected.slice();
     if (defaultSelected && defaultSelected.length) {
@@ -103,13 +120,19 @@ const Typeahead = React.createClass({
       activeIndex: -1,
       selected,
       showMenu: false,
-      /**
-       * Max number of results to display, for performance reasons. If less than
-       * the available results, display an option to see additional results.
-       */
-      shownResults: this.props.paginateResults,
+      shownResults: getMaxResults(this.props),
       text: '',
     };
+  },
+
+  componentWillMount() {
+    if (this.props.paginateResults != null) {
+      console.error(
+        'Warning: The `paginateResults` prop is deprecated and will be ' +
+        'removed in an upcoming release. Use `maxResults` and `paginate` ' +
+        'instead.'
+      );
+    }
   },
 
   componentWillReceiveProps(nextProps) {
@@ -127,13 +150,13 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {options, ...props} = this.props;
+    const {options, paginate, ...props} = this.props;
     const {selected, shownResults, text} = this.state;
 
     // First filter, then paginate options if necessary.
     const filteredOptions = getFilteredOptions(options, text, selected, props);
     const truncatedOptions = getTruncatedOptions(filteredOptions, shownResults);
-    const shouldPaginate = filteredOptions.length > shownResults;
+    const shouldPaginate = paginate && filteredOptions.length > shownResults;
 
     return (
       <div
@@ -331,7 +354,7 @@ const Typeahead = React.createClass({
   },
 
   _handlePagination(e) {
-    let shownResults = this.state.shownResults + this.props.paginateResults;
+    let shownResults = this.state.shownResults + getMaxResults(this.props);
 
     // Keep the input focused when paginating.
     this.focus();

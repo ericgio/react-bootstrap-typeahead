@@ -152,6 +152,7 @@ disabled | boolean | | Whether to disable the input. Will also disable selection
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 labelKey | string | 'label' | Specify which option key to use for display. By default, the selector will use the `label` key.
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
+maxResults | number | `100` | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
 minLength | number | `0` | Number of input characters that must be entered before showing results.
 multiple | boolean | `false` | Whether or not multiple selections are allowed.
 name | string | | Name property for the input
@@ -160,7 +161,8 @@ onBlur | function | | Callback fired when the input is blurred. Receives an even
 onChange | function | | Callback fired whenever items are added or removed. Receives an array of the selected options.
 onInputChange | function | | Callback fired when user-input text changes. Receives the text string.
 options `required` | array | | Full set of options, including any pre-selected options.
-paginateResults | number | 100 | For large option sets, initially display a subset of results for improved performance. If users scroll to the end, the last item will be a link to display the next set of results. Value represents the number of results to display. `0` will display all results.
+paginate | boolean | `true` | Give user the ability to display additional results if the number of results exceeds `maxResults`.
+paginateResults | number | 100 | DEPRECATED. Use `maxResults` and `paginate` instead.
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
