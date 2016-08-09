@@ -16,11 +16,11 @@ const TypeaheadMenu = React.createClass({
     activeIndex: PropTypes.number,
     align: PropTypes.oneOf(['justify', 'left', 'right']),
     emptyLabel: PropTypes.string,
-    initialResultCount: PropTypes.number,
     labelKey: PropTypes.string.isRequired,
     maxHeight: PropTypes.number,
     newSelectionPrefix: PropTypes.string,
     options: PropTypes.array,
+    paginate: PropTypes.bool,
     paginationText: PropTypes.string,
     renderMenuItemChildren: PropTypes.func,
     text: PropTypes.string.isRequired,
@@ -30,31 +30,18 @@ const TypeaheadMenu = React.createClass({
     return {
       align: 'justify',
       emptyLabel: 'No matches found.',
-      initialResultCount: 100,
       maxHeight: 300,
       newSelectionPrefix: 'New selection: ',
+      paginate: true,
       paginationText: 'Display additional results...',
-    };
-  },
-
-  getInitialState() {
-    return {
-      /**
-       * Max number of results to display, for performance reasons. If this
-       * number is less than the number of available results, the user will see
-       * an option to display more results.
-       */
-      resultCount: this.props.initialResultCount,
     };
   },
 
   render() {
     const {align, emptyLabel, maxHeight, options} = this.props;
 
-    // Render the max number of results or all results.
-    const results = options.slice(0, this.state.resultCount || options.length);
-    const menuItems = results.length ?
-      results.map(this._renderMenuItem) :
+    const menuItems = options.length ?
+      options.map(this._renderMenuItem) :
       <MenuItem disabled>
         {emptyLabel}
       </MenuItem>;
@@ -70,7 +57,7 @@ const TypeaheadMenu = React.createClass({
           overflow: 'auto',
         }}>
         {menuItems}
-        {this._renderPaginationMenuItem(results)}
+        {this._renderPaginationMenuItem(options)}
       </Menu>
     );
   },
@@ -116,10 +103,10 @@ const TypeaheadMenu = React.createClass({
   /**
    * Allow user to see more results, if available.
    */
-  _renderPaginationMenuItem(results) {
-    const {options, paginationText} = this.props;
+  _renderPaginationMenuItem(options) {
+    const {onPaginate, paginate, paginationText} = this.props;
 
-    if (results.length < options.length) {
+    if (paginate && options.length) {
       return [
         <li
           className="divider"
@@ -129,16 +116,11 @@ const TypeaheadMenu = React.createClass({
         <MenuItem
           className="bootstrap-typeahead-menu-paginator"
           key="pagination-item"
-          onClick={this._handlePagination}>
+          onClick={onPaginate}>
           {paginationText}
         </MenuItem>,
       ];
     }
-  },
-
-  _handlePagination(e) {
-    let resultCount = this.state.resultCount + this.props.initialResultCount;
-    this.setState({resultCount});
   },
 });
 

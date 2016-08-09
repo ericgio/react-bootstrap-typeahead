@@ -57,8 +57,11 @@ describe('<TypeaheadMenu>', () => {
     expect(menuItems[0].props.children).to.equal('No matches found.');
   });
 
-  it('paginates long data sets', () => {
-    const instance = getMenuInstance({options: bigData});
+  it('displays a paginator', () => {
+    const instance = getMenuInstance({
+      options: bigData,
+      paginate: true,
+    });
     const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
       'bootstrap-typeahead-menu-paginator'
@@ -67,6 +70,30 @@ describe('<TypeaheadMenu>', () => {
     expect(paginatorNode.firstChild.innerHTML).to.equal(
       'Display additional results...'
     );
+  });
+
+  it('does not show a paginator when there are no results', () => {
+    const instance = getMenuInstance({
+      options: [],
+      paginate: true,
+    });
+    const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+      instance,
+      'bootstrap-typeahead-menu-paginator'
+    );
+    expect(paginatorNodes.length).to.equal(0);
+  });
+
+  it('does not show a paginator if `paginate=false`', () => {
+    const instance = getMenuInstance({
+      options: bigData,
+      paginate: false,
+    });
+    const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+      instance,
+      'bootstrap-typeahead-menu-paginator'
+    );
+    expect(paginatorNodes.length).to.equal(0);
   });
 
   it('displays custom pagination text', () => {

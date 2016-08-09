@@ -8,6 +8,7 @@ import TypeaheadMenu from './TypeaheadMenu.react';
 
 import getFilteredOptions from './getFilteredOptions';
 import getOptionLabel from './getOptionLabel';
+import getTruncatedOptions from './getTruncatedOptions';
 import {isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 
@@ -126,6 +127,7 @@ const Typeahead = React.createClass({
       onInputChange: noop,
       minLength: 0,
       multiple: false,
+      paginateResults: 100,
       selected: [],
     };
   },
@@ -142,6 +144,11 @@ const Typeahead = React.createClass({
       activeIndex: -1,
       selected,
       showMenu: false,
+      /**
+       * Max number of results to display, for performance reasons. If less than
+       * the available results, display an option to see additional results.
+       */
+      shownResults: this.props.paginateResults,
       text: '',
     };
   },
@@ -162,15 +169,19 @@ const Typeahead = React.createClass({
 
   render() {
     const {options, ...props} = this.props;
-    const {selected, text} = this.state;
+    const {selected, shownResults, text} = this.state;
+
+    // First filter, then paginate options if necessary.
     const filteredOptions = getFilteredOptions(options, text, selected, props);
+    const truncatedOptions = getTruncatedOptions(filteredOptions, shownResults);
+    const shouldPaginate = filteredOptions.length > shownResults;
 
     return (
       <div
         className="bootstrap-typeahead open"
         style={{position: 'relative'}}>
-        {this._renderInput(filteredOptions)}
-        {this._renderMenu(filteredOptions)}
+        {this._renderInput(truncatedOptions)}
+        {this._renderMenu(truncatedOptions, shouldPaginate)}
       </div>
     );
   },
@@ -203,7 +214,7 @@ const Typeahead = React.createClass({
     this.refs.input.focus();
   },
 
-  _renderInput(filteredOptions) {
+  _renderInput(optionsToDisplay) {
     const {disabled, labelKey, multiple, name, placeholder} = this.props;
     const {activeIndex, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
@@ -218,9 +229,9 @@ const Typeahead = React.createClass({
         onBlur={this._handleBlur}
         onChange={this._handleTextChange}
         onFocus={this._handleFocus}
-        onKeyDown={e => this._handleKeydown(filteredOptions, e)}
+        onKeyDown={e => this._handleKeydown(optionsToDisplay, e)}
         onRemove={this._handleRemoveOption}
-        options={filteredOptions}
+        options={optionsToDisplay}
         ref="input"
         selected={selected.slice()}
         text={text}
@@ -228,7 +239,7 @@ const Typeahead = React.createClass({
     );
   },
 
-  _renderMenu(filteredOptions) {
+  _renderMenu(optionsToDisplay, shouldPaginate) {
     const {
       align,
       emptyLabel,
@@ -239,6 +250,7 @@ const Typeahead = React.createClass({
       paginationText,
       renderMenuItemChildren,
     } = this.props;
+
     const {activeIndex, showMenu, text} = this.state;
 
     if (!(showMenu && text.length >= minLength)) {
@@ -258,10 +270,11 @@ const Typeahead = React.createClass({
       <TypeaheadMenu
         {...menuProps}
         activeIndex={activeIndex}
-        initialResultCount={this.props.paginateResults}
         labelKey={labelKey}
         onClick={this._handleAddOption}
-        options={filteredOptions}
+        onPaginate={this._handlePagination}
+        options={optionsToDisplay}
+        paginate={shouldPaginate}
         text={text}
       />
     );
@@ -358,6 +371,15 @@ const Typeahead = React.createClass({
     onInputChange(text);
   },
 
+  _handlePagination(e) {
+    let shownResults = this.state.shownResults + this.props.paginateResults;
+
+    // Keep the input focused when paginating.
+    this.focus();
+
+    this.setState({shownResults});
+  },
+
   _handleRemoveOption(removedOption) {
     let selected = this.state.selected.slice();
     selected = selected.filter(option => !isEqual(option, removedOption));
@@ -379,10 +401,11 @@ const Typeahead = React.createClass({
   },
 
   _hideDropdown() {
-    const {activeIndex, showMenu} = this.getInitialState();
+    const {activeIndex, showMenu, shownResults} = this.getInitialState();
     this.setState({
       activeIndex,
       showMenu,
+      shownResults,
     });
   },
 });
