@@ -35,7 +35,7 @@ const TypeaheadInput = React.createClass({
   componentDidUpdate(prevProps, prevState) {
     if (this.props.activeIndex !== prevProps.activeIndex) {
       const inputText = this._getInputText();
-      this.refs.input.selectionStart = inputText.length;
+      this.input.selectionStart = inputText.length;
     }
   },
 
@@ -58,7 +58,7 @@ const TypeaheadInput = React.createClass({
           onBlur={this._handleBlur}
           onChange={this._handleChange}
           onKeyDown={this._handleKeydown}
-          ref="input"
+          ref={ref => this.input = ref}
           style={{
             backgroundColor: !disabled && 'transparent',
             display: 'block',
@@ -90,7 +90,7 @@ const TypeaheadInput = React.createClass({
   },
 
   blur() {
-    this.refs.input.blur();
+    this.input.blur();
   },
 
   focus() {
@@ -160,7 +160,7 @@ const TypeaheadInput = React.createClass({
    */
   _handleInputFocus(e) {
     this.setState({isFocused: true});
-    this.refs.input.focus();
+    this.input.focus();
   },
 
   _handleKeydown(e) {
@@ -169,7 +169,7 @@ const TypeaheadInput = React.createClass({
     switch (e.keyCode) {
       case RIGHT:
       case TAB:
-        const cursorPos = this.refs.input.selectionStart;
+        const cursorPos = this.input.selectionStart;
         const hasHintText = !!this._getHintText();
 
         // Autocomplete the selection if all of the following are true:

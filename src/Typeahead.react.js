@@ -109,6 +109,14 @@ const Typeahead = React.createClass({
      * to control the component via its parent.
      */
     selected: PropTypes.array,
+    /**
+     * Class for typeahead dropdown component.
+     */
+    typeaheadMenuClassName: PropTypes.string,
+    /**
+     * Wrapper class for typeahead dropdown component.
+     */
+    typeaheadMenuWrapperClassName: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -171,7 +179,7 @@ const Typeahead = React.createClass({
   },
 
   blur() {
-    this.refs.input.blur();
+    this.input.blur();
   },
 
   /**
@@ -195,7 +203,7 @@ const Typeahead = React.createClass({
   },
 
   focus() {
-    this.refs.input.focus();
+    this.input.focus();
   },
 
   _renderInput(filteredOptions) {
@@ -216,7 +224,7 @@ const Typeahead = React.createClass({
         onKeyDown={e => this._handleKeydown(filteredOptions, e)}
         onRemove={this._handleRemoveOption}
         options={filteredOptions}
-        ref="input"
+        ref={ref => this.input = ref}
         selected={selected.slice()}
         text={text}
       />
@@ -224,7 +232,12 @@ const Typeahead = React.createClass({
   },
 
   _renderMenu(filteredOptions) {
-    const {labelKey, minLength} = this.props;
+    const {
+      labelKey,
+      minLength,
+      typeaheadMenuClassName,
+      typeaheadMenuWrapperClassName,
+    } = this.props;
     const {activeIndex, showMenu, text} = this.state;
 
     if (!(showMenu && text.length >= minLength)) {
@@ -240,10 +253,11 @@ const Typeahead = React.createClass({
       'renderMenuItemChildren',
     ]);
 
-    return (
+    let typeaheadMenu = (
       <TypeaheadMenu
         {...menuProps}
         activeIndex={activeIndex}
+        className={typeaheadMenuClassName}
         initialResultCount={this.props.paginateResults}
         labelKey={labelKey}
         onClick={this._handleAddOption}
@@ -251,6 +265,16 @@ const Typeahead = React.createClass({
         text={text}
       />
     );
+
+    if (typeaheadMenuWrapperClassName) {
+      return (
+        <div className={typeaheadMenuWrapperClassName}>
+          {typeaheadMenu}
+        </div>
+      );
+    }
+
+    return typeaheadMenu;
   },
 
   _handleBlur(e) {

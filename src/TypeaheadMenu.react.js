@@ -13,6 +13,7 @@ const TypeaheadMenu = React.createClass({
   propTypes: {
     activeIndex: PropTypes.number,
     align: PropTypes.oneOf(['justify', 'left', 'right']),
+    className: PropTypes.string,
     emptyLabel: PropTypes.string,
     initialResultCount: PropTypes.number,
     labelKey: PropTypes.string.isRequired,
@@ -62,7 +63,7 @@ const TypeaheadMenu = React.createClass({
         className={cx('bootstrap-typeahead-menu', {
           'dropdown-menu-justify': align === 'justify',
           'dropdown-menu-right': align === 'right',
-        })}
+        }, this.props.className)}
         style={{
           maxHeight: maxHeight + 'px',
           overflow: 'auto',

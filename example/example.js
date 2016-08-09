@@ -101,6 +101,7 @@ const Example = React.createClass({
             placeholder="Choose a state..."
             ref="typeahead"
             selected={selected}
+            typeaheadMenuClassName="dropdown-menu"
           />
           <ExampleSection title="Typeahead Options">
             <div className="form-group">

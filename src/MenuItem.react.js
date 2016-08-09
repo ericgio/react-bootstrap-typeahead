@@ -31,10 +31,9 @@ const MenuItem = React.createClass({
         className={cx({
           'active': active,
           'disabled': disabled,
-        }, className)}>
-        <a href="#" onClick={this._handleClick}>
-          {children}
-        </a>
+        }, className)}
+        onClick={this._handleClick}>
+        {children}
       </li>
     );
   },
