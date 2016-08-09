@@ -109,7 +109,7 @@ const Typeahead = React.createClass({
   },
 
   getInitialState() {
-    const {defaultSelected, paginateResults} = this.props;
+    const {defaultSelected} = this.props;
 
     let selected = this.props.selected.slice();
     if (defaultSelected && defaultSelected.length) {
@@ -127,11 +127,13 @@ const Typeahead = React.createClass({
 
   componentWillMount() {
     if (this.props.paginateResults != null) {
-      console.error(
+      /* eslint-disable no-console */
+      console.warn(
         'Warning: The `paginateResults` prop is deprecated and will be ' +
         'removed in an upcoming release. Use `maxResults` and `paginate` ' +
         'instead.'
       );
+      /* eslint-enable no-console */
     }
   },
 

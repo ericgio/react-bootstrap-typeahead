@@ -62,7 +62,7 @@ describe('<Typeahead>', () => {
     'should display tokens when selections are passed into the tokenizer',
     () => {
       const instance = getTypeaheadInstance({
-        labelKey: "name",
+        labelKey: 'name',
         multiple: true,
         options: states,
         selected: states.slice(0, 3),
