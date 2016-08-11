@@ -17,6 +17,7 @@ const TypeaheadInput = React.createClass({
   propTypes: {
     disabled: PropTypes.bool,
     labelKey: PropTypes.string,
+    name: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -41,7 +42,7 @@ const TypeaheadInput = React.createClass({
 
   render() {
     const {className, disabled, selected} = this.props;
-    const inputProps = pick(this.props, ['disabled', 'onFocus', 'placeholder']);
+    const inputProps = pick(this.props, ['disabled', 'name', 'onFocus', 'placeholder']);
 
     return (
       <div

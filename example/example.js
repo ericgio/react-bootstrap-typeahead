@@ -95,6 +95,7 @@ const Example = React.createClass({
             align={align}
             labelKey="name"
             minLength={minLength}
+            name='typeahead'
             onChange={selected => this.setState({selected})}
             onInputChange={text => this.setState({text})}
             options={largeDataSet ? bigData : states}

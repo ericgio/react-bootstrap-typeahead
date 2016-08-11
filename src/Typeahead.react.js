@@ -64,6 +64,10 @@ const Typeahead = React.createClass({
      */
     multiple: PropTypes.bool,
     /**
+     * Name property for the input.
+     */
+    name: PropTypes.string,
+    /**
      * Provides the ability to specify a prefix before the user-entered text to
      * indicate that the selection will be new. No-op unless `allowNew={true}`.
      */
@@ -202,7 +206,7 @@ const Typeahead = React.createClass({
     const {labelKey, multiple} = this.props;
     const {activeIndex, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = pick(this.props, ['disabled', 'placeholder']);
+    const inputProps = pick(this.props, ['disabled', 'name', 'placeholder']);
 
     return (
       <Input
