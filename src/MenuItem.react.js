@@ -32,8 +32,7 @@ const MenuItem = React.createClass({
           'active': active,
           'disabled': disabled,
         }, className, 'dropdown-item')}
-        onClick={this._handleClick}
-      >
+        onClick={this._handleClick}>
         {children}
       </button>
     );

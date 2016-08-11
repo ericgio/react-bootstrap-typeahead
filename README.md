@@ -1,4 +1,7 @@
-# React Bootstrap Typeahead
+# React Bootstrap 4 Typeahead
+
+**Note: This is just the React Bootstrap Typeahead component but modified a little to be compatible with Bootstrap 4**
+
 React-based typeahead component that uses Bootstrap as a base for styles and behaviors and supports both single- and multi-selection. The UI and behaviors are inspired by Twitter's [typeahead.js](https://github.com/twitter/typeahead.js). Try a [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
 [![build status](https://img.shields.io/travis/ericgio/react-bootstrap-typeahead/master.svg?style=flat-square)](https://travis-ci.org/ericgio/react-bootstrap-typeahead)

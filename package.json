@@ -1,6 +1,6 @@
 {
-  "name": "react-bootstrap-typeahead",
-  "version": "0.8.4",
+  "name": "react-bootstrap-4-typeahead",
+  "version": "0.8.6",
   "description": "React-based typeahead using the Bootstrap theme",
   "main": "lib/index.js",
   "directories": {
@@ -10,7 +10,7 @@
     "example": "./scripts/buildExample.sh",
     "build": "./scripts/build.sh",
     "lint": "eslint .",
-    "prepublish": "npm run lint && npm test && npm run build",
+    "prepublish": "npm run lint && npm run test && npm run build",
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "keywords": [
@@ -24,7 +24,7 @@
     "tokenizer",
     "typeahead"
   ],
-  "author": "ericgio",
+  "author": "alexanderkuzmin",
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.0",
@@ -66,7 +66,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ericgio/react-bootstrap-typeahead.git"
+    "url": "https://github.com/kuzmin/react-bootstrap-typeahead.git"
   },
-  "bugs": "https://github.com/ericgio/react-bootstrap-typeahead/issues"
+  "bugs": "https://github.com/kuzmin/react-bootstrap-typeahead/issues"
 }
