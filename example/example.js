@@ -93,6 +93,7 @@ const Example = React.createClass({
           <Typeahead
             {...props}
             align={align}
+            defaultValue=""
             labelKey="name"
             minLength={minLength}
             name="typeahead"

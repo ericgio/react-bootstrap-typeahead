@@ -38,6 +38,10 @@ const Typeahead = React.createClass({
      */
     defaultSelected: PropTypes.array,
     /**
+     * Specify default value for the input.
+     */
+    defaultValue: PropTypes.string,
+    /**
      * Whether to disable the input. Will also disable selections when
      * `multiple={true}`.
      */
@@ -130,7 +134,7 @@ const Typeahead = React.createClass({
   },
 
   getInitialState() {
-    const {defaultSelected} = this.props;
+    const {defaultSelected, defaultValue} = this.props;
 
     let selected = this.props.selected.slice();
     if (!isEmpty(defaultSelected)) {
@@ -141,7 +145,7 @@ const Typeahead = React.createClass({
       activeIndex: -1,
       selected,
       showMenu: false,
-      text: '',
+      text: defaultValue,
     };
   },
 
