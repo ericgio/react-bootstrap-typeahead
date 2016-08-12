@@ -10,10 +10,12 @@
   padding: 4px 7px;
   position: relative;
 }
+
 .bootstrap-tokenizer .token-removeable {
   cursor: pointer;
   padding-right: 21px;
 }
+
 .bootstrap-tokenizer .token-selected {
   background-color: #1f8dd6;
   color: #fff;
