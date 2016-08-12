@@ -123,6 +123,7 @@ const Typeahead = React.createClass({
     return {
       allowNew: false,
       defaultSelected: [],
+      defaultValue: '',
       labelKey: 'label',
       onBlur: noop,
       onChange: noop,
