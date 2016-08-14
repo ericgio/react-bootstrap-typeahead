@@ -5,7 +5,7 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 [![npm version](https://img.shields.io/npm/v/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
 [![npm downloads](https://img.shields.io/npm/dm/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
 
-Please note that this library is under active development and the APIs may change.
+Please note that this library is under active development and the APIs may change. The documentation below applies to the most recent version and may no longer be applicable if you're using an outdated version.
 
 ## Installation
 Use NPM to install the module in your project:
