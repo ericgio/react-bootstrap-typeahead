@@ -12,19 +12,17 @@ function getFilteredOptions(options=[], text='', selected=[], props={}) {
     return [];
   }
 
-  let exactMatchFound = false;
   let filteredOptions = options.filter(option => {
     const labelString = getOptionLabel(option, labelKey);
-
-    if (labelString === text) {
-      exactMatchFound = true;
-    }
-
     return !(
       labelString.toLowerCase().indexOf(text.toLowerCase()) === -1 ||
       multiple && find(selected, o => isEqual(o, option))
     );
   });
+
+  const exactMatchFound = find(filteredOptions, o => (
+    getOptionLabel(o, labelKey) === text
+  ));
 
   if (
     allowNew &&
