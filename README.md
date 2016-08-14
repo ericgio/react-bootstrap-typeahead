@@ -115,6 +115,7 @@ labelKey | string | 'label' | Specify which option key to use for display. By de
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
 minLength | number | `0` | Number of input characters that must be entered before showing results.
 multiple | boolean | `false` | Whether or not multiple selections are allowed.
+name | string | | Name property for the input
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Callback fired when the input is blurred. Receives an event.
 onChange | function | | Callback fired whenever items are added or removed. Receives an array of the selected options.
