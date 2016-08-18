@@ -7,7 +7,7 @@ import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import getFilteredOptions from './getFilteredOptions';
-import {isEmpty, isEqual, noop, pick} from 'lodash';
+import {isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 
 import {DOWN, ESC, RETURN, TAB, UP} from './keyCode';
@@ -133,7 +133,7 @@ const Typeahead = React.createClass({
     const {defaultSelected} = this.props;
 
     let selected = this.props.selected.slice();
-    if (!isEmpty(defaultSelected)) {
+    if (defaultSelected && defaultSelected.length) {
       selected = defaultSelected;
     }
 
@@ -203,10 +203,10 @@ const Typeahead = React.createClass({
   },
 
   _renderInput(filteredOptions) {
-    const {labelKey, multiple} = this.props;
+    const {disabled, labelKey, multiple, name, placeholder} = this.props;
     const {activeIndex, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = pick(this.props, ['disabled', 'name', 'placeholder']);
+    const inputProps = {disabled, name, placeholder};
 
     return (
       <Input
@@ -228,21 +228,30 @@ const Typeahead = React.createClass({
   },
 
   _renderMenu(filteredOptions) {
-    const {labelKey, minLength} = this.props;
+    const {
+      align,
+      emptyLabel,
+      labelKey,
+      maxHeight,
+      minLength,
+      newSelectionPrefix,
+      paginationText,
+      renderMenuItemChildren,
+    } = this.props;
     const {activeIndex, showMenu, text} = this.state;
 
     if (!(showMenu && text.length >= minLength)) {
       return null;
     }
 
-    const menuProps = pick(this.props, [
-      'align',
-      'emptyLabel',
-      'maxHeight',
-      'newSelectionPrefix',
-      'paginationText',
-      'renderMenuItemChildren',
-    ]);
+    const menuProps = {
+      align,
+      emptyLabel,
+      maxHeight,
+      newSelectionPrefix,
+      paginationText,
+      renderMenuItemChildren,
+    };
 
     return (
       <TypeaheadMenu

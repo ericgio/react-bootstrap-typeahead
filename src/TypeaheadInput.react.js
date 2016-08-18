@@ -3,7 +3,7 @@
 import React, {PropTypes} from 'react';
 
 import cx from 'classnames';
-import {head, pick} from 'lodash';
+import {head} from 'lodash';
 import {RIGHT, TAB} from './keyCode';
 
 /**
@@ -41,13 +41,16 @@ const TypeaheadInput = React.createClass({
   },
 
   render() {
-    const {className, disabled, selected} = this.props;
-    const inputProps = pick(this.props, [
-      'disabled',
-      'name',
-      'onFocus',
-      'placeholder',
-    ]);
+    const {
+      className,
+      disabled,
+      name,
+      onFocus,
+      placeholder,
+      selected,
+    } = this.props;
+
+    const inputProps = {disabled, name, onFocus, placeholder};
 
     return (
       <div
