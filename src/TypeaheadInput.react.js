@@ -42,7 +42,12 @@ const TypeaheadInput = React.createClass({
 
   render() {
     const {className, disabled, selected} = this.props;
-    const inputProps = pick(this.props, ['disabled', 'name', 'onFocus', 'placeholder']);
+    const inputProps = pick(this.props, [
+      'disabled',
+      'name',
+      'onFocus',
+      'placeholder',
+    ]);
 
     return (
       <div
