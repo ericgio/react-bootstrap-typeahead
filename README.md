@@ -99,6 +99,18 @@ var myData = [
 ];
 ```
 
+### Filtering Data
+By default, the component will filter results based on a case-insensitive string match between the input string and the `labelKey` property of each option (or the option itself, if an array of strings is passed). You can customize the filtering by passing your own callback to the `filterBy` prop:
+
+```
+<Typeahead
+  ...
+  filterBy={option => {
+    /* Your own filtering code goes here. */
+  }}
+/>
+```
+
 ### Duplicate Data
 You may have unexpected results if your data contains duplicate options. For this reason, it is highly recommended that you pass in objects with unique identifiers (eg: an id) if possible.
 
@@ -150,6 +162,7 @@ allowNew | boolean | false | Allows the creation of new selections on the fly. A
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
+filterBy | function | | Optional callback to use when filtering the options. The function will receive each option as the first parameter.
 labelKey | string | 'label' | Specify which option key to use for display. By default, the selector will use the `label` key.
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
 maxResults | number | `100` | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.

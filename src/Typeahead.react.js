@@ -6,7 +6,8 @@ import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import getFilteredOptions from './getFilteredOptions';
+import addCustomOption from './addCustomOption';
+import defaultFilterBy from './defaultFilterBy';
 import getOptionLabel from './getOptionLabel';
 import getTruncatedOptions from './getTruncatedOptions';
 import {isEqual, noop} from 'lodash';
@@ -40,6 +41,11 @@ const Typeahead = React.createClass({
      * be uncontrolled.
      */
     defaultSelected: PropTypes.array,
+    /**
+     * Optional callback to use when filtering the options. The function will
+     * receive each option as the first parameter.
+     */
+    filterBy: PropTypes.func,
     /**
      * Specify which option key to use for display. By default, the selector
      * will use the `label` key.
@@ -152,22 +158,54 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {options, paginate, ...props} = this.props;
-    const {selected, shownResults, text} = this.state;
+    const {allowNew, labelKey, paginate} = this.props;
+    const {shownResults, text} = this.state;
 
-    // First filter, then paginate options if necessary.
-    const filteredOptions = getFilteredOptions(options, text, selected, props);
-    const truncatedOptions = getTruncatedOptions(filteredOptions, shownResults);
-    const shouldPaginate = paginate && filteredOptions.length > shownResults;
+    // First filter the results by the input string.
+    let results = this._getFilteredResults();
+
+    // This must come before we truncate.
+    const shouldPaginate = paginate && results.length > shownResults;
+
+    // Truncate if necessary.
+    results = getTruncatedOptions(results, shownResults);
+
+    // Add the custom option.
+    if (allowNew) {
+      results = addCustomOption(results, text, labelKey);
+    }
 
     return (
       <div
         className="bootstrap-typeahead open"
         style={{position: 'relative'}}>
-        {this._renderInput(truncatedOptions)}
-        {this._renderMenu(truncatedOptions, shouldPaginate)}
+        {this._renderInput(results)}
+        {this._renderMenu(results, shouldPaginate)}
       </div>
     );
+  },
+
+  _getFilteredResults() {
+    const {labelKey, minLength, multiple, options} = this.props;
+    const {selected, text} = this.state;
+
+    if (text.length < minLength) {
+      return [];
+    }
+
+    // Filtering algorithm.
+    let {filterBy} = this.props;
+    if (!filterBy) {
+      filterBy = option => defaultFilterBy(
+        option,
+        labelKey,
+        multiple,
+        selected,
+        text
+      );
+    }
+
+    return options.filter(filterBy);
   },
 
   blur() {
