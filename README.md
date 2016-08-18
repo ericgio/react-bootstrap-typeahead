@@ -14,11 +14,20 @@ npm install --save react-bootstrap-typeahead
 ```
 Minified and unminified UMD modules are also included in the NPM package, or you can clone the project and `npm run build` to generate these files.
 
+## Importing vs. Requiring
+The component is written using ES6 modules and transpiled with [Babel 6](http://babeljs.io/docs/plugins/transform-es2015-modules-commonjs/). If you are also using ES6, you can simply `import` just as you would any other module:
+```
+import Typeahead from 'react-bootstrap-typeahead';
+```
+If you're using CommonJS, you'll need to explicitly specify `default`:
+```
+var Typeahead = require('react-bootstrap-typeahead').default;
+```
+Alternatively, you can use the [`add-module-exports`](https://www.npmjs.com/package/babel-plugin-add-module-exports) Babel plugin to avoid having to add `.default`.
+
 ## Usage
 The component behaves similar to other form elements. It requires an array of options to be displayed, similar to a `select`.
 ```
-var Typeahead = require('react-bootstrap-typeahead');
-
 <Typeahead
   onChange={this._handleChange}
   options={myData}
@@ -134,7 +143,7 @@ The component tries to use as little CSS as possible, relying primarily on Boots
 To modify the example, clone the repository, `npm install` and `npm run example` to build the example index file. You can then open the HTML file locally in a browser. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
 
 ## Browser Support
-Recent versions of the following are supported:
+Recent versions of the following browsers are supported:
 - Chrome
 - Firefox
 - IE (10/11)
