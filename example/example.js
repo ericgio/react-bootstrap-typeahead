@@ -5,7 +5,8 @@ import {range} from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Typeahead from '../src/Typeahead.react';
+import Typeahead from '../src/index.js';
+import Token from '../src/Token.react';
 
 import getOptionLabel from '../src/utils/getOptionLabel';
 import states from './exampleData';
@@ -53,6 +54,7 @@ const Example = React.createClass({
       alignMenu: false,
       allowNew: false,
       customMenuItemChildren: false,
+      customToken: false,
       disabled: false,
       largeDataSet: false,
       minLength: 0,
@@ -69,6 +71,7 @@ const Example = React.createClass({
       alignMenu,
       allowNew,
       customMenuItemChildren,
+      customToken,
       disabled,
       largeDataSet,
       minLength,
@@ -82,6 +85,17 @@ const Example = React.createClass({
 
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
+    }
+
+    if (customToken) {
+      props.renderToken = (option, onRemove, idx) => (
+        <Token
+          disabled={disabled}
+          key={idx}
+          onRemove={onRemove}>
+          {`${option.name} (Pop: ${option.population.toLocaleString()})`}
+        </Token>
+      );
     }
 
     return (
@@ -112,12 +126,6 @@ const Example = React.createClass({
                 name="disabled"
                 onChange={this._handleChange}>
                 Disable input
-              </Checkbox>
-              <Checkbox
-                checked={multiple}
-                name="multiple"
-                onChange={this._handleChange}>
-                Allow multiple selections (tokenizer)
               </Checkbox>
               <Checkbox
                 checked={preSelected}
@@ -155,6 +163,19 @@ const Example = React.createClass({
                 name="minLength"
                 onChange={this._handleChange}>
                 Require minimum text input before showing results
+              </Checkbox>
+              <Checkbox
+                checked={multiple}
+                name="multiple"
+                onChange={this._handleChange}>
+                Allow multiple selections (tokenizer)
+              </Checkbox>
+              <Checkbox
+                checked={customToken}
+                disabled={!multiple}
+                name="customToken"
+                onChange={this._handleChange}>
+                Customize tokens (multiple selections only)
               </Checkbox>
             </div>
           </ExampleSection>
@@ -242,6 +263,7 @@ const Example = React.createClass({
         let newSelection = this.state.selected.slice();
         !checked && newSelection.splice(1, newSelection.length);
         newState.selected = newSelection || [];
+        newState.customToken = false;
         break;
     }
 

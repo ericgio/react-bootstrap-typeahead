@@ -45,6 +45,11 @@ const TokenizerInput = React.createClass({
      * Placeholder text for the input.
      */
     placeholder: PropTypes.string,
+    /**
+     * Provides a hook for customized rendering of tokens when multiple
+     * selections are enabled.
+     */
+    renderToken: PropTypes.func,
   },
 
   getInitialState() {
@@ -106,13 +111,18 @@ const TokenizerInput = React.createClass({
   },
 
   _renderToken(option, idx) {
-    const {disabled, labelKey, onRemove} = this.props;
+    const {disabled, labelKey, onRemove, renderToken} = this.props;
+    const onRemoveWrapped = () => onRemove(option);
+
+    if (renderToken) {
+      return renderToken(option, onRemoveWrapped, idx);
+    }
 
     return (
       <Token
         disabled={disabled}
         key={idx}
-        onRemove={() => onRemove(option)}>
+        onRemove={onRemoveWrapped}>
         {getOptionLabel(option, labelKey)}
       </Token>
     );

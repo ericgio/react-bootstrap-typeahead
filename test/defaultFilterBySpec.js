@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import {last} from 'lodash';
 
 import defaultFilterBy from '../src/utils/defaultFilterBy';
 import states from '../example/exampleData';

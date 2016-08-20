@@ -126,10 +126,35 @@ Allows you to control the contents of a menu item. Your function will be passed 
 <Typeahead
   options={options}
   renderMenuItemChildren={(props, option, idx) => {
-    /* Render custom contents here */
+    /* Render custom contents here. */
   }}
 />
 ```
+
+### `renderToken`
+Provides the ability to customize rendering of tokens when multiple selections are enabled. The first parameter is the current selected option in the loop, while the second parameter is the `onRemove` callback passed down by the main component. This callback is a no-op if `multiple` is false.
+
+```
+<Typeahead
+  ...
+  multiple
+  renderToken={(option, onRemove) => {
+    /* Render custom token here. */
+  }}
+/>
+```
+
+Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `onRemove`) yourself. It is highly recommended that you use the provided `Token` component:
+
+```
+// ES2015
+import Token from 'react-bootstrap-typeahead/lib/Token.react';
+
+// CommonJS
+const Token = require('react-bootstrap-typeahead/lib/Token.react');
+```
+
+Note that if you use your own component to render the token, you will lose built-in functionality like removing via keystroke.
 
 ## Public Methods
 To access the component's public methods, add a ref to your typeahead instance:
@@ -179,6 +204,7 @@ paginateResults | number | 100 | DEPRECATED. Use `maxResults` and `paginate` ins
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
+renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
 
 ## CSS
