@@ -2,9 +2,10 @@
 
 import cx from 'classnames';
 import {noop} from 'lodash';
-import scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
+
+import scrollIntoViewIfNeeded from './utils/scrollIntoViewIfNeeded';
 
 const MenuItem = React.createClass({
   displayName: 'MenuItem',

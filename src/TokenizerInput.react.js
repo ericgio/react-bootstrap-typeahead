@@ -1,14 +1,14 @@
 'use strict';
 
-import AutosizeInput from 'react-input-autosize';
+import cx from 'classnames';
 import React, {PropTypes} from 'react';
+import {findDOMNode} from 'react-dom';
+import AutosizeInput from 'react-input-autosize';
+
 import Token from './Token.react';
 
-import cx from 'classnames';
-import getOptionLabel from './getOptionLabel';
-import {findDOMNode} from 'react-dom';
-
-import {BACKSPACE} from './keyCode';
+import getOptionLabel from './utils/getOptionLabel';
+import {BACKSPACE} from './utils/keyCode';
 
 /**
  * TokenizerInput

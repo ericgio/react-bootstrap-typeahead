@@ -1,11 +1,11 @@
 'use strict';
 
+import cx from 'classnames';
 import React, {PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
-
-import cx from 'classnames';
-import keyCode from './keyCode';
 import onClickOutside from 'react-onclickoutside';
+
+import keyCode from './utils/keyCode';
 
 /**
  * Token

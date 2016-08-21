@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {last} from 'lodash';
 
-import addCustomOption from '../src/addCustomOption';
+import addCustomOption from '../src/utils/addCustomOption';
 import states from '../example/exampleData';
 
 const labelKey = 'name';

@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import getInputText from '../src/getInputText';
+import getInputText from '../src/utils/getInputText';
 import states from '../example/exampleData';
 
 let props = {

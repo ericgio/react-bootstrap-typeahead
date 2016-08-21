@@ -1,19 +1,18 @@
 'use strict';
 
+import {isEqual, noop} from 'lodash';
+import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
 
 import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import addCustomOption from './addCustomOption';
-import defaultFilterBy from './defaultFilterBy';
-import getOptionLabel from './getOptionLabel';
-import getTruncatedOptions from './getTruncatedOptions';
-import {isEqual, noop} from 'lodash';
-import onClickOutside from 'react-onclickoutside';
-
-import {DOWN, ESC, RETURN, TAB, UP} from './keyCode';
+import addCustomOption from './utils/addCustomOption';
+import defaultFilterBy from './utils/defaultFilterBy';
+import getOptionLabel from './utils/getOptionLabel';
+import getTruncatedOptions from './utils/getTruncatedOptions';
+import {DOWN, ESC, RETURN, TAB, UP} from './utils/keyCode';
 
 // TODO: Remove once `paginateResults` is completely deprecated.
 function getMaxResults(props) {

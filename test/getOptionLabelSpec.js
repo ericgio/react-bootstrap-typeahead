@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import getOptionLabel from '../src/getOptionLabel';
+import getOptionLabel from '../src/utils/getOptionLabel';
 
 const label = 'California';
 

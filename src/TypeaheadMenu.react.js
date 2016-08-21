@@ -7,7 +7,7 @@ import React, {PropTypes} from 'react';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
-import getOptionLabel from './getOptionLabel';
+import getOptionLabel from './utils/getOptionLabel';
 
 const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',

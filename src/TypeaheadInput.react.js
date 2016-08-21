@@ -1,12 +1,12 @@
 'use strict';
 
+import cx from 'classnames';
+import {head} from 'lodash';
 import React, {PropTypes} from 'react';
 
-import cx from 'classnames';
-import getHintText from './getHintText';
-import getInputText from './getInputText';
-import {head} from 'lodash';
-import {RIGHT, TAB} from './keyCode';
+import getHintText from './utils/getHintText';
+import getInputText from './utils/getInputText';
+import {RIGHT, TAB} from './utils/keyCode';
 
 /**
  * TypeaheadInput

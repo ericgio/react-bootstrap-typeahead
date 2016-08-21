@@ -1,12 +1,13 @@
 'use strict';
 
+import cx from 'classnames';
+import {range} from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import Typeahead from '../src/Typeahead.react';
 
-import cx from 'classnames';
-import getOptionLabel from '../src/getOptionLabel';
-import {range} from 'lodash';
+import getOptionLabel from '../src/utils/getOptionLabel';
 import states from './exampleData';
 
 const bigData = range(0, 2000).map(option => option.toString());

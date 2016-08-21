@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import getHintText from '../src/getHintText';
+import getHintText from '../src/utils/getHintText';
 import states from '../example/exampleData';
 
 let isFocused = true;
