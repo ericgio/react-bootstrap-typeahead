@@ -172,7 +172,7 @@ const Example = React.createClass({
               </Checkbox>
               <Checkbox
                 checked={customToken}
-                disabled={!multiple}
+                disabled={!multiple || largeDataSet}
                 name="customToken"
                 onChange={this._handleChange}>
                 Customize tokens (multiple selections only)
@@ -246,6 +246,7 @@ const Example = React.createClass({
         break;
       case 'largeDataSet':
         newState.customMenuItemChildren = false;
+        newState.customToken = false;
         if (this.state.preSelected) {
           const options = checked ? bigData : states;
           newState.selected = options.slice(0, PRESELECTED_COUNT);
