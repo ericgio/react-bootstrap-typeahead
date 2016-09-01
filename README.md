@@ -197,6 +197,7 @@ name | string | | Name property for the input
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Callback fired when the input is blurred. Receives an event.
 onChange | function | | Callback fired whenever items are added or removed. Receives an array of the selected options.
+onFocus | function | | Callback fired when the input is focused. Receives an event.
 onInputChange | function | | Callback fired when user-input text changes. Receives the text string.
 options `required` | array | | Full set of options, including any pre-selected options.
 paginate | boolean | `true` | Give user the ability to display additional results if the number of results exceeds `maxResults`.

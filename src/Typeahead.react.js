@@ -75,6 +75,10 @@ const Typeahead = React.createClass({
      */
     onChange: PropTypes.func,
     /**
+     * Callback fired when the input is focused. Receives an event.
+     */
+    onFocus: PropTypes.func,
+    /**
      * Callback for handling changes to the user-input text.
      */
     onInputChange: PropTypes.func,
@@ -106,6 +110,7 @@ const Typeahead = React.createClass({
       maxResults: 100,
       onBlur: noop,
       onChange: noop,
+      onFocus: noop,
       onInputChange: noop,
       minLength: 0,
       multiple: false,
@@ -315,7 +320,8 @@ const Typeahead = React.createClass({
     this.props.onBlur(e);
   },
 
-  _handleFocus() {
+  _handleFocus(e) {
+    this.props.onFocus(e);
     this.setState({showMenu: true});
   },
 
