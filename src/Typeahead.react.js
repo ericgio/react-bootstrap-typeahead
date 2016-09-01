@@ -1,5 +1,6 @@
 'use strict';
 
+import cx from 'classnames';
 import {isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
@@ -157,7 +158,7 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {allowNew, labelKey, paginate} = this.props;
+    const {allowNew, className, labelKey, paginate} = this.props;
     const {shownResults, text} = this.state;
 
     // First filter the results by the input string.
@@ -176,7 +177,7 @@ const Typeahead = React.createClass({
 
     return (
       <div
-        className="bootstrap-typeahead open"
+        className={cx('bootstrap-typeahead', 'open', className)}
         style={{position: 'relative'}}>
         {this._renderInput(results)}
         {this._renderMenu(results, shouldPaginate)}
