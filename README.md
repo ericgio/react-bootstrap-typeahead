@@ -16,18 +16,18 @@ Minified and unminified UMD modules are also included in the NPM package, or you
 
 ## Importing vs. Requiring
 The component is written using ES6 modules and transpiled with [Babel 6](http://babeljs.io/docs/plugins/transform-es2015-modules-commonjs/). If you are also using ES6, you can simply `import` just as you would any other module:
-```
+```jsx
 import Typeahead from 'react-bootstrap-typeahead';
 ```
 If you're using CommonJS, you'll need to explicitly specify `default`:
-```
+```jsx
 var Typeahead = require('react-bootstrap-typeahead').default;
 ```
 Alternatively, you can use the [`add-module-exports`](https://www.npmjs.com/package/babel-plugin-add-module-exports) Babel plugin to avoid having to add `.default`.
 
 ## Usage
 The component behaves similar to other form elements. It requires an array of options to be displayed, similar to a `select`.
-```
+```jsx
 <Typeahead
   onChange={this._handleChange}
   options={myData}
@@ -37,7 +37,7 @@ The component behaves similar to other form elements. It requires an array of op
 ### Single & Multi-Selection
 The component provides single-selection by default, but also supports multi-selection. Simply set the `multiple` prop and the component turns into a tokenizer:
 
-```
+```jsx
 <Typeahead
   multiple
   onChange={this._handleChange}
@@ -48,7 +48,7 @@ The component provides single-selection by default, but also supports multi-sele
 ### Controlled vs. Uncontrolled
 Like an `input`, the component can be [controlled](https://facebook.github.io/react/docs/forms.html#controlled-components) or [uncontrolled](https://facebook.github.io/react/docs/forms.html#uncontrolled-components). Use the `selected` prop to control it via the parent, or `defaultSelected` to optionally set defaults and then allow the component to control itself.
 
-```
+```jsx
 <Typeahead
   onChange={this._handleChange}
   options={myData}
@@ -63,7 +63,7 @@ The component will throw an error if any options are something other than a stri
 
 The following are valid data structures:
 
-```
+```jsx
 // Array of strings.
 var myData = [
   'John',
@@ -102,7 +102,7 @@ var myData = [
 ### Filtering Data
 By default, the component will filter results based on a case-insensitive string match between the input string and the `labelKey` property of each option (or the option itself, if an array of strings is passed). You can customize the filtering by passing your own callback to the `filterBy` prop:
 
-```
+```jsx
 <Typeahead
   ...
   filterBy={option => {
@@ -122,7 +122,7 @@ The component simply handles rendering and selection of the data that is passed 
 
 ### `renderMenuItemChildren`
 Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
-```
+```jsx
 <Typeahead
   options={options}
   renderMenuItemChildren={(props, option, idx) => {
@@ -134,7 +134,7 @@ Allows you to control the contents of a menu item. Your function will be passed 
 ### `renderToken`
 Provides the ability to customize rendering of tokens when multiple selections are enabled. The first parameter is the current selected option in the loop, while the second parameter is the `onRemove` callback passed down by the main component. This callback is a no-op if `multiple` is false.
 
-```
+```jsx
 <Typeahead
   ...
   multiple
@@ -146,7 +146,7 @@ Provides the ability to customize rendering of tokens when multiple selections a
 
 Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `onRemove`) yourself. It is highly recommended that you use the provided `Token` component:
 
-```
+```jsx
 // ES2015
 import Token from 'react-bootstrap-typeahead/lib/Token.react';
 
@@ -158,11 +158,11 @@ Note that if you use your own component to render the token, you will lose built
 
 ## Public Methods
 To access the component's public methods, add a ref to your typeahead instance:
-```
+```jsx
 <Typeahead ref="typeahead" ... />
 ```
 then access the ref from your handler:
-```
+```jsx
 <button onClick={() => this.refs.typeahead.getInstance().clear()}>
   Clear Typeahead
 </button>
