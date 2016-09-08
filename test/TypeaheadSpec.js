@@ -148,4 +148,14 @@ describe('<Typeahead>', () => {
     expect(paginatorNodes.length).to.equal(0);
   });
 
+  it('should add the `dropup` className when `dropup=true`', () => {
+    const instance = getTypeaheadInstance({...baseProps, dropup: true});
+    const TypeaheadNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'dropup'
+    );
+
+    expect(TypeaheadNode).to.exist;
+  });
+
 });

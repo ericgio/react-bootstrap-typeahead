@@ -56,6 +56,7 @@ const Example = React.createClass({
       customMenuItemChildren: false,
       customToken: false,
       disabled: false,
+      dropup: false,
       largeDataSet: false,
       minLength: 0,
       multiple: false,
@@ -73,6 +74,7 @@ const Example = React.createClass({
       customMenuItemChildren,
       customToken,
       disabled,
+      dropup,
       largeDataSet,
       minLength,
       multiple,
@@ -81,7 +83,7 @@ const Example = React.createClass({
       text,
     } = this.state;
 
-    let props = {allowNew, disabled, multiple, selected};
+    const props = {align, allowNew, disabled, dropup, minLength, multiple, selected};
 
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
@@ -108,16 +110,13 @@ const Example = React.createClass({
         <div className="container">
           <Typeahead
             {...props}
-            align={align}
             labelKey="name"
-            minLength={minLength}
             name="typeahead"
             onChange={selected => this.setState({selected})}
             onInputChange={text => this.setState({text})}
             options={largeDataSet ? bigData : states}
             placeholder="Choose a state..."
             ref="typeahead"
-            selected={selected}
           />
           <ExampleSection title="Typeahead Options">
             <div className="form-group">
@@ -157,6 +156,12 @@ const Example = React.createClass({
                 name="alignMenu"
                 onChange={this._handleChange}>
                 Align menu: {this._renderAlignmentSelector()}
+              </Checkbox>
+              <Checkbox
+                checked={dropup}
+                name="dropup"
+                onChange={this._handleChange}>
+                Menu dropup
               </Checkbox>
               <Checkbox
                 checked={!!minLength}

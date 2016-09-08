@@ -42,6 +42,10 @@ const Typeahead = React.createClass({
      */
     defaultSelected: PropTypes.array,
     /**
+     * Specify whether the menu should appear above the input.
+     */
+    dropup: PropTypes.bool,
+    /**
      * Optional callback to use when filtering the options. The function will
      * receive each option as the first parameter.
      */
@@ -106,6 +110,7 @@ const Typeahead = React.createClass({
     return {
       allowNew: false,
       defaultSelected: [],
+      dropup: false,
       labelKey: 'label',
       maxResults: 100,
       onBlur: noop,
@@ -163,7 +168,7 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {allowNew, className, labelKey, paginate} = this.props;
+    const {allowNew, className, dropup, labelKey, paginate} = this.props;
     const {shownResults, text} = this.state;
 
     // First filter the results by the input string.
@@ -182,7 +187,9 @@ const Typeahead = React.createClass({
 
     return (
       <div
-        className={cx('bootstrap-typeahead', 'open', className)}
+        className={cx('bootstrap-typeahead', 'open', {
+          'dropup': dropup,
+        }, className)}
         style={{position: 'relative'}}>
         {this._renderInput(results)}
         {this._renderMenu(results, shouldPaginate)}
