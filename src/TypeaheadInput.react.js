@@ -78,7 +78,10 @@ const TypeaheadInput = React.createClass({
         className={cx('bootstrap-typeahead-input', className)}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
-        style={{outline: 'none'}}
+        style={{
+          outline: 'none',
+          position: 'relative',
+        }}
         tabIndex={-1}>
         <input
           {...inputProps}
