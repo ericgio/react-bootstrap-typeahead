@@ -1,11 +1,10 @@
 'use strict';
 
 import cx from 'classnames';
+import {noop} from 'lodash';
 import React, {PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
-import onClickOutside from 'react-onclickoutside';
 
-import keyCode from './utils/keyCode';
+import TokenContainer from './containers/TokenContainer';
 
 /**
  * Token
@@ -22,10 +21,12 @@ const Token = React.createClass({
      * be rendered in a read-only state.
      */
     onRemove: PropTypes.func,
+    selected: PropTypes.bool,
   },
 
-  getInitialState() {
+  getDefaultProps() {
     return {
+      onRemove: noop,
       selected: false,
     };
   },
@@ -37,20 +38,19 @@ const Token = React.createClass({
   },
 
   _renderRemoveableToken() {
+    const {children, className, onRemove, selected, ...otherProps} = this.props;
+
     return (
       <div
+        {...otherProps}
         className={cx('token', 'token-removeable', {
-          'token-selected': this.state.selected,
-        }, this.props.className)}
-        onBlur={this._handleBlur}
-        onClick={this._handleSelect}
-        onFocus={this._handleSelect}
-        onKeyDown={this._handleKeyDown}
+          'token-selected': selected,
+        }, className)}
         tabIndex={0}>
-        {this.props.children}
+        {children}
         <span
           className="close-button"
-          onClick={this._handleRemove}
+          onClick={onRemove}
           role="button">
           &times;
         </span>
@@ -59,57 +59,23 @@ const Token = React.createClass({
   },
 
   _renderToken() {
-    const {className, disabled, href} = this.props;
-    let classnames = cx('token', className);
+    const {children, className, disabled, href} = this.props;
+    const classnames = cx('token', className);
 
     if (href) {
       return (
         <a className={classnames} disabled={disabled} href={href}>
-          {this.props.children}
+          {children}
         </a>
       );
     }
 
     return (
       <div className={classnames} disabled={disabled}>
-        {this.props.children}
+        {children}
       </div>
     );
   },
-
-  _handleBlur(e) {
-    findDOMNode(this).blur();
-    this.setState({selected: false});
-  },
-
-  _handleKeyDown(e) {
-    switch (e.keyCode) {
-      case keyCode.BACKSPACE:
-        if (this.state.selected) {
-          // Prevent backspace keypress from triggering the browser "back"
-          // action.
-          e.preventDefault();
-          this._handleRemove();
-        }
-        break;
-    }
-  },
-
-  /**
-   * From `onClickOutside` mixin.
-   */
-  handleClickOutside(e) {
-    this._handleBlur();
-  },
-
-  _handleRemove(e) {
-    this.props.onRemove && this.props.onRemove();
-  },
-
-  _handleSelect(e) {
-    e.stopPropagation();
-    this.setState({selected: true});
-  },
 });
 
-export default onClickOutside(Token);
+export default TokenContainer(Token);
