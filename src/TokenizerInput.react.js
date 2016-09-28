@@ -140,9 +140,6 @@ const TokenizerInput = React.createClass({
   _handleKeydown(e) {
     switch (e.keyCode) {
       case BACKSPACE:
-        // Prevent browser "back" action.
-        e.preventDefault();
-
         let inputNode = findDOMNode(this.refs.input);
         if (
           inputNode &&
@@ -153,6 +150,9 @@ const TokenizerInput = React.createClass({
           // token when the user hits backspace.
           let sibling = inputNode.previousSibling;
           sibling && sibling.focus();
+
+          // Prevent browser "back" action.
+          e.preventDefault();
         }
         break;
     }
