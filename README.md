@@ -186,6 +186,7 @@ align | string | 'justify' | Specify menu alignment. The default value is `justi
 allowNew | boolean | false | Allows the creation of new selections on the fly. Any new items will be added to the list of selections, but not the list of original options unless handled as such by `Typeahead`'s parent. The newly added item will *always* be returned as an object even if the other options are simply strings, so be sure your `onChange` callback can handle this.
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
+dropup | boolean | false | Specify whether the menu should appear above the input.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 filterBy | function | | Optional callback to use when filtering the options. The function will receive each option as the first parameter.
 labelKey | string | 'label' | Specify which option key to use for display. By default, the selector will use the `label` key.
