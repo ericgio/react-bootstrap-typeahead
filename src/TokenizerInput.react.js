@@ -140,6 +140,9 @@ const TokenizerInput = React.createClass({
   _handleKeydown(e) {
     switch (e.keyCode) {
       case BACKSPACE:
+        // Prevent browser "back" action.
+        e.preventDefault();
+
         let inputNode = findDOMNode(this.refs.input);
         if (
           inputNode &&
