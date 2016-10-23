@@ -2,13 +2,13 @@ import React from 'react';
 import {findDOMNode} from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
-import keyCode from '../utils/keyCode';
+import {BACKSPACE} from '../utils/keyCode';
 
 /**
  * Higher-order component that encapsulates Token behaviors, allowing them to
  * be easily re-used.
  */
-const TokenContainer = Component => {
+const tokenBehaviors = Component => {
   return onClickOutside(React.createClass({
     getInitialState() {
       return {
@@ -36,7 +36,7 @@ const TokenContainer = Component => {
 
     _handleKeyDown(e) {
       switch (e.keyCode) {
-        case keyCode.BACKSPACE:
+        case BACKSPACE:
           if (this.state.selected) {
             // Prevent backspace keypress from triggering the browser "back"
             // action.
@@ -65,4 +65,4 @@ const TokenContainer = Component => {
   }));
 };
 
-export default TokenContainer;
+export default tokenBehaviors;
