@@ -1,53 +1,26 @@
 'use strict';
 
-import cx from 'classnames';
 import {range} from 'lodash';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 
-import Typeahead from '../src/index.js';
 import Token from '../src/Token.react';
+import Typeahead from '../src/Typeahead.react';
+
+import Button from './components/Button.react';
+import Checkbox from './components/Checkbox.react';
+import ExampleSection from './components/ExampleSection.react';
 
 import getOptionLabel from '../src/utils/getOptionLabel';
 import states from './exampleData';
 
+import '../css/Token.css';
+import '../css/Typeahead.css';
+
 const bigData = range(0, 2000).map(option => option.toString());
 const PRESELECTED_COUNT = 4;
 
-require('../css/Token.css');
-require('../css/Typeahead.css');
-
-const Button = props => (
-  <button
-    {...props}
-    className="btn btn-default"
-  />
-);
-
-const Checkbox = props => (
-  <div className={cx('checkbox', {'disabled': props.disabled})}>
-    <label>
-      <input
-        checked={props.checked}
-        disabled={props.disabled}
-        name={props.name}
-        onChange={props.onChange}
-        type="checkbox"
-      />
-      {props.children || props.label}
-    </label>
-  </div>
-);
-
-const ExampleSection = props => (
-  <div className="example-section">
-    <h4>{props.title}</h4>
-    {props.children}
-  </div>
-);
-
 const Example = React.createClass({
-
   getInitialState() {
     return {
       align: 'justify',
@@ -277,4 +250,4 @@ const Example = React.createClass({
   },
 });
 
-ReactDOM.render(<Example />, document.getElementById('root'));
+render(<Example />, document.getElementById('root'));
