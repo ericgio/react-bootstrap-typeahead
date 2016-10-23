@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Build minified standalone version in dist
-rm -rf build
+rm -rf dist
 ./node_modules/.bin/webpack
 ./node_modules/.bin/webpack --config webpack.config.prod.js
 
