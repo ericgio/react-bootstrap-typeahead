@@ -2,6 +2,13 @@
   "plugins": [
     "babel-plugin-lodash",
   ],
+  "env": {
+    "production": {
+      "plugins": [
+        "transform-react-remove-prop-types",
+      ],
+    }
+  },
   "presets": [
     "es2015",
     "react",
