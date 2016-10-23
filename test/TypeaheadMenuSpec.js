@@ -46,6 +46,18 @@ describe('<TypeaheadMenu>', () => {
     expect(menuNode.style.maxHeight).to.equal('200px');
   });
 
+  it ('renders disabled menu items', () => {
+    const disabledOptions = options.map(option => (
+      {...option, disabled: true}
+    ));
+    const instance = getMenuInstance({options: disabledOptions});
+    const menuItems = ReactTestUtils.scryRenderedComponentsWithType(
+      instance,
+      MenuItem
+    );
+    expect(menuItems[0].props.disabled).to.equal(true);
+  });
+
   it('renders an empty state when there are no options', () => {
     const instance = getMenuInstance({options: []});
     const menuItems = ReactTestUtils.scryRenderedComponentsWithType(

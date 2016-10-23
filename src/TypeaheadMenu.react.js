@@ -71,6 +71,7 @@ const TypeaheadMenu = React.createClass({
 
     let menuItemProps = {
       active: idx === activeIndex,
+      disabled: option.disabled,
       key: idx,
       onClick: () => onClick(option),
     };

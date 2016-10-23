@@ -41,6 +41,13 @@ describe('<MenuItem>', () => {
   it('renders a disabled menu item', () => {
     const menuItemNode = getMenuItemNode({disabled: true});
     expect(menuItemNode.className).to.contain('disabled');
+
+    // Reset value.
+    clickValue = undefined;
+
+    // Disabled items don't allow `onClick` events.
+    ReactTestUtils.Simulate.click(menuItemNode.childNodes[0]);
+    expect(clickValue).to.equal(undefined);
   });
 
 });
