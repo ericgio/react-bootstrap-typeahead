@@ -33,7 +33,7 @@ const MenuItem = React.createClass({
           'active': active,
           'disabled': disabled,
         }, className)}>
-        <a href="#" onClick={this._handleClick}>
+        <a onClick={this._handleClick} role="button">
           {children}
         </a>
       </li>
