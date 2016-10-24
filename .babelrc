@@ -1,6 +1,7 @@
 {
   "plugins": [
-    "babel-plugin-lodash",
+    "lodash",
+    "dev-expression",
   ],
   "env": {
     "production": {

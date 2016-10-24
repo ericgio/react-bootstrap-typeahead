@@ -1,4 +1,5 @@
 import {some} from 'lodash';
+import warn from './warn';
 
 function isMatch(input, string, caseSensitive) {
   if (!caseSensitive) {
@@ -11,14 +12,13 @@ function isMatch(input, string, caseSensitive) {
 /**
  * Default algorithm for filtering results.
  */
-function defaultFilterBy(
+export default function defaultFilterBy(
   option,
   labelKey,
   isTokenized,
   text,
   filterOptions
 ) {
-
   // Don't show selected options in the menu for the multi-select case.
   if (isTokenized) {
     return false;
@@ -33,12 +33,11 @@ function defaultFilterBy(
   }
 
   if (typeof option === 'string') {
-    if (fields.length > 1) {
-      console.error(
-        '[react-bootstrap-typeahead] Cannot filter by property when `option` ' +
-        'is a string.'
-      );
-    }
+    warn(
+      fields.length === 1,
+      'You cannot filter by properties when `option` is a string.'
+    );
+
     return isMatch(text, option, caseSensitive);
   }
 
@@ -46,10 +45,12 @@ function defaultFilterBy(
     let value = option[field];
 
     if (typeof value !== 'string') {
-      console.error(
-        '[react-bootstrap-typeahead] Fields passed to `filterBy` should have ' +
-        'string values. Value will be converted.'
+      warn(
+        false,
+        'Fields passed to `filterBy` should have string values. Value will ' +
+        'be converted to a string; results may be unexpected.'
       );
+
       // Coerce to string since `toString` isn't null-safe.
       value = value + '';
     }
@@ -57,5 +58,3 @@ function defaultFilterBy(
     return isMatch(text, value, caseSensitive);
   });
 }
-
-export default defaultFilterBy;

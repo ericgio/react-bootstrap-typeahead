@@ -13,6 +13,8 @@ import addCustomOption from './utils/addCustomOption';
 import defaultFilterBy from './utils/defaultFilterBy';
 import getOptionLabel from './utils/getOptionLabel';
 import getTruncatedOptions from './utils/getTruncatedOptions';
+import warn from './utils/warn';
+
 import {DOWN, ESC, RETURN, TAB, UP} from './utils/keyCode';
 
 // TODO: Remove once `paginateResults` is completely deprecated.
@@ -155,15 +157,11 @@ const Typeahead = React.createClass({
   },
 
   componentWillMount() {
-    if (this.props.paginateResults != null) {
-      /* eslint-disable no-console */
-      console.warn(
-        'Warning: The `paginateResults` prop is deprecated and will be ' +
-        'removed in an upcoming release. Use `maxResults` and `paginate` ' +
-        'instead.'
-      );
-      /* eslint-enable no-console */
-    }
+    warn(
+      this.props.paginateResults == null,
+      'The `paginateResults` prop is deprecated and will be removed in an ' +
+      'upcoming release. Use `maxResults` and `paginate` instead.'
+    );
   },
 
   componentWillReceiveProps(nextProps) {

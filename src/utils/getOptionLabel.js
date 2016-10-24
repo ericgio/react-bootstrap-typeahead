@@ -1,3 +1,4 @@
+import invariant from 'invariant';
 import {isPlainObject} from 'lodash';
 
 /**
@@ -16,13 +17,12 @@ function getOptionLabel(option, labelKey) {
     optionLabel = option[labelKey];
   }
 
-  if (typeof optionLabel !== 'string') {
-    throw new Error(
-      'One or more options does not have a valid label string. Please ' +
-      'check the `labelKey` prop to ensure that it matches the correct ' +
-      'option key and provides a string for filtering and display.'
-    );
-  }
+  invariant(
+    typeof optionLabel === 'string',
+    'One or more options does not have a valid label string. Check the ' +
+    '`labelKey` prop to ensure that it matches the correct option key and ' +
+    'provides a string for filtering and display.'
+  );
 
   return optionLabel;
 }
