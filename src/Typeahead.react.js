@@ -1,7 +1,7 @@
 'use strict';
 
 import cx from 'classnames';
-import {isEqual, noop} from 'lodash';
+import {find, isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
 
@@ -37,6 +37,10 @@ const Typeahead = React.createClass({
      */
     allowNew: PropTypes.bool,
     /**
+     * Whether or not filtering should be case-sensitive.
+     */
+    caseSensitive: PropTypes.bool,
+    /**
      * Specify any pre-selected options. Use only if you want the component to
      * be uncontrolled.
      */
@@ -46,10 +50,13 @@ const Typeahead = React.createClass({
      */
     dropup: PropTypes.bool,
     /**
-     * Optional callback to use when filtering the options. The function will
-     * receive each option as the first parameter.
+     * Either an array of fields in `option` to search, or a custom filtering
+     * callback.
      */
-    filterBy: PropTypes.func,
+    filterBy: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string.isRequired),
+      PropTypes.func,
+    ]),
     /**
      * Specify which option key to use for display. By default, the selector
      * will use the `label` key.
@@ -87,9 +94,13 @@ const Typeahead = React.createClass({
      */
     onInputChange: PropTypes.func,
     /**
-     * Full set of options, including pre-selected options.
+     * Full set of options, including pre-selected options. Must either be an
+     * array of objects (recommended) or strings.
      */
-    options: PropTypes.array.isRequired,
+    options: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.object.isRequired),
+      PropTypes.arrayOf(PropTypes.string.isRequired),
+    ]).isRequired,
     /**
      * Give user the ability to display additional results if the number of
      * results exceeds `maxResults`.
@@ -109,8 +120,10 @@ const Typeahead = React.createClass({
   getDefaultProps() {
     return {
       allowNew: false,
+      caseSensitive: false,
       defaultSelected: [],
       dropup: false,
+      filterBy: [],
       labelKey: 'label',
       maxResults: 100,
       onBlur: noop,
@@ -198,22 +211,22 @@ const Typeahead = React.createClass({
   },
 
   _getFilteredResults() {
-    const {labelKey, minLength, multiple, options} = this.props;
+    const {caseSensitive, labelKey, minLength, multiple, options} = this.props;
     const {selected, text} = this.state;
 
     if (text.length < minLength) {
       return [];
     }
 
-    // Filtering algorithm.
     let {filterBy} = this.props;
-    if (!filterBy) {
+    if (Array.isArray(filterBy)) {
+      const fields = filterBy;
       filterBy = option => defaultFilterBy(
         option,
         labelKey,
-        multiple,
-        selected,
-        text
+        multiple && !!find(selected, o => isEqual(o, option)),
+        text,
+        {caseSensitive, fields}
       );
     }
 
