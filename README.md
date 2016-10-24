@@ -98,10 +98,39 @@ var myData = [
   'Herbie',
 ];
 ```
+### Duplicate Data
+You may have unexpected results if your data contains duplicate options. For this reason, it is highly recommended that you pass in objects with unique identifiers (eg: an id) if possible.
 
-### Filtering Data
-By default, the component will filter results based on a case-insensitive string match between the input string and the `labelKey` property of each option (or the option itself, if an array of strings is passed). You can customize the filtering by passing your own callback to the `filterBy` prop:
+### Data Sources
+The component simply handles rendering and selection of the data that is passed in. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
 
+## Filtering
+By default, the component will filter results based on a case-insensitive string match between the input string and the `labelKey` property of each option (or the option itself, if an array of strings is passed). You can customize the filtering a few ways:
+
+### `caseSensitive` prop
+Setting this prop to `true` changes the string match to be, you guessed it, case-sensitive. Defaults to `false`.
+```jsx
+<Typeahead
+  ...
+  caseSensitive
+/>
+```
+
+### `filterBy` prop
+The `filterBy` prop can be used in one of two ways: to specify `option` properties that should be searched or to pass a completely custom callback.
+
+#### Specify fields to search
+By default, the filtering algorithm only searches the field that corresponds to `labelKey`. However, you can pass an array of additional fields to search:
+```jsx
+<Typeahead
+  ...
+  filterBy={['firstName', 'lastName', 'email']}
+/>
+```
+The field corresponding to `labelKey` is always searched (once), whether or not you specify it.
+
+#### Custom callback
+You can also pass your own callback to take complete control over how the filtering works. Note that the `caseSensitive` prop will no longer work in this case, since you are now completely overriding the algorithm.
 ```jsx
 <Typeahead
   ...
@@ -110,12 +139,6 @@ By default, the component will filter results based on a case-insensitive string
   }}
 />
 ```
-
-### Duplicate Data
-You may have unexpected results if your data contains duplicate options. For this reason, it is highly recommended that you pass in objects with unique identifiers (eg: an id) if possible.
-
-### Data Sources
-The component simply handles rendering and selection of the data that is passed in. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
 
 ## Rendering
 `react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
