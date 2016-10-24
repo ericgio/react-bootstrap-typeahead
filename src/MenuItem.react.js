@@ -33,7 +33,7 @@ const MenuItem = React.createClass({
           'active': active,
           'disabled': disabled,
         }, className)}>
-        <a style={{ cursor: 'pointer' }} onClick={this._handleClick}>
+        <a role="button" onClick={this._handleClick}>
           {children}
         </a>
       </li>
