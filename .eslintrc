@@ -26,7 +26,7 @@
     "key-spacing": [1, {"beforeColon": false, "afterColon": true}],
     "linebreak-style": [2, "unix"],
     "max-len": [1, 80, 2, {
-      "ignorePattern": "\\s.+=\\s*require\\s*\\(",
+      "ignorePattern": "^\\s*import\\s.+from\\s+/",
       "ignoreUrls": true
     }],
     "no-case-declarations": 0,

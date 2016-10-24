@@ -56,7 +56,15 @@ const Example = React.createClass({
       text,
     } = this.state;
 
-    const props = {align, allowNew, disabled, dropup, minLength, multiple, selected};
+    const props = {
+      align,
+      allowNew,
+      disabled,
+      dropup,
+      minLength,
+      multiple,
+      selected,
+    };
 
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
