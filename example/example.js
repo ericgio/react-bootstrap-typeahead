@@ -26,6 +26,7 @@ const Example = React.createClass({
       align: 'justify',
       alignMenu: false,
       allowNew: false,
+      bsSize: undefined,
       customMenuItemChildren: false,
       customToken: false,
       disabled: false,
@@ -44,6 +45,7 @@ const Example = React.createClass({
       align,
       alignMenu,
       allowNew,
+      bsSize,
       customMenuItemChildren,
       customToken,
       disabled,
@@ -59,6 +61,7 @@ const Example = React.createClass({
     const props = {
       align,
       allowNew,
+      bsSize,
       disabled,
       dropup,
       minLength,
@@ -164,6 +167,19 @@ const Example = React.createClass({
                 Customize tokens (multiple selections only)
               </Checkbox>
             </div>
+          </ExampleSection>
+          <ExampleSection title="Size">
+            <select
+              onChange={e => {
+                const {value} = e.target;
+                const bsSize = +value !== -1 ? value : undefined;
+                this.setState({bsSize});
+              }}
+              value={bsSize}>
+              <option value={-1}>Default</option>
+              <option value="small">Small</option>
+              <option value="large">Large</option>
+            </select>
           </ExampleSection>
           <ExampleSection title="Typeahead Methods">
             <div className="btn-toolbar">

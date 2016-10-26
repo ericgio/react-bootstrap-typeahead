@@ -261,6 +261,7 @@ const Typeahead = React.createClass({
 
   _renderInput(optionsToDisplay) {
     const {
+      bsSize,
       disabled,
       labelKey,
       multiple,
@@ -270,7 +271,7 @@ const Typeahead = React.createClass({
     } = this.props;
     const {activeIndex, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = {disabled, name, placeholder, renderToken};
+    const inputProps = {bsSize, disabled, name, placeholder, renderToken};
 
     return (
       <Input

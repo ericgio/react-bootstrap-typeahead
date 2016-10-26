@@ -38,6 +38,18 @@ describe('<TokenizerInput>', () => {
     );
 
     expect(tokens.length).to.equal(3);
-  });  
+  });
+
+  it('should set the size of the tokenizer input', () => {
+    const instance = ReactTestUtils.renderIntoDocument(
+      <TokenizerInput {...props} bsSize="large" />
+    );
+    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'input-lg'
+    );
+
+    expect(inputNode).to.exist;
+  });
 
 });

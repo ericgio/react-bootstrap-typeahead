@@ -59,7 +59,7 @@ const TokenizerInput = React.createClass({
   },
 
   render() {
-    const {disabled, placeholder, selected, text} = this.props;
+    const {bsSize, disabled, placeholder, selected, text} = this.props;
 
     return (
       <div
@@ -67,7 +67,11 @@ const TokenizerInput = React.createClass({
           'bootstrap-tokenizer',
           'clearfix',
           'form-control',
-          {'focus': this.state.isFocused}
+          {
+            'focus': this.state.isFocused,
+            'input-lg': bsSize === 'large' || bsSize === 'lg',
+            'input-sm': bsSize === 'small' || bsSize === 'sm',
+          }
         )}
         disabled={disabled}
         onClick={this._handleInputFocus}

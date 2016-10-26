@@ -4,6 +4,8 @@ import cx from 'classnames';
 import {head} from 'lodash';
 import React, {PropTypes} from 'react';
 
+import TextInput from './TextInput.react';
+
 import getHintText from './utils/getHintText';
 import getInputText from './utils/getInputText';
 import {RIGHT, TAB} from './utils/keyCode';
@@ -57,12 +59,13 @@ const TypeaheadInput = React.createClass({
   componentDidUpdate(prevProps, prevState) {
     if (this.props.activeIndex !== prevProps.activeIndex) {
       const inputText = getInputText(this.props);
-      this.refs.input.selectionStart = inputText.length;
+      this._input.getInstance().selectionStart = inputText.length;
     }
   },
 
   render() {
     const {
+      bsSize,
       className,
       disabled,
       name,
@@ -71,7 +74,7 @@ const TypeaheadInput = React.createClass({
       selected,
     } = this.props;
 
-    const inputProps = {disabled, name, onFocus, placeholder};
+    const inputProps = {bsSize, disabled, name, onFocus, placeholder};
 
     return (
       <div
@@ -83,27 +86,27 @@ const TypeaheadInput = React.createClass({
           position: 'relative',
         }}
         tabIndex={-1}>
-        <input
+        <TextInput
           {...inputProps}
           autoComplete="off"
-          className={cx('bootstrap-typeahead-input-main', 'form-control', {
+          className={cx('bootstrap-typeahead-input-main', {
             'has-selection': !!selected.length,
           })}
           onBlur={this._handleBlur}
           onChange={this._handleChange}
           onKeyDown={this._handleKeydown}
-          ref="input"
+          ref={input => this._input = input}
           style={{
             backgroundColor: !disabled && 'transparent',
             display: 'block',
             position: 'relative',
             zIndex: 1,
           }}
-          type="text"
           value={getInputText(this.props)}
         />
-        <input
-          className="bootstrap-typeahead-input-hint form-control"
+        <TextInput
+          bsSize={bsSize}
+          className={cx('bootstrap-typeahead-input-hint')}
           style={{
             borderColor: 'transparent',
             bottom: 0,
@@ -116,7 +119,6 @@ const TypeaheadInput = React.createClass({
             zIndex: 0,
           }}
           tabIndex={-1}
-          type="text"
           value={getHintText(this.props, this.state.isFocused)}
         />
       </div>
@@ -124,7 +126,7 @@ const TypeaheadInput = React.createClass({
   },
 
   blur() {
-    this.refs.input.blur();
+    this._input.getInstance().blur();
   },
 
   focus() {
@@ -149,7 +151,7 @@ const TypeaheadInput = React.createClass({
    */
   _handleInputFocus(e) {
     this.setState({isFocused: true});
-    this.refs.input.focus();
+    this._input.getInstance().focus();
   },
 
   _handleKeydown(e) {
@@ -158,7 +160,7 @@ const TypeaheadInput = React.createClass({
     switch (e.keyCode) {
       case RIGHT:
       case TAB:
-        const cursorPos = this.refs.input.selectionStart;
+        const cursorPos = this._input.getInstance().selectionStart;
         const hasHintText = !!getHintText(this.props, this.state.isFocused);
 
         // Autocomplete the selection if all of the following are true:

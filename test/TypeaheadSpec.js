@@ -158,4 +158,14 @@ describe('<Typeahead>', () => {
     expect(TypeaheadNode).to.exist;
   });
 
+  it('should set the size of the typeahead input', () => {
+    const instance = getTypeaheadInstance({...baseProps, bsSize: 'large'});
+    const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-input-main input-lg'
+    );
+
+    expect(InputNode).to.exist;
+  });
+
 });

@@ -14,9 +14,22 @@
   text-align: center;
 }
 
+/* Input sizes */
 .bootstrap-tokenizer {
-  padding: 5px 12px 2px 12px;
+  padding-bottom: 2px;
+  padding-top: 5px;
 }
+
+.input-sm.bootstrap-tokenizer {
+  padding-bottom: 1px;
+  padding-top: 4px;
+}
+
+.input-lg.bootstrap-tokenizer {
+  padding-bottom: 6px;
+  padding-top: 9px;
+}
+
 
 .bootstrap-tokenizer-input {
   margin: 1px 0 4px;
