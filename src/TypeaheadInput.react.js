@@ -99,6 +99,7 @@ const TypeaheadInput = React.createClass({
             zIndex: 1,
           }}
           type="text"
+          autoComplete="off"
           value={getInputText(this.props)}
         />
         <input
