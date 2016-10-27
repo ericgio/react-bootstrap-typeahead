@@ -3,11 +3,9 @@
 I appreciate contributions by the community. If you'd like to contribute, please follow the guidelines below.
 
 ## Reporting Issues and Asking Questions
-
 Before opening an issue, please search the [issue tracker](https://github.com/ericgio/react-bootstrap-typeahead/issues) to make sure your issue hasn't already been reported.
 
 ### Bugs and Improvements
-
 I use the issue tracker to keep track of bugs and future improvements to the typeahead, the examples, and the documentation. Please feel free to open issues to discuss improvements, architecture, theory, internal implementation, etc. If a topic has been discussed before, I will ask you to join the previous discussion.
 
 ### Getting Help
@@ -19,6 +17,10 @@ StackOverflow is a much better forum for getting help with these types of issues
 ### Be descriptive and use specific examples
 Don't simply say "This doesn't work." Please post examples of your code if you think you've run into a bug, or include an in-depth description of your use-case if you're asking for a feature.
 
+### "Can you add a prop for {X}?"
+My goal with this component is to provide out-of-the-box functionality for common use-cases, and a flexible API so developers can customize the behavior in all other cases. I feel strongly that React components with a long list of highly specific props are simply not well thought out. Given that, it's unlikely I'll add a prop for your specific case unless you can convince me that it's much more common than I think.
+
+If you have a use-case that isn't covered by the current API and you want to request support for it, please try to frame your problem in a general way, and suggest a solution that might also work for another person who has similar, but slightly different constraints.
 
 ## Pull Requests
 
