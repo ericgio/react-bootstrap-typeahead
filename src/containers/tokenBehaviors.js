@@ -1,4 +1,5 @@
 import React from 'react';
+import {omit} from 'lodash';
 import {findDOMNode} from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
@@ -17,9 +18,12 @@ const tokenBehaviors = Component => {
     },
 
     render() {
+      const tokenProps = omit(this.props,
+        ['disableOnClickOutside', 'enableOnClickOutside']);
+
       return (
         <Component
-          {...this.props}
+          {...tokenProps}
           {...this.state}
           onBlur={this._handleBlur}
           onClick={this._handleSelect}
@@ -32,6 +36,7 @@ const tokenBehaviors = Component => {
     _handleBlur(e) {
       findDOMNode(this).blur();
       this.setState({selected: false});
+      this.props.disableOnClickOutside && this.props.disableOnClickOutside();
     },
 
     _handleKeyDown(e) {
@@ -61,6 +66,7 @@ const tokenBehaviors = Component => {
     _handleSelect(e) {
       e.stopPropagation();
       this.setState({selected: true});
+      this.props.enableOnClickOutside && this.props.enableOnClickOutside();
     },
   }));
 };
