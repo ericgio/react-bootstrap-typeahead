@@ -1,23 +1,47 @@
 import {expect} from 'chai';
-import {range} from 'lodash';
-import React from 'react';
+import {noop, range} from 'lodash';
+import React, {PropTypes} from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import MenuItem from '../src/MenuItem.react';
+import MenuItem, {BaseMenuItem} from '../src/MenuItem.react';
 import TypeaheadMenu from '../src/TypeaheadMenu.react';
 
 import options from '../example/exampleData';
+
+const TypeaheadContext = React.createClass({
+  childContextTypes: {
+    activeIndex: PropTypes.number.isRequired,
+    onActiveItemChange: PropTypes.func.isRequired,
+    onInitialItemChange: PropTypes.func.isRequired,
+    onMenuItemClick: PropTypes.func.isRequired,
+  },
+
+  getChildContext() {
+    return {
+      activeIndex: -1,
+      onActiveItemChange: noop,
+      onInitialItemChange: noop,
+      onMenuItemClick: noop,
+    };
+  },
+
+  render() {
+    return this.props.children;
+  },
+});
 
 const bigData = range(0, 300).map(option => ({name: option.toString()}));
 
 function getMenuInstance(props={}) {
   return ReactTestUtils.renderIntoDocument(
-    <TypeaheadMenu
-      labelKey="name"
-      options={options}
-      text=""
-      {...props}
-    />
+    <TypeaheadContext>
+      <TypeaheadMenu
+        labelKey="name"
+        options={options}
+        text=""
+        {...props}
+      />
+    </TypeaheadContext>
   );
 }
 
@@ -62,7 +86,7 @@ describe('<TypeaheadMenu>', () => {
     const instance = getMenuInstance({options: []});
     const menuItems = ReactTestUtils.scryRenderedComponentsWithType(
       instance,
-      MenuItem
+      BaseMenuItem
     );
 
     expect(menuItems.length).to.equal(1);

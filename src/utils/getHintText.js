@@ -1,10 +1,7 @@
-import {head} from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
-function getHintText({activeItem, labelKey, results, selected, text}) {
-  const firstResult = head(results);
-  const firstResultString =
-    firstResult && getOptionLabel(firstResult, labelKey);
+function getHintText({activeItem, initialItem, labelKey, selected, text}) {
+  const initialItemStr = initialItem && getOptionLabel(initialItem, labelKey);
 
   // Only show the hint if:
   if (
@@ -15,14 +12,14 @@ function getHintText({activeItem, labelKey, results, selected, text}) {
     // There are no current selections.
     !selected.length &&
     // The input text corresponds to the beginning of the first option.
-    firstResultString &&
-    firstResultString.toLowerCase().indexOf(text.toLowerCase()) === 0
+    initialItemStr &&
+    initialItemStr.toLowerCase().indexOf(text.toLowerCase()) === 0
   ) {
     // Text matching is case-insensitive, so to display the hint correctly,
     // splice the input text with the rest of the actual string.
-    return text + firstResultString.slice(
+    return text + initialItemStr.slice(
       text.length,
-      firstResultString.length
+      initialItemStr.length
     );
   }
 

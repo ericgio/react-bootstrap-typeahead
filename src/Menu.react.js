@@ -3,7 +3,7 @@
 import cx from 'classnames';
 import React, {Children, PropTypes} from 'react';
 
-import MenuItem from './MenuItem.react';
+import {BaseMenuItem} from './MenuItem.react';
 
 const BaseMenu = props => (
   <ul
@@ -55,9 +55,9 @@ const Menu = React.createClass({
   render() {
     const {align, children, className, emptyLabel, maxHeight} = this.props;
     const contents = Children.count(children) === 0 ?
-      <MenuItem disabled>
+      <BaseMenuItem disabled>
         {emptyLabel}
-      </MenuItem> :
+      </BaseMenuItem> :
       children;
 
     return (
@@ -89,12 +89,12 @@ const Menu = React.createClass({
           key="pagination-item-divider"
           role="separator"
         />,
-        <MenuItem
+        <BaseMenuItem
           className="bootstrap-typeahead-menu-paginator"
           key="pagination-item"
           onClick={onPaginate}>
           {paginationText}
-        </MenuItem>,
+        </BaseMenuItem>,
       ];
     }
   },

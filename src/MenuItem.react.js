@@ -6,8 +6,8 @@ import React from 'react';
 
 import menuItemBehaviors from './containers/menuItemBehaviors';
 
-const MenuItem = React.createClass({
-  displayName: 'MenuItem',
+const BaseMenuItem = React.createClass({
+  displayName: 'BaseMenuItem',
 
   getDefaultProps() {
     return {
@@ -39,4 +39,8 @@ const MenuItem = React.createClass({
   },
 });
 
-export default menuItemBehaviors(MenuItem);
+export {BaseMenuItem};
+
+const MenuItem = menuItemBehaviors(BaseMenuItem);
+
+export default MenuItem;

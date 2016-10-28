@@ -26,6 +26,7 @@ paginate | boolean | `true` | Give user the ability to display additional result
 paginateResults | number | 100 | DEPRECATED. Use `maxResults` and `paginate` instead.
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
+renderMenu | function | | Callback for custom menu rendering.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.

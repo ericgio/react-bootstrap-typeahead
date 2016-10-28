@@ -9,6 +9,7 @@ import Typeahead from '../src/Typeahead.react';
 
 import Button from './components/Button.react';
 import Checkbox from './components/Checkbox.react';
+import CustomMenu from './components/CustomMenu.react';
 import ExampleSection from './components/ExampleSection.react';
 
 import getOptionLabel from '../src/utils/getOptionLabel';
@@ -28,6 +29,7 @@ const Example = React.createClass({
       allowNew: false,
       bsSize: undefined,
       customLabelKey: false,
+      customMenu: false,
       customMenuItemChildren: false,
       customToken: false,
       disabled: false,
@@ -48,6 +50,7 @@ const Example = React.createClass({
       allowNew,
       bsSize,
       customLabelKey,
+      customMenu,
       customMenuItemChildren,
       customToken,
       disabled,
@@ -70,6 +73,11 @@ const Example = React.createClass({
       multiple,
       selected,
     };
+
+
+    if (customMenu) {
+      props.renderMenu = this._renderMenu;
+    }
 
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
@@ -123,6 +131,12 @@ const Example = React.createClass({
                 name="customLabelKey"
                 onChange={this._handleChange}>
                 Customize label key
+              </Checkbox>
+              <Checkbox
+                checked={customMenu}
+                name="customMenu"
+                onChange={this._handleChange}>
+                Customize menu
               </Checkbox>
               <Checkbox
                 checked={customMenuItemChildren}
@@ -214,6 +228,10 @@ const Example = React.createClass({
 
   _labelKey(option) {
     return `${option.capital}, ${option.name}`;
+  },
+
+  _renderMenu(results, props) {
+    return <CustomMenu {...props} results={results} />;
   },
 
   _renderMenuItemChildren(props, option, idx) {

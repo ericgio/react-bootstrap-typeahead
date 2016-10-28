@@ -31,7 +31,6 @@ const TypeaheadInput = React.createClass({
    *  - onFocus
    *  - onKeydown
    *  - onRemove
-   *  - options
    *  - selected
    *  - value
    */
@@ -155,8 +154,18 @@ const TypeaheadInput = React.createClass({
     this._input.getInstance().focus();
   },
 
+  /**
+   * TODO: Move this into Typeahead component?
+   */
   _handleKeydown(e) {
-    const {activeItem, hintText, options, onAdd, selected, value} = this.props;
+    const {
+      activeItem,
+      hintText,
+      initialItem,
+      onAdd,
+      selected,
+      value,
+    } = this.props;
 
     switch (e.keyCode) {
       case RIGHT:
@@ -176,7 +185,7 @@ const TypeaheadInput = React.createClass({
         ) {
           e.preventDefault();
 
-          const selectedOption = hintText ? head(options) : activeItem;
+          const selectedOption = hintText ? initialItem : activeItem;
 
           onAdd && onAdd(selectedOption);
         }

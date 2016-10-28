@@ -119,6 +119,10 @@ const Typeahead = React.createClass({
      */
     paginateResults: PropTypes.number,
     /**
+     * Callback for custom menu rendering.
+     */
+    renderMenu: PropTypes.func,
+    /**
      * The selected option(s) displayed in the input. Use this prop if you want
      * to control the component via its parent.
      */
@@ -145,6 +149,22 @@ const Typeahead = React.createClass({
     };
   },
 
+  childContextTypes: {
+    activeIndex: PropTypes.number.isRequired,
+    onActiveItemChange: PropTypes.func.isRequired,
+    onInitialItemChange: PropTypes.func.isRequired,
+    onMenuItemClick: PropTypes.func.isRequired,
+  },
+
+  getChildContext() {
+    return {
+      activeIndex: this.state.activeIndex,
+      onActiveItemChange: activeItem => this.setState({activeItem}),
+      onInitialItemChange: initialItem => this.setState({initialItem}),
+      onMenuItemClick: this._handleAddOption,
+    };
+  },
+
   getInitialState() {
     const {defaultSelected} = this.props;
 
@@ -156,6 +176,7 @@ const Typeahead = React.createClass({
     return {
       activeIndex: -1,
       activeItem: null,
+      initialItem: null,
       selected,
       showMenu: false,
       shownResults: getMaxResults(this.props),
@@ -296,7 +317,7 @@ const Typeahead = React.createClass({
       placeholder,
       renderToken,
     } = this.props;
-    const {activeIndex, activeItem, selected, text} = this.state;
+    const {activeIndex, activeItem, initialItem, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
     const inputProps = {bsSize, disabled, name, placeholder, renderToken};
 
@@ -305,7 +326,14 @@ const Typeahead = React.createClass({
         {...inputProps}
         activeIndex={activeIndex}
         activeItem={activeItem}
-        hintText={getHintText({activeItem, labelKey, results, selected, text})}
+        hintText={getHintText({
+          activeItem,
+          initialItem,
+          labelKey,
+          selected,
+          text,
+        })}
+        initialItem={initialItem}
         labelKey={labelKey}
         onAdd={this._handleAddOption}
         onBlur={this._handleBlur}
@@ -330,35 +358,37 @@ const Typeahead = React.createClass({
       minLength,
       newSelectionPrefix,
       paginationText,
+      renderMenu,
       renderMenuItemChildren,
     } = this.props;
 
-    const {activeIndex, showMenu, text} = this.state;
+    const {showMenu, text} = this.state;
 
     if (!(showMenu && text.length >= minLength)) {
       return null;
     }
 
     const menuProps = {
-      activeIndex,
       align,
       emptyLabel,
       labelKey,
       maxHeight,
       newSelectionPrefix,
       paginationText,
-      renderMenuItemChildren,
-      onChange: activeItem => this.setState({activeItem}),
-      onClick: this._handleAddOption,
       onPaginate: this._handlePagination,
       paginate: shouldPaginate,
       text,
     };
 
+    if (renderMenu) {
+      return renderMenu(results, menuProps);
+    }
+
     return (
       <TypeaheadMenu
         {...menuProps}
         options={results}
+        renderMenuItemChildren={renderMenuItemChildren}
       />
     );
   },
@@ -456,7 +486,11 @@ const Typeahead = React.createClass({
       text = getOptionLabel(selectedOption, labelKey);
     }
 
-    this.setState({selected, text});
+    this.setState({
+      initialItem: selectedOption,
+      selected,
+      text,
+    });
     this._hideDropdown();
 
     onChange(selected);

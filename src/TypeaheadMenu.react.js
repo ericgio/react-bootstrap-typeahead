@@ -16,9 +16,7 @@ const TypeaheadMenu = React.createClass({
    * In addition to the propTypes below, the following props are automatically
    * passed down by `Typeahead.react`:
    *
-   *  - activeIndex
    *  - labelKey
-   *  - onClick
    *  - onPaginate
    *  - options
    *  - paginate
@@ -61,21 +59,17 @@ const TypeaheadMenu = React.createClass({
 
   _renderMenuItem(option, idx) {
     const {
-      activeIndex,
       labelKey,
       newSelectionPrefix,
-      onChange,
-      onClick,
       renderMenuItemChildren,
       text,
     } = this.props;
 
     const menuItemProps = {
-      active: idx === activeIndex,
       disabled: option.disabled,
       key: idx,
-      onChange: () => onChange(option),
-      onClick: () => onClick(option),
+      option,
+      position: idx,
     };
 
     if (option.customOption) {

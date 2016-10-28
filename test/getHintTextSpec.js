@@ -5,8 +5,8 @@ import states from '../example/exampleData';
 
 let props = {
   activeIndex: -1,
+  initialItem: {name: 'Alabama'},
   labelKey: 'name',
-  results: states,
   selected: [],
   text: 'alA',
 };

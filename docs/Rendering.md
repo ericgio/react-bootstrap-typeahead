@@ -12,6 +12,26 @@ Allows you to control the contents of the selection.  If set to a string, will u
   }}
 />
 ```
+
+### `renderMenu`
+Provides full control over how the menu is rendered. Use the `MenuItem` component provided with the module to ensure the proper behaviors. You will need to pass the data and menu position for each item.
+```jsx
+<Typeahead
+  options={options}
+  renderMenu={(results, menuProps) => (
+    return (
+      <Menu {...menuProps}>
+        {results.map((result, idx) => (
+          <MenuItem option={result} position={idx}>
+            {result.label}
+          </MenuItem>
+        ))}
+      </Menu>
+    );
+  )}
+/>
+```
+
 ### `renderMenuItemChildren`
 Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
 ```jsx

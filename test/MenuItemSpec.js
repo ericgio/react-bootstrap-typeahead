@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import MenuItem from '../src/MenuItem.react';
+import {BaseMenuItem} from '../src/MenuItem.react';
 
 let clickValue;
 
@@ -12,14 +12,14 @@ function onClick() {
 
 function getMenuItemNode(props={}) {
   const instance = ReactTestUtils.renderIntoDocument(
-    <MenuItem {...props}>
+    <BaseMenuItem {...props}>
       This is a menu item.
-    </MenuItem>
+    </BaseMenuItem>
   );
   return ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'LI');
 }
 
-describe('<MenuItem>', () => {
+describe('<BaseMenuItem>', () => {
 
   it('renders a menu item', () => {
     const menuItemNode = getMenuItemNode();

@@ -20,9 +20,11 @@ describe('defaultFilterBy', () => {
     ));
 
     expect(results).to.deep.equal([
-      {name: 'California', population: 37254503, capital: 'Sacramento'},
-      {name: 'North Carolina', population: 9535692, capital: 'Raleigh'},
-      {name: 'South Carolina', population: 4625401, capital: 'Columbia'},
+      /* eslint-disable max-len */
+      {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
+      {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
+      {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
+      /* eslint-enable max-len */
     ]);
   });
 
@@ -35,9 +37,11 @@ describe('defaultFilterBy', () => {
     ));
 
       expect(results).to.deep.equal([
-      {name: 'California', population: 37254503, capital: 'Sacramento'},
-      {name: 'North Carolina', population: 9535692, capital: 'Raleigh'},
-      {name: 'South Carolina', population: 4625401, capital: 'Columbia'},
+        /* eslint-disable max-len */
+        {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
+        {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
+        {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
+        /* eslint-enable max-len */
       ]);
     }
   );
@@ -58,7 +62,9 @@ describe('defaultFilterBy', () => {
     ));
 
     expect(results).to.deep.equal([
-      {name: 'California', population: 37254503, capital: 'Sacramento'},
+      /* eslint-disable max-len */
+      {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
+      /* eslint-enable max-len */
     ]);
   });
 
