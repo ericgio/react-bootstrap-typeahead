@@ -7,6 +7,20 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 
 Please note that this library is under active development and the APIs may change. The documentation below applies to the most recent version and may no longer be applicable if you're using an outdated version.
 
+## Contents
+- [Installation](#installation)
+- [Importing vs. Requiring](#importing-vs-requiring)
+- [Usage](#usage)
+- [Data](#data)
+- [Filtering](#filtering)
+- [Custom Rendering](#custom-rendering)
+- [Public Methods](#public-methods)
+- [Props](#props)
+- [CSS](#css)
+- [Example](#example)
+- [Browser Support](#browser-support)
+- [License](#license)
+
 ## Installation
 Use NPM to install the module in your project:
 ```
@@ -140,7 +154,7 @@ You can also pass your own callback to take complete control over how the filter
 />
 ```
 
-## Rendering
+## Custom Rendering
 `react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
 
 ### `renderMenuItemChildren`
