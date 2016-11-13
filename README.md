@@ -157,6 +157,11 @@ You can also pass your own callback to take complete control over how the filter
 ## Custom Rendering
 `react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
 
+
+### `labelKey`
+
+Allows you to control the contents of the selection.  If set to a string, will use that property of the selected option.  It can also be set to a function, with one argument (the selected option) and returning a string for rendering.
+
 ### `renderMenuItemChildren`
 Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
 ```jsx
@@ -228,7 +233,7 @@ disabled | boolean | | Whether to disable the input. Will also disable selection
 dropup | boolean | false | Specify whether the menu should appear above the input.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
-labelKey | string | 'label' | Specify which option key to use for display. By default, the selector will use the `label` key.
+labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
 maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
 maxResults | number | `100` | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
 minLength | number | `0` | Number of input characters that must be entered before showing results.
