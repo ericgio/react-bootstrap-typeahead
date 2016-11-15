@@ -24,6 +24,7 @@ const TokenizerInput = React.createClass({
    * passed down by `Typeahead.react`:
    *
    *  - activeIndex
+   *  - hasAux
    *  - labelKey
    *  - onAdd
    *  - onBlur
@@ -59,7 +60,7 @@ const TokenizerInput = React.createClass({
   },
 
   render() {
-    const {bsSize, disabled, placeholder, selected, value} = this.props;
+    const {bsSize, disabled, hasAux, placeholder, selected, value} = this.props;
 
     return (
       <div
@@ -69,6 +70,7 @@ const TokenizerInput = React.createClass({
           'form-control',
           {
             'focus': this.state.isFocused,
+            'has-aux': hasAux,
             'input-lg': bsSize === 'large' || bsSize === 'lg',
             'input-sm': bsSize === 'small' || bsSize === 'sm',
           }

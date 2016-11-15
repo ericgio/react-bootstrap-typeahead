@@ -15,6 +15,7 @@ import ExampleSection from './components/ExampleSection.react';
 import getOptionLabel from '../src/utils/getOptionLabel';
 import states from './exampleData';
 
+import '../css/Loader.css';
 import '../css/Token.css';
 import '../css/Typeahead.css';
 

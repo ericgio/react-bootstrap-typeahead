@@ -5,11 +5,11 @@ const DEFAULT_DELAY_MS = 200;
 
 /**
  * HoC that encapsulates common behavior and functionality for doing
- * asynchronous typeahead searches, including:
+ * asynchronous searches, including:
  *
  *  - Debouncing user input
  *  - Query caching (optional)
- *  - Behaviors like search prompt and empty results message
+ *  - Search prompt and empty results behaviors
  */
 const AsyncContainer = Typeahead => {
 
@@ -43,6 +43,7 @@ const AsyncContainer = Typeahead => {
     getDefaultProps() {
       return {
         delay: DEFAULT_DELAY_MS,
+        minLength: 2,
         options: [],
         searchText: 'Searching...',
         useCache: true,
@@ -91,6 +92,7 @@ const AsyncContainer = Typeahead => {
         <Typeahead
           {...props}
           emptyLabel={this._getEmptyLabel()}
+          isLoading={this.state.requestPending}
           onChange={this._handleChange}
           onInputChange={this._handleInputChange}
           options={useCache && cachedQuery ? cachedQuery : this.props.options}

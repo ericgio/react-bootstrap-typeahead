@@ -34,3 +34,11 @@
 .bootstrap-tokenizer-input {
   margin: 1px 0 4px;
 }
+
+.has-aux {
+  padding-right: 32px;
+}
+
+.has-aux.input-lg {
+  padding-right: 42px;
+}

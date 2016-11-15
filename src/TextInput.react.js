@@ -12,12 +12,13 @@ const TextInput = React.createClass({
   },
 
   render() {
-    const {bsSize, className, ...otherProps} = this.props;
+    const {bsSize, className, hasAux, ...otherProps} = this.props;
 
     return (
       <input
         {...otherProps}
         className={cx('form-control', {
+          'has-aux': hasAux,
           'input-lg': bsSize === 'large' || bsSize === 'lg',
           'input-sm': bsSize === 'small' || bsSize === 'sm',
         }, className)}

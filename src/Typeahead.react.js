@@ -5,6 +5,7 @@ import {find, isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
 
+import Loader from './Loader.react';
 import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
@@ -62,9 +63,12 @@ const Typeahead = React.createClass({
       PropTypes.func,
     ]),
     /**
-     * Specify which option key to use for display or function returning the
-     * display string. By default, the selector
-     * will use the `label` key.
+     * Indicate whether an asynchromous data fetch is happening.
+     */
+    isLoading: PropTypes.bool,
+    /**
+     * Specify the option key to use for display or a function returning the
+     * display string. By default, the selector will use the `label` key.
      */
     labelKey: PropTypes.oneOfType([
       PropTypes.string,
@@ -136,6 +140,7 @@ const Typeahead = React.createClass({
       defaultSelected: [],
       dropup: false,
       filterBy: [],
+      isLoading: false,
       labelKey: 'label',
       maxResults: 100,
       onBlur: noop,
@@ -250,6 +255,7 @@ const Typeahead = React.createClass({
         }, className)}
         style={{position: 'relative'}}>
         {this._renderInput(results)}
+        {this._renderLoader()}
         {this._renderMenu(results, shouldPaginate)}
       </div>
     );
@@ -311,6 +317,7 @@ const Typeahead = React.createClass({
     const {
       bsSize,
       disabled,
+      isLoading,
       labelKey,
       multiple,
       name,
@@ -326,6 +333,7 @@ const Typeahead = React.createClass({
         {...inputProps}
         activeIndex={activeIndex}
         activeItem={activeItem}
+        hasAux={isLoading}
         hintText={getHintText({
           activeItem,
           initialItem,
@@ -391,6 +399,12 @@ const Typeahead = React.createClass({
         renderMenuItemChildren={renderMenuItemChildren}
       />
     );
+  },
+
+  _renderLoader() {
+    if (this.props.isLoading) {
+      return <Loader bsSize={this.props.bsSize} />;
+    }
   },
 
   _handleBlur(e) {

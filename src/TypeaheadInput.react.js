@@ -22,6 +22,7 @@ const TypeaheadInput = React.createClass({
    *
    *  - activeIndex
    *  - activeItem
+   *  - hasAux
    *  - hintText
    *  - labelKey
    *  - onAdd
@@ -67,6 +68,7 @@ const TypeaheadInput = React.createClass({
       bsSize,
       className,
       disabled,
+      hasAux,
       hintText,
       name,
       onFocus,
@@ -75,7 +77,15 @@ const TypeaheadInput = React.createClass({
       value,
     } = this.props;
 
-    const inputProps = {bsSize, disabled, name, onFocus, placeholder, value};
+    const inputProps = {
+      bsSize,
+      disabled,
+      hasAux,
+      name,
+      onFocus,
+      placeholder,
+      value,
+    };
 
     return (
       <div
@@ -107,6 +117,7 @@ const TypeaheadInput = React.createClass({
         <TextInput
           bsSize={bsSize}
           className={cx('bootstrap-typeahead-input-hint')}
+          hasAux={hasAux}
           style={{
             borderColor: 'transparent',
             bottom: 0,
