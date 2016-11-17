@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {range} from 'lodash';
 import React from 'react';
-import ReactTestUtils from 'react/lib/ReactTestUtils';
+import ReactTestUtils from 'react-addons-test-utils';
 
 import MenuItem from '../src/MenuItem.react';
 import TypeaheadMenu from '../src/TypeaheadMenu.react';

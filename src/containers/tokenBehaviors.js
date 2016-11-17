@@ -1,5 +1,4 @@
 import React from 'react';
-import {omit} from 'lodash';
 import {findDOMNode} from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
@@ -18,8 +17,11 @@ const tokenBehaviors = Component => {
     },
 
     render() {
-      const tokenProps = omit(this.props,
-        ['disableOnClickOutside', 'enableOnClickOutside']);
+      const {
+        disableOnClickOutside,
+        enableOnClickOutside,
+        ...tokenProps,
+      } = this.props;
 
       return (
         <Component

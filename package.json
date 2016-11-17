@@ -29,7 +29,7 @@
   "dependencies": {
     "classnames": "^2.2.0",
     "invariant": "^2.2.1",
-    "lodash": "^4.14.0",
+    "lodash": "^4.17.2",
     "react-highlighter": "^0.3.3",
     "react-input-autosize": "^1.1.0",
     "react-onclickoutside": "^5.7.0",
@@ -60,9 +60,9 @@
     "karma-mocha": "^1.1.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
-    "lodash-webpack-plugin": "^0.9.3",
     "mocha": "^2.5.3",
     "react": "^15.2.1",
+    "react-addons-test-utils": "^15.4.0",
     "react-dom": "^15.2.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
