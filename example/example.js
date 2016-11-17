@@ -27,6 +27,7 @@ const Example = React.createClass({
       alignMenu: false,
       allowNew: false,
       bsSize: undefined,
+      customLabelKey: false,
       customMenuItemChildren: false,
       customToken: false,
       disabled: false,
@@ -46,6 +47,7 @@ const Example = React.createClass({
       alignMenu,
       allowNew,
       bsSize,
+      customLabelKey,
       customMenuItemChildren,
       customToken,
       disabled,
@@ -68,6 +70,10 @@ const Example = React.createClass({
       multiple,
       selected,
     };
+
+    if (customLabelKey) {
+      props.labelKey = this._labelKey;
+    }
 
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
@@ -93,8 +99,8 @@ const Example = React.createClass({
         </div>
         <div className="container">
           <Typeahead
-            {...props}
             labelKey="name"
+            {...props}
             name="typeahead"
             onChange={selected => this.setState({selected})}
             onInputChange={text => this.setState({text})}
@@ -115,6 +121,12 @@ const Example = React.createClass({
                 name="preSelected"
                 onChange={this._handleChange}>
                 Pre-populate the input
+              </Checkbox>
+              <Checkbox
+                checked={customLabelKey}
+                name="customLabelKey"
+                onChange={this._handleChange}>
+                Customize label key
               </Checkbox>
               <Checkbox
                 checked={customMenuItemChildren}
@@ -202,6 +214,10 @@ const Example = React.createClass({
         </div>
       </div>
     );
+  },
+
+  _labelKey(option) {
+    return option.capital + ', ' + option.name;
   },
 
   _renderMenuItemChildren(props, option, idx) {
