@@ -60,10 +60,14 @@ const Typeahead = React.createClass({
       PropTypes.func,
     ]),
     /**
-     * Specify which option key to use for display. By default, the selector
+     * Specify which option key to use for display or function returning the
+     * display string. By default, the selector
      * will use the `label` key.
      */
-    labelKey: PropTypes.string,
+    labelKey: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
     /**
      * Maximum number of results to display by default. Mostly done for
      * performance reasons so as not to render too many DOM nodes in the case of

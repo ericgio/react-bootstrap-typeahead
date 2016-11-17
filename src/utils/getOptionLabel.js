@@ -1,5 +1,5 @@
 import invariant from 'invariant';
-import {isPlainObject} from 'lodash';
+import {isPlainObject, isFunction} from 'lodash';
 
 /**
  * Retrieves the display string from an option. Options can be the string
@@ -14,7 +14,11 @@ function getOptionLabel(option, labelKey) {
   }
 
   if (isPlainObject(option)) {
-    optionLabel = option[labelKey];
+    if (typeof labelKey === 'string') {
+      optionLabel = option[labelKey];
+    } else if (isFunction(labelKey)) {
+      optionLabel = labelKey(option);
+    }
   }
 
   invariant(
