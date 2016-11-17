@@ -161,7 +161,14 @@ You can also pass your own callback to take complete control over how the filter
 ### `labelKey`
 
 Allows you to control the contents of the selection.  If set to a string, will use that property of the selected option.  It can also be set to a function, with one argument (the selected option) and returning a string for rendering.
-
+```jsx
+<Typeahead
+  options={options}
+  labelKey={(option) => {
+    /* Return custom contents here. */
+  }}
+/>
+```
 ### `renderMenuItemChildren`
 Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
 ```jsx
