@@ -1,4 +1,4 @@
-import {some} from 'lodash';
+import {isFunction, some} from 'lodash';
 import warn from './warn';
 
 function isMatch(input, string, caseSensitive) {
@@ -27,14 +27,20 @@ export default function defaultFilterBy(
   const {caseSensitive} = filterOptions;
   const fields = filterOptions.fields.slice();
 
+  if(isFunction(labelKey) && isMatch(text, labelKey(option), caseSensitive)) {
+    return true;
+  }
+
+  if(!isFunction(labelKey)) {
   // Add the `labelKey` field to the list of fields if it isn't already there.
-  if (fields.indexOf(labelKey) === -1) {
-    fields.unshift(labelKey);
+    if (fields.indexOf(labelKey) === -1) {
+      fields.unshift(labelKey);
+    }
   }
 
   if (typeof option === 'string') {
     warn(
-      fields.length === 1,
+      fields.length <= 1,
       'You cannot filter by properties when `option` is a string.'
     );
 

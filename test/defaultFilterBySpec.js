@@ -26,6 +26,22 @@ describe('defaultFilterBy', () => {
     ]);
   });
 
+  it('returns filtered results for an array of objects,' +
+    'when labelKey is a function',
+    () => {
+      const labelKeyFunc = o => o.name;
+      const results = states.filter(state => (
+      defaultFilterBy(state, labelKeyFunc, isTokenized, text, filterOptions)
+    ));
+
+      expect(results).to.deep.equal([
+      {name: 'California', population: 37254503, capital: 'Sacramento'},
+      {name: 'North Carolina', population: 9535692, capital: 'Raleigh'},
+      {name: 'South Carolina', population: 4625401, capital: 'Columbia'},
+      ]);
+    }
+  );
+
   it('returns case-sensitive filtered results', () => {
     const options = {...filterOptions, caseSensitive: true};
     const results = states.filter(state => (
@@ -66,6 +82,26 @@ describe('defaultFilterBy', () => {
     ));
     expect(results.length).to.equal(0);
   });
+
+  it('returns no results if the text doesn\'t find a match', () => {
+    text = 'zzz';
+    const results = states.filter(state => (
+      defaultFilterBy(state, labelKey, isTokenized, text, filterOptions)
+    ));
+    expect(results.length).to.equal(0);
+  });
+
+  it('returns no results if the text doesn\'t find a match,' +
+    'when labelKey is a function',
+    () => {
+      const labelKeyFunc = o => o.name;
+      text = 'zzz';
+      const results = states.filter(state => (
+        defaultFilterBy(state, labelKeyFunc, isTokenized, text, filterOptions)
+      ));
+      expect(results.length).to.equal(0);
+    }
+  );
 
   it('returns the option if the text matches exactly', () => {
     text = 'California';
