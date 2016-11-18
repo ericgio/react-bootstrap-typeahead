@@ -161,10 +161,18 @@ const Typeahead = React.createClass({
   },
 
   componentWillMount() {
+    const {caseSensitive, filterBy, paginateResults} = this.props;
+
     warn(
-      this.props.paginateResults == null,
+      paginateResults == null,
       'The `paginateResults` prop is deprecated and will be removed in an ' +
       'upcoming release. Use `maxResults` and `paginate` instead.'
+    );
+
+    warn(
+      !(typeof filterBy === 'function' && caseSensitive),
+      'Because you have defined a `filterBy` callback, the `caseSensitive` ' +
+      'prop will be ignored.'
     );
   },
 
