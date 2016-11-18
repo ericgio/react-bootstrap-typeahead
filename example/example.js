@@ -71,10 +71,6 @@ const Example = React.createClass({
       selected,
     };
 
-    if (customLabelKey) {
-      props.labelKey = this._labelKey;
-    }
-
     if (customMenuItemChildren) {
       props.renderMenuItemChildren = this._renderMenuItemChildren;
     }
@@ -99,8 +95,8 @@ const Example = React.createClass({
         </div>
         <div className="container">
           <Typeahead
-            labelKey="name"
             {...props}
+            labelKey={customLabelKey ? this._labelKey : 'name'}
             name="typeahead"
             onChange={selected => this.setState({selected})}
             onInputChange={text => this.setState({text})}
@@ -217,7 +213,7 @@ const Example = React.createClass({
   },
 
   _labelKey(option) {
-    return option.capital + ', ' + option.name;
+    return `${option.capital}, ${option.name}`;
   },
 
   _renderMenuItemChildren(props, option, idx) {
