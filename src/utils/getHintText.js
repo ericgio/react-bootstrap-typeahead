@@ -2,7 +2,7 @@ import {head} from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
 function getHintText(props, isFocused) {
-  const {activeIndex, labelKey, options, selected, text} = props;
+  const {activeItem, labelKey, options, selected, text} = props;
   const firstOption = head(options);
   const firstOptionString =
     firstOption && getOptionLabel(firstOption, labelKey);
@@ -14,7 +14,7 @@ function getHintText(props, isFocused) {
     // The input contains text.
     !!text &&
     // None of the menu options are focused.
-    activeIndex === -1 &&
+    !activeItem &&
     // There are no current selections.
     !selected.length &&
     // The input text corresponds to the beginning of the first option.

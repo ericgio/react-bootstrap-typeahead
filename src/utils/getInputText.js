@@ -1,16 +1,14 @@
 import {head} from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
-function getInputText(props) {
-  const {activeIndex, labelKey, options, selected, text} = props;
-
-  let selectedItem = !!selected.length && head(selected);
-  if (selectedItem) {
-    return getOptionLabel(selectedItem, labelKey);
+function getInputText({activeItem, labelKey, selected, text}) {
+  if (activeItem) {
+    return getOptionLabel(activeItem, labelKey);
   }
 
-  if (activeIndex >= 0) {
-    return getOptionLabel(options[activeIndex], labelKey);
+  const selectedItem = !!selected.length && head(selected);
+  if (selectedItem) {
+    return getOptionLabel(selectedItem, labelKey);
   }
 
   return text;

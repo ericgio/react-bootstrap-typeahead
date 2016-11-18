@@ -153,6 +153,7 @@ const Typeahead = React.createClass({
 
     return {
       activeIndex: -1,
+      activeItem: null,
       selected,
       showMenu: false,
       shownResults: getMaxResults(this.props),
@@ -263,12 +264,13 @@ const Typeahead = React.createClass({
    * and selection(s).
    */
   clear() {
-    const {activeIndex, showMenu} = this.getInitialState();
+    const {activeIndex, activeItem, showMenu} = this.getInitialState();
     const selected = [];
     const text = '';
 
     this.setState({
       activeIndex,
+      activeItem,
       selected,
       showMenu,
       text,
@@ -292,7 +294,7 @@ const Typeahead = React.createClass({
       placeholder,
       renderToken,
     } = this.props;
-    const {activeIndex, selected, text} = this.state;
+    const {activeIndex, activeItem, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
     const inputProps = {bsSize, disabled, name, placeholder, renderToken};
 
@@ -300,6 +302,7 @@ const Typeahead = React.createClass({
       <Input
         {...inputProps}
         activeIndex={activeIndex}
+        activeItem={activeItem}
         labelKey={labelKey}
         onAdd={this._handleAddOption}
         onBlur={this._handleBlur}
@@ -334,24 +337,25 @@ const Typeahead = React.createClass({
     }
 
     const menuProps = {
+      activeIndex,
       align,
       emptyLabel,
+      labelKey,
       maxHeight,
       newSelectionPrefix,
       paginationText,
       renderMenuItemChildren,
+      onChange: activeItem => this.setState({activeItem}),
+      onClick: this._handleAddOption,
+      onPaginate: this._handlePagination,
+      paginate: shouldPaginate,
+      text,
     };
 
     return (
       <TypeaheadMenu
         {...menuProps}
-        activeIndex={activeIndex}
-        labelKey={labelKey}
-        onClick={this._handleAddOption}
-        onPaginate={this._handlePagination}
         options={optionsToDisplay}
-        paginate={shouldPaginate}
-        text={text}
       />
     );
   },
@@ -368,9 +372,10 @@ const Typeahead = React.createClass({
   },
 
   _handleTextChange(text) {
-    const {activeIndex} = this.getInitialState();
+    const {activeIndex, activeItem} = this.getInitialState();
     this.setState({
       activeIndex,
+      activeItem,
       showMenu: true,
       text,
     });
@@ -379,15 +384,17 @@ const Typeahead = React.createClass({
   },
 
   _handleKeydown(options, e) {
-    let {activeIndex} = this.state;
+    const {activeItem, showMenu} = this.state;
 
     switch (e.keyCode) {
       case UP:
       case DOWN:
         // Don't cycle through the options if the menu is hidden.
-        if (!this.state.showMenu) {
+        if (!showMenu) {
           return;
         }
+
+        let {activeIndex} = this.state;
 
         // Prevents input cursor from going to the beginning when pressing up.
         e.preventDefault();
@@ -402,7 +409,13 @@ const Typeahead = React.createClass({
           activeIndex = options.length - 1;
         }
 
-        this.setState({activeIndex});
+        const newState = {activeIndex};
+        if (activeIndex === -1) {
+          // Reset the active item if there is no active index.
+          newState.activeItem = null;
+        }
+
+        this.setState(newState);
         break;
       case ESC:
       case TAB:
@@ -415,9 +428,8 @@ const Typeahead = React.createClass({
         // Prevent submitting forms.
         e.preventDefault();
 
-        if (this.state.showMenu) {
-          let selected = options[activeIndex];
-          selected && this._handleAddOption(selected);
+        if (showMenu) {
+          activeItem && this._handleAddOption(activeItem);
         }
         break;
     }
@@ -478,9 +490,16 @@ const Typeahead = React.createClass({
   },
 
   _hideDropdown() {
-    const {activeIndex, showMenu, shownResults} = this.getInitialState();
+    const {
+      activeIndex,
+      activeItem,
+      showMenu,
+      shownResults,
+    } = this.getInitialState();
+
     this.setState({
       activeIndex,
+      activeItem,
       showMenu,
       shownResults,
     });

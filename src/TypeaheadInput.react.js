@@ -23,6 +23,7 @@ const TypeaheadInput = React.createClass({
    * passed down by `Typeahead.react`:
    *
    *  - activeIndex
+   *  - activeItem
    *  - labelKey
    *  - onAdd
    *  - onBlur
@@ -155,7 +156,7 @@ const TypeaheadInput = React.createClass({
   },
 
   _handleKeydown(e) {
-    const {activeIndex, options, onAdd, selected, text} = this.props;
+    const {activeItem, options, onAdd, selected, text} = this.props;
 
     switch (e.keyCode) {
       case RIGHT:
@@ -166,7 +167,7 @@ const TypeaheadInput = React.createClass({
         // Autocomplete the selection if all of the following are true:
         if (
           // There's a hint or a menu item is highlighted.
-          (hasHintText || activeIndex !== -1) &&
+          (hasHintText || activeItem) &&
           // There's no current selection.
           !selected.length &&
           // The input cursor is at the end of the text string when the user
@@ -175,9 +176,7 @@ const TypeaheadInput = React.createClass({
         ) {
           e.preventDefault();
 
-          const selectedOption = hasHintText ?
-            head(options) :
-            options[activeIndex];
+          const selectedOption = hasHintText ? head(options) : activeItem;
 
           onAdd && onAdd(selectedOption);
         }

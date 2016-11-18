@@ -3,9 +3,8 @@
 import cx from 'classnames';
 import {noop} from 'lodash';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 
-import scrollIntoViewIfNeeded from './utils/scrollIntoViewIfNeeded';
+import menuItemBehaviors from './containers/menuItemBehaviors';
 
 const MenuItem = React.createClass({
   displayName: 'MenuItem',
@@ -14,14 +13,6 @@ const MenuItem = React.createClass({
     return {
       onClick: noop,
     };
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.active) {
-      // Ensures that if the menu items exceed the bounds of the menu, the
-      // menu will scroll up or down as the user hits the arrow keys.
-      scrollIntoViewIfNeeded(findDOMNode(this));
-    }
   },
 
   render() {
@@ -48,4 +39,4 @@ const MenuItem = React.createClass({
   },
 });
 
-export default MenuItem;
+export default menuItemBehaviors(MenuItem);

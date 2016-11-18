@@ -4,7 +4,7 @@ import getInputText from '../src/utils/getInputText';
 import states from '../example/exampleData';
 
 let props = {
-  activeIndex: -1,
+  activeItem: null,
   labelKey: 'name',
   options: states,
   selected: [],
@@ -19,9 +19,9 @@ describe('getInputText', () => {
   });
 
   it('returns the label for the active option', () => {
-    props.activeIndex = 0;
+    props.activeItem = {name: 'Alabama'};
     const inputText = getInputText(props);
-    expect(inputText).to.equal(states[props.activeIndex][props.labelKey]);
+    expect(inputText).to.equal(states[0][props.labelKey]);
   });
 
   it('returns the label for the selected item', () => {
