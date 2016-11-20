@@ -161,7 +161,13 @@ const Typeahead = React.createClass({
   },
 
   componentWillMount() {
-    const {caseSensitive, filterBy, paginateResults} = this.props;
+    const {
+      allowNew,
+      caseSensitive,
+      filterBy,
+      labelKey,
+      paginateResults,
+    } = this.props;
 
     warn(
       paginateResults == null,
@@ -173,6 +179,11 @@ const Typeahead = React.createClass({
       !(typeof filterBy === 'function' && caseSensitive),
       'Because you have defined a `filterBy` callback, the `caseSensitive` ' +
       'prop will be ignored.'
+    );
+
+    warn(
+      !(typeof labelKey === 'function' && allowNew),
+      '`labelKey` must be a string if creating new options is allowed.'
     );
   },
 

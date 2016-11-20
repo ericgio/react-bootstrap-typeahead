@@ -1,3 +1,4 @@
+import invariant from 'invariant';
 import {find, uniqueId} from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
@@ -16,6 +17,12 @@ function addCustomOption(results, text, labelKey) {
     id: uniqueId('new-id-'),
     customOption: true,
   };
+
+  invariant(
+    typeof labelKey === 'string',
+    '`labelKey` must be a string when creating new options.'
+  );
+
   newOption[labelKey] = text;
   results.push(newOption);
 
