@@ -34,7 +34,7 @@ const TokenizerInput = React.createClass({
    *  - onRemove
    *  - options
    *  - selected
-   *  - text
+   *  - value
    */
   propTypes: {
     /**
@@ -59,7 +59,7 @@ const TokenizerInput = React.createClass({
   },
 
   render() {
-    const {bsSize, disabled, placeholder, selected, text} = this.props;
+    const {bsSize, disabled, placeholder, selected, value} = this.props;
 
     return (
       <div
@@ -100,7 +100,7 @@ const TokenizerInput = React.createClass({
           placeholder={selected.length ? null : placeholder}
           ref="input"
           type="text"
-          value={text}
+          value={value}
         />
       </div>
     );
@@ -144,11 +144,11 @@ const TokenizerInput = React.createClass({
   _handleKeydown(e) {
     switch (e.keyCode) {
       case BACKSPACE:
-        let inputNode = findDOMNode(this.refs.input);
+        const inputNode = findDOMNode(this.refs.input);
         if (
           inputNode &&
           inputNode.contains(document.activeElement) &&
-          !this.props.text
+          !this.props.value
         ) {
           // If the input is selected and there is no text, select the last
           // token when the user hits backspace.

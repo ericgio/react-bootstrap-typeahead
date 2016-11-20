@@ -6,8 +6,6 @@ import React, {PropTypes} from 'react';
 
 import TextInput from './TextInput.react';
 
-import getHintText from './utils/getHintText';
-import getInputText from './utils/getInputText';
 import {RIGHT, TAB} from './utils/keyCode';
 
 /**
@@ -24,6 +22,7 @@ const TypeaheadInput = React.createClass({
    *
    *  - activeIndex
    *  - activeItem
+   *  - hintText
    *  - labelKey
    *  - onAdd
    *  - onBlur
@@ -34,7 +33,7 @@ const TypeaheadInput = React.createClass({
    *  - onRemove
    *  - options
    *  - selected
-   *  - text
+   *  - value
    */
   propTypes: {
     /**
@@ -58,9 +57,9 @@ const TypeaheadInput = React.createClass({
   },
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.activeIndex !== prevProps.activeIndex) {
-      const inputText = getInputText(this.props);
-      this._input.getInstance().selectionStart = inputText.length;
+    const {activeIndex, value} = this.props;
+    if (activeIndex !== prevProps.activeIndex) {
+      this._input.getInstance().selectionStart = value.length;
     }
   },
 
@@ -69,13 +68,15 @@ const TypeaheadInput = React.createClass({
       bsSize,
       className,
       disabled,
+      hintText,
       name,
       onFocus,
       placeholder,
       selected,
+      value,
     } = this.props;
 
-    const inputProps = {bsSize, disabled, name, onFocus, placeholder};
+    const inputProps = {bsSize, disabled, name, onFocus, placeholder, value};
 
     return (
       <div
@@ -103,7 +104,6 @@ const TypeaheadInput = React.createClass({
             position: 'relative',
             zIndex: 1,
           }}
-          value={getInputText(this.props)}
         />
         <TextInput
           bsSize={bsSize}
@@ -120,7 +120,7 @@ const TypeaheadInput = React.createClass({
             zIndex: 0,
           }}
           tabIndex={-1}
-          value={getHintText(this.props, this.state.isFocused)}
+          value={this.state.isFocused ? hintText : ''}
         />
       </div>
     );
@@ -156,27 +156,27 @@ const TypeaheadInput = React.createClass({
   },
 
   _handleKeydown(e) {
-    const {activeItem, options, onAdd, selected, text} = this.props;
+    const {activeItem, hintText, options, onAdd, selected, value} = this.props;
 
     switch (e.keyCode) {
       case RIGHT:
       case TAB:
         const cursorPos = this._input.getInstance().selectionStart;
-        const hasHintText = !!getHintText(this.props, this.state.isFocused);
 
         // Autocomplete the selection if all of the following are true:
         if (
+          this.state.isFocused &&
           // There's a hint or a menu item is highlighted.
-          (hasHintText || activeItem) &&
+          (hintText || activeItem) &&
           // There's no current selection.
           !selected.length &&
           // The input cursor is at the end of the text string when the user
           // hits the right arrow key.
-          !(e.keyCode === RIGHT && cursorPos !== text.length)
+          !(e.keyCode === RIGHT && cursorPos !== value.length)
         ) {
           e.preventDefault();
 
-          const selectedOption = hasHintText ? head(options) : activeItem;
+          const selectedOption = hintText ? head(options) : activeItem;
 
           onAdd && onAdd(selectedOption);
         }

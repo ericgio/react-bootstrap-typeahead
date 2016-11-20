@@ -1,7 +1,11 @@
 import {head} from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
-function getInputText({activeItem, labelKey, selected, text}) {
+function getInputText({activeItem, labelKey, multiple, selected, text}) {
+  if (multiple) {
+    return text;
+  }
+
   if (activeItem) {
     return getOptionLabel(activeItem, labelKey);
   }

@@ -4,8 +4,6 @@ import ReactTestUtils from 'react-addons-test-utils';
 
 import TypeaheadInput from '../src/TypeaheadInput.react';
 
-import states from '../example/exampleData';
-
 function getInputNode(instance) {
   return ReactTestUtils.findRenderedDOMComponentWithClass(
     instance,
@@ -34,8 +32,8 @@ describe('<TypeaheadInput>', () => {
   it('displays the selected text', () => {
     const instance = ReactTestUtils.renderIntoDocument(
       <TypeaheadInput
-        labelKey="name"
-        selected={[{name: 'California'}]}
+        selected={[]}
+        value="California"
       />
     );
     const inputNode = getInputNode(instance);
@@ -46,14 +44,10 @@ describe('<TypeaheadInput>', () => {
   it('displays a hint', () => {
     const instance = ReactTestUtils.renderIntoDocument(
       <TypeaheadInput
-        activeIndex={-1}
-        labelKey="name"
-        options={states}
+        hintText="Alabama"
         selected={[]}
-        text="Ala"
       />
     );
-
     const inputNode = getInputNode(instance);
     ReactTestUtils.Simulate.focus(inputNode);
 

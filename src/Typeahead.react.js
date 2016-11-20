@@ -11,6 +11,8 @@ import TypeaheadMenu from './TypeaheadMenu.react';
 
 import addCustomOption from './utils/addCustomOption';
 import defaultFilterBy from './utils/defaultFilterBy';
+import getHintText from './utils/getHintText';
+import getInputText from './utils/getInputText';
 import getOptionLabel from './utils/getOptionLabel';
 import getTruncatedOptions from './utils/getTruncatedOptions';
 import warn from './utils/warn';
@@ -284,7 +286,7 @@ const Typeahead = React.createClass({
     this.refs.input.focus();
   },
 
-  _renderInput(optionsToDisplay) {
+  _renderInput(results) {
     const {
       bsSize,
       disabled,
@@ -303,22 +305,23 @@ const Typeahead = React.createClass({
         {...inputProps}
         activeIndex={activeIndex}
         activeItem={activeItem}
+        hintText={getHintText({activeItem, labelKey, results, selected, text})}
         labelKey={labelKey}
         onAdd={this._handleAddOption}
         onBlur={this._handleBlur}
         onChange={this._handleTextChange}
         onFocus={this._handleFocus}
-        onKeyDown={e => this._handleKeydown(optionsToDisplay, e)}
+        onKeyDown={e => this._handleKeydown(results, e)}
         onRemove={this._handleRemoveOption}
-        options={optionsToDisplay}
+        options={results}
         ref="input"
         selected={selected.slice()}
-        text={text}
+        value={getInputText({activeItem, labelKey, multiple, selected, text})}
       />
     );
   },
 
-  _renderMenu(optionsToDisplay, shouldPaginate) {
+  _renderMenu(results, shouldPaginate) {
     const {
       align,
       emptyLabel,
@@ -355,7 +358,7 @@ const Typeahead = React.createClass({
     return (
       <TypeaheadMenu
         {...menuProps}
-        options={optionsToDisplay}
+        options={results}
       />
     );
   },

@@ -1,16 +1,13 @@
 import {head} from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
-function getHintText(props, isFocused) {
-  const {activeItem, labelKey, options, selected, text} = props;
-  const firstOption = head(options);
-  const firstOptionString =
-    firstOption && getOptionLabel(firstOption, labelKey);
+function getHintText({activeItem, labelKey, results, selected, text}) {
+  const firstResult = head(results);
+  const firstResultString =
+    firstResult && getOptionLabel(firstResult, labelKey);
 
   // Only show the hint if:
   if (
-    // The input is focused.
-    isFocused &&
     // The input contains text.
     !!text &&
     // None of the menu options are focused.
@@ -18,14 +15,14 @@ function getHintText(props, isFocused) {
     // There are no current selections.
     !selected.length &&
     // The input text corresponds to the beginning of the first option.
-    firstOptionString &&
-    firstOptionString.toLowerCase().indexOf(text.toLowerCase()) === 0
+    firstResultString &&
+    firstResultString.toLowerCase().indexOf(text.toLowerCase()) === 0
   ) {
     // Text matching is case-insensitive, so to display the hint correctly,
     // splice the input text with the rest of the actual string.
-    return text + firstOptionString.slice(
+    return text + firstResultString.slice(
       text.length,
-      firstOptionString.length
+      firstResultString.length
     );
   }
 
