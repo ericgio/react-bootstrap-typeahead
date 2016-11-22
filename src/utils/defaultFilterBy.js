@@ -27,12 +27,12 @@ export default function defaultFilterBy(
   const {caseSensitive} = filterOptions;
   const fields = filterOptions.fields.slice();
 
-  if(isFunction(labelKey) && isMatch(text, labelKey(option), caseSensitive)) {
+  if (isFunction(labelKey) && isMatch(text, labelKey(option), caseSensitive)) {
     return true;
   }
 
-  if(!isFunction(labelKey)) {
-  // Add the `labelKey` field to the list of fields if it isn't already there.
+  if (typeof labelKey === 'string') {
+    // Add the `labelKey` field to the list of fields if it isn't already there.
     if (fields.indexOf(labelKey) === -1) {
       fields.unshift(labelKey);
     }
