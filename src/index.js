@@ -7,5 +7,6 @@ export MenuItem from './MenuItem.react';
 export Token from './Token.react';
 
 // HOCs
+export menuItemBehaviors from './containers/menuItemBehaviors';
 export tokenBehaviors from './containers/tokenBehaviors';
 /* eslint-enable object-curly-spacing */
