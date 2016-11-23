@@ -3,6 +3,7 @@ import {omit} from 'lodash';
 import {findDOMNode} from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
+import getDisplayName from '../utils/getDisplayName';
 import {BACKSPACE} from '../utils/keyCode';
 
 /**
@@ -10,7 +11,9 @@ import {BACKSPACE} from '../utils/keyCode';
  * be easily re-used.
  */
 const tokenBehaviors = Component => {
-  return onClickOutside(React.createClass({
+  const WrappedComponent = React.createClass({
+    displayName: `tokenBehaviors(${getDisplayName(Component)})`,
+
     getInitialState() {
       return {
         selected: false,
@@ -70,7 +73,9 @@ const tokenBehaviors = Component => {
       this.setState({selected: true});
       this.props.enableOnClickOutside && this.props.enableOnClickOutside();
     },
-  }));
+  });
+
+  return onClickOutside(WrappedComponent);
 };
 
 export default tokenBehaviors;
