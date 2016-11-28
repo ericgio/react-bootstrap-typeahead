@@ -4,8 +4,7 @@ import {range} from 'lodash';
 import React from 'react';
 import {render} from 'react-dom';
 
-import Token from '../src/Token.react';
-import Typeahead from '../src/Typeahead.react';
+import {Token, Typeahead} from '../src/';
 
 import Button from './components/Button.react';
 import Checkbox from './components/Checkbox.react';
