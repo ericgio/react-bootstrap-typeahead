@@ -23,7 +23,6 @@ onFocus | function | | Callback fired when the input is focused. Receives an eve
 onInputChange | function | | Callback fired when user-input text changes. Receives the text string.
 options `required` | array | | Full set of options, including any pre-selected options.
 paginate | boolean | `true` | Give user the ability to display additional results if the number of results exceeds `maxResults`.
-paginateResults | number | 100 | DEPRECATED. Use `maxResults` and `paginate` instead.
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
 renderMenu | function | | Callback for custom menu rendering.

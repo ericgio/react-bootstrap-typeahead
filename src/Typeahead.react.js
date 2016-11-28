@@ -21,14 +21,6 @@ import warn from './utils/warn';
 
 import {DOWN, ESC, RETURN, TAB, UP} from './utils/keyCode';
 
-// TODO: Remove once `paginateResults` is completely deprecated.
-function getMaxResults(props) {
-  const {maxResults, paginateResults} = props;
-
-  // Use `maxResults` unless `paginateResults` is set.
-  return paginateResults == null ? maxResults : paginateResults;
-}
-
 /**
  * Typeahead
  */
@@ -124,10 +116,6 @@ const Typeahead = React.createClass({
      */
     paginate: PropTypes.bool,
     /**
-     * DEPRECATED. Use `maxResults` and `paginate` instead.
-     */
-    paginateResults: PropTypes.number,
-    /**
      * Callback for custom menu rendering.
      */
     renderMenu: PropTypes.func,
@@ -176,7 +164,7 @@ const Typeahead = React.createClass({
   },
 
   getInitialState() {
-    const {defaultSelected} = this.props;
+    const {defaultSelected, maxResults} = this.props;
 
     let selected = this.props.selected.slice();
     if (defaultSelected && defaultSelected.length) {
@@ -189,25 +177,13 @@ const Typeahead = React.createClass({
       initialItem: null,
       selected,
       showMenu: false,
-      shownResults: getMaxResults(this.props),
+      shownResults: maxResults,
       text: '',
     };
   },
 
   componentWillMount() {
-    const {
-      allowNew,
-      caseSensitive,
-      filterBy,
-      labelKey,
-      paginateResults,
-    } = this.props;
-
-    warn(
-      paginateResults == null,
-      'The `paginateResults` prop is deprecated and will be removed in an ' +
-      'upcoming release. Use `maxResults` and `paginate` instead.'
-    );
+    const {allowNew, caseSensitive, filterBy, labelKey} = this.props;
 
     warn(
       !(typeof filterBy === 'function' && caseSensitive),
@@ -521,7 +497,7 @@ const Typeahead = React.createClass({
   },
 
   _handlePagination(e) {
-    let shownResults = this.state.shownResults + getMaxResults(this.props);
+    let shownResults = this.state.shownResults + this.props.maxResults;
 
     // Keep the input focused when paginating.
     this.focus();

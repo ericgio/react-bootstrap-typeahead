@@ -25,7 +25,6 @@ var Typeahead = require('react-bootstrap-typeahead').default;
 
 Minified and unminified UMD modules are also included in the NPM package, or you can [get them from CDNJS](https://cdnjs.com/libraries/react-bootstrap-typeahead).
 
-
 ## v1.0.0 (beta)
 A pre-release of v1.0 is now available. The code is reasonably stable, but could use some additional real-world testing. New examples and better documentation are currently the main things gating a full release. The latest stable version is v0.10.4.
 
