@@ -1,4 +1,3 @@
-import {isEqual} from 'lodash';
 import React, {PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 
@@ -47,7 +46,7 @@ const menuItemBehaviors = Component => (
         !currentlyActive && onActiveItemChange(option);
       }
 
-      if (position === 0 && !isEqual(this.props.option, option)) {
+      if (position === 0) {
         onInitialItemChange(option);
       }
     },

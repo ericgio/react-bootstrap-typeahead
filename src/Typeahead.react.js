@@ -157,8 +157,8 @@ const Typeahead = React.createClass({
   getChildContext() {
     return {
       activeIndex: this.state.activeIndex,
-      onActiveItemChange: activeItem => this.setState({activeItem}),
-      onInitialItemChange: initialItem => this.setState({initialItem}),
+      onActiveItemChange: this._handleActiveItemChange,
+      onInitialItemChange: this._handleInitialItemChange,
       onMenuItemClick: this._handleAddOption,
     };
   },
@@ -392,6 +392,10 @@ const Typeahead = React.createClass({
     }
   },
 
+  _handleActiveItemChange(activeItem) {
+    this.setState({activeItem});
+  },
+
   _handleBlur(e) {
     // Note: Don't hide the menu here, since that interferes with other actions
     // like making a selection by clicking on a menu item.
@@ -401,6 +405,12 @@ const Typeahead = React.createClass({
   _handleFocus(e) {
     this.props.onFocus(e);
     this.setState({showMenu: true});
+  },
+
+  _handleInitialItemChange(initialItem) {
+    if (!isEqual(this.state.initialItem, initialItem)) {
+      this.setState({initialItem});
+    }
   },
 
   _handleTextChange(text) {
