@@ -43,11 +43,14 @@ const TypeaheadMenu = React.createClass({
   render() {
     const menuProps = pick(this.props, [
       'align',
+      'className',
+      'dropup',
       'emptyLabel',
       'maxHeight',
       'onPaginate',
       'paginate',
       'paginationText',
+      'style',
     ]);
 
     return (

@@ -6,6 +6,7 @@ import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
 
 import Loader from './Loader.react';
+import Overlay from './Overlay.react';
 import TokenizerInput from './TokenizerInput.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
@@ -41,6 +42,10 @@ const Typeahead = React.createClass({
      * options unless handled as such by `Typeahead`'s parent.
      */
     allowNew: PropTypes.bool,
+    /**
+     * Whether to render the menu inline or attach to `document.body`.
+     */
+    bodyContainer: PropTypes.bool,
     /**
      * Whether or not filtering should be case-sensitive.
      */
@@ -360,6 +365,8 @@ const Typeahead = React.createClass({
   _renderMenu(results, shouldPaginate) {
     const {
       align,
+      bodyContainer,
+      dropup,
       emptyLabel,
       labelKey,
       maxHeight,
@@ -372,12 +379,9 @@ const Typeahead = React.createClass({
 
     const {showMenu, text} = this.state;
 
-    if (!(showMenu && text.length >= minLength)) {
-      return null;
-    }
-
     const menuProps = {
       align,
+      dropup,
       emptyLabel,
       labelKey,
       maxHeight,
@@ -388,16 +392,22 @@ const Typeahead = React.createClass({
       text,
     };
 
-    if (renderMenu) {
-      return renderMenu(results, menuProps);
-    }
-
-    return (
+    const menu = renderMenu ?
+      renderMenu(results, menuProps) :
       <TypeaheadMenu
         {...menuProps}
         options={results}
         renderMenuItemChildren={renderMenuItemChildren}
-      />
+      />;
+
+    return (
+      <Overlay
+        container={bodyContainer ? document.body : this}
+        onHide={this._hideDropdown}
+        show={showMenu && text.length >= minLength}
+        target={() => this.refs.input}>
+        {menu}
+      </Overlay>
     );
   },
 
@@ -534,7 +544,7 @@ const Typeahead = React.createClass({
   },
 
   /**
-   * From `listensToClickOutside` HOC.
+   * From `onClickOutside` HOC.
    */
   handleClickOutside(e) {
     this._hideDropdown();

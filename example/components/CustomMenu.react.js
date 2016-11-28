@@ -30,11 +30,13 @@ const CustomMenu = props => {
 
   const menuProps = pick(props, [
     'align',
+    'className',
     'emptyLabel',
     'maxHeight',
     'onPaginate',
     'paginate',
     'paginationText',
+    'style',
   ]);
 
   return (

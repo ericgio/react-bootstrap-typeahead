@@ -28,6 +28,7 @@ const Example = React.createClass({
       align: 'justify',
       alignMenu: false,
       allowNew: false,
+      bodyContainer: false,
       bsSize: undefined,
       customLabelKey: false,
       customMenu: false,
@@ -49,6 +50,7 @@ const Example = React.createClass({
       align,
       alignMenu,
       allowNew,
+      bodyContainer,
       bsSize,
       customLabelKey,
       customMenu,
@@ -67,6 +69,7 @@ const Example = React.createClass({
     const props = {
       align,
       allowNew,
+      bodyContainer,
       bsSize,
       disabled,
       dropup,
@@ -145,6 +148,12 @@ const Example = React.createClass({
                 name="customMenuItemChildren"
                 onChange={this._handleChange}>
                 Customize menu item children
+              </Checkbox>
+              <Checkbox
+                checked={bodyContainer}
+                name="bodyContainer"
+                onChange={this._handleChange}>
+                Attach menu to body
               </Checkbox>
               <Checkbox
                 checked={allowNew}
