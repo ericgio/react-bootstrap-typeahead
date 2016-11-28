@@ -22,7 +22,6 @@ const Overlay = React.createClass({
       componentOrElement,
       PropTypes.func,
     ]).isRequired,
-    onHide: PropTypes.func.isRequired,
     show: PropTypes.bool,
     target: PropTypes.oneOfType([
       componentOrElement,
@@ -63,7 +62,7 @@ const Overlay = React.createClass({
       return null;
     }
 
-    const {container, children, onHide} = this.props;
+    const {container, children} = this.props;
 
     let child = Children.only(children);
     if (container === document.body) {

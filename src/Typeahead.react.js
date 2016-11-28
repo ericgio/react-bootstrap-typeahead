@@ -403,7 +403,6 @@ const Typeahead = React.createClass({
     return (
       <Overlay
         container={bodyContainer ? document.body : this}
-        onHide={this._hideDropdown}
         show={showMenu && text.length >= minLength}
         target={() => this.refs.input}>
         {menu}
