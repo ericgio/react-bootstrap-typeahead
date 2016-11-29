@@ -543,7 +543,7 @@ const Typeahead = React.createClass({
    * From `onClickOutside` HOC.
    */
   handleClickOutside(e) {
-    this._hideDropdown();
+    this.state.showMenu && this._hideDropdown();
   },
 
   _hideDropdown() {
