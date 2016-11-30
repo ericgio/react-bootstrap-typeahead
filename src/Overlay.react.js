@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import {throttle} from 'lodash';
 import React, {Children, cloneElement, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
@@ -63,7 +62,6 @@ const Overlay = React.createClass({
       return null;
     }
 
-    console.log('render');
     const {container, children} = this.props;
 
     let child = Children.only(children);
