@@ -3,8 +3,8 @@ import {expect} from 'chai';
 import getHintText from '../src/utils/getHintText';
 import states from '../example/exampleData';
 
-let props = {
-  activeIndex: -1,
+const props = {
+  activeItem: null,
   initialItem: {name: 'Alabama'},
   labelKey: 'name',
   selected: [],
@@ -19,31 +19,33 @@ describe('getHintText', () => {
   });
 
   it('returns an empty string when the text is empty', () => {
-    props.text = '';
-    const hintText = getHintText(props);
+    const hintText = getHintText({...props, text: ''});
     expect(hintText).to.equal('');
   });
 
   it('returns an empty string when a menu item is active', () => {
-    props.activeIndex = 0;
-    const hintText = getHintText(props);
+    const hintText = getHintText({...props, activeItem: props.initialItem});
     expect(hintText).to.equal('');
   });
 
   it('returns an empty string when there is a selection', () => {
-    props.selected = [states[0]];
-    const hintText = getHintText(props);
+    const hintText = getHintText({...props, selected: [states[0]]});
     expect(hintText).to.equal('');
   });
 
   it(
-    'returns an empty string when the first menu option does not begin with ' +
-    'the input string',
+    'returns an empty string when the initial item does not begin with the ' +
+    'input string',
     () => {
-      props.text = 'Cal';
-      const hintText = getHintText(props);
+      const hintText = getHintText({...props, text: 'Cal'});
       expect(hintText).to.equal('');
     }
   );
+
+  it('returns an empty string when the initial item is a custom option', () => {
+    const initialItem = {...props.initialItem, customOption: true};
+    const hintText = getHintText({...props, initialItem});
+    expect(hintText).to.equal('');
+  });
 
 });

@@ -1,7 +1,11 @@
 import getOptionLabel from './getOptionLabel';
 
 function getHintText({activeItem, initialItem, labelKey, selected, text}) {
-  const initialItemStr = initialItem && getOptionLabel(initialItem, labelKey);
+  if (!initialItem || initialItem.customOption) {
+    return '';
+  }
+
+  const initialItemStr = getOptionLabel(initialItem, labelKey);
 
   // Only show the hint if:
   if (
@@ -12,7 +16,6 @@ function getHintText({activeItem, initialItem, labelKey, selected, text}) {
     // There are no current selections.
     !selected.length &&
     // The input text corresponds to the beginning of the first option.
-    initialItemStr &&
     initialItemStr.toLowerCase().indexOf(text.toLowerCase()) === 0
   ) {
     // Text matching is case-insensitive, so to display the hint correctly,
