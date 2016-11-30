@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import {throttle} from 'lodash';
 import React, {Children, cloneElement, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
@@ -45,16 +46,16 @@ const Overlay = React.createClass({
   },
 
   componentDidMount() {
-    this._updatePosition();
-    window.addEventListener('resize', this._updatePosition);
+    this._maybeUpdatePosition();
+    window.addEventListener('resize', this._maybeUpdatePosition);
   },
 
   componentWillReceiveProps(nextProps) {
-    this._updatePosition();
+    this._maybeUpdatePosition();
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._updatePosition);
+    window.removeEventListener('resize', this._maybeUpdatePosition);
   },
 
   render() {
@@ -62,6 +63,7 @@ const Overlay = React.createClass({
       return null;
     }
 
+    console.log('render');
     const {container, children} = this.props;
 
     let child = Children.only(children);
@@ -80,8 +82,15 @@ const Overlay = React.createClass({
     );
   },
 
-  _updatePosition() {
-    const targetNode = findDOMNode(this.props.target());
+  _maybeUpdatePosition() {
+    // Positioning is only used when body is the container.
+    if (this.props.container !== document.body) {
+      return;
+    }
+
+    const {target} = this.props;
+    const targetElement = typeof target === 'function' ? target() : target;
+    const targetNode = findDOMNode(targetElement);
 
     if (targetNode) {
       const {innerHeight, innerWidth, pageYOffset} = window;
