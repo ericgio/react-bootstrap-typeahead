@@ -9,6 +9,10 @@ import componentOrElement from 'react-prop-types/lib/componentOrElement';
 // `react-onclickoutside` to ignore the click.
 const IGNORE_CLICK_OUTSIDE = 'ignore-react-onclickoutside';
 
+function isBody(container) {
+  return container === document.body;
+}
+
 /**
  * Custom `Overlay` component, since the version in `react-overlays` doesn't
  * work for our needs. Specifically, the `Position` component doesn't provide
@@ -63,15 +67,19 @@ const Overlay = React.createClass({
     }
 
     const {container, children} = this.props;
-
     let child = Children.only(children);
-    if (container === document.body) {
-      child = cloneElement(child, {
-        ...child.props,
-        className: cx(child.props.className, IGNORE_CLICK_OUTSIDE),
-        style: this.state,
-      });
+
+    // When not attaching the overlay to `document.body` treat the child as a
+    // simple inline element.
+    if (!isBody(container)) {
+      return child;
     }
+
+    child = cloneElement(child, {
+      ...child.props,
+      className: cx(child.props.className, IGNORE_CLICK_OUTSIDE),
+      style: this.state,
+    });
 
     return (
       <Portal container={container}>
@@ -82,7 +90,7 @@ const Overlay = React.createClass({
 
   _maybeUpdatePosition() {
     // Positioning is only used when body is the container.
-    if (this.props.container !== document.body) {
+    if (!isBody(this.props.container)) {
       return;
     }
 
