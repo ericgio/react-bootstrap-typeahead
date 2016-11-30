@@ -9,7 +9,7 @@ export Typeahead from './Typeahead.react';
 
 // HOCs
 export asyncContainer from './containers/asyncContainer';
-export menuItemBehaviors from './containers/menuItemBehaviors';
-export tokenBehaviors from './containers/tokenBehaviors';
+export menuItemContainer from './containers/menuItemContainer';
+export tokenContainer from './containers/tokenContainer';
 
 /* eslint-enable object-curly-spacing */

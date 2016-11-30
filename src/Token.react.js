@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {noop} from 'lodash';
 import React, {PropTypes} from 'react';
 
-import tokenBehaviors from './containers/tokenBehaviors';
+import tokenContainer from './containers/tokenContainer';
 
 /**
  * Token
@@ -78,4 +78,4 @@ const Token = React.createClass({
   },
 });
 
-export default tokenBehaviors(Token);
+export default tokenContainer(Token);

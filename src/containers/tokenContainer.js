@@ -10,9 +10,9 @@ import {BACKSPACE} from '../utils/keyCode';
  * Higher-order component that encapsulates Token behaviors, allowing them to
  * be easily re-used.
  */
-const tokenBehaviors = Component => {
+const tokenContainer = Component => {
   const WrappedComponent = React.createClass({
-    displayName: `tokenBehaviors(${getDisplayName(Component)})`,
+    displayName: `tokenContainer(${getDisplayName(Component)})`,
 
     getInitialState() {
       return {
@@ -78,4 +78,4 @@ const tokenBehaviors = Component => {
   return onClickOutside(WrappedComponent);
 };
 
-export default tokenBehaviors;
+export default tokenContainer;

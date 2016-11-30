@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {noop} from 'lodash';
 import React from 'react';
 
-import menuItemBehaviors from './containers/menuItemBehaviors';
+import menuItemContainer from './containers/menuItemContainer';
 
 const BaseMenuItem = React.createClass({
   displayName: 'BaseMenuItem',
@@ -39,8 +39,7 @@ const BaseMenuItem = React.createClass({
   },
 });
 
+const MenuItem = menuItemContainer(BaseMenuItem);
+
 export {BaseMenuItem};
-
-const MenuItem = menuItemBehaviors(BaseMenuItem);
-
 export default MenuItem;

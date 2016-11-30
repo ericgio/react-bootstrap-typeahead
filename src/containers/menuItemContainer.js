@@ -4,9 +4,9 @@ import {findDOMNode} from 'react-dom';
 import getDisplayName from '../utils/getDisplayName';
 import scrollIntoViewIfNeeded from '../utils/scrollIntoViewIfNeeded';
 
-const menuItemBehaviors = Component => (
+const menuItemContainer = Component => (
   React.createClass({
-    displayName: `menuItemBehaviors(${getDisplayName(Component)})`,
+    displayName: `menuItemContainer(${getDisplayName(Component)})`,
 
     propTypes: {
       option: PropTypes.oneOfType([
@@ -66,4 +66,4 @@ const menuItemBehaviors = Component => (
   })
 );
 
-export default menuItemBehaviors;
+export default menuItemContainer;
