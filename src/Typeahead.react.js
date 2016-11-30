@@ -129,6 +129,7 @@ const Typeahead = React.createClass({
   getDefaultProps() {
     return {
       allowNew: false,
+      bodyContainer: false,
       caseSensitive: false,
       defaultSelected: [],
       dropup: false,
