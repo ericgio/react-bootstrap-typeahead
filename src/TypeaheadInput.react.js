@@ -165,9 +165,6 @@ const TypeaheadInput = React.createClass({
     this._input.getInstance().focus();
   },
 
-  /**
-   * TODO: Move this into Typeahead component?
-   */
   _handleKeydown(e) {
     const {
       activeItem,
