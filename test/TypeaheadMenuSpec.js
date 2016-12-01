@@ -82,7 +82,7 @@ describe('<TypeaheadMenu>', () => {
     expect(menuItems[0].props.disabled).to.equal(true);
   });
 
-  it('renders an empty state when there are no options', () => {
+  it('renders an empty state when there are no results', () => {
     const instance = getMenuInstance({options: []});
     const menuItems = ReactTestUtils.scryRenderedComponentsWithType(
       instance,
@@ -91,6 +91,17 @@ describe('<TypeaheadMenu>', () => {
 
     expect(menuItems.length).to.equal(1);
     expect(menuItems[0].props.children).to.equal('No matches found.');
+  });
+
+  it('renders nothing when there are no results and an empty string is ' +
+     'passed as the `emptyLabel`', () => {
+    const instance = getMenuInstance({options: [], emptyLabel: ''});
+    const menuComponents = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+      instance,
+      'bootstrap-typeahead-menu'
+    );
+
+    expect(menuComponents.length).to.equal(0);
   });
 
   it('displays a paginator', () => {
