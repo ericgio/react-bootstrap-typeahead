@@ -8,7 +8,7 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 
 Please note that this library is under active development and the APIs may change. The documentation below applies to the most recent version and may no longer be applicable if you're using an outdated version.
 
-## v1.0.0
+## v1.0.0 (beta)
 A pre-release of v1.0 is now available. This version has some breaking changes; please see the [release notes](https://github.com/ericgio/react-bootstrap-typeahead/releases/tag/v1.0.0-beta1) for more information. The code is reasonably stable, but could use some additional real-world testing. New examples and better documentation are currently the main things gating a full release.
 
 The latest stable version is v0.10.4
