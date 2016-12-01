@@ -11,7 +11,7 @@ const DEFAULT_DELAY_MS = 200;
  *  - Query caching (optional)
  *  - Search prompt and empty results behaviors
  */
-const AsyncContainer = Typeahead => {
+const asyncContainer = Typeahead => {
 
   let _cache = {};
 
@@ -45,6 +45,7 @@ const AsyncContainer = Typeahead => {
         delay: DEFAULT_DELAY_MS,
         minLength: 2,
         options: [],
+        promptText: 'Type to search...',
         searchText: 'Searching...',
         useCache: true,
       };
@@ -109,11 +110,11 @@ const AsyncContainer = Typeahead => {
     },
 
     _getEmptyLabel() {
-      const {emptyLabel, searchText, useCache} = this.props;
-      const {query, requestPending} = this.state;
+      const {emptyLabel, promptText, searchText, useCache} = this.props;
+      const {hasSelection, query, requestPending} = this.state;
 
-      if (!query.length) {
-        return 'Type to search...';
+      if (!query.length || hasSelection) {
+        return promptText;
       }
 
       if (requestPending || (useCache && !_cache[query])) {
@@ -163,4 +164,4 @@ const AsyncContainer = Typeahead => {
   });
 };
 
-export default AsyncContainer;
+export default asyncContainer;
