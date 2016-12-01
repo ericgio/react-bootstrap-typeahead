@@ -152,11 +152,13 @@ const AsyncContainer = Typeahead => {
         return;
       }
 
+      // Only perform a search on user input, not selection.
+      if (this.state.hasSelection) {
+        return;
+      }
+
       // Perform the async search.
-      this.setState({requestPending: true}, () => {
-        // Only perform a search on user input, not selection.
-        !this.state.hasSelection && onSearch(query);
-      });
+      this.setState({requestPending: true}, () => onSearch(query));
     },
   });
 };
