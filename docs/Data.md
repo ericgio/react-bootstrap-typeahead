@@ -45,3 +45,5 @@ You may have unexpected results if your data contains duplicate options. For thi
 
 ### Data Sources
 The component simply handles rendering and selection of the data that is passed in. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
+
+[Next: Filtering](Filtering.md)

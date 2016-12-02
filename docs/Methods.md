@@ -20,3 +20,5 @@ Provides a programmatic way to reset the input. Calling the method will clear bo
 
 ### `focus()`
 Provides a programmatic way to focus the input.
+
+[Next: Props](Props.md)

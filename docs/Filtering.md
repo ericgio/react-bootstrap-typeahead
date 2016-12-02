@@ -33,3 +33,4 @@ You can also pass your own callback to take complete control over how the filter
   }}
 />
 ```
+[Next: Rendering](Rendering.md)

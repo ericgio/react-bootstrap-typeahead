@@ -16,7 +16,7 @@ The latest stable version is v0.10.4
 ## Installation
 Use NPM to install the module in your project:
 ```
-npm install --save react-bootstrap-typeahead
+$ npm install --save react-bootstrap-typeahead
 ```
 
 Include the module in your project as you normally would:

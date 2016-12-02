@@ -47,3 +47,5 @@ const Token = require('react-bootstrap-typeahead/lib/Token.react');
 ```
 
 Note that if you use your own component to render the token, you will lose built-in functionality like removing via keystroke.
+
+[Next: Public Methods](Methods.md)
