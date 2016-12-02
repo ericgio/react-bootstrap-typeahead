@@ -30,6 +30,14 @@ var Typeahead = require('react-bootstrap-typeahead').default;
 
 Minified and unminified UMD modules are also included in the NPM package, or you can [get them from CDNJS](https://cdnjs.com/libraries/react-bootstrap-typeahead).
 
+## Documentation
+- [Basic Usage](docs/Usage.md)
+- [Data](docs/Data.md)
+- [Filtering](docs/Filtering.md)
+- [Rendering](docs/Rendering.md)
+- [Public Methods](docs/Methods.md)
+- [Props](docs/Props.md)
+
 ## CSS
 The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal styling is included in `Typeahead.css` and `Token.css` and should ideally be included wherever you're using the component.
 
