@@ -1,0 +1,14 @@
+.bootstrap-typeahead-clear-button {
+  outline: none;
+  margin-top: -12px;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  z-index: 1;
+}
+
+.close-lg {
+  font-size: 24px;
+  margin-top: -15px;
+  right: 15px;
+}
