@@ -5,6 +5,7 @@ import {find, isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
 
+import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
 import Overlay from './Overlay.react';
 import TokenizerInput from './TokenizerInput.react';
@@ -42,6 +43,10 @@ const Typeahead = React.createClass({
      * Whether or not filtering should be case-sensitive.
      */
     caseSensitive: PropTypes.bool,
+    /**
+     * Displays a button to clear the input when there are selections.
+     */
+    clearButton: PropTypes.bool,
     /**
      * Specify any pre-selected options. Use only if you want the component to
      * be uncontrolled.
@@ -131,6 +136,7 @@ const Typeahead = React.createClass({
       allowNew: false,
       bodyContainer: false,
       caseSensitive: false,
+      clearButton: false,
       defaultSelected: [],
       dropup: false,
       filterBy: [],
@@ -237,7 +243,7 @@ const Typeahead = React.createClass({
         }, className)}
         style={{position: 'relative'}}>
         {this._renderInput(results)}
-        {this._renderLoader()}
+        {this._renderAux()}
         {this._renderMenu(results, shouldPaginate)}
       </div>
     );
@@ -298,6 +304,7 @@ const Typeahead = React.createClass({
   _renderInput(results) {
     const {
       bsSize,
+      clearButton,
       disabled,
       isLoading,
       labelKey,
@@ -315,7 +322,7 @@ const Typeahead = React.createClass({
         {...inputProps}
         activeIndex={activeIndex}
         activeItem={activeItem}
-        hasAux={isLoading}
+        hasAux={(clearButton && selected.length) || isLoading}
         hintText={getHintText({
           activeItem,
           initialItem,
@@ -387,9 +394,21 @@ const Typeahead = React.createClass({
     );
   },
 
-  _renderLoader() {
-    if (this.props.isLoading) {
-      return <Loader bsSize={this.props.bsSize} />;
+  _renderAux() {
+    const {bsSize, clearButton, isLoading} = this.props;
+
+    if (isLoading) {
+      return <Loader bsSize={bsSize} />;
+    }
+
+    if (this.state.selected.length && clearButton) {
+      return (
+        <ClearButton
+          bsSize={bsSize}
+          className="bootstrap-typeahead-clear-button"
+          onClick={this.clear}
+        />
+      );
     }
   },
 

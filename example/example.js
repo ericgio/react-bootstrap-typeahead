@@ -14,6 +14,7 @@ import ExampleSection from './components/ExampleSection.react';
 import getOptionLabel from '../src/utils/getOptionLabel';
 import states from './exampleData';
 
+import '../css/ClearButton.css';
 import '../css/Loader.css';
 import '../css/Token.css';
 import '../css/Typeahead.css';
@@ -29,6 +30,7 @@ const Example = React.createClass({
       allowNew: false,
       bodyContainer: false,
       bsSize: undefined,
+      clearButton: false,
       customLabelKey: false,
       customMenu: false,
       customMenuItemChildren: false,
@@ -51,6 +53,7 @@ const Example = React.createClass({
       allowNew,
       bodyContainer,
       bsSize,
+      clearButton,
       customLabelKey,
       customMenu,
       customMenuItemChildren,
@@ -70,6 +73,7 @@ const Example = React.createClass({
       allowNew,
       bodyContainer,
       bsSize,
+      clearButton,
       disabled,
       dropup,
       minLength,
@@ -128,6 +132,12 @@ const Example = React.createClass({
                 name="preSelected"
                 onChange={this._handleChange}>
                 Pre-populate the input
+              </Checkbox>
+              <Checkbox
+                checked={clearButton}
+                name="clearButton"
+                onChange={this._handleChange}>
+                Include a clear button when the input has selections
               </Checkbox>
               <Checkbox
                 checked={customLabelKey}

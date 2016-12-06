@@ -168,4 +168,26 @@ describe('<Typeahead>', () => {
     expect(InputNode).to.exist;
   });
 
+  it('displays a clear button when `clearButton=true` and there is a ' +
+     'selection', () => {
+    const instance = getTypeaheadInstance({
+      ...baseProps,
+      clearButton: true,
+      labelKey: 'name',
+      options: states,
+      selected: states.slice(0, 1),
+    });
+    const ClearButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-clear-button'
+    );
+    const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-input-main has-aux'
+    );
+
+    expect(ClearButtonNode).to.exist;
+    expect(InputNode).to.exist;
+  });
+
 });

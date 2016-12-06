@@ -7,6 +7,7 @@ autoFocus | bool | false | Autofocus the input when the component initially moun
 bodyContainer | bool | false | Whether to render the menu inline or attach to `document.body`.
 bsSize | one of: `'large'`, `'lg'`, `'small'`, `'sm'` | | Specify the size of the input.
 caseSensitive | bool | false | Whether or not filtering should be case-sensitive.
+clearButton | bool | false | Displays a button to clear the input when there are selections.
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 dropup | boolean | false | Specify whether the menu should appear above the input.
