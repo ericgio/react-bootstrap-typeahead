@@ -8,16 +8,6 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 
 Please note that this library is under active development and the APIs may change. The documentation below applies to the most recent version and may no longer be applicable if you're using an outdated version.
 
-## v1.0.0 (beta)
-A pre-release of v1.0 is now available. The code is reasonably stable, but could use some additional real-world testing. New examples and better documentation are currently the main things gating a full release. The latest stable version is v0.10.4.
-
-This version has some breaking changes. Please see the [release notes](https://github.com/ericgio/react-bootstrap-typeahead/releases) for more information. In particular, there is no longer a default `Typeahead` component:
-```JSX
-// v1.0
-import {Typeahead} from 'react-bootstrap-typeahead'; // ES2015
-var Typeahead = require('react-bootstrap-typeahead').Typeahead; // CommonJS
-```
-
 ## Installation
 Use NPM to install the module in your project:
 ```
@@ -34,6 +24,17 @@ var Typeahead = require('react-bootstrap-typeahead').default;
 ```
 
 Minified and unminified UMD modules are also included in the NPM package, or you can [get them from CDNJS](https://cdnjs.com/libraries/react-bootstrap-typeahead).
+
+
+## v1.0.0 (beta)
+A pre-release of v1.0 is now available. The code is reasonably stable, but could use some additional real-world testing. New examples and better documentation are currently the main things gating a full release. The latest stable version is v0.10.4.
+
+This version has some breaking changes. Please see the [release notes](https://github.com/ericgio/react-bootstrap-typeahead/releases) for more information. In particular, there is no longer a default `Typeahead` component:
+```JSX
+// v1.0
+import {Typeahead} from 'react-bootstrap-typeahead'; // ES2015
+var Typeahead = require('react-bootstrap-typeahead').Typeahead; // CommonJS
+```
 
 ## Documentation
 - [Basic Usage](docs/Usage.md)
