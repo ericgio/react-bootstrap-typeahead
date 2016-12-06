@@ -39,6 +39,10 @@ const Typeahead = React.createClass({
      */
     allowNew: PropTypes.bool,
     /**
+     * Set automatic focus on the input element when the component is mounted
+     */
+    autoFocus: PropTypes.bool,
+    /**
      * Whether or not filtering should be case-sensitive.
      */
     caseSensitive: PropTypes.bool,
@@ -284,6 +288,7 @@ const Typeahead = React.createClass({
 
   _renderInput(optionsToDisplay) {
     const {
+      autoFocus,
       bsSize,
       disabled,
       labelKey,
@@ -294,7 +299,14 @@ const Typeahead = React.createClass({
     } = this.props;
     const {activeIndex, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = {bsSize, disabled, name, placeholder, renderToken};
+    const inputProps = {
+      autoFocus,
+      bsSize,
+      disabled,
+      name,
+      placeholder,
+      renderToken,
+    };
 
     return (
       <Input
