@@ -24,6 +24,7 @@ const TokenizerInput = React.createClass({
    * passed down by `Typeahead.react`:
    *
    *  - activeIndex
+   *  - autoFocus
    *  - labelKey
    *  - onAdd
    *  - onBlur
@@ -59,7 +60,14 @@ const TokenizerInput = React.createClass({
   },
 
   render() {
-    const {bsSize, disabled, placeholder, selected, text} = this.props;
+    const {
+      autoFocus,
+      bsSize,
+      disabled,
+      placeholder,
+      selected,
+      text,
+    } = this.props;
 
     return (
       <div
@@ -83,6 +91,7 @@ const TokenizerInput = React.createClass({
         tabIndex={-1}>
         {selected.map(this._renderToken)}
         <AutosizeInput
+          autoFocus={autoFocus}
           className="bootstrap-tokenizer-input"
           disabled={disabled}
           inputStyle={{
