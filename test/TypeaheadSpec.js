@@ -168,6 +168,21 @@ describe('<Typeahead>', () => {
     expect(InputNode).to.exist;
   });
 
+  it('displays a loader when `isLoading=true`', () => {
+    const instance = getTypeaheadInstance({...baseProps, isLoading: true});
+    const LoaderNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-loader'
+    );
+    const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'bootstrap-typeahead-input-main has-aux'
+    );
+
+    expect(LoaderNode).to.exist;
+    expect(InputNode).to.exist;
+  });
+
   it('displays a clear button when `clearButton=true` and there is a ' +
      'selection', () => {
     const instance = getTypeaheadInstance({
