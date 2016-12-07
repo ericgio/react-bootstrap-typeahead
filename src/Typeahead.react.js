@@ -383,27 +383,38 @@ const Typeahead = React.createClass({
 
     switch (e.keyCode) {
       case UP:
-      case DOWN:
-        // Don't cycle through the options if the menu is hidden.
         if (!this.state.showMenu) {
           return;
         }
 
         // Prevents input cursor from going to the beginning when pressing up.
         e.preventDefault();
+        // Decrement
+        activeIndex += -1;
 
-        // Increment or decrement index based on user keystroke.
-        activeIndex += e.keyCode === UP ? -1 : 1;
-
-        // If we've reached the end, go back to the beginning or vice-versa.
-        if (activeIndex === options.length) {
-          activeIndex = -1;
-        } else if (activeIndex === -2) {
+        // Wrap around to end from top
+        if (activeIndex === -2) {
           activeIndex = options.length - 1;
         }
-
         this.setState({activeIndex});
         break;
+
+      case DOWN:
+        // display and cycle through the options if the menu is hidden.
+        if (!this.state.showMenu) {
+          this.setState({showMenu: true});
+          return;
+        }
+
+        // Increment
+        activeIndex += 1;
+        // If we've reached the end, go back to the beginning
+        if (activeIndex === options.length) {
+          activeIndex = -1;
+        }
+        this.setState({activeIndex});
+        break;
+
       case ESC:
       case TAB:
         // Prevent closing dialogs.
