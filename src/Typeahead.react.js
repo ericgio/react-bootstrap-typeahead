@@ -36,6 +36,10 @@ const Typeahead = React.createClass({
      */
     allowNew: PropTypes.bool,
     /**
+     * Autofocus the input when the component initially mounts.
+     */
+    autoFocus: PropTypes.bool,
+    /**
      * Whether to render the menu inline or attach to `document.body`.
      */
     bodyContainer: PropTypes.bool,
@@ -134,6 +138,7 @@ const Typeahead = React.createClass({
   getDefaultProps() {
     return {
       allowNew: false,
+      autoFocus: false,
       bodyContainer: false,
       caseSensitive: false,
       clearButton: false,
@@ -202,6 +207,10 @@ const Typeahead = React.createClass({
       !(typeof labelKey === 'function' && allowNew),
       '`labelKey` must be a string if creating new options is allowed.'
     );
+  },
+
+  componentDidMount() {
+    this.props.autoFocus && this.focus();
   },
 
   componentWillReceiveProps(nextProps) {
