@@ -9,6 +9,9 @@ module.exports = {
     }, {
       test: /\.(css|scss)$/,
       loader: 'style-loader!css-loader',
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader',
     }],
   },
   plugins: [

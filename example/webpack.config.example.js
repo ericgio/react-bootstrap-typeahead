@@ -1,9 +1,9 @@
 var webpackConfigBase = require('../webpack.config.base');
 
 module.exports = Object.assign(webpackConfigBase, {
-  entry: './example/example.js',
+  entry: './example/index.js',
   output: {
     path: './example',
-    filename: 'index.js',
+    filename: 'package-example.js',
   },
 });

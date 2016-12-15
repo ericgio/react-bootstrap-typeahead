@@ -1,0 +1,90 @@
+/**
+ * Styles for highlight.js code blocks. Mimics GitHub styles.
+ */
+code, kbd, pre, samp {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.hljs {
+  background: #f7f7f7;
+  color: #333;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  -webkit-text-size-adjust: none;
+}
+
+.hljs-attribute,
+.hljs-attr,
+.hljs-variable {
+  color: #183691;
+}
+
+.hljs-comment,
+.hljs-javadoc {
+  color: #969896;
+}
+
+.hljs-keyword {
+  color: #a71d5d;
+}
+
+.hljs-number,
+.hljs-hexcolor {
+  color: #008080;
+}
+
+.hljs-tag {
+  color: #333;
+}
+.hljs-tag .hljs-name {
+  color: #0086b3;
+}
+.hljs-tag .hljs-attr {
+  color: #795da3;
+}
+.hljs-tag .hljs-string {
+  color: #63a35c;
+}
+
+.hljs-string,
+.hljs-tag .hljs-value {
+  color: #d14;
+}
+
+.hljs-literal {
+  color: #0086b3;
+}
+
+.hljs-title,
+.hljs-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-regexp {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-prompt {
+  color: #990073;
+}
+
+.hljs-built_in {
+  color: #0086b3;
+}
+
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-pi,
+.hljs-doctype,
+.hljs-shebang,
+.hljs-cdata {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-chunk {
+  color: #aaa;
+}

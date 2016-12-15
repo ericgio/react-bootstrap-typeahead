@@ -7,8 +7,8 @@
     "example": "example"
   },
   "scripts": {
-    "example": "./scripts/buildExample.sh",
     "build": "./scripts/build.sh",
+    "example": "./scripts/buildExample.sh",
     "lint": "eslint .",
     "prepublish": "npm run lint && npm test && npm run build",
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
@@ -56,16 +56,23 @@
     "css-loader": "^0.23.1",
     "eslint": "^3.1.1",
     "eslint-plugin-react": "^5.2.2",
+    "highlight.js": "^9.9.0",
+    "isomorphic-fetch": "^2.2.1",
+    "json-loader": "^0.5.4",
     "karma": "^1.1.2",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-mocha": "^1.1.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
+    "marked": "^0.3.6",
     "mocha": "^2.5.3",
+    "raw-loader": "^0.5.1",
     "react": "^15.2.1",
     "react-addons-test-utils": "^15.4.0",
+    "react-bootstrap": "^0.30.3",
     "react-dom": "^15.2.1",
+    "react-waypoint": "^5.0.3",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
   },

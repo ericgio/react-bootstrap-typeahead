@@ -1,6 +1,6 @@
 css
 dist
-example/index.js
+example/package-example.js
 lib
 **/node_modules
 scripts

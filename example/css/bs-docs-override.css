@@ -1,0 +1,79 @@
+/**
+ * bs-docs override
+ */
+.bs-docs-nav {
+  background-color: #222;
+}
+.bs-docs-nav .navbar-brand,
+.bs-docs-nav .navbar-nav > li > a {
+  color: #ddd;
+}
+.bs-docs-nav .navbar-nav > li > a:hover,
+.bs-docs-nav .navbar-nav > .active > a,
+.bs-docs-nav .navbar-nav > .active > a:hover {
+  color: #fff;
+  background-color: #111;
+}
+
+.bs-docs-nav .navbar-brand,
+.bs-docs-nav .navbar-brand:active,
+.bs-docs-nav .navbar-brand:focus,
+.bs-docs-nav .navbar-brand:hover {
+  color: #00d8ff;
+}
+
+.bs-docs-nav .navbar-header .navbar-toggle {
+  border: 0;
+  border-radius: 0;
+  padding: 18px 18px;
+  margin: 0;
+}
+.bs-docs-nav .navbar-header .navbar-toggle:focus,
+.bs-docs-nav .navbar-header .navbar-toggle:hover {
+  background-color: #111;
+}
+.bs-docs-nav .navbar-toggle .icon-bar {
+  background-color: #ddd;
+  border-radius: 0;
+}
+.bs-docs-nav .navbar-toggle:hover .icon-bar {
+  background-color: #fff;
+}
+
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus,
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+  border-left: 0;
+  color: #cc7a6f;
+  padding-left: 20px;
+}
+
+.back-to-top:focus,
+.back-to-top:hover {
+  color: #cc7a6f;
+  text-decoration: none;
+}
+
+
+.bs-docs-page .jumbotron {
+  background-color: #2d2d2d;
+}
+.bs-docs-page .jumbotron h1 {
+  color: #61dafb;
+}
+
+.bs-docs-footer {
+  background-color: #2d2d2d;
+}
+
+@media (min-width: 768px) {
+  .bs-docs-header h1 {
+    font-size: 60px;
+  }
+
+  .bs-docs-footer {
+    text-align: center;
+  }
+}

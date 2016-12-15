@@ -334,7 +334,6 @@ const Typeahead = React.createClass({
     const {
       bsSize,
       disabled,
-      isLoading,
       labelKey,
       minLength,
       multiple,

@@ -1,0 +1,78 @@
+body {
+  background-color: #fafafa;
+}
+
+/* Anchors */
+.anchor,
+.anchor:active,
+.anchor:focus,
+.anchor:hover {
+  color: #000;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+}
+.anchor-icon {
+  font-size: 90%;
+  padding-top: .1em;
+  position: absolute;
+  left: -.8em;
+  opacity: 0;
+}
+h1 a:focus .anchor-icon,
+h1:hover .anchor-icon,
+h2 a:focus .anchor-icon,
+h2:hover .anchor-icon,
+h3 a:focus .anchor-icon,
+h3:hover .anchor-icon,
+h4 a:focus .anchor-icon,
+h4:hover .anchor-icon {
+  opacity: .5;
+}
+
+.checkbox:last-child,
+.radio:last-child {
+  margin-bottom: 0;
+}
+
+/* Example Sections */
+.example-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.example-section h6 {
+  color: #959595;
+  float: left;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+.example-section .example {
+  padding: 15px;
+}
+
+.example-toggle-code {
+  display: block;
+  float: right;
+  font-size: 12px;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.example-section pre {
+  border-color: #ddd;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-width: 1px 0 0 0;
+  margin: 0;
+  padding: 15px 18px;
+}
+
+.example-section .form-group {
+  margin: 10px 0 0;
+}
