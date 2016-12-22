@@ -7,10 +7,16 @@ const labelKey = 'name';
 
 let filterOptions = {
   caseSensitive: false,
+  ignoreDiacritics: true,
   fields: [],
 };
 let isTokenized = false;
 let text = 'Ca';
+
+const optionsWithDiacritics = [
+  'Français',
+  'Español',
+];
 
 describe('defaultFilterBy', () => {
 
@@ -131,4 +137,23 @@ describe('defaultFilterBy', () => {
       expect(results.length).to.equal(0);
     }
   );
+
+  it('ignores diacritical marks when filtering', () => {
+    const results = optionsWithDiacritics.filter(o => (
+      defaultFilterBy(o, labelKey, isTokenized, 'franc', filterOptions)
+    ));
+
+    expect(results).to.deep.equal(['Français']);
+  });
+
+  it('considers diacritical marks when filtering', () => {
+    const results = optionsWithDiacritics.filter(o => (
+      defaultFilterBy(o, labelKey, isTokenized, 'franc', {
+        ...filterOptions,
+        ignoreDiacritics: false,
+      })
+    ));
+
+    expect(results.length).to.equal(0);
+  });
 });

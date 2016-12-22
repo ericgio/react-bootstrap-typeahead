@@ -1,11 +1,19 @@
 import {isFunction, some} from 'lodash';
+
+import stripDiacritics from './stripDiacritics';
 import warn from './warn';
 
-function isMatch(input, string, caseSensitive) {
+function isMatch(input, string, {caseSensitive, ignoreDiacritics}) {
   if (!caseSensitive) {
     input = input.toLowerCase();
     string = string.toLowerCase();
   }
+
+  if (ignoreDiacritics) {
+    input = stripDiacritics(input);
+    string = stripDiacritics(string);
+  }
+
   return string.indexOf(input) !== -1;
 }
 
@@ -24,10 +32,9 @@ export default function defaultFilterBy(
     return false;
   }
 
-  const {caseSensitive} = filterOptions;
   const fields = filterOptions.fields.slice();
 
-  if (isFunction(labelKey) && isMatch(text, labelKey(option), caseSensitive)) {
+  if (isFunction(labelKey) && isMatch(text, labelKey(option), filterOptions)) {
     return true;
   }
 
@@ -44,7 +51,7 @@ export default function defaultFilterBy(
       'You cannot filter by properties when `option` is a string.'
     );
 
-    return isMatch(text, option, caseSensitive);
+    return isMatch(text, option, filterOptions);
   }
 
   return some(fields, field => {
@@ -61,6 +68,6 @@ export default function defaultFilterBy(
       value = value + '';
     }
 
-    return isMatch(text, value, caseSensitive);
+    return isMatch(text, value, filterOptions);
   });
 }

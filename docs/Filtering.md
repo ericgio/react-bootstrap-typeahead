@@ -1,12 +1,21 @@
 # Filtering
 By default, the component will filter results based on a case-insensitive string match between the input string and the `labelKey` property of each option (or the option itself, if an array of strings is passed). You can customize the filtering a few ways:
 
-### `caseSensitive` prop
-Setting this prop to `true` changes the string match to be, you guessed it, case-sensitive. Defaults to `false`.
+### `caseSensitive`
+Setting to `true` changes the string match to be, you guessed it, case-sensitive. Defaults to `false`.
 ```jsx
 <Typeahead
   ...
   caseSensitive
+/>
+```
+
+### `ignoreDiacritics`
+By default, the component ignores accents and other diacritical marks when performing string matches. Set this prop to `false` to override that setting and perform a strict match.
+```jsx
+<Typeahead
+  ...
+  ignoreDiacritics={false}
 />
 ```
 

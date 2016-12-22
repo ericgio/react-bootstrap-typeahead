@@ -69,6 +69,10 @@ const Typeahead = React.createClass({
       PropTypes.func,
     ]),
     /**
+     * Whether the filter should ignore accents and other diacritical marks.
+     */
+    ignoreDiacritics: PropTypes.bool,
+    /**
      * Indicate whether an asynchromous data fetch is happening.
      */
     isLoading: PropTypes.bool,
@@ -145,6 +149,7 @@ const Typeahead = React.createClass({
       defaultSelected: [],
       dropup: false,
       filterBy: [],
+      ignoreDiacritics: true,
       isLoading: false,
       labelKey: 'label',
       maxResults: 100,
@@ -195,12 +200,18 @@ const Typeahead = React.createClass({
   },
 
   componentWillMount() {
-    const {allowNew, caseSensitive, filterBy, labelKey} = this.props;
+    const {
+      allowNew,
+      caseSensitive,
+      filterBy,
+      ignoreDiacritics,
+      labelKey,
+    } = this.props;
 
     warn(
-      !(typeof filterBy === 'function' && caseSensitive),
-      'Because you have defined a `filterBy` callback, the `caseSensitive` ' +
-      'prop will be ignored.'
+      !(typeof filterBy === 'function' && (caseSensitive || !ignoreDiacritics)),
+      'Your `filterBy` function will override the `caseSensitive` and ' +
+      '`ignoreDiacritics` props.'
     );
 
     warn(
@@ -259,7 +270,14 @@ const Typeahead = React.createClass({
   },
 
   _getFilteredResults() {
-    const {caseSensitive, labelKey, minLength, multiple, options} = this.props;
+    const {
+      caseSensitive,
+      ignoreDiacritics,
+      labelKey,
+      minLength,
+      multiple,
+      options,
+    } = this.props;
     const {selected, text} = this.state;
 
     if (text.length < minLength) {
@@ -274,7 +292,7 @@ const Typeahead = React.createClass({
         labelKey,
         multiple && !!find(selected, o => isEqual(o, option)),
         text,
-        {caseSensitive, fields}
+        {caseSensitive, ignoreDiacritics, fields}
       );
     }
 
