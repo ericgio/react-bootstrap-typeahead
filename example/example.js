@@ -20,6 +20,8 @@ import '../css/Token.css';
 import '../css/Typeahead.css';
 
 const bigData = range(0, 2000).map(option => option.toString());
+
+const LABEL_KEY = 'name';
 const PRESELECTED_COUNT = 4;
 
 const Example = React.createClass({
@@ -30,6 +32,7 @@ const Example = React.createClass({
       allowNew: false,
       bodyContainer: false,
       bsSize: undefined,
+      caseSensitive: false,
       clearButton: false,
       customLabelKey: false,
       customMenu: false,
@@ -53,6 +56,7 @@ const Example = React.createClass({
       allowNew,
       bodyContainer,
       bsSize,
+      caseSensitive,
       clearButton,
       customLabelKey,
       customMenu,
@@ -73,6 +77,7 @@ const Example = React.createClass({
       allowNew,
       bodyContainer,
       bsSize,
+      caseSensitive,
       clearButton,
       disabled,
       dropup,
@@ -111,7 +116,7 @@ const Example = React.createClass({
         <div className="container">
           <Typeahead
             {...props}
-            labelKey={customLabelKey ? this._labelKey : 'name'}
+            labelKey={customLabelKey ? this._labelKey : LABEL_KEY}
             name="typeahead"
             onChange={selected => this.setState({selected})}
             onInputChange={text => this.setState({text})}
@@ -132,6 +137,12 @@ const Example = React.createClass({
                 name="preSelected"
                 onChange={this._handleChange}>
                 Pre-populate the input
+              </Checkbox>
+              <Checkbox
+                checked={caseSensitive}
+                name="caseSensitive"
+                onChange={this._handleChange}>
+                Case-sensitive filtering
               </Checkbox>
               <Checkbox
                 checked={clearButton}
@@ -264,7 +275,7 @@ const Example = React.createClass({
 
   _renderSelectedItems(selected) {
     return selected && selected.length ?
-      selected.map(option => getOptionLabel(option, 'name')).join(', ') :
+      selected.map(option => getOptionLabel(option, LABEL_KEY)).join(', ') :
       <div className="text-muted">No items selected.</div>;
   },
 
