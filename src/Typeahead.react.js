@@ -455,15 +455,22 @@ const Typeahead = React.createClass({
   },
 
   _handleInitialItemChange(initialItem) {
+    const currentItem = this.state.initialItem;
+
+    if (!currentItem) {
+      this.setState({initialItem});
+      return;
+    }
+
     const {labelKey} = this.props;
 
     // Don't update the initial item if it hasn't changed. For custom items,
     // compare the `labelKey` values since a unique id is generated each time,
     // causing the comparison to always return false otherwise.
     if (
-      isEqual(initialItem, this.state.initialItem) ||
+      isEqual(initialItem, currentItem) ||
       (initialItem.customOption &&
-       initialItem[labelKey] === this.state.initialItem[labelKey])
+       initialItem[labelKey] === currentItem[labelKey])
     ) {
       return;
     }
