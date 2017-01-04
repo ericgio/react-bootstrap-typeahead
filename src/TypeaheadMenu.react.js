@@ -9,6 +9,8 @@ import MenuItem from './MenuItem.react';
 
 import getOptionLabel from './utils/getOptionLabel';
 
+const MATCH_CLASS = 'bootstrap-typeahead-highlight';
+
 const TypeaheadMenu = React.createClass({
   displayName: 'TypeaheadMenu',
 
@@ -79,7 +81,7 @@ const TypeaheadMenu = React.createClass({
       return (
         <MenuItem {...menuItemProps}>
           {newSelectionPrefix}
-          <Highlight search={text}>
+          <Highlight matchClass={MATCH_CLASS} search={text}>
             {option[labelKey]}
           </Highlight>
         </MenuItem>
@@ -91,7 +93,7 @@ const TypeaheadMenu = React.createClass({
         {renderMenuItemChildren(this.props, option, idx)}
       </MenuItem> :
       <MenuItem {...menuItemProps}>
-        <Highlight search={text}>
+        <Highlight matchClass={MATCH_CLASS} search={text}>
           {getOptionLabel(option, labelKey)}
         </Highlight>
       </MenuItem>;
