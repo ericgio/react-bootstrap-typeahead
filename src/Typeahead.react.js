@@ -332,7 +332,6 @@ const Typeahead = React.createClass({
   _renderInput(results) {
     const {
       bsSize,
-      clearButton,
       disabled,
       isLoading,
       labelKey,
@@ -350,7 +349,7 @@ const Typeahead = React.createClass({
         {...inputProps}
         activeIndex={activeIndex}
         activeItem={activeItem}
-        hasAux={(clearButton && selected.length) || isLoading}
+        hasAux={!!this._renderAux()}
         hintText={getHintText({
           activeItem,
           initialItem,
@@ -423,13 +422,13 @@ const Typeahead = React.createClass({
   },
 
   _renderAux() {
-    const {bsSize, clearButton, isLoading} = this.props;
+    const {bsSize, clearButton, disabled, isLoading} = this.props;
 
     if (isLoading) {
       return <Loader bsSize={bsSize} />;
     }
 
-    if (this.state.selected.length && clearButton) {
+    if (clearButton && !disabled && this.state.selected.length) {
       return (
         <ClearButton
           bsSize={bsSize}
