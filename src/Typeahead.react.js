@@ -301,6 +301,7 @@ const Typeahead = React.createClass({
 
   blur() {
     this.refs.input.blur();
+    this._hideDropdown();
   },
 
   /**
