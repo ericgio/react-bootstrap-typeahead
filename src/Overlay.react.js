@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import {isEqual, throttle} from 'lodash';
 import React, {Children, cloneElement, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
@@ -49,16 +50,20 @@ const Overlay = React.createClass({
   },
 
   componentDidMount() {
-    this._maybeUpdatePosition();
-    window.addEventListener('resize', this._maybeUpdatePosition);
+    this._updatePosition();
+    this._updatePositionThrottled = throttle(this._updatePosition, 100);
+
+    window.addEventListener('resize', this._updatePositionThrottled);
+    window.addEventListener('scroll', this._updatePositionThrottled, true);
   },
 
   componentWillReceiveProps(nextProps) {
-    this._maybeUpdatePosition();
+    this._updatePositionThrottled();
   },
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._maybeUpdatePosition);
+    window.removeEventListener('resize', this._updatePositionThrottled);
+    window.removeEventListener('scroll', this._updatePositionThrottled);
   },
 
   render() {
@@ -88,7 +93,7 @@ const Overlay = React.createClass({
     );
   },
 
-  _maybeUpdatePosition() {
+  _updatePosition() {
     // Positioning is only used when body is the container.
     if (!isBody(this.props.container)) {
       return;
@@ -101,13 +106,17 @@ const Overlay = React.createClass({
     if (targetNode) {
       const {innerHeight, innerWidth, pageYOffset} = window;
       const {bottom, left, top, width} = targetNode.getBoundingClientRect();
-
-      this.setState({
+      const newState = {
         bottom: innerHeight - pageYOffset - top,
         left,
         right: innerWidth - left - width,
         top: pageYOffset + bottom,
-      });
+      };
+
+      // Don't update unless the target element position has changed.
+      if (!isEqual(this.state, newState)) {
+        this.setState(newState);
+      }
     }
   },
 });
