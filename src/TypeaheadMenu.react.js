@@ -90,7 +90,7 @@ const TypeaheadMenu = React.createClass({
 
     return renderMenuItemChildren ?
       <MenuItem {...menuItemProps}>
-        {renderMenuItemChildren(this.props, option, idx)}
+        {renderMenuItemChildren(option, this.props, idx)}
       </MenuItem> :
       <MenuItem {...menuItemProps}>
         <Highlight matchClass={MATCH_CLASS} search={text}>
