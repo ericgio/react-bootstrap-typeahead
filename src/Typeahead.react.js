@@ -249,7 +249,9 @@ const Typeahead = React.createClass({
     const shouldPaginate = paginate && results.length > shownResults;
 
     // Truncate if necessary.
-    results = getTruncatedOptions(results, shownResults);
+    if (shouldPaginate) {
+      results = getTruncatedOptions(results, shownResults);
+    }
 
     // Add the custom option.
     if (allowNew) {
