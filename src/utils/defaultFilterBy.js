@@ -22,9 +22,9 @@ function isMatch(input, string, {caseSensitive, ignoreDiacritics}) {
  */
 export default function defaultFilterBy(
   option,
+  text,
   labelKey,
   isTokenized,
-  text,
   filterOptions
 ) {
   // Don't show selected options in the menu for the multi-select case.

@@ -274,6 +274,7 @@ const Typeahead = React.createClass({
   _getFilteredResults() {
     const {
       caseSensitive,
+      filterBy,
       ignoreDiacritics,
       labelKey,
       minLength,
@@ -286,19 +287,17 @@ const Typeahead = React.createClass({
       return [];
     }
 
-    let {filterBy} = this.props;
-    if (Array.isArray(filterBy)) {
-      const fields = filterBy;
-      filterBy = option => defaultFilterBy(
+    const callback = Array.isArray(filterBy) ?
+      option => defaultFilterBy(
         option,
+        text,
         labelKey,
         multiple && !!find(selected, o => isEqual(o, option)),
-        text,
-        {caseSensitive, ignoreDiacritics, fields}
-      );
-    }
+        {caseSensitive, ignoreDiacritics, fields: filterBy}
+      ) :
+      option => filterBy(option, text);
 
-    return options.filter(filterBy);
+    return options.filter(callback);
   },
 
   blur() {
