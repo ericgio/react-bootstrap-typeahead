@@ -60,18 +60,18 @@ const Token = React.createClass({
 
   _renderToken() {
     const {children, className, disabled, href} = this.props;
-    const classnames = cx('token', className);
+    const classnames = cx('token', {'token-disabled': disabled}, className);
 
     if (href) {
       return (
-        <a className={classnames} disabled={disabled} href={href}>
+        <a className={classnames} href={href}>
           {children}
         </a>
       );
     }
 
     return (
-      <div className={classnames} disabled={disabled}>
+      <div className={classnames}>
         {children}
       </div>
     );
