@@ -1,5 +1,4 @@
 import React from 'react';
-import {Checkbox} from 'react-bootstrap';
 
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';

@@ -7,7 +7,7 @@ function getHintText({
   labelKey,
   minLength,
   selected,
-  text
+  text,
 }) {
   // Don't display a hint under the following conditions:
   if (
