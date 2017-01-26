@@ -7,6 +7,7 @@ const props = {
   activeItem: null,
   initialItem: {name: 'Alabama'},
   labelKey: 'name',
+  minLength: 0,
   selected: [],
   text: 'alA',
 };
@@ -47,5 +48,13 @@ describe('getHintText', () => {
     const hintText = getHintText({...props, initialItem});
     expect(hintText).to.equal('');
   });
+
+  it(
+    'returns an empty string when the `minLength` threshold is not met',
+    () => {
+      const hintText = getHintText({...props, minLength: 4});
+      expect(hintText).to.equal('');
+    }
+  );
 
 });

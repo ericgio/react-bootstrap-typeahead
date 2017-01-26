@@ -1,11 +1,20 @@
 import getOptionLabel from './getOptionLabel';
 import stripDiacritics from './stripDiacritics';
 
-function getHintText({activeItem, initialItem, labelKey, selected, text}) {
+function getHintText({
+  activeItem,
+  initialItem,
+  labelKey,
+  minLength,
+  selected,
+  text
+}) {
   // Don't display a hint under the following conditions:
   if (
     // No text entered.
     !text ||
+    // Text doesn't meet `minLength` threshold.
+    text.length < minLength ||
     // No item in the menu.
     !initialItem ||
     // The initial item is a custom option.

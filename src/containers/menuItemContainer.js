@@ -23,14 +23,14 @@ const menuItemContainer = Component => (
       onMenuItemClick: PropTypes.func.isRequired,
     },
 
+    componentWillMount() {
+      this._updateInitialItem(this.props);
+    },
+
     componentWillReceiveProps(nextProps, nextContext) {
       const currentlyActive = this.context.activeIndex === this.props.position;
       const {option, position} = nextProps;
-      const {
-        activeIndex,
-        onActiveItemChange,
-        onInitialItemChange,
-      } = nextContext;
+      const {activeIndex, onActiveItemChange} = nextContext;
 
       if (position == null) {
         return;
@@ -46,9 +46,7 @@ const menuItemContainer = Component => (
         !currentlyActive && onActiveItemChange(option);
       }
 
-      if (position === 0) {
-        onInitialItemChange(option);
-      }
+      this._updateInitialItem(nextProps);
     },
 
     render() {
@@ -62,6 +60,13 @@ const menuItemContainer = Component => (
           onClick={() => onMenuItemClick(option)}
         />
       );
+    },
+
+    _updateInitialItem(props) {
+      const {option, position} = props;
+      if (position === 0) {
+        this.context.onInitialItemChange(option);
+      }
     },
   })
 );
