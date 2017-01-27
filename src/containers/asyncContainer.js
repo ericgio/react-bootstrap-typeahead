@@ -31,7 +31,11 @@ const asyncContainer = Typeahead => {
        */
       options: PropTypes.array,
       /**
-       * Text to display in the menu while the request is pending.
+       * Text displayed in the menu when there is no user input.
+       */
+      promptText: PropTypes.string,
+      /**
+       * Text displayed in the menu while the request is pending.
        */
       searchText: PropTypes.string,
       /**

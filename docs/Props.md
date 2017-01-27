@@ -1,4 +1,6 @@
 # Props
+
+## `<Typeahead>` Props
 Name | Type | Default | Description
 -----|------|---------|------------
 align | string | 'justify' | Specify menu alignment. The default value is `justify`, which makes the menu as wide as the input and truncates long values. Specifying `left` or `right` will align the menu to that side and the width will be determined by the length of menu item values.
@@ -33,3 +35,13 @@ renderMenu | function | | Callback for custom menu rendering.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
+
+## `<AsyncTypeahead>` Props
+Name | Type | Default | Description
+-----|------|---------|------------
+delay | number | `200` | Delay, in milliseconds, before performing search.
+onSearch `required` | function | | Callback to perform when the search is executed.
+options | array | `[]` | Options to be passed to the typeahead. Will typically be the query results, but can also be initial default options.
+promptText | string | 'Type to search...' | Text displayed in the menu when there is no user input.
+searchText | string | 'Searching...' | Text to display in the menu while the request is pending.
+useCache | bool | `true` | Whether or not the component should cache query results.
