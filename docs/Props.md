@@ -15,12 +15,12 @@ disabled | boolean | | Whether to disable the input. Will also disable selection
 dropup | boolean | false | Specify whether the menu should appear above the input.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
-ignoreDiacritics | boolean | `true` | Whether the filter should ignore accents and other diacritical marks.
+ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
-maxHeight | number | `300` | Maximum height of the dropdown menu, in px.
-maxResults | number | `100` | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
-minLength | number | `0` | Number of input characters that must be entered before showing results.
-multiple | boolean | `false` | Whether or not multiple selections are allowed.
+maxHeight | number | 300 | Maximum height of the dropdown menu, in px.
+maxResults | number | 100 | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
+minLength | number | 0 | Number of input characters that must be entered before showing results.
+multiple | boolean | false | Whether or not multiple selections are allowed.
 name | string | | Name property for the input
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Callback fired when the input is blurred. Receives an event.
@@ -28,7 +28,7 @@ onChange | function | | Callback fired whenever items are added or removed. Rece
 onFocus | function | | Callback fired when the input is focused. Receives an event.
 onInputChange | function | | Callback fired when user-input text changes. Receives the text string.
 options `required` | array | | Full set of options, including any pre-selected options.
-paginate | boolean | `true` | Give user the ability to display additional results if the number of results exceeds `maxResults`.
+paginate | boolean | true | Give user the ability to display additional results if the number of results exceeds `maxResults`.
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
 renderMenu | function | | Callback for custom menu rendering.
@@ -39,9 +39,9 @@ selected | array | `[]` | The selected option(s) displayed in the input. Use thi
 ## `<AsyncTypeahead>` Props
 Name | Type | Default | Description
 -----|------|---------|------------
-delay | number | `200` | Delay, in milliseconds, before performing search.
+delay | number | 200 | Delay, in milliseconds, before performing search.
 onSearch `required` | function | | Callback to perform when the search is executed.
 options | array | `[]` | Options to be passed to the typeahead. Will typically be the query results, but can also be initial default options.
 promptText | string | 'Type to search...' | Text displayed in the menu when there is no user input.
 searchText | string | 'Searching...' | Text to display in the menu while the request is pending.
-useCache | bool | `true` | Whether or not the component should cache query results.
+useCache | bool | true | Whether or not the component should cache query results.
