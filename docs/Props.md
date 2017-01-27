@@ -1,9 +1,9 @@
 # Props
 
-## `<Typeahead>` Props
+### `<Typeahead>`
 Name | Type | Default | Description
 -----|------|---------|------------
-align | string | 'justify' | Specify menu alignment. The default value is `justify`, which makes the menu as wide as the input and truncates long values. Specifying `left` or `right` will align the menu to that side and the width will be determined by the length of menu item values.
+align | One of: `justify`, `left`, `right` | 'justify' | Specify menu alignment. The default value is `justify`, which makes the menu as wide as the input and truncates long values. Specifying `left` or `right` will align the menu to that side and the width will be determined by the length of menu item values.
 allowNew | boolean | false | Allows the creation of new selections on the fly. Any new items will be added to the list of selections, but not the list of original options unless handled as such by `Typeahead`'s parent. The newly added item will *always* be returned as an object even if the other options are simply strings, so be sure your `onChange` callback can handle this.
 autoFocus | boolean | false | Autofocus the input when the component initially mounts.
 bodyContainer | boolean | false | Whether to render the menu inline or attach to `document.body`.
@@ -36,7 +36,7 @@ renderMenuItemChildren | function | | Provides a hook for customized rendering o
 renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
 
-## `<AsyncTypeahead>` Props
+### `<AsyncTypeahead>`
 Name | Type | Default | Description
 -----|------|---------|------------
 delay | number | 200 | Delay, in milliseconds, before performing search.
