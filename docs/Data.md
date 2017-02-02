@@ -44,6 +44,6 @@ var myData = [
 You may have unexpected results if your data contains duplicate options. For this reason, it is highly recommended that you pass in objects with unique identifiers (eg: an id) if possible.
 
 ### Data Sources
-The component simply handles rendering and selection of the data that is passed in. It is agnostic about the data source (eg: an async endpoint), which should be handled separately.
+The component simply handles rendering and selection of the data that is passed in. It is agnostic about the data source, which should be handled separately. The [`AsyncTypeahead`](API.md#asynctypeahead) component is provided to help in cases where data is being fetched asynchronously from an endpoint.
 
 [Next: Filtering](Filtering.md)

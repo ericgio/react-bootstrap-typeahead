@@ -45,3 +45,5 @@ options | array | `[]` | Options to be passed to the typeahead. Will typically b
 promptText | string | 'Type to search...' | Text displayed in the menu when there is no user input.
 searchText | string | 'Searching...' | Text to display in the menu while the request is pending.
 useCache | bool | true | Whether or not the component should cache query results.
+
+[Next: API Reference](API.md)

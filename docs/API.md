@@ -20,9 +20,11 @@ The primary component provided by the module.
 
 #### Props
 
-##### `filterBy(option, text)`
+##### `filterBy`
+See full documentation in the [Filtering section](Filtering.md#filterby).
 
-##### `labelKey(option)`
+##### `labelKey`, `renderMenu`, `renderMenuItemChildren`, and `renderToken`
+See full documentation in the [Rendering section](Rendering.md).
 
 ##### `onChange(selectedItems)`
 Called when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even multi-selection is not enabled.
@@ -33,19 +35,8 @@ Called when the user changes the value of the input. `text` is a string.
 ##### `onBlur(e)` & `onFocus(e)`
 As with a normal text input, these are called when the typeahead input is focused or blurred.
 
-##### `renderMenu(results, menuProps)`
-Provides complete flexibility for rendering the typeahead's menu. `results` are the subset of options after they have been filtered and paginated. `menuProps` are any menu-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `Menu`.
-
-Along with stylistic customization, the `renderMenu` hook also allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or wrap your own menu item components with `menuItemContainer` to ensure proper behavior.
-
-##### `renderMenuItemChildren(result, props)`
-Allows control over rendering of individual menu item contents while maintaining most of the menu behaviors.
-
-##### `renderToken(selectedItem, onRemove)`
-Provides control of token rendering within the multi-select `Typeahead`.
-
 ### `<AsyncTypeahead>`
-An enhanced version of the normal `Typeahead` component for use when performing asynchronous searches. Provides debouncing of user input; optional query caching; and search prompt, empty results, and pending request behaviors.
+An enhanced version of the normal `Typeahead` component for use when performing asynchronous searches. Provides debouncing of user input, optional query caching, and search prompt, empty results, and pending request behaviors.
 
 ```jsx
 <AsyncTypeahead
@@ -106,7 +97,7 @@ const TypeaheadMenuItem = menuItemContainer(MenuItem);
 <Typeahead
   renderMenu={(results, menuProps) => (
     <Menu {...menuProps}>
-      {results.map((result, ) => (
+      {results.map((result, props) => (
         <TypeaheadMenuItem>
           {result.label}
         </TypeaheadMenuItem>
@@ -127,8 +118,8 @@ const MyCustomToken = tokenContainer(props => (
 <Typeahead
   multiple
   options={options}
-  renderToken={(option, onRemove) => (
-    <MyCustomToken onRemove={onRemove} option={option} />
+  renderToken={(selectedItem, onRemove) => (
+    <MyCustomToken onRemove={onRemove} option={selectedItem} />
   )}
 />
 ```

@@ -18,18 +18,20 @@ var Typeahead = require('react-bootstrap-typeahead').Typeahead; // CommonJS
 This prop was deprecated in v0.9.0 and is now gone.
 
 ### `renderMenuItemChildren`
-The signature for the `renderMenuItemChildren` callback was changed such that the data item is now the first argument and props are second. This felt more logical and all such `render` functions follow a similar pattern.
+The signature for the `renderMenuItemChildren` callback was changed such that the data item is now the first argument and props are second. This felt more logical and [all such `render` functions](Rendering.md#rendermenu) follow a similar pattern.
 
 ```jsx
 // v0.10.x
-renderMenuItemChildren(props, item, index) {
+renderMenuItemChildren(props, result, index) {
   // Rendering code here...
 }
 
 // v1.0
-renderMenuItemChildren(item, props, index) {
+renderMenuItemChildren(result, props, index) {
   // Rendering code here...
 }
 ```
 
-As far as I know that's everything. If you come across something I missed, please open an issue. Thanks!
+That should be everything. If you come across something I missed, please open an issue. Thanks!
+
+[Next: Basic Usage](Usage.md)

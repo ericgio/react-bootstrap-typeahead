@@ -1,5 +1,5 @@
 # Basic Usage
-The component behaves similar to other form elements. It requires an array of data options to be filtered and displayed.
+The typeahead behaves similarly to other form elements. It requires an array of data options to be filtered and displayed.
 ```jsx
 <Typeahead
   onChange={this._handleChange}
