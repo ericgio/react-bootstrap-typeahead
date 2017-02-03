@@ -10,4 +10,8 @@ const Loader = ({bsSize}) => (
   />
 );
 
+Loader.propTypes = {
+  bsSize: React.PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+};
+
 export default Loader;
