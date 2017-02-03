@@ -3,6 +3,9 @@ import React from 'react';
 
 import {AsyncTypeahead} from '../../src/';
 
+// Polyfill Promises for IE and older browsers.
+require('es6-promise').polyfill();
+
 /* example-start */
 const AsyncExample = React.createClass({
   getInitialState() {
