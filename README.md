@@ -50,5 +50,9 @@ Recent versions of the following browsers are supported:
 - IE (10/11)
 - Safari
 
+Special thanks to [BrowserStack](https://www.browserstack.com) for providing cross-browser testing support.
+
+[![http://i.imgur.com/9aLP6Fx.png?1](http://i.imgur.com/9aLP6Fx.png?1)](https://www.browserstack.com)
+
 ## License
 [MIT](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/LICENSE.md)
