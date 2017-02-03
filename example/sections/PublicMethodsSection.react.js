@@ -1,11 +1,11 @@
 import React from 'react';
 
-import PublicMethodsExample from '../examples/PublicMethodsExample.react';
-import PublicMethodsExampleCode from '!raw!../examples/PublicMethodsExample.react';
+import PublicMethodsExample from '../examples/PublicMethodsExample';
+import PublicMethodsExampleCode from '!raw!../examples/PublicMethodsExample';
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
 
 const PublicMethodsSection = props => (
   <Section title={props.title}>

@@ -3,8 +3,8 @@ import {noop, range} from 'lodash';
 import React, {PropTypes} from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import MenuItem, {BaseMenuItem} from '../src/MenuItem.react';
-import TypeaheadMenu from '../src/TypeaheadMenu.react';
+import MenuItem, {BaseMenuItem} from '../src/MenuItem';
+import TypeaheadMenu from '../src/TypeaheadMenu';
 
 import options from '../example/exampleData';
 

@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import TextInput from '../src/TextInput.react';
+import TextInput from '../src/TextInput';
 
 describe('<TextInput>', () => {
   it('renders a text input', () => {

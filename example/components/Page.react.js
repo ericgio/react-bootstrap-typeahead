@@ -1,10 +1,10 @@
 import React, {Children, PropTypes} from 'react';
 import {Col, Jumbotron, NavItem, Row} from 'react-bootstrap';
 
-import Container from './Container.react';
-import PageFooter from './PageFooter.react';
-import PageHeader from './PageHeader.react';
-import PageMenu from './PageMenu.react';
+import Container from './Container';
+import PageFooter from './PageFooter';
+import PageHeader from './PageHeader';
+import PageMenu from './PageMenu';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 

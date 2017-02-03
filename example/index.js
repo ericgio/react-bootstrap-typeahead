@@ -3,15 +3,15 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import Page from './components/Page.react';
+import Page from './components/Page';
 
-import AsyncSection from './sections/AsyncSection.react';
-import BasicSection from './sections/BasicSection.react';
-import BehaviorsSection from './sections/BehaviorsSection.react';
-import CustomSelectionsSection from './sections/CustomSelectionsSection.react';
-import FilteringSection from './sections/FilteringSection.react';
-import PublicMethodsSection from './sections/PublicMethodsSection.react';
-import RenderingSection from './sections/RenderingSection.react';
+import AsyncSection from './sections/AsyncSection';
+import BasicSection from './sections/BasicSection';
+import BehaviorsSection from './sections/BehaviorsSection';
+import CustomSelectionsSection from './sections/CustomSelectionsSection';
+import FilteringSection from './sections/FilteringSection';
+import PublicMethodsSection from './sections/PublicMethodsSection';
+import RenderingSection from './sections/RenderingSection';
 
 import '../css/ClearButton.css';
 import '../css/Loader.css';

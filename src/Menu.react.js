@@ -3,7 +3,7 @@
 import cx from 'classnames';
 import React, {Children, PropTypes} from 'react';
 
-import {BaseMenuItem} from './MenuItem.react';
+import {BaseMenuItem} from './MenuItem';
 
 const BaseMenu = props => (
   <ul

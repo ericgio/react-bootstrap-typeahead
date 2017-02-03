@@ -1,11 +1,11 @@
 import React from 'react';
 
-import CustomSelectionsExample from '../examples/CustomSelectionsExample.react';
-import CustomSelectionsExampleCode from '!raw!../examples/CustomSelectionsExample.react';
+import CustomSelectionsExample from '../examples/CustomSelectionsExample';
+import CustomSelectionsExampleCode from '!raw!../examples/CustomSelectionsExample';
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
 
 const CustomSelections = props => (
   <Section title={props.title}>

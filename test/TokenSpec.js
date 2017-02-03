@@ -3,7 +3,7 @@ import {noop} from 'lodash';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import Token from '../src/Token.react';
+import Token from '../src/Token';
 
 describe('<Token>', () => {
   const basicToken = <Token>Basic</Token>;

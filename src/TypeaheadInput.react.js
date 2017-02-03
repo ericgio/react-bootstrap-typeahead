@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {head} from 'lodash';
 import React, {PropTypes} from 'react';
 
-import TextInput from './TextInput.react';
+import TextInput from './TextInput';
 
 import {RIGHT, TAB} from './utils/keyCode';
 
@@ -18,7 +18,7 @@ const TypeaheadInput = React.createClass({
 
   /**
    * In addition to the propTypes below, the following props are automatically
-   * passed down by `Typeahead.react`:
+   * passed down by `Typeahead`:
    *
    *  - activeIndex
    *  - activeItem

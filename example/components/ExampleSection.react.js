@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CodeSample from '../components/CodeSample.react';
+import CodeSample from '../components/CodeSample';
 
 const ExampleSection = React.createClass({
   getInitialState() {

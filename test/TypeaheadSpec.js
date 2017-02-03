@@ -3,9 +3,9 @@ import {range} from 'lodash';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import TokenizerInput from '../src/TokenizerInput.react';
-import Typeahead from '../src/Typeahead.react';
-import TypeaheadInput from '../src/TypeaheadInput.react';
+import TokenizerInput from '../src/TokenizerInput';
+import Typeahead from '../src/Typeahead';
+import TypeaheadInput from '../src/TypeaheadInput';
 
 import states from '../example/exampleData';
 

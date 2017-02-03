@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import Anchor from './Anchor.react';
+import Anchor from './Anchor';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 

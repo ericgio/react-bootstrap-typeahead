@@ -1,11 +1,11 @@
 /* eslint-disable object-curly-spacing */
 
 // Components
-export AsyncTypeahead from './AsyncTypeahead.react';
-export Menu from './Menu.react';
-export MenuItem from './MenuItem.react';
-export Token from './Token.react';
-export Typeahead from './Typeahead.react';
+export AsyncTypeahead from './AsyncTypeahead';
+export Menu from './Menu';
+export MenuItem from './MenuItem';
+export Token from './Token';
+export Typeahead from './Typeahead';
 
 // HOCs
 export asyncContainer from './containers/asyncContainer';

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import BasicExample from '../examples/BasicExample.react';
-import BasicExampleCode from '!raw!../examples/BasicExample.react';
+import BasicExample from '../examples/BasicExample';
+import BasicExampleCode from '!raw!../examples/BasicExample';
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
 
 const BasicSection = props => (
   <Section title={props.title}>

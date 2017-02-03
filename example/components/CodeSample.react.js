@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Markdown from './Markdown.react';
+import Markdown from './Markdown';
 
 const START_STR = '/* example-start */';
 const END_STR = '/* example-end */';

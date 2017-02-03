@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 
-import Anchor from './Anchor.react';
-import ScrollSpy from './ScrollSpy.react';
+import Anchor from './Anchor';
+import ScrollSpy from './ScrollSpy';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 

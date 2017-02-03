@@ -5,12 +5,12 @@ import {find, isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
 
-import ClearButton from './ClearButton.react';
-import Loader from './Loader.react';
-import Overlay from './Overlay.react';
-import TokenizerInput from './TokenizerInput.react';
-import TypeaheadInput from './TypeaheadInput.react';
-import TypeaheadMenu from './TypeaheadMenu.react';
+import ClearButton from './ClearButton';
+import Loader from './Loader';
+import Overlay from './Overlay';
+import TokenizerInput from './TokenizerInput';
+import TypeaheadInput from './TypeaheadInput';
+import TypeaheadMenu from './TypeaheadMenu';
 
 import addCustomOption from './utils/addCustomOption';
 import defaultFilterBy from './utils/defaultFilterBy';

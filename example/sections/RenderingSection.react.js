@@ -1,14 +1,14 @@
 import React from 'react';
 
-import LabelKeyExample from '../examples/LabelKeyExample.react';
-import LabelKeyExampleCode from '!raw!../examples/LabelKeyExample.react';
-import RenderingExample from '../examples/RenderingExample.react';
-import RenderingExampleCode from '!raw!../examples/RenderingExample.react';
+import LabelKeyExample from '../examples/LabelKeyExample';
+import LabelKeyExampleCode from '!raw!../examples/LabelKeyExample';
+import RenderingExample from '../examples/RenderingExample';
+import RenderingExampleCode from '!raw!../examples/RenderingExample';
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
-import Title from '../components/Title.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
+import Title from '../components/Title';
 
 const RenderingSection = props => (
   <Section title={props.title}>

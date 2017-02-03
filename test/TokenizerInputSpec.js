@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import TokenizerInput from '../src/TokenizerInput.react';
+import TokenizerInput from '../src/TokenizerInput';
 
 import options from '../example/exampleData';
 

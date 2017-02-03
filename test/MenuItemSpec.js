@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import {BaseMenuItem} from '../src/MenuItem.react';
+import {BaseMenuItem} from '../src/MenuItem';
 
 let clickValue;
 

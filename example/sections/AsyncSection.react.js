@@ -1,11 +1,11 @@
 import React from 'react';
 
-import AsyncExample from '../examples/AsyncExample.react';
-import AsyncExampleCode from '!raw!../examples/AsyncExample.react';
+import AsyncExample from '../examples/AsyncExample';
+import AsyncExampleCode from '!raw!../examples/AsyncExample';
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
 
 const AsyncSection = props => (
   <Section title={props.title}>

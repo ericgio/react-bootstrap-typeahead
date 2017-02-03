@@ -1,22 +1,22 @@
 import React from 'react';
 
-import BasicBehaviorsExample from '../examples/BasicBehaviorsExample.react';
-import BasicBehaviorsExampleCode from '!raw!../examples/BasicBehaviorsExample.react';
-import BodyContainerExample from '../examples/BodyContainerExample.react';
-import BodyContainerExampleCode from '!raw!../examples/BodyContainerExample.react';
-import InputSizeExample from '../examples/InputSizeExample.react';
-import InputSizeExampleCode from '!raw!../examples/InputSizeExample.react';
-import MenuAlignExample from '../examples/MenuAlignExample.react';
-import MenuAlignExampleCode from '!raw!../examples/MenuAlignExample.react';
-import PaginationExample from '../examples/PaginationExample.react';
-import PaginationExampleCode from '!raw!../examples/PaginationExample.react';
-import SelectionsExample from '../examples/SelectionsExample.react';
-import SelectionsExampleCode from '!raw!../examples/SelectionsExample.react';
+import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
+import BasicBehaviorsExampleCode from '!raw!../examples/BasicBehaviorsExample';
+import BodyContainerExample from '../examples/BodyContainerExample';
+import BodyContainerExampleCode from '!raw!../examples/BodyContainerExample';
+import InputSizeExample from '../examples/InputSizeExample';
+import InputSizeExampleCode from '!raw!../examples/InputSizeExample';
+import MenuAlignExample from '../examples/MenuAlignExample';
+import MenuAlignExampleCode from '!raw!../examples/MenuAlignExample';
+import PaginationExample from '../examples/PaginationExample';
+import PaginationExampleCode from '!raw!../examples/PaginationExample';
+import SelectionsExample from '../examples/SelectionsExample';
+import SelectionsExampleCode from '!raw!../examples/SelectionsExample';
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
-import Title from '../components/Title.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
+import Title from '../components/Title';
 
 const BehaviorsSection = props => (
   <Section title={props.title}>

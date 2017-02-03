@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import AutosizeInput from 'react-input-autosize';
 
-import Token from './Token.react';
+import Token from './Token';
 
 import getOptionLabel from './utils/getOptionLabel';
 import {BACKSPACE} from './utils/keyCode';
@@ -21,7 +21,7 @@ const TokenizerInput = React.createClass({
 
   /**
    * In addition to the propTypes below, the following props are automatically
-   * passed down by `Typeahead.react`:
+   * passed down by `Typeahead`:
    *
    *  - activeIndex
    *  - hasAux

@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import ClearButton from '../src/ClearButton.react';
+import ClearButton from '../src/ClearButton';
 
 describe('<ClearButton>', () => {
 

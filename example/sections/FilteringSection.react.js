@@ -1,14 +1,14 @@
 import React from 'react';
 
-import CustomFilteringExample from '../examples/CustomFilteringExample.react';
-import CustomFilteringExampleCode from '!raw!../examples/CustomFilteringExample.react';
-import FilteringExample from '../examples/FilteringExample.react';
-import FilteringExampleCode from '!raw!../examples/FilteringExample.react';
+import CustomFilteringExample from '../examples/CustomFilteringExample';
+import CustomFilteringExampleCode from '!raw!../examples/CustomFilteringExample';
+import FilteringExample from '../examples/FilteringExample';
+import FilteringExampleCode from '!raw!../examples/FilteringExample';
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
-import Title from '../components/Title.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
+import Title from '../components/Title';
 
 const FilteringSection = props => (
   <Section title={props.title}>

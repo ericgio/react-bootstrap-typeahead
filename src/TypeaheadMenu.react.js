@@ -4,8 +4,8 @@ import {pick} from 'lodash';
 import Highlight from 'react-highlighter';
 import React, {PropTypes} from 'react';
 
-import Menu from './Menu.react';
-import MenuItem from './MenuItem.react';
+import Menu from './Menu';
+import MenuItem from './MenuItem';
 
 import getOptionLabel from './utils/getOptionLabel';
 
@@ -16,7 +16,7 @@ const TypeaheadMenu = React.createClass({
 
   /**
    * In addition to the propTypes below, the following props are automatically
-   * passed down by `Typeahead.react`:
+   * passed down by `Typeahead`:
    *
    *  - labelKey
    *  - onPaginate

@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import Loader from '../src/Loader.react';
+import Loader from '../src/Loader';
 
 describe('<Loader>', () => {
 
