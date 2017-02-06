@@ -542,7 +542,7 @@ const Typeahead = React.createClass({
       case RETURN:
         // Prevent submitting forms.
         if (showMenu && activeItem) {
-           this._handleAddOption(activeItem);
+          this._handleAddOption(activeItem);
         } else {
           if (!this.props.formSubmit) {
             e.preventDefault();
