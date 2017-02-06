@@ -16,12 +16,13 @@ const BasicBehaviorsExample = React.createClass({
   },
 
   render() {
-    const {disabled, dropup, minLength} = this.state;
+    const {disabled, dropup, emptyLabel, minLength} = this.state;
 
     return (
       <div>
         <Typeahead
           {...this.state}
+          emptyLabel={emptyLabel ? '' : undefined}
           labelKey="name"
           multiple
           options={options}
@@ -45,6 +46,12 @@ const BasicBehaviorsExample = React.createClass({
             name="minLength"
             onChange={this._handleChange}>
             Require minimum input before showing results (2 chars)
+          </Checkbox>
+          <Checkbox
+            checked={emptyLabel}
+            name="emptyLabel"
+            onChange={this._handleChange}>
+            Hide the menu when there are no results
           </Checkbox>
         </FormGroup>
       </div>
