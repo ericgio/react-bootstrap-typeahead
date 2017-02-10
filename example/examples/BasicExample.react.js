@@ -22,6 +22,7 @@ const BasicExample = React.createClass({
           multiple={multiple}
           options={options}
           placeholder="Choose a state..."
+          multiplePlaceholder="Choose additional states"
         />
         <Checkbox
           checked={multiple}

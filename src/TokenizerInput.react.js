@@ -60,7 +60,7 @@ const TokenizerInput = React.createClass({
   },
 
   render() {
-    const {bsSize, disabled, hasAux, placeholder, selected, value} = this.props;
+    const {bsSize, disabled, hasAux, placeholder, multiplePlaceholder, selected, value} = this.props;
 
     return (
       <div
@@ -99,7 +99,7 @@ const TokenizerInput = React.createClass({
           onChange={this._handleChange}
           onFocus={this.props.onFocus}
           onKeyDown={this._handleKeydown}
-          placeholder={selected.length ? null : placeholder}
+          placeholder={selected.length > 0 ? multiplePlaceholder : placeholder}
           ref="input"
           type="text"
           value={value}

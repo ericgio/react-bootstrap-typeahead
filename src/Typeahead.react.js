@@ -339,11 +339,12 @@ const Typeahead = React.createClass({
       multiple,
       name,
       placeholder,
+      multiplePlaceholder,
       renderToken,
     } = this.props;
     const {activeIndex, activeItem, initialItem, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = {bsSize, disabled, name, placeholder, renderToken};
+    const inputProps = {bsSize, disabled, name, placeholder, multiplePlaceholder, renderToken};
 
     return (
       <Input
