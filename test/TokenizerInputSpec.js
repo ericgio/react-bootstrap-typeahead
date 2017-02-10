@@ -7,6 +7,8 @@ import TokenizerInput from '../src/TokenizerInput';
 import options from '../example/exampleData';
 
 let props = {
+  placeholder: 'select one',
+
   labelKey: 'name',
   options,
   selected: [],

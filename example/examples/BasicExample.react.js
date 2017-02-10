@@ -20,9 +20,9 @@ const BasicExample = React.createClass({
         <Typeahead
           labelKey="name"
           multiple={multiple}
+          multiplePlaceholder="Choose additional states"
           options={options}
           placeholder="Choose a state..."
-          multiplePlaceholder="Choose additional states"
         />
         <Checkbox
           checked={multiple}
