@@ -21,6 +21,7 @@ maxHeight | number | 300 | Maximum height of the dropdown menu, in px.
 maxResults | number | 100 | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
 minLength | number | 0 | Number of input characters that must be entered before showing results.
 multiple | boolean | false | Whether or not multiple selections are allowed.
+multiplePlaceholder | string | | Placeholder text for the input when there is at least one item selected.
 name | string | | Name property for the input
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Callback fired when the input is blurred. Receives an event.

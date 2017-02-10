@@ -99,6 +99,10 @@ const Typeahead = React.createClass({
      */
     multiple: PropTypes.bool,
     /**
+     * Placeholder text for the input when there is at least one item selected.
+     */
+    multiplePlaceholder: PropTypes.string,
+    /**
      * Callback fired when the input is blurred. Receives an event.
      */
     onBlur: PropTypes.func,
