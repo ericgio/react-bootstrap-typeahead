@@ -540,13 +540,14 @@ const Typeahead = React.createClass({
         this._hideDropdown();
         break;
       case RETURN:
-        // Prevent submitting forms.
+        // if menu is shown and we have active item there is no any sense to submit form on <RETURN>
+        if (!this.props.submitFormOnEnter || showMenu && activeItem) {
+          // Prevent submitting forms.
+          e.preventDefault();
+        }
+
         if (showMenu && activeItem) {
           this._handleAddOption(activeItem);
-        } else {
-          if (!this.props.submitFormOnEnter) {
-            e.preventDefault();
-          }
         }
         break;
     }
