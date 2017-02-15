@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {head} from 'lodash';
 import React, {PropTypes} from 'react';
 
-import TextInput from './TextInput';
+import TextInput from './TextInput.react';
 
 import {RIGHT, TAB} from './utils/keyCode';
 

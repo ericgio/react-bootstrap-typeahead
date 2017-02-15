@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import AutosizeInput from 'react-input-autosize';
 
-import Token from './Token';
+import Token from './Token.react';
 
 import getOptionLabel from './utils/getOptionLabel';
 import {BACKSPACE} from './utils/keyCode';
