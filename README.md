@@ -1,5 +1,5 @@
 # React Bootstrap Typeahead
-React-based typeahead component that uses Bootstrap as a base for styles and behaviors and supports both single- and multi-selection. The UI and behaviors are inspired by Twitter's [typeahead.js](https://github.com/twitter/typeahead.js). Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/1.0/).
+React-based typeahead component that uses Bootstrap as a base for styles and behaviors and supports both single- and multi-selection. The UI and behaviors are inspired by Twitter's [typeahead.js](https://github.com/twitter/typeahead.js). Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/).
 
 [![npm version](https://img.shields.io/npm/v/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
 [![npm downloads](https://img.shields.io/npm/dm/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
@@ -41,7 +41,7 @@ Minified and unminified UMD modules are also included in the NPM package, or you
 The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the module and should be included wherever you're using the component.
 
 ## Examples
-Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/1.0/), which also include code samples. If you'd like to modify the examples, clone the repository, `npm install` and `npm run example` to build the example file. You can then open the HTML file locally in your browser.
+Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), which also include code samples. If you'd like to modify the examples, clone the repository, `npm install` and `npm run example` to build the example file. You can then open the HTML file locally in your browser.
 
 ## Browser Support
 Recent versions of the following browsers are supported:
