@@ -8,7 +8,7 @@ import AutosizeInput from 'react-input-autosize';
 import Token from './Token.react';
 
 import getOptionLabel from './utils/getOptionLabel';
-import {BACKSPACE} from './utils/keyCode';
+import {BACKSPACE, RETURN} from './utils/keyCode';
 
 /**
  * TokenizerInput
@@ -99,7 +99,7 @@ const TokenizerInput = React.createClass({
           onChange={this._handleChange}
           onFocus={this.props.onFocus}
           onKeyDown={this._handleKeydown}
-          placeholder={selected.length ? null : placeholder}
+          placeholder={placeholder}
           ref="input"
           type="text"
           value={value}
@@ -159,6 +159,12 @@ const TokenizerInput = React.createClass({
 
           // Prevent browser "back" action.
           e.preventDefault();
+        }
+        break;
+      case RETURN:
+        if(this.props.options.length === 1 && this.props.value.length > 0) {
+          const option = this.props.options[0];
+          this.props.onAdd(option);
         }
         break;
     }
