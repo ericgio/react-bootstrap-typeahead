@@ -141,7 +141,7 @@ const Typeahead = React.createClass({
     /**
      * Propagate <Enter> to parent form
      */
-    formSubmit: PropTypes.bool,
+    submitFormOnEnter: PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -166,7 +166,7 @@ const Typeahead = React.createClass({
       onInputChange: noop,
       paginate: true,
       selected: [],
-      formSubmit: false,
+      submitFormOnEnter: false,
     };
   },
 
@@ -544,7 +544,7 @@ const Typeahead = React.createClass({
         if (showMenu && activeItem) {
           this._handleAddOption(activeItem);
         } else {
-          if (!this.props.formSubmit) {
+          if (!this.props.submitFormOnEnter) {
             e.preventDefault();
           }
         }
