@@ -27,12 +27,15 @@ See full documentation in the [Filtering section](Filtering.md#filterby).
 See full documentation in the [Rendering section](Rendering.md).
 
 ##### `onChange(selectedItems)`
-Called when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even multi-selection is not enabled.
+Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even multi-selection is not enabled.
 
 ##### `onInputChange(text)`
-Called when the user changes the value of the input. `text` is a string.
+Invoked when the input value changes. Receives the string value of the input (`text`).
 
-##### `onBlur(e)` & `onFocus(e)`
+##### `onPaginate(event)`
+Invoked when the pagination menu item is clicked. Receives an event.
+
+##### `onBlur(event)` & `onFocus(event)`
 As with a normal text input, these are called when the typeahead input is focused or blurred.
 
 ### `<AsyncTypeahead>`

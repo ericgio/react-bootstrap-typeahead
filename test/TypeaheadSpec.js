@@ -115,25 +115,34 @@ describe('<Typeahead>', () => {
     expect(input.props.disabled).to.be.true;
   });
 
-  it('should display a menu item for pagination', () => {
+  it('should have a menu item for pagination', () => {
+    let didPaginate = false;
+    const onPaginate = () => didPaginate = true;
     const paginationText = 'See More';
+
     const instance = getTypeaheadInstance({
+      onPaginate,
       options: bigData,
       paginationText,
     });
     const inputNode = getInputNode(instance);
     ReactTestUtils.Simulate.focus(inputNode);
 
-    const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'bootstrap-typeahead-menu-paginator'
-    );
+    // Get the anchor node, not the `<li>`
+    const paginatorAnchorNode =
+      ReactTestUtils.findRenderedDOMComponentWithClass(
+        instance,
+        'bootstrap-typeahead-menu-paginator'
+      ).firstChild;
 
-    expect(paginatorNode).to.exist;
-    expect(paginatorNode.firstChild.innerHTML).to.equal(paginationText);
+    ReactTestUtils.Simulate.click(paginatorAnchorNode);
+
+    expect(paginatorAnchorNode).to.exist;
+    expect(paginatorAnchorNode.innerHTML).to.equal(paginationText);
+    expect(didPaginate).to.equal(true);
   });
 
-  it('should not display a menu item for pagination', () => {
+  it('should not have a menu item for pagination', () => {
     const instance = ReactTestUtils.renderIntoDocument(
       <Typeahead options={bigData} paginate={false} />
     );

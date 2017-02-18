@@ -4,6 +4,7 @@ import {Checkbox} from 'react-bootstrap';
 
 import {Typeahead} from '../../src/';
 
+/* eslint-disable no-console */
 /* example-start */
 const LabelKeyExample = React.createClass({
   getInitialState() {
@@ -18,6 +19,7 @@ const LabelKeyExample = React.createClass({
     return (
       <div>
         <Typeahead
+          onPaginate={e => console.log('Results paginated')}
           options={range(0, 1000).map(o => o.toString())}
           paginate={paginate}
           placeholder="Pick a number..."
@@ -32,5 +34,6 @@ const LabelKeyExample = React.createClass({
   },
 });
 /* example-end */
+/* eslint-disable no-console */
 
 export default LabelKeyExample;

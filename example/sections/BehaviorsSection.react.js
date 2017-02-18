@@ -59,7 +59,8 @@ const BehaviorsSection = props => (
     <Markdown>
       To improve browser performance, the typeahead paginates large data sets
       by default. You can set the number of results to be displayed using
-      `maxResults`, or override pagination completely using `paginate`.
+      `maxResults`, or override pagination completely using `paginate`. The
+      `onPaginate` hook allows you to respond to the pagination event.
     </Markdown>
     <ExampleSection code={PaginationExampleCode}>
       <PaginationExample />

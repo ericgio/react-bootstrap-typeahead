@@ -99,22 +99,27 @@ const Typeahead = React.createClass({
      */
     multiple: PropTypes.bool,
     /**
-     * Callback fired when the input is blurred. Receives an event.
+     * Invoked when the input is blurred. Receives an event.
      */
     onBlur: PropTypes.func,
     /**
-     * Callback fired whenever items are added or removed. Receives an array of
-     * the selected options.
+     * Invoked whenever items are added or removed. Receives an array of the
+     * selected options.
      */
     onChange: PropTypes.func,
     /**
-     * Callback fired when the input is focused. Receives an event.
+     * Invoked when the input is focused. Receives an event.
      */
     onFocus: PropTypes.func,
     /**
-     * Callback for handling changes to the user-input text.
+     * Invoked when the input value changes. Receives the string value of the
+     * input.
      */
     onInputChange: PropTypes.func,
+    /**
+     * Invoked when the pagination menu item is clicked. Receives an event.
+     */
+    onPaginate: PropTypes.func,
     /**
      * Full set of options, including pre-selected options. Must either be an
      * array of objects (recommended) or strings.
@@ -159,6 +164,7 @@ const Typeahead = React.createClass({
       onChange: noop,
       onFocus: noop,
       onInputChange: noop,
+      onPaginate: noop,
       paginate: true,
       selected: [],
     };
@@ -574,12 +580,10 @@ const Typeahead = React.createClass({
   },
 
   _handlePagination(e) {
-    let shownResults = this.state.shownResults + this.props.maxResults;
+    const {maxResults, onPaginate} = this.props;
 
-    // Keep the input focused when paginating.
-    this.focus();
-
-    this.setState({shownResults});
+    onPaginate(e);
+    this.setState({shownResults: this.state.shownResults + maxResults});
   },
 
   _handleRemoveOption(removedOption) {
