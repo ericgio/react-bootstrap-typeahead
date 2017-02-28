@@ -139,7 +139,13 @@ const asyncContainer = Typeahead => {
     },
 
     _handleSearch(initialQuery) {
-      const {caseSensitive, minLength, onSearch, useCache} = this.props;
+      const {
+        caseSensitive,
+        minLength,
+        multiple,
+        onSearch,
+        useCache,
+      } = this.props;
 
       let query = initialQuery.trim();
       if (!caseSensitive) {
@@ -157,8 +163,9 @@ const asyncContainer = Typeahead => {
         return;
       }
 
-      // Only perform a search on user input, not selection.
-      if (this.state.hasSelection) {
+      // In the single-selection case, perform a search only on user input
+      // not selection.
+      if (!multiple && this.state.hasSelection) {
         return;
       }
 
