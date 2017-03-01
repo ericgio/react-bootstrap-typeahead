@@ -87,6 +87,7 @@ const TokenizerInput = React.createClass({
         <AutosizeInput
           className="bootstrap-tokenizer-input"
           disabled={disabled}
+          inputClassName="bootstrap-typeahead-input-main"
           inputStyle={{
             backgroundColor: 'inherit',
             border: 0,
