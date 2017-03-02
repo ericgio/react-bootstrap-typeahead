@@ -10,6 +10,11 @@
   right: 0;
 }
 
+/* Hide IE's native "clear" button */
+.bootstrap-typeahead input[type=text]::-ms-clear {
+  display: none;
+}
+
 .bootstrap-typeahead-menu-paginator {
   text-align: center;
 }
