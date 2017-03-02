@@ -35,7 +35,6 @@
   padding-top: 9px;
 }
 
-
 .bootstrap-tokenizer-input {
   margin: 1px 0 4px;
 }
@@ -46,4 +45,12 @@
 
 .has-aux.input-lg {
   padding-right: 42px;
+}
+
+/* Fix styles when used with input-group */
+.input-group .bootstrap-typeahead:first-child .form-control {
+  border-radius: 4px 0 0 4px;
+}
+.input-group .bootstrap-typeahead:last-child .form-control {
+  border-radius: 0 4px 4px 0;
 }

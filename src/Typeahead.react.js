@@ -271,7 +271,7 @@ const Typeahead = React.createClass({
 
     return (
       <div
-        className={cx('bootstrap-typeahead', 'open', {
+        className={cx('bootstrap-typeahead', 'clearfix', 'open', {
           'dropup': dropup,
         }, className)}
         style={{position: 'relative'}}>
