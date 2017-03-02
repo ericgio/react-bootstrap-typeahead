@@ -8,10 +8,10 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 
 Please note that this library is under active development and the APIs may change. The documentation below applies to the most recent version and may no longer be applicable if you're using an outdated version.
 
-## v1.0.0
+## v1.x
 The latest version adds a ton of new functionality including an async version, total flexibility in how the menu is rendered, and improved documentation and examples. I hope you'll find it makes many more things possible without being hard to use.
 
-**Note: v1.0.0 has a few breaking changes.** Be sure to read through the [upgrade guide](docs/Upgrading.md) to understand how you may be affected.
+**Note: v1.x has a few breaking changes.** Be sure to read through the [upgrade guide](docs/Upgrading.md) to understand how you may be affected.
 
 ## Installation
 Use NPM to install the module:
@@ -35,7 +35,7 @@ Minified and unminified UMD modules are also included in the NPM package, or you
 - [Public Methods](docs/Methods.md)
 - [Props](docs/Props.md)
 - [API](docs/API.md)
-- [v1.0.0 Upgrade Guide](docs/Upgrading.md)
+- [v1.x Upgrade Guide](docs/Upgrading.md)
 
 ## CSS
 The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the module and should be included wherever you're using the component.
