@@ -142,9 +142,8 @@ const Typeahead = React.createClass({
      * to control the component via its parent.
      */
     selected: PropTypes.array,
-
     /**
-     * Propagate <Enter> to parent form
+     * Propagate <RETURN> event to parent form.
      */
     submitFormOnEnter: PropTypes.bool,
   },

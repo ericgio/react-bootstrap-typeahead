@@ -4,6 +4,8 @@ import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
 import BasicBehaviorsExampleCode from '!raw!../examples/BasicBehaviorsExample';
 import BodyContainerExample from '../examples/BodyContainerExample';
 import BodyContainerExampleCode from '!raw!../examples/BodyContainerExample';
+import FormSubmitExample from '../examples/FormSubmitExample';
+import FormSubmitExampleCode from '!raw!../examples/FormSubmitExample';
 import InputSizeExample from '../examples/InputSizeExample';
 import InputSizeExampleCode from '!raw!../examples/InputSizeExample';
 import MenuAlignExample from '../examples/MenuAlignExample';
@@ -54,6 +56,15 @@ const BehaviorsSection = props => (
     </Markdown>
     <ExampleSection code={MenuAlignExampleCode}>
       <MenuAlignExample />
+    </ExampleSection>
+    <Title>Use With Forms</Title>
+    <Markdown>
+      To prevent inadvertent form submission, the typeahead does not propagate
+      Return/Enter key events by default. However, you can override this
+      behavior with the `submitFormOnEnter` prop.
+    </Markdown>
+    <ExampleSection code={FormSubmitExampleCode}>
+      <FormSubmitExample />
     </ExampleSection>
     <Title>Pagination</Title>
     <Markdown>
