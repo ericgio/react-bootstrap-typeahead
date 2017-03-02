@@ -36,6 +36,7 @@ renderMenu | function | | Callback for custom menu rendering.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
+submitFormOnEnter | boolean | false | Propagate <RETURN> event to parent form. 
 
 ### `<AsyncTypeahead>`
 Name | Type | Default | Description

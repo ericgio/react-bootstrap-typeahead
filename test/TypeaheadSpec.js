@@ -6,6 +6,7 @@ import ReactTestUtils from 'react-addons-test-utils';
 import TokenizerInput from '../src/TokenizerInput';
 import Typeahead from '../src/Typeahead';
 import TypeaheadInput from '../src/TypeaheadInput';
+import {RETURN} from '../src/utils/keyCode';
 
 import states from '../example/exampleData';
 
@@ -31,6 +32,20 @@ function getMenuNode(instance) {
 
 function getTypeaheadInstance(props) {
   return ReactTestUtils.renderIntoDocument(<Typeahead {...props} />);
+}
+
+class FormWrapper extends React.Component {
+  render() {
+    return (
+      <form onKeyDown={this.props.onKeyDown}>
+        <Typeahead {...this.props} />
+      </form>
+    );
+  }
+}
+
+function getFormWithTypeaheadInstance(props) {
+  return ReactTestUtils.renderIntoDocument(<FormWrapper {...props}/>);
 }
 
 describe('<Typeahead>', () => {
@@ -212,6 +227,52 @@ describe('<Typeahead>', () => {
 
     expect(ClearButtonNode).to.exist;
     expect(InputNode).to.exist;
+  });
+
+  describe('form integration', () => {
+    let onKeyDownEvent = null;
+    const onKeyDown = evt => onKeyDownEvent = evt;
+
+    beforeEach(() => {
+      onKeyDownEvent = null;
+    });
+
+    /**
+     * since react test simulation doesn't trigger form submit
+     * on RETURN press, we should handle key down event on form level
+     * and test whether default was prevented or not
+     */
+    it('should not submit form when `submitFormOnEnter=false', () => {
+      const instance = getFormWithTypeaheadInstance({
+        ...baseProps,
+        submitFormOnEnter: false,
+        onKeyDown,
+      });
+
+      const inputNode = getInputNode(instance);
+      ReactTestUtils.Simulate.focus(inputNode);
+      ReactTestUtils.Simulate.keyDown(inputNode, {
+        key: 'Enter', keyCode: RETURN, which: RETURN,
+      });
+
+      expect(onKeyDownEvent).to.have.property('defaultPrevented', true);
+    });
+
+    it('should submit form when `submitFormOnEnter=true', () => {
+      const instance = getFormWithTypeaheadInstance({
+        ...baseProps,
+        submitFormOnEnter: true,
+        onKeyDown,
+      });
+
+      const inputNode = getInputNode(instance);
+      ReactTestUtils.Simulate.focus(inputNode);
+      ReactTestUtils.Simulate.keyDown(inputNode, {
+        key: 'Enter', keyCode: RETURN, which: RETURN,
+      });
+
+      expect(onKeyDownEvent).to.have.property('defaultPrevented', undefined);
+    });
   });
 
 });
