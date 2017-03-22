@@ -24,7 +24,7 @@ const BaseMenuItem = React.createClass({
           'active': active,
           'disabled': disabled,
         }, className)}>
-        <a onTouchEnd={this._handleClick} role="button">
+        <a onTouchStart={this._handleClick} onClick={this._handleClick} role="button">
           {children}
         </a>
       </li>
@@ -33,8 +33,12 @@ const BaseMenuItem = React.createClass({
 
   _handleClick(e) {
     const {disabled, onClick} = this.props;
+    if(e.type === 'touchstart'){
+      e.stopPropagation();
+    } else {
+      e.preventDefault();
+    }
 
-    e.preventDefault();
     !disabled && onClick(e);
   },
 });
