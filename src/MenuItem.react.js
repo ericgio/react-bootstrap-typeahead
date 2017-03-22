@@ -24,7 +24,7 @@ const BaseMenuItem = React.createClass({
           'active': active,
           'disabled': disabled,
         }, className)}>
-        <a onClick={this._handleClick} role="button">
+        <a onTouchEnd={this._handleClick} role="button">
           {children}
         </a>
       </li>
