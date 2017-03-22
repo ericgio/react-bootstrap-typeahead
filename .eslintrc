@@ -5,5 +5,5 @@
   "extends": "ericgio",
   "globals": {},
   "parser": "babel-eslint",
-  "rules": {}
+  "rules": {linebreak-style: off}
 }
