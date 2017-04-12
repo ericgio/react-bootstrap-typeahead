@@ -9,7 +9,7 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 Please note that this library is under active development and the APIs may change. The documentation below applies to the most recent version and may no longer be applicable if you're using an outdated version.
 
 ## v1.x
-The latest version adds a ton of new functionality including an async version, total flexibility in how the menu is rendered, and improved documentation and examples. I hope you'll find it makes many more things possible without being hard to use.
+The latest version adds new functionality, and improved documentation and examples. I hope you'll find it makes many more things possible without being hard to use.
 
 **Note: v1.x has a few breaking changes.** Be sure to read through the [upgrade guide](docs/Upgrading.md) to understand how you may be affected.
 

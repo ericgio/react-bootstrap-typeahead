@@ -1,5 +1,5 @@
-# v1.0.0 Upgrade Guide
-Version 1.0 has a few breaking changes, but upgrading should be relatively painless (I hope).
+# v1.x Upgrade Guide
+Version 1.x has a few breaking changes, but upgrading should be relatively painless.
 
 ### Importing
 The main change affecting all users is that the typeahead is now a property of the module:
@@ -9,7 +9,7 @@ The main change affecting all users is that the typeahead is now a property of t
 import Typeahead from 'react-bootstrap-typeahead'; // ES2015
 var Typeahead = require('react-bootstrap-typeahead').default; // CommonJS
 
-// v1.0
+// v1.x
 import {Typeahead} from 'react-bootstrap-typeahead'; // ES2015
 var Typeahead = require('react-bootstrap-typeahead').Typeahead; // CommonJS
 ```
@@ -26,7 +26,7 @@ renderMenuItemChildren(props, result, index) {
   // Rendering code here...
 }
 
-// v1.0
+// v1.x
 renderMenuItemChildren(result, props, index) {
   // Rendering code here...
 }
