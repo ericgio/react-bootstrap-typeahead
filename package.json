@@ -30,7 +30,6 @@
     "classnames": "^2.2.0",
     "invariant": "^2.2.1",
     "lodash": "^4.17.2",
-    "raf": "3.3.0",
     "react-highlighter": "^0.3.3",
     "react-input-autosize": "^1.1.0",
     "react-onclickoutside": "^5.7.0",
