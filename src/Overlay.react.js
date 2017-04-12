@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {isEqual, throttle} from 'lodash';
+import {isEqual} from 'lodash';
 import React, {Children, cloneElement, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
@@ -50,8 +50,13 @@ const Overlay = React.createClass({
   },
 
   componentDidMount() {
+    this._mounted = true;
     this._updatePosition();
-    this._updatePositionThrottled = throttle(this._updatePosition, 100);
+
+    this._updatePositionThrottled = requestAnimationFrame.bind(
+      null,
+      this._updatePosition,
+    );
 
     window.addEventListener('resize', this._updatePositionThrottled);
     window.addEventListener('scroll', this._updatePositionThrottled, true);
@@ -62,6 +67,7 @@ const Overlay = React.createClass({
   },
 
   componentWillUnmount() {
+    this._mounted = false;
     window.removeEventListener('resize', this._updatePositionThrottled);
     window.removeEventListener('scroll', this._updatePositionThrottled);
   },
@@ -95,7 +101,11 @@ const Overlay = React.createClass({
 
   _updatePosition() {
     // Positioning is only used when body is the container.
-    if (!isBody(this.props.container)) {
+    if (
+      !this.props.show ||
+      !this._mounted ||
+      !isBody(this.props.container)
+    ) {
       return;
     }
 
