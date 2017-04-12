@@ -50,6 +50,7 @@ const Overlay = React.createClass({
   },
 
   componentDidMount() {
+    this._mounted = true;
     this._updatePosition();
 
     this._updatePositionThrottled = requestAnimationFrame.bind(
@@ -66,6 +67,7 @@ const Overlay = React.createClass({
   },
 
   componentWillUnmount() {
+    this._mounted = false;
     window.removeEventListener('resize', this._updatePositionThrottled);
     window.removeEventListener('scroll', this._updatePositionThrottled);
   },
@@ -101,7 +103,7 @@ const Overlay = React.createClass({
     // Positioning is only used when body is the container.
     if (
       !this.props.show ||
-      !this.isMounted() ||
+      !this._mounted ||
       !isBody(this.props.container)
     ) {
       return;
