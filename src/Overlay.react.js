@@ -53,7 +53,7 @@ const Overlay = React.createClass({
     this._updatePosition();
 
     this._updatePositionThrottled = requestAnimationFrame.bind(
-      null, 
+      null,
       this._updatePosition,
     );
 
