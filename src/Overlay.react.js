@@ -1,9 +1,10 @@
 import cx from 'classnames';
-import {isEqual, throttle} from 'lodash';
+import {isEqual} from 'lodash';
 import React, {Children, cloneElement, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
 import componentOrElement from 'react-prop-types/lib/componentOrElement';
+import raf from 'raf';
 
 // When appending the overlay to `document.body`, clicking on it will register
 // as an "outside" click and immediately close the overlay. This classname tells
@@ -51,7 +52,8 @@ const Overlay = React.createClass({
 
   componentDidMount() {
     this._updatePosition();
-    this._updatePositionThrottled = throttle(this._updatePosition, 100);
+
+    this._updatePositionThrottled = raf.bind(null, this._updatePosition);
 
     window.addEventListener('resize', this._updatePositionThrottled);
     window.addEventListener('scroll', this._updatePositionThrottled, true);
@@ -95,7 +97,11 @@ const Overlay = React.createClass({
 
   _updatePosition() {
     // Positioning is only used when body is the container.
-    if (!isBody(this.props.container)) {
+    if (
+      !this.props.show ||
+      !this.isMounted() ||
+      !isBody(this.props.container)
+    ) {
       return;
     }
 
