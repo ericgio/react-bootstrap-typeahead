@@ -79,7 +79,7 @@ const TypeaheadMenu = React.createClass({
 
     if (option.customOption) {
       return (
-        <MenuItem {...menuItemProps}>
+        <MenuItem {...menuItemProps} className="bootstrap-typeahead-new">
           {newSelectionPrefix}
           <Highlight matchClass={MATCH_CLASS} search={text}>
             {option[labelKey]}
