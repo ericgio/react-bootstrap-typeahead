@@ -87,6 +87,7 @@ const asyncContainer = Typeahead => {
 
     componentWillUnmount() {
       _cache = {};
+      this._handleSearchDebounced.cancel();
     },
 
     render() {
