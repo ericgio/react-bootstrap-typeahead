@@ -1,13 +1,13 @@
 import {expect} from 'chai';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import ReactShallowRenderer from 'react-test-renderer/shallow';
 
 import ClearButton from '../src/ClearButton';
 
 describe('<ClearButton>', () => {
 
   it('renders a default clear button', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = new ReactShallowRenderer();
     renderer.render(<ClearButton />);
     const result = renderer.getRenderOutput();
 
@@ -16,7 +16,7 @@ describe('<ClearButton>', () => {
   });
 
   it('renders a large clear button', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = new ReactShallowRenderer();
     renderer.render(<ClearButton bsSize="large" />);
     const result = renderer.getRenderOutput();
 

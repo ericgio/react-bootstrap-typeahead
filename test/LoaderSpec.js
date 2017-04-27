@@ -1,13 +1,13 @@
 import {expect} from 'chai';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import ReactShallowRenderer from 'react-test-renderer/shallow';
 
 import Loader from '../src/Loader';
 
 describe('<Loader>', () => {
 
   it('renders a default loading indicator', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = new ReactShallowRenderer();
     renderer.render(<Loader />);
     const result = renderer.getRenderOutput();
 
@@ -16,7 +16,7 @@ describe('<Loader>', () => {
   });
 
   it('renders a small loading indicator', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = new ReactShallowRenderer();
     renderer.render(<Loader bsSize="small" />);
     const result = renderer.getRenderOutput();
 
@@ -24,7 +24,7 @@ describe('<Loader>', () => {
   });
 
   it('renders a large loading indicator', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = new ReactShallowRenderer();
     renderer.render(<Loader bsSize="large" />);
     const result = renderer.getRenderOutput();
 

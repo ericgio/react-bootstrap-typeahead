@@ -75,6 +75,7 @@
     "react": "^15.2.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.2.1",
+    "react-test-renderer": "^15.5.4",
     "react-waypoint": "^5.0.3",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
