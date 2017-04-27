@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 
 import {AsyncTypeahead} from '../src/';
 import {getMenuNode, performSearch, updateProps} from './testUtils';

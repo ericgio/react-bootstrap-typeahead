@@ -1,8 +1,9 @@
 import {expect} from 'chai';
-import {noop, range} from 'lodash';
-import React from 'react';
-import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {noop, range} from 'lodash';
+import PropTypes from 'prop-types';
+import React from 'react';
+
 import ReactTestUtils from 'react-dom/test-utils';
 
 import MenuItem, {BaseMenuItem} from '../src/MenuItem';
