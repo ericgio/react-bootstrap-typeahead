@@ -16,7 +16,7 @@ Note that you *must* use `getInstance` to get the typeahead instance. This is be
 Provides a programmatic way to blur the input.
 
 ### `clear()`
-Provides a programmatic way to reset the input. Calling the method will clear both text and selection(s).
+Provides a programmatic way to reset the input. Calling the method will clear both text and selection(s). **Warning: Do not call this method from the `onChange` handler**. Doing so will cause an infinite loop since `clear` triggers the change event.
 
 ### `focus()`
 Provides a programmatic way to focus the input.
