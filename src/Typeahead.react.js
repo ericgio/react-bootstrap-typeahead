@@ -3,7 +3,9 @@
 import cx from 'classnames';
 import {find, isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -25,7 +27,7 @@ import {DOWN, ESC, RETURN, TAB, UP} from './utils/keyCode';
 /**
  * Typeahead
  */
-const Typeahead = React.createClass({
+const Typeahead = createReactClass({
   displayName: 'Typeahead',
 
   propTypes: {

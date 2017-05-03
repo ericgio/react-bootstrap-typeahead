@@ -3,11 +3,11 @@ import {findDOMNode} from 'react-dom';
 
 const AUTHOR_REPO = 'ericgio/react-bootstrap-typeahead';
 
-const GitHubStarsButton = React.createClass({
+class GitHubStarsButton extends React.Component {
   componentDidMount() {
     const node = findDOMNode(this);
     node.dataset.style = window.innerWidth > 480 ? 'mega': null;
-  },
+  }
 
   render() {
     return (
@@ -21,7 +21,7 @@ const GitHubStarsButton = React.createClass({
         Star
       </a>
     );
-  },
-});
+  }
+}
 
 export default GitHubStarsButton;

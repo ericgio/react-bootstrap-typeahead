@@ -5,12 +5,14 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const InputSizeExample = React.createClass({
-  getInitialState() {
-    return {
+class InputSizeExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       bsSize: undefined,
     };
-  },
+  }
 
   render() {
     const {bsSize} = this.state;
@@ -39,8 +41,8 @@ const InputSizeExample = React.createClass({
         ))}
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default InputSizeExample;

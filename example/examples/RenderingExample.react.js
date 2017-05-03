@@ -9,12 +9,14 @@ const MenuDivider = props => <li className="divider" role="separator" />;
 const MenuHeader = props => <li {...props} className="dropdown-header" />;
 
 /* example-start */
-const RenderingExample = React.createClass({
-  getInitialState() {
-    return {
+class RenderingExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       selectedOption: 'renderMenu',
     };
-  },
+  }
 
   render() {
     const {selectedOption} = this.state;
@@ -57,7 +59,7 @@ const RenderingExample = React.createClass({
         ))}
       </div>
     );
-  },
+  }
 
   _renderMenu(results, menuProps) {
     let idx = 0;
@@ -81,7 +83,7 @@ const RenderingExample = React.createClass({
     });
 
     return <Menu {...menuProps}>{items}</Menu>;
-  },
+  }
 
   _renderMenuItemChildren(option, props, index) {
     return [
@@ -90,7 +92,7 @@ const RenderingExample = React.createClass({
         Population: {option.population.toLocaleString()}
       </div>,
     ];
-  },
+  }
 
   _renderToken(option, onRemove, index) {
     return (
@@ -100,8 +102,8 @@ const RenderingExample = React.createClass({
         {`${option.name} (Pop: ${option.population.toLocaleString()})`}
       </Token>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default RenderingExample;

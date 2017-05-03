@@ -5,12 +5,14 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const BasicExample = React.createClass({
-  getInitialState() {
-    return {
+class BasicExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       multiple: false,
     };
-  },
+  }
 
   render() {
     const {multiple} = this.state;
@@ -30,8 +32,8 @@ const BasicExample = React.createClass({
         </Checkbox>
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default BasicExample;

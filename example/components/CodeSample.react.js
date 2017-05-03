@@ -1,21 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Markdown from './Markdown';
 
 const START_STR = '/* example-start */';
 const END_STR = '/* example-end */';
 
-const CodeSample = React.createClass({
-  propTypes: {
-    lang: React.PropTypes.string,
-  },
-
-  getDefaultProps() {
-    return {
-      lang: 'jsx',
-    };
-  },
-
+class CodeSample extends React.Component {
   render() {
     // Strip out extraneous parts of the code.
     const code = this.props.children;
@@ -29,7 +20,16 @@ ${code.slice(startIndex, endIndex)}
         \`\`\``}
       </Markdown>
     );
-  },
-});
+  }
+}
+
+CodeSample.propTypes = {
+  lang: PropTypes.string,
+};
+
+CodeSample.defaultProps = {
+  lang: 'jsx',
+};
+
 
 export default CodeSample;

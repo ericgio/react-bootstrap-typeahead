@@ -1,15 +1,11 @@
 'use strict';
 
 import cx from 'classnames';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const TextInput = React.createClass({
-  propTypes: {
-    /**
-     * Specify the size of the input.
-     */
-    bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
-  },
+
+class TextInput extends React.Component {
 
   render() {
     const {bsSize, className, hasAux, ...otherProps} = this.props;
@@ -26,11 +22,18 @@ const TextInput = React.createClass({
         type="text"
       />
     );
-  },
+  }
 
   getInstance() {
     return this._input;
-  },
-});
+  }
+}
+
+TextInput.propTypes = {
+  /**
+   * Specify the size of the input.
+   */
+  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+};
 
 export default TextInput;

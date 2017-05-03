@@ -6,14 +6,16 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const BasicBehaviorsExample = React.createClass({
-  getInitialState() {
-    return {
+class BasicBehaviorsExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       disabled: false,
       dropup: false,
       minLength: 0,
     };
-  },
+  }
 
   render() {
     const {disabled, dropup, emptyLabel, minLength} = this.state;
@@ -56,7 +58,7 @@ const BasicBehaviorsExample = React.createClass({
         </FormGroup>
       </div>
     );
-  },
+  }
 
   _handleChange(e) {
     const {checked, name} = e.target;
@@ -67,8 +69,8 @@ const BasicBehaviorsExample = React.createClass({
     }
 
     this.setState(newState);
-  },
-});
+  }
+}
 /* example-end */
 
 export default BasicBehaviorsExample;

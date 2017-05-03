@@ -32,13 +32,15 @@ const options = [
 ];
 
 /* example-start */
-const FilteringExample = React.createClass({
-  getInitialState() {
-    return {
+class FilteringExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       caseSensitive: false,
       ignoreDiacritics: true,
     };
-  },
+  }
 
   render() {
     const {caseSensitive, ignoreDiacritics} = this.state;
@@ -62,8 +64,8 @@ const FilteringExample = React.createClass({
         </Checkbox>
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default FilteringExample;

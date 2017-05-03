@@ -1,4 +1,6 @@
-import React, {Children, PropTypes} from 'react';
+import React, {Children} from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import {Col, Jumbotron, NavItem, Row} from 'react-bootstrap';
 
 import Container from './Container';
@@ -8,7 +10,7 @@ import PageMenu from './PageMenu';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
-const Page = React.createClass({
+const Page = createReactClass({
   getInitialState() {
     return {
       activeHref: window.location.hash,

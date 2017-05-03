@@ -2,7 +2,8 @@
 
 import cx from 'classnames';
 import {noop} from 'lodash';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import tokenContainer from './containers/tokenContainer';
 
@@ -12,30 +13,14 @@ import tokenContainer from './containers/tokenContainer';
  * Individual token component, generally displayed within the TokenizerInput
  * component, but can also be rendered on its own.
  */
-const Token = React.createClass({
-  displayName: 'Token',
-
-  propTypes: {
-    /**
-     * Handler for removing/deleting the token. If not defined, the token will
-     * be rendered in a read-only state.
-     */
-    onRemove: PropTypes.func,
-    selected: PropTypes.bool,
-  },
-
-  getDefaultProps() {
-    return {
-      onRemove: noop,
-      selected: false,
-    };
-  },
+class Token extends React.Component {
+  displayName = 'Token';
 
   render() {
     return this.props.onRemove && !this.props.disabled ?
       this._renderRemoveableToken() :
       this._renderToken();
-  },
+  }
 
   _renderRemoveableToken() {
     const {children, className, onRemove, selected, ...otherProps} = this.props;
@@ -56,7 +41,7 @@ const Token = React.createClass({
         </span>
       </div>
     );
-  },
+  }
 
   _renderToken() {
     const {children, className, disabled, href} = this.props;
@@ -75,7 +60,22 @@ const Token = React.createClass({
         {children}
       </div>
     );
-  },
-});
+  }
+}
+
+Token.propTypes = {
+  /**
+   * Handler for removing/deleting the token. If not defined, the token will
+   * be rendered in a read-only state.
+   */
+  onRemove: PropTypes.func,
+  selected: PropTypes.bool,
+};
+
+Token.defaultProps = {
+  onRemove: noop,
+  selected: false,
+};
+
 
 export default tokenContainer(Token);

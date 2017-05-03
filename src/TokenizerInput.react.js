@@ -1,7 +1,8 @@
 'use strict';
 
 import cx from 'classnames';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import AutosizeInput from 'react-input-autosize';
 
@@ -16,48 +17,22 @@ import {BACKSPACE} from './utils/keyCode';
  * Accepts multiple selections from a Typeahead component and renders them as
  * tokens within an input.
  */
-const TokenizerInput = React.createClass({
-  displayName: 'TokenizerInput',
+class TokenizerInput extends React.Component {
+  displayName = 'TokenizerInput';
 
-  /**
-   * In addition to the propTypes below, the following props are automatically
-   * passed down by `Typeahead`:
-   *
-   *  - activeIndex
-   *  - hasAux
-   *  - labelKey
-   *  - onAdd
-   *  - onBlur
-   *  - onChange
-   *  - onClick
-   *  - onFocus
-   *  - onKeydown
-   *  - onRemove
-   *  - options
-   *  - selected
-   *  - value
-   */
-  propTypes: {
-    /**
-     * Whether to disable the input and all selections.
-     */
-    disabled: PropTypes.bool,
-    /**
-     * Placeholder text for the input.
-     */
-    placeholder: PropTypes.string,
-    /**
-     * Provides a hook for customized rendering of tokens when multiple
-     * selections are enabled.
-     */
-    renderToken: PropTypes.func,
-  },
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
-    return {
+    this._handleBlur = this._handleBlur.bind(this);
+    this._handleChange = this._handleChange.bind(this);
+    this._handleInputFocus = this._handleInputFocus.bind(this);
+    this._handleKeydown = this._handleKeydown.bind(this);
+    this._renderToken = this._renderToken.bind(this);
+
+    this.state = {
       isFocused: false,
     };
-  },
+  }
 
   render() {
     const {bsSize, disabled, hasAux, placeholder, selected, value} = this.props;
@@ -107,15 +82,15 @@ const TokenizerInput = React.createClass({
         />
       </div>
     );
-  },
+  }
 
   blur() {
     this.refs.input.blur();
-  },
+  }
 
   focus() {
     this._handleInputFocus();
-  },
+  }
 
   _renderToken(option, idx) {
     const {disabled, labelKey, onRemove, renderToken} = this.props;
@@ -133,16 +108,16 @@ const TokenizerInput = React.createClass({
         {getOptionLabel(option, labelKey)}
       </Token>
     );
-  },
+  }
 
   _handleBlur(e) {
     this.setState({isFocused: false});
     this.props.onBlur(e);
-  },
+  }
 
   _handleChange(e) {
     this.props.onChange(e.target.value);
-  },
+  }
 
   _handleKeydown(e) {
     switch (e.keyCode) {
@@ -165,7 +140,7 @@ const TokenizerInput = React.createClass({
     }
 
     this.props.onKeyDown(e);
-  },
+  }
 
   _handleInputFocus(e) {
     if (this.props.disabled) {
@@ -177,7 +152,42 @@ const TokenizerInput = React.createClass({
     // focus the input.
     this.refs.input.focus();
     this.setState({isFocused: true});
-  },
-});
+  }
+}
+
+/**
+ * In addition to the propTypes below, the following props are automatically
+ * passed down by `Typeahead`:
+ *
+ *  - activeIndex
+ *  - hasAux
+ *  - labelKey
+ *  - onAdd
+ *  - onBlur
+ *  - onChange
+ *  - onClick
+ *  - onFocus
+ *  - onKeydown
+ *  - onRemove
+ *  - options
+ *  - selected
+ *  - value
+ */
+TokenizerInput.propTypes = {
+  /**
+   * Whether to disable the input and all selections.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Placeholder text for the input.
+   */
+  placeholder: PropTypes.string,
+  /**
+   * Provides a hook for customized rendering of tokens when multiple
+   * selections are enabled.
+   */
+  renderToken: PropTypes.func,
+};
+
 
 export default TokenizerInput;

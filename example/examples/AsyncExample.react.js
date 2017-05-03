@@ -8,14 +8,17 @@ import {AsyncTypeahead} from '../../src/';
 require('es6-promise').polyfill();
 
 /* example-start */
-const AsyncExample = React.createClass({
-  getInitialState() {
-    return {
+class AsyncExample extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
       allowNew: false,
       multiple: false,
       options: [],
     };
-  },
+  }
 
   render() {
     return (
@@ -30,7 +33,7 @@ const AsyncExample = React.createClass({
         {this._renderCheckboxes()}
       </div>
     );
-  },
+  }
 
   _renderCheckboxes() {
     const checkboxes = [
@@ -47,7 +50,7 @@ const AsyncExample = React.createClass({
         {label}
       </Checkbox>
     ));
-  },
+  }
 
   _renderMenuItemChildren(option, props, index) {
     return (
@@ -63,12 +66,12 @@ const AsyncExample = React.createClass({
         <span>{option.login}</span>
       </div>
     );
-  },
+  }
 
   _handleChange(e) {
     const {checked, name} = e.target;
     this.setState({[name]: checked});
-  },
+  }
 
   _handleSearch(query) {
     if (!query) {
@@ -78,8 +81,8 @@ const AsyncExample = React.createClass({
     fetch(`https://api.github.com/search/users?q=${query}`)
       .then(resp => resp.json())
       .then(json => this.setState({options: json.items}));
-  },
-});
+  }
+}
 /* example-end */
 
 export default AsyncExample;

@@ -1,5 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * CloseButton
@@ -21,7 +22,7 @@ const ClearButton = ({bsSize, className, onClick}) => (
 
 ClearButton.displayName = 'ClearButton';
 ClearButton.propTypes = {
-  bsSize: React.PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
 };
 
 export default ClearButton;

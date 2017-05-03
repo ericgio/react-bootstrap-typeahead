@@ -1,14 +1,16 @@
 import {expect} from 'chai';
 import {noop, range} from 'lodash';
-import React, {PropTypes} from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import ReactTestUtils from 'react-dom/test-utils';
 
 import MenuItem, {BaseMenuItem} from '../src/MenuItem';
 import TypeaheadMenu from '../src/TypeaheadMenu';
 
 import options from '../example/exampleData';
 
-const TypeaheadContext = React.createClass({
+const TypeaheadContext = createReactClass({
   childContextTypes: {
     activeIndex: PropTypes.number.isRequired,
     onActiveItemChange: PropTypes.func.isRequired,

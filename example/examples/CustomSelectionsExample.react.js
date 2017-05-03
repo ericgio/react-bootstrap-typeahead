@@ -2,7 +2,7 @@ import React from 'react';
 import {Typeahead} from '../../src/';
 
 /* example-start */
-const CustomSelectionsExample = React.createClass({
+class CustomSelectionsExample extends React.Component {
   render() {
     return (
       <Typeahead
@@ -13,8 +13,8 @@ const CustomSelectionsExample = React.createClass({
         placeholder="Type anything..."
       />
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default CustomSelectionsExample;

@@ -2,7 +2,7 @@ import cx from 'classnames';
 import marked from 'marked';
 import React from 'react';
 
-const Markdown = React.createClass({
+class Markdown extends React.Component {
   componentWillMount() {
     marked.setOptions({
       gfm: true,
@@ -16,7 +16,7 @@ const Markdown = React.createClass({
         return require('highlight.js').highlightAuto(code).value;
       },
     });
-  },
+  }
 
   render() {
     const html = marked.parse(this.props.children);
@@ -27,7 +27,7 @@ const Markdown = React.createClass({
         dangerouslySetInnerHTML={{__html: html}}
       />
     );
-  },
-});
+  }
+}
 
 export default Markdown;
