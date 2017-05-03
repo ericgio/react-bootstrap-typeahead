@@ -4,6 +4,7 @@ import cx from 'classnames';
 import {find, isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React, {PropTypes} from 'react';
+import findDOMNode from 'react-dom';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -459,6 +460,9 @@ const Typeahead = React.createClass({
   _handleBlur(e) {
     // Note: Don't hide the menu here, since that interferes with other actions
     // like making a selection by clicking on a menu item.
+    const domElement = findDOMNode(this);
+    if(domElement.contains(e.relatedTarget)) return;
+
     this.props.onBlur(e);
   },
 
