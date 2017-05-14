@@ -2,12 +2,14 @@ import React from 'react';
 
 import CodeSample from '../components/CodeSample';
 
-const ExampleSection = React.createClass({
-  getInitialState() {
-    return {
+class ExampleSection extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       open: false,
     };
-  },
+  }
 
   render() {
     const {children, code} = this.props;
@@ -33,7 +35,7 @@ const ExampleSection = React.createClass({
         {open ? <CodeSample>{code}</CodeSample> : null}
       </div>
     );
-  },
-});
+  }
+}
 
 export default ExampleSection;

@@ -1,5 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Loader = ({bsSize}) => (
   <div
@@ -11,7 +12,7 @@ const Loader = ({bsSize}) => (
 );
 
 Loader.propTypes = {
-  bsSize: React.PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
 };
 
 export default Loader;

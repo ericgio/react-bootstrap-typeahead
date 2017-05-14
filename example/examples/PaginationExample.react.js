@@ -6,12 +6,14 @@ import {Typeahead} from '../../src/';
 
 /* eslint-disable no-console */
 /* example-start */
-const LabelKeyExample = React.createClass({
-  getInitialState() {
-    return {
+class LabelKeyExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       paginate: true,
     };
-  },
+  }
 
   render() {
     const {paginate} = this.state;
@@ -31,8 +33,8 @@ const LabelKeyExample = React.createClass({
         </Checkbox>
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 /* eslint-disable no-console */
 

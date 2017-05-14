@@ -1,4 +1,6 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 
 import Anchor from './Anchor';
 import ScrollSpy from './ScrollSpy';
@@ -6,7 +8,7 @@ import ScrollSpy from './ScrollSpy';
 import getIdFromTitle from '../util/getIdFromTitle';
 
 const sectionContainer = Component => (
-  React.createClass({
+  createReactClass({
     contextTypes: {
       onAfter: PropTypes.func.isRequired,
       onBefore: PropTypes.func.isRequired,

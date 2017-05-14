@@ -5,12 +5,13 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const BodyContainerExample = React.createClass({
-  getInitialState() {
-    return {
+class BodyContainerExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       bodyContainer: false,
     };
-  },
+  }
 
   render() {
     const {bodyContainer} = this.state;
@@ -40,8 +41,8 @@ const BodyContainerExample = React.createClass({
         </Checkbox>
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default BodyContainerExample;

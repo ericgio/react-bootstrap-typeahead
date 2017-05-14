@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {noop} from 'lodash';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 
 import Token from '../src/Token';
 

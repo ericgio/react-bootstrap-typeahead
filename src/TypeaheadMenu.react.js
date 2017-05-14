@@ -2,7 +2,8 @@
 
 import {pick} from 'lodash';
 import Highlight from 'react-highlighter';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
@@ -11,36 +12,14 @@ import getOptionLabel from './utils/getOptionLabel';
 
 const MATCH_CLASS = 'bootstrap-typeahead-highlight';
 
-const TypeaheadMenu = React.createClass({
-  displayName: 'TypeaheadMenu',
+class TypeaheadMenu extends React.Component {
+  displayName = 'TypeaheadMenu';
 
-  /**
-   * In addition to the propTypes below, the following props are automatically
-   * passed down by `Typeahead`:
-   *
-   *  - labelKey
-   *  - onPaginate
-   *  - options
-   *  - paginate
-   *  - text
-   */
-  propTypes: {
-    /**
-     * Provides the ability to specify a prefix before the user-entered text to
-     * indicate that the selection will be new. No-op unless `allowNew={true}`.
-     */
-    newSelectionPrefix: PropTypes.string,
-    /**
-     * Provides a hook for customized rendering of menu item contents.
-     */
-    renderMenuItemChildren: PropTypes.func,
-  },
+  constructor(props) {
+    super(props);
 
-  getDefaultProps() {
-    return {
-      newSelectionPrefix: 'New selection: ',
-    };
-  },
+    this._renderMenuItem = this._renderMenuItem.bind(this);
+  }
 
   render() {
     const menuProps = pick(this.props, [
@@ -60,7 +39,7 @@ const TypeaheadMenu = React.createClass({
         {this.props.options.map(this._renderMenuItem)}
       </Menu>
     );
-  },
+  }
 
   _renderMenuItem(option, idx) {
     const {
@@ -97,7 +76,34 @@ const TypeaheadMenu = React.createClass({
           {getOptionLabel(option, labelKey)}
         </Highlight>
       </MenuItem>;
-  },
-});
+  }
+}
+
+/**
+ * In addition to the propTypes below, the following props are automatically
+ * passed down by `Typeahead`:
+ *
+ *  - labelKey
+ *  - onPaginate
+ *  - options
+ *  - paginate
+ *  - text
+ */
+TypeaheadMenu.propTypes = {
+  /**
+   * Provides the ability to specify a prefix before the user-entered text to
+   * indicate that the selection will be new. No-op unless `allowNew={true}`.
+   */
+  newSelectionPrefix: PropTypes.string,
+  /**
+   * Provides a hook for customized rendering of menu item contents.
+   */
+  renderMenuItemChildren: PropTypes.func,
+};
+
+TypeaheadMenu.getDefaultProps = {
+  newSelectionPrefix: 'New selection: ',
+};
+
 
 export default TypeaheadMenu;

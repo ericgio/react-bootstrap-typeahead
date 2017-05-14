@@ -5,7 +5,7 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const PublicMethodsExample = React.createClass({
+class PublicMethodsExample extends React.Component {
   render() {
     return (
       <div>
@@ -35,8 +35,8 @@ const PublicMethodsExample = React.createClass({
         </ButtonToolbar>
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default PublicMethodsExample;

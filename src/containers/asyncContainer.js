@@ -1,5 +1,6 @@
 import {debounce} from 'lodash';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const DEFAULT_DELAY_MS = 200;
 
@@ -12,53 +13,22 @@ const DEFAULT_DELAY_MS = 200;
  *  - Search prompt and empty results behaviors
  */
 const asyncContainer = Typeahead => {
-  return React.createClass({
-    propTypes: {
-      /**
-       * Delay, in milliseconds, before performing search.
-       */
-      delay: PropTypes.number,
-      /**
-       * Callback to perform when the search is executed.
-       */
-      onSearch: PropTypes.func.isRequired,
-      /**
-       * Options to be passed to the typeahead. Will typically be the query
-       * results, but can also be initial default options.
-       */
-      options: PropTypes.array,
-      /**
-       * Text displayed in the menu when there is no user input.
-       */
-      promptText: PropTypes.string,
-      /**
-       * Text displayed in the menu while the request is pending.
-       */
-      searchText: PropTypes.string,
-      /**
-       * Whether or not the component should cache query results.
-       */
-      useCache: PropTypes.bool,
-    },
 
-    getDefaultProps() {
-      return {
-        delay: DEFAULT_DELAY_MS,
-        minLength: 2,
-        options: [],
-        promptText: 'Type to search...',
-        searchText: 'Searching...',
-        useCache: true,
-      };
-    },
+  class Container extends React.Component {
 
-    getInitialState() {
-      return {
+    constructor(props) {
+      super(props);
+
+      this._handleChange = this._handleChange.bind(this);
+      this._handleInputChange = this._handleInputChange.bind(this);
+      this._handleSearch = this._handleSearch.bind(this);
+
+      this.state = {
         hasSelection: false,
         query: '',
         requestPending: false,
       };
-    },
+    }
 
     componentWillMount() {
       this._cache = {};
@@ -66,7 +36,7 @@ const asyncContainer = Typeahead => {
         this._handleSearch,
         this.props.delay
       );
-    },
+    }
 
     componentWillReceiveProps(nextProps) {
       const {options, useCache} = nextProps;
@@ -81,12 +51,12 @@ const asyncContainer = Typeahead => {
       }
 
       this.setState({requestPending: false});
-    },
+    }
 
     componentWillUnmount() {
       this._cache = {};
       this._handleSearchDebounced.cancel();
-    },
+    }
 
     render() {
       const {allowNew, options, useCache, ...props} = this.props;
@@ -111,14 +81,14 @@ const asyncContainer = Typeahead => {
           ref={instance => this._instance = instance}
         />
       );
-    },
+    }
 
     /**
      * Make the component instance available.
      */
     getInstance() {
       return this._instance.getInstance();
-    },
+    }
 
     _getEmptyLabel() {
       const {
@@ -140,17 +110,17 @@ const asyncContainer = Typeahead => {
       }
 
       return emptyLabel;
-    },
+    }
 
     _handleChange(selected) {
       this.props.onChange && this.props.onChange(selected);
       this.setState({hasSelection: !!selected.length});
-    },
+    }
 
     _handleInputChange(query) {
       this.props.onInputChange && this.props.onInputChange(query);
       this._handleSearchDebounced(query);
-    },
+    }
 
     _handleSearch(initialQuery) {
       const {
@@ -185,8 +155,47 @@ const asyncContainer = Typeahead => {
 
       // Perform the async search.
       this.setState({requestPending: true}, () => onSearch(query));
-    },
-  });
+    }
+  }
+
+  Container.propTypes = {
+    /**
+     * Delay, in milliseconds, before performing search.
+     */
+    delay: PropTypes.number,
+    /**
+     * Callback to perform when the search is executed.
+     */
+    onSearch: PropTypes.func.isRequired,
+    /**
+     * Options to be passed to the typeahead. Will typically be the query
+     * results, but can also be initial default options.
+     */
+    options: PropTypes.array,
+    /**
+     * Text displayed in the menu when there is no user input.
+     */
+    promptText: PropTypes.string,
+    /**
+     * Text displayed in the menu while the request is pending.
+     */
+    searchText: PropTypes.string,
+    /**
+     * Whether or not the component should cache query results.
+     */
+    useCache: PropTypes.bool,
+  };
+
+  Container.defaultProps = {
+    delay: DEFAULT_DELAY_MS,
+    minLength: 2,
+    options: [],
+    promptText: 'Type to search...',
+    searchText: 'Searching...',
+    useCache: true,
+  };
+
+  return Container;
 };
 
 export default asyncContainer;

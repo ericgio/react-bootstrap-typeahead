@@ -2,7 +2,8 @@
 
 import cx from 'classnames';
 import {head} from 'lodash';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextInput from './TextInput.react';
 
@@ -13,55 +14,28 @@ import {RIGHT, TAB} from './utils/keyCode';
  *
  * Handles a single selection from the Typeahead component.
  */
-const TypeaheadInput = React.createClass({
-  displayName: 'TypeaheadInput',
+class TypeaheadInput extends React.Component {
+  displayName = 'TypeaheadInput';
 
-  /**
-   * In addition to the propTypes below, the following props are automatically
-   * passed down by `Typeahead`:
-   *
-   *  - activeIndex
-   *  - activeItem
-   *  - hasAux
-   *  - hintText
-   *  - labelKey
-   *  - onAdd
-   *  - onBlur
-   *  - onChange
-   *  - onClick
-   *  - onFocus
-   *  - onKeydown
-   *  - onRemove
-   *  - selected
-   *  - value
-   */
-  propTypes: {
-    /**
-     * Whether to disable the input and any selection, if present.
-     */
-    disabled: PropTypes.bool,
-    /**
-     * Name property for the input.
-     */
-    name: PropTypes.string,
-    /**
-     * Placeholder text for the input.
-     */
-    placeholder: PropTypes.string,
-  },
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
-    return {
+    this._handleBlur = this._handleBlur.bind(this);
+    this._handleChange = this._handleChange.bind(this);
+    this._handleInputFocus = this._handleInputFocus.bind(this);
+    this._handleKeydown = this._handleKeydown.bind(this);
+
+    this.state = {
       isFocused: false,
     };
-  },
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const {activeIndex, value} = this.props;
     if (activeIndex !== prevProps.activeIndex) {
       this._input.getInstance().selectionStart = value.length;
     }
-  },
+  }
 
   render() {
     const {
@@ -134,20 +108,20 @@ const TypeaheadInput = React.createClass({
         />
       </div>
     );
-  },
+  }
 
   blur() {
     this._input.getInstance().blur();
-  },
+  }
 
   focus() {
     this._handleInputFocus();
-  },
+  }
 
   _handleBlur(e) {
     this.setState({isFocused: false});
     this.props.onBlur(e);
-  },
+  }
 
   _handleChange(e) {
     // Clear any selections when text is entered.
@@ -155,7 +129,7 @@ const TypeaheadInput = React.createClass({
     !!selected.length && onRemove(head(selected));
 
     this.props.onChange(e.target.value);
-  },
+  }
 
   /**
    * If the containing parent div is focused or clicked, focus the input.
@@ -163,7 +137,7 @@ const TypeaheadInput = React.createClass({
   _handleInputFocus(e) {
     this.setState({isFocused: true});
     this._input.getInstance().focus();
-  },
+  }
 
   _handleKeydown(e) {
     const {
@@ -201,7 +175,42 @@ const TypeaheadInput = React.createClass({
     }
 
     this.props.onKeyDown(e);
-  },
-});
+  }
+}
+
+/**
+ * In addition to the propTypes below, the following props are automatically
+ * passed down by `Typeahead`:
+ *
+ *  - activeIndex
+ *  - activeItem
+ *  - hasAux
+ *  - hintText
+ *  - labelKey
+ *  - onAdd
+ *  - onBlur
+ *  - onChange
+ *  - onClick
+ *  - onFocus
+ *  - onKeydown
+ *  - onRemove
+ *  - selected
+ *  - value
+ */
+TypeaheadInput.propTypes = {
+  /**
+   * Whether to disable the input and any selection, if present.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Name property for the input.
+   */
+  name: PropTypes.string,
+  /**
+   * Placeholder text for the input.
+   */
+  placeholder: PropTypes.string,
+};
+
 
 export default TypeaheadInput;

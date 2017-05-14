@@ -11,14 +11,22 @@ import {BACKSPACE} from '../utils/keyCode';
  * be easily re-used.
  */
 const tokenContainer = Component => {
-  const WrappedComponent = React.createClass({
-    displayName: `tokenContainer(${getDisplayName(Component)})`,
+  class WrappedComponent extends React.Component {
+    displayName = `tokenContainer(${getDisplayName(Component)})`;
 
-    getInitialState() {
-      return {
+    constructor(props) {
+      super(props);
+
+      this._handleBlur = this._handleBlur.bind(this);
+      this._handleKeyDown = this._handleKeyDown.bind(this);
+      this._handleRemove = this._handleRemove.bind(this);
+      this._handleSelect = this._handleSelect.bind(this);
+      this.handleClickOutside = this.handleClickOutside.bind(this);
+
+      this.state = {
         selected: false,
       };
-    },
+    }
 
     render() {
       const tokenProps = omit(this.props, [
@@ -36,13 +44,13 @@ const tokenContainer = Component => {
           onKeyDown={this._handleKeyDown}
         />
       );
-    },
+    }
 
     _handleBlur(e) {
       findDOMNode(this).blur();
       this.setState({selected: false});
       this.props.disableOnClickOutside && this.props.disableOnClickOutside();
-    },
+    }
 
     _handleKeyDown(e) {
       switch (e.keyCode) {
@@ -55,25 +63,25 @@ const tokenContainer = Component => {
           }
           break;
       }
-    },
+    }
 
     /**
      * From `onClickOutside` HOC.
      */
     handleClickOutside(e) {
       this._handleBlur();
-    },
+    }
 
     _handleRemove(e) {
       this.props.onRemove && this.props.onRemove();
-    },
+    }
 
     _handleSelect(e) {
       e.stopPropagation();
       this.setState({selected: true});
       this.props.enableOnClickOutside && this.props.enableOnClickOutside();
-    },
-  });
+    }
+  }
 
   return onClickOutside(WrappedComponent);
 };

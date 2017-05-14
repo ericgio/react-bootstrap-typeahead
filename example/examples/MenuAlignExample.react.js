@@ -5,12 +5,14 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const MenuAlignExample = React.createClass({
-  getInitialState() {
-    return {
+class MenuAlignExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       align: 'justify',
     };
-  },
+  }
 
   render() {
     const {align} = this.state;
@@ -39,8 +41,8 @@ const MenuAlignExample = React.createClass({
         ))}
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default MenuAlignExample;

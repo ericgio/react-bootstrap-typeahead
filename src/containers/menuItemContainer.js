@@ -1,11 +1,13 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import {findDOMNode} from 'react-dom';
 
 import getDisplayName from '../utils/getDisplayName';
 import scrollIntoViewIfNeeded from '../utils/scrollIntoViewIfNeeded';
 
 const menuItemContainer = Component => (
-  React.createClass({
+  createReactClass({
     displayName: `menuItemContainer(${getDisplayName(Component)})`,
 
     propTypes: {

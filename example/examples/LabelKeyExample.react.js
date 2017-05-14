@@ -2,7 +2,7 @@ import React from 'react';
 import {Typeahead} from '../../src/';
 
 /* example-start */
-const LabelKeyExample = React.createClass({
+class LabelKeyExample extends React.Component {
   render() {
     return (
       <Typeahead
@@ -18,8 +18,8 @@ const LabelKeyExample = React.createClass({
         placeholder="Who's the coolest cat?"
       />
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default LabelKeyExample;

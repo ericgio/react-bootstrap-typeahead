@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import {isEqual} from 'lodash';
-import React, {Children, cloneElement, PropTypes} from 'react';
+import React, {Children, cloneElement} from 'react';
+import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
 import componentOrElement from 'react-prop-types/lib/componentOrElement';
@@ -19,35 +20,21 @@ function isBody(container) {
  * work for our needs. Specifically, the `Position` component doesn't provide
  * the customized placement we need.
  */
-const Overlay = React.createClass({
-  displayName: 'Overlay',
+class Overlay extends React.Component {
+  displayName = 'Overlay';
 
-  propTypes: {
-    container: PropTypes.oneOfType([
-      componentOrElement,
-      PropTypes.func,
-    ]).isRequired,
-    show: PropTypes.bool,
-    target: PropTypes.oneOfType([
-      componentOrElement,
-      PropTypes.func,
-    ]).isRequired,
-  },
+  constructor(props) {
+    super(props);
 
-  getDefaultProps() {
-    return {
-      show: false,
-    };
-  },
+    this._updatePosition = this._updatePosition.bind(this);
 
-  getInitialState() {
-    return {
+    this.state = {
       bottom: 0,
       left: 0,
       right: 0,
       top: 0,
     };
-  },
+  }
 
   componentDidMount() {
     this._mounted = true;
@@ -60,17 +47,17 @@ const Overlay = React.createClass({
 
     window.addEventListener('resize', this._updatePositionThrottled);
     window.addEventListener('scroll', this._updatePositionThrottled, true);
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this._updatePositionThrottled();
-  },
+  }
 
   componentWillUnmount() {
     this._mounted = false;
     window.removeEventListener('resize', this._updatePositionThrottled);
     window.removeEventListener('scroll', this._updatePositionThrottled);
-  },
+  }
 
   render() {
     if (!this.props.show) {
@@ -97,7 +84,7 @@ const Overlay = React.createClass({
         {child}
       </Portal>
     );
-  },
+  }
 
   _updatePosition() {
     // Positioning is only used when body is the container.
@@ -128,7 +115,24 @@ const Overlay = React.createClass({
         this.setState(newState);
       }
     }
-  },
-});
+  }
+}
+
+Overlay.propTypes = {
+  container: PropTypes.oneOfType([
+    componentOrElement,
+    PropTypes.func,
+  ]).isRequired,
+  show: PropTypes.bool,
+  target: PropTypes.oneOfType([
+    componentOrElement,
+    PropTypes.func,
+  ]).isRequired,
+};
+
+Overlay.defaultProps = {
+  show: false,
+};
+
 
 export default Overlay;

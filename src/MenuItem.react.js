@@ -6,14 +6,14 @@ import React from 'react';
 
 import menuItemContainer from './containers/menuItemContainer';
 
-const BaseMenuItem = React.createClass({
-  displayName: 'BaseMenuItem',
+class BaseMenuItem extends React.Component {
+  displayName = 'BaseMenuItem';
 
-  getDefaultProps() {
-    return {
-      onClick: noop,
-    };
-  },
+  constructor(props) {
+    super(props);
+
+    this._handleClick = this._handleClick.bind(this);
+  }
 
   render() {
     const {active, children, className, disabled} = this.props;
@@ -29,15 +29,19 @@ const BaseMenuItem = React.createClass({
         </a>
       </li>
     );
-  },
+  }
 
   _handleClick(e) {
     const {disabled, onClick} = this.props;
 
     e.preventDefault();
     !disabled && onClick(e);
-  },
-});
+  }
+}
+
+BaseMenuItem.defaultProps = {
+  onClick: noop,
+};
 
 const MenuItem = menuItemContainer(BaseMenuItem);
 

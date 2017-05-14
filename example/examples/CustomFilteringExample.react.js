@@ -5,12 +5,14 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const CustomFilteringExample = React.createClass({
-  getInitialState() {
-    return {
+class CustomFilteringExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state ={
       filterBy: 'callback',
     };
-  },
+  }
 
   render() {
     const {filterBy} = this.state;
@@ -55,8 +57,8 @@ const CustomFilteringExample = React.createClass({
         ))}
       </div>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default CustomFilteringExample;

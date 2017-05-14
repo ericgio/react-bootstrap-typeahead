@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {range} from 'lodash';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 
 import TokenizerInput from '../src/TokenizerInput';
 import Typeahead from '../src/Typeahead';

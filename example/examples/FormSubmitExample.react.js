@@ -5,12 +5,14 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const FormSubmitExample = React.createClass({
-  getInitialState() {
-    return {
+class FormSubmitExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       submitFormOnEnter: true,
     };
-  },
+  }
 
   render() {
     const {submitFormOnEnter} = this.state;
@@ -35,8 +37,8 @@ const FormSubmitExample = React.createClass({
         </Checkbox>
       </form>
     );
-  },
-});
+  }
+}
 /* example-end */
 
 export default FormSubmitExample;
