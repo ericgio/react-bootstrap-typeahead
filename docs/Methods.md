@@ -16,7 +16,18 @@ Note that you *must* use `getInstance` to get the typeahead instance. This is be
 Provides a programmatic way to blur the input.
 
 ### `clear()`
-Provides a programmatic way to reset the input. Calling the method will clear both text and selection(s). **Warning: Do not call this method from the `onChange` handler**. Doing so will cause an infinite loop since `clear` triggers the change event.
+Provides a programmatic way to reset the input. Calling the method will clear both text and selection(s).
+
+**Warning: Be careful when calling this method from the `onChange` handler**. Doing so can cause an infinite loop since `clear` triggers the change event. If you want to clear the typeahead after a selection, be sure to check the length of the selections:
+
+```jsx
+onChange: function(selected) {
+  ...
+  if (selected.length) {
+    this.refs.typeahead.getInstance().clear();
+  }
+}
+```
 
 ### `focus()`
 Provides a programmatic way to focus the input.

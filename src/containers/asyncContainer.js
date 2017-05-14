@@ -14,8 +14,6 @@ const DEFAULT_DELAY_MS = 200;
  */
 const asyncContainer = Typeahead => {
 
-  let _cache = {};
-
   class Container extends React.Component {
 
     constructor(props) {
@@ -33,6 +31,7 @@ const asyncContainer = Typeahead => {
     }
 
     componentWillMount() {
+      this._cache = {};
       this._handleSearchDebounced = debounce(
         this._handleSearch,
         this.props.delay
@@ -48,20 +47,20 @@ const asyncContainer = Typeahead => {
       }
 
       if (useCache) {
-        _cache[query] = options;
+        this._cache[query] = options;
       }
 
       this.setState({requestPending: false});
     }
 
     componentWillUnmount() {
-      _cache = {};
+      this._cache = {};
       this._handleSearchDebounced.cancel();
     }
 
     render() {
       const {allowNew, options, useCache, ...props} = this.props;
-      const cachedQuery = _cache[this.state.query];
+      const cachedQuery = this._cache[this.state.query];
       const emptyLabel = this._getEmptyLabel();
 
       // Short-circuit the creation of custom selections while the user is in
@@ -106,7 +105,7 @@ const asyncContainer = Typeahead => {
         return promptText;
       }
 
-      if (requestPending || (useCache && !_cache[query])) {
+      if (requestPending || (useCache && !this._cache[query])) {
         return searchText;
       }
 
@@ -144,7 +143,7 @@ const asyncContainer = Typeahead => {
       }
 
       // Use cached results, if available.
-      if (useCache && _cache[query]) {
+      if (useCache && this._cache[query]) {
         return;
       }
 
@@ -195,7 +194,6 @@ const asyncContainer = Typeahead => {
     searchText: 'Searching...',
     useCache: true,
   };
-
 
   return Container;
 };
