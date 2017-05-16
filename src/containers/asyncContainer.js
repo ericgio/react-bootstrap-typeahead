@@ -113,8 +113,8 @@ const asyncContainer = Typeahead => {
     }
 
     _handleChange(selected) {
+      // this.setState({hasSelection: !!selected.length});
       this.props.onChange && this.props.onChange(selected);
-      this.setState({hasSelection: !!selected.length});
     }
 
     _handleInputChange(query) {
