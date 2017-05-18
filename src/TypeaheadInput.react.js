@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import TextInput from './TextInput.react';
 
-import {RIGHT, TAB} from './utils/keyCode';
+import {RIGHT, TAB, RETURN} from './utils/keyCode';
 
 /**
  * TypeaheadInput
