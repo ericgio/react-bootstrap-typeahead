@@ -16,6 +16,11 @@ const menuItemContainer = Component => (
         PropTypes.string,
       ]).isRequired,
       position: PropTypes.number,
+      onClick: PropTypes.func
+    },
+
+    defaultProps: {
+      onClick: () => true
     },
 
     contextTypes: {
@@ -59,7 +64,7 @@ const menuItemContainer = Component => (
         <Component
           {...props}
           active={activeIndex === position}
-          onClick={() => onMenuItemClick(option)}
+          onClick={() => this.props.onClick() !== false && onMenuItemClick(option)}
         />
       );
     },
