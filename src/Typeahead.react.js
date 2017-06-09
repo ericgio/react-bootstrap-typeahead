@@ -146,6 +146,11 @@ const Typeahead = React.createClass({
      * Propagate <RETURN> event to parent form.
      */
     submitFormOnEnter: PropTypes.bool,
+    /**
+     * add an aria-label
+     * @type {String}
+     */
+    ariaLabel: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -250,7 +255,14 @@ const Typeahead = React.createClass({
   },
 
   render() {
-    const {allowNew, className, dropup, labelKey, paginate} = this.props;
+    const {
+      allowNew,
+      className,
+      dropup,
+      labelKey,
+      paginate,
+      ariaLabel,
+    } = this.props;
     const {shownResults, text} = this.state;
 
     // First filter the results by the input string.
@@ -271,6 +283,7 @@ const Typeahead = React.createClass({
 
     return (
       <div
+        ariaLabel={ariaLabel}
         className={cx('bootstrap-typeahead', 'clearfix', 'open', {
           'dropup': dropup,
         }, className)}
