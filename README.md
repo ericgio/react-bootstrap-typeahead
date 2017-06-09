@@ -1,3 +1,10 @@
+# IMPORTANT: this is just a fork 
+This is just a fork of [ericgio/react-bootstrap-typeahead](https://github.com/> ericgio/react-bootstrap-typeahead).
+
+You probably want to use the original,
+this repo just contains a small bugfix for a specific problem we encountered (see [ericgio/react-bootstrap-typeahead/#172](https://github.com/ericgio/> react-bootstrap-typeahead/pull/172)).
+
+
 # React Bootstrap Typeahead
 React-based typeahead component that uses Bootstrap as a base for styles and behaviors and supports both single- and multi-selection. The UI and behaviors are inspired by Twitter's [typeahead.js](https://github.com/twitter/typeahead.js). Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/).
 
