@@ -145,7 +145,6 @@ class TypeaheadInput extends React.Component {
       hintText,
       initialItem,
       onAdd,
-      selected,
       value,
     } = this.props;
 
@@ -159,8 +158,6 @@ class TypeaheadInput extends React.Component {
           this.state.isFocused &&
           // There's a hint or a menu item is highlighted.
           (hintText || activeItem) &&
-          // There's no current selection.
-          !selected.length &&
           // The input cursor is at the end of the text string when the user
           // hits the right arrow key.
           !(e.keyCode === RIGHT && cursorPos !== value.length)
