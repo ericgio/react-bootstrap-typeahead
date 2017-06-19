@@ -277,9 +277,10 @@ const Typeahead = createReactClass({
           'dropup': dropup,
         }, className)}
         style={{position: 'relative'}}>
+        {dropup ? this._renderMenu(results, shouldPaginate) : null}
         {this._renderInput(results)}
         {this._renderAux()}
-        {this._renderMenu(results, shouldPaginate)}
+        {!dropup ? this._renderMenu(results, shouldPaginate) : null}
       </div>
     );
   },
