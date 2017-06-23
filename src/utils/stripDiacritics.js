@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,7 +116,7 @@ for (let ii = 0; ii < map.length; ii++) {
 }
 
 // "what?" version ... http://jsperf.com/diacritics/12
-export default function stripDiacritics(str) {
+export default function stripDiacritics(str: string): string {
   return str
     .replace(/[\u0300-\u036F]/g, '') // Remove combining diacritics
     /* eslint-disable-next-line no-control-regex */

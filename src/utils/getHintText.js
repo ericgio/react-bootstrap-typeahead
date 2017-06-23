@@ -1,16 +1,33 @@
+// @flow
+
 import getMatchBounds from './getMatchBounds';
 import getOptionLabel from './getOptionLabel';
 
-function getHintText({
-  activeItem,
-  initialItem,
-  isFocused,
-  isMenuShown,
-  labelKey,
-  multiple,
-  selected,
-  text,
-}) {
+import type { LabelKey, Option } from '../types';
+
+type Props = {
+  activeItem: ?Option,
+  initialItem: ?Option,
+  isFocused: boolean,
+  isMenuShown: boolean,
+  labelKey: LabelKey,
+  multiple: boolean,
+  selected: Option[],
+  text: string,
+};
+
+function getHintText(props: Props) {
+  const {
+    activeItem,
+    initialItem,
+    isFocused,
+    isMenuShown,
+    labelKey,
+    multiple,
+    selected,
+    text,
+  } = props;
+
   // Don't display a hint under the following conditions:
   if (
     // No text entered.

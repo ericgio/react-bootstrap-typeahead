@@ -2,6 +2,7 @@ css
 dist
 example/package-example.js
 example/assets/prism.min.js
+flow-typed
 lib
 **/node_modules
 scripts

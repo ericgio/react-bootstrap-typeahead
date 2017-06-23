@@ -1,10 +1,20 @@
+// @flow
+
 import escapeStringRegexp from 'escape-string-regexp';
 import stripDiacritics from './stripDiacritics';
 
 const CASE_INSENSITIVE = 'i';
 const COMBINING_MARKS = /[\u0300-\u036F]/;
 
-export default function getMatchBounds(subject, str) {
+type MatchBounds = {
+  end: number,
+  start: number,
+};
+
+export default function getMatchBounds(
+  subject: string,
+  str: string
+): ?MatchBounds {
   const search = new RegExp(
     escapeStringRegexp(stripDiacritics(str)),
     CASE_INSENSITIVE
