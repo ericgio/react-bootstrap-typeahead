@@ -1,6 +1,16 @@
+// @flow
+
 import getOptionLabel from './getOptionLabel';
 
-function addCustomOption(results, props) {
+import type { LabelKey, Option } from '../types';
+
+type Props = {
+  allowNew: boolean | Function,
+  labelKey: LabelKey,
+  text: string,
+};
+
+function addCustomOption(results: Option[], props: Props): boolean {
   const { allowNew, labelKey, text } = props;
 
   if (!allowNew || !text.trim()) {
