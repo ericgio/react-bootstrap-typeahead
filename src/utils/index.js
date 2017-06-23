@@ -9,6 +9,7 @@ export getIsOnlyResult from './getIsOnlyResult';
 export getMatchBounds from './getMatchBounds';
 export getMenuItemId from './getMenuItemId';
 export getOptionLabel from './getOptionLabel';
+export getOptionProperty from './getOptionProperty';
 export getStringLabelKey from './getStringLabelKey';
 export getTruncatedOptions from './getTruncatedOptions';
 export isSelectable from './isSelectable';

@@ -30,18 +30,18 @@ describe('shouldSelectHint', () => {
 
   it('behavior when the right arrow key is pressed', () => {
     event = {
-      keyCode: RIGHT,
-      target: {
+      currentTarget: {
         selectionStart: 3,
       },
+      keyCode: RIGHT,
     };
 
     expect(shouldSelectHint(event, props)).to.equal(false);
 
-    event.target.selectionStart = 4;
+    event.currentTarget.selectionStart = 4;
     expect(shouldSelectHint(event, props)).to.equal(true);
 
-    event.target.selectionStart = null;
+    event.currentTarget.selectionStart = null;
     expect(shouldSelectHint(event, props)).to.equal(true);
   });
 
