@@ -1,5 +1,3 @@
-'use strict';
-
 import {pick} from 'lodash';
 import Highlight from 'react-highlighter';
 import React from 'react';

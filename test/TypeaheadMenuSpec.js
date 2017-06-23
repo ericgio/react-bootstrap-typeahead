@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import createReactClass from 'create-react-class';
 import {noop, range} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,14 +10,7 @@ import TypeaheadMenu from '../src/TypeaheadMenu';
 
 import options from '../example/exampleData';
 
-const TypeaheadContext = createReactClass({
-  childContextTypes: {
-    activeIndex: PropTypes.number.isRequired,
-    onActiveItemChange: PropTypes.func.isRequired,
-    onInitialItemChange: PropTypes.func.isRequired,
-    onMenuItemClick: PropTypes.func.isRequired,
-  },
-
+class TypeaheadContext extends React.Component {
   getChildContext() {
     return {
       activeIndex: -1,
@@ -26,12 +18,19 @@ const TypeaheadContext = createReactClass({
       onInitialItemChange: noop,
       onMenuItemClick: noop,
     };
-  },
+  }
 
   render() {
     return this.props.children;
-  },
-});
+  }
+}
+
+TypeaheadContext.childContextTypes = {
+  activeIndex: PropTypes.number.isRequired,
+  onActiveItemChange: PropTypes.func.isRequired,
+  onInitialItemChange: PropTypes.func.isRequired,
+  onMenuItemClick: PropTypes.func.isRequired,
+};
 
 const bigData = range(0, 300).map(option => ({name: option.toString()}));
 

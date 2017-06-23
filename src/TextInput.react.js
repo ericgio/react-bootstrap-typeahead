@@ -1,12 +1,8 @@
-'use strict';
-
 import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 class TextInput extends React.Component {
-
   render() {
     const {bsSize, className, hasAux, ...otherProps} = this.props;
 

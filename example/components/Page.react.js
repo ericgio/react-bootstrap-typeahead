@@ -1,6 +1,5 @@
 import React, {Children} from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {Col, Jumbotron, NavItem, Row} from 'react-bootstrap';
 
 import Container from './Container';
@@ -10,24 +9,20 @@ import PageMenu from './PageMenu';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
-const Page = createReactClass({
-  getInitialState() {
-    return {
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       activeHref: window.location.hash,
     };
-  },
-
-  childContextTypes: {
-    onAfter: PropTypes.func.isRequired,
-    onBefore: PropTypes.func.isRequired,
-  },
+  }
 
   getChildContext() {
     return {
       onAfter: this._onAfter,
       onBefore: this._onBefore,
     };
-  },
+  }
 
   componentWillMount() {
     this._hrefs = [];
@@ -37,7 +32,7 @@ const Page = createReactClass({
       this._hrefs.push(`#${getIdFromTitle(props.title)}`);
       this._sections.push(props.title);
     });
-  },
+  }
 
   render() {
     const {children, title} = this.props;
@@ -65,9 +60,9 @@ const Page = createReactClass({
         <PageFooter />
       </div>
     );
-  },
+  }
 
-  _renderMenuItem(title, idx) {
+  _renderMenuItem = (title, idx) => {
     const href = `#${getIdFromTitle(title)}`;
     return (
       <NavItem
@@ -77,23 +72,23 @@ const Page = createReactClass({
         {title}
       </NavItem>
     );
-  },
+  }
 
-  _handleMenuItemClick(activeHref) {
+  _handleMenuItemClick = activeHref => {
     window.location.hash = activeHref;
     this._updateActiveHref(activeHref);
-  },
+  }
 
-  _onAfter(href) {
+  _onAfter = href => {
     this._updateActiveHref(href);
-  },
+  }
 
-  _onBefore(href) {
+  _onBefore = href => {
     const index = this._hrefs.indexOf(href) - 1;
     this._updateActiveHref(this._hrefs[index]);
-  },
+  }
 
-  _updateActiveHref(activeHref, callback) {
+  _updateActiveHref = (activeHref, callback) => {
     if (this._updateActiveHrefHandle != null) {
       return;
     }
@@ -102,8 +97,13 @@ const Page = createReactClass({
       this._updateActiveHrefHandle = null;
       this.setState({activeHref});
     });
-  },
-});
+  }
+}
+
+Page.childContextTypes = {
+  onAfter: PropTypes.func.isRequired,
+  onBefore: PropTypes.func.isRequired,
+};
 
 Page.propTypes = {
   title: PropTypes.node.isRequired,
