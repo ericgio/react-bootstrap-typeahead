@@ -68,12 +68,12 @@ class AsyncExample extends React.Component {
     );
   }
 
-  _handleChange = (e) => {
+  _handleChange = e => {
     const {checked, name} = e.target;
     this.setState({[name]: checked});
   }
 
-  _handleSearch = (query) => {
+  _handleSearch = query => {
     if (!query) {
       return;
     }
