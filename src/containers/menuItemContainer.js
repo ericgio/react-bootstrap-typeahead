@@ -34,16 +34,23 @@ const menuItemContainer = Component => {
     }
 
     render() {
-      const {activeIndex, onMenuItemClick} = this.context;
-      const {option, position, ...props} = this.props;
+      const {activeIndex} = this.context;
+      const {position, ...props} = this.props;
 
       return (
         <Component
           {...props}
           active={activeIndex === position}
-          onClick={() => onMenuItemClick(option)}
+          onClick={this._handleClick}
         />
       );
+    }
+
+    _handleClick = e => {
+      const {option, onClick} = this.props;
+
+      this.context.onMenuItemClick(option);
+      onClick && onClick(e);
     }
 
     _updateInitialItem = props => {
