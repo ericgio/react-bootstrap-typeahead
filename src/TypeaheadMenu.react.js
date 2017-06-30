@@ -99,7 +99,7 @@ TypeaheadMenu.propTypes = {
   renderMenuItemChildren: PropTypes.func,
 };
 
-TypeaheadMenu.getDefaultProps = {
+TypeaheadMenu.defaultProps = {
   newSelectionPrefix: 'New selection: ',
 };
 
