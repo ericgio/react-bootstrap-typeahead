@@ -174,20 +174,10 @@ class Typeahead extends React.Component {
    * and selection(s).
    */
   clear = () => {
-    const {activeIndex, activeItem, showMenu} = getInitialState(this.props);
-    const selected = [];
-    const text = '';
+    this.setState(getInitialState(this.props));
 
-    this.setState({
-      activeIndex,
-      activeItem,
-      selected,
-      showMenu,
-      text,
-    });
-
-    this.props.onChange(selected);
-    this.props.onInputChange(text);
+    this._updateSelected([]);
+    this._updateText('');
   }
 
   focus = () => {
@@ -350,10 +340,8 @@ class Typeahead extends React.Component {
       activeIndex,
       activeItem,
       showMenu: true,
-      text,
     });
-
-    this.props.onInputChange(text);
+    this._updateText(text);
   }
 
   _handleKeydown = (options, e) => {
@@ -413,7 +401,7 @@ class Typeahead extends React.Component {
   }
 
   _handleAddOption = selectedOption => {
-    const {multiple, labelKey, onChange, onInputChange} = this.props;
+    const {multiple, labelKey} = this.props;
 
     let selected;
     let text;
@@ -432,13 +420,9 @@ class Typeahead extends React.Component {
 
     this._hideDropdown();
     this._updateSelected(selected);
+    this._updateText(text);
 
-    this.setState({
-      initialItem: selectedOption,
-      text,
-    });
-
-    onInputChange(text);
+    this.setState({initialItem: selectedOption});
   }
 
   _handlePagination = e => {
@@ -449,8 +433,9 @@ class Typeahead extends React.Component {
   }
 
   _handleRemoveOption = removedOption => {
-    let selected = this.state.selected.slice();
-    selected = selected.filter(option => !isEqual(option, removedOption));
+    const selected = this.state.selected.filter(option => (
+      !isEqual(option, removedOption)
+    ));
 
     // Make sure the input stays focused after the item is removed.
     this.focus();
@@ -484,6 +469,11 @@ class Typeahead extends React.Component {
   _updateSelected = selected => {
     this.setState({selected});
     this.props.onChange(selected);
+  }
+
+  _updateText = text => {
+    this.setState({text});
+    this.props.onInputChange(text);
   }
 }
 
