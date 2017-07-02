@@ -86,10 +86,15 @@ class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {multiple, selected} = nextProps;
 
+    // If new selections are passed via props, treat as a controlled input.
     if (!isEqual(selected, this.props.selected)) {
-      // If new selections are passed in via props, treat the component as a
-      // controlled input.
       this.setState({selected});
+    }
+
+    // If component changes from multi-select to single-select, keep only the
+    // first selection, if any.
+    if (this.props.multiple && !multiple) {
+      this._updateSelected(this.state.selected.slice(0, 1));
     }
 
     if (multiple !== this.props.multiple) {
@@ -425,14 +430,14 @@ class Typeahead extends React.Component {
       text = getOptionLabel(selectedOption, labelKey);
     }
 
+    this._hideDropdown();
+    this._updateSelected(selected);
+
     this.setState({
       initialItem: selectedOption,
-      selected,
       text,
     });
-    this._hideDropdown();
 
-    onChange(selected);
     onInputChange(text);
   }
 
@@ -449,11 +454,8 @@ class Typeahead extends React.Component {
 
     // Make sure the input stays focused after the item is removed.
     this.focus();
-
-    this.setState({selected});
     this._hideDropdown();
-
-    this.props.onChange(selected);
+    this._updateSelected(selected);
   }
 
   /**
@@ -477,6 +479,11 @@ class Typeahead extends React.Component {
       showMenu,
       shownResults,
     });
+  }
+
+  _updateSelected = selected => {
+    this.setState({selected});
+    this.props.onChange(selected);
   }
 }
 
