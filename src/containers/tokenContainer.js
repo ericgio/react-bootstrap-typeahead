@@ -32,6 +32,10 @@ const tokenContainer = Component => {
       const tokenProps = omit(this.props, [
         'disableOnClickOutside',
         'enableOnClickOutside',
+        'eventTypes',
+        'outsideClickIgnoreClass',
+        'preventDefault',
+        'stopPropagation',
       ]);
 
       return (

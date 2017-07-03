@@ -35,22 +35,20 @@ describe('defaultFilterBy', () => {
   });
 
   it('returns filtered results for an array of objects,' +
-    'when labelKey is a function',
-    () => {
-      const labelKeyFunc = o => o.name;
-      const results = states.filter(state => (
+    'when labelKey is a function', () => {
+    const labelKeyFunc = o => o.name;
+    const results = states.filter(state => (
       defaultFilterBy(state, text, labelKeyFunc, isTokenized, filterOptions)
     ));
 
-      expect(results).to.deep.equal([
-        /* eslint-disable max-len */
-        {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
-        {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
-        {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
-        /* eslint-enable max-len */
-      ]);
-    }
-  );
+    expect(results).to.deep.equal([
+      /* eslint-disable max-len */
+      {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
+      {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
+      {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
+      /* eslint-enable max-len */
+    ]);
+  });
 
   it('returns case-sensitive filtered results', () => {
     const options = {...filterOptions, caseSensitive: true};
@@ -104,16 +102,14 @@ describe('defaultFilterBy', () => {
   });
 
   it('returns no results if the text doesn\'t find a match,' +
-    'when labelKey is a function',
-    () => {
-      const labelKeyFunc = o => o.name;
-      text = 'zzz';
-      const results = states.filter(state => (
-        defaultFilterBy(state, text, labelKeyFunc, isTokenized, filterOptions)
-      ));
-      expect(results.length).to.equal(0);
-    }
-  );
+    'when labelKey is a function', () => {
+    const labelKeyFunc = o => o.name;
+    text = 'zzz';
+    const results = states.filter(state => (
+      defaultFilterBy(state, text, labelKeyFunc, isTokenized, filterOptions)
+    ));
+    expect(results.length).to.equal(0);
+  });
 
   it('returns the option if the text matches exactly', () => {
     text = 'California';
@@ -128,8 +124,7 @@ describe('defaultFilterBy', () => {
 
   it(
     'returns no results if `multiple=true` and the text only matches ' +
-    'selected results',
-    () => {
+    'selected results', () => {
       const results = states.filter(state => (
         defaultFilterBy(state, 'Alab', labelKey, true, filterOptions)
       ));
