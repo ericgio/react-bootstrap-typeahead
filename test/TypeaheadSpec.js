@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import {range} from 'lodash';
 import React from 'react';
+import {render} from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 
 import TokenizerInput from '../src/TokenizerInput';
@@ -283,6 +284,74 @@ describe('<Typeahead>', () => {
 
     expect(ClearButtonNode).to.exist;
     expect(InputNode).to.exist;
+  });
+
+  describe('updates when re-rendering with new props', () => {
+    let node, selected, text;
+
+    const labelKey = 'name';
+    const props = {
+      labelKey,
+      onChange: s => selected = s,
+      onInputChange: t => text = t,
+      options: states,
+    };
+
+    beforeEach(() => {
+      node = document.createElement('div');
+      render(<Typeahead {...props} />, node);
+    });
+
+    it('acts as a controlled input in single-select mode', () => {
+      const selected1 = states.slice(0, 1);
+      const selected2 = states.slice(1, 2);
+
+      // Pass in new selection
+      render(<Typeahead {...props} selected={selected1} />, node);
+
+      expect(selected).to.deep.equal(selected1);
+      expect(text).to.equal(selected1[0][labelKey]);
+
+      // Pass in another new selection
+      render(<Typeahead {...props} selected={selected2} />, node);
+
+      expect(selected).to.deep.equal(selected2);
+      expect(text).to.equal(selected2[0][labelKey]);
+
+      // "Clear" the component
+      render(<Typeahead {...props} selected={[]} />, node);
+
+      expect(selected).to.deep.equal([]);
+      expect(text).to.equal('');
+    });
+
+    it('acts as a controlled input in multi-select mode', () => {
+      const selected1 = states.slice(0, 4);
+
+      // Pass in new selection
+      render(<Typeahead {...props} multiple selected={selected1} />, node);
+
+      expect(selected).to.deep.equal(selected1);
+      expect(text).to.equal('');
+
+      // "Clear" the component
+      render(<Typeahead {...props} multiple selected={[]} />, node);
+
+      expect(selected).to.deep.equal([]);
+      expect(text).to.equal('');
+    });
+
+    it('updates the selections when going from multi- to single-select', () => {
+      const multiSelections = states.slice(0, 4);
+      render(
+        <Typeahead {...props} multiple selected={multiSelections} />,
+        node
+      );
+      expect(selected).to.deep.equal(multiSelections);
+
+      render(<Typeahead {...props} />, node);
+      expect(selected).to.deep.equal(states.slice(0, 1));
+    });
   });
 
   describe('form integration', () => {

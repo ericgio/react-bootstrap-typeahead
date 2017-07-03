@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {find, isEqual, noop} from 'lodash';
+import {find, head, isEqual, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -84,21 +84,31 @@ class Typeahead extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {multiple, selected} = nextProps;
+    const {labelKey, multiple, selected} = nextProps;
 
     // If new selections are passed via props, treat as a controlled input.
     if (!isEqual(selected, this.props.selected)) {
-      this.setState({selected});
+      this._updateSelected(selected);
+
+      if (!multiple) {
+        const text = selected.length ?
+          getOptionLabel(head(selected), labelKey) : '';
+
+        this._updateText(text);
+      }
     }
 
     // If component changes from multi-select to single-select, keep only the
     // first selection, if any.
-    if (this.props.multiple && !multiple) {
-      this._updateSelected(this.state.selected.slice(0, 1));
+    if (this.props.multiple && !multiple && this.state.selected.length) {
+      const stateSelected = this.state.selected.slice(0, 1);
+      this._updateSelected(stateSelected);
+      this._updateText(getOptionLabel(head(stateSelected), labelKey));
+      return;
     }
 
     if (multiple !== this.props.multiple) {
-      this.setState({text: ''});
+      this._updateText('');
     }
   }
 
@@ -338,8 +348,13 @@ class Typeahead extends React.Component {
       activeIndex,
       activeItem,
       showMenu: true,
+    }, () => {
+      // State isn't set until after `componentWillReceiveProps` in the React
+      // lifecycle. For the typeahead to behave correctly as a controlled
+      // component, we therefore have to update user-input text after the rest
+      // of the component has updated.
+      this._updateText(text);
     });
-    this._updateText(text);
   }
 
   _handleKeydown = (options, e) => {
