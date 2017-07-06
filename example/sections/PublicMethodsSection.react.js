@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PublicMethodsExample from '../examples/PublicMethodsExample';
-import PublicMethodsExampleCode from '!raw!../examples/PublicMethodsExample';
+import PublicMethodsExampleCode from '!raw-loader!../examples/PublicMethodsExample';
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

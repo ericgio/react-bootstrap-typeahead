@@ -1,9 +1,9 @@
 import React from 'react';
 
 import CustomFilteringExample from '../examples/CustomFilteringExample';
-import CustomFilteringExampleCode from '!raw!../examples/CustomFilteringExample';
+import CustomFilteringExampleCode from '!raw-loader!../examples/CustomFilteringExample';
 import FilteringExample from '../examples/FilteringExample';
-import FilteringExampleCode from '!raw!../examples/FilteringExample';
+import FilteringExampleCode from '!raw-loader!../examples/FilteringExample';
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

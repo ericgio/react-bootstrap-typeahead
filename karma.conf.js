@@ -1,5 +1,5 @@
 /* eslint-env node */
-var webpackConfigBase = require('./webpack.config.base');
+var webpackConfigBase = require('./webpack/webpack.config.base');
 
 module.exports = function(config) {
   config.set({

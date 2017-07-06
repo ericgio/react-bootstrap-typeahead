@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BasicExample from '../examples/BasicExample';
-import BasicExampleCode from '!raw!../examples/BasicExample';
+import BasicExampleCode from '!raw-loader!../examples/BasicExample';
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CustomSelectionsExample from '../examples/CustomSelectionsExample';
-import CustomSelectionsExampleCode from '!raw!../examples/CustomSelectionsExample';
+import CustomSelectionsExampleCode from '!raw-loader!../examples/CustomSelectionsExample';
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

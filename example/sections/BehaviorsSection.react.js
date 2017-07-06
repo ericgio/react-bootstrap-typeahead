@@ -1,19 +1,19 @@
 import React from 'react';
 
 import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
-import BasicBehaviorsExampleCode from '!raw!../examples/BasicBehaviorsExample';
+import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample';
 import BodyContainerExample from '../examples/BodyContainerExample';
-import BodyContainerExampleCode from '!raw!../examples/BodyContainerExample';
+import BodyContainerExampleCode from '!raw-loader!../examples/BodyContainerExample';
 import FormSubmitExample from '../examples/FormSubmitExample';
-import FormSubmitExampleCode from '!raw!../examples/FormSubmitExample';
+import FormSubmitExampleCode from '!raw-loader!../examples/FormSubmitExample';
 import InputSizeExample from '../examples/InputSizeExample';
-import InputSizeExampleCode from '!raw!../examples/InputSizeExample';
+import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample';
 import MenuAlignExample from '../examples/MenuAlignExample';
-import MenuAlignExampleCode from '!raw!../examples/MenuAlignExample';
+import MenuAlignExampleCode from '!raw-loader!../examples/MenuAlignExample';
 import PaginationExample from '../examples/PaginationExample';
-import PaginationExampleCode from '!raw!../examples/PaginationExample';
+import PaginationExampleCode from '!raw-loader!../examples/PaginationExample';
 import SelectionsExample from '../examples/SelectionsExample';
-import SelectionsExampleCode from '!raw!../examples/SelectionsExample';
+import SelectionsExampleCode from '!raw-loader!../examples/SelectionsExample';
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

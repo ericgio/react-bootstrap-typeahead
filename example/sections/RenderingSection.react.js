@@ -1,9 +1,9 @@
 import React from 'react';
 
 import LabelKeyExample from '../examples/LabelKeyExample';
-import LabelKeyExampleCode from '!raw!../examples/LabelKeyExample';
+import LabelKeyExampleCode from '!raw-loader!../examples/LabelKeyExample';
 import RenderingExample from '../examples/RenderingExample';
-import RenderingExampleCode from '!raw!../examples/RenderingExample';
+import RenderingExampleCode from '!raw-loader!../examples/RenderingExample';
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

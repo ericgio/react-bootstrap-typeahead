@@ -46,7 +46,7 @@
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
     "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.4",
+    "babel-loader": "^7.1.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-lodash": "^3.2.6",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
@@ -54,7 +54,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-1": "^6.16.0",
     "chai": "^4.0.2",
-    "css-loader": "^0.26.1",
+    "css-loader": "^0.28.4",
     "es6-promise": "^4.0.5",
     "eslint": "^4.1.1",
     "eslint-config-ericgio": "^2.0.0",
@@ -76,8 +76,8 @@
     "react-dom": "^15.2.1",
     "react-test-renderer": "^15.5.4",
     "react-waypoint": "^7.0.4",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "style-loader": "^0.18.2",
+    "webpack": "^3.0.0"
   },
   "repository": {
     "type": "git",

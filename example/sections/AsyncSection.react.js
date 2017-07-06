@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AsyncExample from '../examples/AsyncExample';
-import AsyncExampleCode from '!raw!../examples/AsyncExample';
+import AsyncExampleCode from '!raw-loader!../examples/AsyncExample';
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
