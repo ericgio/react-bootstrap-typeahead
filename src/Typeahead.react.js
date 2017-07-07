@@ -15,6 +15,15 @@ import getTruncatedOptions from './utils/getTruncatedOptions';
 import typeaheadContainer from './containers/typeaheadContainer';
 
 class Typeahead extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    const {allowNew, onInitialItemChange, results} = nextProps;
+
+    // Clear the initial item when there are no results.
+    if (!(allowNew || results.length)) {
+      onInitialItemChange(null);
+    }
+  }
+
   render() {
     const {
       allowNew,

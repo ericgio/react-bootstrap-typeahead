@@ -187,22 +187,20 @@ function typeaheadContainer(Typeahead) {
     }
 
     _handleInitialItemChange = initialItem => {
-      const currentItem = this.state.initialItem;
-
-      if (!currentItem) {
-        this.setState({initialItem});
-        return;
-      }
-
       const {labelKey} = this.props;
+      const currentItem = this.state.initialItem;
 
       // Don't update the initial item if it hasn't changed. For custom items,
       // compare the `labelKey` values since a unique id is generated each time,
       // causing the comparison to always return false otherwise.
       if (
         isEqual(initialItem, currentItem) ||
-        (initialItem.customOption &&
-         initialItem[labelKey] === currentItem[labelKey])
+        (
+          currentItem &&
+          initialItem &&
+          initialItem.customOption &&
+          initialItem[labelKey] === currentItem[labelKey]
+        )
       ) {
         return;
       }
