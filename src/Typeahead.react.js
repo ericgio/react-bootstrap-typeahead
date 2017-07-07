@@ -1,8 +1,5 @@
 import cx from 'classnames';
-import {find, head, isEqual, noop} from 'lodash';
-import onClickOutside from 'react-onclickoutside';
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -12,112 +9,24 @@ import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import addCustomOption from './utils/addCustomOption';
-import defaultFilterBy from './utils/defaultFilterBy';
 import getHintText from './utils/getHintText';
 import getInputText from './utils/getInputText';
-import getOptionLabel from './utils/getOptionLabel';
 import getTruncatedOptions from './utils/getTruncatedOptions';
-import warn from './utils/warn';
+import typeaheadContainer from './containers/typeaheadContainer';
 
-import {DOWN, ESC, RETURN, TAB, UP} from './utils/keyCode';
-
-function getInitialState(props) {
-  const {defaultSelected, maxResults} = props;
-
-  let selected = props.selected.slice();
-  if (defaultSelected && defaultSelected.length) {
-    selected = defaultSelected;
-  }
-
-  return {
-    activeIndex: -1,
-    activeItem: null,
-    initialItem: null,
-    selected,
-    showMenu: false,
-    shownResults: maxResults,
-    text: '',
-  };
-}
-
-/**
- * Typeahead
- */
 class Typeahead extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = getInitialState(props);
-  }
-
-  getChildContext() {
-    return {
-      activeIndex: this.state.activeIndex,
-      onActiveItemChange: this._handleActiveItemChange,
-      onInitialItemChange: this._handleInitialItemChange,
-      onMenuItemClick: this._handleAddOption,
-    };
-  }
-
-  componentWillMount() {
+  render() {
     const {
       allowNew,
-      caseSensitive,
-      filterBy,
-      ignoreDiacritics,
+      className,
+      dropup,
       labelKey,
+      paginate,
+      shownResults,
+      text,
     } = this.props;
 
-    warn(
-      !(typeof filterBy === 'function' && (caseSensitive || !ignoreDiacritics)),
-      'Your `filterBy` function will override the `caseSensitive` and ' +
-      '`ignoreDiacritics` props.'
-    );
-
-    warn(
-      !(typeof labelKey === 'function' && allowNew),
-      '`labelKey` must be a string if creating new options is allowed.'
-    );
-  }
-
-  componentDidMount() {
-    this.props.autoFocus && this.focus();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {labelKey, multiple, selected} = nextProps;
-
-    // If new selections are passed via props, treat as a controlled input.
-    if (!isEqual(selected, this.props.selected)) {
-      this._updateSelected(selected);
-
-      if (!multiple) {
-        const text = selected.length ?
-          getOptionLabel(head(selected), labelKey) : '';
-
-        this._updateText(text);
-      }
-    }
-
-    // If component changes from multi-select to single-select, keep only the
-    // first selection, if any.
-    if (this.props.multiple && !multiple && this.state.selected.length) {
-      const stateSelected = this.state.selected.slice(0, 1);
-      this._updateSelected(stateSelected);
-      this._updateText(getOptionLabel(head(stateSelected), labelKey));
-      return;
-    }
-
-    if (multiple !== this.props.multiple) {
-      this._updateText('');
-    }
-  }
-
-  render() {
-    const {allowNew, className, dropup, labelKey, paginate} = this.props;
-    const {shownResults, text} = this.state;
-
-    // First filter the results by the input string.
-    let results = this._getFilteredResults();
+    let results = this.props.results.slice();
 
     // This must come before we truncate.
     const shouldPaginate = paginate && results.length > shownResults;
@@ -143,75 +52,45 @@ class Typeahead extends React.Component {
     );
   }
 
-  _getFilteredResults = () => {
-    const {
-      caseSensitive,
-      filterBy,
-      ignoreDiacritics,
-      labelKey,
-      minLength,
-      multiple,
-      options,
-    } = this.props;
-    const {selected, text} = this.state;
-
-    if (text.length < minLength) {
-      return [];
-    }
-
-    const callback = Array.isArray(filterBy) ?
-      option => defaultFilterBy(
-        option,
-        text,
-        labelKey,
-        multiple && !!find(selected, o => isEqual(o, option)),
-        {caseSensitive, ignoreDiacritics, fields: filterBy}
-      ) :
-      option => filterBy(option, text);
-
-    return options.filter(callback);
-  }
-
   blur = () => {
-    this.refs.input.blur();
-    this._hideDropdown();
-  }
-
-  /**
-   * Public method to allow external clearing of the input. Clears both text
-   * and selection(s).
-   */
-  clear = () => {
-    this.setState(getInitialState(this.props));
-
-    this._updateSelected([]);
-    this._updateText('');
+    this._input.blur();
   }
 
   focus = () => {
-    this.refs.input.focus();
+    this._input.focus();
   }
 
   _renderInput = results => {
     const {
+      activeIndex,
+      activeItem,
       bsSize,
       disabled,
+      initialItem,
       labelKey,
       minLength,
       multiple,
       name,
+      onBlur,
+      onFocus,
+      onInputChange,
+      onKeyDown,
+      onSelectionAdd,
+      onSelectionRemove,
       placeholder,
       renderToken,
+      selected,
+      text,
     } = this.props;
-    const {activeIndex, activeItem, initialItem, selected, text} = this.state;
+
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = {bsSize, disabled, name, placeholder, renderToken};
 
     return (
       <Input
-        {...inputProps}
         activeIndex={activeIndex}
         activeItem={activeItem}
+        bsSize={bsSize}
+        disabled={disabled}
         hasAux={!!this._renderAux()}
         hintText={getHintText({
           activeItem,
@@ -223,14 +102,17 @@ class Typeahead extends React.Component {
         })}
         initialItem={initialItem}
         labelKey={labelKey}
-        onAdd={this._handleAddOption}
-        onBlur={this._handleBlur}
-        onChange={this._handleTextChange}
-        onFocus={this._handleFocus}
-        onKeyDown={e => this._handleKeydown(results, e)}
-        onRemove={this._handleRemoveOption}
+        name={name}
+        onAdd={onSelectionAdd}
+        onBlur={onBlur}
+        onChange={onInputChange}
+        onFocus={onFocus}
+        onKeyDown={e => onKeyDown(results, e)}
+        onRemove={onSelectionRemove}
         options={results}
-        ref="input"
+        placeholder={placeholder}
+        ref={input => this._input = input}
+        renderToken={renderToken}
         selected={selected.slice()}
         value={getInputText({activeItem, labelKey, multiple, selected, text})}
       />
@@ -247,12 +129,13 @@ class Typeahead extends React.Component {
       maxHeight,
       minLength,
       newSelectionPrefix,
+      onPaginate,
       paginationText,
       renderMenu,
       renderMenuItemChildren,
+      showMenu,
+      text,
     } = this.props;
-
-    const {showMenu, text} = this.state;
 
     const menuProps = {
       align,
@@ -262,7 +145,7 @@ class Typeahead extends React.Component {
       maxHeight,
       newSelectionPrefix,
       paginationText,
-      onPaginate: this._handlePagination,
+      onPaginate,
       paginate: shouldPaginate,
       text,
     };
@@ -279,367 +162,36 @@ class Typeahead extends React.Component {
       <Overlay
         container={bodyContainer ? document.body : this}
         show={showMenu && text.length >= minLength}
-        target={() => this.refs.input}>
+        target={() => this._input}>
         {menu}
       </Overlay>
     );
   }
 
   _renderAux = () => {
-    const {bsSize, clearButton, disabled, isLoading} = this.props;
+    const {
+      bsSize,
+      clearButton,
+      disabled,
+      isLoading,
+      onClear,
+      selected,
+    } = this.props;
 
     if (isLoading) {
       return <Loader bsSize={bsSize} />;
     }
 
-    if (clearButton && !disabled && this.state.selected.length) {
+    if (clearButton && !disabled && selected.length) {
       return (
         <ClearButton
           bsSize={bsSize}
           className="bootstrap-typeahead-clear-button"
-          onClick={this.clear}
+          onClick={onClear}
         />
       );
     }
   }
-
-  _handleActiveItemChange = activeItem => {
-    this.setState({activeItem});
-  }
-
-  _handleBlur = e => {
-    // Note: Don't hide the menu here, since that interferes with other actions
-    // like making a selection by clicking on a menu item.
-    this.props.onBlur(e);
-  }
-
-  _handleFocus = e => {
-    this.props.onFocus(e);
-    this.setState({showMenu: true});
-  }
-
-  _handleInitialItemChange = initialItem => {
-    const currentItem = this.state.initialItem;
-
-    if (!currentItem) {
-      this.setState({initialItem});
-      return;
-    }
-
-    const {labelKey} = this.props;
-
-    // Don't update the initial item if it hasn't changed. For custom items,
-    // compare the `labelKey` values since a unique id is generated each time,
-    // causing the comparison to always return false otherwise.
-    if (
-      isEqual(initialItem, currentItem) ||
-      (initialItem.customOption &&
-       initialItem[labelKey] === currentItem[labelKey])
-    ) {
-      return;
-    }
-
-    this.setState({initialItem});
-  }
-
-  _handleTextChange = text => {
-    const {activeIndex, activeItem} = getInitialState(this.props);
-    this.setState({
-      activeIndex,
-      activeItem,
-      showMenu: true,
-    }, () => {
-      // State isn't set until after `componentWillReceiveProps` in the React
-      // lifecycle. For the typeahead to behave correctly as a controlled
-      // component, we therefore have to update user-input text after the rest
-      // of the component has updated.
-      this._updateText(text);
-    });
-  }
-
-  _handleKeydown = (options, e) => {
-    const {activeItem, showMenu} = this.state;
-
-    switch (e.keyCode) {
-      case UP:
-      case DOWN:
-        // Don't cycle through the options if the menu is hidden.
-        if (!showMenu) {
-          return;
-        }
-
-        let {activeIndex} = this.state;
-
-        // Prevents input cursor from going to the beginning when pressing up.
-        e.preventDefault();
-
-        // Increment or decrement index based on user keystroke.
-        activeIndex += e.keyCode === UP ? -1 : 1;
-
-        // If we've reached the end, go back to the beginning or vice-versa.
-        if (activeIndex === options.length) {
-          activeIndex = -1;
-        } else if (activeIndex === -2) {
-          activeIndex = options.length - 1;
-        }
-
-        const newState = {activeIndex};
-        if (activeIndex === -1) {
-          // Reset the active item if there is no active index.
-          newState.activeItem = null;
-        }
-
-        this.setState(newState);
-        break;
-      case ESC:
-      case TAB:
-        // Prevent closing dialogs.
-        e.keyCode === ESC && e.preventDefault();
-
-        this._hideDropdown();
-        break;
-      case RETURN:
-        // if menu is shown and we have active item
-        // there is no any sense to submit form on <RETURN>
-        if (!this.props.submitFormOnEnter || showMenu && activeItem) {
-          // Prevent submitting forms.
-          e.preventDefault();
-        }
-
-        if (showMenu && activeItem) {
-          this._handleAddOption(activeItem);
-        }
-        break;
-    }
-  }
-
-  _handleAddOption = selectedOption => {
-    const {multiple, labelKey} = this.props;
-
-    let selected;
-    let text;
-
-    if (multiple) {
-      // If multiple selections are allowed, add the new selection to the
-      // existing selections.
-      selected = this.state.selected.concat(selectedOption);
-      text = '';
-    } else {
-      // If only a single selection is allowed, replace the existing selection
-      // with the new one.
-      selected = [selectedOption];
-      text = getOptionLabel(selectedOption, labelKey);
-    }
-
-    this._hideDropdown();
-    this._updateSelected(selected);
-    this._updateText(text);
-
-    this.setState({initialItem: selectedOption});
-  }
-
-  _handlePagination = e => {
-    const {maxResults, onPaginate} = this.props;
-
-    onPaginate(e);
-    this.setState({shownResults: this.state.shownResults + maxResults});
-  }
-
-  _handleRemoveOption = removedOption => {
-    const selected = this.state.selected.filter(option => (
-      !isEqual(option, removedOption)
-    ));
-
-    // Make sure the input stays focused after the item is removed.
-    this.focus();
-    this._hideDropdown();
-    this._updateSelected(selected);
-  }
-
-  /**
-   * From `onClickOutside` HOC.
-   */
-  handleClickOutside = e => {
-    this.state.showMenu && this._hideDropdown();
-  }
-
-  _hideDropdown = () => {
-    const {
-      activeIndex,
-      activeItem,
-      showMenu,
-      shownResults,
-    } = getInitialState(this.props);
-
-    this.setState({
-      activeIndex,
-      activeItem,
-      showMenu,
-      shownResults,
-    });
-  }
-
-  _updateSelected = selected => {
-    this.setState({selected});
-    this.props.onChange(selected);
-  }
-
-  _updateText = text => {
-    this.setState({text});
-    this.props.onInputChange(text);
-  }
 }
 
-Typeahead.propTypes = {
-  /**
-   * Allows the creation of new selections on the fly. Note that any new items
-   * will be added to the list of selections, but not the list of original
-   * options unless handled as such by `Typeahead`'s parent.
-   */
-  allowNew: PropTypes.bool,
-  /**
-   * Autofocus the input when the component initially mounts.
-   */
-  autoFocus: PropTypes.bool,
-  /**
-   * Whether to render the menu inline or attach to `document.body`.
-   */
-  bodyContainer: PropTypes.bool,
-  /**
-   * Whether or not filtering should be case-sensitive.
-   */
-  caseSensitive: PropTypes.bool,
-  /**
-   * Displays a button to clear the input when there are selections.
-   */
-  clearButton: PropTypes.bool,
-  /**
-   * Specify any pre-selected options. Use only if you want the component to
-   * be uncontrolled.
-   */
-  defaultSelected: PropTypes.array,
-  /**
-   * Specify whether the menu should appear above the input.
-   */
-  dropup: PropTypes.bool,
-  /**
-   * Either an array of fields in `option` to search, or a custom filtering
-   * callback.
-   */
-  filterBy: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string.isRequired),
-    PropTypes.func,
-  ]),
-  /**
-   * Whether the filter should ignore accents and other diacritical marks.
-   */
-  ignoreDiacritics: PropTypes.bool,
-  /**
-   * Indicate whether an asynchromous data fetch is happening.
-   */
-  isLoading: PropTypes.bool,
-  /**
-   * Specify the option key to use for display or a function returning the
-   * display string. By default, the selector will use the `label` key.
-   */
-  labelKey: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
-  /**
-   * Maximum number of results to display by default. Mostly done for
-   * performance reasons so as not to render too many DOM nodes in the case of
-   * large data sets.
-   */
-  maxResults: PropTypes.number,
-  /**
-   * Number of input characters that must be entered before showing results.
-   */
-  minLength: PropTypes.number,
-  /**
-   * Whether or not multiple selections are allowed.
-   */
-  multiple: PropTypes.bool,
-  /**
-   * Invoked when the input is blurred. Receives an event.
-   */
-  onBlur: PropTypes.func,
-  /**
-   * Invoked whenever items are added or removed. Receives an array of the
-   * selected options.
-   */
-  onChange: PropTypes.func,
-  /**
-   * Invoked when the input is focused. Receives an event.
-   */
-  onFocus: PropTypes.func,
-  /**
-   * Invoked when the input value changes. Receives the string value of the
-   * input.
-   */
-  onInputChange: PropTypes.func,
-  /**
-   * Invoked when the pagination menu item is clicked. Receives an event.
-   */
-  onPaginate: PropTypes.func,
-  /**
-   * Full set of options, including pre-selected options. Must either be an
-   * array of objects (recommended) or strings.
-   */
-  options: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.object.isRequired),
-    PropTypes.arrayOf(PropTypes.string.isRequired),
-  ]).isRequired,
-  /**
-   * Give user the ability to display additional results if the number of
-   * results exceeds `maxResults`.
-   */
-  paginate: PropTypes.bool,
-  /**
-   * Callback for custom menu rendering.
-   */
-  renderMenu: PropTypes.func,
-  /**
-   * The selected option(s) displayed in the input. Use this prop if you want
-   * to control the component via its parent.
-   */
-  selected: PropTypes.array,
-  /**
-   * Propagate <RETURN> event to parent form.
-   */
-  submitFormOnEnter: PropTypes.bool,
-};
-
-Typeahead.defaultProps = {
-  allowNew: false,
-  autoFocus: false,
-  bodyContainer: false,
-  caseSensitive: false,
-  clearButton: false,
-  defaultSelected: [],
-  dropup: false,
-  filterBy: [],
-  ignoreDiacritics: true,
-  isLoading: false,
-  labelKey: 'label',
-  maxResults: 100,
-  minLength: 0,
-  multiple: false,
-  onBlur: noop,
-  onChange: noop,
-  onFocus: noop,
-  onInputChange: noop,
-  onPaginate: noop,
-  paginate: true,
-  selected: [],
-  submitFormOnEnter: false,
-};
-
-Typeahead.childContextTypes = {
-  activeIndex: PropTypes.number.isRequired,
-  onActiveItemChange: PropTypes.func.isRequired,
-  onInitialItemChange: PropTypes.func.isRequired,
-  onMenuItemClick: PropTypes.func.isRequired,
-};
-
-export default onClickOutside(Typeahead);
+export default typeaheadContainer(Typeahead);
