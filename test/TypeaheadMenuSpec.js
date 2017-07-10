@@ -29,7 +29,7 @@ function renderMenuNode(props={}) {
   const instance = getMenuInstance(props);
   return ReactTestUtils.findRenderedDOMComponentWithClass(
     instance,
-    'bootstrap-typeahead-menu'
+    'rbt-menu'
   );
 }
 
@@ -78,7 +78,7 @@ describe('<TypeaheadMenu>', () => {
     const instance = getMenuInstance({options: [], emptyLabel: ''});
     const menuComponents = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
-      'bootstrap-typeahead-menu'
+      'rbt-menu'
     );
 
     expect(menuComponents.length).to.equal(0);
@@ -91,7 +91,7 @@ describe('<TypeaheadMenu>', () => {
     });
     const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-menu-paginator'
+      'rbt-menu-paginator'
     );
     expect(paginatorNode).to.exist;
     expect(paginatorNode.firstChild.innerHTML).to.equal(
@@ -106,7 +106,7 @@ describe('<TypeaheadMenu>', () => {
     });
     const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
-      'bootstrap-typeahead-menu-paginator'
+      'rbt-menu-paginator'
     );
     expect(paginatorNodes.length).to.equal(0);
   });
@@ -118,7 +118,7 @@ describe('<TypeaheadMenu>', () => {
     });
     const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
-      'bootstrap-typeahead-menu-paginator'
+      'rbt-menu-paginator'
     );
     expect(paginatorNodes.length).to.equal(0);
   });
@@ -131,7 +131,7 @@ describe('<TypeaheadMenu>', () => {
     });
     const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-menu-paginator'
+      'rbt-menu-paginator'
     );
     expect(paginatorNode.firstChild.innerHTML).to.equal(paginationText);
   });

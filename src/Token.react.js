@@ -26,13 +26,13 @@ class Token extends React.Component {
     return (
       <div
         {...otherProps}
-        className={cx('token', 'token-removeable', {
-          'token-selected': selected,
+        className={cx('rbt-token', 'rbt-token-removeable', {
+          'rbt-token-selected': selected,
         }, className)}
         tabIndex={0}>
         {children}
         <span
-          className="close-button"
+          className="rbt-token-close-button"
           onClick={onRemove}
           role="button">
           &times;
@@ -43,7 +43,9 @@ class Token extends React.Component {
 
   _renderToken() {
     const {children, className, disabled, href} = this.props;
-    const classnames = cx('token', {'token-disabled': disabled}, className);
+    const classnames = cx('rbt-token', {
+      'rbt-token-disabled': disabled,
+    }, className);
 
     if (href) {
       return (

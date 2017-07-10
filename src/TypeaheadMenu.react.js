@@ -8,7 +8,7 @@ import MenuItem from './MenuItem.react';
 
 import getOptionLabel from './utils/getOptionLabel';
 
-const MATCH_CLASS = 'bootstrap-typeahead-highlight';
+const MATCH_CLASS = 'rbt-highlight';
 
 class TypeaheadMenu extends React.Component {
   displayName = 'TypeaheadMenu';

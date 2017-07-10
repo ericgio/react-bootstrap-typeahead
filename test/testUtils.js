@@ -3,18 +3,14 @@ import TestUtils from 'react-dom/test-utils';
 export function getInputNode(instance) {
   return TestUtils.findRenderedDOMComponentWithClass(
     instance,
-    'bootstrap-typeahead-input-main'
+    'rbt-input-main'
   );
 }
 
 export function getMenuNode(instance) {
   const inputNode = getInputNode(instance);
   TestUtils.Simulate.focus(inputNode);
-
-  return TestUtils.findRenderedDOMComponentWithClass(
-    instance,
-    'bootstrap-typeahead-menu'
-  );
+  return TestUtils.findRenderedDOMComponentWithClass(instance, 'rbt-menu');
 }
 
 export function performSearch(query, instance, callback) {

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const Loader = ({bsSize}) => (
   <div
-    className={cx('bootstrap-typeahead-loader', {
-      'loader-lg': bsSize === 'large' || bsSize === 'lg',
-      'loader-sm': bsSize === 'small' || bsSize === 'sm',
+    className={cx('rbt-loader', {
+      'rbt-loader-lg': bsSize === 'large' || bsSize === 'lg',
+      'rbt-loader-sm': bsSize === 'small' || bsSize === 'sm',
     })}
   />
 );

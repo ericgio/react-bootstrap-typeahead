@@ -50,7 +50,7 @@ class Typeahead extends React.Component {
 
     return (
       <div
-        className={cx('bootstrap-typeahead', 'clearfix', 'open', {
+        className={cx('rbt', 'rbt-container', 'clearfix', 'open', {
           'dropup': dropup,
         }, className)}
         style={{position: 'relative'}}>
@@ -195,7 +195,7 @@ class Typeahead extends React.Component {
       return (
         <ClearButton
           bsSize={bsSize}
-          className="bootstrap-typeahead-clear-button"
+          className="rbt-clear-button"
           onClick={onClear}
         />
       );

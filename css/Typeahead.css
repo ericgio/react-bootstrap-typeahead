@@ -1,43 +1,44 @@
-.bootstrap-typeahead .dropdown-menu > li a {
+.rbt .dropdown-menu > li a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.bootstrap-typeahead .dropdown-menu > li a:focus {
+.rbt .dropdown-menu > li a:focus {
   outline: none;
 }
 
-.bootstrap-typeahead .dropdown-menu-justify {
+.rbt .dropdown-menu-justify {
   right: 0;
 }
 
 /* Hide IE's native "clear" button */
-.bootstrap-typeahead input[type=text]::-ms-clear {
+.rbt input[type=text]::-ms-clear {
   display: none;
 }
 
-.bootstrap-typeahead-menu-paginator {
+.rbt-menu-paginator {
   text-align: center;
 }
 
 /* Input sizes */
-.bootstrap-tokenizer {
+.rbt-multi {
   padding-bottom: 2px;
   padding-top: 5px;
 }
 
-.input-sm.bootstrap-tokenizer {
+.rbt-multi.input-sm {
   padding-bottom: 1px;
   padding-top: 4px;
 }
 
-.input-lg.bootstrap-tokenizer {
+.rbt-multi.input-lg {
   padding-bottom: 6px;
   padding-top: 9px;
 }
 
-.bootstrap-tokenizer-input {
+.rbt-multi-input {
   margin: 1px 0 4px;
 }
+
 
 .has-aux {
   padding-right: 32px;
@@ -48,9 +49,104 @@
 }
 
 /* Fix styles when used with input-group */
-.input-group .bootstrap-typeahead:first-child .form-control {
+.input-group .rbt:first-child .form-control {
   border-radius: 4px 0 0 4px;
 }
-.input-group .bootstrap-typeahead:last-child .form-control {
+.input-group .rbt:last-child .form-control {
   border-radius: 0 4px 4px 0;
 }
+
+
+/* Token */
+.rbt-token {
+  background-color: #e7f4ff;
+  border: 0;
+  border-radius: 2px;
+  color: #1f8dd6;
+  display: inline-block;
+  line-height: 1em;
+  margin: 0 3px 3px 0;
+  padding: 4px 7px;
+  position: relative;
+}
+.rbt-token-disabled {
+  background-color: #ddd;
+  color: #888;
+  pointer-events: none;
+}
+.rbt-token-removeable {
+  cursor: pointer;
+  padding-right: 21px;
+}
+.rbt-token-selected {
+  background-color: #1f8dd6;
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+}
+
+.rbt-token-close-button {
+  bottom: 0;
+  padding: 3px 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+
+/* ClearButton */
+.rbt-clear-button {
+  outline: none;
+  margin-top: -12px;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  z-index: 1;
+}
+
+.rbt-close-lg {
+  font-size: 24px;
+  margin-top: -15px;
+  right: 15px;
+}
+
+
+/* Loader */
+.rbt-loader {
+  -webkit-animation: loader-animation 600ms infinite linear;
+  -o-animation: loader-animation 600ms infinite linear;
+  animation: loader-animation 600ms infinite linear;
+  border: 1px solid #d5d5d5;
+  border-radius: 50%;
+  border-top-color: #1f8dd6;
+  display: block;
+  height: 16px;
+  right: 12px;
+  margin-top: -8px;
+  position: absolute;
+  top: 50%;
+  width: 16px;
+}
+
+.rbt-loader-lg {
+  height: 20px;
+  margin-top: -10px;
+  right: 16px;
+  width: 20px;
+}
+
+.rbt-loader-sm {
+  right: 10px;
+}
+
+@keyframes loader-animation {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@-webkit-keyframes loader-animation {
+  to {
+    -webkit-transform: rotate(1turn);
+  }
+}
+

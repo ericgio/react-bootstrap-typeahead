@@ -61,7 +61,7 @@ class TypeaheadInput extends React.Component {
 
     return (
       <div
-        className={cx('bootstrap-typeahead-input', className)}
+        className={cx('rbt-input', className)}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
         style={{
@@ -72,7 +72,7 @@ class TypeaheadInput extends React.Component {
         <TextInput
           {...inputProps}
           autoComplete="off"
-          className={cx('bootstrap-typeahead-input-main', {
+          className={cx('rbt-input-main', {
             'has-selection': !!selected.length,
           })}
           onBlur={this._handleBlur}
@@ -88,7 +88,7 @@ class TypeaheadInput extends React.Component {
         />
         <TextInput
           bsSize={bsSize}
-          className={cx('bootstrap-typeahead-input-hint')}
+          className={cx('rbt-input-hint')}
           hasAux={hasAux}
           style={{
             borderColor: 'transparent',

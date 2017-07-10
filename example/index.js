@@ -13,9 +13,6 @@ import FilteringSection from './sections/FilteringSection';
 import PublicMethodsSection from './sections/PublicMethodsSection';
 import RenderingSection from './sections/RenderingSection';
 
-import '../css/ClearButton.css';
-import '../css/Loader.css';
-import '../css/Token.css';
 import '../css/Typeahead.css';
 
 import './css/bs-docs-override.css';

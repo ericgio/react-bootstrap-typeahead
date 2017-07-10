@@ -7,7 +7,7 @@ import TypeaheadInput from '../src/TypeaheadInput';
 function getInputNode(instance) {
   return ReactTestUtils.findRenderedDOMComponentWithClass(
     instance,
-    'bootstrap-typeahead-input-main'
+    'rbt-input-main'
   );
 }
 
@@ -23,7 +23,7 @@ describe('<TypeaheadInput>', () => {
     );
     const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-input'
+      'rbt-input'
     );
 
     expect(inputNode).to.exist;
@@ -53,7 +53,7 @@ describe('<TypeaheadInput>', () => {
 
     const hintNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-input-hint'
+      'rbt-input-hint'
     );
 
     expect(hintNode.value).to.equal('Alabama');

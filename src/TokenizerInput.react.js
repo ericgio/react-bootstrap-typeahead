@@ -37,17 +37,12 @@ class TokenizerInput extends React.Component {
 
     return (
       <div
-        className={cx(
-          'bootstrap-tokenizer',
-          'clearfix',
-          'form-control',
-          {
-            'focus': this.state.isFocused,
-            'has-aux': hasAux,
-            'input-lg': bsSize === 'large' || bsSize === 'lg',
-            'input-sm': bsSize === 'small' || bsSize === 'sm',
-          }
-        )}
+        className={cx('rbt-multi', 'clearfix', 'form-control', {
+          'focus': this.state.isFocused,
+          'has-aux': hasAux,
+          'input-lg': bsSize === 'large' || bsSize === 'lg',
+          'input-sm': bsSize === 'small' || bsSize === 'sm',
+        })}
         disabled={disabled}
         onClick={this._handleInputFocus}
         onFocus={this._handleInputFocus}
@@ -58,9 +53,9 @@ class TokenizerInput extends React.Component {
         tabIndex={-1}>
         {selected.map(this._renderToken)}
         <AutosizeInput
-          className="bootstrap-tokenizer-input"
+          className="rbt-multi-input"
           disabled={disabled}
-          inputClassName="bootstrap-typeahead-input-main"
+          inputClassName="rbt-input-main"
           inputStyle={{
             backgroundColor: 'inherit',
             border: 0,

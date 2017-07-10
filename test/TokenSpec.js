@@ -12,7 +12,7 @@ describe('<Token>', () => {
     const instance = ReactTestUtils.renderIntoDocument(basicToken);
     const tokenNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'token'
+      'rbt-token'
     );
 
     expect(tokenNode).to.exist;
@@ -26,11 +26,11 @@ describe('<Token>', () => {
     );
     const tokenNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'token-removeable'
+      'rbt-token-removeable'
     );
     const closeButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'close-button'
+      'rbt-token-close-button'
     );
 
     expect(tokenNode).to.exist;

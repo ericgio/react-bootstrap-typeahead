@@ -20,14 +20,14 @@ let baseProps = {
 function getInputNode(instance) {
   return ReactTestUtils.findRenderedDOMComponentWithClass(
     instance,
-    'bootstrap-typeahead-input-main'
+    'rbt-input-main'
   );
 }
 
 function getMenuNode(instance) {
   return ReactTestUtils.findRenderedDOMComponentWithClass(
     instance,
-    'bootstrap-typeahead-menu'
+    'rbt-menu'
   );
 }
 
@@ -93,7 +93,7 @@ describe('<Typeahead>', () => {
       });
       const tokens = ReactTestUtils.scryRenderedDOMComponentsWithClass(
         instance,
-        'token'
+        'rbt-token'
       );
 
       expect(tokens.length).to.equal(3);
@@ -120,7 +120,7 @@ describe('<Typeahead>', () => {
 
     const menuNode = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
-      'bootstrap-typeahead-menu'
+      'rbt-menu'
     );
 
     expect(menuNode.length).to.equal(0);
@@ -156,7 +156,7 @@ describe('<Typeahead>', () => {
     const paginatorAnchorNode =
       ReactTestUtils.findRenderedDOMComponentWithClass(
         instance,
-        'bootstrap-typeahead-menu-paginator'
+        'rbt-menu-paginator'
       ).firstChild;
 
     ReactTestUtils.Simulate.click(paginatorAnchorNode);
@@ -175,7 +175,7 @@ describe('<Typeahead>', () => {
 
     const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
-      'bootstrap-typeahead-menu-paginator'
+      'rbt-menu-paginator'
     );
 
     expect(paginatorNodes.length).to.equal(0);
@@ -243,7 +243,7 @@ describe('<Typeahead>', () => {
     const instance = getTypeaheadInstance({...baseProps, bsSize: 'large'});
     const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-input-main input-lg'
+      'rbt-input-main input-lg'
     );
 
     expect(InputNode).to.exist;
@@ -253,11 +253,11 @@ describe('<Typeahead>', () => {
     const instance = getTypeaheadInstance({...baseProps, isLoading: true});
     const LoaderNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-loader'
+      'rbt-loader'
     );
     const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-input-main has-aux'
+      'rbt-input-main has-aux'
     );
 
     expect(LoaderNode).to.exist;
@@ -275,11 +275,11 @@ describe('<Typeahead>', () => {
     });
     const ClearButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-clear-button'
+      'rbt-clear-button'
     );
     const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-typeahead-input-main has-aux'
+      'rbt-input-main has-aux'
     );
 
     expect(ClearButtonNode).to.exist;

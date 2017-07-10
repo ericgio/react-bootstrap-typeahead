@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 const ClearButton = ({bsSize, className, onClick}) => (
   <button
     aria-label="Close"
-    className={cx('close', {
-      'close-lg': bsSize === 'large' || bsSize === 'lg',
+    className={cx('close', 'rbt-close', {
+      'rbt-close-lg': bsSize === 'large' || bsSize === 'lg',
     }, className)}
     onClick={onClick}
     type="button">

@@ -21,7 +21,7 @@ describe('<TokenizerInput>', () => {
     );
     const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'bootstrap-tokenizer'
+      'rbt-multi'
     );
 
     expect(inputNode).to.exist;
@@ -34,7 +34,7 @@ describe('<TokenizerInput>', () => {
     );
     const tokens = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
-      'token'
+      'rbt-token'
     );
 
     expect(tokens.length).to.equal(3);

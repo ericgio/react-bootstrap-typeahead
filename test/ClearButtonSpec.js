@@ -12,7 +12,7 @@ describe('<ClearButton>', () => {
     const result = renderer.getRenderOutput();
 
     expect(result.type).to.equal('button');
-    expect(result.props.className).to.equal('close');
+    expect(result.props.className).to.equal('close rbt-close');
   });
 
   it('renders a large clear button', () => {
@@ -20,7 +20,7 @@ describe('<ClearButton>', () => {
     renderer.render(<ClearButton bsSize="large" />);
     const result = renderer.getRenderOutput();
 
-    expect(result.props.className).to.contain('close-lg');
+    expect(result.props.className).to.equal('close rbt-close rbt-close-lg');
   });
 
 });

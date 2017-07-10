@@ -36,7 +36,7 @@ class Menu extends React.Component {
 
     return (
       <BaseMenu
-        className={cx('bootstrap-typeahead-menu', {
+        className={cx('rbt-menu', {
           'dropdown-menu-justify': align === 'justify',
           'dropdown-menu-right': align === 'right',
         }, className)}
@@ -61,7 +61,7 @@ class Menu extends React.Component {
           role="separator"
         />,
         <BaseMenuItem
-          className="bootstrap-typeahead-menu-paginator"
+          className="rbt-menu-paginator"
           key="pagination-item"
           onClick={onPaginate}>
           {paginationText}
