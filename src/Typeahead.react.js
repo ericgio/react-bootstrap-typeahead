@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {find, isEqual, noop} from 'lodash';
+import {find, isEqual, isFinite, noop} from 'lodash';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -194,10 +194,18 @@ class Typeahead extends React.Component {
       name,
       placeholder,
       renderToken,
+      tabIndex,
     } = this.props;
     const {activeIndex, activeItem, initialItem, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = {bsSize, disabled, name, placeholder, renderToken};
+    const inputProps = {
+      bsSize,
+      disabled,
+      name,
+      placeholder,
+      renderToken,
+      tabIndex,
+    };
 
     return (
       <Input
@@ -595,6 +603,24 @@ Typeahead.propTypes = {
    * Propagate <RETURN> event to parent form.
    */
   submitFormOnEnter: PropTypes.bool,
+  /**
+   * Set a custom tabindex value.
+   */
+  tabIndex: function(props, propName, componentName) {
+    const prop = props[propName];
+    if (
+      !isFinite(prop) ||
+      prop < -1
+    ) {
+      return new Error(
+        `
+          Invalid prop \`${propName}\` supplied to \`${componentName}\`.
+          Validation failed; ${propName} must be a number greater than or equal
+          to -1.
+        `
+      );
+    }
+  },
 };
 
 Typeahead.defaultProps = {
@@ -620,6 +646,7 @@ Typeahead.defaultProps = {
   paginate: true,
   selected: [],
   submitFormOnEnter: false,
+  tabIndex: 0,
 };
 
 Typeahead.childContextTypes = {

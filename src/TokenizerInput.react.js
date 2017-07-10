@@ -33,7 +33,15 @@ class TokenizerInput extends React.Component {
   }
 
   render() {
-    const {bsSize, disabled, hasAux, placeholder, selected, value} = this.props;
+    const {
+      bsSize,
+      disabled,
+      hasAux,
+      placeholder,
+      selected,
+      tabIndex,
+      value,
+    } = this.props;
 
     return (
       <div
@@ -75,6 +83,7 @@ class TokenizerInput extends React.Component {
           onKeyDown={this._handleKeydown}
           placeholder={selected.length ? null : placeholder}
           ref="input"
+          tabIndex={0 + tabIndex}
           type="text"
           value={value}
         />
@@ -91,7 +100,13 @@ class TokenizerInput extends React.Component {
   }
 
   _renderToken(option, idx) {
-    const {disabled, labelKey, onRemove, renderToken} = this.props;
+    const {
+      disabled,
+      labelKey,
+      onRemove,
+      renderToken,
+      tabIndex,
+    } = this.props;
     const onRemoveWrapped = () => onRemove(option);
 
     if (renderToken) {
@@ -102,7 +117,8 @@ class TokenizerInput extends React.Component {
       <Token
         disabled={disabled}
         key={idx}
-        onRemove={onRemoveWrapped}>
+        onRemove={onRemoveWrapped}
+        tabIndex={tabIndex}>
         {getOptionLabel(option, labelKey)}
       </Token>
     );

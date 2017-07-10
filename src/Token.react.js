@@ -21,7 +21,14 @@ class Token extends React.Component {
   }
 
   _renderRemoveableToken() {
-    const {children, className, onRemove, selected, ...otherProps} = this.props;
+    const {
+      children,
+      className,
+      onRemove,
+      selected,
+      tabIndex,
+      ...otherProps
+    } = this.props;
 
     return (
       <div
@@ -29,7 +36,7 @@ class Token extends React.Component {
         className={cx('token', 'token-removeable', {
           'token-selected': selected,
         }, className)}
-        tabIndex={0}>
+        tabIndex={0 + tabIndex}>
         {children}
         <span
           className="close-button"
