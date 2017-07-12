@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import TextInput from './TextInput.react';
 
-import {RIGHT, TAB} from './utils/keyCode';
+import {RIGHT, TAB, RETURN} from './utils/keyCode';
 
 /**
  * TypeaheadInput
@@ -150,6 +150,7 @@ class TypeaheadInput extends React.Component {
     switch (e.keyCode) {
       case RIGHT:
       case TAB:
+      case RETURN:
         const cursorPos = this._input.getInstance().selectionStart;
 
         // Autocomplete the selection if all of the following are true:
