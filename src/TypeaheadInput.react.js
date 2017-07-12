@@ -46,6 +46,7 @@ class TypeaheadInput extends React.Component {
       onFocus,
       placeholder,
       selected,
+      tabIndex,
       value,
     } = this.props;
 
@@ -85,6 +86,7 @@ class TypeaheadInput extends React.Component {
             position: 'relative',
             zIndex: 1,
           }}
+          tabIndex={0 + tabIndex}
         />
         <TextInput
           bsSize={bsSize}
