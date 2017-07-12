@@ -9,5 +9,8 @@ rm -rf dist
 rm -rf lib
 ./node_modules/.bin/babel src --out-dir lib
 
+# Copy typings
+cp src/index.d.ts lib/index.d.ts
+
 # Build example file
 ./node_modules/.bin/webpack --config example/webpack.config.example.prod.js

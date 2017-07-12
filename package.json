@@ -3,6 +3,7 @@
   "version": "1.4.2",
   "description": "React-based typeahead using the Bootstrap theme",
   "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "directories": {
     "example": "example"
   },
