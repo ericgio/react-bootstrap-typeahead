@@ -5,7 +5,7 @@ import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
 import Overlay from './Overlay.react';
 import TokenizerInput from './TokenizerInput.react';
-import TypeaheadInput from './TypeaheadInput.react';
+import TypeaheadInput from './TypeaheadInput_DEPRECATED.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import addCustomOption from './utils/addCustomOption';

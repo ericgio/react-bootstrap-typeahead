@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 
-import TypeaheadInput from '../src/TypeaheadInput';
+import TypeaheadInput from '../src/TypeaheadInput_DEPRECATED';
 
 function getInputNode(instance) {
   return ReactTestUtils.findRenderedDOMComponentWithClass(

@@ -6,7 +6,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import TokenizerInput from '../src/TokenizerInput';
 import Typeahead from '../src/Typeahead';
-import TypeaheadInput from '../src/TypeaheadInput';
+import TypeaheadInput from '../src/TypeaheadInput_DEPRECATED';
 import {RETURN} from '../src/utils/keyCode';
 
 import states from '../example/exampleData';
