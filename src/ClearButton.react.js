@@ -13,7 +13,10 @@ const ClearButton = ({bsSize, className, onClick}) => (
     className={cx('close', 'rbt-close', {
       'rbt-close-lg': bsSize === 'large' || bsSize === 'lg',
     }, className)}
-    onClick={onClick}
+    onClick={e => {
+      e.stopPropagation();
+      onClick(e);
+    }}
     type="button">
     <span aria-hidden="true">&times;</span>
     <span className="sr-only">Close</span>

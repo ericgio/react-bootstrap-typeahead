@@ -19,34 +19,32 @@
   text-align: center;
 }
 
-/* Input sizes */
-.rbt-multi {
-  padding-bottom: 2px;
-  padding-top: 5px;
+/* Input */
+.rbt-input-container {
+  cursor: text;
+  display: flex;
+  height: auto;
 }
 
-.rbt-multi.input-sm {
-  padding-bottom: 1px;
-  padding-top: 4px;
+.rbt-input {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
 }
 
-.rbt-multi.input-lg {
-  padding-bottom: 6px;
-  padding-top: 9px;
+.rbt-input-aux {
+  margin-left: 5px;
 }
 
-.rbt-multi-input {
+.rbt-input-multi {
+  margin-bottom: -4px;
+  margin-top: -1px;
+}
+
+.rbt-input-multi .rbt-input-main {
   margin: 1px 0 4px;
 }
 
-
-.has-aux {
-  padding-right: 32px;
-}
-
-.has-aux.input-lg {
-  padding-right: 42px;
-}
 
 /* Fix styles when used with input-group */
 .input-group .rbt:first-child .form-control {
@@ -69,15 +67,18 @@
   padding: 4px 7px;
   position: relative;
 }
+
 .rbt-token-disabled {
   background-color: #ddd;
   color: #888;
   pointer-events: none;
 }
+
 .rbt-token-removeable {
   cursor: pointer;
   padding-right: 21px;
 }
+
 .rbt-token-selected {
   background-color: #1f8dd6;
   color: #fff;
@@ -95,19 +96,23 @@
 
 
 /* ClearButton */
-.rbt-clear-button {
+.rbt-close {
   outline: none;
-  margin-top: -12px;
-  position: absolute;
-  right: 11px;
-  top: 50%;
   z-index: 1;
 }
 
 .rbt-close-lg {
   font-size: 24px;
+}
+
+.rbt-input-aux .rbt-close {
+  margin-top: -12px;
+  position: relative;
+  top: 50%;
+}
+
+.rbt-input-aux .rbt-close-lg {
   margin-top: -15px;
-  right: 15px;
 }
 
 
@@ -121,22 +126,22 @@
   border-top-color: #1f8dd6;
   display: block;
   height: 16px;
-  right: 12px;
-  margin-top: -8px;
-  position: absolute;
-  top: 50%;
   width: 16px;
 }
 
 .rbt-loader-lg {
   height: 20px;
-  margin-top: -10px;
-  right: 16px;
   width: 20px;
 }
 
-.rbt-loader-sm {
-  right: 10px;
+.rbt-input-aux .rbt-loader {
+  margin-top: -8px;
+  position: relative;
+  top: 50%;
+}
+
+.rbt-input-aux .rbt-loader-lg {
+  margin-top: -10px;
 }
 
 @keyframes loader-animation {
