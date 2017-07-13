@@ -6,6 +6,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import TypeaheadInput from '../src/TypeaheadInput';
 
 import options from '../example/exampleData';
+import {RETURN, RIGHT, TAB} from '../src/utils/keyCode';
 
 const baseProps = {
   labelKey: 'name',
@@ -24,6 +25,15 @@ function getInputNode(instance) {
     instance,
     'rbt-input-main'
   );
+}
+
+function simulateKeyDown(instance, keyCode) {
+  const inputNode = getInputNode(instance);
+  ReactTestUtils.Simulate.focus(inputNode);
+  ReactTestUtils.Simulate.keyDown(inputNode, {
+    keyCode,
+    which: keyCode,
+  });
 }
 
 describe('<TypeaheadInput>', () => {
@@ -64,6 +74,52 @@ describe('<TypeaheadInput>', () => {
     );
 
     expect(hintNode.value).to.equal(initialItem.name);
+  });
+
+  describe('behavior when selecting the hinted result', () => {
+    let props;
+    let keyCode;
+    let selected;
+
+    beforeEach(() => {
+      keyCode = 0;
+      selected = [];
+      props = {
+        ...baseProps,
+        initialItem: head(options),
+        onAdd: selectedItem => selected = [selectedItem],
+        onKeyDown: e => keyCode = e.keyCode,
+        selected,
+        text: 'Ala',
+      };
+    });
+
+    it('should select the hinted result on tab keydown', () => {
+      const instance = renderTypeaheadInput(props);
+      simulateKeyDown(instance, TAB);
+
+      expect(keyCode).to.equal(TAB);
+      expect(selected.length).to.equal(1);
+    });
+
+    it('should not select the hinted result on enter keydown', () => {
+      const instance = renderTypeaheadInput(props);
+      simulateKeyDown(instance, RETURN);
+
+      expect(keyCode).to.equal(RETURN);
+      expect(selected.length).to.equal(0);
+    });
+
+    it('should select the hinted result on enter keydown', () => {
+      const instance = renderTypeaheadInput({
+        ...props,
+        selectHintOnEnter: true,
+      });
+      simulateKeyDown(instance, RETURN);
+
+      expect(keyCode).to.equal(RETURN);
+      expect(selected.length).to.equal(1);
+    });
   });
 
   it('renders a large input', () => {

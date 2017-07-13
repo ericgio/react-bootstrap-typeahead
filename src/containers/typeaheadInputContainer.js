@@ -5,7 +5,7 @@ import {findDOMNode} from 'react-dom';
 import getHintText from '../utils/getHintText';
 import getInputText from '../utils/getInputText';
 
-import {BACKSPACE, RIGHT, TAB} from '../utils/keyCode';
+import {BACKSPACE, RETURN, RIGHT, TAB} from '../utils/keyCode';
 
 function typeaheadInputContainer(Input) {
   class WrappedInput extends React.Component {
@@ -83,6 +83,7 @@ function typeaheadInputContainer(Input) {
         multiple,
         onAdd,
         selected,
+        selectHintOnEnter,
       } = this.props;
 
       const value = getInputText(this.props);
@@ -108,6 +109,7 @@ function typeaheadInputContainer(Input) {
             e.preventDefault();
           }
           break;
+        case RETURN:
         case RIGHT:
         case TAB:
           // TODO: Support hinting for multi-selection.
@@ -127,7 +129,8 @@ function typeaheadInputContainer(Input) {
             !selected.length &&
             // The input cursor is at the end of the text string when the user
             // hits the right arrow key.
-            !(e.keyCode === RIGHT && cursorPos !== value.length)
+            !(e.keyCode === RIGHT && cursorPos !== value.length) &&
+            !(e.keyCode === RETURN && !selectHintOnEnter)
           ) {
             e.preventDefault();
 

@@ -471,6 +471,10 @@ function typeaheadContainer(Typeahead) {
      */
     selected: PropTypes.array,
     /**
+     * Allows selecting the hinted result by pressing enter.
+     */
+    selectHintOnEnter: PropTypes.bool,
+    /**
      * Propagate <RETURN> event to parent form.
      */
     submitFormOnEnter: PropTypes.bool,
@@ -498,6 +502,7 @@ function typeaheadContainer(Typeahead) {
     onPaginate: noop,
     paginate: true,
     selected: [],
+    selectHintOnEnter: false,
     submitFormOnEnter: false,
   };
 

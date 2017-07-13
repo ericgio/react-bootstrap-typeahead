@@ -14,11 +14,18 @@ class BasicBehaviorsExample extends React.Component {
       disabled: false,
       dropup: false,
       minLength: 0,
+      selectHintOnEnter: false,
     };
   }
 
   render() {
-    const {disabled, dropup, emptyLabel, minLength} = this.state;
+    const {
+      disabled,
+      dropup,
+      emptyLabel,
+      minLength,
+      selectHintOnEnter,
+    } = this.state;
 
     return (
       <div>
@@ -26,7 +33,6 @@ class BasicBehaviorsExample extends React.Component {
           {...this.state}
           emptyLabel={emptyLabel ? '' : undefined}
           labelKey="name"
-          multiple
           options={options}
           placeholder="Choose a state..."
         />
@@ -54,6 +60,12 @@ class BasicBehaviorsExample extends React.Component {
             name="emptyLabel"
             onChange={this._handleChange}>
             Hide the menu when there are no results
+          </Checkbox>
+          <Checkbox
+            checked={selectHintOnEnter}
+            name="selectHintOnEnter"
+            onChange={this._handleChange}>
+            Select the hinted result by pressing enter
           </Checkbox>
         </FormGroup>
       </div>
