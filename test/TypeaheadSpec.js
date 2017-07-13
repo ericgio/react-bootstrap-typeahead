@@ -4,9 +4,8 @@ import React from 'react';
 import {render} from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 
-import TokenizerInput from '../src/TokenizerInput';
 import Typeahead from '../src/Typeahead';
-import TypeaheadInput from '../src/TypeaheadInput_DEPRECATED';
+import TypeaheadInput from '../src/TypeaheadInput';
 import {RETURN} from '../src/utils/keyCode';
 
 import states from '../example/exampleData';
@@ -69,17 +68,18 @@ describe('<Typeahead>', () => {
     expect(input).to.exist;
   });
 
-  it('should have a TokenizerInput when `multiple` is `true`', () => {
+  it('should render in multi-select mode when `multiple=true`', () => {
     const instance = getTypeaheadInstance({
       ...baseProps,
       multiple: true,
     });
-    const tokenizer = ReactTestUtils.findRenderedComponentWithType(
+
+    const node = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      TokenizerInput
+      'rbt-input-multi'
     );
 
-    expect(tokenizer).to.exist;
+    expect(node).to.exist;
   });
 
   it(
@@ -91,6 +91,7 @@ describe('<Typeahead>', () => {
         options: states,
         selected: states.slice(0, 3),
       });
+
       const tokens = ReactTestUtils.scryRenderedDOMComponentsWithClass(
         instance,
         'rbt-token'
@@ -110,7 +111,7 @@ describe('<Typeahead>', () => {
     expect(menuNode).to.exist;
   });
 
-  it('should not display a menu on focus when `minLength = 1`', () => {
+  it('should not display a menu on focus when `minLength=1`', () => {
     const instance = getTypeaheadInstance({
       ...baseProps,
       minLength: 1,
@@ -243,7 +244,7 @@ describe('<Typeahead>', () => {
     const instance = getTypeaheadInstance({...baseProps, bsSize: 'large'});
     const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'rbt-input-main input-lg'
+      'rbt-input-container input-lg'
     );
 
     expect(InputNode).to.exist;
@@ -255,13 +256,8 @@ describe('<Typeahead>', () => {
       instance,
       'rbt-loader'
     );
-    const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-input-main has-aux'
-    );
 
     expect(LoaderNode).to.exist;
-    expect(InputNode).to.exist;
   });
 
   it('displays a clear button when `clearButton=true` and there is a ' +
@@ -273,17 +269,13 @@ describe('<Typeahead>', () => {
       options: states,
       selected: states.slice(0, 1),
     });
+
     const ClearButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'rbt-clear-button'
-    );
-    const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-input-main has-aux'
+      'rbt-close'
     );
 
     expect(ClearButtonNode).to.exist;
-    expect(InputNode).to.exist;
   });
 
   describe('updates when re-rendering with new props', () => {

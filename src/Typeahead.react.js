@@ -1,16 +1,11 @@
 import cx from 'classnames';
 import React from 'react';
 
-import ClearButton from './ClearButton.react';
-import Loader from './Loader.react';
 import Overlay from './Overlay.react';
-import TokenizerInput from './TokenizerInput.react';
-import TypeaheadInput from './TypeaheadInput_DEPRECATED.react';
+import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import addCustomOption from './utils/addCustomOption';
-import getHintText from './utils/getHintText';
-import getInputText from './utils/getInputText';
 import getTruncatedOptions from './utils/getTruncatedOptions';
 import typeaheadContainer from './containers/typeaheadContainer';
 
@@ -30,6 +25,10 @@ class Typeahead extends React.Component {
       className,
       dropup,
       labelKey,
+      onInputChange,
+      onKeyDown,
+      onSelectionAdd,
+      onSelectionRemove,
       paginate,
       shownResults,
       text,
@@ -54,8 +53,15 @@ class Typeahead extends React.Component {
           'dropup': dropup,
         }, className)}
         style={{position: 'relative'}}>
-        {this._renderInput(results)}
-        {this._renderAux()}
+        <TypeaheadInput
+          {...this.props}
+          onAdd={onSelectionAdd}
+          onChange={onInputChange}
+          onKeyDown={e => onKeyDown(results, e)}
+          onRemove={onSelectionRemove}
+          options={results}
+          ref={input => this._input = input}
+        />
         {this._renderMenu(results, shouldPaginate)}
       </div>
     );
@@ -67,65 +73,6 @@ class Typeahead extends React.Component {
 
   focus = () => {
     this._input.focus();
-  }
-
-  _renderInput = results => {
-    const {
-      activeIndex,
-      activeItem,
-      bsSize,
-      disabled,
-      initialItem,
-      labelKey,
-      minLength,
-      multiple,
-      name,
-      onBlur,
-      onFocus,
-      onInputChange,
-      onKeyDown,
-      onSelectionAdd,
-      onSelectionRemove,
-      placeholder,
-      renderToken,
-      selected,
-      text,
-    } = this.props;
-
-    const Input = multiple ? TokenizerInput : TypeaheadInput;
-
-    return (
-      <Input
-        activeIndex={activeIndex}
-        activeItem={activeItem}
-        bsSize={bsSize}
-        disabled={disabled}
-        hasAux={!!this._renderAux()}
-        hintText={getHintText({
-          activeItem,
-          initialItem,
-          labelKey,
-          minLength,
-          selected,
-          text,
-        })}
-        initialItem={initialItem}
-        labelKey={labelKey}
-        name={name}
-        onAdd={onSelectionAdd}
-        onBlur={onBlur}
-        onChange={onInputChange}
-        onFocus={onFocus}
-        onKeyDown={e => onKeyDown(results, e)}
-        onRemove={onSelectionRemove}
-        options={results}
-        placeholder={placeholder}
-        ref={input => this._input = input}
-        renderToken={renderToken}
-        selected={selected.slice()}
-        value={getInputText({activeItem, labelKey, multiple, selected, text})}
-      />
-    );
   }
 
   _renderMenu = (results, shouldPaginate) => {
@@ -175,31 +122,6 @@ class Typeahead extends React.Component {
         {menu}
       </Overlay>
     );
-  }
-
-  _renderAux = () => {
-    const {
-      bsSize,
-      clearButton,
-      disabled,
-      isLoading,
-      onClear,
-      selected,
-    } = this.props;
-
-    if (isLoading) {
-      return <Loader bsSize={bsSize} />;
-    }
-
-    if (clearButton && !disabled && selected.length) {
-      return (
-        <ClearButton
-          bsSize={bsSize}
-          className="rbt-clear-button"
-          onClick={onClear}
-        />
-      );
-    }
   }
 }
 
