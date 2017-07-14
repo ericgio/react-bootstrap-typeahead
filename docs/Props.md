@@ -15,6 +15,7 @@ disabled | boolean | | Whether to disable the input. Will also disable selection
 dropup | boolean | false | Specify whether the menu should appear above the input.
 emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
+highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
 maxHeight | number | 300 | Maximum height of the dropdown menu, in px.

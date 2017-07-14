@@ -21,6 +21,7 @@ function getInitialState(props) {
     activeIndex: -1,
     activeItem: null,
     initialItem: null,
+    isOnlyResult: false,
     selected,
     showMenu: false,
     shownResults: maxResults,
@@ -38,6 +39,7 @@ function typeaheadContainer(Typeahead) {
     getChildContext() {
       return {
         activeIndex: this.state.activeIndex,
+        isOnlyResult: this.state.isOnlyResult,
         onActiveItemChange: this._handleActiveItemChange,
         onInitialItemChange: this._handleInitialItemChange,
         onMenuItemClick: this._handleSelectionAdd,
@@ -49,6 +51,7 @@ function typeaheadContainer(Typeahead) {
         allowNew,
         caseSensitive,
         filterBy,
+        highlightOnlyResult,
         ignoreDiacritics,
         labelKey,
       } = this.props;
@@ -65,6 +68,11 @@ function typeaheadContainer(Typeahead) {
       warn(
         !(typeof labelKey === 'function' && allowNew),
         '`labelKey` must be a string if creating new options is allowed.'
+      );
+
+      warn(
+        highlightOnlyResult && allowNew ? false : true,
+        '`highlightOnlyResult` will not work with `allowNew`.'
       );
     }
 
@@ -111,6 +119,7 @@ function typeaheadContainer(Typeahead) {
           onFocus={this._handleFocus}
           onInitialItemChange={this._handleInitialItemChange}
           onInputChange={this._handleInputChange}
+          onResultsChange={this._handleResultsChange}
           onKeyDown={this._handleKeyDown}
           onPaginate={this._handlePaginate}
           onSelectionAdd={this._handleSelectionAdd}
@@ -265,15 +274,27 @@ function typeaheadContainer(Typeahead) {
           this._hideDropdown();
           break;
         case RETURN:
+          if (!showMenu) {
+            break;
+          }
+
+          const {initialItem, isOnlyResult} = this.state;
+
           // if menu is shown and we have active item
           // there is no any sense to submit form on <RETURN>
-          if (!this.props.submitFormOnEnter || showMenu && activeItem) {
+          if (!this.props.submitFormOnEnter || activeItem) {
             // Prevent submitting forms.
             e.preventDefault();
           }
 
-          if (showMenu && activeItem) {
+          if (activeItem) {
             this._handleSelectionAdd(activeItem);
+            break;
+          }
+
+          if (isOnlyResult) {
+            this._handleSelectionAdd(initialItem);
+            break;
           }
           break;
       }
@@ -309,6 +330,13 @@ function typeaheadContainer(Typeahead) {
 
       onPaginate(e);
       this.setState({shownResults: this.state.shownResults + maxResults});
+    }
+
+    _handleResultsChange = results => {
+      const {allowNew, highlightOnlyResult} = this.props;
+      if (!allowNew && highlightOnlyResult) {
+        this.setState({isOnlyResult: results.length === 1});
+      }
     }
 
     _handleSelectionRemove = selection => {
@@ -396,6 +424,11 @@ function typeaheadContainer(Typeahead) {
       PropTypes.arrayOf(PropTypes.string.isRequired),
       PropTypes.func,
     ]),
+    /**
+     * Highlights the menu item if there is only one result and allows selecting
+     * that item by hitting enter. Does not work with `allowNew`.
+     */
+    highlightOnlyResult: PropTypes.bool,
     /**
      * Whether the filter should ignore accents and other diacritical marks.
      */
@@ -489,6 +522,7 @@ function typeaheadContainer(Typeahead) {
     defaultSelected: [],
     dropup: false,
     filterBy: [],
+    highlightOnlyResult: false,
     ignoreDiacritics: true,
     isLoading: false,
     labelKey: 'label',
@@ -508,6 +542,7 @@ function typeaheadContainer(Typeahead) {
 
   WrappedTypeahead.childContextTypes = {
     activeIndex: PropTypes.number.isRequired,
+    isOnlyResult: PropTypes.bool.isRequired,
     onActiveItemChange: PropTypes.func.isRequired,
     onInitialItemChange: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func.isRequired,

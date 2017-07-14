@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {range} from 'lodash';
+import {head, range} from 'lodash';
 import React from 'react';
 import {render} from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -30,8 +30,21 @@ function getMenuNode(instance) {
   );
 }
 
+function getMenuItems(instance) {
+  const menuNode = getMenuNode(instance);
+  return ReactTestUtils.scryRenderedDOMComponentsWithTag(
+    instance,
+    'LI'
+  );
+}
+
 function getTypeaheadInstance(props) {
   return ReactTestUtils.renderIntoDocument(<Typeahead {...props} />);
+}
+
+function simulateTextChange(inputNode, value) {
+  inputNode.value = value;
+  ReactTestUtils.Simulate.change(inputNode);
 }
 
 function simulateFormSubmit(instance) {
@@ -343,6 +356,65 @@ describe('<Typeahead>', () => {
 
       render(<Typeahead {...props} />, node);
       expect(selected).to.deep.equal(states.slice(0, 1));
+    });
+  });
+
+  describe('`highlightOnlyResult` behavior', () => {
+    let props;
+    let selected;
+
+    beforeEach(() => {
+      props = {
+        labelKey: 'name',
+        options: states,
+      };
+      selected = [];
+    });
+
+    it('does not highlight the only result', () => {
+      const instance = getTypeaheadInstance(props);
+
+      const inputNode = getInputNode(instance);
+      simulateTextChange(inputNode, 'Alab');
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = getMenuItems(instance);
+
+      expect(menuItems.length).to.equal(1);
+      expect(head(menuItems).className).to.equal('');
+    });
+
+    it('highlights the only result', () => {
+      const instance = getTypeaheadInstance({
+        ...props,
+        highlightOnlyResult: true,
+      });
+
+      const inputNode = getInputNode(instance);
+      simulateTextChange(inputNode, 'Alab');
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = getMenuItems(instance);
+
+      expect(menuItems.length).to.equal(1);
+      expect(head(menuItems).className).to.equal('active');
+    });
+
+    it('does not highlights the only result when `allowNew=true`', () => {
+      const instance = getTypeaheadInstance({
+        ...props,
+        allowNew: true,
+        highlightOnlyResult: true,
+      });
+
+      const inputNode = getInputNode(instance);
+      simulateTextChange(inputNode, 'qqq');
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = getMenuItems(instance);
+
+      expect(menuItems.length).to.equal(1);
+      expect(head(menuItems).className).to.equal('');
     });
   });
 

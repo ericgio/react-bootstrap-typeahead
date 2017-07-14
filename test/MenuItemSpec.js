@@ -80,6 +80,11 @@ describe('MenuItemSpec', () => {
       expect(activeNode.className).to.contain('active');
     });
 
+    it('sets the active state if it is the only result', () => {
+      const activeNode = getMenuItemNode({}, {isOnlyResult: true});
+      expect(activeNode.className).to.contain('active');
+    });
+
     it('triggers an event when clicked', () => {
       const menuItemNode = getMenuItemNode({onClick});
       ReactTestUtils.Simulate.click(menuItemNode.childNodes[0]);

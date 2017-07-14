@@ -34,13 +34,15 @@ const menuItemContainer = Component => {
     }
 
     render() {
-      const {activeIndex} = this.context;
+      const {activeIndex, isOnlyResult} = this.context;
       const {position, ...props} = this.props;
+
+      const active = isOnlyResult || activeIndex === position;
 
       return (
         <Component
           {...props}
-          active={activeIndex === position}
+          active={active}
           onClick={this._handleClick}
         />
       );
@@ -74,6 +76,7 @@ const menuItemContainer = Component => {
 
   WrappedMenuItem.contextTypes = {
     activeIndex: PropTypes.number.isRequired,
+    isOnlyResult: PropTypes.bool.isRequired,
     onActiveItemChange: PropTypes.func.isRequired,
     onInitialItemChange: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func.isRequired,

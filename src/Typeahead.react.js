@@ -11,11 +11,21 @@ import typeaheadContainer from './containers/typeaheadContainer';
 
 class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {
-    const {allowNew, onInitialItemChange, results} = nextProps;
+    const {
+      allowNew,
+      highlightOnlyResult,
+      onInitialItemChange,
+      onResultsChange,
+      results,
+    } = nextProps;
 
     // Clear the initial item when there are no results.
     if (!(allowNew || results.length)) {
       onInitialItemChange(null);
+    }
+
+    if (results.length !== this.props.results.length) {
+      onResultsChange(results);
     }
   }
 

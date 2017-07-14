@@ -13,6 +13,7 @@ class BasicBehaviorsExample extends React.Component {
     this.state = {
       disabled: false,
       dropup: false,
+      highlightOnlyResult: false,
       minLength: 0,
       selectHintOnEnter: false,
     };
@@ -23,6 +24,7 @@ class BasicBehaviorsExample extends React.Component {
       disabled,
       dropup,
       emptyLabel,
+      highlightOnlyResult,
       minLength,
       selectHintOnEnter,
     } = this.state;
@@ -66,6 +68,12 @@ class BasicBehaviorsExample extends React.Component {
             name="selectHintOnEnter"
             onChange={this._handleChange}>
             Select the hinted result by pressing enter
+          </Checkbox>
+          <Checkbox
+            checked={highlightOnlyResult}
+            name="highlightOnlyResult"
+            onChange={this._handleChange}>
+            Highlight the only result
           </Checkbox>
         </FormGroup>
       </div>
