@@ -39,8 +39,8 @@
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.2.0",
-    "react-dom": "^0.14.0 || ^15.2.0"
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
