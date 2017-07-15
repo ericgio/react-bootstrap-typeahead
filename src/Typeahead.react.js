@@ -13,7 +13,6 @@ class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {
       allowNew,
-      highlightOnlyResult,
       onInitialItemChange,
       onResultsChange,
       results,

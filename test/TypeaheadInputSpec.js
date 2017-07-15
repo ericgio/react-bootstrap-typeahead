@@ -6,7 +6,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import TypeaheadInput from '../src/TypeaheadInput';
 
 import options from '../example/exampleData';
-import {RETURN, RIGHT, TAB} from '../src/utils/keyCode';
+import {RETURN, TAB} from '../src/utils/keyCode';
 
 const baseProps = {
   labelKey: 'name',

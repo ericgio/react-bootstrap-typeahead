@@ -31,7 +31,6 @@ function getMenuNode(instance) {
 }
 
 function getMenuItems(instance) {
-  const menuNode = getMenuNode(instance);
   return ReactTestUtils.scryRenderedDOMComponentsWithTag(
     instance,
     'LI'
@@ -361,14 +360,12 @@ describe('<Typeahead>', () => {
 
   describe('`highlightOnlyResult` behavior', () => {
     let props;
-    let selected;
 
     beforeEach(() => {
       props = {
         labelKey: 'name',
         options: states,
       };
-      selected = [];
     });
 
     it('does not highlight the only result', () => {

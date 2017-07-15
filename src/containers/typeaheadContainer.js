@@ -119,9 +119,9 @@ function typeaheadContainer(Typeahead) {
           onFocus={this._handleFocus}
           onInitialItemChange={this._handleInitialItemChange}
           onInputChange={this._handleInputChange}
-          onResultsChange={this._handleResultsChange}
           onKeyDown={this._handleKeyDown}
           onPaginate={this._handlePaginate}
+          onResultsChange={this._handleResultsChange}
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
           ref={instance => this._instance = instance}
@@ -300,6 +300,20 @@ function typeaheadContainer(Typeahead) {
       }
     }
 
+    _handlePaginate = e => {
+      const {maxResults, onPaginate} = this.props;
+
+      onPaginate(e);
+      this.setState({shownResults: this.state.shownResults + maxResults});
+    }
+
+    _handleResultsChange = results => {
+      const {allowNew, highlightOnlyResult} = this.props;
+      if (!allowNew && highlightOnlyResult) {
+        this.setState({isOnlyResult: results.length === 1});
+      }
+    }
+
     _handleSelectionAdd = selection => {
       const {multiple, labelKey} = this.props;
 
@@ -323,20 +337,6 @@ function typeaheadContainer(Typeahead) {
       this._updateText(text);
 
       this.setState({initialItem: selection});
-    }
-
-    _handlePaginate = e => {
-      const {maxResults, onPaginate} = this.props;
-
-      onPaginate(e);
-      this.setState({shownResults: this.state.shownResults + maxResults});
-    }
-
-    _handleResultsChange = results => {
-      const {allowNew, highlightOnlyResult} = this.props;
-      if (!allowNew && highlightOnlyResult) {
-        this.setState({isOnlyResult: results.length === 1});
-      }
     }
 
     _handleSelectionRemove = selection => {
