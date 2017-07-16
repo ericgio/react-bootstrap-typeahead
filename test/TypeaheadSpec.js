@@ -6,29 +6,17 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import Typeahead from '../src/Typeahead';
 import TypeaheadInput from '../src/TypeaheadInput';
-import {RETURN} from '../src/utils/keyCode';
+
+import {getInputNode, getMenuNode} from './testUtils';
 
 import states from '../example/exampleData';
+import {RETURN} from '../src/utils/keyCode';
 
 const bigData = range(0, 500).map(o => o.toString());
 
 let baseProps = {
   options: [],
 };
-
-function getInputNode(instance) {
-  return ReactTestUtils.findRenderedDOMComponentWithClass(
-    instance,
-    'rbt-input-main'
-  );
-}
-
-function getMenuNode(instance) {
-  return ReactTestUtils.findRenderedDOMComponentWithClass(
-    instance,
-    'rbt-menu'
-  );
-}
 
 function getMenuItems(instance) {
   return ReactTestUtils.scryRenderedDOMComponentsWithTag(
@@ -115,9 +103,6 @@ describe('<Typeahead>', () => {
 
   it('should display a menu when the input is focused', () => {
     const instance = getTypeaheadInstance(baseProps);
-    const inputNode = getInputNode(instance);
-    ReactTestUtils.Simulate.focus(inputNode);
-
     const menuNode = getMenuNode(instance);
 
     expect(menuNode).to.exist;
@@ -130,7 +115,6 @@ describe('<Typeahead>', () => {
     });
     const inputNode = getInputNode(instance);
     ReactTestUtils.Simulate.focus(inputNode);
-
     const menuNode = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
       'rbt-menu'
@@ -360,12 +344,23 @@ describe('<Typeahead>', () => {
 
   describe('`highlightOnlyResult` behavior', () => {
     let props;
+    let selected;
+
+    function simulateEnter(node) {
+      ReactTestUtils.Simulate.keyDown(node, {
+        key: 'Enter',
+        keyCode: RETURN,
+        which: RETURN,
+      });
+    }
 
     beforeEach(() => {
       props = {
         labelKey: 'name',
+        onChange: s => selected = [s],
         options: states,
       };
+      selected = [];
     });
 
     it('does not highlight the only result', () => {
@@ -379,6 +374,9 @@ describe('<Typeahead>', () => {
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.equal('');
+
+      simulateEnter(inputNode);
+      expect(selected.length).to.equal(0);
     });
 
     it('highlights the only result', () => {
@@ -395,6 +393,9 @@ describe('<Typeahead>', () => {
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.equal('active');
+
+      simulateEnter(inputNode);
+      expect(selected.length).to.equal(1);
     });
 
     it('does not highlights the only result when `allowNew=true`', () => {
@@ -412,6 +413,9 @@ describe('<Typeahead>', () => {
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.equal('');
+
+      simulateEnter(inputNode);
+      expect(selected.length).to.equal(0);
     });
   });
 

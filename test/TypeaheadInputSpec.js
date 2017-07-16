@@ -5,8 +5,10 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import TypeaheadInput from '../src/TypeaheadInput';
 
+import {getInputNode} from './testUtils';
+
 import options from '../example/exampleData';
-import {RETURN, TAB} from '../src/utils/keyCode';
+import {RETURN, RIGHT, TAB} from '../src/utils/keyCode';
 
 const baseProps = {
   labelKey: 'name',
@@ -18,13 +20,6 @@ const baseProps = {
 
 function renderTypeaheadInput(props) {
   return ReactTestUtils.renderIntoDocument(<TypeaheadInput {...props} />);
-}
-
-function getInputNode(instance) {
-  return ReactTestUtils.findRenderedDOMComponentWithClass(
-    instance,
-    'rbt-input-main'
-  );
 }
 
 function simulateKeyDown(instance, keyCode) {
@@ -88,6 +83,7 @@ describe('<TypeaheadInput>', () => {
         ...baseProps,
         initialItem: head(options),
         onAdd: selectedItem => selected = [selectedItem],
+        onChange: noop,
         onKeyDown: e => keyCode = e.keyCode,
         selected,
         text: 'Ala',
@@ -101,6 +97,31 @@ describe('<TypeaheadInput>', () => {
       expect(keyCode).to.equal(TAB);
       expect(selected.length).to.equal(1);
     });
+
+    it('should select the hinted result on right arrow keydown', () => {
+      const instance = renderTypeaheadInput(props);
+
+      simulateKeyDown(instance, RIGHT);
+
+      expect(keyCode).to.equal(RIGHT);
+      expect(selected.length).to.equal(1);
+    });
+
+    it(
+      'should not select the hinted result on right arrow keydown unless ' +
+      'the cursor is at the end of the input value',
+      () => {
+        const instance = renderTypeaheadInput(props);
+
+        const inputNode = getInputNode(instance);
+        inputNode.selectionStart = 1;
+        ReactTestUtils.Simulate.change(inputNode);
+        simulateKeyDown(instance, RIGHT);
+
+        expect(keyCode).to.equal(RIGHT);
+        expect(selected.length).to.equal(0);
+      }
+    );
 
     it('should not select the hinted result on enter keydown', () => {
       const instance = renderTypeaheadInput(props);

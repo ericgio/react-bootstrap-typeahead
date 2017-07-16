@@ -86,6 +86,7 @@ function typeaheadInputContainer(Input) {
         selectHintOnEnter,
       } = this.props;
 
+      let inputNode;
       const value = getInputText(this.props);
 
       switch (e.keyCode) {
@@ -94,7 +95,7 @@ function typeaheadInputContainer(Input) {
             break;
           }
 
-          const inputNode = findDOMNode(this._input);
+          inputNode = findDOMNode(this._input);
           if (
             inputNode &&
             inputNode.contains(document.activeElement) &&
@@ -117,7 +118,8 @@ function typeaheadInputContainer(Input) {
             break;
           }
 
-          const cursorPos = this._input.selectionStart;
+          inputNode = findDOMNode(this._input.getInput());
+          const cursorPos = inputNode && inputNode.selectionStart;
           const hintText = getHintText(this.props);
 
           // Autocomplete the selection if all of the following are true:
