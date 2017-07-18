@@ -419,6 +419,14 @@ describe('<Typeahead>', () => {
     });
   });
 
+  it('adds a name to the input', () => {
+    const name = 'input-name';
+    const instance = getTypeaheadInstance({...baseProps, name});
+    const inputNode = getInputNode(instance);
+
+    expect(inputNode.name).to.equal(name);
+  });
+
   describe('form integration', () => {
     let onKeyDownEvent;
 

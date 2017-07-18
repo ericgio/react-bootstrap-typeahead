@@ -27,6 +27,7 @@ class TypeaheadInput extends React.Component {
       'hintText',
       'inputRef',
       'multiple',
+      'name',
       'onBlur',
       'onChange',
       'onFocus',
@@ -126,6 +127,10 @@ TypeaheadInput.propTypes = {
    * Whether to disable the input and all selections.
    */
   disabled: PropTypes.bool,
+  /**
+   * Name attribute for the input.
+   */
+  name: PropTypes.string,
   /**
    * Placeholder text for the input.
    */
