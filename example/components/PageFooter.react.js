@@ -3,7 +3,7 @@ import React from 'react';
 import {version} from '../../package.json';
 
 import Container from './Container';
-import GitHubStarsButton from './GitHubStarsButton';
+import GithubStarsButton from './GithubStarsButton';
 
 const AUTHOR_GITHUB_URL = 'https://github.com/ericgio';
 const BASE_GITHUB_URL = `${AUTHOR_GITHUB_URL}/react-bootstrap-typeahead`;
@@ -56,7 +56,7 @@ const PageFooter = () => (
         <li>Licensed under {licenseLink}</li>
         <li>Current version: {versionLink}</li>
       </ul>
-      <GitHubStarsButton />
+      <GithubStarsButton />
     </Container>
   </footer>
 );
