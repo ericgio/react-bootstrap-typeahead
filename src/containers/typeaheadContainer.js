@@ -3,11 +3,15 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import caseSensitiveType from '../propTypes/caseSensitiveType';
 import checkPropType from '../propTypes/checkPropType';
+import highlightOnlyResultType from '../propTypes/highlightOnlyResultType';
+import ignoreDiacriticsType from '../propTypes/ignoreDiacriticsType';
+import inputPropsType from '../propTypes/inputPropsType';
+import labelKeyType from '../propTypes/labelKeyType';
+
 import defaultFilterBy from '../utils/defaultFilterBy';
 import getOptionLabel from '../utils/getOptionLabel';
-import inputPropsType from '../propTypes/inputPropsType';
-import warn from '../utils/warn';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../utils/keyCode';
 
@@ -46,36 +50,6 @@ function typeaheadContainer(Typeahead) {
         onInitialItemChange: this._handleInitialItemChange,
         onMenuItemClick: this._handleSelectionAdd,
       };
-    }
-
-    componentWillMount() {
-      const {
-        allowNew,
-        caseSensitive,
-        filterBy,
-        highlightOnlyResult,
-        ignoreDiacritics,
-        labelKey,
-      } = this.props;
-
-      warn(
-        !(
-          typeof filterBy === 'function' &&
-          (caseSensitive || !ignoreDiacritics)
-        ),
-        'Your `filterBy` function will override the `caseSensitive` and ' +
-        '`ignoreDiacritics` props.'
-      );
-
-      warn(
-        !(typeof labelKey === 'function' && allowNew),
-        '`labelKey` must be a string if creating new options is allowed.'
-      );
-
-      warn(
-        highlightOnlyResult && allowNew ? false : true,
-        '`highlightOnlyResult` will not work with `allowNew`.'
-      );
     }
 
     componentDidMount() {
@@ -406,7 +380,7 @@ function typeaheadContainer(Typeahead) {
     /**
      * Whether or not filtering should be case-sensitive.
      */
-    caseSensitive: PropTypes.bool,
+    caseSensitive: checkPropType(PropTypes.bool, caseSensitiveType),
     /**
      * Displays a button to clear the input when there are selections.
      */
@@ -432,11 +406,11 @@ function typeaheadContainer(Typeahead) {
      * Highlights the menu item if there is only one result and allows selecting
      * that item by hitting enter. Does not work with `allowNew`.
      */
-    highlightOnlyResult: PropTypes.bool,
+    highlightOnlyResult: checkPropType(PropTypes.bool, highlightOnlyResultType),
     /**
      * Whether the filter should ignore accents and other diacritical marks.
      */
-    ignoreDiacritics: PropTypes.bool,
+    ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
     /**
      * Props to be applied directly to the input. `onBlur`, `onChange`,
      * `onFocus`, and `onKeyDown` are ignored.
@@ -450,10 +424,10 @@ function typeaheadContainer(Typeahead) {
      * Specify the option key to use for display or a function returning the
      * display string. By default, the selector will use the `label` key.
      */
-    labelKey: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func,
-    ]),
+    labelKey: checkPropType(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+      labelKeyType,
+    ),
     /**
      * Maximum number of results to display by default. Mostly done for
      * performance reasons so as not to render too many DOM nodes in the case of

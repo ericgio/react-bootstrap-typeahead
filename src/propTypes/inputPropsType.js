@@ -9,9 +9,9 @@ const BLACKLIST = [
   {alt: 'onKeyDown', prop: 'onKeyDown'},
 ];
 
-export default function inputProps(props, propName, componentName) {
-  const value = props[propName];
-  if (!(value && isPlainObject(value))) {
+export default function inputPropsType(props, propName, componentName) {
+  const {inputProps} = props;
+  if (!(inputProps && isPlainObject(inputProps))) {
     return;
   }
 
@@ -19,7 +19,7 @@ export default function inputProps(props, propName, componentName) {
   BLACKLIST.forEach(({alt, prop}) => {
     const msg = alt ? ` Use the top-level \`${alt}\` prop instead.` : null;
     warn(
-      !value.hasOwnProperty(prop),
+      !inputProps.hasOwnProperty(prop),
       `The \`${prop}\` property of \`inputProps\` will be ignored.${msg}`
     );
   });
