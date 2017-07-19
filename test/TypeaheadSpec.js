@@ -459,6 +459,18 @@ describe('<Typeahead>', () => {
     expect(tokenNode.tabIndex).to.equal(inputProps.tabIndex);
   });
 
+  it('triggers the `onKeyDown` prop', () => {
+    let keyDown;
+    const instance = getTypeaheadInstance({
+      ...baseProps,
+      onKeyDown: e => keyDown = 'success',
+    });
+
+    simulateFormSubmit(instance);
+
+    expect(keyDown).to.equal('success');
+  });
+
   describe('form integration', () => {
     let onKeyDownEvent;
 

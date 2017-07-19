@@ -299,6 +299,8 @@ function typeaheadContainer(Typeahead) {
           }
           break;
       }
+
+      this.props.onKeyDown(e);
     }
 
     _handlePaginate = e => {
@@ -484,6 +486,10 @@ function typeaheadContainer(Typeahead) {
      */
     onInputChange: PropTypes.func,
     /**
+     * Invoked when a key is pressed. Receives an event.
+     */
+    onKeyDown: PropTypes.func,
+    /**
      * Invoked when the pagination menu item is clicked. Receives an event.
      */
     onPaginate: PropTypes.func,
@@ -540,6 +546,7 @@ function typeaheadContainer(Typeahead) {
     onChange: noop,
     onFocus: noop,
     onInputChange: noop,
+    onKeyDown: noop,
     onPaginate: noop,
     paginate: true,
     selected: [],

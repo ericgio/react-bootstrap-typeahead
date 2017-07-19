@@ -22,7 +22,7 @@ export default function inputProps(props, propName, componentName) {
     {alt: 'onBlur', prop: 'onBlur'},
     {alt: 'onInputChange', prop: 'onChange'},
     {alt: 'onFocus', prop: 'onFocus'},
-    {prop: 'onKeyDown'},
+    {alt: 'onKeyDown', prop: 'onKeyDown'},
   ].forEach(({alt, prop}) => {
     const msg = alt ? ` Use the top-level \`${alt}\` prop instead.` : null;
     warn(
