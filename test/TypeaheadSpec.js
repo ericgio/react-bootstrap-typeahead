@@ -15,7 +15,8 @@ import {RETURN} from '../src/utils/keyCode';
 const bigData = range(0, 500).map(o => o.toString());
 
 let baseProps = {
-  options: [],
+  labelKey: 'name',
+  options: states,
 };
 
 function getMenuItems(instance) {
@@ -86,9 +87,8 @@ describe('<Typeahead>', () => {
     'should display tokens when selections are passed into the tokenizer',
     () => {
       const instance = getTypeaheadInstance({
-        labelKey: 'name',
+        ...baseProps,
         multiple: true,
-        options: states,
         selected: states.slice(0, 3),
       });
 
@@ -179,15 +179,12 @@ describe('<Typeahead>', () => {
   });
 
   describe('should limit the results when `maxResults` is set', () => {
-    const labelKey = 'name';
     const maxResults = 5;
 
     it('should limit results when `paginate=true`', () => {
       const instance = getTypeaheadInstance({
         ...baseProps,
-        labelKey,
         maxResults,
-        options: states,
       });
 
       const inputNode = getInputNode(instance);
@@ -206,9 +203,7 @@ describe('<Typeahead>', () => {
     it('should limit results when `paginate=false`', () => {
       const instance = getTypeaheadInstance({
         ...baseProps,
-        labelKey,
         maxResults,
-        options: states,
         paginate: false,
       });
 
@@ -261,8 +256,6 @@ describe('<Typeahead>', () => {
     const instance = getTypeaheadInstance({
       ...baseProps,
       clearButton: true,
-      labelKey: 'name',
-      options: states,
       selected: states.slice(0, 1),
     });
 
@@ -277,12 +270,10 @@ describe('<Typeahead>', () => {
   describe('updates when re-rendering with new props', () => {
     let node, selected, text;
 
-    const labelKey = 'name';
     const props = {
-      labelKey,
+      ...baseProps,
       onChange: s => selected = s,
       onInputChange: t => text = t,
-      options: states,
     };
 
     beforeEach(() => {
@@ -298,13 +289,13 @@ describe('<Typeahead>', () => {
       render(<Typeahead {...props} selected={selected1} />, node);
 
       expect(selected).to.deep.equal(selected1);
-      expect(text).to.equal(selected1[0][labelKey]);
+      expect(text).to.equal(selected1[0][baseProps.labelKey]);
 
       // Pass in another new selection
       render(<Typeahead {...props} selected={selected2} />, node);
 
       expect(selected).to.deep.equal(selected2);
-      expect(text).to.equal(selected2[0][labelKey]);
+      expect(text).to.equal(selected2[0][baseProps.labelKey]);
 
       // "Clear" the component
       render(<Typeahead {...props} selected={[]} />, node);
@@ -356,9 +347,8 @@ describe('<Typeahead>', () => {
 
     beforeEach(() => {
       props = {
-        labelKey: 'name',
+        ...baseProps,
         onChange: s => selected = [s],
-        options: states,
       };
       selected = [];
     });
@@ -438,10 +428,9 @@ describe('<Typeahead>', () => {
     };
 
     const instance = getTypeaheadInstance({
+      ...baseProps,
       inputProps,
-      labelKey: 'name',
       multiple: true,
-      options: states,
       selected: states.slice(0, 1),
     });
     const inputNode = getInputNode(instance);
