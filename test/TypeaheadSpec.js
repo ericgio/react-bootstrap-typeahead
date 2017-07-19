@@ -419,12 +419,44 @@ describe('<Typeahead>', () => {
     });
   });
 
+  // DEPRECATED
   it('adds a name to the input', () => {
     const name = 'input-name';
     const instance = getTypeaheadInstance({...baseProps, name});
     const inputNode = getInputNode(instance);
 
     expect(inputNode.name).to.equal(name);
+  });
+
+  it('applies arbitrary attributes to the input', () => {
+    const inputProps = {
+      className: 'input-classname',
+      id: 'input-id',
+      name: 'input-name',
+      tabIndex: 5,
+      type: 'number',
+    };
+
+    const instance = getTypeaheadInstance({
+      inputProps,
+      labelKey: 'name',
+      multiple: true,
+      options: states,
+      selected: states.slice(0, 1),
+    });
+    const inputNode = getInputNode(instance);
+
+    expect(inputNode.className).to.contain(inputProps.className);
+    expect(inputNode.id).to.equal(inputProps.id);
+    expect(inputNode.name).to.equal(inputProps.name);
+    expect(inputNode.tabIndex).to.equal(inputProps.tabIndex);
+    expect(inputNode.type).to.equal(inputProps.type);
+
+    const tokenNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'rbt-token'
+    );
+    expect(tokenNode.tabIndex).to.equal(inputProps.tabIndex);
   });
 
   describe('form integration', () => {

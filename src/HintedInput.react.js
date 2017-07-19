@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import {noop} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -29,7 +30,7 @@ class HintedInput extends React.Component {
         <AutosizeInput
           {...props}
           autoComplete="off"
-          inputClassName="rbt-input-main"
+          inputClassName={cx('rbt-input-main', props.className)}
           inputStyle={STYLES}
           onBlur={this._handleBlur}
           onFocus={this._handleFocus}

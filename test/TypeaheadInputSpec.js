@@ -11,6 +11,7 @@ import options from '../example/exampleData';
 import {RETURN, RIGHT, TAB} from '../src/utils/keyCode';
 
 const baseProps = {
+  inputProps: {},
   labelKey: 'name',
   onFocus: noop,
   options,

@@ -28,8 +28,7 @@ class Token extends React.Component {
         {...otherProps}
         className={cx('rbt-token', 'rbt-token-removeable', {
           'rbt-token-selected': selected,
-        }, className)}
-        tabIndex={0}>
+        }, className)}>
         {children}
         <span
           className="rbt-token-close-button"
@@ -70,11 +69,13 @@ Token.propTypes = {
    */
   onRemove: PropTypes.func,
   selected: PropTypes.bool,
+  tabIndex: PropTypes.number,
 };
 
 Token.defaultProps = {
   onRemove: noop,
   selected: false,
+  tabIndex: 0,
 };
 
 

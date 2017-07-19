@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import defaultFilterBy from '../utils/defaultFilterBy';
 import getOptionLabel from '../utils/getOptionLabel';
+import inputProps from '../propTypes/inputProps';
 import warn from '../utils/warn';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../utils/keyCode';
@@ -434,6 +435,11 @@ function typeaheadContainer(Typeahead) {
      */
     ignoreDiacritics: PropTypes.bool,
     /**
+     * Props to be applied directly to the input. `onBlur`, `onChange`,
+     * `onFocus`, and `onKeyDown` are ignored.
+     */
+    inputProps,
+    /**
      * Indicate whether an asynchromous data fetch is happening.
      */
     isLoading: PropTypes.bool,
@@ -524,6 +530,7 @@ function typeaheadContainer(Typeahead) {
     filterBy: [],
     highlightOnlyResult: false,
     ignoreDiacritics: true,
+    inputProps: {},
     isLoading: false,
     labelKey: 'label',
     maxResults: 100,

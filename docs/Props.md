@@ -17,12 +17,13 @@ emptyLabel | string | 'No matches found.' | Message to display in the menu if th
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
+inputProps | object | {} | Props to be applied directly to the input. `onBlur`, `onChange`, `onFocus`, and `onKeyDown` are ignored.
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
 maxHeight | number | 300 | Maximum height of the dropdown menu, in px.
 maxResults | number | 100 | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
 minLength | number | 0 | Number of input characters that must be entered before showing results.
 multiple | boolean | false | Whether or not multiple selections are allowed.
-name | string | | Name attribute for the input
+name | string | | DEPRECATED. Name attribute for the input.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Invoked when the input is blurred. Receives an event.
 onChange | function | | Invoked whenever items are added or removed. Receives an array of the selected options.

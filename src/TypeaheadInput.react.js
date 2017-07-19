@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -8,6 +7,7 @@ import HintedInput from './HintedInput.react';
 import Loader from './Loader.react';
 import Token from './Token.react';
 
+import deprecatePropType from './utils/deprecatePropType';
 import getOptionLabel from './utils/getOptionLabel';
 import typeaheadInputContainer from './containers/typeaheadInputContainer';
 
@@ -16,25 +16,35 @@ class TypeaheadInput extends React.Component {
     const {
       bsSize,
       disabled,
+      hintText,
+      inputRef,
       isFocused,
       multiple,
+      name,
+      onBlur,
+      onChange,
+      onFocus,
       onInputFocus,
+      onKeyDown,
+      placeholder,
       selected,
+      value,
     } = this.props;
 
-    const inputProps = pick(this.props, [
-      'disabled',
-      'hintText',
-      'inputRef',
-      'multiple',
-      'name',
-      'onBlur',
-      'onChange',
-      'onFocus',
-      'onKeyDown',
-      'placeholder',
-      'value',
-    ]);
+    const inputProps = {
+      ...this.props.inputProps,
+      disabled,
+      hintText,
+      inputRef,
+      multiple,
+      name: name || this.props.inputProps.name,
+      onBlur,
+      onChange,
+      onFocus,
+      onKeyDown,
+      placeholder,
+      value,
+    };
 
     return (
       <div
@@ -87,10 +97,10 @@ class TypeaheadInput extends React.Component {
   }
 
   _renderToken = (option, idx) => {
-    const {disabled, labelKey, onRemove, renderToken} = this.props;
+    const {disabled, inputProps, labelKey, onRemove, renderToken} = this.props;
     const onRemoveWrapped = () => onRemove(option);
 
-    if (renderToken) {
+    if (typeof renderToken === 'function') {
       return renderToken(option, onRemoveWrapped, idx);
     }
 
@@ -98,7 +108,8 @@ class TypeaheadInput extends React.Component {
       <Token
         disabled={disabled}
         key={idx}
-        onRemove={onRemoveWrapped}>
+        onRemove={onRemoveWrapped}
+        tabIndex={inputProps.tabIndex}>
         {getOptionLabel(option, labelKey)}
       </Token>
     );
@@ -128,9 +139,9 @@ TypeaheadInput.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Name attribute for the input.
+   * DEPRECATED. Name attribute for the input.
    */
-  name: PropTypes.string,
+  name: deprecatePropType(PropTypes.string, 'Use `inputProps` instead.'),
   /**
    * Placeholder text for the input.
    */
@@ -142,5 +153,9 @@ TypeaheadInput.propTypes = {
   renderToken: PropTypes.func,
 };
 
+TypeaheadInput.defaultProps = {
+  disabled: false,
+  placeholder: '',
+};
 
 export default typeaheadInputContainer(TypeaheadInput);
