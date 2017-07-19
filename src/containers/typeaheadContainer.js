@@ -3,9 +3,10 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import checkPropType from '../propTypes/checkPropType';
 import defaultFilterBy from '../utils/defaultFilterBy';
 import getOptionLabel from '../utils/getOptionLabel';
-import inputProps from '../propTypes/inputProps';
+import inputPropsType from '../propTypes/inputPropsType';
 import warn from '../utils/warn';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../utils/keyCode';
@@ -440,7 +441,7 @@ function typeaheadContainer(Typeahead) {
      * Props to be applied directly to the input. `onBlur`, `onChange`,
      * `onFocus`, and `onKeyDown` are ignored.
      */
-    inputProps,
+    inputProps: checkPropType(PropTypes.object, inputPropsType),
     /**
      * Indicate whether an asynchromous data fetch is happening.
      */

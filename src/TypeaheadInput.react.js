@@ -7,7 +7,8 @@ import HintedInput from './HintedInput.react';
 import Loader from './Loader.react';
 import Token from './Token.react';
 
-import deprecatePropType from './utils/deprecatePropType';
+import checkPropType from './propTypes/checkPropType';
+import deprecatePropType from './propTypes/deprecatePropType';
 import getOptionLabel from './utils/getOptionLabel';
 import typeaheadInputContainer from './containers/typeaheadInputContainer';
 
@@ -141,7 +142,10 @@ TypeaheadInput.propTypes = {
   /**
    * DEPRECATED. Name attribute for the input.
    */
-  name: deprecatePropType(PropTypes.string, 'Use `inputProps` instead.'),
+  name: checkPropType(
+    PropTypes.string,
+    deprecatePropType('Use `inputProps` instead.')
+  ),
   /**
    * Placeholder text for the input.
    */
