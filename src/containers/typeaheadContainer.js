@@ -140,7 +140,7 @@ function typeaheadContainer(Typeahead) {
 
     blur = () => {
       this._instance.blur();
-      this._hideDropdown();
+      this._hideMenu();
     }
 
     /**
@@ -249,7 +249,7 @@ function typeaheadContainer(Typeahead) {
           // Prevent closing dialogs.
           e.keyCode === ESC && e.preventDefault();
 
-          this._hideDropdown();
+          this._hideMenu();
           break;
         case RETURN:
           if (!showMenu) {
@@ -312,7 +312,7 @@ function typeaheadContainer(Typeahead) {
         text = getOptionLabel(selection, labelKey);
       }
 
-      this._hideDropdown();
+      this._hideMenu();
       this._updateSelected(selected);
       this._updateText(text);
 
@@ -326,7 +326,7 @@ function typeaheadContainer(Typeahead) {
 
       // Make sure the input stays focused after the item is removed.
       this.focus();
-      this._hideDropdown();
+      this._hideMenu();
       this._updateSelected(selected);
     }
 
@@ -334,10 +334,10 @@ function typeaheadContainer(Typeahead) {
      * From `onClickOutside` HOC.
      */
     handleClickOutside = e => {
-      this.state.showMenu && this._hideDropdown();
+      this.state.showMenu && this._hideMenu();
     }
 
-    _hideDropdown = () => {
+    _hideMenu = () => {
       const {
         activeIndex,
         activeItem,
@@ -467,6 +467,14 @@ function typeaheadContainer(Typeahead) {
      */
     onKeyDown: PropTypes.func,
     /**
+     * Invoked when the menu is hidden.
+     */
+    onMenuHide: PropTypes.func,
+    /**
+     * Invoked when the menu is shown.
+     */
+    onMenuShow: PropTypes.func,
+    /**
      * Invoked when the pagination menu item is clicked. Receives an event.
      */
     onPaginate: PropTypes.func,
@@ -524,6 +532,8 @@ function typeaheadContainer(Typeahead) {
     onFocus: noop,
     onInputChange: noop,
     onKeyDown: noop,
+    onMenuHide: noop,
+    onMenuShow: noop,
     onPaginate: noop,
     paginate: true,
     selectHintOnEnter: false,

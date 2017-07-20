@@ -94,6 +94,8 @@ class Typeahead extends React.Component {
       maxHeight,
       minLength,
       newSelectionPrefix,
+      onMenuHide,
+      onMenuShow,
       onPaginate,
       paginationText,
       renderMenu,
@@ -123,10 +125,18 @@ class Typeahead extends React.Component {
         renderMenuItemChildren={renderMenuItemChildren}
       />;
 
+    const show = !!(
+      showMenu &&
+      text.length >= minLength &&
+      (results.length || emptyLabel !== '')
+    );
+
     return (
       <Overlay
         container={bodyContainer ? document.body : this}
-        show={showMenu && text.length >= minLength}
+        onMenuHide={onMenuHide}
+        onMenuShow={onMenuShow}
+        show={show}
         target={() => this._input}>
         {menu}
       </Overlay>

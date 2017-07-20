@@ -21,14 +21,8 @@ class Menu extends React.Component {
 
   render() {
     const {align, children, className, emptyLabel} = this.props;
-    const noResults = Children.count(children) === 0;
 
-    // If an empty string is passed, suppress menu when there are no results.
-    if (noResults && emptyLabel === '') {
-      return null;
-    }
-
-    const contents = noResults ?
+    const contents = Children.count(children) === 0 ?
       <BaseMenuItem disabled>
         {emptyLabel}
       </BaseMenuItem> :

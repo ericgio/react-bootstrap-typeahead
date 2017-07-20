@@ -50,6 +50,16 @@ class Overlay extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const {onMenuHide, onMenuShow, show} = nextProps;
+
+    if (this.props.show && !show) {
+      onMenuHide();
+    }
+
+    if (!this.props.show && show) {
+      onMenuShow();
+    }
+
     this._updatePositionThrottled();
   }
 
@@ -96,9 +106,7 @@ class Overlay extends React.Component {
       return;
     }
 
-    const {target} = this.props;
-    const targetElement = typeof target === 'function' ? target() : target;
-    const targetNode = findDOMNode(targetElement);
+    const targetNode = findDOMNode(this.props.target());
 
     if (targetNode) {
       const {innerHeight, innerWidth, pageYOffset} = window;
@@ -119,20 +127,15 @@ class Overlay extends React.Component {
 }
 
 Overlay.propTypes = {
-  container: PropTypes.oneOfType([
-    componentOrElement,
-    PropTypes.func,
-  ]).isRequired,
+  container: componentOrElement.isRequired,
+  onMenuHide: PropTypes.func.isRequired,
+  onMenuShow: PropTypes.func.isRequired,
   show: PropTypes.bool,
-  target: PropTypes.oneOfType([
-    componentOrElement,
-    PropTypes.func,
-  ]).isRequired,
+  target: PropTypes.func.isRequired,
 };
 
 Overlay.defaultProps = {
   show: false,
 };
-
 
 export default Overlay;

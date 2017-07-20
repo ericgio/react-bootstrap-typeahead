@@ -1,5 +1,10 @@
 import TestUtils from 'react-dom/test-utils';
 
+export function focusTypeaheadInput(instance) {
+  const inputNode = getInputNode(instance);
+  TestUtils.Simulate.focus(inputNode);
+}
+
 export function getInputNode(instance) {
   return TestUtils.findRenderedDOMComponentWithClass(
     instance,

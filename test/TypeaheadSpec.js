@@ -7,7 +7,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import Typeahead from '../src/Typeahead';
 import TypeaheadInput from '../src/TypeaheadInput';
 
-import {getInputNode, getMenuNode} from './testUtils';
+import {focusTypeaheadInput, getInputNode, getMenuNode} from './testUtils';
 
 import states from '../example/exampleData';
 import {BACKSPACE, RETURN} from '../src/utils/keyCode';
@@ -163,8 +163,8 @@ describe('<Typeahead>', () => {
       ...baseProps,
       minLength: 1,
     });
-    const inputNode = getInputNode(instance);
-    ReactTestUtils.Simulate.focus(inputNode);
+    focusTypeaheadInput(instance);
+
     const menuNode = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
       'rbt-menu'
@@ -172,6 +172,22 @@ describe('<Typeahead>', () => {
 
     expect(menuNode.length).to.equal(0);
   });
+
+  it(
+    'should not display a menu when there are no results and ' +
+    '`emptyLabel=\'\'`',
+    () => {
+      const instance = getTypeaheadInstance({options: [], emptyLabel: ''});
+      focusTypeaheadInput(instance);
+
+      const menuComponents = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+        instance,
+        'rbt-menu'
+      );
+
+      expect(menuComponents.length).to.equal(0);
+    }
+  );
 
   it('should disable the input if the component is disabled', () => {
     const instance = getTypeaheadInstance({
@@ -196,8 +212,7 @@ describe('<Typeahead>', () => {
       options: bigData,
       paginationText,
     });
-    const inputNode = getInputNode(instance);
-    ReactTestUtils.Simulate.focus(inputNode);
+    focusTypeaheadInput(instance);
 
     // Get the anchor node, not the `<li>`
     const paginatorAnchorNode =
@@ -217,8 +232,7 @@ describe('<Typeahead>', () => {
     const instance = ReactTestUtils.renderIntoDocument(
       <Typeahead options={bigData} paginate={false} />
     );
-    const inputNode = getInputNode(instance);
-    ReactTestUtils.Simulate.focus(inputNode);
+    focusTypeaheadInput(instance);
 
     const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
       instance,
@@ -236,9 +250,7 @@ describe('<Typeahead>', () => {
         ...baseProps,
         maxResults,
       });
-
-      const inputNode = getInputNode(instance);
-      ReactTestUtils.Simulate.focus(inputNode);
+      focusTypeaheadInput(instance);
 
       const menuItems = ReactTestUtils.scryRenderedDOMComponentsWithTag(
         instance,
@@ -256,9 +268,7 @@ describe('<Typeahead>', () => {
         maxResults,
         paginate: false,
       });
-
-      const inputNode = getInputNode(instance);
-      ReactTestUtils.Simulate.focus(inputNode);
+      focusTypeaheadInput(instance);
 
       const menuItems = ReactTestUtils.scryRenderedDOMComponentsWithTag(
         instance,
@@ -486,7 +496,7 @@ describe('<Typeahead>', () => {
     expect(tokenNode.tabIndex).to.equal(inputProps.tabIndex);
   });
 
-  it('triggers the `onKeyDown` prop', () => {
+  it('triggers the `onKeyDown` callback', () => {
     let keyDown;
     const instance = getTypeaheadInstance({
       ...baseProps,
@@ -496,6 +506,23 @@ describe('<Typeahead>', () => {
     simulateFormSubmit(instance);
 
     expect(keyDown).to.equal('success');
+  });
+
+  it('triggers the `onMenuHide` and `onMenuShow` callbacks', () => {
+    let menuState;
+    const instance = getTypeaheadInstance({
+      ...baseProps,
+      onMenuHide: () => menuState = 'hidden',
+      onMenuShow: () => menuState = 'shown',
+    });
+
+    const inputNode = getInputNode(instance);
+    ReactTestUtils.Simulate.focus(inputNode);
+    expect(menuState).to.equal('shown');
+
+    const menuItems = getMenuItems(instance);
+    ReactTestUtils.Simulate.click(menuItems[0].firstChild);
+    expect(menuState).to.equal('hidden');
   });
 
   describe('form integration', () => {
