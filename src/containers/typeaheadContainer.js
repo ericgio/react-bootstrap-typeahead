@@ -16,11 +16,15 @@ import getOptionLabel from '../utils/getOptionLabel';
 import {DOWN, ESC, RETURN, TAB, UP} from '../utils/keyCode';
 
 function getInitialState(props) {
-  const {defaultSelected, maxResults} = props;
+  const {defaultSelected, maxResults, multiple} = props;
 
-  let selected = props.selected.slice();
-  if (defaultSelected && defaultSelected.length) {
-    selected = defaultSelected;
+  let selected = props.selected ?
+    props.selected.slice() :
+    defaultSelected.slice();
+
+  // Limit to 1 selection in single-select mode.
+  if (!multiple && selected.length > 1) {
+    selected = selected.slice(0, 1);
   }
 
   return {
@@ -60,23 +64,21 @@ function typeaheadContainer(Typeahead) {
       const {labelKey, multiple, selected} = nextProps;
 
       // If new selections are passed via props, treat as a controlled input.
-      if (!isEqual(selected, this.props.selected)) {
-        this._updateSelected(selected);
-
+      if (selected && !isEqual(selected, this.props.selected)) {
         if (!multiple) {
-          const text = selected.length ?
-            getOptionLabel(head(selected), labelKey) : '';
-
-          this._updateText(text);
+          this._updateText(
+            selected.length ? getOptionLabel(head(selected), labelKey) : ''
+          );
         }
+        this._updateSelected(selected);
       }
 
-      // If component changes from multi-select to single-select, keep only the
-      // first selection, if any.
-      if (this.props.multiple && !multiple && this.state.selected.length) {
-        const stateSelected = this.state.selected.slice(0, 1);
-        this._updateSelected(stateSelected);
-        this._updateText(getOptionLabel(head(stateSelected), labelKey));
+      // Truncate selections when in single-select mode.
+      let newSelected = selected || this.state.selected;
+      if (!multiple && newSelected.length > 1) {
+        newSelected = newSelected.slice(0, 1);
+        this._updateSelected(newSelected);
+        this._updateText(getOptionLabel(head(newSelected), labelKey));
         return;
       }
 
@@ -524,7 +526,6 @@ function typeaheadContainer(Typeahead) {
     onKeyDown: noop,
     onPaginate: noop,
     paginate: true,
-    selected: [],
     selectHintOnEnter: false,
     submitFormOnEnter: false,
   };

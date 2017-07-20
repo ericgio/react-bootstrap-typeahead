@@ -10,7 +10,7 @@ import TypeaheadInput from '../src/TypeaheadInput';
 import {getInputNode, getMenuNode} from './testUtils';
 
 import states from '../example/exampleData';
-import {RETURN} from '../src/utils/keyCode';
+import {BACKSPACE, RETURN} from '../src/utils/keyCode';
 
 const bigData = range(0, 500).map(o => o.toString());
 
@@ -100,6 +100,56 @@ describe('<Typeahead>', () => {
       expect(tokens.length).to.equal(3);
     }
   );
+
+  describe('truncates the selections in single-select mode', () => {
+    let multiSelections, node, props, selected;
+
+    beforeEach(() => {
+      multiSelections = states.slice(0, 4);
+      node = document.createElement('div');
+      selected = [];
+      props = {
+        ...baseProps,
+        onChange: s => selected = s,
+      };
+      render(<Typeahead {...props} />, node);
+    });
+
+    it('when using `defaultSelected`', () => {
+      const instance = getTypeaheadInstance({
+        ...props,
+        defaultSelected: multiSelections,
+      });
+
+      const inputNode = getInputNode(instance);
+      simulateTextChange(inputNode, BACKSPACE);
+
+      expect(selected.length).to.equal(0);
+    });
+
+    it('when using `selected`', () => {
+      const instance = getTypeaheadInstance({
+        ...props,
+        selected: multiSelections,
+      });
+
+      const inputNode = getInputNode(instance);
+      simulateTextChange(inputNode, BACKSPACE);
+
+      expect(selected.length).to.equal(0);
+    });
+
+    it('when going from multi- to single-select', () => {
+      render(
+        <Typeahead {...props} multiple selected={multiSelections} />,
+        node
+      );
+      expect(selected.length).to.equal(multiSelections.length);
+
+      render(<Typeahead {...props} selected={multiSelections} />, node);
+      expect(selected).to.deep.equal(states.slice(0, 1));
+    });
+  });
 
   it('should display a menu when the input is focused', () => {
     const instance = getTypeaheadInstance(baseProps);
@@ -318,18 +368,6 @@ describe('<Typeahead>', () => {
 
       expect(selected).to.deep.equal([]);
       expect(text).to.equal('');
-    });
-
-    it('updates the selections when going from multi- to single-select', () => {
-      const multiSelections = states.slice(0, 4);
-      render(
-        <Typeahead {...props} multiple selected={multiSelections} />,
-        node
-      );
-      expect(selected).to.deep.equal(multiSelections);
-
-      render(<Typeahead {...props} />, node);
-      expect(selected).to.deep.equal(states.slice(0, 1));
     });
   });
 
