@@ -1,5 +1,5 @@
 # Table of Contents
-- [v1.x Upgrade Guide](Upgrading.md)
+- [Upgrade Guide](Upgrading.md)
 - [Basic Usage](Usage.md)
 - [Data](Data.md)
 - [Filtering](Filtering.md)

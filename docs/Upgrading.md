@@ -1,5 +1,16 @@
-# v1.x Upgrade Guide
-Version 1.x has a few breaking changes, but upgrading should be relatively painless.
+# Upgrade Guide
+
+## v2.0
+Version 2.0 consists mainly of internal refactoring aimed at reducing parallel code paths and making certain complex feature requests possible. These changes should mostly be transparent, though you may notice that the component behaves a bit differently.
+
+### Breaking Changes
+There should not be any breaking changes to the external API. However, in an effort to simplify the CSS and as a result of the refactor, class names for the various internal components were changed. This may cause styling to break if you relied on a certain naming scheme.
+
+### Deprecations
+- The `name` prop is now deprecated and will be removed in v3.0. Use `inputProps` to apply props directly to the input instead.
+
+## v1.0
+Version 1.0 has a few breaking changes, but upgrading should be relatively painless.
 
 ### Importing
 The main change affecting all users is that the typeahead is now a property of the module:

@@ -30,7 +30,7 @@ Minified and unminified UMD modules are also included in the NPM package, or you
 - [Public Methods](docs/Methods.md)
 - [Props](docs/Props.md)
 - [API](docs/API.md)
-- [v1.x Upgrade Guide](docs/Upgrading.md)
+- [Upgrade Guide](docs/Upgrading.md)
 
 ## CSS
 The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the module and should be included wherever you're using the component.
