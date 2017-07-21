@@ -4,7 +4,10 @@
 Version 2.0 consists mainly of internal refactoring aimed at reducing parallel code paths and making certain complex feature requests possible. These changes should mostly be transparent, though you may notice that the component behaves a bit differently.
 
 ### Breaking Changes
-There should not be any breaking changes to the external API. However, in an effort to simplify the CSS and as a result of the refactor, class names for the various internal components were changed. This may cause styling to break if you relied on a certain naming scheme.
+There should not be any breaking changes to the public API.
+
+#### CSS Changes
+In an effort to simplify the CSS and as a result of the refactor, class names for the various internal components were changed. This may cause styling to break if you relied on a certain naming scheme. The separate CSS files were also combined into a single file (`Typeahead.css`) to make it easier to include.
 
 ### Deprecations
 - The `name` prop is now deprecated and will be removed in v3.0. Use `inputProps` to apply props directly to the input instead.
