@@ -7,8 +7,6 @@ import HintedInput from './HintedInput.react';
 import Loader from './Loader.react';
 import Token from './Token.react';
 
-import checkPropType from './propTypes/checkPropType';
-import deprecatePropType from './propTypes/deprecatePropType';
 import getOptionLabel from './utils/getOptionLabel';
 import typeaheadInputContainer from './containers/typeaheadInputContainer';
 
@@ -139,13 +137,6 @@ TypeaheadInput.propTypes = {
    * Whether to disable the input and all selections.
    */
   disabled: PropTypes.bool,
-  /**
-   * DEPRECATED. Name attribute for the input.
-   */
-  name: checkPropType(
-    PropTypes.string,
-    deprecatePropType('Use `inputProps` instead.')
-  ),
   /**
    * Placeholder text for the input.
    */

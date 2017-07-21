@@ -1,7 +1,8 @@
 import {find, head, isEqual, noop} from 'lodash';
+import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
-import PropTypes from 'prop-types';
+import deprecated from 'react-prop-types/lib/deprecated';
 
 import caseSensitiveType from '../propTypes/caseSensitiveType';
 import checkPropType from '../propTypes/checkPropType';
@@ -364,6 +365,8 @@ function typeaheadContainer(Typeahead) {
     }
   }
 
+  WrappedTypeahead.displayName = 'Typeahead';
+
   WrappedTypeahead.propTypes = {
     /**
      * Allows the creation of new selections on the fly. Note that any new items
@@ -444,6 +447,10 @@ function typeaheadContainer(Typeahead) {
      * Whether or not multiple selections are allowed.
      */
     multiple: PropTypes.bool,
+    /**
+     * DEPRECATED. Name attribute for the input.
+     */
+    name: deprecated(PropTypes.string, 'Use `inputProps` instead'),
     /**
      * Invoked when the input is blurred. Receives an event.
      */
