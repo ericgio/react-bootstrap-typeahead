@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "./scripts/build.sh",
+    "cleanup": "./scripts/cleanup.sh",
     "example": "./scripts/buildExample.sh",
     "lint": "eslint .",
     "prepublish": "npm run lint && npm test && npm run build",
