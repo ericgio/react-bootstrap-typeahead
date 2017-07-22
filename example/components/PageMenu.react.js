@@ -7,7 +7,7 @@ const PageMenu = props => (
     <div
       className="bs-docs-sidebar hidden-print hidden-xs hidden-sm"
       role="complementary">
-      <Nav className="bs-docs-sidenav">
+      <Nav className="bs-docs-sidenav flex-column">
         {props.children}
       </Nav>
       <a className="back-to-top" href="#top">

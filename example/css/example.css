@@ -65,9 +65,10 @@ h4:hover .anchor-icon {
 }
 
 .example-section pre {
+  background-color: #f5f5f5;
   border-color: #ddd;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-radius: 0 0 4px 4px;
+  border-style: solid;
   border-width: 1px 0 0 0;
   margin: 0;
   padding: 15px 18px;
