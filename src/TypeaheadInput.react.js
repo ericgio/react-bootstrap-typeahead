@@ -49,8 +49,8 @@ class TypeaheadInput extends React.Component {
       <div
         className={cx('rbt-input-container', 'clearfix', 'form-control', {
           'focus': isFocused,
-          'input-lg': bsSize === 'large' || bsSize === 'lg',
-          'input-sm': bsSize === 'small' || bsSize === 'sm',
+          'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
+          'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
         })}
         disabled={disabled}
         onClick={onInputFocus}
