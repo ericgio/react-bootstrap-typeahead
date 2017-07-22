@@ -5,7 +5,9 @@ import {Radio} from 'react-bootstrap';
 import {Menu, MenuItem, Token, Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
-const MenuDivider = props => <li className="divider" role="separator" />;
+const MenuDivider = props => (
+  <li className="divider dropdown-divider" role="separator" />
+);
 const MenuHeader = props => <li {...props} className="dropdown-header" />;
 
 /* example-start */
