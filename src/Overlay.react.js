@@ -26,8 +26,6 @@ class Overlay extends React.Component {
   constructor(props) {
     super(props);
 
-    this._updatePosition = this._updatePosition.bind(this);
-
     this.state = {
       bottom: 0,
       left: 0,
@@ -96,17 +94,15 @@ class Overlay extends React.Component {
     );
   }
 
-  _updatePosition() {
+  _updatePosition = () => {
+    const {container, show, target} = this.props;
+
     // Positioning is only used when body is the container.
-    if (
-      !this.props.show ||
-      !this._mounted ||
-      !isBody(this.props.container)
-    ) {
+    if (!(show && this._mounted && isBody(container))) {
       return;
     }
 
-    const targetNode = findDOMNode(this.props.target());
+    const targetNode = findDOMNode(target);
 
     if (targetNode) {
       const {innerHeight, innerWidth, pageYOffset} = window;
@@ -131,7 +127,7 @@ Overlay.propTypes = {
   onMenuHide: PropTypes.func.isRequired,
   onMenuShow: PropTypes.func.isRequired,
   show: PropTypes.bool,
-  target: PropTypes.func.isRequired,
+  target: componentOrElement.isRequired,
 };
 
 Overlay.defaultProps = {

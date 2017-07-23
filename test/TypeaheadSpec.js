@@ -30,6 +30,14 @@ function getTypeaheadInstance(props) {
   return ReactTestUtils.renderIntoDocument(<Typeahead {...props} />);
 }
 
+function getHintNode(instance) {
+  const nodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+    instance,
+    'rbt-input-hint'
+  );
+  return head(nodes);
+}
+
 function simulateTextChange(inputNode, value) {
   inputNode.value = value;
   ReactTestUtils.Simulate.change(inputNode);
@@ -291,14 +299,24 @@ describe('<Typeahead>', () => {
     expect(TypeaheadNode).to.exist;
   });
 
-  it('should set the size of the typeahead input', () => {
+  it('renders a large input', () => {
     const instance = getTypeaheadInstance({...baseProps, bsSize: 'large'});
-    const InputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'rbt-input-container input-lg'
+      'form-control input-lg'
     );
 
-    expect(InputNode).to.exist;
+    expect(inputNode).to.exist;
+  });
+
+  it('renders a small input', () => {
+    const instance = getTypeaheadInstance({...baseProps, bsSize: 'small'});
+    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'form-control input-sm'
+    );
+
+    expect(inputNode).to.exist;
   });
 
   it('displays a loader when `isLoading=true`', () => {
@@ -523,6 +541,34 @@ describe('<Typeahead>', () => {
     const menuItems = getMenuItems(instance);
     ReactTestUtils.Simulate.click(menuItems[0].firstChild);
     expect(menuState).to.equal('hidden');
+  });
+
+  describe('hint behavior', () => {
+    let hintNode, inputNode, instance;
+
+    beforeEach(() => {
+      instance = getTypeaheadInstance(baseProps);
+      inputNode = getInputNode(instance);
+      hintNode = getHintNode(instance);
+
+      simulateTextChange(inputNode, 'Ala');
+    });
+
+    it('does not display a hint when the input is not focused', () => {
+      expect(hintNode.value).to.equal('');
+    });
+
+    it('displays a hint when the input is focused', () => {
+      ReactTestUtils.Simulate.focus(inputNode);
+      expect(hintNode.value).to.equal('Alabama');
+    });
+
+    it('does not display a hint in multi-select mode', () => {
+      instance = getTypeaheadInstance({...baseProps, multiple: true});
+      hintNode = getHintNode(instance);
+
+      expect(hintNode).to.equal(undefined);
+    });
   });
 
   describe('form integration', () => {

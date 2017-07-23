@@ -1,11 +1,12 @@
 import {expect} from 'chai';
-import {head} from 'lodash';
+import {head, noop} from 'lodash';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 
 import HintedInput from '../src/HintedInput';
 
 const baseProps = {
+  onChange: noop,
   value: '',
 };
 
@@ -46,19 +47,6 @@ describe('<HintedInput>', () => {
     const hintNode = findHintNode(instance);
 
     expect(hintNode).to.equal(undefined);
-  });
-
-  it('does not render the hint unless the input is focused', () => {
-    const hintText = 'test';
-    const instance = renderInput({...baseProps, hintText});
-
-    const inputNode = findInputNode(instance);
-    const hintNode = findHintNode(instance);
-
-    expect(hintNode.value).to.equal('');
-
-    ReactTestUtils.Simulate.focus(inputNode);
-    expect(hintNode.value).to.equal(hintText);
   });
 
 });

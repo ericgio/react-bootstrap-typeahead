@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import {noop} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import AutosizeInput from 'react-input-autosize';
@@ -15,39 +14,32 @@ const STYLES = {
 };
 
 class HintedInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isFocused: false,
-    };
-  }
-
   render() {
-    const {hintText, inputRef, ...props} = this.props;
+    const {className, hintText, inputRef, isFocused, ...props} = this.props;
 
     return (
       <div style={{display: 'inline-block', position: 'relative'}}>
         <AutosizeInput
           {...props}
           autoComplete="off"
-          inputClassName={cx('rbt-input-main', props.className)}
+          inputClassName={cx('rbt-input-main', className)}
           inputStyle={STYLES}
-          onBlur={this._handleBlur}
-          onFocus={this._handleFocus}
           ref={inputRef}
           style={{
             position: 'relative',
             zIndex: 1,
           }}
         />
-        {this._renderHint(hintText)}
+        {this._renderHint()}
       </div>
     );
   }
 
-  _renderHint = hintText => {
+  _renderHint = () => {
+    const {hintText, isFocused, multiple} = this.props;
+
     // TODO: Support hinting for multi-selection.
-    return this.props.multiple ?
+    return multiple ?
       null :
       <AutosizeInput
         inputClassName="rbt-input-hint"
@@ -61,30 +53,16 @@ class HintedInput extends React.Component {
           zIndex: 0,
         }}
         tabIndex={-1}
-        value={this.state.isFocused ? hintText : ''}
+        value={isFocused ? hintText : ''}
       />;
-  }
-
-  _handleBlur = e => {
-    this.setState({isFocused: false});
-    this.props.onBlur(e);
-  }
-
-  _handleFocus = e => {
-    this.setState({isFocused: true});
-    this.props.onFocus(e);
   }
 }
 
 HintedInput.propTypes = {
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
   type: PropTypes.string,
 };
 
 HintedInput.defaultProps = {
-  onBlur: noop,
-  onFocus: noop,
   type: 'text',
 };
 

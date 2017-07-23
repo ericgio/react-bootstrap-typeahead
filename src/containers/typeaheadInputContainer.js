@@ -9,13 +9,6 @@ import {BACKSPACE, RETURN, RIGHT, TAB} from '../utils/keyCode';
 
 function typeaheadInputContainer(Input) {
   class WrappedInput extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        isFocused: false,
-      };
-    }
-
     render() {
       const {placeholder, selected} = this.props;
 
@@ -25,9 +18,7 @@ function typeaheadInputContainer(Input) {
           {...this.state}
           hintText={getHintText(this.props)}
           inputRef={input => this._input = input}
-          onBlur={this._handleBlur}
           onChange={this._handleChange}
-          onInputFocus={this._handleInputFocus}
           onKeyDown={this._handleKeyDown}
           placeholder={selected.length ? null : placeholder}
           value={getInputText(this.props)}
@@ -40,12 +31,7 @@ function typeaheadInputContainer(Input) {
     }
 
     focus() {
-      this._handleInputFocus();
-    }
-
-    _handleBlur = e => {
-      this.setState({isFocused: false});
-      this.props.onBlur(e);
+      this._input.focus();
     }
 
     _handleChange = e => {
@@ -59,27 +45,11 @@ function typeaheadInputContainer(Input) {
       onChange(e.target.value);
     }
 
-    _handleInputFocus = e => {
-      const isClearButton =
-        e &&
-        e.target &&
-        e.target.className &&
-        e.target.className.indexOf('rbt-close') !== -1;
-
-      // Don't focus the input if it's disabled or the clear button was clicked.
-      if (this.props.disabled || isClearButton) {
-        e.target.blur();
-        return;
-      }
-
-      this._input.focus();
-      this.setState({isFocused: true});
-    }
-
     _handleKeyDown = e => {
       const {
         activeItem,
         initialItem,
+        isFocused,
         multiple,
         onAdd,
         selected,
@@ -124,7 +94,7 @@ function typeaheadInputContainer(Input) {
 
           // Autocomplete the selection if all of the following are true:
           if (
-            this.state.isFocused &&
+            isFocused &&
             // There's a hint or a menu item is highlighted.
             (hintText || activeItem) &&
             // There's no current selection.

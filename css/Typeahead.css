@@ -1,13 +1,30 @@
-.rbt .dropdown-menu > li a {
+.rbt {
+  cursor: text;
+  display: flex;
+  height: auto;
+}
+
+.rbt .rbt-menu {
+  margin: 3px -1px 0;
+}
+.dropup .rbt-menu {
+  margin-bottom: 3px;
+}
+
+.rbt-menu > li a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.rbt .dropdown-menu > li a:focus {
+.rbt-menu > li a:focus {
   outline: none;
 }
 
-.rbt .dropdown-menu-justify {
+.dropdown-menu-justify {
   right: 0;
+}
+
+.rbt-aux {
+  margin-left: 5px;
 }
 
 /* Hide IE's native "clear" button */
@@ -20,20 +37,10 @@
 }
 
 /* Input */
-.rbt-input-container {
-  cursor: text;
-  display: flex;
-  height: auto;
-}
-
 .rbt-input {
   flex: 1;
   overflow: hidden;
   position: relative;
-}
-
-.rbt-input-aux {
-  margin-left: 5px;
 }
 
 .rbt-input-multi {
@@ -43,15 +50,6 @@
 
 .rbt-input-multi .rbt-input-main {
   margin: 1px 0 4px;
-}
-
-
-/* Fix styles when used with input-group */
-.input-group .rbt:first-child .form-control {
-  border-radius: 4px 0 0 4px;
-}
-.input-group .rbt:last-child .form-control {
-  border-radius: 0 4px 4px 0;
 }
 
 
@@ -105,13 +103,13 @@
   font-size: 24px;
 }
 
-.rbt-input-aux .rbt-close {
+.rbt-aux .rbt-close {
   margin-top: -12px;
   position: relative;
   top: 50%;
 }
 
-.rbt-input-aux .rbt-close-lg {
+.rbt-aux .rbt-close-lg {
   margin-top: -15px;
 }
 
@@ -134,13 +132,13 @@
   width: 20px;
 }
 
-.rbt-input-aux .rbt-loader {
+.rbt-aux .rbt-loader {
   margin-top: -8px;
   position: relative;
   top: 50%;
 }
 
-.rbt-input-aux .rbt-loader-lg {
+.rbt-aux .rbt-loader-lg {
   margin-top: -10px;
 }
 

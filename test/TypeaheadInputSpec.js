@@ -12,6 +12,7 @@ import {RETURN, RIGHT, TAB} from '../src/utils/keyCode';
 
 const baseProps = {
   inputProps: {},
+  isFocused: true,
   labelKey: 'name',
   onFocus: noop,
   options,
@@ -142,26 +143,6 @@ describe('<TypeaheadInput>', () => {
       expect(keyCode).to.equal(RETURN);
       expect(selected.length).to.equal(1);
     });
-  });
-
-  it('renders a large input', () => {
-    const instance = renderTypeaheadInput({...baseProps, bsSize: 'large'});
-    const node = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'input-lg'
-    );
-
-    expect(node).to.exist;
-  });
-
-  it('renders a small input', () => {
-    const instance = renderTypeaheadInput({...baseProps, bsSize: 'small'});
-    const node = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'input-sm'
-    );
-
-    expect(node).to.exist;
   });
 
   describe('multi-select state', () => {
