@@ -109,6 +109,24 @@ describe('<Typeahead>', () => {
     }
   );
 
+  it('sets and unsets the focus state on focus/blur', () => {
+    const instance = getTypeaheadInstance(baseProps);
+
+    const containerNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+      instance,
+      'form-control'
+    );
+
+    expect(containerNode.className).to.not.contain('focus');
+
+    const inputNode = getInputNode(instance);
+    ReactTestUtils.Simulate.focus(inputNode);
+    expect(containerNode.className).to.contain('focus');
+
+    ReactTestUtils.Simulate.blur(inputNode);
+    expect(containerNode.className).to.not.contain('focus');
+  });
+
   describe('truncates the selections in single-select mode', () => {
     let multiSelections, node, props, selected;
 
@@ -454,7 +472,7 @@ describe('<Typeahead>', () => {
       expect(selected.length).to.equal(1);
     });
 
-    it('does not highlights the only result when `allowNew=true`', () => {
+    it('does not highlight the only result when `allowNew=true`', () => {
       const instance = getTypeaheadInstance({
         ...props,
         allowNew: true,
