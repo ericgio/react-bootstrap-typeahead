@@ -27,7 +27,9 @@ class FormSubmitExample extends React.Component {
             submitFormOnEnter={submitFormOnEnter}
           />
           <InputGroup.Button>
-            <Button type="submit">Submit</Button>
+            <Button className="btn-secondary" type="submit">
+              Submit
+            </Button>
           </InputGroup.Button>
         </InputGroup>
         <Checkbox

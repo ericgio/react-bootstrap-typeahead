@@ -3,18 +3,32 @@
  */
 .bs-docs-nav {
   background-color: #222;
+  padding: 0;
 }
+
 .bs-docs-nav .navbar-brand,
 .bs-docs-nav .navbar-nav > li > a {
-  color: #ddd;
+  line-height: 20px;
+  padding: 15px;
 }
+
+.bs-docs-nav .navbar-nav > li > a {
+  color: #ddd;
+  display: block;
+}
+.bs-docs-nav .navbar-nav > li > a:focus,
 .bs-docs-nav .navbar-nav > li > a:hover,
 .bs-docs-nav .navbar-nav > .active > a,
 .bs-docs-nav .navbar-nav > .active > a:hover {
   color: #fff;
   background-color: #111;
+  text-decoration: none;
 }
 
+.bs-docs-nav .navbar-brand {
+  font-size: 18px;
+  margin: 0;
+}
 .bs-docs-nav .navbar-brand,
 .bs-docs-nav .navbar-brand:active,
 .bs-docs-nav .navbar-brand:focus,
@@ -23,6 +37,7 @@
 }
 
 .bs-docs-nav .navbar-header .navbar-toggle {
+  background-color: transparent;
   border: 0;
   border-radius: 0;
   padding: 18px 18px;
@@ -35,6 +50,12 @@
 .bs-docs-nav .navbar-toggle .icon-bar {
   background-color: #ddd;
   border-radius: 0;
+  display: block;
+  height: 2px;
+  width: 22px;
+}
+.bs-docs-nav .icon-bar + .icon-bar {
+  margin-top: 4px;
 }
 .bs-docs-nav .navbar-toggle:hover .icon-bar {
   background-color: #fff;
@@ -63,6 +84,7 @@
 }
 .bs-docs-page .jumbotron h1 {
   color: #61dafb;
+  font-size: 36px;
 }
 
 .bs-docs-page .page-header {
@@ -76,11 +98,24 @@
   margin-top: 20px;
 }
 
+.bs-docs-page code {
+  background-color: #f9f2f4;
+  color: #c7254e;
+}
+
+.bs-docs-page .btn + .btn {
+  margin-left: 5px;
+}
+
 .bs-docs-footer {
   background-color: #2d2d2d;
 }
 
 @media (min-width: 768px) {
+  .bs-docs-page .jumbotron h1 {
+    font-size: 63px;
+  }
+
   .bs-docs-header h1 {
     font-size: 60px;
   }

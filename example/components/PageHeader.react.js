@@ -2,8 +2,8 @@ import React from 'react';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
 
 const PageHeader = () => (
-  <Navbar className="bs-docs-nav" inverse staticTop>
-    <Navbar.Header>
+  <Navbar className="bs-docs-nav navbar-toggleable-sm" inverse staticTop>
+    <Navbar.Header className="d-flex justify-content-between hidden-md-up">
       <Navbar.Brand>
         React Bootstrap Typeahead
       </Navbar.Brand>
