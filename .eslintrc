@@ -5,10 +5,12 @@
   },
   "extends": [
     "airbnb",
+    "plugin:flowtype/recommended"
   ],
   "globals": {},
   "parser": "babel-eslint",
   "plugins": [
+    "flowtype"
   ],
   "rules": {
     "arrow-parens": [2, "always"],
@@ -90,4 +92,9 @@
     "react/prop-types": 0,
     "react/require-default-props": 0,
   },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  }
 }
