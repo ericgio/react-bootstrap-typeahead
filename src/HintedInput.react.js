@@ -26,6 +26,7 @@ class HintedInput extends React.Component {
           inputStyle={STYLES}
           ref={inputRef}
           style={{
+            display: 'block',
             position: 'relative',
             zIndex: 1,
           }}
@@ -43,10 +44,12 @@ class HintedInput extends React.Component {
       null :
       <AutosizeInput
         inputClassName="rbt-input-hint"
-        inputStyle={STYLES}
+        inputStyle={{
+          ...STYLES,
+          color: 'rgba(0, 0, 0, 0.35)',
+        }}
         style={{
           bottom: 0,
-          color: '#a5a5a5',
           display: 'block',
           position: 'absolute',
           top: 0,
