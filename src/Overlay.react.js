@@ -37,15 +37,12 @@ class Overlay extends React.Component {
 
   componentDidMount() {
     this._mounted = true;
-    this._updatePosition();
+    this._update();
 
-    this._updatePositionThrottled = requestAnimationFrame.bind(
-      null,
-      this._updatePosition,
-    );
+    this._updateThrottled = requestAnimationFrame.bind(null, this._update);
 
-    window.addEventListener('resize', this._updatePositionThrottled);
-    window.addEventListener('scroll', this._updatePositionThrottled, true);
+    window.addEventListener('resize', this._updateThrottled);
+    window.addEventListener('scroll', this._updateThrottled, true);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,13 +56,13 @@ class Overlay extends React.Component {
       onMenuShow();
     }
 
-    this._updatePositionThrottled();
+    this._updateThrottled();
   }
 
   componentWillUnmount() {
     this._mounted = false;
-    window.removeEventListener('resize', this._updatePositionThrottled);
-    window.removeEventListener('scroll', this._updatePositionThrottled);
+    window.removeEventListener('resize', this._updateThrottled);
+    window.removeEventListener('scroll', this._updateThrottled);
   }
 
   render() {
@@ -85,30 +82,40 @@ class Overlay extends React.Component {
     child = cloneElement(child, {
       ...child.props,
       className: cx(child.props.className, IGNORE_CLICK_OUTSIDE),
-      ref: menu => this._menu = menu,
       style: this.state,
     });
 
     return (
-      <Portal container={container}>
+      <Portal container={container} ref={portal => this._portal = portal}>
         {child}
       </Portal>
     );
   }
 
-  _updatePosition = () => {
-    const {align, container, dropup, show, target} = this.props;
+  _update = () => {
+    const {className, container, show} = this.props;
 
     // Positioning is only used when body is the container.
-    if (!(show && this._mounted && isBody(container))) {
+    if (!(show && isBody(container) && this._mounted && this._portal)) {
       return;
     }
 
-    const menuNode = findDOMNode(this._menu);
+    const mountNode = this._portal.getMountNode();
+    if (mountNode) {
+      mountNode.className = cx('rbt-body-container', className);
+    }
+
+    this._updatePosition();
+  }
+
+  _updatePosition = () => {
+    const {align, dropup, target} = this.props;
+
+    const menuNode = this._portal.getOverlayDOMNode();
     const targetNode = findDOMNode(target);
 
     if (menuNode && targetNode) {
-      const {innerHeight, innerWidth, pageYOffset} = window;
+      const {innerWidth, pageYOffset} = window;
       const {bottom, left, top, width} = targetNode.getBoundingClientRect();
 
       const newState = {

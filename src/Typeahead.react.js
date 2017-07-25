@@ -102,6 +102,7 @@ class Typeahead extends React.Component {
     const {
       align,
       bodyContainer,
+      className,
       dropup,
       emptyLabel,
       labelKey,
@@ -148,6 +149,7 @@ class Typeahead extends React.Component {
     return (
       <Overlay
         align={align}
+        className={className}
         container={bodyContainer ? document.body : this}
         dropup={dropup}
         onMenuHide={onMenuHide}
