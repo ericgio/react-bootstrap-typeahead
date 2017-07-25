@@ -132,7 +132,7 @@ class Typeahead extends React.Component {
       text,
     };
 
-    const menu = renderMenu ?
+    const menu = typeof renderMenu === 'function' ?
       renderMenu(results, menuProps) :
       <TypeaheadMenu
         {...menuProps}
