@@ -6,6 +6,8 @@ import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
 import componentOrElement from 'react-prop-types/lib/componentOrElement';
 
+const DROPUP_SPACING = -4;
+
 // When appending the overlay to `document.body`, clicking on it will register
 // as an "outside" click and immediately close the overlay. This classname tells
 // `react-onclickoutside` to ignore the click.
@@ -27,7 +29,6 @@ class Overlay extends React.Component {
     super(props);
 
     this.state = {
-      bottom: 0,
       left: 0,
       right: 0,
       top: 0,
@@ -84,6 +85,7 @@ class Overlay extends React.Component {
     child = cloneElement(child, {
       ...child.props,
       className: cx(child.props.className, IGNORE_CLICK_OUTSIDE),
+      ref: menu => this._menu = menu,
       style: this.state,
     });
 
@@ -95,23 +97,26 @@ class Overlay extends React.Component {
   }
 
   _updatePosition = () => {
-    const {container, show, target} = this.props;
+    const {align, container, dropup, show, target} = this.props;
 
     // Positioning is only used when body is the container.
     if (!(show && this._mounted && isBody(container))) {
       return;
     }
 
+    const menuNode = findDOMNode(this._menu);
     const targetNode = findDOMNode(target);
 
-    if (targetNode) {
+    if (menuNode && targetNode) {
       const {innerHeight, innerWidth, pageYOffset} = window;
       const {bottom, left, top, width} = targetNode.getBoundingClientRect();
+
       const newState = {
-        bottom: innerHeight - pageYOffset - top,
-        left,
-        right: innerWidth - left - width,
-        top: pageYOffset + bottom,
+        left: align === 'right' ? 'auto' : left,
+        right: align === 'left' ? 'auto' : innerWidth - left - width,
+        top: dropup ?
+          pageYOffset - menuNode.offsetHeight + top + DROPUP_SPACING :
+          pageYOffset + bottom,
       };
 
       // Don't update unless the target element position has changed.

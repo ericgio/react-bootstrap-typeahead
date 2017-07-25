@@ -147,7 +147,9 @@ class Typeahead extends React.Component {
 
     return (
       <Overlay
+        align={align}
         container={bodyContainer ? document.body : this}
+        dropup={dropup}
         onMenuHide={onMenuHide}
         onMenuShow={onMenuShow}
         show={show}

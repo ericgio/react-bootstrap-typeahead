@@ -20,7 +20,14 @@ class Menu extends React.Component {
   displayName = 'Menu';
 
   render() {
-    const {align, children, className, emptyLabel} = this.props;
+    const {
+      align,
+      children,
+      className,
+      emptyLabel,
+      maxHeight,
+      style,
+    } = this.props;
 
     const contents = Children.count(children) === 0 ?
       <BaseMenuItem disabled>
@@ -34,7 +41,12 @@ class Menu extends React.Component {
           'dropdown-menu-justify': align === 'justify',
           'dropdown-menu-right': align === 'right',
         }, className)}
-        style={this._getMenuStyle()}>
+        style={{
+          ...style,
+          display: 'block',
+          maxHeight: `${maxHeight}px`,
+          overflow: 'auto',
+        }}>
         {contents}
         {this._renderPaginationMenuItem()}
       </BaseMenu>
@@ -62,28 +74,6 @@ class Menu extends React.Component {
         </BaseMenuItem>,
       ];
     }
-  }
-
-  _getMenuStyle() {
-    const {align, dropup, maxHeight, style} = this.props;
-    const menuStyle = {
-      ...style,
-      display: 'block',
-      maxHeight: maxHeight + 'px',
-      overflow: 'auto',
-    };
-
-    if (style) {
-      if (dropup) {
-        menuStyle.top = 'auto';
-      } else {
-        delete menuStyle.bottom;
-      }
-      menuStyle.left = align === 'right' ? 'auto' : style.left;
-      menuStyle.right = align === 'left' ? 'auto' : style.right;
-    }
-
-    return menuStyle;
   }
 }
 
