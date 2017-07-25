@@ -15,14 +15,19 @@ class BaseMenuItem extends React.Component {
 
   render() {
     const {active, children, className, disabled} = this.props;
+    const conditionalClassNames = {
+      'active': active,
+      'disabled': disabled,
+    };
 
     return (
       <li
-        className={cx({
-          'active': active,
-          'disabled': disabled,
-        }, className)}>
-        <a onClick={this._handleClick} role="button">
+        className={cx(conditionalClassNames, className)}>
+        <a
+          className={cx('dropdown-item', conditionalClassNames)}
+          href="#"
+          onClick={this._handleClick}
+          role="button">
           {children}
         </a>
       </li>
