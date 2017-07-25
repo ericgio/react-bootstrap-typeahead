@@ -2,38 +2,48 @@ import {expect} from 'chai';
 
 import getOptionLabel from '../src/utils/getOptionLabel';
 
-const label = 'California';
-
 describe('getOptionLabel', () => {
+  let label, option;
 
-  it('returns a string when the option is a string', () => {
-    const optionLabel = getOptionLabel(label);
-    expect(optionLabel).to.equal(label);
+  beforeEach(() => {
+    label = 'California';
+    option = {label};
   });
 
-  it('returns a string when the option is a plain object', () => {
+  describe('returns a string when', () => {
 
-    it('and the label key is a string', () => {
-      const option = {label};
-      const optionLabel = getOptionLabel(option, 'label');
+    it('receives an `option` string', () => {
+      const optionLabel = getOptionLabel(label);
       expect(optionLabel).to.equal(label);
     });
 
-    it('and the label key is a function', () => {
-      const option = {label};
+    it('receives a `labelKey` function', () => {
       const labelKeyFunction = o => o.label;
       const optionLabel = getOptionLabel(option, labelKeyFunction);
       expect(optionLabel).to.equal(label);
     });
+
+    it('receives a `labelKey` string', () => {
+      const optionLabel = getOptionLabel(option, 'label');
+      expect(optionLabel).to.equal(label);
+    });
   });
 
-  it('throws an error when the option is invalid', () => {
-    const willThrow = () => getOptionLabel([], 'label');
-    expect(willThrow).to.throw(Error);
+  it('gives precedence to `labelKey` when it is a function', () => {
+    const customLabel = 'Custom Label';
+    const optionLabel = getOptionLabel(label, () => customLabel);
+    expect(optionLabel).to.equal(customLabel);
   });
 
-  it('throws an error when there is no labelKey', () => {
-    const willThrow = () => getOptionLabel({label});
-    expect(willThrow).to.throw(Error);
+  describe('throws an error when', () => {
+    it('has an invalid option', () => {
+      const willThrow = () => getOptionLabel([], 'label');
+      expect(willThrow).to.throw(Error);
+    });
+
+    it('has no labelKey and the option is an object', () => {
+      const willThrow = () => getOptionLabel(option);
+      expect(willThrow).to.throw(Error);
+    });
   });
 });
