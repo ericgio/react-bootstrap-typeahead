@@ -8,7 +8,6 @@ const STYLES = {
   border: 0,
   boxShadow: 'none',
   cursor: 'inherit',
-  display: 'block',
   outline: 'none',
   padding: 0,
 };
@@ -26,7 +25,6 @@ class HintedInput extends React.Component {
           inputStyle={STYLES}
           ref={inputRef}
           style={{
-            display: 'block',
             position: 'relative',
             zIndex: 1,
           }}
