@@ -234,6 +234,12 @@ function typeaheadContainer(Typeahead) {
         return;
       }
 
+      // Move cursor to the end if the user clicks outside the actual input.
+      const inputNode = this._getInputNode();
+      if (e.target !== inputNode) {
+        inputNode.selectionStart = inputNode.value.length;
+      }
+
       this.focus();
       this.setState({isFocused: true});
     }
