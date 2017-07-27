@@ -142,7 +142,7 @@ function typeaheadContainer(Typeahead) {
     }
 
     blur = () => {
-      this._instance.blur();
+      this._getInputNode().blur();
       this._hideMenu();
     }
 
@@ -158,7 +158,11 @@ function typeaheadContainer(Typeahead) {
     }
 
     focus = () => {
-      this._instance.focus();
+      this._getInputNode().focus();
+    }
+
+    _getInputNode = () => {
+      return this._instance.getInputNode();
     }
 
     _handleActiveItemChange = activeItem => {

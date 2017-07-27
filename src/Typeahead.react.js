@@ -90,12 +90,8 @@ class Typeahead extends React.Component {
     );
   }
 
-  blur = () => {
-    this._input.blur();
-  }
-
-  focus = () => {
-    this._input.focus();
+  getInputNode() {
+    return this._input.getInputNode();
   }
 
   _renderMenu = (results, shouldPaginate) => {
