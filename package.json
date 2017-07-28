@@ -12,6 +12,7 @@
     "example": "./scripts/buildExample.sh",
     "lint": "eslint .",
     "prepublish": "npm run lint && npm test && npm run build",
+    "styles": "./scripts/buildStyles.sh",
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "keywords": [
@@ -71,6 +72,7 @@
     "karma-webpack": "^2.0.2",
     "marked": "^0.3.6",
     "mocha": "^3.2.0",
+    "node-sass": "^4.5.3",
     "raw-loader": "^0.5.1",
     "react": "^15.2.1",
     "react-bootstrap": "^0.31.0",

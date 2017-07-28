@@ -3,6 +3,10 @@
 # Delete existing dist & lib files
 ./scripts/cleanup.sh
 
+# Compile SCSS file
+./node_modules/node-sass/bin/node-sass scss/Typeahead.scss css/Typeahead.css \
+	--output-style expanded
+
 # Build minified standalone version in dist
 ./node_modules/.bin/webpack --config webpack/webpack.config.js
 ./node_modules/.bin/webpack --config webpack/webpack.config.prod.js

@@ -12,6 +12,7 @@ tests.webpack.js
 
 example/
 scripts/
+scss/
 src/
 test/
 webpack/
