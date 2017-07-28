@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-typeahead",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-alpha.2",
   "description": "React-based typeahead using the Bootstrap theme",
   "main": "lib/index.js",
   "directories": {
@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "prepublish": "npm run lint && npm test && npm run build",
     "styles": "./scripts/buildStyles.sh",
-    "test": "karma start karma.conf.js"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "keywords": [
     "bootstrap",
@@ -36,7 +36,7 @@
     "react-highlighter": "^0.4.0",
     "react-input-autosize": "^1.1.4",
     "react-onclickoutside": "^6.1.1",
-    "react-overlays": "^0.8.0",
+    "react-overlays": "^0.7.0",
     "react-prop-types": "^0.4.0",
     "warning": "^3.0.0"
   },
