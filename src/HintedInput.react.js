@@ -14,7 +14,14 @@ const STYLES = {
 
 class HintedInput extends React.Component {
   render() {
-    const {className, hintText, inputRef, isFocused, ...props} = this.props;
+    const {
+      className,
+      hintText,
+      inputRef,
+      isFocused,
+      multiple,
+      ...props
+    } = this.props;
 
     return (
       <div style={{display: 'inline-block', position: 'relative'}}>
