@@ -1,5 +1,3 @@
-'use strict';
-
 import cx from 'classnames';
 import React, {Children} from 'react';
 import PropTypes from 'prop-types';

@@ -1,5 +1,3 @@
-'use strict';
-
 import {pick} from 'lodash';
 import Highlight from 'react-highlighter';
 import React from 'react';
@@ -101,7 +99,7 @@ TypeaheadMenu.propTypes = {
   renderMenuItemChildren: PropTypes.func,
 };
 
-TypeaheadMenu.getDefaultProps = {
+TypeaheadMenu.defaultProps = {
   newSelectionPrefix: 'New selection: ',
 };
 

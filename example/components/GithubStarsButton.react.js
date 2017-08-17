@@ -6,7 +6,7 @@ const AUTHOR_REPO = 'ericgio/react-bootstrap-typeahead';
 class GitHubStarsButton extends React.Component {
   componentDidMount() {
     const node = findDOMNode(this);
-    node.dataset.style = window.innerWidth > 480 ? 'mega': null;
+    node.dataset.size = window.innerWidth > 480 ? 'large': null;
   }
 
   render() {

@@ -3,9 +3,10 @@ import {expect} from 'chai';
 import getInputText from '../src/utils/getInputText';
 import states from '../example/exampleData';
 
-let props = {
+const labelKey = 'name';
+const baseArgs = {
   activeItem: null,
-  labelKey: 'name',
+  labelKey,
   options: states,
   selected: [],
   text: '',
@@ -14,20 +15,34 @@ let props = {
 describe('getInputText', () => {
 
   it('returns an empty string when no text is entered', () => {
-    const inputText = getInputText(props);
+    const inputText = getInputText(baseArgs);
     expect(inputText).to.equal('');
   });
 
+  it('returns the input text in multiple mode', () => {
+    const text = 'Cali';
+    const args = {
+      ...baseArgs,
+      multiple: true,
+      text,
+    };
+    const inputText = getInputText(args);
+    expect(inputText).to.equal(text);
+  });
+
   it('returns the label for the active option', () => {
-    props.activeItem = {name: 'Alabama'};
-    const inputText = getInputText(props);
-    expect(inputText).to.equal(states[0][props.labelKey]);
+    const args = {
+      ...baseArgs,
+      activeItem: {name: 'Alabama'},
+    };
+    const inputText = getInputText(args);
+    expect(inputText).to.equal(states[0][labelKey]);
   });
 
   it('returns the label for the selected item', () => {
-    props.selected = states[0];
-    const inputText = getInputText(props);
-    expect(inputText).to.equal(props.selected[props.labelKey]);
+    const selected = states.slice(0, 1);
+    const inputText = getInputText({...baseArgs, selected});
+    expect(inputText).to.equal(selected[0][labelKey]);
   });
 
 });

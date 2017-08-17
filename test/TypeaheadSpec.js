@@ -180,6 +180,54 @@ describe('<Typeahead>', () => {
     expect(paginatorNodes.length).to.equal(0);
   });
 
+  describe('should limit the results when `maxResults` is set', () => {
+    const labelKey = 'name';
+    const maxResults = 5;
+
+    it('should limit results when `paginate=true`', () => {
+      const instance = getTypeaheadInstance({
+        ...baseProps,
+        labelKey,
+        maxResults,
+        options: states,
+      });
+
+      const inputNode = getInputNode(instance);
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = ReactTestUtils.scryRenderedDOMComponentsWithTag(
+        instance,
+        'LI'
+      );
+
+      // When `paginate` is true, it adds 2 menu items to the menu: one for the
+      // divider and one for the paginator.
+      expect(menuItems.length).to.equal(maxResults + 2);
+    });
+
+    it('should limit results when `paginate=false`', () => {
+      const instance = getTypeaheadInstance({
+        ...baseProps,
+        labelKey,
+        maxResults,
+        options: states,
+        paginate: false,
+      });
+
+      const inputNode = getInputNode(instance);
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = ReactTestUtils.scryRenderedDOMComponentsWithTag(
+        instance,
+        'LI'
+      );
+
+      // When `paginate` is true, it adds 2 menu items to the menu: one for the
+      // divider and one for the paginator.
+      expect(menuItems.length).to.equal(maxResults);
+    });
+  });
+
   it('should add the `dropup` className when `dropup=true`', () => {
     const instance = getTypeaheadInstance({...baseProps, dropup: true});
     const TypeaheadNode = ReactTestUtils.findRenderedDOMComponentWithClass(

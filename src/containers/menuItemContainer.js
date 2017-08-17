@@ -1,33 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {findDOMNode} from 'react-dom';
 
 import getDisplayName from '../utils/getDisplayName';
 import scrollIntoViewIfNeeded from '../utils/scrollIntoViewIfNeeded';
 
-const menuItemContainer = Component => (
-  createReactClass({
-    displayName: `menuItemContainer(${getDisplayName(Component)})`,
-
-    propTypes: {
-      option: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.string,
-      ]).isRequired,
-      position: PropTypes.number,
-    },
-
-    contextTypes: {
-      activeIndex: PropTypes.number.isRequired,
-      onActiveItemChange: PropTypes.func.isRequired,
-      onInitialItemChange: PropTypes.func.isRequired,
-      onMenuItemClick: PropTypes.func.isRequired,
-    },
-
+const menuItemContainer = Component => {
+  class WrappedMenuItem extends React.Component {
     componentWillMount() {
       this._updateInitialItem(this.props);
-    },
+    }
 
     componentWillReceiveProps(nextProps, nextContext) {
       const currentlyActive = this.context.activeIndex === this.props.position;
@@ -49,28 +31,55 @@ const menuItemContainer = Component => (
       }
 
       this._updateInitialItem(nextProps);
-    },
+    }
 
     render() {
-      const {activeIndex, onMenuItemClick} = this.context;
-      const {option, position, ...props} = this.props;
+      const {activeIndex} = this.context;
+      const {position, ...props} = this.props;
 
       return (
         <Component
           {...props}
           active={activeIndex === position}
-          onClick={() => onMenuItemClick(option)}
+          onClick={this._handleClick}
         />
       );
-    },
+    }
 
-    _updateInitialItem(props) {
+    _handleClick = e => {
+      const {option, onClick} = this.props;
+
+      this.context.onMenuItemClick(option);
+      onClick && onClick(e);
+    }
+
+    _updateInitialItem = props => {
       const {option, position} = props;
       if (position === 0) {
         this.context.onInitialItemChange(option);
       }
-    },
-  })
-);
+    }
+  }
+
+  WrappedMenuItem.displayName =
+    `menuItemContainer(${getDisplayName(Component)})`;
+
+  WrappedMenuItem.propTypes = {
+    option: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+    ]).isRequired,
+    position: PropTypes.number,
+  };
+
+  WrappedMenuItem.contextTypes = {
+    activeIndex: PropTypes.number.isRequired,
+    onActiveItemChange: PropTypes.func.isRequired,
+    onInitialItemChange: PropTypes.func.isRequired,
+    onMenuItemClick: PropTypes.func.isRequired,
+  };
+
+  return WrappedMenuItem;
+};
 
 export default menuItemContainer;

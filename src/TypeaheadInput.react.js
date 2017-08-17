@@ -1,5 +1,3 @@
-'use strict';
-
 import cx from 'classnames';
 import {head} from 'lodash';
 import React from 'react';
