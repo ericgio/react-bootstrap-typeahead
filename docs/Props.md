@@ -43,6 +43,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 delay | number | 200 | Delay, in milliseconds, before performing search.
 onSearch `required` | function | | Callback to perform when the search is executed.
+trimQuery | bool | true | Whether or not the query should have white space trimmed before searching.
 options | array | `[]` | Options to be passed to the typeahead. Will typically be the query results, but can also be initial default options.
 promptText | string | 'Type to search...' | Text displayed in the menu when there is no user input.
 searchText | string | 'Searching...' | Text to display in the menu while the request is pending.

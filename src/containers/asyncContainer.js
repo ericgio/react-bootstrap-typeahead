@@ -128,10 +128,11 @@ const asyncContainer = Typeahead => {
         minLength,
         multiple,
         onSearch,
+        trimQuery,
         useCache,
       } = this.props;
 
-      let query = initialQuery.trim();
+      let query = trimQuery ? initialQuery.trim() : initialQuery;
       if (!caseSensitive) {
         query = query.toLowerCase();
       }
@@ -168,6 +169,11 @@ const asyncContainer = Typeahead => {
      */
     onSearch: PropTypes.func.isRequired,
     /**
+     * Whether or not the query should have white space trimmed before
+     * searching.
+     */
+    trimQuery: PropTypes.bool,
+    /**
      * Options to be passed to the typeahead. Will typically be the query
      * results, but can also be initial default options.
      */
@@ -188,6 +194,7 @@ const asyncContainer = Typeahead => {
 
   Container.defaultProps = {
     delay: DEFAULT_DELAY_MS,
+    trimQuery: true,
     minLength: 2,
     options: [],
     promptText: 'Type to search...',
