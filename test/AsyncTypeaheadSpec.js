@@ -87,6 +87,39 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
+  it('should trim white space from the query', done => {
+    let afterSearch = '';
+
+    const instance = getTypeaheadInstance({
+      ...defaultProps,
+      onSearch(query) {
+        afterSearch = query;
+      },
+    });
+
+    performSearch(' search ', instance, () => {
+      expect(afterSearch).to.equal('search');
+      done();
+    });
+  });
+
+  it('should not trim white space from the query', done => {
+    let afterSearch = '';
+
+    const instance = getTypeaheadInstance({
+      ...defaultProps,
+      onSearch(query) {
+        afterSearch = query;
+      },
+      trimQuery: false,
+    });
+
+    performSearch(' search ', instance, () => {
+      expect(afterSearch).to.equal(' search ');
+      done();
+    });
+  });
+
   it('should use cached results and not perform a new search', done => {
     let searchCount = 0;
 
