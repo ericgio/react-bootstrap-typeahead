@@ -114,7 +114,7 @@ class TokenizerInput extends React.Component {
   }
 
   _handleChange(e) {
-    this.props.onChange(e.target.value);
+    this.props.onChange(e.target.value, e);
   }
 
   _handleKeydown(e) {

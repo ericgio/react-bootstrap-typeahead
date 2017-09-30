@@ -29,8 +29,8 @@ See full documentation in the [Rendering section](Rendering.md).
 ##### `onChange(selectedItems)`
 Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even multi-selection is not enabled.
 
-##### `onInputChange(text)`
-Invoked when the input value changes. Receives the string value of the input (`text`).
+##### `onInputChange(text, event)`
+Invoked when the input value changes. Receives the string value of the input (`text`) and the `event` object.
 
 ##### `onPaginate(event)`
 Invoked when the pagination menu item is clicked. Receives an event.

@@ -332,14 +332,14 @@ class Typeahead extends React.Component {
     this.setState({initialItem});
   }
 
-  _handleTextChange = text => {
+  _handleTextChange = (text, event) => {
     const {activeIndex, activeItem} = getInitialState(this.props);
     this.setState({
       activeIndex,
       activeItem,
       showMenu: true,
     });
-    this._updateText(text);
+    this._updateText(text, event);
   }
 
   _handleKeydown = (options, e) => {
@@ -469,9 +469,9 @@ class Typeahead extends React.Component {
     this.props.onChange(selected);
   }
 
-  _updateText = text => {
+  _updateText = (text, event) => {
     this.setState({text});
-    this.props.onInputChange(text);
+    this.props.onInputChange(text, event);
   }
 }
 

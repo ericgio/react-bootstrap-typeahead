@@ -126,7 +126,7 @@ class TypeaheadInput extends React.Component {
     const {onRemove, selected} = this.props;
     !!selected.length && onRemove(head(selected));
 
-    this.props.onChange(e.target.value);
+    this.props.onChange(e.target.value, e);
   }
 
   /**
