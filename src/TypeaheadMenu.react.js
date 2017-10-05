@@ -8,7 +8,13 @@ import MenuItem from './MenuItem.react';
 
 import getOptionLabel from './utils/getOptionLabel';
 
-const MATCH_CLASS = 'rbt-highlight';
+const Highlighter = props => (
+  <Highlight
+    {...props}
+    className="rbt-highlight"
+    matchClass="rbt-highlight-text"
+  />
+);
 
 class TypeaheadMenu extends React.Component {
   displayName = 'TypeaheadMenu';
@@ -58,9 +64,9 @@ class TypeaheadMenu extends React.Component {
       return (
         <MenuItem {...menuItemProps}>
           {newSelectionPrefix}
-          <Highlight matchClass={MATCH_CLASS} search={text}>
+          <Highlighter search={text}>
             {option[labelKey]}
-          </Highlight>
+          </Highlighter>
         </MenuItem>
       );
     }
@@ -70,9 +76,9 @@ class TypeaheadMenu extends React.Component {
         {renderMenuItemChildren(option, this.props, idx)}
       </MenuItem> :
       <MenuItem {...menuItemProps}>
-        <Highlight matchClass={MATCH_CLASS} search={text}>
+        <Highlighter search={text}>
           {getOptionLabel(option, labelKey)}
-        </Highlight>
+        </Highlighter>
       </MenuItem>;
   }
 }

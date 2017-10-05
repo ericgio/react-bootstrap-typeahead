@@ -149,6 +149,10 @@
       }
     }
   }
+
+  &-highlight {
+    pointer-events: none;
+  }
 }
 
 .input,
