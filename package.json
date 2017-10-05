@@ -33,11 +33,11 @@
     "invariant": "^2.2.1",
     "lodash": "^4.17.2",
     "prop-types": "^15.5.8",
+    "prop-types-extra": "^1.0.1",
     "react-highlighter": "^0.4.0",
     "react-input-autosize": "^2.0.1",
     "react-onclickoutside": "^6.1.1",
     "react-overlays": "^0.8.1",
-    "react-prop-types": "^0.4.0",
     "warning": "^3.0.0"
   },
   "peerDependencies": {

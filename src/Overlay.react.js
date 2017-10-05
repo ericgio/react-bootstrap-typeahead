@@ -4,7 +4,7 @@ import React, {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
-import componentOrElement from 'react-prop-types/lib/componentOrElement';
+import componentOrElement from 'prop-types-extra/lib/componentOrElement';
 
 const DROPUP_SPACING = -4;
 

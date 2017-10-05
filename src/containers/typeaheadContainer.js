@@ -2,7 +2,7 @@ import {find, head, isEqual, noop} from 'lodash';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
-import deprecated from 'react-prop-types/lib/deprecated';
+import deprecated from 'prop-types-extra/lib/deprecated';
 
 import caseSensitiveType from '../propTypes/caseSensitiveType';
 import checkPropType from '../propTypes/checkPropType';
