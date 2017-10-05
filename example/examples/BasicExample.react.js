@@ -24,6 +24,7 @@ class BasicExample extends React.Component {
           multiple={multiple}
           options={options}
           placeholder="Choose a state..."
+          title="State selector"
         />
         <Checkbox
           checked={multiple}

@@ -43,6 +43,7 @@ class TypeaheadInput extends React.Component {
       hasAux,
       hintText,
       name,
+      title,
       onFocus,
       placeholder,
       selected,
@@ -54,6 +55,7 @@ class TypeaheadInput extends React.Component {
       disabled,
       hasAux,
       name,
+      title,
       onFocus,
       placeholder,
       value,
@@ -87,6 +89,7 @@ class TypeaheadInput extends React.Component {
           }}
         />
         <TextInput
+          title={title}
           bsSize={bsSize}
           className={cx('bootstrap-typeahead-input-hint')}
           hasAux={hasAux}
@@ -204,6 +207,10 @@ TypeaheadInput.propTypes = {
    * Name property for the input.
    */
   name: PropTypes.string,
+  /**
+   * Title property for the input.
+   */
+  title: PropTypes.string,
   /**
    * Placeholder text for the input.
    */
