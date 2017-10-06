@@ -89,7 +89,6 @@ class TypeaheadInput extends React.Component {
           }}
         />
         <TextInput
-          title={title}
           bsSize={bsSize}
           className={cx('bootstrap-typeahead-input-hint')}
           hasAux={hasAux}
@@ -105,6 +104,7 @@ class TypeaheadInput extends React.Component {
             zIndex: 0,
           }}
           tabIndex={-1}
+          title={title}
           value={this.state.isFocused ? hintText : ''}
         />
       </div>
