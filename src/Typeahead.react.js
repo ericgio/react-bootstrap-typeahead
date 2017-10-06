@@ -190,12 +190,20 @@ class Typeahead extends React.Component {
       minLength,
       multiple,
       name,
+      title,
       placeholder,
       renderToken,
     } = this.props;
     const {activeIndex, activeItem, initialItem, selected, text} = this.state;
     const Input = multiple ? TokenizerInput : TypeaheadInput;
-    const inputProps = {bsSize, disabled, name, placeholder, renderToken};
+    const inputProps = {
+      bsSize,
+      disabled,
+      name,
+      title,
+      placeholder,
+      renderToken,
+    };
 
     return (
       <Input
