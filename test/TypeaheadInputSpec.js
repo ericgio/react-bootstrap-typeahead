@@ -103,6 +103,9 @@ describe('<TypeaheadInput>', () => {
     it('should select the hinted result on right arrow keydown', () => {
       const instance = renderTypeaheadInput(props);
 
+      const inputNode = getInputNode(instance);
+      inputNode.selectionStart = props.text.length;
+      ReactTestUtils.Simulate.change(inputNode);
       simulateKeyDown(instance, RIGHT);
 
       expect(keyCode).to.equal(RIGHT);
