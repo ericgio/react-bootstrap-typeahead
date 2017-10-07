@@ -252,7 +252,7 @@ function typeaheadContainer(Typeahead) {
         case DOWN:
           // Don't cycle through the options if the menu is hidden.
           if (!showMenu) {
-            return;
+            break;
           }
 
           let {activeIndex} = this.state;
