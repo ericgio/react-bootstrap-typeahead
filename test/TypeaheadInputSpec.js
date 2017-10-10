@@ -100,9 +100,12 @@ describe('<TypeaheadInput>', () => {
       expect(selected.length).to.equal(1);
     });
 
-    it('should select the hinted result on right arrow keydown', () => {
+    it('should select the hinted result on right arrow keydown if' +
+      'the cursor is at the end of the input value', () => {
       const instance = renderTypeaheadInput(props);
 
+      const inputNode = getInputNode(instance);
+      inputNode.selectionStart = inputNode.value.length;
       simulateKeyDown(instance, RIGHT);
 
       expect(keyCode).to.equal(RIGHT);
