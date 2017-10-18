@@ -5,10 +5,32 @@ import {findDOMNode} from 'react-dom';
 import getHintText from '../utils/getHintText';
 import getInputText from '../utils/getInputText';
 
-import {BACKSPACE, RETURN, RIGHT, TAB} from '../utils/keyCode';
+import {BACKSPACE, RETURN, RIGHT, SPACE, TAB} from '../utils/keyCode';
 
 function typeaheadInputContainer(Input) {
   class WrappedInput extends React.Component {
+    state = {
+      cursorPos: null,
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+      const inputNode = this.getInputNode();
+      const {cursorPos} = this.state;
+
+      if (
+        inputNode.value === this.props.text &&
+        cursorPos != null &&
+        inputNode.selectionStart !== cursorPos
+      ) {
+        inputNode.selectionStart = inputNode.selectionEnd = cursorPos;
+        this.setState({cursorPos: null});
+      }
+
+      if (cursorPos === 0) {
+        this.setState({cursorPos: null});
+      }
+    }
+
     render() {
       const {placeholder, selected} = this.props;
 
@@ -52,24 +74,30 @@ function typeaheadInputContainer(Input) {
         selectHintOnEnter,
       } = this.props;
 
-      let inputNode;
+      const inputNode = e.target;
+      const cursorPos = inputNode.selectionStart;
       const value = getInputText(this.props);
 
       switch (e.keyCode) {
         case BACKSPACE:
+          // Manage cursor state so it doesn't jump around.
+          setTimeout(() => {
+            this.setState({cursorPos: cursorPos === 0 ? null : cursorPos - 1});
+          }, 0);
+
           if (!multiple) {
             break;
           }
 
-          inputNode = findDOMNode(this._input);
+          const inputContainer = findDOMNode(this._input);
           if (
-            inputNode &&
-            inputNode.contains(document.activeElement) &&
+            inputContainer &&
+            inputContainer.contains(document.activeElement) &&
             !value
           ) {
             // If the input is selected and there is no text, select the last
             // token when the user hits backspace.
-            const sibling = inputNode.parentElement.previousSibling;
+            const sibling = inputContainer.parentElement.previousSibling;
             sibling && sibling.focus();
 
             // Prevent browser "back" action.
@@ -84,8 +112,6 @@ function typeaheadInputContainer(Input) {
             break;
           }
 
-          inputNode = findDOMNode(this._input.getInput());
-          const cursorPos = inputNode && inputNode.selectionStart;
           const hintText = getHintText(this.props);
 
           // Autocomplete the selection if all of the following are true:
@@ -105,6 +131,28 @@ function typeaheadInputContainer(Input) {
             const selectedOption = hintText ? initialItem : activeItem;
 
             onAdd && onAdd(selectedOption);
+            this.setState({cursorPos: null});
+          }
+          break;
+        default:
+          // Handle typeable characters.
+          if (
+            // Numbers
+            (e.keyCode > 47 && e.keyCode < 58) ||
+            // Letters
+            (e.keyCode > 64 && e.keyCode < 91) ||
+            // Number pad
+            (e.keyCode > 95 && e.keyCode < 112) ||
+            // ;=,-./`
+            (e.keyCode > 185 && e.keyCode < 193) ||
+            // [\]'
+            (e.keyCode > 218 && e.keyCode < 223) ||
+            // Spacebar
+            e.keyCode === SPACE
+          ) {
+            setTimeout(() => {
+              this.setState({cursorPos: cursorPos + 1});
+            }, 0);
           }
           break;
       }
