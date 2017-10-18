@@ -32,7 +32,7 @@
     "invariant": "^2.2.1",
     "lodash": "^4.17.2",
     "prop-types": "^15.5.8",
-    "react-highlighter": "^0.4.0",
+    "react-highlighter": "^0.4.1",
     "react-input-autosize": "^1.1.4",
     "react-onclickoutside": "^5.7.0",
     "react-overlays": "^0.7.0",
