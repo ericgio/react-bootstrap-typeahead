@@ -41,8 +41,8 @@
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.2.0",
-    "react-dom": "^0.14.0 || ^15.2.0"
+    "react": "^0.14.0 || ^15.2.0 || ^16.0.0",
+    "react-dom": "^0.14.0 || ^15.2.0 || ^16.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
@@ -74,10 +74,10 @@
     "mocha": "^4.0.0",
     "node-sass": "^4.5.3",
     "raw-loader": "^0.5.1",
-    "react": "^15.2.1",
+    "react": "^16.0.0",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^15.2.1",
-    "react-test-renderer": "^15.5.4",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
     "react-waypoint": "^7.0.4",
     "style-loader": "^0.19.0",
     "webpack": "^3.0.0"
