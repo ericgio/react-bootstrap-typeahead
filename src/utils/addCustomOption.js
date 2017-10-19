@@ -1,9 +1,9 @@
 import invariant from 'invariant';
-import {find, uniqueId} from 'lodash';
+import {uniqueId} from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
 function addCustomOption(results, text, labelKey) {
-  const exactMatchFound = find(results, (o) => (
+  const exactMatchFound = results.some((o) => (
     getOptionLabel(o, labelKey) === text
   ));
 

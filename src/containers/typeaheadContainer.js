@@ -1,4 +1,4 @@
-import {find, head, isEqual, noop} from 'lodash';
+import {head, isEqual, noop} from 'lodash';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
@@ -133,7 +133,7 @@ function typeaheadContainer(Typeahead) {
           option,
           text,
           labelKey,
-          multiple && !!find(selected, (o) => isEqual(o, option)),
+          multiple && selected.some((o) => isEqual(o, option)),
           {caseSensitive, ignoreDiacritics, fields: filterBy}
         ) :
         (option) => filterBy(option, text);
