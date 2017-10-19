@@ -10,7 +10,7 @@ import TypeaheadInput from '../src/TypeaheadInput';
 import {focusTypeaheadInput, getInputNode, getMenuNode} from './testUtils';
 
 import states from '../example/exampleData';
-import {BACKSPACE, RETURN} from '../src/utils/keyCode';
+import {BACKSPACE, DOWN, RETURN} from '../src/utils/keyCode';
 
 const bigData = range(0, 500).map(o => o.toString());
 
@@ -623,6 +623,45 @@ describe('<Typeahead>', () => {
       simulateFormSubmit(instance);
 
       expect(onKeyDownEvent.defaultPrevented).to.equal(undefined);
+    });
+  });
+
+  describe('accessibility status', () => {
+    let inputNode, instance, statusNode;
+
+    beforeEach(() => {
+      instance = getTypeaheadInstance(baseProps);
+      inputNode = getInputNode(instance);
+      statusNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+        instance,
+        'rbt-sr-status'
+      );
+      ReactTestUtils.Simulate.focus(inputNode);
+    });
+
+    it('lists the number of results when the input is focused', () => {
+      expect(statusNode.innerHTML).to.contain('50 results');
+    });
+
+    it('lists the active item when keying through results', () => {
+      ReactTestUtils.Simulate.keyDown(inputNode, {
+        keyCode: DOWN,
+        which: DOWN,
+      });
+      expect(statusNode.innerHTML).to.contain('Alabama');
+    });
+
+    it('lists the number of selected items', () => {
+      ReactTestUtils.Simulate.keyDown(inputNode, {
+        keyCode: DOWN,
+        which: DOWN,
+      });
+      ReactTestUtils.Simulate.keyDown(inputNode, {
+        keyCode: RETURN,
+        which: RETURN,
+      });
+
+      expect(statusNode.innerHTML).to.contain('1 selection');
     });
   });
 

@@ -8,6 +8,7 @@ import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import addCustomOption from './utils/addCustomOption';
+import getOptionLabel from './utils/getOptionLabel';
 import getTruncatedOptions from './utils/getTruncatedOptions';
 import typeaheadContainer from './containers/typeaheadContainer';
 
@@ -37,14 +38,17 @@ class Typeahead extends React.Component {
       className,
       disabled,
       dropup,
+      emptyLabel,
       isFocused,
       labelKey,
+      minLength,
       onInputChange,
       onInputFocus,
       onKeyDown,
       onSelectionAdd,
       onSelectionRemove,
       paginate,
+      showMenu,
       shownResults,
       text,
     } = this.props;
@@ -61,6 +65,12 @@ class Typeahead extends React.Component {
     if (allowNew) {
       results = addCustomOption(results, text, labelKey);
     }
+
+    const menuVisible = !!(
+      showMenu &&
+      text.length >= minLength &&
+      (results.length || emptyLabel !== '')
+    );
 
     return (
       <div
@@ -85,76 +95,19 @@ class Typeahead extends React.Component {
           ref={input => this._input = input}
         />
         {this._renderAux()}
-        {this._renderMenu(results, shouldPaginate)}
+        {this._renderMenu(results, shouldPaginate, menuVisible)}
+        <div
+          aria-live="polite"
+          className="sr-only rbt-sr-status"
+          role="status">
+          {this._renderAccessibilityStatus(results, menuVisible)}
+        </div>
       </div>
     );
   }
 
   getInputNode() {
     return this._input.getInputNode();
-  }
-
-  _renderMenu = (results, shouldPaginate) => {
-    const {
-      align,
-      bodyContainer,
-      className,
-      dropup,
-      emptyLabel,
-      labelKey,
-      maxHeight,
-      minLength,
-      newSelectionPrefix,
-      onMenuHide,
-      onMenuShow,
-      onPaginate,
-      paginationText,
-      renderMenu,
-      renderMenuItemChildren,
-      showMenu,
-      text,
-    } = this.props;
-
-    const menuProps = {
-      align,
-      dropup,
-      emptyLabel,
-      labelKey,
-      maxHeight,
-      newSelectionPrefix,
-      paginationText,
-      onPaginate,
-      paginate: shouldPaginate,
-      text,
-    };
-
-    const menu = typeof renderMenu === 'function' ?
-      renderMenu(results, menuProps) :
-      <TypeaheadMenu
-        {...menuProps}
-        options={results}
-        renderMenuItemChildren={renderMenuItemChildren}
-      />;
-
-    const show = !!(
-      showMenu &&
-      text.length >= minLength &&
-      (results.length || emptyLabel !== '')
-    );
-
-    return (
-      <Overlay
-        align={align}
-        className={className}
-        container={bodyContainer ? document.body : this}
-        dropup={dropup}
-        onMenuHide={onMenuHide}
-        onMenuShow={onMenuShow}
-        show={show}
-        target={this}>
-        {menu}
-      </Overlay>
-    );
   }
 
   _renderAux = () => {
@@ -185,6 +138,87 @@ class Typeahead extends React.Component {
         </div>
       );
     }
+  }
+
+  _renderMenu = (results, shouldPaginate, menuVisible) => {
+    const {
+      align,
+      bodyContainer,
+      className,
+      dropup,
+      emptyLabel,
+      labelKey,
+      maxHeight,
+      newSelectionPrefix,
+      onMenuHide,
+      onMenuShow,
+      onPaginate,
+      paginationText,
+      renderMenu,
+      renderMenuItemChildren,
+      text,
+    } = this.props;
+
+    const menuProps = {
+      align,
+      dropup,
+      emptyLabel,
+      labelKey,
+      maxHeight,
+      newSelectionPrefix,
+      paginationText,
+      onPaginate,
+      paginate: shouldPaginate,
+      text,
+    };
+
+    const menu = typeof renderMenu === 'function' ?
+      renderMenu(results, menuProps) :
+      <TypeaheadMenu
+        {...menuProps}
+        options={results}
+        renderMenuItemChildren={renderMenuItemChildren}
+      />;
+
+    return (
+      <Overlay
+        align={align}
+        className={className}
+        container={bodyContainer ? document.body : this}
+        dropup={dropup}
+        onMenuHide={onMenuHide}
+        onMenuShow={onMenuShow}
+        show={menuVisible}
+        target={this}>
+        {menu}
+      </Overlay>
+    );
+  }
+
+  _renderAccessibilityStatus = (results, menuVisible) => {
+    const {activeItem, emptyLabel, labelKey, selected} = this.props;
+
+    if (!menuVisible) {
+      return selected.length === 1 ?
+        '1 selection' :
+        `${selected.length} selections`;
+    }
+
+    // Let the user know which result is active when keying up and down.
+    if (activeItem) {
+      return getOptionLabel(activeItem, labelKey);
+    }
+
+    // Display info about the number of matches.
+    if (results.length === 0) {
+      return emptyLabel;
+    }
+
+    const resultString = results.length === 1 ?
+      '1 result' :
+      `${results.length} results`;
+
+    return `${resultString}. Use up and down arrow keys to navigate.`;
   }
 }
 
