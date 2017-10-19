@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import tokenContainer from './containers/tokenContainer';
+import {RETURN} from './utils/keyCode';
 
 /**
  * Token
@@ -12,35 +13,37 @@ import tokenContainer from './containers/tokenContainer';
  * component, but can also be rendered on its own.
  */
 class Token extends React.Component {
-  displayName = 'Token';
-
   render() {
     return this.props.onRemove && !this.props.disabled ?
       this._renderRemoveableToken() :
       this._renderToken();
   }
 
-  _renderRemoveableToken() {
-    const {children, className, onRemove, selected, ...otherProps} = this.props;
+  _renderRemoveableToken = () => {
+    const {children, className, onRemove, selected, ...props} = this.props;
 
     return (
       <div
-        {...otherProps}
+        {...props}
         className={cx('rbt-token', 'rbt-token-removeable', {
           'rbt-token-selected': selected,
         }, className)}>
         {children}
         <span
+          aria-label="Remove"
           className="rbt-token-close-button"
           onClick={onRemove}
-          role="button">
-          &times;
+          onKeyDown={this._handleRemoveButtonKeydown}
+          role="button"
+          tabIndex={props.tabIndex}>
+          <span aria-hidden="true">&times;</span>
+          <span className="sr-only">Remove</span>
         </span>
       </div>
     );
   }
 
-  _renderToken() {
+  _renderToken = () => {
     const {children, className, disabled, href} = this.props;
     const classnames = cx('rbt-token', {
       'rbt-token-disabled': disabled,
@@ -59,6 +62,14 @@ class Token extends React.Component {
         {children}
       </div>
     );
+  }
+
+  _handleRemoveButtonKeydown = e => {
+    switch (e.keyCode) {
+      case RETURN:
+        this.props.onRemove();
+        break;
+    }
   }
 }
 
