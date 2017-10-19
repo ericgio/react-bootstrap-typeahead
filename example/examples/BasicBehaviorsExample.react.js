@@ -80,7 +80,7 @@ class BasicBehaviorsExample extends React.Component {
     );
   }
 
-  _handleChange = e => {
+  _handleChange = (e) => {
     const {checked, name} = e.target;
     const newState = {[name]: checked};
 

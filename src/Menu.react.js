@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import {BaseMenuItem} from './MenuItem.react';
 
-const BaseMenu = props => (
+const BaseMenu = (props) => (
   <ul
     {...props}
     className={cx('dropdown-menu', props.className)}>

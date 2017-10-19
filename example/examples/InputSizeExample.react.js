@@ -34,7 +34,7 @@ class InputSizeExample extends React.Component {
           <Radio
             checked={bsSize === value}
             key={value || 'default'}
-            onChange={e => this.setState({bsSize: value})}
+            onChange={(e) => this.setState({bsSize: value})}
             value={value}>
             {label}
           </Radio>

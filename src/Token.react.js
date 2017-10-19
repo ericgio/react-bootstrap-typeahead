@@ -64,7 +64,7 @@ class Token extends React.Component {
     );
   }
 
-  _handleRemoveButtonKeydown = e => {
+  _handleRemoveButtonKeydown = (e) => {
     switch (e.keyCode) {
       case RETURN:
         this.props.onRemove();

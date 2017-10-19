@@ -10,7 +10,7 @@ import {BACKSPACE} from '../utils/keyCode';
  * Higher-order component that encapsulates Token behaviors, allowing them to
  * be easily re-used.
  */
-const tokenContainer = Component => {
+const tokenContainer = (Component) => {
   class WrappedComponent extends React.Component {
     displayName = `tokenContainer(${getDisplayName(Component)})`;
 
@@ -40,13 +40,13 @@ const tokenContainer = Component => {
       );
     }
 
-    _handleBlur = e => {
+    _handleBlur = (e) => {
       findDOMNode(this).blur();
       this.setState({selected: false});
       this.props.disableOnClickOutside && this.props.disableOnClickOutside();
     }
 
-    _handleKeyDown = e => {
+    _handleKeyDown = (e) => {
       switch (e.keyCode) {
         case BACKSPACE:
           if (this.state.selected) {
@@ -62,15 +62,15 @@ const tokenContainer = Component => {
     /**
      * From `onClickOutside` HOC.
      */
-    handleClickOutside = e => {
+    handleClickOutside = (e) => {
       this._handleBlur();
     }
 
-    _handleRemove = e => {
+    _handleRemove = (e) => {
       this.props.onRemove && this.props.onRemove();
     }
 
-    _handleSelect = e => {
+    _handleSelect = (e) => {
       e.stopPropagation();
       this.setState({selected: true});
       this.props.enableOnClickOutside && this.props.enableOnClickOutside();

@@ -10,7 +10,7 @@ import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 import Title from '../components/Title';
 
-const RenderingSection = props => (
+const RenderingSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       You can customize how the typeahead looks and behaves by using the

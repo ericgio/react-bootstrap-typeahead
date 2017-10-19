@@ -21,14 +21,14 @@ class LabelKeyExample extends React.Component {
     return (
       <div>
         <Typeahead
-          onPaginate={e => console.log('Results paginated')}
-          options={range(0, 1000).map(o => o.toString())}
+          onPaginate={(e) => console.log('Results paginated')}
+          options={range(0, 1000).map((o) => o.toString())}
           paginate={paginate}
           placeholder="Pick a number..."
         />
         <Checkbox
           checked={paginate}
-          onChange={e => this.setState({paginate: !!e.target.checked})}>
+          onChange={(e) => this.setState({paginate: !!e.target.checked})}>
           Paginate results
         </Checkbox>
       </div>

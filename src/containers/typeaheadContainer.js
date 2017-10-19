@@ -105,7 +105,7 @@ function typeaheadContainer(Typeahead) {
           onResultsChange={this._handleResultsChange}
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
-          ref={instance => this._instance = instance}
+          ref={(instance) => this._instance = instance}
           results={this._getFilteredResults()}
         />
       );
@@ -129,14 +129,14 @@ function typeaheadContainer(Typeahead) {
       }
 
       const callback = Array.isArray(filterBy) ?
-        option => defaultFilterBy(
+        (option) => defaultFilterBy(
           option,
           text,
           labelKey,
-          multiple && !!find(selected, o => isEqual(o, option)),
+          multiple && !!find(selected, (o) => isEqual(o, option)),
           {caseSensitive, ignoreDiacritics, fields: filterBy}
         ) :
-        option => filterBy(option, text);
+        (option) => filterBy(option, text);
 
       return options.filter(callback);
     }
@@ -165,18 +165,18 @@ function typeaheadContainer(Typeahead) {
       return this._instance.getInputNode();
     }
 
-    _handleActiveItemChange = activeItem => {
+    _handleActiveItemChange = (activeItem) => {
       this.setState({activeItem});
     }
 
-    _handleBlur = e => {
+    _handleBlur = (e) => {
       // Note: Don't hide the menu here, since that interferes with other
       // actions like making a selection by clicking on a menu item.
       this.props.onBlur(e);
       this.setState({isFocused: false});
     }
 
-    _handleFocus = e => {
+    _handleFocus = (e) => {
       this.props.onFocus(e);
       this.setState({
         isFocused: true,
@@ -184,7 +184,7 @@ function typeaheadContainer(Typeahead) {
       });
     }
 
-    _handleInitialItemChange = initialItem => {
+    _handleInitialItemChange = (initialItem) => {
       const {labelKey} = this.props;
       const currentItem = this.state.initialItem;
 
@@ -206,7 +206,7 @@ function typeaheadContainer(Typeahead) {
       this.setState({initialItem});
     }
 
-    _handleInputChange = text => {
+    _handleInputChange = (text) => {
       const {activeIndex, activeItem} = getInitialState(this.props);
       this.setState({
         activeIndex,
@@ -221,7 +221,7 @@ function typeaheadContainer(Typeahead) {
       });
     }
 
-    _handleInputFocus = e => {
+    _handleInputFocus = (e) => {
       const isClearButton =
         e &&
         e.target &&
@@ -314,21 +314,21 @@ function typeaheadContainer(Typeahead) {
       this.props.onKeyDown(e);
     }
 
-    _handlePaginate = e => {
+    _handlePaginate = (e) => {
       const {maxResults, onPaginate} = this.props;
 
       onPaginate(e);
       this.setState({shownResults: this.state.shownResults + maxResults});
     }
 
-    _handleResultsChange = results => {
+    _handleResultsChange = (results) => {
       const {allowNew, highlightOnlyResult} = this.props;
       if (!allowNew && highlightOnlyResult) {
         this.setState({isOnlyResult: results.length === 1});
       }
     }
 
-    _handleSelectionAdd = selection => {
+    _handleSelectionAdd = (selection) => {
       const {multiple, labelKey} = this.props;
 
       let selected;
@@ -353,8 +353,8 @@ function typeaheadContainer(Typeahead) {
       this.setState({initialItem: selection});
     }
 
-    _handleSelectionRemove = selection => {
-      const selected = this.state.selected.filter(option => (
+    _handleSelectionRemove = (selection) => {
+      const selected = this.state.selected.filter((option) => (
         !isEqual(option, selection)
       ));
 
@@ -367,7 +367,7 @@ function typeaheadContainer(Typeahead) {
     /**
      * From `onClickOutside` HOC.
      */
-    handleClickOutside = e => {
+    handleClickOutside = (e) => {
       this.state.showMenu && this._hideMenu();
     }
 
@@ -387,12 +387,12 @@ function typeaheadContainer(Typeahead) {
       });
     }
 
-    _updateSelected = selected => {
+    _updateSelected = (selected) => {
       this.setState({selected});
       this.props.onChange(selected);
     }
 
-    _updateText = text => {
+    _updateText = (text) => {
       this.setState({text});
       this.props.onInputChange(text);
     }

@@ -34,7 +34,7 @@ class MenuAlignExample extends React.Component {
           <Radio
             checked={align === value}
             key={value}
-            onChange={e => this.setState({align: value})}
+            onChange={(e) => this.setState({align: value})}
             value={value}>
             {label}
           </Radio>

@@ -13,7 +13,7 @@ const ClearButton = ({bsSize, className, onClick}) => (
     className={cx('close', 'rbt-close', {
       'rbt-close-lg': bsSize === 'large' || bsSize === 'lg',
     }, className)}
-    onClick={e => {
+    onClick={(e) => {
       e.stopPropagation();
       onClick(e);
     }}

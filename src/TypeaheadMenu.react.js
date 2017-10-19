@@ -8,7 +8,7 @@ import MenuItem from './MenuItem.react';
 
 import getOptionLabel from './utils/getOptionLabel';
 
-const Highlighter = props => (
+const Highlighter = (props) => (
   <Highlight
     {...props}
     className="rbt-highlight"

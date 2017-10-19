@@ -6,7 +6,7 @@ class LabelKeyExample extends React.Component {
   render() {
     return (
       <Typeahead
-        labelKey={option => `${option.firstName} ${option.lastName}`}
+        labelKey={(option) => `${option.firstName} ${option.lastName}`}
         options={[
           {firstName: 'Art', lastName: 'Blakey'},
           {firstName: 'John', lastName: 'Coltrane'},

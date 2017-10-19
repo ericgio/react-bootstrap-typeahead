@@ -21,7 +21,7 @@ const optionsWithDiacritics = [
 describe('defaultFilterBy', () => {
 
   it('returns filtered results for an array of objects', () => {
-    const results = states.filter(state => (
+    const results = states.filter((state) => (
       defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
     ));
 
@@ -36,8 +36,8 @@ describe('defaultFilterBy', () => {
 
   it('returns filtered results for an array of objects,' +
     'when labelKey is a function', () => {
-    const labelKeyFunc = o => o.name;
-    const results = states.filter(state => (
+    const labelKeyFunc = (o) => o.name;
+    const results = states.filter((state) => (
       defaultFilterBy(state, text, labelKeyFunc, isTokenized, filterOptions)
     ));
 
@@ -52,7 +52,7 @@ describe('defaultFilterBy', () => {
 
   it('returns case-sensitive filtered results', () => {
     const options = {...filterOptions, caseSensitive: true};
-    const results = states.filter(state => (
+    const results = states.filter((state) => (
       defaultFilterBy(state, 'alab', labelKey, isTokenized, options)
     ));
 
@@ -61,7 +61,7 @@ describe('defaultFilterBy', () => {
 
   it('searches a set of fields and returns results', () => {
     const options = {...filterOptions, fields: ['name', 'capital']};
-    const results = states.filter(state => (
+    const results = states.filter((state) => (
       defaultFilterBy(state, 'sacr', labelKey, isTokenized, options)
     ));
 
@@ -73,8 +73,8 @@ describe('defaultFilterBy', () => {
   });
 
   it('returns filtered results for an array of strings', () => {
-    const options = states.map(s => s.name);
-    const results = options.filter(state => (
+    const options = states.map((s) => s.name);
+    const results = options.filter((state) => (
       defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
     ));
 
@@ -87,7 +87,7 @@ describe('defaultFilterBy', () => {
 
   it('returns no results if the text doesn\'t find a match', () => {
     text = 'zzz';
-    const results = states.filter(state => (
+    const results = states.filter((state) => (
       defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
     ));
     expect(results.length).to.equal(0);
@@ -95,7 +95,7 @@ describe('defaultFilterBy', () => {
 
   it('returns no results if the text doesn\'t find a match', () => {
     text = 'zzz';
-    const results = states.filter(state => (
+    const results = states.filter((state) => (
       defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
     ));
     expect(results.length).to.equal(0);
@@ -103,9 +103,9 @@ describe('defaultFilterBy', () => {
 
   it('returns no results if the text doesn\'t find a match,' +
     'when labelKey is a function', () => {
-    const labelKeyFunc = o => o.name;
+    const labelKeyFunc = (o) => o.name;
     text = 'zzz';
-    const results = states.filter(state => (
+    const results = states.filter((state) => (
       defaultFilterBy(state, text, labelKeyFunc, isTokenized, filterOptions)
     ));
     expect(results.length).to.equal(0);
@@ -114,7 +114,7 @@ describe('defaultFilterBy', () => {
   it('returns the option if the text matches exactly', () => {
     text = 'California';
 
-    const results = states.filter(state => (
+    const results = states.filter((state) => (
       defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
     ));
 
@@ -125,7 +125,7 @@ describe('defaultFilterBy', () => {
   it(
     'returns no results if `multiple=true` and the text only matches ' +
     'selected results', () => {
-      const results = states.filter(state => (
+      const results = states.filter((state) => (
         defaultFilterBy(state, 'Alab', labelKey, true, filterOptions)
       ));
 
@@ -134,7 +134,7 @@ describe('defaultFilterBy', () => {
   );
 
   it('ignores diacritical marks when filtering', () => {
-    const results = optionsWithDiacritics.filter(o => (
+    const results = optionsWithDiacritics.filter((o) => (
       defaultFilterBy(o, 'franc', labelKey, isTokenized, filterOptions)
     ));
 
@@ -142,7 +142,7 @@ describe('defaultFilterBy', () => {
   });
 
   it('considers diacritical marks when filtering', () => {
-    const results = optionsWithDiacritics.filter(o => (
+    const results = optionsWithDiacritics.filter((o) => (
       defaultFilterBy(o, 'franc', labelKey, isTokenized, {
         ...filterOptions,
         ignoreDiacritics: false,

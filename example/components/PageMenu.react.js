@@ -2,7 +2,7 @@ import React from 'react';
 import {AutoAffix} from 'react-overlays';
 import {Nav} from 'react-bootstrap';
 
-const PageMenu = props => (
+const PageMenu = (props) => (
   <AutoAffix>
     <div
       className="bs-docs-sidebar hidden-print hidden-xs hidden-sm"

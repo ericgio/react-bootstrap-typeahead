@@ -12,7 +12,7 @@ import {focusTypeaheadInput, getInputNode, getMenuNode} from './testUtils';
 import states from '../example/exampleData';
 import {BACKSPACE, DOWN, RETURN} from '../src/utils/keyCode';
 
-const bigData = range(0, 500).map(o => o.toString());
+const bigData = range(0, 500).map((o) => o.toString());
 
 let baseProps = {
   labelKey: 'name',
@@ -136,7 +136,7 @@ describe('<Typeahead>', () => {
       selected = [];
       props = {
         ...baseProps,
-        onChange: s => selected = s,
+        onChange: (s) => selected = s,
       };
       render(<Typeahead {...props} />, node);
     });
@@ -368,8 +368,8 @@ describe('<Typeahead>', () => {
 
     const props = {
       ...baseProps,
-      onChange: s => selected = s,
-      onInputChange: t => text = t,
+      onChange: (s) => selected = s,
+      onInputChange: (t) => text = t,
     };
 
     beforeEach(() => {
@@ -432,7 +432,7 @@ describe('<Typeahead>', () => {
     beforeEach(() => {
       props = {
         ...baseProps,
-        onChange: s => selected = [s],
+        onChange: (s) => selected = [s],
       };
       selected = [];
     });
@@ -536,7 +536,7 @@ describe('<Typeahead>', () => {
     let keyDown;
     const instance = getTypeaheadInstance({
       ...baseProps,
-      onKeyDown: e => keyDown = 'success',
+      onKeyDown: (e) => keyDown = 'success',
     });
 
     simulateFormSubmit(instance);
@@ -596,7 +596,7 @@ describe('<Typeahead>', () => {
       onKeyDownEvent = null;
     });
 
-    const onKeyDown = e => onKeyDownEvent = e;
+    const onKeyDown = (e) => onKeyDownEvent = e;
 
     /**
      * Since react test simulation doesn't trigger form submit on RETURN press,

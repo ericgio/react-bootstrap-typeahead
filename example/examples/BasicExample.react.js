@@ -27,7 +27,7 @@ class BasicExample extends React.Component {
         />
         <Checkbox
           checked={multiple}
-          onChange={e => this.setState({multiple: e.target.checked})}>
+          onChange={(e) => this.setState({multiple: e.target.checked})}>
           Multi-Select
         </Checkbox>
       </div>

@@ -12,7 +12,7 @@ const DEFAULT_DELAY_MS = 200;
  *  - Query caching (optional)
  *  - Search prompt and empty results behaviors
  */
-const asyncContainer = Typeahead => {
+const asyncContainer = (Typeahead) => {
 
   class Container extends React.Component {
 
@@ -70,7 +70,7 @@ const asyncContainer = Typeahead => {
           onChange={this._handleChange}
           onInputChange={this._handleInputChange}
           options={useCache && cachedQuery ? cachedQuery : options}
-          ref={instance => this._instance = instance}
+          ref={(instance) => this._instance = instance}
         />
       );
     }
@@ -104,17 +104,17 @@ const asyncContainer = Typeahead => {
       return emptyLabel;
     }
 
-    _handleChange = selected => {
+    _handleChange = (selected) => {
       this.props.onChange && this.props.onChange(selected);
       this.setState({hasSelection: !!selected.length});
     }
 
-    _handleInputChange = query => {
+    _handleInputChange = (query) => {
       this.props.onInputChange && this.props.onInputChange(query);
       this._handleSearchDebounced(query);
     }
 
-    _handleSearch = initialQuery => {
+    _handleSearch = (initialQuery) => {
       const {
         caseSensitive,
         minLength,

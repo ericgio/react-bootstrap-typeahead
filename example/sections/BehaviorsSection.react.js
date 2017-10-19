@@ -20,7 +20,7 @@ import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 import Title from '../components/Title';
 
-const BehaviorsSection = props => (
+const BehaviorsSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       The typeahead has several basic configurable behaviors. You can `disable`

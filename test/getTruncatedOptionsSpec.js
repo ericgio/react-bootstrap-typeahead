@@ -3,7 +3,7 @@ import {range} from 'lodash';
 
 import getTruncatedOptions from '../src/utils/getTruncatedOptions';
 
-const options = range(0, 300).map(option => ({label: option.toString()}));
+const options = range(0, 300).map((option) => ({label: option.toString()}));
 
 describe('getTruncatedOptions', () => {
 

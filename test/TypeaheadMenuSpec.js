@@ -10,7 +10,7 @@ import TypeaheadMenu from '../src/TypeaheadMenu';
 
 import options from '../example/exampleData';
 
-const bigData = range(0, 300).map(option => ({name: option.toString()}));
+const bigData = range(0, 300).map((option) => ({name: option.toString()}));
 
 function getMenuInstance(props={}) {
   return ReactTestUtils.renderIntoDocument(
@@ -51,7 +51,7 @@ describe('<TypeaheadMenu>', () => {
   });
 
   it ('renders disabled menu items', () => {
-    const disabledOptions = options.map(option => (
+    const disabledOptions = options.map((option) => (
       {...option, disabled: true}
     ));
     const instance = getMenuInstance({options: disabledOptions});

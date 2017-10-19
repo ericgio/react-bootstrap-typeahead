@@ -5,10 +5,10 @@ import {Radio} from 'react-bootstrap';
 import {Menu, MenuItem, Token, Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
-const MenuDivider = props => (
+const MenuDivider = (props) => (
   <li className="divider dropdown-divider" role="separator" />
 );
-const MenuHeader = props => <li {...props} className="dropdown-header" />;
+const MenuHeader = (props) => <li {...props} className="dropdown-header" />;
 
 /* example-start */
 class RenderingExample extends React.Component {
@@ -54,7 +54,7 @@ class RenderingExample extends React.Component {
           <Radio
             checked={selectedOption === value}
             key={value}
-            onChange={e => this.setState({selectedOption: value})}
+            onChange={(e) => this.setState({selectedOption: value})}
             value={value}>
             {label}
           </Radio>
@@ -65,14 +65,14 @@ class RenderingExample extends React.Component {
 
   _renderMenu(results, menuProps) {
     let idx = 0;
-    const grouped = groupBy(results, r => r.region);
-    const items = Object.keys(grouped).sort().map(region => {
+    const grouped = groupBy(results, (r) => r.region);
+    const items = Object.keys(grouped).sort().map((region) => {
       return [
         !!idx && <MenuDivider key={`${region}-divider`} />,
         <MenuHeader key={`${region}-header`}>
           {region}
         </MenuHeader>,
-        map(grouped[region], state => {
+        map(grouped[region], (state) => {
           const item =
             <MenuItem key={idx} option={state} position={idx}>
               {state.name}

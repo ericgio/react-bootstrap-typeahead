@@ -84,9 +84,9 @@ describe('<TypeaheadInput>', () => {
       props = {
         ...baseProps,
         initialItem: head(options),
-        onAdd: selectedItem => selected = [selectedItem],
+        onAdd: (selectedItem) => selected = [selectedItem],
         onChange: noop,
-        onKeyDown: e => keyCode = e.keyCode,
+        onKeyDown: (e) => keyCode = e.keyCode,
         selected,
         text: 'Ala',
       };

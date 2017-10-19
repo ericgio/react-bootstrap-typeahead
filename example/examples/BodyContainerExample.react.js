@@ -51,7 +51,7 @@ class BodyContainerExample extends React.Component {
     );
   }
 
-  _handleChange = e => {
+  _handleChange = (e) => {
     const {checked, name} = e.target;
     this.setState({[name]: checked});
   }

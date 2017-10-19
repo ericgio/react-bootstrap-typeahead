@@ -39,7 +39,7 @@ function typeaheadInputContainer(Input) {
           {...this.props}
           {...this.state}
           hintText={getHintText(this.props)}
-          inputRef={input => this._input = input}
+          inputRef={(input) => this._input = input}
           onChange={this._handleChange}
           onKeyDown={this._handleKeyDown}
           placeholder={selected.length ? null : placeholder}
@@ -52,7 +52,7 @@ function typeaheadInputContainer(Input) {
       return this._input.getInput();
     }
 
-    _handleChange = e => {
+    _handleChange = (e) => {
       const {multiple, onChange, onRemove, selected} = this.props;
 
       if (!multiple) {
@@ -63,7 +63,7 @@ function typeaheadInputContainer(Input) {
       onChange(e.target.value);
     }
 
-    _handleKeyDown = e => {
+    _handleKeyDown = (e) => {
       const {
         activeItem,
         initialItem,

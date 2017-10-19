@@ -89,10 +89,10 @@ class Typeahead extends React.Component {
           {...this.props}
           onAdd={onSelectionAdd}
           onChange={onInputChange}
-          onKeyDown={e => onKeyDown(results, e)}
+          onKeyDown={(e) => onKeyDown(results, e)}
           onRemove={onSelectionRemove}
           options={results}
-          ref={input => this._input = input}
+          ref={(input) => this._input = input}
         />
         {this._renderAux()}
         {this._renderMenu(results, shouldPaginate, menuVisible)}

@@ -5,7 +5,7 @@ import {findDOMNode} from 'react-dom';
 import getDisplayName from '../utils/getDisplayName';
 import scrollIntoViewIfNeeded from '../utils/scrollIntoViewIfNeeded';
 
-const menuItemContainer = Component => {
+const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
     componentWillMount() {
       this._updateInitialItem(this.props);
@@ -48,14 +48,14 @@ const menuItemContainer = Component => {
       );
     }
 
-    _handleClick = e => {
+    _handleClick = (e) => {
       const {option, onClick} = this.props;
 
       this.context.onMenuItemClick(option);
       onClick && onClick(e);
     }
 
-    _updateInitialItem = props => {
+    _updateInitialItem = (props) => {
       const {option, position} = props;
       if (position === 0) {
         this.context.onInitialItemChange(option);

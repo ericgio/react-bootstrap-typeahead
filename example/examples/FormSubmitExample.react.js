@@ -18,7 +18,7 @@ class FormSubmitExample extends React.Component {
     const {submitFormOnEnter} = this.state;
 
     return (
-      <form onSubmit={e => alert('Form submitted!')}>
+      <form onSubmit={(e) => alert('Form submitted!')}>
         <InputGroup>
           <Typeahead
             labelKey="name"
@@ -34,7 +34,9 @@ class FormSubmitExample extends React.Component {
         </InputGroup>
         <Checkbox
           checked={submitFormOnEnter}
-          onChange={e => this.setState({submitFormOnEnter: e.target.checked})}>
+          onChange={(e) => {
+            this.setState({submitFormOnEnter: e.target.checked});
+          }}>
           Allow form submission
         </Checkbox>
       </form>

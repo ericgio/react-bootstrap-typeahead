@@ -6,7 +6,7 @@ import ScrollSpy from './ScrollSpy';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
-const sectionContainer = Component => {
+const sectionContainer = (Component) => {
   class WrappedSection extends React.Component {
     render() {
       return <Component {...this.props} {...this.context} />;

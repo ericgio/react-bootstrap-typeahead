@@ -26,7 +26,7 @@ class BaseMenuItem extends React.Component {
     );
   }
 
-  _handleClick = e => {
+  _handleClick = (e) => {
     const {disabled, onClick} = this.props;
 
     e.preventDefault();

@@ -6,6 +6,6 @@
   "globals": {},
   "parser": "babel-eslint",
   "rules": {
-  	"no-unused-vars": [2, {"args": "none", "ignoreRestSiblings": true}]
+    "arrow-parens": [2, "always"],
   }
 }

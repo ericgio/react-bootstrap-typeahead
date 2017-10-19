@@ -7,7 +7,7 @@ import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const CustomSelections = props => (
+const CustomSelections = (props) => (
   <Section title={props.title}>
     <Markdown>
       Setting the `allowNew` prop provides the ability to create new options for

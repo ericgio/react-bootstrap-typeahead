@@ -54,7 +54,7 @@ export default function defaultFilterBy(
     return isMatch(text, option, filterOptions);
   }
 
-  return some(fields, field => {
+  return some(fields, (field) => {
     let value = option[field];
 
     if (typeof value !== 'string') {

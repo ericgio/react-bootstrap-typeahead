@@ -10,7 +10,7 @@ import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 import Title from '../components/Title';
 
-const FilteringSection = props => (
+const FilteringSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       By default, the typeahead is not case-sensitive and ignores diacritical

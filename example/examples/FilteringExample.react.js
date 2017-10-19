@@ -54,12 +54,14 @@ class FilteringExample extends React.Component {
         />
         <Checkbox
           checked={caseSensitive}
-          onChange={e => this.setState({caseSensitive: e.target.checked})}>
+          onChange={(e) => this.setState({caseSensitive: e.target.checked})}>
           Case-sensitive filtering
         </Checkbox>
         <Checkbox
           checked={!ignoreDiacritics}
-          onChange={e => this.setState({ignoreDiacritics: !e.target.checked})}>
+          onChange={(e) => {
+            this.setState({ignoreDiacritics: !e.target.checked});
+          }}>
           Don't ignore diacritical marks
         </Checkbox>
       </div>

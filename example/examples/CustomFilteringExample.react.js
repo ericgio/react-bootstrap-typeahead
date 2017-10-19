@@ -37,7 +37,7 @@ class CustomFilteringExample extends React.Component {
           labelKey="name"
           options={options}
           placeholder="Filter by state name or capital..."
-          renderMenuItemChildren={option => (
+          renderMenuItemChildren={(option) => (
             <div>
               {option.name}
               <div>
@@ -50,7 +50,7 @@ class CustomFilteringExample extends React.Component {
           <Radio
             checked={filterBy === value}
             key={value}
-            onChange={e => this.setState({filterBy: value})}
+            onChange={(e) => this.setState({filterBy: value})}
             value={value}>
             {label}
           </Radio>

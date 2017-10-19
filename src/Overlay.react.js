@@ -82,7 +82,7 @@ class Overlay extends React.Component {
     });
 
     return (
-      <Portal container={container} ref={portal => this._portal = portal}>
+      <Portal container={container} ref={(portal) => this._portal = portal}>
         {child}
       </Portal>
     );

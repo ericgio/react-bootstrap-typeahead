@@ -31,7 +31,7 @@ describe('<AsyncTypeahead>', () => {
     expect(menuItems[0].children[0].innerHTML).to.equal(promptText);
   });
 
-  it('should display the search text while searching', done => {
+  it('should display the search text while searching', (done) => {
     const searchText = 'Search text';
     const instance = getTypeaheadInstance({
       ...defaultProps,
@@ -48,7 +48,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('should display the empty label if there are no results', done => {
+  it('should display the empty label if there are no results', (done) => {
     const emptyLabel = 'empty label';
     const instance = getTypeaheadInstance({
       ...defaultProps,
@@ -68,7 +68,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('should delay the search by at least the specified amount', done => {
+  it('should delay the search by at least the specified amount', (done) => {
     let beforeSearch = new Date();
     let afterSearch = new Date();
 
@@ -87,12 +87,12 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('should use cached results and not perform a new search', done => {
+  it('should use cached results and not perform a new search', (done) => {
     let searchCount = 0;
 
     const instance = getTypeaheadInstance({
       ...defaultProps,
-      onSearch: query => searchCount++,
+      onSearch: (query) => searchCount++,
     });
 
     // Initial search
@@ -114,12 +114,12 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('should not use cached results', done => {
+  it('should not use cached results', (done) => {
     let searchCount = 0;
 
     const instance = getTypeaheadInstance({
       ...defaultProps,
-      onSearch: query => searchCount++,
+      onSearch: (query) => searchCount++,
       useCache: false,
     });
 
@@ -136,14 +136,14 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('should perform a search when there is already a selection', done => {
+  it('should perform a search when there is already a selection', (done) => {
     let searchCount = 0;
 
     const instance = getTypeaheadInstance({
       ...defaultProps,
       multiple: true,
       options: ['one', 'two'],
-      onSearch: query => searchCount++,
+      onSearch: (query) => searchCount++,
       selected: ['one'],
     });
     instance.state.hasSelection = true;

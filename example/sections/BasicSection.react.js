@@ -7,7 +7,7 @@ import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const BasicSection = props => (
+const BasicSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       The typeahead allows single-selection by default. Setting the `multiple`

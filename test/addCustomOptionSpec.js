@@ -37,7 +37,7 @@ describe('addCustomOption', () => {
 
   it('throws if `labelKey` is not a string', () => {
     const text = 'Ala';
-    const willThrow = () => addCustomOption(states, text, o => o.name);
+    const willThrow = () => addCustomOption(states, text, (o) => o.name);
     expect(willThrow).to.throw(Error);
   });
 

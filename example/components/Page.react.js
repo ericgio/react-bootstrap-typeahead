@@ -74,16 +74,16 @@ class Page extends React.Component {
     );
   }
 
-  _handleMenuItemClick = activeHref => {
+  _handleMenuItemClick = (activeHref) => {
     window.location.hash = activeHref;
     this._updateActiveHref(activeHref);
   }
 
-  _onAfter = href => {
+  _onAfter = (href) => {
     this._updateActiveHref(href);
   }
 
-  _onBefore = href => {
+  _onBefore = (href) => {
     const index = this._hrefs.indexOf(href) - 1;
     this._updateActiveHref(this._hrefs[index]);
   }

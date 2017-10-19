@@ -7,7 +7,7 @@ import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const PublicMethodsSection = props => (
+const PublicMethodsSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       The `clear`, `focus`, and `blur` methods are exposed for programmatic

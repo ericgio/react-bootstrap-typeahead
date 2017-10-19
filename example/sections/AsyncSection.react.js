@@ -7,7 +7,7 @@ import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const AsyncSection = props => (
+const AsyncSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       You can use the `AsyncTypeahead` component for asynchronous searches. It

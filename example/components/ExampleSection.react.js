@@ -22,7 +22,7 @@ class ExampleSection extends React.Component {
             <h6>Example</h6>
             <a
               className="example-toggle-code"
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 this.setState({open: !open});
               }}

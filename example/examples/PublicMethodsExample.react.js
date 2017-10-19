@@ -14,7 +14,7 @@ class PublicMethodsExample extends React.Component {
           multiple
           options={options}
           placeholder="Choose a state..."
-          ref={ref => this._typeahead = ref}
+          ref={(ref) => this._typeahead = ref}
           selected={options.slice(0, 4)}
         />
         <ButtonToolbar style={{marginTop: '10px'}}>

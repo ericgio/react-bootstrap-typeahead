@@ -18,7 +18,7 @@ describe('getOptionLabel', () => {
     });
 
     it('receives a `labelKey` function', () => {
-      const labelKeyFunction = o => o.label;
+      const labelKeyFunction = (o) => o.label;
       const optionLabel = getOptionLabel(option, labelKeyFunction);
       expect(optionLabel).to.equal(label);
     });

@@ -4,7 +4,7 @@ import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 /* example-start */
-const SelectionsExample = props => (
+const SelectionsExample = (props) => (
   <Typeahead
     clearButton
     defaultSelected={options.slice(0, 5)}
