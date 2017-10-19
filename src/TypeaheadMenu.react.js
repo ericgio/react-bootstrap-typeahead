@@ -17,14 +17,6 @@ const Highlighter = props => (
 );
 
 class TypeaheadMenu extends React.Component {
-  displayName = 'TypeaheadMenu';
-
-  constructor(props) {
-    super(props);
-
-    this._renderMenuItem = this._renderMenuItem.bind(this);
-  }
-
   render() {
     const menuProps = pick(this.props, [
       'align',
@@ -45,7 +37,7 @@ class TypeaheadMenu extends React.Component {
     );
   }
 
-  _renderMenuItem(option, idx) {
+  _renderMenuItem = (option, idx) => {
     const {
       labelKey,
       newSelectionPrefix,

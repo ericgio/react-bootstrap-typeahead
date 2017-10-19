@@ -16,19 +16,11 @@ const asyncContainer = Typeahead => {
 
   class Container extends React.Component {
 
-    constructor(props) {
-      super(props);
-
-      this._handleChange = this._handleChange.bind(this);
-      this._handleInputChange = this._handleInputChange.bind(this);
-      this._handleSearch = this._handleSearch.bind(this);
-
-      this.state = {
-        hasSelection: false,
-        query: '',
-        requestPending: false,
-      };
-    }
+    state = {
+      hasSelection: false,
+      query: '',
+      requestPending: false,
+    };
 
     componentWillMount() {
       this._cache = {};
@@ -90,7 +82,7 @@ const asyncContainer = Typeahead => {
       return this._instance.getInstance();
     }
 
-    _getEmptyLabel() {
+    _getEmptyLabel = () => {
       const {
         emptyLabel,
         multiple,
@@ -112,17 +104,17 @@ const asyncContainer = Typeahead => {
       return emptyLabel;
     }
 
-    _handleChange(selected) {
+    _handleChange = selected => {
       this.props.onChange && this.props.onChange(selected);
       this.setState({hasSelection: !!selected.length});
     }
 
-    _handleInputChange(query) {
+    _handleInputChange = query => {
       this.props.onInputChange && this.props.onInputChange(query);
       this._handleSearchDebounced(query);
     }
 
-    _handleSearch(initialQuery) {
+    _handleSearch = initialQuery => {
       const {
         caseSensitive,
         minLength,

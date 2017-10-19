@@ -25,15 +25,11 @@ function isBody(container) {
 class Overlay extends React.Component {
   displayName = 'Overlay';
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      left: 0,
-      right: 0,
-      top: 0,
-    };
-  }
+  state = {
+    left: 0,
+    right: 0,
+    top: 0,
+  };
 
   componentDidMount() {
     this._mounted = true;

@@ -5,14 +5,6 @@ import React from 'react';
 import menuItemContainer from './containers/menuItemContainer';
 
 class BaseMenuItem extends React.Component {
-  displayName = 'BaseMenuItem';
-
-  constructor(props) {
-    super(props);
-
-    this._handleClick = this._handleClick.bind(this);
-  }
-
   render() {
     const {active, children, className, disabled} = this.props;
     const conditionalClassNames = {
@@ -34,7 +26,7 @@ class BaseMenuItem extends React.Component {
     );
   }
 
-  _handleClick(e) {
+  _handleClick = e => {
     const {disabled, onClick} = this.props;
 
     e.preventDefault();

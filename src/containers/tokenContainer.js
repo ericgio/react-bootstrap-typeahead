@@ -14,19 +14,9 @@ const tokenContainer = Component => {
   class WrappedComponent extends React.Component {
     displayName = `tokenContainer(${getDisplayName(Component)})`;
 
-    constructor(props) {
-      super(props);
-
-      this._handleBlur = this._handleBlur.bind(this);
-      this._handleKeyDown = this._handleKeyDown.bind(this);
-      this._handleRemove = this._handleRemove.bind(this);
-      this._handleSelect = this._handleSelect.bind(this);
-      this.handleClickOutside = this.handleClickOutside.bind(this);
-
-      this.state = {
-        selected: false,
-      };
-    }
+    state = {
+      selected: false,
+    };
 
     render() {
       const tokenProps = omit(this.props, [
@@ -50,13 +40,13 @@ const tokenContainer = Component => {
       );
     }
 
-    _handleBlur(e) {
+    _handleBlur = e => {
       findDOMNode(this).blur();
       this.setState({selected: false});
       this.props.disableOnClickOutside && this.props.disableOnClickOutside();
     }
 
-    _handleKeyDown(e) {
+    _handleKeyDown = e => {
       switch (e.keyCode) {
         case BACKSPACE:
           if (this.state.selected) {
@@ -72,15 +62,15 @@ const tokenContainer = Component => {
     /**
      * From `onClickOutside` HOC.
      */
-    handleClickOutside(e) {
+    handleClickOutside = e => {
       this._handleBlur();
     }
 
-    _handleRemove(e) {
+    _handleRemove = e => {
       this.props.onRemove && this.props.onRemove();
     }
 
-    _handleSelect(e) {
+    _handleSelect = e => {
       e.stopPropagation();
       this.setState({selected: true});
       this.props.enableOnClickOutside && this.props.enableOnClickOutside();
