@@ -14,6 +14,12 @@ import tokenContainer from './containers/tokenContainer';
 class Token extends React.Component {
   displayName = 'Token';
 
+  constructor(props) {
+    super(props);
+
+    this._handleRemove = this._handleRemove.bind(this);
+  }
+
   render() {
     return this.props.onRemove && !this.props.disabled ?
       this._renderRemoveableToken() :
@@ -32,7 +38,7 @@ class Token extends React.Component {
         {children}
         <span
           className="rbt-token-close-button"
-          onClick={onRemove}
+          onClick={this._handleRemove}
           role="button">
           &times;
         </span>
@@ -59,6 +65,11 @@ class Token extends React.Component {
         {children}
       </div>
     );
+  }
+
+  _handleRemove(e) {
+    e.stopPropagation();
+    this.props.onRemove(e);
   }
 }
 
