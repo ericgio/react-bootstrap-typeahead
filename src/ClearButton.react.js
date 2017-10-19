@@ -3,13 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * CloseButton
+ * ClearButton
  *
  * http://getbootstrap.com/css/#helper-classes-close
  */
 const ClearButton = ({bsSize, className, onClick}) => (
   <button
-    aria-label="Close"
+    aria-label="Clear"
     className={cx('close', 'rbt-close', {
       'rbt-close-lg': bsSize === 'large' || bsSize === 'lg',
     }, className)}
@@ -19,7 +19,7 @@ const ClearButton = ({bsSize, className, onClick}) => (
     }}
     type="button">
     <span aria-hidden="true">&times;</span>
-    <span className="sr-only">Close</span>
+    <span className="sr-only">Clear</span>
   </button>
 );
 
