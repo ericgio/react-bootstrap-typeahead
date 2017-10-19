@@ -48,6 +48,7 @@ class HintedInput extends React.Component {
     return multiple ?
       null :
       <AutosizeInput
+        aria-hidden
         inputClassName="rbt-input-hint"
         inputStyle={{
           ...STYLES,
