@@ -6,10 +6,10 @@
 .travis.yml
 
 CONTRIBUTING.md
-ISSUE_TEMPLATE.md
 karma.conf.js
 tests.webpack.js
 
+.github/
 example/
 scripts/
 scss/
