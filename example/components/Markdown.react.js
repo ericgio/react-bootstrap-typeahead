@@ -13,7 +13,12 @@ class Markdown extends React.Component {
       smartLists: true,
       smartypants: false,
       highlight(code) {
-        return require('highlight.js').highlightAuto(code).value;
+        /* eslint-disable max-len */
+        const hljs = require('highlight.js/lib/highlight.js');
+        hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
+        hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
+        return hljs.highlightAuto(code).value;
+        /* eslint-enable max-len */
       },
     });
   }
