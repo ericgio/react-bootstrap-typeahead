@@ -98,11 +98,6 @@
   margin-top: 20px;
 }
 
-.bs-docs-page code {
-  background-color: #f9f2f4;
-  color: #c7254e;
-}
-
 .bs-docs-page .btn + .btn {
   margin-left: 5px;
 }
