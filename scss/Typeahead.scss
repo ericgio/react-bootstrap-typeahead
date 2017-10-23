@@ -64,6 +64,14 @@
     }
   }
 
+  &-close {
+    z-index: 1;
+
+    &-lg {
+      font-size: 24px;
+    }
+  }
+
   &-token {
     background-color: #e7f4ff;
     border: 0;
@@ -93,20 +101,17 @@
       text-decoration: none;
     }
 
-    &-close-button {
+    & &-remove-button {
       bottom: 0;
+      color: inherit;
+      font-size: inherit;
+      font-weight: normal;
+      opacity: 1;
       padding: 3px 7px;
       position: absolute;
       right: 0;
-      top: 0;
-    }
-  }
-
-  &-close {
-    z-index: 1;
-
-    &-lg {
-      font-size: 24px;
+      text-shadow: none;
+      top: -2px;
     }
   }
 

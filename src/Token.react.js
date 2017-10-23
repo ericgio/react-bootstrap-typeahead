@@ -3,6 +3,8 @@ import {noop} from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ClearButton from './ClearButton.react';
+
 import tokenContainer from './containers/tokenContainer';
 import {RETURN} from './constants/keyCode';
 
@@ -29,16 +31,12 @@ class Token extends React.Component {
           'rbt-token-active': active,
         }, className)}>
         {children}
-        <span
-          aria-label="Remove"
-          className="rbt-token-close-button"
+        <ClearButton
+          className="rbt-token-remove-button"
+          label="Remove"
           onClick={onRemove}
           onKeyDown={this._handleRemoveButtonKeydown}
-          role="button"
-          tabIndex={props.tabIndex}>
-          <span aria-hidden="true">&times;</span>
-          <span className="sr-only">Remove</span>
-        </span>
+        />
       </div>
     );
   }

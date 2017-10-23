@@ -30,7 +30,7 @@ describe('<Token>', () => {
     );
     const closeButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
-      'rbt-token-close-button'
+      'rbt-token-remove-button'
     );
 
     expect(tokenNode).to.exist;
