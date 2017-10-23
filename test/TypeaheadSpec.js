@@ -347,20 +347,35 @@ describe('<Typeahead>', () => {
     expect(LoaderNode).to.exist;
   });
 
-  it('displays a clear button when `clearButton=true` and there is a ' +
-     'selection', () => {
-    const instance = getTypeaheadInstance({
-      ...baseProps,
-      clearButton: true,
-      selected: states.slice(0, 1),
+  describe('clear button state', () => {
+    let instance, clearButtonNode;
+
+    beforeEach(() => {
+      instance = getTypeaheadInstance({
+        ...baseProps,
+        clearButton: true,
+        selected: states.slice(0, 1),
+      });
+
+      clearButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
+        instance,
+        'rbt-close'
+      );
     });
 
-    const ClearButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-close'
-    );
+    it('displays a clear button', () => {
+      expect(clearButtonNode).to.exist;
+    });
 
-    expect(ClearButtonNode).to.exist;
+    it('does not display a clear button when there are no selections', () => {
+      // Clear the selection
+      ReactTestUtils.Simulate.click(clearButtonNode);
+      const nodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+        instance,
+        'rbt-close'
+      );
+      expect(nodes.length).to.equal(0);
+    });
   });
 
   describe('updates when re-rendering with new props', () => {
