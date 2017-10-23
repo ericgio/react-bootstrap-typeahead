@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
-import getOptionLabel from './utils/getOptionLabel';
+import {getOptionLabel} from './utils/';
 
 const Highlighter = (props) => (
   <Highlight

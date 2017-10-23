@@ -2,7 +2,7 @@ import React from 'react';
 import {findDOMNode} from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
-import getDisplayName from '../utils/getDisplayName';
+import {getDisplayName} from '../utils/';
 import {BACKSPACE} from '../utils/keyCode';
 
 /**

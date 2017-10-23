@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
-import getDisplayName from '../utils/getDisplayName';
-import scrollIntoViewIfNeeded from '../utils/scrollIntoViewIfNeeded';
+import {getDisplayName, scrollIntoViewIfNeeded} from '../utils/';
 
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {

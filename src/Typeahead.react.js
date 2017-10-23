@@ -7,10 +7,8 @@ import Overlay from './Overlay.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import addCustomOption from './utils/addCustomOption';
-import getOptionLabel from './utils/getOptionLabel';
-import getTruncatedOptions from './utils/getTruncatedOptions';
 import typeaheadContainer from './containers/typeaheadContainer';
+import {addCustomOption, getOptionLabel, getTruncatedOptions} from './utils/';
 
 class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {

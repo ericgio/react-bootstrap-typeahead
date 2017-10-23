@@ -2,8 +2,7 @@ import {head} from 'lodash';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
-import getHintText from '../utils/getHintText';
-import getInputText from '../utils/getInputText';
+import {getHintText, getInputText} from '../utils/';
 
 import {BACKSPACE, RETURN, RIGHT, SPACE, TAB} from '../utils/keyCode';
 

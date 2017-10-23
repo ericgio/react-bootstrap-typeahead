@@ -4,15 +4,8 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import {deprecated} from 'prop-types-extra';
 
-import caseSensitiveType from '../propTypes/caseSensitiveType';
-import checkPropType from '../propTypes/checkPropType';
-import highlightOnlyResultType from '../propTypes/highlightOnlyResultType';
-import ignoreDiacriticsType from '../propTypes/ignoreDiacriticsType';
-import inputPropsType from '../propTypes/inputPropsType';
-import labelKeyType from '../propTypes/labelKeyType';
-
-import defaultFilterBy from '../utils/defaultFilterBy';
-import getOptionLabel from '../utils/getOptionLabel';
+import {caseSensitiveType, checkPropType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType} from '../propTypes/';
+import {defaultFilterBy, getOptionLabel} from '../utils/';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../utils/keyCode';
 

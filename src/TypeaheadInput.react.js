@@ -5,7 +5,7 @@ import React from 'react';
 import HintedInput from './HintedInput.react';
 import Token from './Token.react';
 
-import getOptionLabel from './utils/getOptionLabel';
+import {getOptionLabel} from './utils/';
 import typeaheadInputContainer from './containers/typeaheadInputContainer';
 
 class TypeaheadInput extends React.Component {
