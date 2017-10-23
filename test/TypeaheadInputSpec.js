@@ -8,7 +8,7 @@ import TypeaheadInput from '../src/TypeaheadInput';
 import {getInputNode} from './testUtils';
 
 import options from '../example/exampleData';
-import {RETURN, RIGHT, TAB} from '../src/utils/keyCode';
+import {RETURN, RIGHT, TAB} from '../src/constants/keyCode';
 
 const baseProps = {
   inputProps: {},

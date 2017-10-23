@@ -10,7 +10,7 @@ import TypeaheadInput from '../src/TypeaheadInput';
 import {focusTypeaheadInput, getInputNode, getMenuNode} from './testUtils';
 
 import states from '../example/exampleData';
-import {BACKSPACE, DOWN, RETURN} from '../src/utils/keyCode';
+import {BACKSPACE, DOWN, RETURN} from '../src/constants/keyCode';
 
 const bigData = range(0, 500).map((o) => o.toString());
 

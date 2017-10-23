@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import tokenContainer from './containers/tokenContainer';
-import {RETURN} from './utils/keyCode';
+import {RETURN} from './constants/keyCode';
 
 /**
  * Token

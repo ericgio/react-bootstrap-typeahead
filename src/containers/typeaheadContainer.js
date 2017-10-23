@@ -7,7 +7,7 @@ import {deprecated} from 'prop-types-extra';
 import {caseSensitiveType, checkPropType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType} from '../propTypes/';
 import {defaultFilterBy, getOptionLabel} from '../utils/';
 
-import {DOWN, ESC, RETURN, TAB, UP} from '../utils/keyCode';
+import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
 
 function getInitialState(props) {
   const {defaultSelected, maxResults, multiple} = props;

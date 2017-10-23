@@ -6,7 +6,6 @@ export getHintText from './getHintText';
 export getInputText from './getInputText';
 export getOptionLabel from './getOptionLabel';
 export getTruncatedOptions from './getTruncatedOptions';
-export keyCode from './keyCode';
 export scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
 export stripDiacritics from './stripDiacritics';
 export warn from './warn';

@@ -3,7 +3,7 @@ import {findDOMNode} from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
 import {getDisplayName} from '../utils/';
-import {BACKSPACE} from '../utils/keyCode';
+import {BACKSPACE} from '../constants/keyCode';
 
 /**
  * Higher-order component that encapsulates Token behaviors, allowing them to

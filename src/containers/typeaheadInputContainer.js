@@ -4,7 +4,7 @@ import {findDOMNode} from 'react-dom';
 
 import {getHintText, getInputText} from '../utils/';
 
-import {BACKSPACE, RETURN, RIGHT, SPACE, TAB} from '../utils/keyCode';
+import {BACKSPACE, RETURN, RIGHT, SPACE, TAB} from '../constants/keyCode';
 
 function typeaheadInputContainer(Input) {
   class WrappedInput extends React.Component {
