@@ -20,13 +20,13 @@ class Token extends React.Component {
   }
 
   _renderRemoveableToken = () => {
-    const {children, className, onRemove, selected, ...props} = this.props;
+    const {active, children, className, onRemove, ...props} = this.props;
 
     return (
       <div
         {...props}
         className={cx('rbt-token', 'rbt-token-removeable', {
-          'rbt-token-selected': selected,
+          'rbt-token-active': active,
         }, className)}>
         {children}
         <span
@@ -74,18 +74,18 @@ class Token extends React.Component {
 }
 
 Token.propTypes = {
+  active: PropTypes.bool,
   /**
    * Handler for removing/deleting the token. If not defined, the token will
    * be rendered in a read-only state.
    */
   onRemove: PropTypes.func,
-  selected: PropTypes.bool,
   tabIndex: PropTypes.number,
 };
 
 Token.defaultProps = {
+  active: false,
   onRemove: noop,
-  selected: false,
   tabIndex: 0,
 };
 

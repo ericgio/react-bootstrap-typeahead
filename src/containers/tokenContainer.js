@@ -1,5 +1,4 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
 import {getDisplayName} from '../utils/';
@@ -14,7 +13,7 @@ const tokenContainer = (Component) => {
     displayName = `tokenContainer(${getDisplayName(Component)})`;
 
     state = {
-      selected: false,
+      active: false,
     };
 
     render() {
@@ -33,27 +32,25 @@ const tokenContainer = (Component) => {
           {...tokenProps}
           {...this.state}
           onBlur={this._handleBlur}
-          onClick={this._handleSelect}
-          onFocus={this._handleSelect}
+          onClick={this._handleActive}
+          onFocus={this._handleActive}
           onKeyDown={this._handleKeyDown}
         />
       );
     }
 
     _handleBlur = (e) => {
-      findDOMNode(this).blur();
-      this.setState({selected: false});
-      this.props.disableOnClickOutside && this.props.disableOnClickOutside();
+      this.setState({active: false});
     }
 
     _handleKeyDown = (e) => {
       switch (e.keyCode) {
         case BACKSPACE:
-          if (this.state.selected) {
+          if (this.state.active) {
             // Prevent backspace keypress from triggering the browser "back"
             // action.
             e.preventDefault();
-            this._handleRemove();
+            this.props.onRemove();
           }
           break;
       }
@@ -66,14 +63,9 @@ const tokenContainer = (Component) => {
       this._handleBlur();
     }
 
-    _handleRemove = (e) => {
-      this.props.onRemove && this.props.onRemove();
-    }
-
-    _handleSelect = (e) => {
+    _handleActive = (e) => {
       e.stopPropagation();
-      this.setState({selected: true});
-      this.props.enableOnClickOutside && this.props.enableOnClickOutside();
+      this.setState({active: true});
     }
   }
 
