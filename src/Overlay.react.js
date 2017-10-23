@@ -3,8 +3,8 @@ import {isEqual} from 'lodash';
 import React, {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
-import Portal from 'react-overlays/lib/Portal';
-import componentOrElement from 'prop-types-extra/lib/componentOrElement';
+import {Portal} from 'react-overlays';
+import {componentOrElement} from 'prop-types-extra';
 
 const DROPUP_SPACING = -4;
 
