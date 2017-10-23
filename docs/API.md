@@ -16,7 +16,7 @@ The components and higher-order components (HOCs) described below are publicly e
 Only a subset of props are documented below, primarily those expecting functions. See the [props documentation](Props.md) for the full list of options.
 
 ### `<Typeahead>`
-The primary component provided by the module. 
+The primary component provided by the module.
 
 #### Props
 
@@ -27,7 +27,7 @@ See full documentation in the [Filtering section](Filtering.md#filterby).
 See full documentation in the [Rendering section](Rendering.md).
 
 ##### `onChange(selectedItems)`
-Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even multi-selection is not enabled.
+Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even if multi-selection is not enabled.
 
 ##### `onInputChange(text)`
 Invoked when the input value changes. Receives the string value of the input (`text`).
@@ -76,7 +76,7 @@ Provides the markup for a Bootstrap menu item, but is wrapped with the `menuItem
 The data item to be displayed.
 
 ##### `position`
-The position of the data item within the data set. This allows you to reorder or group your data within `renderMenu` while allowing the top-level `Typeahead`component to be be aware of this. Required for proper highlighting of menu items when keying through the menu.
+The position of the item as rendered in the menu. Allows the top-level `Typeahead`component to be be aware of the item's position despite any custom ordering or grouping in `renderMenu`. **Note:** The value must be a unique, zero-indexed, sequential integer for proper behavior when keying through the menu.
 
 ### `<Token>`
 Individual token component, most commonly for use within `renderToken` to customize the `Token` contents.
