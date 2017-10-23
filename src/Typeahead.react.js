@@ -132,6 +132,10 @@ class Typeahead extends React.Component {
           <ClearButton
             bsSize={bsSize}
             onClick={onClear}
+            onFocus={(e) => {
+              // Prevent the main input from auto-focusing again.
+              e.stopPropagation();
+            }}
           />
         </div>
       );
