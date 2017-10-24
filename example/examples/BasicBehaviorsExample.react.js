@@ -7,17 +7,13 @@ import options from '../../example/exampleData';
 
 /* example-start */
 class BasicBehaviorsExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      disabled: false,
-      dropup: false,
-      highlightOnlyResult: false,
-      minLength: 0,
-      selectHintOnEnter: false,
-    };
-  }
+  state = {
+    disabled: false,
+    dropup: false,
+    highlightOnlyResult: false,
+    minLength: 0,
+    selectHintOnEnter: false,
+  };
 
   render() {
     const {

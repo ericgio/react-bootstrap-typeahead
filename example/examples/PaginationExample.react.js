@@ -7,13 +7,9 @@ import {Typeahead} from '../../src/';
 /* eslint-disable no-console */
 /* example-start */
 class LabelKeyExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      paginate: true,
-    };
-  }
+  state = {
+    paginate: true,
+  };
 
   render() {
     const {paginate} = this.state;

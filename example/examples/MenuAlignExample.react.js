@@ -6,13 +6,9 @@ import options from '../../example/exampleData';
 
 /* example-start */
 class MenuAlignExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      align: 'justify',
-    };
-  }
+  state = {
+    align: 'justify',
+  };
 
   render() {
     const {align} = this.state;

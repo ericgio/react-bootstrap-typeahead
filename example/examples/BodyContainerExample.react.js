@@ -6,13 +6,10 @@ import options from '../../example/exampleData';
 
 /* example-start */
 class BodyContainerExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bodyContainer: true,
-      dropup: false,
-    };
-  }
+  state = {
+    bodyContainer: true,
+    dropup: false,
+  };
 
   render() {
     const {bodyContainer, dropup} = this.state;

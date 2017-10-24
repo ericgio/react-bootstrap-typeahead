@@ -6,13 +6,9 @@ import options from '../../example/exampleData';
 
 /* example-start */
 class BasicExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      multiple: false,
-    };
-  }
+  state = {
+    multiple: false,
+  };
 
   render() {
     const {multiple} = this.state;

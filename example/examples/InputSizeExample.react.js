@@ -6,13 +6,9 @@ import options from '../../example/exampleData';
 
 /* example-start */
 class InputSizeExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      bsSize: undefined,
-    };
-  }
+  state = {
+    bsSize: undefined,
+  };
 
   render() {
     const {bsSize} = this.state;

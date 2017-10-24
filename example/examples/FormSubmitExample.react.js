@@ -6,13 +6,9 @@ import options from '../../example/exampleData';
 
 /* example-start */
 class FormSubmitExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      submitFormOnEnter: true,
-    };
-  }
+  state = {
+    submitFormOnEnter: true,
+  };
 
   render() {
     const {submitFormOnEnter} = this.state;

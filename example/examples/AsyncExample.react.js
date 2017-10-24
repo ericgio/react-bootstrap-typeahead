@@ -9,16 +9,11 @@ require('es6-promise').polyfill();
 
 /* example-start */
 class AsyncExample extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      allowNew: false,
-      multiple: false,
-      options: [],
-    };
-  }
+  state = {
+    allowNew: false,
+    multiple: false,
+    options: [],
+  };
 
   render() {
     return (

@@ -6,13 +6,9 @@ import options from '../../example/exampleData';
 
 /* example-start */
 class CustomFilteringExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state ={
-      filterBy: 'callback',
-    };
-  }
+  state = {
+    filterBy: 'callback',
+  };
 
   render() {
     const {filterBy} = this.state;

@@ -12,13 +12,9 @@ const MenuHeader = (props) => <li {...props} className="dropdown-header" />;
 
 /* example-start */
 class RenderingExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedOption: 'renderMenu',
-    };
-  }
+  state = {
+    selectedOption: 'renderMenu',
+  };
 
   render() {
     const {selectedOption} = this.state;

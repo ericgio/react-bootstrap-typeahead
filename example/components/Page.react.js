@@ -10,12 +10,9 @@ import PageMenu from './PageMenu';
 import getIdFromTitle from '../util/getIdFromTitle';
 
 class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeHref: window.location.hash,
-    };
-  }
+  state = {
+    activeHref: window.location.hash,
+  };
 
   getChildContext() {
     return {

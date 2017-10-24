@@ -3,13 +3,9 @@ import React from 'react';
 import CodeSample from '../components/CodeSample';
 
 class ExampleSection extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false,
-    };
-  }
+  state = {
+    open: false,
+  };
 
   render() {
     const {children, code} = this.props;

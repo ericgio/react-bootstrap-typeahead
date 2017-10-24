@@ -33,14 +33,10 @@ const options = [
 
 /* example-start */
 class FilteringExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      caseSensitive: false,
-      ignoreDiacritics: true,
-    };
-  }
+  state = {
+    caseSensitive: false,
+    ignoreDiacritics: true,
+  };
 
   render() {
     const {caseSensitive, ignoreDiacritics} = this.state;
