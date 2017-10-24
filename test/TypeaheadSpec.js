@@ -658,14 +658,6 @@ describe('<Typeahead>', () => {
       expect(statusNode.innerHTML).to.contain('50 results');
     });
 
-    it('lists the active item when keying through results', () => {
-      ReactTestUtils.Simulate.keyDown(inputNode, {
-        keyCode: DOWN,
-        which: DOWN,
-      });
-      expect(statusNode.innerHTML).to.contain('Alabama');
-    });
-
     it('lists the number of selected items', () => {
       ReactTestUtils.Simulate.keyDown(inputNode, {
         keyCode: DOWN,

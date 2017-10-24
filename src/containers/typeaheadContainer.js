@@ -5,7 +5,7 @@ import React from 'react';
 import {deprecated} from 'prop-types-extra';
 
 import {caseSensitiveType, checkPropType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType} from '../propTypes/';
-import {defaultFilterBy, getOptionLabel} from '../utils/';
+import {defaultFilterBy, getOptionLabel, pluralize} from '../utils/';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
 
@@ -395,6 +395,16 @@ function typeaheadContainer(Typeahead) {
 
   WrappedTypeahead.propTypes = {
     /**
+     * For localized accessibility: Should return a string indicating the number
+     * of results for screen readers. Receives the current results.
+     */
+    a11yNumResults: PropTypes.func,
+    /**
+     * For localized accessibility: Should return a string indicating the number
+     * of selections for screen readers. Receives the current selections.
+     */
+    a11yNumSelected: PropTypes.func,
+    /**
      * Allows the creation of new selections on the fly. Note that any new items
      * will be added to the list of selections, but not the list of original
      * options unless handled as such by `Typeahead`'s parent.
@@ -429,6 +439,10 @@ function typeaheadContainer(Typeahead) {
      * Specify whether the menu should appear above the input.
      */
     dropup: PropTypes.bool,
+    /**
+     * Message to display in the menu if there are no valid results.
+     */
+    emptyLabel: PropTypes.string,
     /**
      * Either an array of fields in `option` to search, or a custom filtering
      * callback.
@@ -552,6 +566,13 @@ function typeaheadContainer(Typeahead) {
   };
 
   WrappedTypeahead.defaultProps = {
+    a11yNumResults: (results) => {
+      const resultString = pluralize('result', results.length);
+      return `${resultString}. Use up and down arrow keys to navigate.`;
+    },
+    a11yNumSelected: (selected) => {
+      return pluralize('selection', selected.length);
+    },
     allowNew: false,
     autoFocus: false,
     bodyContainer: false,
@@ -560,6 +581,7 @@ function typeaheadContainer(Typeahead) {
     defaultSelected: [],
     disabled: false,
     dropup: false,
+    emptyLabel: 'No matches found.',
     filterBy: [],
     highlightOnlyResult: false,
     ignoreDiacritics: true,

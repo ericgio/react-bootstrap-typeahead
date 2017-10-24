@@ -63,14 +63,18 @@ describe('<TypeaheadMenu>', () => {
   });
 
   it('renders an empty state when there are no results', () => {
-    const instance = getMenuInstance({options: []});
+    const emptyLabel = 'No matches found.';
+    const instance = getMenuInstance({
+      emptyLabel,
+      options: [],
+    });
     const menuItems = ReactTestUtils.scryRenderedComponentsWithType(
       instance,
       BaseMenuItem
     );
 
     expect(menuItems.length).to.equal(1);
-    expect(menuItems[0].props.children).to.equal('No matches found.');
+    expect(menuItems[0].props.children).to.equal(emptyLabel);
   });
 
   it('displays a paginator', () => {

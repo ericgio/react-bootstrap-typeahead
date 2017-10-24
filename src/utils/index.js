@@ -1,6 +1,7 @@
 /* eslint-disable object-curly-spacing */
 export addCustomOption from './addCustomOption';
 export defaultFilterBy from './defaultFilterBy';
+export getAccessibilityStatus from './getAccessibilityStatus';
 export getDisplayName from './getDisplayName';
 export getHintText from './getHintText';
 export getInputText from './getInputText';

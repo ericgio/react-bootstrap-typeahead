@@ -86,10 +86,6 @@ Menu.PropTypes = {
    */
   align: PropTypes.oneOf(['justify', 'left', 'right']),
   /**
-   * Message to display in the menu if there are no valid results.
-   */
-  emptyLabel: PropTypes.string,
-  /**
    * Maximum height of the dropdown menu, in px.
    */
   maxHeight: PropTypes.number,
@@ -101,7 +97,6 @@ Menu.PropTypes = {
 
 Menu.defaultProps = {
   align: 'justify',
-  emptyLabel: 'No matches found.',
   maxHeight: 300,
   paginate: true,
   paginationText: 'Display additional results...',

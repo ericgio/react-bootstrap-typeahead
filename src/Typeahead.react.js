@@ -8,7 +8,7 @@ import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import typeaheadContainer from './containers/typeaheadContainer';
-import {addCustomOption, getOptionLabel, getTruncatedOptions} from './utils/';
+import {addCustomOption, getAccessibilityStatus, getTruncatedOptions} from './utils/';
 
 class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -95,10 +95,11 @@ class Typeahead extends React.Component {
         {this._renderAux()}
         {this._renderMenu(results, shouldPaginate, menuVisible)}
         <div
+          aria-atomic={true}
           aria-live="polite"
           className="sr-only rbt-sr-status"
           role="status">
-          {this._renderAccessibilityStatus(results, menuVisible)}
+          {getAccessibilityStatus(results, menuVisible, this.props)}
         </div>
       </div>
     );
@@ -195,32 +196,6 @@ class Typeahead extends React.Component {
         {menu}
       </Overlay>
     );
-  }
-
-  _renderAccessibilityStatus = (results, menuVisible) => {
-    const {activeItem, emptyLabel, labelKey, selected} = this.props;
-
-    if (!menuVisible) {
-      return selected.length === 1 ?
-        '1 selection' :
-        `${selected.length} selections`;
-    }
-
-    // Let the user know which result is active when keying up and down.
-    if (activeItem) {
-      return getOptionLabel(activeItem, labelKey);
-    }
-
-    // Display info about the number of matches.
-    if (results.length === 0) {
-      return emptyLabel;
-    }
-
-    const resultString = results.length === 1 ?
-      '1 result' :
-      `${results.length} results`;
-
-    return `${resultString}. Use up and down arrow keys to navigate.`;
   }
 }
 
