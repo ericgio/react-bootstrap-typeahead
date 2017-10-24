@@ -21,6 +21,7 @@ class AsyncExample extends React.Component {
         <AsyncTypeahead
           {...this.state}
           labelKey="login"
+          minLength={1}
           onSearch={this._handleSearch}
           placeholder="Search for a Github user..."
           renderMenuItemChildren={this._renderMenuItemChildren}
@@ -73,9 +74,16 @@ class AsyncExample extends React.Component {
       return;
     }
 
-    fetch(`https://api.github.com/search/users?q=${query}`)
+    fetch(`https://api.github.com/search/users?q=${query}+in:login`)
       .then((resp) => resp.json())
-      .then((json) => this.setState({options: json.items}));
+      .then((json) => {
+        const options = json.items.map((i) => ({
+          avatar_url: i.avatar_url,
+          id: i.id,
+          login: i.login,
+        }));
+        this.setState({options});
+      });
   }
 }
 /* example-end */
