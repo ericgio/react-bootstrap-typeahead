@@ -36,6 +36,7 @@ class Token extends React.Component {
           label="Remove"
           onClick={onRemove}
           onKeyDown={this._handleRemoveButtonKeydown}
+          tabIndex={-1}
         />
       </div>
     );
