@@ -13,7 +13,7 @@ clearButton | boolean | false | Displays a button to clear the input when there 
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 dropup | boolean | false | Specify whether the menu should appear above the input.
-emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
+emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results. If this value is defined as an empty string no context menu will be displayed if no matches have been found.
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
