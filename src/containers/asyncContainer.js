@@ -13,13 +13,10 @@ const DEFAULT_DELAY_MS = 200;
  *  - Search prompt and empty results behaviors
  */
 const asyncContainer = (Typeahead) => {
-
   class Container extends React.Component {
-
     state = {
       hasSelection: false,
       query: '',
-      requestPending: false,
     };
 
     componentWillMount() {
@@ -32,17 +29,14 @@ const asyncContainer = (Typeahead) => {
 
     componentWillReceiveProps(nextProps) {
       const {options, useCache} = nextProps;
-      const {query, requestPending} = this.state;
 
-      if (!requestPending) {
+      if (!this.props.isLoading) {
         return;
       }
 
       if (useCache) {
-        this._cache[query] = options;
+        this._cache[this.state.query] = options;
       }
-
-      this.setState({requestPending: false});
     }
 
     componentWillUnmount() {
@@ -66,7 +60,6 @@ const asyncContainer = (Typeahead) => {
           {...props}
           allowNew={shouldAllowNew}
           emptyLabel={emptyLabel}
-          isLoading={this.state.requestPending}
           onChange={this._handleChange}
           onInputChange={this._handleInputChange}
           options={useCache && cachedQuery ? cachedQuery : options}
@@ -85,19 +78,20 @@ const asyncContainer = (Typeahead) => {
     _getEmptyLabel = () => {
       const {
         emptyLabel,
+        isLoading,
         multiple,
         promptText,
         searchText,
         useCache,
       } = this.props;
 
-      const {hasSelection, query, requestPending} = this.state;
+      const {hasSelection, query} = this.state;
 
       if (!query.length || (!multiple && hasSelection)) {
         return promptText;
       }
 
-      if (requestPending || (useCache && !this._cache[query])) {
+      if (isLoading || (useCache && !this._cache[query])) {
         return searchText;
       }
 
@@ -146,8 +140,8 @@ const asyncContainer = (Typeahead) => {
         return;
       }
 
-      // Perform the async search.
-      this.setState({requestPending: true}, () => onSearch(query));
+      // Perform the search.
+      onSearch(query);
     }
   }
 

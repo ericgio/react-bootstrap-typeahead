@@ -11,6 +11,7 @@ require('es6-promise').polyfill();
 class AsyncExample extends React.Component {
   state = {
     allowNew: false,
+    isLoading: false,
     multiple: false,
     options: [],
   };
@@ -21,7 +22,7 @@ class AsyncExample extends React.Component {
         <AsyncTypeahead
           {...this.state}
           labelKey="login"
-          minLength={1}
+          minLength={2}
           onSearch={this._handleSearch}
           placeholder="Search for a Github user..."
           renderMenuItemChildren={this._renderMenuItemChildren}
@@ -74,6 +75,8 @@ class AsyncExample extends React.Component {
       return;
     }
 
+    this.setState({isLoading: true});
+
     fetch(`https://api.github.com/search/users?q=${query}+in:login`)
       .then((resp) => resp.json())
       .then((json) => {
@@ -82,7 +85,10 @@ class AsyncExample extends React.Component {
           id: i.id,
           login: i.login,
         }));
-        this.setState({options});
+        this.setState({
+          isLoading: false,
+          options,
+        });
       });
   }
 }

@@ -10,7 +10,7 @@ const defaultProps = {
   onSearch() {},
 };
 
-export function getTypeaheadInstance(props) {
+function getTypeaheadInstance(props) {
   return TestUtils.renderIntoDocument(<AsyncTypeahead {...props} />);
 }
 
@@ -92,17 +92,18 @@ describe('<AsyncTypeahead>', () => {
 
     const instance = getTypeaheadInstance({
       ...defaultProps,
+      isLoading: true,
       onSearch: (query) => searchCount++,
     });
 
     // Initial search
     performSearch('search', instance, () => {
-      updateProps(instance, {options: []});
+      updateProps(instance, {isLoading: false, options: []});
       expect(searchCount).to.equal(1);
 
       // Second search
       performSearch('newSearch', instance, () => {
-        updateProps(instance, {options: []});
+        updateProps(instance, {isLoading: false, options: []});
         expect(searchCount).to.equal(2);
 
         // Perform the original search again.
@@ -119,13 +120,14 @@ describe('<AsyncTypeahead>', () => {
 
     const instance = getTypeaheadInstance({
       ...defaultProps,
+      isLoading: true,
       onSearch: (query) => searchCount++,
       useCache: false,
     });
 
     // Initial search
     performSearch('search', instance, () => {
-      updateProps(instance, {options: []});
+      updateProps(instance, {isLoading: false, options: []});
       expect(searchCount).to.equal(1);
 
       // Perform the search again.
