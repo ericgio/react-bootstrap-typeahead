@@ -151,6 +151,11 @@ const asyncContainer = (Typeahead) => {
      */
     delay: PropTypes.number,
     /**
+     * Whether or not a request is currently pending. Necessary for the
+     * container to know when new results are available.
+     */
+    isLoading: PropTypes.bool.isRequired,
+    /**
      * Callback to perform when the search is executed.
      */
     onSearch: PropTypes.func.isRequired,
@@ -175,6 +180,7 @@ const asyncContainer = (Typeahead) => {
 
   Container.defaultProps = {
     delay: DEFAULT_DELAY_MS,
+    isLoading: false,
     minLength: 2,
     options: [],
     promptText: 'Type to search...',
