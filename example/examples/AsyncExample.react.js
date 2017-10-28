@@ -1,11 +1,9 @@
-import fetch from 'isomorphic-fetch';
 import React from 'react';
 import {Checkbox} from 'react-bootstrap';
 
 import {AsyncTypeahead} from '../../src/';
-
-// Polyfill Promises for IE and older browsers.
-require('es6-promise').polyfill();
+import GithubMenuItem from '../components/GithubMenuItem.react';
+import makeAndHandleRequest from '../util/makeAndHandleRequest';
 
 /* example-start */
 class AsyncExample extends React.Component {
@@ -25,7 +23,9 @@ class AsyncExample extends React.Component {
           minLength={2}
           onSearch={this._handleSearch}
           placeholder="Search for a Github user..."
-          renderMenuItemChildren={this._renderMenuItemChildren}
+          renderMenuItemChildren={(option, props) => (
+            <GithubMenuItem key={option.id} user={option} />
+          )}
         />
         {this._renderCheckboxes()}
       </div>
@@ -49,42 +49,15 @@ class AsyncExample extends React.Component {
     ));
   }
 
-  _renderMenuItemChildren(option, props, index) {
-    return (
-      <div key={option.id}>
-        <img
-          src={option.avatar_url}
-          style={{
-            height: '24px',
-            marginRight: '10px',
-            width: '24px',
-          }}
-        />
-        <span>{option.login}</span>
-      </div>
-    );
-  }
-
   _handleChange = (e) => {
     const {checked, name} = e.target;
     this.setState({[name]: checked});
   }
 
   _handleSearch = (query) => {
-    if (!query) {
-      return;
-    }
-
     this.setState({isLoading: true});
-
-    fetch(`https://api.github.com/search/users?q=${query}+in:login`)
-      .then((resp) => resp.json())
-      .then((json) => {
-        const options = json.items.map((i) => ({
-          avatar_url: i.avatar_url,
-          id: i.id,
-          login: i.login,
-        }));
+    makeAndHandleRequest(query)
+      .then(({options}) => {
         this.setState({
           isLoading: false,
           options,
