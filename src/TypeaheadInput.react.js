@@ -36,6 +36,7 @@ class TypeaheadInput extends React.Component {
       name: name || this.props.inputProps.name,
       onBlur,
       onChange,
+      onClick: onFocus,
       onFocus,
       onKeyDown,
       placeholder,
