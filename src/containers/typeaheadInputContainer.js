@@ -15,10 +15,21 @@ function typeaheadInputContainer(Input) {
 
     componentDidUpdate(prevProps, prevState) {
       const inputNode = this.getInputNode();
+      const {text} = this.props;
       const {cursorPos} = this.state;
 
+      // If a selection was made, the cursor should go to the end.
       if (
-        inputNode.value === this.props.text &&
+        prevProps.selected.length === 0 &&
+        this.props.selected.length !== 0
+      ) {
+        inputNode.selectionStart = inputNode.selectionEnd = text.length;
+        this.setState({cursorPos: null});
+        return;
+      }
+
+      if (
+        inputNode.value === text &&
         cursorPos != null &&
         inputNode.selectionStart !== cursorPos
       ) {
@@ -108,14 +119,21 @@ function typeaheadInputContainer(Input) {
       } = this.props;
 
       const inputNode = e.target;
-      const cursorPos = inputNode.selectionStart;
+      const {selectionEnd, selectionStart} = inputNode;
       const value = getInputText(this.props);
 
       switch (e.keyCode) {
         case BACKSPACE:
           // Manage cursor state so it doesn't jump around.
           setTimeout(() => {
-            this.setState({cursorPos: cursorPos === 0 ? null : cursorPos - 1});
+            let cursorPos;
+            if (selectionStart !== selectionEnd) {
+              cursorPos = selectionStart;
+            } else {
+              cursorPos = selectionStart === 0 ? null : selectionStart - 1;
+            }
+
+            this.setState({cursorPos});
           }, 0);
 
           if (!multiple) {
@@ -155,7 +173,7 @@ function typeaheadInputContainer(Input) {
             !selected.length &&
             // The input cursor is at the end of the text string when the user
             // hits the right arrow key.
-            !(e.keyCode === RIGHT && cursorPos !== value.length) &&
+            !(e.keyCode === RIGHT && selectionStart !== value.length) &&
             !(e.keyCode === RETURN && !selectHintOnEnter)
           ) {
             e.preventDefault();
@@ -183,7 +201,7 @@ function typeaheadInputContainer(Input) {
             e.keyCode === SPACE
           ) {
             setTimeout(() => {
-              this.setState({cursorPos: cursorPos + 1});
+              this.setState({cursorPos: selectionStart + 1});
             }, 0);
           }
           break;
