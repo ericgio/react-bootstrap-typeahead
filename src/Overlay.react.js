@@ -78,6 +78,7 @@ class Overlay extends React.Component {
     child = cloneElement(child, {
       ...child.props,
       className: cx(child.props.className, IGNORE_CLICK_OUTSIDE),
+      ref: (menu) => this._menu = menu,
       style: this.state,
     });
 
@@ -107,7 +108,7 @@ class Overlay extends React.Component {
   _updatePosition = () => {
     const {align, dropup, target} = this.props;
 
-    const menuNode = this._portal.getOverlayDOMNode();
+    const menuNode = findDOMNode(this._menu);
     const targetNode = findDOMNode(target);
 
     if (menuNode && targetNode) {
