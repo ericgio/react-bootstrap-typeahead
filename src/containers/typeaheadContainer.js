@@ -25,7 +25,6 @@ function getInitialState(props) {
     activeIndex: -1,
     activeItem: null,
     initialItem: null,
-    isFocused: false,
     isOnlyResult: false,
     selected,
     showMenu: false,
@@ -87,7 +86,6 @@ function typeaheadContainer(Typeahead) {
         <Typeahead
           {...this.props}
           {...this.state}
-          onBlur={this._handleBlur}
           onClear={this.clear}
           onFocus={this._handleFocus}
           onInitialItemChange={this._handleInitialItemChange}
@@ -162,19 +160,9 @@ function typeaheadContainer(Typeahead) {
       this.setState({activeItem});
     }
 
-    _handleBlur = (e) => {
-      // Note: Don't hide the menu here, since that interferes with other
-      // actions like making a selection by clicking on a menu item.
-      this.props.onBlur(e);
-      this.setState({isFocused: false});
-    }
-
     _handleFocus = (e) => {
       this.props.onFocus(e);
-      this.setState({
-        isFocused: true,
-        showMenu: true,
-      });
+      this.setState({showMenu: true});
     }
 
     _handleInitialItemChange = (initialItem) => {
@@ -212,29 +200,6 @@ function typeaheadContainer(Typeahead) {
         // of the component has updated.
         this._updateText(text);
       });
-    }
-
-    _handleInputFocus = (e) => {
-      const isClearButton =
-        e &&
-        e.target &&
-        e.target.className &&
-        e.target.className.indexOf('rbt-close') !== -1;
-
-      // Don't focus the input if it's disabled or the clear button was clicked.
-      if (this.props.disabled || isClearButton) {
-        e.target.blur();
-        return;
-      }
-
-      // Move cursor to the end if the user clicks outside the actual input.
-      const inputNode = this._getInputNode();
-      if (e.target !== inputNode) {
-        inputNode.selectionStart = inputNode.value.length;
-      }
-
-      this.focus();
-      this.setState({isFocused: true});
     }
 
     _handleKeyDown = (options, e) => {

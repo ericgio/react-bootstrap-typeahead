@@ -1,8 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
 
-import ClearButton from './ClearButton.react';
-import Loader from './Loader.react';
 import Overlay from './Overlay.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
@@ -32,16 +30,12 @@ class Typeahead extends React.Component {
   render() {
     const {
       allowNew,
-      bsSize,
       className,
-      disabled,
       dropup,
       emptyLabel,
-      isFocused,
       labelKey,
       minLength,
       onInputChange,
-      onInputFocus,
       onKeyDown,
       onSelectionAdd,
       onSelectionRemove,
@@ -72,15 +66,7 @@ class Typeahead extends React.Component {
 
     return (
       <div
-        className={cx('rbt', 'open', 'form-control', {
-          'dropup': dropup,
-          'focus': isFocused,
-          'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
-          'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
-        }, className)}
-        disabled={disabled}
-        onClick={onInputFocus}
-        onFocus={onInputFocus}
+        className={cx('rbt', 'open', 'clearfix', {'dropup': dropup}, className)}
         style={{position: 'relative'}}
         tabIndex={-1}>
         <TypeaheadInput
@@ -92,7 +78,6 @@ class Typeahead extends React.Component {
           options={results}
           ref={(input) => this._input = input}
         />
-        {this._renderAux()}
         {this._renderMenu(results, shouldPaginate, menuVisible)}
         <div
           aria-atomic={true}
@@ -107,40 +92,6 @@ class Typeahead extends React.Component {
 
   getInputNode() {
     return this._input.getInputNode();
-  }
-
-  _renderAux = () => {
-    const {
-      bsSize,
-      clearButton,
-      disabled,
-      isLoading,
-      onClear,
-      selected,
-    } = this.props;
-
-    if (isLoading) {
-      return (
-        <div className="rbt-aux">
-          <Loader bsSize={bsSize} />
-        </div>
-      );
-    }
-
-    if (clearButton && !disabled && selected.length) {
-      return (
-        <div className="rbt-aux">
-          <ClearButton
-            bsSize={bsSize}
-            onClick={onClear}
-            onFocus={(e) => {
-              // Prevent the main input from auto-focusing again.
-              e.stopPropagation();
-            }}
-          />
-        </div>
-      );
-    }
   }
 
   _renderMenu = (results, shouldPaginate, menuVisible) => {

@@ -1,11 +1,8 @@
 @import 'mixins';
 
 .rbt {
-  @include display-flex();
-  cursor: text;
-  height: auto;
 
-  &.focus {
+  & .focus {
     /* Mimic focus state */
     @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6));
     border-color: #66afe9;
@@ -13,8 +10,6 @@
   }
 
   &-menu {
-    margin: 3px -1px 0;
-
     & > li a {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -29,10 +24,6 @@
     }
   }
 
-  &.dropup .rbt-menu {
-    margin-bottom: 3px;
-  }
-
   .dropdown-menu-justify {
     right: 0;
   }
@@ -44,17 +35,25 @@
 
 
   &-input {
-    @include flex(1);
+    @include display-flex();
+    cursor: text;
     overflow: hidden;
     position: relative;
+    height: auto;
 
     &-multi {
-      margin-bottom: -4px;
-      margin-top: -1px;
+      .rbt-input-wrapper {
+        margin-bottom: -4px;
+        margin-top: -1px;
+      }
+
+      .rbt-input-main {
+        margin: 1px 0 4px;
+      }
     }
 
-    &-multi .rbt-input-main {
-      margin: 1px 0 4px;
+    &-wrapper {
+      @include flex(1);
     }
 
     &-main,
@@ -107,6 +106,7 @@
       font-size: inherit;
       font-weight: normal;
       opacity: 1;
+      outline: none;
       padding: 3px 7px;
       position: absolute;
       right: 0;

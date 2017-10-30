@@ -10,6 +10,7 @@ function typeaheadInputContainer(Input) {
   class WrappedInput extends React.Component {
     state = {
       cursorPos: null,
+      isFocused: false,
     };
 
     componentDidUpdate(prevProps, prevState) {
@@ -39,7 +40,10 @@ function typeaheadInputContainer(Input) {
           {...this.state}
           hintText={getHintText(this.props)}
           inputRef={(input) => this._input = input}
+          onBlur={this._handleBlur}
           onChange={this._handleChange}
+          onContainerClickOrFocus={this._handleContainerClickOrFocus}
+          onFocus={this._handleFocus}
           onKeyDown={this._handleKeyDown}
           placeholder={selected.length ? null : placeholder}
           value={getInputText(this.props)}
@@ -49,6 +53,13 @@ function typeaheadInputContainer(Input) {
 
     getInputNode() {
       return this._input.getInput();
+    }
+
+    _handleBlur = (e) => {
+      // Note: Don't hide the menu here, since that interferes with other
+      // actions like making a selection by clicking on a menu item.
+      this.props.onBlur(e);
+      this.setState({isFocused: false});
     }
 
     _handleChange = (e) => {
@@ -62,11 +73,34 @@ function typeaheadInputContainer(Input) {
       onChange(e.target.value);
     }
 
+    _handleFocus = (e) => {
+      this.props.onFocus(e);
+      this.setState({isFocused: true});
+    }
+
+    /**
+     * Forward click or focus events on the container element to the input.
+     */
+    _handleContainerClickOrFocus = (e) => {
+      // Don't focus the input if it's disabled.
+      if (this.props.disabled) {
+        e.target.blur();
+        return;
+      }
+
+      // Move cursor to the end if the user clicks outside the actual input.
+      const inputNode = this.getInputNode();
+      if (e.target !== inputNode) {
+        inputNode.selectionStart = inputNode.value.length;
+      }
+
+      inputNode.focus();
+    }
+
     _handleKeyDown = (e) => {
       const {
         activeItem,
         initialItem,
-        isFocused,
         multiple,
         onAdd,
         selected,
@@ -115,7 +149,6 @@ function typeaheadInputContainer(Input) {
 
           // Autocomplete the selection if all of the following are true:
           if (
-            isFocused &&
             // There's a hint or a menu item is highlighted.
             (hintText || activeItem) &&
             // There's no current selection.
