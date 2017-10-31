@@ -1,6 +1,7 @@
 @import 'mixins';
 
 .rbt {
+  outline: none;
 
   & .focus {
     /* Mimic focus state */
