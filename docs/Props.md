@@ -15,7 +15,7 @@ clearButton | boolean | false | Displays a button to clear the input when there 
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 dropup | boolean | false | Specify whether the menu should appear above the input.
-emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results.
+emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results. Passing an empty string will hide the menu if no matches are found.
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
