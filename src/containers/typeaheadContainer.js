@@ -55,16 +55,32 @@ function typeaheadContainer(Typeahead) {
     }
 
     componentWillReceiveProps(nextProps) {
+      const inputValue = this._getInputNode().value;
       const {labelKey, multiple, selected} = nextProps;
 
       // If new selections are passed via props, treat as a controlled input.
       if (selected && !isEqual(selected, this.props.selected)) {
-        if (!multiple) {
-          this._updateText(
-            selected.length ? getOptionLabel(head(selected), labelKey) : ''
-          );
-        }
         this._updateSelected(selected);
+
+        if (multiple) {
+          return;
+        }
+
+        // Update the input text.
+        let text;
+        if (selected.length) {
+          // If a new selection has been passed in, display the label.
+          text = getOptionLabel(head(selected), labelKey);
+        } else if (this.state.text !== inputValue) {
+          // The input value was modified by the user, removing the selection.
+          // Set the input value as the new text.
+          text = inputValue;
+        } else {
+          // An empty array was passed.
+          text = '';
+        }
+
+        this._updateText(text);
       }
 
       // Truncate selections when in single-select mode.
@@ -193,13 +209,8 @@ function typeaheadContainer(Typeahead) {
         activeIndex,
         activeItem,
         showMenu: true,
-      }, () => {
-        // State isn't set until after `componentWillReceiveProps` in the React
-        // lifecycle. For the typeahead to behave correctly as a controlled
-        // component, we therefore have to update user-input text after the rest
-        // of the component has updated.
-        this._updateText(text);
       });
+      this._updateText(text);
     }
 
     _handleKeyDown = (options, e) => {

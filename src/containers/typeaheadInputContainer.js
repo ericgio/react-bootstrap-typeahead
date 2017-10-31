@@ -4,43 +4,13 @@ import {findDOMNode} from 'react-dom';
 
 import {getHintText, getInputText} from '../utils/';
 
-import {BACKSPACE, RETURN, RIGHT, SPACE, TAB} from '../constants/keyCode';
+import {BACKSPACE, RETURN, RIGHT, TAB} from '../constants/keyCode';
 
 function typeaheadInputContainer(Input) {
   class WrappedInput extends React.Component {
     state = {
-      cursorPos: null,
       isFocused: false,
     };
-
-    componentDidUpdate(prevProps, prevState) {
-      const inputNode = this.getInputNode();
-      const {text} = this.props;
-      const {cursorPos} = this.state;
-
-      // If a selection was made, the cursor should go to the end.
-      if (
-        prevProps.selected.length === 0 &&
-        this.props.selected.length !== 0
-      ) {
-        inputNode.selectionStart = inputNode.selectionEnd = text.length;
-        this.setState({cursorPos: null});
-        return;
-      }
-
-      if (
-        inputNode.value === text &&
-        cursorPos != null &&
-        inputNode.selectionStart !== cursorPos
-      ) {
-        inputNode.selectionStart = inputNode.selectionEnd = cursorPos;
-        this.setState({cursorPos: null});
-      }
-
-      if (cursorPos === 0) {
-        this.setState({cursorPos: null});
-      }
-    }
 
     render() {
       const {placeholder, selected} = this.props;
@@ -118,24 +88,10 @@ function typeaheadInputContainer(Input) {
         selectHintOnEnter,
       } = this.props;
 
-      const inputNode = e.target;
-      const {selectionEnd, selectionStart} = inputNode;
       const value = getInputText(this.props);
 
       switch (e.keyCode) {
         case BACKSPACE:
-          // Manage cursor state so it doesn't jump around.
-          setTimeout(() => {
-            let cursorPos;
-            if (selectionStart !== selectionEnd) {
-              cursorPos = selectionStart;
-            } else {
-              cursorPos = selectionStart === 0 ? null : selectionStart - 1;
-            }
-
-            this.setState({cursorPos});
-          }, 0);
-
           if (!multiple) {
             break;
           }
@@ -164,6 +120,7 @@ function typeaheadInputContainer(Input) {
           }
 
           const hintText = getHintText(this.props);
+          const {selectionStart} = e.target;
 
           // Autocomplete the selection if all of the following are true:
           if (
@@ -181,28 +138,6 @@ function typeaheadInputContainer(Input) {
             const selectedOption = hintText ? initialItem : activeItem;
 
             onAdd && onAdd(selectedOption);
-            this.setState({cursorPos: null});
-          }
-          break;
-        default:
-          // Handle typeable characters.
-          if (
-            // Numbers
-            (e.keyCode > 47 && e.keyCode < 58) ||
-            // Letters
-            (e.keyCode > 64 && e.keyCode < 91) ||
-            // Number pad
-            (e.keyCode > 95 && e.keyCode < 112) ||
-            // ;=,-./`
-            (e.keyCode > 185 && e.keyCode < 193) ||
-            // [\]'
-            (e.keyCode > 218 && e.keyCode < 223) ||
-            // Spacebar
-            e.keyCode === SPACE
-          ) {
-            setTimeout(() => {
-              this.setState({cursorPos: selectionStart + 1});
-            }, 0);
           }
           break;
       }
