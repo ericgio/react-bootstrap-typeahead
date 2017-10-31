@@ -15,14 +15,18 @@
 .bs-docs-nav .navbar-nav > li > a {
   color: #ddd;
   display: block;
+  font-weight: normal;
 }
 .bs-docs-nav .navbar-nav > li > a:focus,
 .bs-docs-nav .navbar-nav > li > a:hover,
 .bs-docs-nav .navbar-nav > .active > a,
 .bs-docs-nav .navbar-nav > .active > a:hover {
-  color: #fff;
-  background-color: #111;
+  background-color: inherit;
+  color: #61dafb;
   text-decoration: none;
+}
+.bs-docs-nav .navbar-nav > li > a:active {
+  background-color: #111;
 }
 
 .bs-docs-nav .navbar-brand {
