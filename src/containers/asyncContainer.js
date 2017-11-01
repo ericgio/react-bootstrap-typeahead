@@ -180,7 +180,6 @@ const asyncContainer = (Typeahead) => {
 
   Container.defaultProps = {
     delay: DEFAULT_DELAY_MS,
-    isLoading: false,
     minLength: 2,
     options: [],
     promptText: 'Type to search...',

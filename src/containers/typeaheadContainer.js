@@ -442,7 +442,7 @@ function typeaheadContainer(Typeahead) {
      */
     inputProps: checkPropType(PropTypes.object, inputPropsType),
     /**
-     * Indicate whether an asynchromous data fetch is happening.
+     * Indicate whether an asynchronous data fetch is happening.
      */
     isLoading: PropTypes.bool,
     /**
