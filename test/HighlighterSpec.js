@@ -54,4 +54,11 @@ describe('<Highlighter>', () => {
     expect(matches[0].innerHTML).to.equal('Cal');
   });
 
+  it('ignores diacritical marks', () => {
+    const matches = getMatches('Kraków', 'krako');
+
+    expect(matches.length).to.equal(1);
+    expect(matches[0].innerHTML).to.equal('Krakó');
+  });
+
 });
