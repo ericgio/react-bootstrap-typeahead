@@ -155,8 +155,11 @@
     }
   }
 
-  &-highlight {
-    pointer-events: none;
+  &-highlight-text {
+    background-color: inherit;
+    color: inherit;
+    font-weight: bold;
+    padding: 0;
   }
 }
 

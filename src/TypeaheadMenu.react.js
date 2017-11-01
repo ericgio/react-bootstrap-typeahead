@@ -1,20 +1,12 @@
 import {pick} from 'lodash';
-import Highlight from 'react-highlighter';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Highlighter from './Highlighter.react';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
 import {getOptionLabel} from './utils/';
-
-const Highlighter = (props) => (
-  <Highlight
-    {...props}
-    className="rbt-highlight"
-    matchClass="rbt-highlight-text"
-  />
-);
 
 class TypeaheadMenu extends React.Component {
   render() {
