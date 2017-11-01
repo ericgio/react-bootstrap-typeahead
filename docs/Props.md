@@ -20,6 +20,7 @@ filterBy | function or array | `[]` | Either an array of fields in `option` to s
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
 inputProps | object | {} | Props to be applied directly to the input. `onBlur`, `onChange`, `onFocus`, and `onKeyDown` are ignored.
+isLoading | boolean | false | Indicate whether an asynchronous data fetch is happening.
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
 maxHeight | number | 300 | Maximum height of the dropdown menu, in px.
 maxResults | number | 100 | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
@@ -50,6 +51,7 @@ submitFormOnEnter | boolean | false | Propagate <RETURN> event to parent form.
 Name | Type | Default | Description
 -----|------|---------|------------
 delay | number | 200 | Delay, in milliseconds, before performing search.
+isLoading `required` | boolean | | Whether or not a request is currently pending. Necessary for the component to know when new results are available.
 onSearch `required` | function | | Callback to perform when the search is executed.
 options | array | `[]` | Options to be passed to the typeahead. Will typically be the query results, but can also be initial default options.
 promptText | string | 'Type to search...' | Text displayed in the menu when there is no user input.
