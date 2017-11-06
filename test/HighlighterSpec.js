@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import React from 'react';
+import * as React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import ShallowRenderer from 'react-test-renderer/shallow';
 

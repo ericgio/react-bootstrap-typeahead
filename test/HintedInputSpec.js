@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {head, noop} from 'lodash';
-import React from 'react';
+import * as React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 
 import HintedInput from '../src/HintedInput';

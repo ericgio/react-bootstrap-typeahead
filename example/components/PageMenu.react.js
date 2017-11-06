@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {AutoAffix} from 'react-overlays';
 import {Nav} from 'reactstrap';
 

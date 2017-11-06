@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Waypoint from 'react-waypoint';
 
 const ScrollSpy = ({href, onBefore, onAfter}) => (

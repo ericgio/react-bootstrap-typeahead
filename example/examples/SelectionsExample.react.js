@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';

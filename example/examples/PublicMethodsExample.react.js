@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Button, ButtonToolbar} from 'reactstrap';
 
 import {Typeahead} from '../../src/';

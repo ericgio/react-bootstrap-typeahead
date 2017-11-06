@@ -1,5 +1,4 @@
-import React from 'react';
-import {Radio} from 'reactstrap';
+import * as React from 'react';
 
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';

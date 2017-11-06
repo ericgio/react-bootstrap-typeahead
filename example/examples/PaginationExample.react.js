@@ -1,6 +1,5 @@
 import {range} from 'lodash';
-import React from 'react';
-// import {Checkbox} from 'reactstrap';
+import * as React from 'react';
 
 import {Typeahead} from '../../src/';
 

@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import {noop} from 'lodash';
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import ClearButton from './ClearButton.react';

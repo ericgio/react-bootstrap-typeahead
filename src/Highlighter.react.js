@@ -1,6 +1,6 @@
 import escapeStringRegexp from 'escape-string-regexp';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
 import stripDiacritics from './utils/stripDiacritics';
 

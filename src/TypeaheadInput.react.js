@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
 import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample';

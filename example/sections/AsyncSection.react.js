@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import AsyncExample from '../examples/AsyncExample';
 import AsyncExampleCode from '!raw-loader!../examples/AsyncExample';

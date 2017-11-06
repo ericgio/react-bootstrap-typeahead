@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import PublicMethodsExample from '../examples/PublicMethodsExample';
 import PublicMethodsExampleCode from '!raw-loader!../examples/PublicMethodsExample';

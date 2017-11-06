@@ -1,5 +1,5 @@
-import React from 'react';
-import {Checkbox, FormGroup} from 'reactstrap';
+import * as React from 'react';
+import {FormGroup} from 'reactstrap';
 
 import {Typeahead} from '../../src/';
 

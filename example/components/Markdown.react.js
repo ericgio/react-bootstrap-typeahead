@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import marked from 'marked';
-import React from 'react';
+import * as React from 'react';
 
 class Markdown extends React.Component {
   componentWillMount() {

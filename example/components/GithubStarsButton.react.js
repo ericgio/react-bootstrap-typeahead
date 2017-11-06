@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {findDOMNode} from 'react-dom';
 
 const AUTHOR_REPO = 'ericgio/react-bootstrap-typeahead';

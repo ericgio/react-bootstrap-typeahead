@@ -1,6 +1,5 @@
 import {groupBy, map} from 'lodash';
-import React from 'react';
-import {Radio} from 'reactstrap';
+import * as React from 'react';
 
 import {Menu, MenuItem, Token, Typeahead} from '../../src/';
 import options from '../../example/exampleData';
