@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {head, range} from 'lodash';
-import React from 'react';
+import * as React from 'react';
 import {render} from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 

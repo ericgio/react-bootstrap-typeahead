@@ -1,5 +1,4 @@
-import React from 'react';
-import {Checkbox} from 'react-bootstrap';
+import * as React from 'react';
 
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
@@ -21,11 +20,11 @@ class BasicExample extends React.Component {
           options={options}
           placeholder="Choose a state..."
         />
-        <Checkbox
-          checked={multiple}
-          onChange={(e) => this.setState({multiple: e.target.checked})}>
-          Multi-Select
-        </Checkbox>
+        <label>Multi-Select</label>
+        <input checked={multiple}
+          onChange={(e) => this.setState({multiple: e.target.checked})}
+          type="checkbox"
+        />
       </div>
     );
   }

@@ -1,5 +1,5 @@
-import React from 'react';
-import {Checkbox, FormGroup} from 'react-bootstrap';
+import * as React from 'react';
+import {FormGroup} from 'reactstrap';
 
 import {Typeahead} from '../../src/';
 
@@ -35,42 +35,48 @@ class BasicBehaviorsExample extends React.Component {
           placeholder="Choose a state..."
         />
         <FormGroup>
-          <Checkbox
-            checked={disabled}
+          <input checked={disabled}
             name="disabled"
-            onChange={this._handleChange}>
+            onChange={this._handleChange}
+            type="checkbox"
+          />
             Disable
-          </Checkbox>
-          <Checkbox
-            checked={dropup}
+
+          <input checked={dropup}
             name="dropup"
-            onChange={this._handleChange}>
+            onChange={this._handleChange}
+            type="checkbox"
+          />
             Dropup menu
-          </Checkbox>
-          <Checkbox
-            checked={!!minLength}
+
+          <input checked={!!minLength}
             name="minLength"
-            onChange={this._handleChange}>
+            onChange={this._handleChange}
+            type="checkbox"
+          />
             Require minimum input before showing results (2 chars)
-          </Checkbox>
-          <Checkbox
-            checked={emptyLabel}
+
+          <input checked={emptyLabel}
             name="emptyLabel"
-            onChange={this._handleChange}>
+            onChange={this._handleChange}
+            type="checkbox"
+          />
             Hide the menu when there are no results
-          </Checkbox>
-          <Checkbox
-            checked={selectHintOnEnter}
+
+          <input checked={selectHintOnEnter}
             name="selectHintOnEnter"
-            onChange={this._handleChange}>
+            onChange={this._handleChange}
+            type="checkbox"
+          />
             Select the hinted result by pressing enter
-          </Checkbox>
-          <Checkbox
-            checked={highlightOnlyResult}
+
+          <input checked={highlightOnlyResult}
             name="highlightOnlyResult"
-            onChange={this._handleChange}>
+            onChange={this._handleChange}
+            type="checkbox"
+          />
             Highlight the only result
-          </Checkbox>
+
         </FormGroup>
       </div>
     );

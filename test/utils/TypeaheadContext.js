@@ -1,6 +1,6 @@
 import {noop} from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
 class TypeaheadContext extends React.Component {
   getChildContext() {

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rimraf css && rimraf dist && rimraf lib

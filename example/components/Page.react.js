@@ -1,6 +1,6 @@
 import React, {Children} from 'react';
 import PropTypes from 'prop-types';
-import {Col, Jumbotron, NavItem, Row} from 'react-bootstrap';
+import {Col, Jumbotron, NavItem, NavLink, Row} from 'reactstrap';
 
 import Container from './Container';
 import PageFooter from './PageFooter';
@@ -62,11 +62,12 @@ class Page extends React.Component {
   _renderMenuItem = (title, idx) => {
     const href = `#${getIdFromTitle(title)}`;
     return (
-      <NavItem
-        active={href === this.state.activeHref}
-        key={idx}
-        onClick={() => this._handleMenuItemClick(href)}>
-        {title}
+      <NavItem key={idx}>
+        <NavLink active={href === this.state.activeHref}
+          key={idx}
+          onClick={() => this._handleMenuItemClick(href)}>
+          {title}
+        </NavLink>
       </NavItem>
     );
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import LabelKeyExample from '../examples/LabelKeyExample';
 import LabelKeyExampleCode from '!raw-loader!../examples/LabelKeyExample';

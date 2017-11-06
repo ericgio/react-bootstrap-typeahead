@@ -1,7 +1,7 @@
 import {head, isEqual, noop} from 'lodash';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
-import React from 'react';
+import * as React from 'react';
 import {deprecated} from 'prop-types-extra';
 
 import {caseSensitiveType, checkPropType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType} from '../propTypes/';

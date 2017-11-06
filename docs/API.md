@@ -92,7 +92,7 @@ Connects individual menu items with the main typeahead component via context and
 If you use your own menu item components (in `renderMenu` for example), you are strongly advised to wrap them with this HOC:
 
 ```jsx
-import {MenuItem} from 'react-bootstrap';
+import {MenuItem} from 'reactstrap';
 import {Menu, menuItemContainer, Typeahead} from 'react-bootstrap-typeahead';
 
 const TypeaheadMenuItem = menuItemContainer(MenuItem);

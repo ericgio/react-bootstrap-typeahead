@@ -6,6 +6,7 @@
   "globals": {},
   "parser": "babel-eslint",
   "rules": {
-    "arrow-parens": [2, "always"],
+    "linebreak-style":"off",
+    "arrow-parens": [2, "always"]
   }
 }

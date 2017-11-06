@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import CustomFilteringExample from '../examples/CustomFilteringExample';
 import CustomFilteringExampleCode from '!raw-loader!../examples/CustomFilteringExample';

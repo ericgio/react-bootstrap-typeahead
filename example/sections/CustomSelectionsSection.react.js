@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import CustomSelectionsExample from '../examples/CustomSelectionsExample';
 import CustomSelectionsExampleCode from '!raw-loader!../examples/CustomSelectionsExample';

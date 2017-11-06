@@ -1,5 +1,5 @@
-import React from 'react';
-import {Checkbox} from 'react-bootstrap';
+import * as React from 'react';
+// import {Checkbox} from 'reactstrap';
 
 import {AsyncTypeahead} from '../../src/';
 import GithubMenuItem from '../components/GithubMenuItem.react';
@@ -39,13 +39,15 @@ class AsyncExample extends React.Component {
     ];
 
     return checkboxes.map(({label, name}) => (
-      <Checkbox
-        checked={this.state[name]}
-        key={name}
-        name={name}
-        onChange={this._handleChange}>
-        {label}
-      </Checkbox>
+      <span key={name}>
+        <input checked={this.state[name]}
+          key={name}
+          name={name}
+          onChange={this._handleChange}
+          type="checkbox"
+        />
+        <label>{label}</label>
+      </span>
     ));
   }
 

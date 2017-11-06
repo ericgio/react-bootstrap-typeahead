@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import {AsyncTypeahead} from '../../src/';
 import GithubMenuItem from '../components/GithubMenuItem.react';

@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, ButtonToolbar} from 'react-bootstrap';
+import * as React from 'react';
+import {Button, ButtonToolbar} from 'reactstrap';
 
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
