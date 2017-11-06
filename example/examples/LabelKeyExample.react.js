@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Typeahead} from '../../src/';
 
 /* example-start */
@@ -14,7 +14,7 @@ class LabelKeyExample extends React.Component {
           {firstName: 'Herbie', lastName: 'Hancock'},
           {firstName: 'Charlie', lastName: 'Parker'},
           {firstName: 'Tony', lastName: 'Williams'},
-        ]}
+        ]} 
         placeholder="Who's the coolest cat?"
       />
     );

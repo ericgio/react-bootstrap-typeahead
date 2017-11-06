@@ -1,6 +1,6 @@
 import {groupBy, map} from 'lodash';
 import React from 'react';
-import {Radio} from 'react-bootstrap';
+import {Radio} from 'reactstrap';
 
 import {Menu, MenuItem, Token, Typeahead} from '../../src/';
 import options from '../../example/exampleData';
@@ -47,13 +47,15 @@ class RenderingExample extends React.Component {
           placeholder="Choose a state..."
         />
         {radios.map(({label, value}) => (
-          <Radio
-            checked={selectedOption === value}
-            key={value}
-            onChange={(e) => this.setState({selectedOption: value})}
-            value={value}>
+          <span key={value}>
+            <input checked={selectedOption === value}
+              key={value}
+              onChange={(e) => this.setState({selectedOption: value})}
+              type="radio"
+              value={value}
+            />
             {label}
-          </Radio>
+          </span>
         ))}
       </div>
     );

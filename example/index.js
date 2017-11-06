@@ -13,6 +13,7 @@ import FilteringSection from './sections/FilteringSection';
 import PublicMethodsSection from './sections/PublicMethodsSection';
 import RenderingSection from './sections/RenderingSection';
 
+// import 'bootstrap/dist/css/bootstrap.css';
 import '../css/Typeahead.css';
 
 import './css/bs-docs-override.css';

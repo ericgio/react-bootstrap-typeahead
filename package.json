@@ -7,12 +7,12 @@
     "example": "example"
   },
   "scripts": {
-    "build": "./scripts/build.sh",
-    "cleanup": "./scripts/cleanup.sh",
-    "example": "./scripts/buildExample.sh",
+    "build": "node-sass scss/Typeahead.scss css/Typeahead.css --output-style expanded && webpack --config webpack/webpack.config.js && webpack --config webpack/webpack.config.prod.js && babel src --out-dir lib && webpack --config webpack/webpack.config.example.prod.js",
+    "cleanup": "rimraf css && rimraf dist && rimraf lib",
+    "example": "webpack -w --progress --colors --config webpack/webpack.config.example.js",
     "lint": "eslint .",
     "prepublishOnly": "npm run lint && npm test && npm run build",
-    "styles": "./scripts/buildStyles.sh",
+    "styles": "node-sass scss/Typeahead.scss css/Typeahead.css --watch --output-style expanded",
     "test": "karma start karma.conf.js"
   },
   "keywords": [
@@ -29,15 +29,18 @@
   "author": "ericgio",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
     "classnames": "^2.2.0",
     "escape-string-regexp": "^1.0.5",
     "invariant": "^2.2.1",
+    "jquery": "^3.2.1",
     "lodash": "^4.17.2",
     "prop-types": "^15.5.8",
     "prop-types-extra": "^1.0.1",
     "react-input-autosize": "^2.0.1",
     "react-onclickoutside": "^6.1.1",
     "react-overlays": "^0.8.1",
+    "reactstrap": "^5.0.0-alpha.3",
     "warning": "^3.0.0"
   },
   "peerDependencies": {
@@ -75,10 +78,10 @@
     "node-sass": "^4.5.3",
     "raw-loader": "^0.5.1",
     "react": "^16.0.0",
-    "react-bootstrap": "^0.31.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
     "react-waypoint": "^7.0.4",
+    "rimraf": "^2.6.2",
     "style-loader": "^0.19.0",
     "webpack": "^3.0.0"
   },

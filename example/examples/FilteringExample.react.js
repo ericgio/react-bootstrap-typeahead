@@ -1,5 +1,5 @@
 import React from 'react';
-import {Checkbox} from 'react-bootstrap';
+// import {Checkbox} from 'reactstrap';
 
 import {Typeahead} from '../../src/';
 
@@ -48,18 +48,22 @@ class FilteringExample extends React.Component {
           options={options}
           placeholder="Cities in Poland..."
         />
-        <Checkbox
-          checked={caseSensitive}
-          onChange={(e) => this.setState({caseSensitive: e.target.checked})}>
-          Case-sensitive filtering
-        </Checkbox>
-        <Checkbox
-          checked={!ignoreDiacritics}
-          onChange={(e) => {
-            this.setState({ignoreDiacritics: !e.target.checked});
-          }}>
-          Don't ignore diacritical marks
-        </Checkbox>
+        <span>
+          <input checked={caseSensitive}
+            onChange={(e) => this.setState({caseSensitive: e.target.checked})}
+            type="checkbox"
+          />
+          <label>Case-sensitive filtering</label>
+        </span>
+        <span>
+          <input checked={!ignoreDiacritics}
+            onChange={(e) => {
+              this.setState({ignoreDiacritics: !e.target.checked});
+            }}
+            type="checkbox"
+          />
+          <label>Don't ignore diacritical marks</label>
+        </span>
       </div>
     );
   }
