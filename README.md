@@ -6,12 +6,16 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 [![build status](https://img.shields.io/travis/ericgio/react-bootstrap-typeahead/master.svg?style=flat-square)](https://travis-ci.org/ericgio/react-bootstrap-typeahead)
 [![cdnjs](https://img.shields.io/cdnjs/v/react-bootstrap-typeahead.svg?style=flat-square)](https://cdnjs.com/libraries/react-bootstrap-typeahead)
 
-Please note that this library is under active development and the APIs may change. The documentation below applies to the most recent version and may no longer be applicable if you're using an outdated version.
+Please note that documentation and examples apply to the most recent release and may no longer be applicable if you're using an outdated version.
 
 ## Installation
-Use NPM to install the module:
+With NPM:
 ```
-$ npm install --save react-bootstrap-typeahead
+npm install --save react-bootstrap-typeahead
+```
+With Yarn:
+```
+yarn add react-bootstrap-typeahead
 ```
 
 Include the module in your project:
