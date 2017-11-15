@@ -1,7 +1,7 @@
 # Filtering
 By default, the component will filter results based on a case-insensitive string match between the input string and the `labelKey` property of each option (or the option itself, if an array of strings is passed). You can customize the filtering a few ways:
 
-### `caseSensitive`
+### `caseSensitive: Boolean` (default: `false`)
 Setting to `true` changes the string match to be, you guessed it, case-sensitive. Defaults to `false`.
 ```jsx
 <Typeahead
@@ -10,7 +10,7 @@ Setting to `true` changes the string match to be, you guessed it, case-sensitive
 />
 ```
 
-### `ignoreDiacritics`
+### `ignoreDiacritics: Boolean` (default: `true`)
 By default, the component ignores accents and other diacritical marks when performing string matches. Set this prop to `false` to override that setting and perform a strict match.
 ```jsx
 <Typeahead
@@ -19,7 +19,7 @@ By default, the component ignores accents and other diacritical marks when perfo
 />
 ```
 
-### `filterBy`
+### `filterBy: Array<String> | Function`
 The `filterBy` prop can be used in one of two ways: to specify `option` properties that should be searched or to pass a completely custom callback.
 
 #### Array
@@ -32,7 +32,7 @@ By default, the filtering algorithm only searches the field that corresponds to 
 ```
 The field corresponding to `labelKey` is always searched (once), whether or not you specify it.
 
-#### Callback (`filterBy(option, text)`)
+#### Function (`option: Object | String, text: String`)
 You can also pass your own callback to take complete control over how the filtering works. Note that the `caseSensitive` and `ignoreDiacritics` props will be ignored in this case, since you are now completely overriding the algorithm. The callback receives the option and the current input value as arguments.
 
 ```jsx
