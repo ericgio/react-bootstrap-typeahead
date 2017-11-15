@@ -5,45 +5,42 @@ The component will throw an error if any options are something other than a stri
 
 The following are valid data structures:
 
+### `Array<String>`
 ```jsx
-// Array of strings.
-var myData = [
+var options = [
   'John',
   'Miles',
   'Charles',
   'Herbie',
 ];
+```
 
-// Array of objects with default `labelKey`.
-var myData = [
+### `Array<Object>` (w/default `labelKey`)
+```jsx
+var options = [
   {id: 1, label: 'John'},
   {id: 2, label: 'Miles'},
   {id: 3, label: 'Charles'},
   {id: 4, label: 'Herbie'},
 ];
+```
 
-// Array of objects with custom `labelKey`.
-// The `labelKey` prop must be set to 'name' in this case.
-var myData = [
+### `Array<Object>` (w/custom `labelKey`)
+In this case, you would need to set `labelKey="name"` on the component.
+
+```jsx
+var options = [
   {id: 1, name: 'John'},
   {id: 2, name: 'Miles'},
   {id: 3, name: 'Charles'},
   {id: 4, name: 'Herbie'},
 ];
-
-// Mixed array of strings and objects.
-// Note: while valid, this is NOT recommended.
-var myData = [
-  'John',
-  'Miles',
-  {id: 3, label: 'Charles'},
-  'Herbie',
-];
 ```
-### Duplicate Data
+
+## Duplicate Data
 You may have unexpected results if your data contains duplicate options. For this reason, it is highly recommended that you pass in objects with unique identifiers (eg: an id) if possible.
 
-### Data Sources
+## Data Sources
 The component simply handles rendering and selection of the data that is passed in. It is agnostic about the data source, which should be handled separately. The [`AsyncTypeahead`](API.md#asynctypeahead) component is provided to help in cases where data is being fetched asynchronously from an endpoint.
 
 [Next: Filtering](Filtering.md)
