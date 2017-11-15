@@ -25,8 +25,8 @@ The component provides single-selection by default, but also supports multi-sele
 ### Controlled vs. Uncontrolled
 Like an `input`, the component can be [controlled](https://facebook.github.io/react/docs/forms.html#controlled-components) or [uncontrolled](https://facebook.github.io/react/docs/forms.html#uncontrolled-components). Use the `selected` prop to control it via the parent, or `defaultSelected` to optionally set defaults and then allow the component to control itself.
 
+#### Controlled (Recommended)
 ```jsx
-// Controlled
 <Typeahead
   onChange={(selected) => {
     this.setState({selected});
@@ -34,8 +34,10 @@ Like an `input`, the component can be [controlled](https://facebook.github.io/re
   options={[...]}
   selected={this.state.selected}
 />
+```
 
-// Uncontrolled
+#### Uncontrolled
+```jsx
 <Typeahead
   defaultSelected={[...]}
   onChange={(selected) => {
