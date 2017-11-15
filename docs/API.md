@@ -20,22 +20,25 @@ The primary component provided by the module.
 
 #### Props
 
-##### `filterBy`
+##### `filterBy: Array | Function`
 See full documentation in the [Filtering section](Filtering.md#filterby).
 
-##### `labelKey`, `renderMenu`, `renderMenuItemChildren`, and `renderToken`
-See full documentation in the [Rendering section](Rendering.md).
+##### `labelKey: String | Function`
+See full documentation in the [Rendering section](Rendering.md#labelkey).
 
-##### `onChange(selectedItems)`
+##### `renderMenu: Function`, `renderMenuItemChildren: Function`, and `renderToken: Function`
+See full documentation in the [Rendering section](Rendering.md#rendermenuresults-menuprops).
+
+##### `onChange(selected: Array<Object>)`
 Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even if multi-selection is not enabled.
 
-##### `onInputChange(text)`
+##### `onInputChange(text: String)`
 Invoked when the input value changes. Receives the string value of the input (`text`).
 
-##### `onPaginate(event)`
+##### `onPaginate(event: Event)`
 Invoked when the pagination menu item is clicked. Receives an event.
 
-##### `onBlur(event)` & `onFocus(event)`
+##### `onBlur(event: Event)` & `onFocus(event: Event)`
 As with a normal text input, these are called when the typeahead input is focused or blurred.
 
 ### `<AsyncTypeahead>`
@@ -43,11 +46,16 @@ An enhanced version of the normal `Typeahead` component for use when performing 
 
 ```jsx
 <AsyncTypeahead
-  onSearch={query => (
+  isLoading={this.state.isLoading}
+  onSearch={query => {
+    this.setState({isLoading: true});
     fetch(`https://api.github.com/search/users?q=${query}`)
       .then(resp => resp.json())
-      .then(json => this.setState({options: json.items}));
-  )}
+      .then(json => this.setState({
+        isLoading: false,
+        options: json.items,
+      }));
+  }}
   options={this.state.options}
 />
 ```
@@ -61,7 +69,10 @@ const AsyncTypeahead = asyncContainer(Typeahead);
 
 #### Props
 
-##### `onSearch(query)` (required)
+##### `isLoading: Boolean` (required)
+Whether or not an asynchronous request is in progress.
+
+##### `onSearch(query: String)` (required)
 Callback to perform when the search is executed. `query` is the text string entered by the user.
 
 ### `<Menu>`
@@ -72,11 +83,11 @@ Provides the markup for a Bootstrap menu item, but is wrapped with the `menuItem
 
 #### Props
 
-##### `option` (required)
+##### `option: Object` (required)
 The data item to be displayed.
 
-##### `position`
-The position of the item as rendered in the menu. Allows the top-level `Typeahead`component to be be aware of the item's position despite any custom ordering or grouping in `renderMenu`. **Note:** The value must be a unique, zero-indexed, sequential integer for proper behavior when keying through the menu.
+##### `position: Number`
+The position of the item as rendered in the menu. Allows the top-level `Typeahead`component to be be aware of the item's position despite any custom ordering or grouping in `renderMenu`. **Note:** The value must be a unique, zero-based, sequential integer for proper behavior when keying through the menu.
 
 ### `<Token>`
 Individual token component, most commonly for use within `renderToken` to customize the `Token` contents.
