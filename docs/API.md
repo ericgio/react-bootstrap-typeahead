@@ -20,7 +20,7 @@ The primary component provided by the module.
 
 #### Props
 
-##### `filterBy: Array | Function`
+##### `filterBy: Array<String> | Function`
 See full documentation in the [Filtering section](Filtering.md#filterby).
 
 ##### `labelKey: String | Function`
@@ -29,7 +29,7 @@ See full documentation in the [Rendering section](Rendering.md#labelkey).
 ##### `renderMenu: Function`, `renderMenuItemChildren: Function`, and `renderToken: Function`
 See full documentation in the [Rendering section](Rendering.md#rendermenuresults-menuprops).
 
-##### `onChange(selected: Array<Object>)`
+##### `onChange(selected: Array<Object | String>)`
 Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even if multi-selection is not enabled.
 
 ##### `onInputChange(text: String)`
