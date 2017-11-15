@@ -5,7 +5,7 @@ Version 2.0 consists mainly of internal refactoring aimed at reducing parallel c
 
 ### Breaking Changes
 #### `AsyncTypeahead`
-The `AsyncTypeahead` component now requires the request state to be managed externally. Use the `isLoading` prop to tell the component if a request is pending or not. See [the example](https://github.com/ericgio/react-bootstrap-typeahead/blob/2.0/example/examples/AsyncExample.react.js) for an illustration of proper usage.
+The `AsyncTypeahead` component now requires the request state to be managed externally. Use the `isLoading` prop to tell the component if a request is pending or not. See [the example](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/example/examples/AsyncExample.react.js) for an illustration of proper usage.
 
 #### CSS Changes
 In an effort to simplify the CSS and as a result of the refactor, class names for the various internal components were changed. This may cause styling to break if you relied on a certain naming scheme. The separate CSS files were also combined into a single file (`Typeahead.css`) to make it easier to include.
