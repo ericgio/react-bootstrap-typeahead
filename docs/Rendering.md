@@ -1,14 +1,14 @@
 # Rendering
 `react-bootstrap-typeahead` is intended to work with standard [Bootstrap](http://getbootstrap.com/) components and styles. It provides basic rendering for your data by default, but also allows for more advanced options should the need arise.
 
-### `labelKey`
+### `labelKey: String | Function`
 
 The `labelKey` prop specifies the string that will be used for searching and rendering options and selections. If set to a string (default), it will use that property of the data option. You can also pass in a function to do something like concatenate multiple data properties.
 
-#### String (default: `label`)
+#### String (default: `'label'`)
 Passing a string value specifies which property on your data object to use. If you pass an array of strings as your data, `labelKey` is ignored.
 
-#### Function
+#### Function `(option: Object | String)`
 Pass in a function to create a custom string without modifying your data. Note: the return value *must* be a string.
 
 ```jsx
@@ -25,7 +25,7 @@ Pass in a function to create a custom string without modifying your data. Note: 
 />
 ```
 
-### `renderMenu(results, menuProps)`
+### `renderMenu(results: Array<Object | String>, menuProps: Object)`
 Provides complete flexibility for rendering the typeahead's menu. `results` are the subset of options after they have been filtered and paginated. `menuProps` are any menu-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `Menu`.
 
 Along with stylistic customization, the `renderMenu` hook also allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or wrap your own menu item components with [`menuItemContainer`](API.md#menuitemcontainer) to ensure proper behavior.
@@ -47,7 +47,7 @@ Along with stylistic customization, the `renderMenu` hook also allows you to do 
 />
 ```
 
-### `renderMenuItemChildren(result, props)`
+### `renderMenuItemChildren(result: Object | String, props: Object)`
 Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
 
 ```jsx
@@ -59,7 +59,7 @@ Allows you to control the contents of a menu item. Your function will be passed 
 />
 ```
 
-### `renderToken(selectedItem, onRemove)`
+### `renderToken(selectedItem: Object | String, onRemove: Function)`
 Provides the ability to customize rendering of tokens when multiple selections are enabled. The first parameter is the current selected option in the loop, while the second parameter is the `onRemove` callback passed down by the main component. This callback is ignored if `multiple=false`.
 
 ```jsx
