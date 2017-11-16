@@ -1,15 +1,15 @@
-import {isFunction, some} from 'lodash';
+import {isEqual, isFunction, isString, some} from 'lodash';
 
 import stripDiacritics from './stripDiacritics';
 import warn from './warn';
 
-function isMatch(input, string, {caseSensitive, ignoreDiacritics}) {
-  if (!caseSensitive) {
+function isMatch(input, string, props) {
+  if (!props.caseSensitive) {
     input = input.toLowerCase();
     string = string.toLowerCase();
   }
 
-  if (ignoreDiacritics) {
+  if (props.ignoreDiacritics) {
     input = stripDiacritics(input);
     string = stripDiacritics(string);
   }
@@ -20,44 +20,41 @@ function isMatch(input, string, {caseSensitive, ignoreDiacritics}) {
 /**
  * Default algorithm for filtering results.
  */
-export default function defaultFilterBy(
-  option,
-  text,
-  labelKey,
-  isTokenized,
-  filterOptions
-) {
+export default function defaultFilterBy(option, state, props) {
+  const {selected, text} = state;
+  const {filterBy, labelKey, multiple} = props;
+
   // Don't show selected options in the menu for the multi-select case.
-  if (isTokenized) {
+  if (multiple && selected.some((o) => isEqual(o, option))) {
     return false;
   }
 
-  const fields = filterOptions.fields.slice();
+  const fields = filterBy.slice();
 
-  if (isFunction(labelKey) && isMatch(text, labelKey(option), filterOptions)) {
+  if (isFunction(labelKey) && isMatch(text, labelKey(option), props)) {
     return true;
   }
 
-  if (typeof labelKey === 'string') {
+  if (isString(labelKey)) {
     // Add the `labelKey` field to the list of fields if it isn't already there.
     if (fields.indexOf(labelKey) === -1) {
       fields.unshift(labelKey);
     }
   }
 
-  if (typeof option === 'string') {
+  if (isString(option)) {
     warn(
       fields.length <= 1,
       'You cannot filter by properties when `option` is a string.'
     );
 
-    return isMatch(text, option, filterOptions);
+    return isMatch(text, option, props);
   }
 
   return some(fields, (field) => {
     let value = option[field];
 
-    if (typeof value !== 'string') {
+    if (!isString(value)) {
       warn(
         false,
         'Fields passed to `filterBy` should have string values. Value will ' +
@@ -68,6 +65,6 @@ export default function defaultFilterBy(
       value = value + '';
     }
 
-    return isMatch(text, value, filterOptions);
+    return isMatch(text, value, props);
   });
 }

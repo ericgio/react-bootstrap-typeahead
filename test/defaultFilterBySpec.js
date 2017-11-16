@@ -3,28 +3,27 @@ import {expect} from 'chai';
 import defaultFilterBy from '../src/utils/defaultFilterBy';
 import states from '../example/exampleData';
 
-const labelKey = 'name';
-
-let filterOptions = {
-  caseSensitive: false,
-  ignoreDiacritics: true,
-  fields: [],
-};
-let isTokenized = false;
-let text = 'Ca';
-
-const optionsWithDiacritics = [
-  'Français',
-  'Español',
-];
-
 describe('defaultFilterBy', () => {
+  let options, props, state;
 
-  it('returns filtered results for an array of objects', () => {
-    const results = states.filter((state) => (
-      defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
-    ));
+  beforeEach(() => {
+    options = states;
+    props = {
+      caseSensitive: false,
+      filterBy: [],
+      ignoreDiacritics: true,
+      labelKey: 'name',
+      multiple: false,
+    };
 
+    state = {
+      selected: [],
+      text: 'Ca',
+    };
+  });
+
+  it('filters an array of objects', () => {
+    const results = options.filter((o) => defaultFilterBy(o, state, props));
     expect(results).to.deep.equal([
       /* eslint-disable max-len */
       {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
@@ -34,36 +33,41 @@ describe('defaultFilterBy', () => {
     ]);
   });
 
-  it('returns filtered results for an array of objects,' +
-    'when labelKey is a function', () => {
-    const labelKeyFunc = (o) => o.name;
-    const results = states.filter((state) => (
-      defaultFilterBy(state, text, labelKeyFunc, isTokenized, filterOptions)
-    ));
+  describe('when `labelKey` is a function', () => {
+    beforeEach(() => {
+      props = {...props, labelKey: (o) => o.name};
+    });
 
-    expect(results).to.deep.equal([
-      /* eslint-disable max-len */
-      {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
-      {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
-      {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
-      /* eslint-enable max-len */
-    ]);
+    it('returns a set of results', () => {
+      const results = options.filter((o) => defaultFilterBy(o, state, props));
+      expect(results).to.deep.equal([
+        /* eslint-disable max-len */
+        {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
+        {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
+        {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
+        /* eslint-enable max-len */
+      ]);
+    });
+
+    it('returns no results if the text doesn\'t find a match', () => {
+      state = {...state, text: 'zzz'};
+      const results = options.filter((o) => defaultFilterBy(o, state, props));
+      expect(results.length).to.equal(0);
+    });
   });
 
   it('returns case-sensitive filtered results', () => {
-    const options = {...filterOptions, caseSensitive: true};
-    const results = states.filter((state) => (
-      defaultFilterBy(state, 'alab', labelKey, isTokenized, options)
-    ));
+    props = {...props, caseSensitive: true};
+    state = {...state, text: 'alab'};
+    const results = options.filter((o) => defaultFilterBy(o, state, props));
 
     expect(results.length).to.equal(0);
   });
 
-  it('searches a set of fields and returns results', () => {
-    const options = {...filterOptions, fields: ['name', 'capital']};
-    const results = states.filter((state) => (
-      defaultFilterBy(state, 'sacr', labelKey, isTokenized, options)
-    ));
+  it('filters based on a set of fields and returns results', () => {
+    props = {...props, filterBy: ['name', 'capital']};
+    state = {...state, text: 'sacr'};
+    const results = options.filter((o) => defaultFilterBy(o, state, props));
 
     expect(results).to.deep.equal([
       /* eslint-disable max-len */
@@ -72,10 +76,10 @@ describe('defaultFilterBy', () => {
     ]);
   });
 
-  it('returns filtered results for an array of strings', () => {
-    const options = states.map((s) => s.name);
-    const results = options.filter((state) => (
-      defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
+  it('filters an array of strings', () => {
+    const stringOptions = options.map((o) => o.name);
+    const results = stringOptions.filter((o) => (
+      defaultFilterBy(o, state, props)
     ));
 
     expect(results).to.deep.equal([
@@ -86,69 +90,44 @@ describe('defaultFilterBy', () => {
   });
 
   it('returns no results if the text doesn\'t find a match', () => {
-    text = 'zzz';
-    const results = states.filter((state) => (
-      defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
-    ));
-    expect(results.length).to.equal(0);
-  });
-
-  it('returns no results if the text doesn\'t find a match', () => {
-    text = 'zzz';
-    const results = states.filter((state) => (
-      defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
-    ));
-    expect(results.length).to.equal(0);
-  });
-
-  it('returns no results if the text doesn\'t find a match,' +
-    'when labelKey is a function', () => {
-    const labelKeyFunc = (o) => o.name;
-    text = 'zzz';
-    const results = states.filter((state) => (
-      defaultFilterBy(state, text, labelKeyFunc, isTokenized, filterOptions)
-    ));
+    state = {...state, text: 'zzz'};
+    const results = options.filter((o) => defaultFilterBy(o, state, props));
     expect(results.length).to.equal(0);
   });
 
   it('returns the option if the text matches exactly', () => {
-    text = 'California';
-
-    const results = states.filter((state) => (
-      defaultFilterBy(state, text, labelKey, isTokenized, filterOptions)
-    ));
+    state = {...state, text: 'California'};
+    const results = options.filter((o) => defaultFilterBy(o, state, props));
 
     expect(results.length).to.equal(1);
-    expect(results[0][labelKey]).to.equal(text);
+    expect(results[0][props.labelKey]).to.equal(state.text);
   });
 
   it(
     'returns no results if `multiple=true` and the text only matches ' +
     'selected results', () => {
-      const results = states.filter((state) => (
-        defaultFilterBy(state, 'Alab', labelKey, true, filterOptions)
-      ));
-
+      props = {...props, multiple: true};
+      state = {...state, selected: [options[4]], text: 'cali'};
+      const results = options.filter((o) => defaultFilterBy(o, state, props));
       expect(results.length).to.equal(0);
     }
   );
 
-  it('ignores diacritical marks when filtering', () => {
-    const results = optionsWithDiacritics.filter((o) => (
-      defaultFilterBy(o, 'franc', labelKey, isTokenized, filterOptions)
-    ));
+  describe('behavior with diacritical marks', () => {
+    beforeEach(() => {
+      options = ['Español', 'Français'];
+      state = {...state, text: 'franc'};
+    });
 
-    expect(results).to.deep.equal(['Français']);
-  });
+    it('ignores diacritical marks when filtering', () => {
+      const results = options.filter((o) => defaultFilterBy(o, state, props));
+      expect(results).to.deep.equal(['Français']);
+    });
 
-  it('considers diacritical marks when filtering', () => {
-    const results = optionsWithDiacritics.filter((o) => (
-      defaultFilterBy(o, 'franc', labelKey, isTokenized, {
-        ...filterOptions,
-        ignoreDiacritics: false,
-      })
-    ));
-
-    expect(results.length).to.equal(0);
+    it('considers diacritical marks when filtering', () => {
+      props = {...props, ignoreDiacritics: false};
+      const results = options.filter((o) => defaultFilterBy(o, state, props));
+      expect(results.length).to.equal(0);
+    });
   });
 });

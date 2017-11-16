@@ -98,6 +98,18 @@ function typeaheadContainer(Typeahead) {
     }
 
     render() {
+      const {filterBy, minLength, options} = this.props;
+      const {text} = this.state;
+
+      let results = [];
+      if (text.length >= minLength) {
+        const callback = Array.isArray(filterBy) ?
+          (option) => defaultFilterBy(option, this.state, this.props) :
+          (option) => filterBy(option, text);
+
+        results = options.filter(callback);
+      }
+
       return (
         <Typeahead
           {...this.props}
@@ -113,39 +125,9 @@ function typeaheadContainer(Typeahead) {
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
           ref={(instance) => this._instance = instance}
-          results={this._getFilteredResults()}
+          results={results}
         />
       );
-    }
-
-    _getFilteredResults = () => {
-      const {
-        caseSensitive,
-        filterBy,
-        ignoreDiacritics,
-        labelKey,
-        minLength,
-        multiple,
-        options,
-      } = this.props;
-
-      const {selected, text} = this.state;
-
-      if (text.length < minLength) {
-        return [];
-      }
-
-      const callback = Array.isArray(filterBy) ?
-        (option) => defaultFilterBy(
-          option,
-          text,
-          labelKey,
-          multiple && selected.some((o) => isEqual(o, option)),
-          {caseSensitive, ignoreDiacritics, fields: filterBy}
-        ) :
-        (option) => filterBy(option, text);
-
-      return options.filter(callback);
     }
 
     blur = () => {
