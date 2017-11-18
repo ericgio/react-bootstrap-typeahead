@@ -127,7 +127,7 @@ describe('<Typeahead>', () => {
     expect(containerNode.className).to.not.contain('focus');
   });
 
-  describe('truncates the selections in single-select mode', () => {
+  describe('behaviors when selections are passed in', () => {
     let multiSelections, node, props, selected;
 
     beforeEach(() => {
@@ -141,7 +141,7 @@ describe('<Typeahead>', () => {
       render(<Typeahead {...props} />, node);
     });
 
-    it('when using `defaultSelected`', () => {
+    it('truncates selections when using `defaultSelected`', () => {
       const instance = getTypeaheadInstance({
         ...props,
         defaultSelected: multiSelections,
@@ -153,7 +153,7 @@ describe('<Typeahead>', () => {
       expect(selected.length).to.equal(0);
     });
 
-    it('when using `selected`', () => {
+    it('truncates selections when using `selected`', () => {
       const instance = getTypeaheadInstance({
         ...props,
         selected: multiSelections,
@@ -165,7 +165,7 @@ describe('<Typeahead>', () => {
       expect(selected.length).to.equal(0);
     });
 
-    it('when going from multi- to single-select', () => {
+    it('truncates selections when going from multi- to single-select', () => {
       render(
         <Typeahead {...props} multiple selected={multiSelections} />,
         node
@@ -174,6 +174,32 @@ describe('<Typeahead>', () => {
 
       render(<Typeahead {...props} selected={multiSelections} />, node);
       expect(selected).to.deep.equal(states.slice(0, 1));
+    });
+
+    it('filters menu options based on `selected` values', () => {
+      selected = states.slice(0, 1);
+      const instance = getTypeaheadInstance({...props, selected});
+
+      const inputNode = getInputNode(instance);
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = getMenuItems(instance);
+
+      expect(inputNode.value).to.equal(selected[0].name);
+      expect(menuItems.length).to.equal(1);
+    });
+
+    it('filters menu options based on `defaultSelected` values', () => {
+      const defaultSelected = states.slice(0, 1);
+      const instance = getTypeaheadInstance({...props, defaultSelected});
+
+      const inputNode = getInputNode(instance);
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = getMenuItems(instance);
+
+      expect(inputNode.value).to.equal(defaultSelected[0].name);
+      expect(menuItems.length).to.equal(1);
     });
   });
 

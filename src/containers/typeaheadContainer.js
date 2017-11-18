@@ -16,9 +16,16 @@ function getInitialState(props) {
     props.selected.slice() :
     defaultSelected.slice();
 
-  // Limit to 1 selection in single-select mode.
-  if (!multiple && selected.length > 1) {
-    selected = selected.slice(0, 1);
+  let text = '';
+
+  if (!multiple && selected.length) {
+    // Set the text if an initial selection is passed in.
+    text = getOptionLabel(head(selected), props.labelKey);
+
+    if (selected.length > 1) {
+      // Limit to 1 selection in single-select mode.
+      selected = selected.slice(0, 1);
+    }
   }
 
   return {
@@ -29,7 +36,7 @@ function getInitialState(props) {
     selected,
     showMenu: false,
     shownResults: maxResults,
-    text: '',
+    text,
   };
 }
 
