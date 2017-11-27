@@ -5,4 +5,5 @@ export highlightOnlyResultType from './highlightOnlyResultType';
 export ignoreDiacriticsType from './ignoreDiacriticsType';
 export inputPropsType from './inputPropsType';
 export labelKeyType from './labelKeyType';
+export optionType from './optionType';
 /* eslint-enable object-curly-spacing */

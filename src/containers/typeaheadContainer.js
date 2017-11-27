@@ -4,7 +4,7 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import {deprecated} from 'prop-types-extra';
 
-import {caseSensitiveType, checkPropType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType} from '../propTypes/';
+import {caseSensitiveType, checkPropType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
 import {defaultFilterBy, getOptionLabel, pluralize} from '../utils/';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
@@ -395,7 +395,7 @@ function typeaheadContainer(Typeahead) {
      * Specify any pre-selected options. Use only if you want the component to
      * be uncontrolled.
      */
-    defaultSelected: PropTypes.array,
+    defaultSelected: optionType,
     /**
      * Whether to disable the component.
      */
@@ -498,10 +498,7 @@ function typeaheadContainer(Typeahead) {
      * Full set of options, including pre-selected options. Must either be an
      * array of objects (recommended) or strings.
      */
-    options: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.object.isRequired),
-      PropTypes.arrayOf(PropTypes.string.isRequired),
-    ]).isRequired,
+    options: optionType.isRequired,
     /**
      * Give user the ability to display additional results if the number of
      * results exceeds `maxResults`.
@@ -519,7 +516,7 @@ function typeaheadContainer(Typeahead) {
      * The selected option(s) displayed in the input. Use this prop if you want
      * to control the component via its parent.
      */
-    selected: PropTypes.array,
+    selected: optionType,
     /**
      * Allows selecting the hinted result by pressing enter.
      */
