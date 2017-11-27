@@ -6,6 +6,7 @@ import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
 import {componentOrElement} from 'prop-types-extra';
 
+const BODY_CLASS = 'rbt-body-container';
 const DROPUP_SPACING = -4;
 
 // When appending the overlay to `document.body`, clicking on it will register
@@ -52,6 +53,12 @@ class Overlay extends React.Component {
       onMenuShow();
     }
 
+    // Remove scoping classes if menu isn't being appended to document body.
+    const {className, container} = this.props;
+    if (isBody(container) && !isBody(nextProps.container)) {
+      container.classList.remove(BODY_CLASS, className);
+    }
+
     this._updateThrottled();
   }
 
@@ -93,14 +100,13 @@ class Overlay extends React.Component {
     const {className, container, show} = this.props;
 
     // Positioning is only used when body is the container.
-    if (!(show && isBody(container) && this._mounted && this._portal)) {
+    if (!(show && isBody(container) && this._mounted)) {
       return;
     }
 
-    const mountNode = this._portal.getMountNode();
-    if (mountNode) {
-      mountNode.className = cx('rbt-body-container', className);
-    }
+    // Set a classname on the body for scoping purposes.
+    container.classList.add(BODY_CLASS);
+    container.classList.toggle(className, !!className);
 
     this._updatePosition();
   }
