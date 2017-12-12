@@ -21,13 +21,13 @@ The primary component provided by the module.
 #### Props
 
 ##### `filterBy: Array<String> | Function`
-See full documentation in the [Filtering section](Filtering.md#filterby).
+See full documentation in the [Filtering section](Filtering.md#filterby-arraystring--function).
 
 ##### `labelKey: String | Function`
-See full documentation in the [Rendering section](Rendering.md#labelkey).
+See full documentation in the [Rendering section](Rendering.md#labelkey-string--function).
 
 ##### `renderMenu: Function`, `renderMenuItemChildren: Function`, and `renderToken: Function`
-See full documentation in the [Rendering section](Rendering.md#rendermenuresults-menuprops).
+See full documentation in the [Rendering section](Rendering.md#rendermenuresults-arrayobject--string-menuprops-object).
 
 ##### `onChange(selected: Array<Object | String>)`
 Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selectedItems` is always an array of selections, even if multi-selection is not enabled.
