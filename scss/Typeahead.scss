@@ -55,6 +55,7 @@
 
     &-wrapper {
       @include flex(1);
+      overflow: hidden;
     }
 
     &-main,
