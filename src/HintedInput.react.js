@@ -12,8 +12,46 @@ const STYLES = {
   padding: 0,
 };
 
+// Shim around a standard input to normalize how props are applied.
+class StandardInput extends React.Component {
+  render() {
+    const {inputClassName, inputStyle, ...otherProps} = this.props;
+
+    return (
+      <input
+        {...otherProps}
+        className={inputClassName}
+        ref={(input) => this._input = input}
+        style={{
+          ...STYLES,
+          ...inputStyle,
+          width: '100%',
+        }}
+      />
+    );
+  }
+
+  // Mirror the AutosizeInput API for consistency.
+  getInput = () => {
+    return this._input;
+  }
+}
+
 class HintedInput extends React.Component {
   render() {
+    return (
+      <div
+        style={{
+          display: this.props.multiple ? 'inline-block' : 'block',
+          position: 'relative',
+        }}>
+        {this._renderInput()}
+        {this._renderHint()}
+      </div>
+    );
+  }
+
+  _renderInput = () => {
     const {
       className,
       hintText,
@@ -23,21 +61,21 @@ class HintedInput extends React.Component {
       ...props
     } = this.props;
 
+    // Render a standard input in the single-select case to address #278.
+    const InputComponent = multiple ? AutosizeInput : StandardInput;
+
     return (
-      <div style={{display: 'inline-block', position: 'relative'}}>
-        <AutosizeInput
-          {...props}
-          autoComplete="off"
-          inputClassName={cx('rbt-input-main', className)}
-          inputStyle={STYLES}
-          ref={inputRef}
-          style={{
-            position: 'relative',
-            zIndex: 1,
-          }}
-        />
-        {this._renderHint()}
-      </div>
+      <InputComponent
+        {...props}
+        autoComplete="off"
+        inputClassName={cx('rbt-input-main', className)}
+        inputStyle={STYLES}
+        ref={inputRef}
+        style={{
+          position: 'relative',
+          zIndex: 1,
+        }}
+      />
     );
   }
 
