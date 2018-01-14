@@ -5,6 +5,7 @@ export getAccessibilityStatus from './getAccessibilityStatus';
 export getDisplayName from './getDisplayName';
 export getHintText from './getHintText';
 export getInputText from './getInputText';
+export getMatchBounds from './getMatchBounds';
 export getOptionLabel from './getOptionLabel';
 export getTruncatedOptions from './getTruncatedOptions';
 export pluralize from './pluralize';
