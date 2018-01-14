@@ -6,7 +6,7 @@ const COMBINING_MARKS = /[\u0300-\u036F]/;
 
 export default function getMatchBounds(subject, search) {
   search = new RegExp(
-    escapeStringRegexp(search),
+    escapeStringRegexp(stripDiacritics(search)),
     CASE_INSENSITIVE
   );
 

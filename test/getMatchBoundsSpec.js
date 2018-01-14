@@ -3,37 +3,46 @@ import {getMatchBounds} from '../src/utils/';
 
 describe('getMatchBounds', () => {
   it('handles a normal string', () => {
-    const {end, start} = getMatchBounds('This is a string.', 'This is');
+    const bounds = getMatchBounds('This is a string.', 'This is');
 
-    expect(start).to.equal(0);
-    expect(end).to.equal(7);
+    expect(bounds).to.exist;
+    expect(bounds.start).to.equal(0);
+    expect(bounds.end).to.equal(7);
   });
 
   it('is case-insensitive', () => {
-    const {end, start} = getMatchBounds('This String Has Caps.', 'string has');
+    const bounds = getMatchBounds('This String Has Caps.', 'string has');
 
-    expect(start).to.equal(5);
-    expect(end).to.equal(15);
+    expect(bounds).to.exist;
+    expect(bounds.start).to.equal(5);
+    expect(bounds.end).to.equal(15);
   });
 
-  it('handles composed diacritical marks', () => {
-    const {end, start} = getMatchBounds(
-      'Schön ist, was schön lässt.',
-      'was schon'
-    );
+  it('handles diacritical marks in the search string', () => {
+    const bounds = getMatchBounds('Schön ist, was schön lässt.', 'schö');
 
-    expect(start).to.equal(11);
-    expect(end).to.equal(20);
+    expect(bounds).to.exist;
+    expect(bounds.start).to.equal(0);
+    expect(bounds.end).to.equal(4);
   });
 
-  it('handles combined diacritical marks', () => {
-    const {end, start} = getMatchBounds(
+  it('matches composed diacritical marks', () => {
+    const bounds = getMatchBounds('Schön ist, was schön lässt.', 'was schon');
+
+    expect(bounds).to.exist;
+    expect(bounds.start).to.equal(11);
+    expect(bounds.end).to.equal(20);
+  });
+
+  it('matches combined diacritical marks', () => {
+    const bounds = getMatchBounds(
       'Scho\u0308n ist, was scho\u0308n la\u0308sst.',
       'was schon'
     );
 
-    expect(start).to.equal(12);
-    expect(end).to.equal(22);
+    expect(bounds).to.exist;
+    expect(bounds.start).to.equal(12);
+    expect(bounds.end).to.equal(22);
   });
 
 });
