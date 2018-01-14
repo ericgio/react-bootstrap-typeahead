@@ -115,5 +115,7 @@ for (let ii=0; ii < map.length; ii++) {
 
 // "what?" version ... http://jsperf.com/diacritics/12
 export default function stripDiacritics(str) {
-  return str.replace(/[^\u0000-\u007E]/g, (a) => diacriticsMap[a] || a);
+  return str
+    .replace(/[\u0300-\u036F]/g, '') // Remove combining diacritics
+    .replace(/[^\u0000-\u007E]/g, (a) => diacriticsMap[a] || a);
 }
