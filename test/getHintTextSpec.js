@@ -57,4 +57,22 @@ describe('getHintText', () => {
     }
   );
 
+  it('handles string with composed diacritical marks', () => {
+    const hintText = getHintText({
+      ...props,
+      initialItem: 'Schön ist, was schön lässt.',
+      text: 'schon is',
+    });
+    expect(hintText).to.equal('schon ist, was schön lässt.');
+  });
+
+  it('handles string with combined diacritical marks', () => {
+    const hintText = getHintText({
+      ...props,
+      initialItem: 'Scho\u0308n ist, was scho\u0308n la\u0308sst.',
+      text: 'schon is',
+    });
+    expect(hintText).to.equal('schon ist, was scho\u0308n la\u0308sst.');
+  });
+
 });

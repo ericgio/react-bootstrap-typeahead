@@ -1,5 +1,5 @@
+import getMatchBounds from './getMatchBounds';
 import getOptionLabel from './getOptionLabel';
-import stripDiacritics from './stripDiacritics';
 
 function getHintText({
   activeItem,
@@ -28,22 +28,19 @@ function getHintText({
   }
 
   const initialItemStr = getOptionLabel(initialItem, labelKey);
+  const bounds = getMatchBounds(
+    initialItemStr.toLowerCase(),
+    text.toLowerCase()
+  );
 
-  if (
-    // The input text corresponds to the beginning of the first option.
-    // Always strip accents and convert to lower case, since the options are
-    // already filtered at this point.
-    stripDiacritics(initialItemStr.toLowerCase()).indexOf(
-      stripDiacritics(text.toLowerCase())
-    ) !== 0
-  ) {
+  if (!(bounds && bounds.start === 0)) {
     return '';
   }
 
   // Text matching is case- and accent-insensitive, so to display the hint
-  // correctly, splice the input text with the rest of the actual string.
+  // correctly, splice the input string with the hint string.
   return text + initialItemStr.slice(
-    text.length,
+    bounds.end,
     initialItemStr.length
   );
 }

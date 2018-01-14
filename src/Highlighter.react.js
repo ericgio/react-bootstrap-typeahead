@@ -1,18 +1,7 @@
-import escapeStringRegexp from 'escape-string-regexp';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import stripDiacritics from './utils/stripDiacritics';
-
-function getMatchBoundaries(subject, search) {
-  const matches = search.exec(stripDiacritics(subject));
-  if (matches) {
-    return {
-      first: matches.index,
-      last: matches.index + matches[0].length,
-    };
-  }
-}
+import {getMatchBounds} from './utils';
 
 /**
  * Stripped-down version of https://github.com/helior/react-highlighter
@@ -33,15 +22,12 @@ class Highlighter extends React.Component {
 
   _renderHighlightedChildren() {
     const children = [];
-    const search = new RegExp(
-      escapeStringRegexp(this.props.search),
-      'i' // Case-insensitive
-    );
-
     let remaining = this.props.children;
 
     while (remaining) {
-      if (!search.test(stripDiacritics(remaining))) {
+      const bounds = getMatchBounds(remaining, this.props.search);
+
+      if (!bounds) {
         this._count++;
         children.push(
           <span key={this._count}>
@@ -51,10 +37,8 @@ class Highlighter extends React.Component {
         return children;
       }
 
-      const boundaries = getMatchBoundaries(remaining, search);
-
       // Capture the string that leads up to a match...
-      const nonMatch = remaining.slice(0, boundaries.first);
+      const nonMatch = remaining.slice(0, bounds.start);
       if (nonMatch) {
         this._count++;
         children.push(
@@ -65,7 +49,7 @@ class Highlighter extends React.Component {
       }
 
       // Now, capture the matching string...
-      const match = remaining.slice(boundaries.first, boundaries.last);
+      const match = remaining.slice(bounds.start, bounds.end);
       if (match) {
         this._count++;
         children.push(
@@ -75,8 +59,8 @@ class Highlighter extends React.Component {
         );
       }
 
-      // And if there's anything left over, recursively run this method again.
-      remaining = remaining.slice(boundaries.last);
+      // And if there's anything left over, continue the loop.
+      remaining = remaining.slice(bounds.end);
     }
 
     return children;
