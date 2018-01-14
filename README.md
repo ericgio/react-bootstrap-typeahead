@@ -40,7 +40,7 @@ Minified and unminified UMD modules are also included in the NPM package, or you
 The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the module and should be included wherever you're using the component.
 
 ## Examples
-Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), which also include code samples. If you'd like to modify the examples, clone the repository, `npm install` and `npm run example` to build the example file. You can then open the HTML file locally in your browser.
+Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), which also include code samples. If you'd like to modify the examples, clone the repository and run `npm install` and `npm start` to build the example file. You can then open the HTML file locally in your browser.
 
 ## Browser Support
 Recent versions of the following browsers are supported:
