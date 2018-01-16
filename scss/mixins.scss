@@ -25,3 +25,21 @@
 	-ms-flex: $value;
 	flex: $value;
 }
+
+@mixin placeholder($placeholder-color) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $placeholder-color;
+    opacity: 1;
+  }
+
+  // Internet Explorer 10+
+  &:-ms-input-placeholder {
+    color: $placeholder-color;
+  }
+
+  // Safari and Chrome
+  &::-webkit-input-placeholder  {
+    color: $placeholder-color;
+  }
+}

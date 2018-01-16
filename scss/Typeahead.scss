@@ -10,6 +10,10 @@
     outline: 0;
   }
 
+  input {
+    @include placeholder(#999);
+  }
+
   &-menu {
     & > li a {
       overflow: hidden;
