@@ -3,13 +3,14 @@
 .rbt {
   outline: none;
 
+  // Apply Bootstrap focus styles
   & .focus {
-    /* Mimic focus state */
     @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6));
     border-color: #66afe9;
     outline: 0;
   }
 
+  // Apply Bootstrap placeholder styles
   input {
     @include placeholder(#999);
   }
@@ -33,8 +34,8 @@
     right: 0;
   }
 
+  // Hide IE's native "clear" button
   & input[type=text]::-ms-clear {
-    /* Hide IE's native "clear" button */
     display: none;
   }
 
@@ -64,7 +65,7 @@
 
     &-main,
     &-hint {
-      /* Set input height for cross-browser consistency */
+      // Set input height for cross-browser consistency
       height: 20px;
     }
   }
