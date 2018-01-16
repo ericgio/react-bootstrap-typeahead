@@ -9,11 +9,11 @@ React-based typeahead component that uses Bootstrap as a base for styles and beh
 Please note that documentation and examples apply to the most recent release and may no longer be applicable if you're using an outdated version.
 
 ## Installation
-With NPM:
+
 ```
 npm install --save react-bootstrap-typeahead
 ```
-With Yarn:
+or
 ```
 yarn add react-bootstrap-typeahead
 ```
@@ -24,7 +24,8 @@ import {Typeahead} from 'react-bootstrap-typeahead'; // ES2015
 var Typeahead = require('react-bootstrap-typeahead').Typeahead; // CommonJS
 ```
 
-Minified and unminified UMD modules are also included in the NPM package, or you can [get them from CDNJS](https://cdnjs.com/libraries/react-bootstrap-typeahead).
+#### UMD Build
+Development and production builds are included in the NPM package. Alternatively, you can get them from [CDNJS](https://cdnjs.com/libraries/react-bootstrap-typeahead) or [unpkg](https://unpkg.com/react-bootstrap-typeahead/).
 
 ## Documentation
 - [Basic Usage](docs/Usage.md)
@@ -37,7 +38,16 @@ Minified and unminified UMD modules are also included in the NPM package, or you
 - [Upgrade Guide](docs/Upgrading.md)
 
 ## CSS
-The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the module and should be included wherever you're using the component.
+The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the module and should be included wherever you're using the component:
+
+```
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+```
+or
+```
+<link rel="stylesheet" href="https://unpkg.com/react-bootstrap-typeahead/css/Typeahead.css">
+```
+
 
 ## Examples
 Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), which also include code samples. If you'd like to modify the examples, clone the repository and run `npm install` and `npm start` to build the example file. You can then open the HTML file locally in your browser.
