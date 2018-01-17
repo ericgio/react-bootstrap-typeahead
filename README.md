@@ -38,7 +38,7 @@ Development and production builds are included in the NPM package. Alternatively
 - [Upgrade Guide](docs/Upgrading.md)
 
 ## CSS
-The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the package and should be included wherever you're using the component:
+While the component relies primarily on Bootstrap for styles, some additional CSS is necessary for everything to behave correctly. You must include the provided CSS file in your project:
 
 ```js
 // Import as a module in your JS
