@@ -19,10 +19,10 @@ By default, the component ignores accents and other diacritical marks when perfo
 />
 ```
 
-### `filterBy: Array<String> | Function`
-The `filterBy` prop can be used in one of two ways: to specify `option` properties that should be searched or to pass a completely custom callback.
+### `filterBy`
+The `filterBy` prop can be used in one of two ways: to specify `option` properties that should be searched or to pass a custom callback.
 
-#### Array
+#### `Array<String>`
 By default, the filtering algorithm only searches the field that corresponds to `labelKey`. However, you can pass an array of additional fields to search:
 ```jsx
 <Typeahead
@@ -32,7 +32,7 @@ By default, the filtering algorithm only searches the field that corresponds to 
 ```
 The field corresponding to `labelKey` is always searched (once), whether or not you specify it.
 
-#### Function (`option: Object | String, text: String`)
+#### `Function(option: Object|String, text: String)`
 You can also pass your own callback to take complete control over how the filtering works. Note that the `caseSensitive` and `ignoreDiacritics` props will be ignored in this case, since you are now completely overriding the algorithm. The callback receives the option and the current input value as arguments.
 
 ```jsx
