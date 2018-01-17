@@ -38,13 +38,15 @@ Development and production builds are included in the NPM package. Alternatively
 - [Upgrade Guide](docs/Upgrading.md)
 
 ## CSS
-The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the module and should be included wherever you're using the component:
+The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. Some minimal CSS comes with the package and should be included wherever you're using the component:
 
-```
+```js
+// Import as a module in your JS
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 ```
 or
-```
+```html
+<!-- Link as a stylesheet in your HTML -->
 <link rel="stylesheet" href="https://unpkg.com/react-bootstrap-typeahead/css/Typeahead.css">
 ```
 
