@@ -2,6 +2,7 @@
 
 // Components
 export AsyncTypeahead from './AsyncTypeahead.react';
+export Highlighter from './Highlighter.react';
 export Menu from './Menu.react';
 export MenuItem from './MenuItem.react';
 export Token from './Token.react';

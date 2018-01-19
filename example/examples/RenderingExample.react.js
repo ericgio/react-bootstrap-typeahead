@@ -2,7 +2,7 @@ import {groupBy, map} from 'lodash';
 import React from 'react';
 import {Radio} from 'react-bootstrap';
 
-import {Menu, MenuItem, Token, Typeahead} from '../../src/';
+import {Highlighter, Menu, MenuItem, Token, Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
 const MenuDivider = (props) => (
@@ -71,7 +71,9 @@ class RenderingExample extends React.Component {
         map(grouped[region], (state) => {
           const item =
             <MenuItem key={idx} option={state} position={idx}>
-              {state.name}
+              <Highlighter search={menuProps.text}>
+                {state.name}
+              </Highlighter>
             </MenuItem>;
 
           idx++;
@@ -85,9 +87,13 @@ class RenderingExample extends React.Component {
 
   _renderMenuItemChildren(option, props, index) {
     return [
-      <strong key="name">{option.name}</strong>,
+      <Highlighter key="name" search={props.text}>
+        {option.name}
+      </Highlighter>,
       <div key="population">
-        Population: {option.population.toLocaleString()}
+        <small>
+          Population: {option.population.toLocaleString()}
+        </small>
       </div>,
     ];
   }
