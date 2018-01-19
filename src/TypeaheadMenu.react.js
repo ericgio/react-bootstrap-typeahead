@@ -55,15 +55,11 @@ class TypeaheadMenu extends React.Component {
       );
     }
 
-    return renderMenuItemChildren ?
+    return (
       <MenuItem {...menuItemProps}>
         {renderMenuItemChildren(option, this.props, idx)}
-      </MenuItem> :
-      <MenuItem {...menuItemProps}>
-        <Highlighter search={text}>
-          {getOptionLabel(option, labelKey)}
-        </Highlighter>
-      </MenuItem>;
+      </MenuItem>
+    );
   }
 }
 
@@ -91,6 +87,11 @@ TypeaheadMenu.propTypes = {
 
 TypeaheadMenu.defaultProps = {
   newSelectionPrefix: 'New selection: ',
+  renderMenuItemChildren: (option, props, idx) => (
+    <Highlighter search={props.text}>
+      {getOptionLabel(option, props.labelKey)}
+    </Highlighter>
+  ),
 };
 
 
