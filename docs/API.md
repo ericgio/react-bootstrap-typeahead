@@ -4,6 +4,7 @@ The components and higher-order components (HOCs) described below are publicly e
 - [Components](#components)
   - [`<Typeahead>`](#typeahead)
   - [`<AsyncTypeahead>`](#asynctypeahead)
+  - [`<Highlighter>`](#highlighter)
   - [`<Menu>`](#menu)
   - [`<MenuItem>`](#menuitem)
   - [`<Token>`](#token)
@@ -74,6 +75,25 @@ Whether or not an asynchronous request is in progress.
 
 ##### `onSearch(query: String)` (required)
 Callback to perform when the search is executed. `query` is the text string entered by the user.
+
+### `<Highlighter>`
+Component for highlighting substring matches in the menu items.
+
+#### Props
+
+##### `search: String` (required)
+The substring to look for. This value should correspond to the input text of the typeahead and can be obtained via the `onInputChange` prop or from the `text` property of props being passed down via `renderMenu` or `renderMenuItemChildren`.
+
+```jsx
+<Typeahead
+  ...
+  renderMenuItemChildren={(option, props, idx) => (
+    <Highlighter search={props.text}>
+      {option[props.labelKey]}
+    </Highlighter>
+  )}
+/>
+```
 
 ### `<Menu>`
 Provides the markup for a Bootstrap menu, along with some extra functionality for alignment, paginating results, and specifying empty label text.
