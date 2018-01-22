@@ -407,7 +407,7 @@ function typeaheadContainer(Typeahead) {
     /**
      * Message to display in the menu if there are no valid results.
      */
-    emptyLabel: PropTypes.string,
+    emptyLabel: PropTypes.node,
     /**
      * Either an array of fields in `option` to search, or a custom filtering
      * callback.

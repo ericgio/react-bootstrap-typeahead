@@ -61,7 +61,7 @@ class Typeahead extends React.Component {
     const menuVisible = !!(
       showMenu &&
       text.length >= minLength &&
-      (results.length || emptyLabel !== '')
+      (results.length || emptyLabel)
     );
 
     return (

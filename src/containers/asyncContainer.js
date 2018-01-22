@@ -165,13 +165,13 @@ const asyncContainer = (Typeahead) => {
      */
     options: PropTypes.array,
     /**
-     * Text displayed in the menu when there is no user input.
+     * Message displayed in the menu when there is no user input.
      */
-    promptText: PropTypes.string,
+    promptText: PropTypes.node,
     /**
-     * Text displayed in the menu while the request is pending.
+     * Message displayed in the menu while the request is pending.
      */
-    searchText: PropTypes.string,
+    searchText: PropTypes.node,
     /**
      * Whether or not the component should cache query results.
      */

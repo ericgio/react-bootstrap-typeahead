@@ -15,7 +15,7 @@ clearButton | boolean | false | Displays a button to clear the input when there 
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 dropup | boolean | false | Specify whether the menu should appear above the input.
-emptyLabel | string | 'No matches found.' | Message to display in the menu if there are no valid results. Passing an empty string will hide the menu if no matches are found.
+emptyLabel | node | 'No matches found.' | Message displayed in the menu when there are no valid results. Passing a falsy value will hide the menu if no matches are found.
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
@@ -54,8 +54,8 @@ delay | number | 200 | Delay, in milliseconds, before performing search.
 isLoading `required` | boolean | | Whether or not a request is currently pending. Necessary for the component to know when new results are available.
 onSearch `required` | function | | Callback to perform when the search is executed.
 options | array | `[]` | Options to be passed to the typeahead. Will typically be the query results, but can also be initial default options.
-promptText | string | 'Type to search...' | Text displayed in the menu when there is no user input.
-searchText | string | 'Searching...' | Text to display in the menu while the request is pending.
+promptText | node | 'Type to search...' | Message displayed in the menu when there is no user input.
+searchText | node | 'Searching...' | Message to display in the menu while the request is pending.
 useCache | bool | true | Whether or not the component should cache query results.
 
 [Next: API Reference](API.md)

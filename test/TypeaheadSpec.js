@@ -225,21 +225,33 @@ describe('<Typeahead>', () => {
     expect(menuNode.length).to.equal(0);
   });
 
-  it(
-    'should not display a menu when there are no results and ' +
-    '`emptyLabel=\'\'`',
-    () => {
-      const instance = getTypeaheadInstance({options: [], emptyLabel: ''});
+  describe('`emptyLabel` behavior', () => {
+    function scryMenu(emptyLabel) {
+      const instance = getTypeaheadInstance({
+        ...baseProps,
+        emptyLabel,
+        options: [],
+      });
+
       focusTypeaheadInput(instance);
 
-      const menuComponents = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+      return ReactTestUtils.scryRenderedDOMComponentsWithClass(
         instance,
         'rbt-menu'
       );
-
-      expect(menuComponents.length).to.equal(0);
     }
-  );
+
+    it('should not display a menu if `emptyLabel` is falsy', () => {
+      let menuNodes = scryMenu('');
+      expect(menuNodes.length).to.equal(0);
+
+      menuNodes = scryMenu(null);
+      expect(menuNodes.length).to.equal(0);
+
+      menuNodes = scryMenu(0);
+      expect(menuNodes.length).to.equal(0);
+    });
+  });
 
   it('should disable the input if the component is disabled', () => {
     const instance = getTypeaheadInstance({
