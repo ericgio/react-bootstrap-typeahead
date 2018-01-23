@@ -4,19 +4,19 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import {deprecated} from 'prop-types-extra';
 
-import {caseSensitiveType, checkPropType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
+import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
 import {defaultFilterBy, getOptionLabel, pluralize} from '../utils/';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
 
 function getInitialState(props) {
-  const {defaultSelected, maxResults, multiple} = props;
+  const {defaultInputValue, defaultSelected, maxResults, multiple} = props;
 
   let selected = props.selected ?
     props.selected.slice() :
     defaultSelected.slice();
 
-  let text = '';
+  let text = defaultInputValue;
 
   if (!multiple && selected.length) {
     // Set the text if an initial selection is passed in.
@@ -392,6 +392,10 @@ function typeaheadContainer(Typeahead) {
      */
     clearButton: PropTypes.bool,
     /**
+     * The initial value displayed in the text input.
+     */
+    defaultInputValue: checkPropType(PropTypes.string, defaultInputValueType),
+    /**
      * Specify any pre-selected options. Use only if you want the component to
      * be uncontrolled.
      */
@@ -540,6 +544,7 @@ function typeaheadContainer(Typeahead) {
     bodyContainer: false,
     caseSensitive: false,
     clearButton: false,
+    defaultInputValue: '',
     defaultSelected: [],
     disabled: false,
     dropup: false,

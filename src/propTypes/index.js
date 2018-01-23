@@ -1,6 +1,7 @@
 /* eslint-disable object-curly-spacing */
 export caseSensitiveType from './caseSensitiveType';
 export checkPropType from './checkPropType';
+export defaultInputValueType from './defaultInputValueType';
 export highlightOnlyResultType from './highlightOnlyResultType';
 export ignoreDiacriticsType from './ignoreDiacriticsType';
 export inputPropsType from './inputPropsType';

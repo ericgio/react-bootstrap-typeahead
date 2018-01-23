@@ -203,6 +203,52 @@ describe('<Typeahead>', () => {
     });
   });
 
+  describe('input value behaviors', () => {
+    let defaultInputValue, defaultSelected, selected;
+
+    beforeEach(() => {
+      defaultInputValue = 'This is a default value';
+      defaultSelected = selected = states.slice(0, 1);
+    });
+
+    it('sets a default initial input value', () => {
+      const inputNode = getInputNode(getTypeaheadInstance({
+        ...baseProps,
+        defaultInputValue,
+      }));
+
+      expect(inputNode.value).to.equal(defaultInputValue);
+    });
+
+    it('sets an input value based on the `selected` value', () => {
+      const inputNode = getInputNode(getTypeaheadInstance({
+        ...baseProps,
+        selected,
+      }));
+
+      expect(inputNode.value).to.equal(head(selected).name);
+    });
+
+    it('sets an input value based on the `defaultSelected` value', () => {
+      const inputNode = getInputNode(getTypeaheadInstance({
+        ...baseProps,
+        defaultSelected,
+      }));
+
+      expect(inputNode.value).to.equal(head(defaultSelected).name);
+    });
+
+    it('overrides the initial input value', () => {
+      const inputNode = getInputNode(getTypeaheadInstance({
+        ...baseProps,
+        defaultInputValue,
+        selected,
+      }));
+
+      expect(inputNode.value).to.equal(head(selected).name);
+    });
+  });
+
   it('should display a menu when the input is focused', () => {
     const instance = getTypeaheadInstance(baseProps);
     const menuNode = getMenuNode(instance);
