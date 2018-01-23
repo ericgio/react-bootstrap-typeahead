@@ -47,13 +47,13 @@ Along with stylistic customization, the `renderMenu` hook also allows you to do 
 />
 ```
 
-### `renderMenuItemChildren(result: Object|String, props: Object)`
+### `renderMenuItemChildren(option: Object|String, props: Object, idx: Number)`
 Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
 
 ```jsx
 <Typeahead
   options={options}
-  renderMenuItemChildren={(result, props) => {
+  renderMenuItemChildren={(option, props, idx) => {
     /* Render custom contents here. */
   }}
 />
