@@ -5,13 +5,8 @@ import React from 'react';
 class Markdown extends React.Component {
   componentWillMount() {
     marked.setOptions({
-      gfm: true,
-      tables: true,
       breaks: true,
-      pedantic: false,
-      sanitize: true,
-      smartLists: true,
-      smartypants: false,
+      gfm: true,
       highlight(code) {
         /* eslint-disable max-len */
         const hljs = require('highlight.js/lib/highlight.js');
@@ -20,6 +15,11 @@ class Markdown extends React.Component {
         return hljs.highlightAuto(code).value;
         /* eslint-enable max-len */
       },
+      pedantic: false,
+      sanitize: true,
+      smartLists: true,
+      smartypants: false,
+      tables: true,
     });
   }
 

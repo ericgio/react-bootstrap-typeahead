@@ -1,3 +1,5 @@
+/* eslint-disable sort-keys */
+
 var path = require('path');
 var webpackConfigBase = require('./webpack.config.base');
 

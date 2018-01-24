@@ -1,4 +1,5 @@
 /* eslint-env node */
+
 var webpackConfigBase = require('./webpack/webpack.config.base');
 
 module.exports = function(config) {
@@ -14,15 +15,13 @@ module.exports = function(config) {
         flags: ['--no-sandbox'],
       },
     },
+    files: ['tests.webpack.js'],
     frameworks: ['mocha', 'chai'],
-    singleRun: true,
-    files: [
-      'tests.webpack.js',
-    ],
     preprocessors: {
       'tests.webpack.js': ['webpack', 'sourcemap'],
     },
     reporters: ['dots'],
+    singleRun: true,
     webpack: Object.assign(webpackConfigBase, {
       devtool: 'inline-source-map',
     }),

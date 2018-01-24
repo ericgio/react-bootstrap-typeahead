@@ -120,9 +120,9 @@ class Typeahead extends React.Component {
       labelKey,
       maxHeight,
       newSelectionPrefix,
-      paginationText,
       onPaginate,
       paginate: shouldPaginate,
+      paginationText,
       text,
     };
 

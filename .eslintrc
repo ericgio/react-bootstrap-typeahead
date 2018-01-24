@@ -7,5 +7,6 @@
   "parser": "babel-eslint",
   "rules": {
     "arrow-parens": [2, "always"],
+    "sort-keys": [2, "asc", {"caseSensitive": false, "natural": true}],
   }
 }

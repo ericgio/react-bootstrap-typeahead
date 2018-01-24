@@ -144,8 +144,8 @@ describe('<AsyncTypeahead>', () => {
     const instance = getTypeaheadInstance({
       ...defaultProps,
       multiple: true,
-      options: ['one', 'two'],
       onSearch: (query) => searchCount++,
+      options: ['one', 'two'],
       selected: ['one'],
     });
     instance.state.hasSelection = true;

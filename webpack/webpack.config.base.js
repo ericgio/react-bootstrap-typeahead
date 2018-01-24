@@ -1,3 +1,5 @@
+/* eslint-disable sort-keys */
+
 module.exports = {
   module: {
     rules: [

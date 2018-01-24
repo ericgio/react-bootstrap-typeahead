@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len, sort-keys */
 export default [
   {name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South'},
   {name: 'Alaska', population: 710249, capital: 'Juneau', region: 'West'},

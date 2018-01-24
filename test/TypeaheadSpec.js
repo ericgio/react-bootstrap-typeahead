@@ -705,8 +705,8 @@ describe('<Typeahead>', () => {
     it('should not submit form when `submitFormOnEnter=false', () => {
       const instance = getFormWithTypeaheadInstance({
         ...baseProps,
-        submitFormOnEnter: false,
         onKeyDown,
+        submitFormOnEnter: false,
       });
       simulateFormSubmit(instance);
 
@@ -716,8 +716,8 @@ describe('<Typeahead>', () => {
     it('should submit form when `submitFormOnEnter=true', () => {
       const instance = getFormWithTypeaheadInstance({
         ...baseProps,
-        submitFormOnEnter: true,
         onKeyDown,
+        submitFormOnEnter: true,
       });
       simulateFormSubmit(instance);
 

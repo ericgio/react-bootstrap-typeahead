@@ -3,6 +3,14 @@ import {expect} from 'chai';
 import defaultFilterBy from '../src/utils/defaultFilterBy';
 import states from '../example/exampleData';
 
+const FILTERED_RESULTS = [
+  /* eslint-disable max-len, sort-keys */
+  {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
+  {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
+  {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
+  /* eslint-enable max-len, sort-keys */
+];
+
 describe('defaultFilterBy', () => {
   let options, props, state;
 
@@ -24,13 +32,7 @@ describe('defaultFilterBy', () => {
 
   it('filters an array of objects', () => {
     const results = options.filter((o) => defaultFilterBy(o, state, props));
-    expect(results).to.deep.equal([
-      /* eslint-disable max-len */
-      {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
-      {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
-      {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
-      /* eslint-enable max-len */
-    ]);
+    expect(results).to.deep.equal(FILTERED_RESULTS);
   });
 
   describe('when `labelKey` is a function', () => {
@@ -40,13 +42,7 @@ describe('defaultFilterBy', () => {
 
     it('returns a set of results', () => {
       const results = options.filter((o) => defaultFilterBy(o, state, props));
-      expect(results).to.deep.equal([
-        /* eslint-disable max-len */
-        {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
-        {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
-        {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
-        /* eslint-enable max-len */
-      ]);
+      expect(results).to.deep.equal(FILTERED_RESULTS);
     });
 
     it('returns no results if the text doesn\'t find a match', () => {
@@ -69,11 +65,7 @@ describe('defaultFilterBy', () => {
     state = {...state, text: 'sacr'};
     const results = options.filter((o) => defaultFilterBy(o, state, props));
 
-    expect(results).to.deep.equal([
-      /* eslint-disable max-len */
-      {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
-      /* eslint-enable max-len */
-    ]);
+    expect(results).to.deep.equal(FILTERED_RESULTS.slice(0, 1));
   });
 
   it('filters an array of strings', () => {

@@ -39,7 +39,7 @@ export default function getMatchBounds(subject, search) {
   }
 
   return {
-    start,
     end: start + matchLength,
+    start,
   };
 }
