@@ -1,8 +1,15 @@
-function getAccessibilityStatus(results, menuVisible, props) {
-  const {a11yNumResults, a11yNumSelected, emptyLabel, selected} = props;
+function getAccessibilityStatus(props) {
+  const {
+    a11yNumResults,
+    a11yNumSelected,
+    emptyLabel,
+    isMenuShown,
+    results,
+    selected,
+  } = props;
 
   // If the menu is hidden, display info about the number of selections.
-  if (!menuVisible) {
+  if (!isMenuShown) {
     return a11yNumSelected(selected);
   }
 

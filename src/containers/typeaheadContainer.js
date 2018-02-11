@@ -4,10 +4,9 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import {deprecated} from 'prop-types-extra';
 
+import typeaheadInnerContainer from './typeaheadInnerContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
-import {defaultFilterBy, getOptionLabel, pluralize} from '../utils/';
-
-import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
+import {addCustomOption, defaultFilterBy, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
 
 function getInitialState(props) {
   const {defaultInputValue, defaultSelected, maxResults, multiple} = props;
@@ -41,6 +40,8 @@ function getInitialState(props) {
 }
 
 function typeaheadContainer(Typeahead) {
+  Typeahead = typeaheadInnerContainer(Typeahead);
+
   class WrappedTypeahead extends React.Component {
     constructor(props) {
       super(props);
@@ -105,8 +106,17 @@ function typeaheadContainer(Typeahead) {
     }
 
     render() {
-      const {filterBy, minLength, options} = this.props;
-      const {text} = this.state;
+      const {
+        allowNew,
+        emptyLabel,
+        filterBy,
+        labelKey,
+        minLength,
+        options,
+        paginate,
+      } = this.props;
+
+      const {shownResults, showMenu, text} = this.state;
 
       let results = [];
       if (text.length >= minLength) {
@@ -117,21 +127,43 @@ function typeaheadContainer(Typeahead) {
         results = options.filter(callback);
       }
 
+      // This must come before results are truncated.
+      const shouldPaginate = paginate && results.length > shownResults;
+
+      // Truncate results if necessary.
+      results = getTruncatedOptions(results, shownResults);
+
+      // Add the custom option.
+      if (allowNew) {
+        results = addCustomOption(results, text, labelKey);
+      }
+
+      // This must come after the custom option is added, if applicable.
+      const isMenuShown = !!(
+        text.length >= minLength &&
+        showMenu &&
+        (results.length || emptyLabel)
+      );
+
       return (
         <Typeahead
           {...this.props}
           {...this.state}
+          inputRef={(input) => this._input = input}
+          isMenuShown={isMenuShown}
+          onActiveIndexChange={this._handleActiveIndexChange}
+          onActiveItemChange={this._handleActiveItemChange}
           onClear={this.clear}
           onFocus={this._handleFocus}
+          onHide={this._hideMenu}
           onInitialItemChange={this._handleInitialItemChange}
           onInputChange={this._handleInputChange}
           onInputFocus={this._handleInputFocus}
-          onKeyDown={this._handleKeyDown}
           onPaginate={this._handlePaginate}
           onResultsChange={this._handleResultsChange}
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
-          ref={(instance) => this._instance = instance}
+          paginate={shouldPaginate}
           results={results}
         />
       );
@@ -158,7 +190,11 @@ function typeaheadContainer(Typeahead) {
     }
 
     _getInputNode = () => {
-      return this._instance.getInputNode();
+      return this._input.getInputNode();
+    }
+
+    _handleActiveIndexChange = (activeIndex) => {
+      this.setState({activeIndex});
     }
 
     _handleActiveItemChange = (activeItem) => {
@@ -200,76 +236,6 @@ function typeaheadContainer(Typeahead) {
         showMenu: true,
       });
       this._updateText(text);
-    }
-
-    _handleKeyDown = (options, e) => {
-      const {activeItem, showMenu} = this.state;
-
-      switch (e.keyCode) {
-        case UP:
-        case DOWN:
-          // Don't cycle through the options if the menu is hidden.
-          if (!showMenu) {
-            break;
-          }
-
-          let {activeIndex} = this.state;
-
-          // Prevents input cursor from going to the beginning when pressing up.
-          e.preventDefault();
-
-          // Increment or decrement index based on user keystroke.
-          activeIndex += e.keyCode === UP ? -1 : 1;
-
-          // If we've reached the end, go back to the beginning or vice-versa.
-          if (activeIndex === options.length) {
-            activeIndex = -1;
-          } else if (activeIndex === -2) {
-            activeIndex = options.length - 1;
-          }
-
-          const newState = {activeIndex};
-          if (activeIndex === -1) {
-            // Reset the active item if there is no active index.
-            newState.activeItem = null;
-          }
-
-          this.setState(newState);
-          break;
-        case ESC:
-        case TAB:
-          // Prevent closing dialogs.
-          e.keyCode === ESC && e.preventDefault();
-
-          this._hideMenu();
-          break;
-        case RETURN:
-          if (!showMenu) {
-            break;
-          }
-
-          const {initialItem, isOnlyResult} = this.state;
-
-          // if menu is shown and we have active item
-          // there is no any sense to submit form on <RETURN>
-          if (!this.props.submitFormOnEnter || activeItem) {
-            // Prevent submitting forms.
-            e.preventDefault();
-          }
-
-          if (activeItem) {
-            this._handleSelectionAdd(activeItem);
-            break;
-          }
-
-          if (isOnlyResult) {
-            this._handleSelectionAdd(initialItem);
-            break;
-          }
-          break;
-      }
-
-      this.props.onKeyDown(e);
     }
 
     _handlePaginate = (e) => {

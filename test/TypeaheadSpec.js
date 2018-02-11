@@ -38,7 +38,8 @@ function getHintNode(instance) {
   return head(nodes);
 }
 
-function simulateTextChange(inputNode, value) {
+function simulateTextChange(instance, value) {
+  const inputNode = getInputNode(instance);
   inputNode.value = value;
   ReactTestUtils.Simulate.change(inputNode);
 }
@@ -147,8 +148,7 @@ describe('<Typeahead>', () => {
         defaultSelected: multiSelections,
       });
 
-      const inputNode = getInputNode(instance);
-      simulateTextChange(inputNode, BACKSPACE);
+      simulateTextChange(instance, BACKSPACE);
 
       expect(selected.length).to.equal(0);
     });
@@ -159,8 +159,7 @@ describe('<Typeahead>', () => {
         selected: multiSelections,
       });
 
-      const inputNode = getInputNode(instance);
-      simulateTextChange(inputNode, BACKSPACE);
+      simulateTextChange(instance, BACKSPACE);
 
       expect(selected.length).to.equal(0);
     });
@@ -249,26 +248,45 @@ describe('<Typeahead>', () => {
     });
   });
 
-  it('should display a menu when the input is focused', () => {
-    const instance = getTypeaheadInstance(baseProps);
-    const menuNode = getMenuNode(instance);
+  describe('menu visibility behavior', () => {
+    it('should display a menu when the input is focused', () => {
+      const instance = getTypeaheadInstance(baseProps);
+      const menuNode = getMenuNode(instance);
 
-    expect(menuNode).to.exist;
-  });
-
-  it('should not display a menu on focus when `minLength=1`', () => {
-    const instance = getTypeaheadInstance({
-      ...baseProps,
-      minLength: 1,
+      expect(menuNode).to.exist;
     });
-    focusTypeaheadInput(instance);
 
-    const menuNode = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-      instance,
-      'rbt-menu'
+    it('should not display a menu on focus when `minLength=1`', () => {
+      const instance = getTypeaheadInstance({
+        ...baseProps,
+        minLength: 1,
+      });
+      focusTypeaheadInput(instance);
+
+      const menuNode = ReactTestUtils.scryRenderedDOMComponentsWithClass(
+        instance,
+        'rbt-menu'
+      );
+
+      expect(menuNode.length).to.equal(0);
+    });
+
+    it(
+      'should display a menu when there are no results, `allowNew=true`, ' +
+      'and `emptyLabel` is falsy', () => {
+        const instance = getTypeaheadInstance({
+          ...baseProps,
+          allowNew: true,
+          emptyLabel: false,
+          options: [],
+        });
+
+        simulateTextChange(instance, 'xx');
+        const menuItems = getMenuItems(instance);
+
+        expect(menuItems.length).to.equal(1);
+      }
     );
-
-    expect(menuNode.length).to.equal(0);
   });
 
   describe('`emptyLabel` behavior', () => {
@@ -538,9 +556,9 @@ describe('<Typeahead>', () => {
 
     it('does not highlight the only result', () => {
       const instance = getTypeaheadInstance(props);
-
       const inputNode = getInputNode(instance);
-      simulateTextChange(inputNode, 'Alab');
+
+      simulateTextChange(instance, 'Alab');
       ReactTestUtils.Simulate.focus(inputNode);
 
       const menuItems = getMenuItems(instance);
@@ -557,9 +575,9 @@ describe('<Typeahead>', () => {
         ...props,
         highlightOnlyResult: true,
       });
-
       const inputNode = getInputNode(instance);
-      simulateTextChange(inputNode, 'Alab');
+
+      simulateTextChange(instance, 'Alab');
       ReactTestUtils.Simulate.focus(inputNode);
 
       const menuItems = getMenuItems(instance);
@@ -577,9 +595,9 @@ describe('<Typeahead>', () => {
         allowNew: true,
         highlightOnlyResult: true,
       });
-
       const inputNode = getInputNode(instance);
-      simulateTextChange(inputNode, 'qqq');
+
+      simulateTextChange(instance, 'qqq');
       ReactTestUtils.Simulate.focus(inputNode);
 
       const menuItems = getMenuItems(instance);
@@ -668,7 +686,7 @@ describe('<Typeahead>', () => {
       inputNode = getInputNode(instance);
       hintNode = getHintNode(instance);
 
-      simulateTextChange(inputNode, 'Ala');
+      simulateTextChange(instance, 'Ala');
     });
 
     it('does not display a hint when the input is not focused', () => {
