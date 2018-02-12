@@ -56,7 +56,8 @@ class Overlay extends React.Component {
     // Remove scoping classes if menu isn't being appended to document body.
     const {className, container} = this.props;
     if (isBody(container) && !isBody(nextProps.container)) {
-      container.classList.remove(BODY_CLASS, className);
+      container.classList.remove(BODY_CLASS);
+      !!className && container.classList.remove(...className.split(' '));
     }
 
     this._updateThrottled();
@@ -106,7 +107,7 @@ class Overlay extends React.Component {
 
     // Set a classname on the body for scoping purposes.
     container.classList.add(BODY_CLASS);
-    container.classList.toggle(className, !!className);
+    !!className && container.classList.add(...className.split(' '));
 
     this._updatePosition();
   }
