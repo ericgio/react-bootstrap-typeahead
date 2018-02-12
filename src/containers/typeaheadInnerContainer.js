@@ -9,20 +9,11 @@ import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
 function typeaheadInnerContainer(Typeahead) {
   class WrappedTypeahead extends React.Component {
     componentWillReceiveProps(nextProps) {
-      const {
-        allowNew,
-        onInitialItemChange,
-        onResultsChange,
-        results,
-      } = nextProps;
+      const {allowNew, onInitialItemChange, results} = nextProps;
 
       // Clear the initial item when there are no results.
       if (!(allowNew || results.length)) {
         onInitialItemChange(null);
-      }
-
-      if (results.length !== this.props.results.length) {
-        onResultsChange(results);
       }
     }
 
@@ -38,9 +29,7 @@ function typeaheadInnerContainer(Typeahead) {
     _handleKeyDown = (e) => {
       const {
         activeItem,
-        initialItem,
         isMenuShown,
-        isOnlyResult,
         onActiveIndexChange,
         onActiveItemChange,
         onHide,
@@ -105,11 +94,6 @@ function typeaheadInnerContainer(Typeahead) {
 
           if (activeItem) {
             onSelectionAdd(activeItem);
-            break;
-          }
-
-          if (isOnlyResult) {
-            onSelectionAdd(initialItem);
             break;
           }
           break;

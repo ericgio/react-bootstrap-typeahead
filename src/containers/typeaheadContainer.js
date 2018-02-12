@@ -1,9 +1,10 @@
-import {head, isEqual, noop} from 'lodash';
+import {flowRight, head, isEqual, noop} from 'lodash';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 import {deprecated} from 'prop-types-extra';
 
+import highlightOnlyResultContainer from './highlightOnlyResultContainer';
 import typeaheadInnerContainer from './typeaheadInnerContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
 import {addCustomOption, defaultFilterBy, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
@@ -31,7 +32,6 @@ function getInitialState(props) {
     activeIndex: -1,
     activeItem: null,
     initialItem: null,
-    isOnlyResult: false,
     selected,
     showMenu: false,
     shownResults: maxResults,
@@ -40,7 +40,11 @@ function getInitialState(props) {
 }
 
 function typeaheadContainer(Typeahead) {
-  Typeahead = typeaheadInnerContainer(Typeahead);
+  // Nested HOCs to encapsulate behaviors. In order from outer to inner.
+  Typeahead = flowRight(
+    highlightOnlyResultContainer,
+    typeaheadInnerContainer,
+  )(Typeahead);
 
   class WrappedTypeahead extends React.Component {
     constructor(props) {
@@ -51,7 +55,6 @@ function typeaheadContainer(Typeahead) {
     getChildContext() {
       return {
         activeIndex: this.state.activeIndex,
-        isOnlyResult: this.state.isOnlyResult,
         onActiveItemChange: this._handleActiveItemChange,
         onInitialItemChange: this._handleInitialItemChange,
         onMenuItemClick: this._handleSelectionAdd,
@@ -160,7 +163,6 @@ function typeaheadContainer(Typeahead) {
           onInputChange={this._handleInputChange}
           onInputFocus={this._handleInputFocus}
           onPaginate={this._handlePaginate}
-          onResultsChange={this._handleResultsChange}
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
           paginate={shouldPaginate}
@@ -243,15 +245,6 @@ function typeaheadContainer(Typeahead) {
 
       onPaginate(e);
       this.setState({shownResults: this.state.shownResults + maxResults});
-    }
-
-    _handleResultsChange = (results) => {
-      const {allowNew, highlightOnlyResult} = this.props;
-      if (!allowNew && highlightOnlyResult) {
-        this.setState({
-          isOnlyResult: results.length === 1 && !head(results).disabled,
-        });
-      }
     }
 
     _handleSelectionAdd = (selection) => {
@@ -542,7 +535,6 @@ function typeaheadContainer(Typeahead) {
 
   WrappedTypeahead.childContextTypes = {
     activeIndex: PropTypes.number.isRequired,
-    isOnlyResult: PropTypes.bool.isRequired,
     onActiveItemChange: PropTypes.func.isRequired,
     onInitialItemChange: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func.isRequired,
