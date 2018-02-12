@@ -95,6 +95,7 @@ class HintedInput extends React.Component {
         style={{
           bottom: 0,
           display: 'block',
+          pointerEvents: 'none',
           position: 'absolute',
           top: 0,
           zIndex: 0,
