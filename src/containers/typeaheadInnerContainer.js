@@ -66,6 +66,11 @@ function typeaheadInnerContainer(Typeahead) {
           // Increment or decrement index based on user keystroke.
           activeIndex += e.keyCode === UP ? -1 : 1;
 
+          // Skip over any disabled options.
+          while (results[activeIndex] && results[activeIndex].disabled) {
+            activeIndex += e.keyCode === UP ? -1 : 1;
+          }
+
           // If we've reached the end, go back to the beginning or vice-versa.
           if (activeIndex === results.length) {
             activeIndex = -1;

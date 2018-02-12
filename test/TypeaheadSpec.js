@@ -10,7 +10,7 @@ import TypeaheadInput from '../src/TypeaheadInput';
 import {focusTypeaheadInput, getInputNode, getMenuNode} from './testUtils';
 
 import states from '../example/exampleData';
-import {BACKSPACE, DOWN, RETURN} from '../src/constants/keyCode';
+import {BACKSPACE, DOWN, RETURN, UP} from '../src/constants/keyCode';
 
 const bigData = range(0, 500).map((o) => o.toString());
 
@@ -330,6 +330,45 @@ describe('<Typeahead>', () => {
     expect(input.props.disabled).to.be.true;
   });
 
+  it('should not highlight disabled options', () => {
+    let activeItem;
+
+    function cycleThroughMenuAndGetActiveItem(inputNode, direction) {
+      ReactTestUtils.Simulate.keyDown(inputNode, {
+        keyCode: direction,
+        which: direction,
+      });
+
+      return ReactTestUtils.findRenderedDOMComponentWithClass(
+        instance,
+        'dropdown-item active'
+      );
+    }
+
+    const options = [
+      {name: 'foo'},
+      {disabled: true, name: 'bar'},
+      {disabled: true, name: 'boo'},
+      {name: 'baz'},
+    ];
+    const instance = getTypeaheadInstance({...baseProps, options});
+    const inputNode = getInputNode(instance);
+
+    ReactTestUtils.Simulate.focus(inputNode);
+
+    // Cycling down should activate the first option.
+    activeItem = cycleThroughMenuAndGetActiveItem(inputNode, DOWN);
+    expect(activeItem.innerText).to.equal(options[0].name);
+
+    // Cycling down should skip the two disabled option.
+    activeItem = cycleThroughMenuAndGetActiveItem(inputNode, DOWN);
+    expect(activeItem.innerText).to.equal(options[3].name);
+
+    // Cycling back up should again skip the two disabled option.
+    activeItem = cycleThroughMenuAndGetActiveItem(inputNode, UP);
+    expect(activeItem.innerText).to.equal(options[0].name);
+  });
+
   it('should have a menu item for pagination', () => {
     let didPaginate = false;
     const onPaginate = () => didPaginate = true;
@@ -604,6 +643,31 @@ describe('<Typeahead>', () => {
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.equal('');
+
+      simulateEnter(inputNode);
+      expect(selected.length).to.equal(0);
+    });
+
+    it('does not highlight or select a disabled result', () => {
+      const instance = getTypeaheadInstance({
+        ...props,
+        highlightOnlyResult: true,
+        options: [
+          {name: 'foo'},
+          {disabled: true, name: 'bar'},
+          {disabled: true, name: 'boo'},
+          {name: 'baz'},
+        ],
+      });
+      const inputNode = getInputNode(instance);
+
+      simulateTextChange(instance, 'bar');
+      ReactTestUtils.Simulate.focus(inputNode);
+
+      const menuItems = getMenuItems(instance);
+
+      expect(menuItems.length).to.equal(1);
+      expect(head(menuItems).className).to.not.contain('active');
 
       simulateEnter(inputNode);
       expect(selected.length).to.equal(0);

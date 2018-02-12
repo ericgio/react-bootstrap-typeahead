@@ -248,7 +248,9 @@ function typeaheadContainer(Typeahead) {
     _handleResultsChange = (results) => {
       const {allowNew, highlightOnlyResult} = this.props;
       if (!allowNew && highlightOnlyResult) {
-        this.setState({isOnlyResult: results.length === 1});
+        this.setState({
+          isOnlyResult: results.length === 1 && !head(results).disabled,
+        });
       }
     }
 
