@@ -4,6 +4,7 @@ import getOptionLabel from './getOptionLabel';
 function getHintText({
   activeItem,
   initialItem,
+  isMenuShown,
   labelKey,
   minLength,
   selected,
@@ -15,6 +16,8 @@ function getHintText({
     !text ||
     // Text doesn't meet `minLength` threshold.
     text.length < minLength ||
+    // The menu is hidden.
+    !isMenuShown ||
     // No item in the menu.
     !initialItem ||
     // The initial item is a custom option.

@@ -10,7 +10,7 @@ import TypeaheadInput from '../src/TypeaheadInput';
 import {focusTypeaheadInput, getInputNode, getMenuNode} from './testUtils';
 
 import states from '../example/exampleData';
-import {BACKSPACE, DOWN, RETURN, UP} from '../src/constants/keyCode';
+import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../src/constants/keyCode';
 
 const bigData = range(0, 500).map((o) => o.toString());
 
@@ -18,6 +18,13 @@ let baseProps = {
   labelKey: 'name',
   options: states,
 };
+
+function scryMenuNode(instance) {
+  return ReactTestUtils.scryRenderedDOMComponentsWithClass(
+    instance,
+    'rbt-menu'
+  );
+}
 
 function getMenuItems(instance) {
   return ReactTestUtils.scryRenderedDOMComponentsWithTag(
@@ -263,11 +270,7 @@ describe('<Typeahead>', () => {
       });
       focusTypeaheadInput(instance);
 
-      const menuNode = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-        instance,
-        'rbt-menu'
-      );
-
+      const menuNode = scryMenuNode(instance);
       expect(menuNode.length).to.equal(0);
     });
 
@@ -290,7 +293,7 @@ describe('<Typeahead>', () => {
   });
 
   describe('`emptyLabel` behavior', () => {
-    function scryMenu(emptyLabel) {
+    function scryMenuWithEmptyLabel(emptyLabel) {
       const instance = getTypeaheadInstance({
         ...baseProps,
         emptyLabel,
@@ -299,20 +302,17 @@ describe('<Typeahead>', () => {
 
       focusTypeaheadInput(instance);
 
-      return ReactTestUtils.scryRenderedDOMComponentsWithClass(
-        instance,
-        'rbt-menu'
-      );
+      return scryMenuNode(instance);
     }
 
     it('should not display a menu if `emptyLabel` is falsy', () => {
-      let menuNodes = scryMenu('');
+      let menuNodes = scryMenuWithEmptyLabel('');
       expect(menuNodes.length).to.equal(0);
 
-      menuNodes = scryMenu(null);
+      menuNodes = scryMenuWithEmptyLabel(null);
       expect(menuNodes.length).to.equal(0);
 
-      menuNodes = scryMenu(0);
+      menuNodes = scryMenuWithEmptyLabel(0);
       expect(menuNodes.length).to.equal(0);
     });
   });
@@ -767,6 +767,32 @@ describe('<Typeahead>', () => {
       hintNode = getHintNode(instance);
 
       expect(hintNode).to.equal(undefined);
+    });
+
+    it('does not display a hint if the menu is hidden', () => {
+      let menuNode;
+
+      ReactTestUtils.Simulate.focus(inputNode);
+      menuNode = scryMenuNode(instance);
+
+      // When focused, the typeahead should show the menu and hint text.
+      expect(menuNode.length).to.equal(1);
+      expect(hintNode.value).to.equal('Alabama');
+
+      ReactTestUtils.Simulate.keyDown(inputNode, {
+        keyCode: ESC,
+        which: ESC,
+      });
+      const inputWrapper = ReactTestUtils.findRenderedDOMComponentWithClass(
+        instance,
+        'form-control'
+      );
+      menuNode = scryMenuNode(instance);
+
+      // Expect the input to remain focused, but the menu and hint to be hidden.
+      expect(menuNode.length).to.equal(0);
+      expect(inputWrapper.className).to.contain('focus');
+      expect(hintNode.value).to.equal('');
     });
   });
 

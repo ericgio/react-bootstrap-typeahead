@@ -59,6 +59,7 @@ describe('<TypeaheadInput>', () => {
     const instance = renderTypeaheadInput({
       ...baseProps,
       initialItem,
+      isMenuShown: true,
       text,
     });
 
@@ -84,6 +85,7 @@ describe('<TypeaheadInput>', () => {
       props = {
         ...baseProps,
         initialItem: head(options),
+        isMenuShown: true,
         onAdd: (selectedItem) => selected = [selectedItem],
         onChange: noop,
         onKeyDown: (e) => keyCode = e.keyCode,
