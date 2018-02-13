@@ -38,10 +38,6 @@ describe('<Typeahead>', () => {
     typeahead = mountTypeahead();
   });
 
-  afterEach(() => {
-    typeahead.unmount();
-  });
-
   it('should have a TypeaheadInput', () => {
     expect(typeahead.find(TypeaheadInput)).to.have.length(1);
   });
@@ -102,7 +98,7 @@ describe('<Typeahead>', () => {
     });
 
     it('truncates selections when using `selected`', () => {
-      typeahead = mountTypeahead({selected: multiSelections});
+      typeahead.setProps({selected: multiSelections});
 
       expect(getSelected(typeahead).length).to.equal(1);
 
@@ -111,7 +107,7 @@ describe('<Typeahead>', () => {
     });
 
     it('truncates selections when going from multi- to single-select', () => {
-      typeahead = mountTypeahead({
+      typeahead.setProps({
         multiple: true,
         onChange,
         selected: multiSelections,
@@ -127,7 +123,7 @@ describe('<Typeahead>', () => {
 
     it('filters menu options based on `selected` values', () => {
       selected = states.slice(0, 1);
-      typeahead = mountTypeahead({selected});
+      typeahead.setProps({selected});
 
       focus(typeahead);
 
@@ -667,6 +663,76 @@ describe('<Typeahead>', () => {
       expect(selected.length).to.equal(1);
       typeahead.instance().getInstance().clear();
       expect(selected.length).to.equal(0);
+    });
+  });
+
+  describe('clear-on-select behavior', () => {
+    let counter, selected, wrapper;
+
+    const onChange = (s) => {
+      counter++;
+      selected = s;
+    };
+
+    class ClearOnSelectTypeahead extends React.Component {
+      state = {
+        selected: [],
+      };
+
+      componentDidMount() {
+        expect(this._typeahead).to.exist;
+      }
+
+      render() {
+        const selected = this.props.controlled ?
+          this.state.selected :
+          undefined;
+
+        return (
+          <Typeahead
+            labelKey="name"
+            onChange={this._handleChange}
+            options={states}
+            ref={(t) => this._typeahead = t}
+            selected={selected}
+          />
+        );
+      }
+
+      _handleChange = (selected) => {
+        this.props.onChange(selected);
+        this.props.controlled && this.setState({selected});
+        selected.length && this._typeahead.getInstance().clear();
+      }
+    }
+
+    beforeEach(() => {
+      counter = 0;
+      selected = [];
+    });
+
+    afterEach(() => {
+      // Simulate a manual selection.
+      focus(wrapper);
+      keyDown(wrapper, DOWN);
+      keyDown(wrapper, RETURN);
+
+      expect(counter).to.equal(2);
+      expect(selected.length).to.equal(0);
+      expect(getInput(wrapper).instance().value).to.equal('');
+    });
+
+    it('clears an uncontrolled typeahead after selection', () => {
+      wrapper = mount(<ClearOnSelectTypeahead onChange={onChange} />);
+    });
+
+    it('clears an controlled typeahead after selection', () => {
+      wrapper = mount(
+        <ClearOnSelectTypeahead
+          controlled
+          onChange={onChange}
+        />
+      );
     });
   });
 

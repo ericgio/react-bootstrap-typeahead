@@ -266,8 +266,11 @@ function typeaheadContainer(Typeahead) {
       }
 
       this._hideMenu();
-      this._updateSelected(selected);
+
+      // Text must be updated before the selection to fix #211.
+      // TODO: Find a more robust way of solving the issue.
       this._updateText(text);
+      this._updateSelected(selected);
 
       this.setState({initialItem: selection});
     }
