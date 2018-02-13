@@ -6,10 +6,8 @@ import ReactTestUtils from 'react-dom/test-utils';
 import Token from '../src/Token';
 
 describe('<Token>', () => {
-  const basicToken = <Token>Basic</Token>;
-
   it('renders a basic token', () => {
-    const instance = ReactTestUtils.renderIntoDocument(basicToken);
+    const instance = ReactTestUtils.renderIntoDocument(<Token>Basic</Token>);
     const tokenNode = ReactTestUtils.findRenderedDOMComponentWithClass(
       instance,
       'rbt-token'

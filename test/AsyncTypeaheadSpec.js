@@ -3,7 +3,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 
 import {AsyncTypeahead} from '../src/';
-import {getMenuNode, performSearch, updateProps} from './testUtils';
+import {focusTypeaheadInput, performSearch, scryMenuItems, updateProps} from './testUtils';
 
 const defaultProps = {
   delay: 0,
@@ -24,8 +24,8 @@ describe('<AsyncTypeahead>', () => {
       promptText,
     });
 
-    const menuNode = getMenuNode(instance);
-    const menuItems = menuNode.children;
+    focusTypeaheadInput(instance);
+    const menuItems = scryMenuItems(instance);
 
     expect(menuItems.length).to.equal(1);
     expect(menuItems[0].children[0].innerHTML).to.equal(promptText);
@@ -39,8 +39,8 @@ describe('<AsyncTypeahead>', () => {
     });
 
     performSearch('search', instance, () => {
-      const menuNode = getMenuNode(instance);
-      const menuItems = menuNode.children;
+      focusTypeaheadInput(instance);
+      const menuItems = scryMenuItems(instance);
 
       expect(menuItems.length).to.equal(1);
       expect(menuItems[0].children[0].innerHTML).to.equal(searchText);
@@ -58,8 +58,8 @@ describe('<AsyncTypeahead>', () => {
 
     performSearch('search', instance, () => {
       instance.setState({requestPending: false}, () => {
-        const menuNode = getMenuNode(instance);
-        const menuItems = menuNode.children;
+        focusTypeaheadInput(instance);
+        const menuItems = scryMenuItems(instance);
 
         expect(menuItems.length).to.equal(1);
         expect(menuItems[0].children[0].innerHTML).to.equal(emptyLabel);

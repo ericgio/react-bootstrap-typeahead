@@ -5,7 +5,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import TypeaheadInput from '../src/TypeaheadInput';
 
-import {getInputNode} from './testUtils';
+import {getHintNode, getInputNode, simulateKeyDown} from './testUtils';
 
 import options from '../example/exampleData';
 import {RETURN, RIGHT, TAB} from '../src/constants/keyCode';
@@ -22,15 +22,6 @@ const baseProps = {
 
 function renderTypeaheadInput(props) {
   return ReactTestUtils.renderIntoDocument(<TypeaheadInput {...props} />);
-}
-
-function simulateKeyDown(instance, keyCode) {
-  const inputNode = getInputNode(instance);
-  ReactTestUtils.Simulate.focus(inputNode);
-  ReactTestUtils.Simulate.keyDown(inputNode, {
-    keyCode,
-    which: keyCode,
-  });
 }
 
 describe('<TypeaheadInput>', () => {
@@ -64,12 +55,9 @@ describe('<TypeaheadInput>', () => {
     });
 
     const inputNode = getInputNode(instance);
-    ReactTestUtils.Simulate.focus(inputNode);
+    const hintNode = getHintNode(instance);
 
-    const hintNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-input-hint'
-    );
+    ReactTestUtils.Simulate.focus(inputNode);
 
     expect(hintNode.value).to.equal(initialItem.name);
   });

@@ -4,6 +4,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import MenuItem, {BaseMenuItem} from '../src/MenuItem';
 import TypeaheadContext from './utils/TypeaheadContext';
+import {scryMenuItems} from './testUtils';
 
 function getBaseMenuItemNode(props={}) {
   const instance = ReactTestUtils.renderIntoDocument(
@@ -11,7 +12,7 @@ function getBaseMenuItemNode(props={}) {
       This is a base menu item.
     </BaseMenuItem>
   );
-  return ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'LI');
+  return scryMenuItems(instance)[0];
 }
 
 function getMenuItemNode(props={}, contextProps={}) {
@@ -22,7 +23,7 @@ function getMenuItemNode(props={}, contextProps={}) {
       </MenuItem>
     </TypeaheadContext>
   );
-  return ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'LI');
+  return scryMenuItems(instance)[0];
 }
 
 describe('MenuItemSpec', () => {

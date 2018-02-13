@@ -9,6 +9,7 @@ import TypeaheadContext from './utils/TypeaheadContext';
 import TypeaheadMenu from '../src/TypeaheadMenu';
 
 import options from '../example/exampleData';
+import {getMenuNode} from './testUtils';
 
 const bigData = range(0, 300).map((option) => ({name: option.toString()}));
 
@@ -26,11 +27,7 @@ function getMenuInstance(props={}) {
 }
 
 function renderMenuNode(props={}) {
-  const instance = getMenuInstance(props);
-  return ReactTestUtils.findRenderedDOMComponentWithClass(
-    instance,
-    'rbt-menu'
-  );
+  return getMenuNode(getMenuInstance(props));
 }
 
 describe('<TypeaheadMenu>', () => {

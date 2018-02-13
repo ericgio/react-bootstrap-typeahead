@@ -7,7 +7,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import Typeahead from '../src/Typeahead';
 import TypeaheadInput from '../src/TypeaheadInput';
 
-import {focusTypeaheadInput, getInputNode, getMenuNode} from './testUtils';
+import {focusTypeaheadInput, getHintNode, getInputNode, getMenuNode, scryMenuItems, simulateKeyDown, updateInputValue} from './testUtils';
 
 import states from '../example/exampleData';
 import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../src/constants/keyCode';
@@ -19,44 +19,8 @@ let baseProps = {
   options: states,
 };
 
-function scryMenuNode(instance) {
-  return ReactTestUtils.scryRenderedDOMComponentsWithClass(
-    instance,
-    'rbt-menu'
-  );
-}
-
-function getMenuItems(instance) {
-  return ReactTestUtils.scryRenderedDOMComponentsWithTag(
-    instance,
-    'LI'
-  );
-}
-
 function getTypeaheadInstance(props) {
   return ReactTestUtils.renderIntoDocument(<Typeahead {...props} />);
-}
-
-function getHintNode(instance) {
-  const nodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-    instance,
-    'rbt-input-hint'
-  );
-  return head(nodes);
-}
-
-function simulateTextChange(instance, value) {
-  const inputNode = getInputNode(instance);
-  inputNode.value = value;
-  ReactTestUtils.Simulate.change(inputNode);
-}
-
-function simulateFormSubmit(instance) {
-  const inputNode = getInputNode(instance);
-  ReactTestUtils.Simulate.focus(inputNode);
-  ReactTestUtils.Simulate.keyDown(inputNode, {
-    key: 'Enter', keyCode: RETURN, which: RETURN,
-  });
 }
 
 class FormWrapper extends React.Component {
@@ -155,7 +119,7 @@ describe('<Typeahead>', () => {
         defaultSelected: multiSelections,
       });
 
-      simulateTextChange(instance, BACKSPACE);
+      updateInputValue(instance, BACKSPACE);
 
       expect(selected.length).to.equal(0);
     });
@@ -166,7 +130,7 @@ describe('<Typeahead>', () => {
         selected: multiSelections,
       });
 
-      simulateTextChange(instance, BACKSPACE);
+      updateInputValue(instance, BACKSPACE);
 
       expect(selected.length).to.equal(0);
     });
@@ -189,7 +153,7 @@ describe('<Typeahead>', () => {
       const inputNode = getInputNode(instance);
       ReactTestUtils.Simulate.focus(inputNode);
 
-      const menuItems = getMenuItems(instance);
+      const menuItems = scryMenuItems(instance);
 
       expect(inputNode.value).to.equal(selected[0].name);
       expect(menuItems.length).to.equal(1);
@@ -202,7 +166,7 @@ describe('<Typeahead>', () => {
       const inputNode = getInputNode(instance);
       ReactTestUtils.Simulate.focus(inputNode);
 
-      const menuItems = getMenuItems(instance);
+      const menuItems = scryMenuItems(instance);
 
       expect(inputNode.value).to.equal(defaultSelected[0].name);
       expect(menuItems.length).to.equal(1);
@@ -258,6 +222,8 @@ describe('<Typeahead>', () => {
   describe('menu visibility behavior', () => {
     it('should display a menu when the input is focused', () => {
       const instance = getTypeaheadInstance(baseProps);
+
+      focusTypeaheadInput(instance);
       const menuNode = getMenuNode(instance);
 
       expect(menuNode).to.exist;
@@ -269,9 +235,9 @@ describe('<Typeahead>', () => {
         minLength: 1,
       });
       focusTypeaheadInput(instance);
+      const menuNode = getMenuNode(instance);
 
-      const menuNode = scryMenuNode(instance);
-      expect(menuNode.length).to.equal(0);
+      expect(menuNode).to.equal(undefined);
     });
 
     it(
@@ -284,8 +250,8 @@ describe('<Typeahead>', () => {
           options: [],
         });
 
-        simulateTextChange(instance, 'xx');
-        const menuItems = getMenuItems(instance);
+        updateInputValue(instance, 'xx');
+        const menuItems = scryMenuItems(instance);
 
         expect(menuItems.length).to.equal(1);
       }
@@ -293,7 +259,7 @@ describe('<Typeahead>', () => {
   });
 
   describe('`emptyLabel` behavior', () => {
-    function scryMenuWithEmptyLabel(emptyLabel) {
+    function getMenuWithEmptyLabel(emptyLabel) {
       const instance = getTypeaheadInstance({
         ...baseProps,
         emptyLabel,
@@ -301,19 +267,18 @@ describe('<Typeahead>', () => {
       });
 
       focusTypeaheadInput(instance);
-
-      return scryMenuNode(instance);
+      return getMenuNode(instance);
     }
 
     it('should not display a menu if `emptyLabel` is falsy', () => {
-      let menuNodes = scryMenuWithEmptyLabel('');
-      expect(menuNodes.length).to.equal(0);
+      let menuNode = getMenuWithEmptyLabel('');
+      expect(menuNode).to.not.exist;
 
-      menuNodes = scryMenuWithEmptyLabel(null);
-      expect(menuNodes.length).to.equal(0);
+      menuNode = getMenuWithEmptyLabel(null);
+      expect(menuNode).to.not.exist;
 
-      menuNodes = scryMenuWithEmptyLabel(0);
-      expect(menuNodes.length).to.equal(0);
+      menuNode = getMenuWithEmptyLabel(0);
+      expect(menuNode).to.not.exist;
     });
   });
 
@@ -419,10 +384,7 @@ describe('<Typeahead>', () => {
       });
       focusTypeaheadInput(instance);
 
-      const menuItems = ReactTestUtils.scryRenderedDOMComponentsWithTag(
-        instance,
-        'LI'
-      );
+      const menuItems = scryMenuItems(instance);
 
       // When `paginate` is true, it adds 2 menu items to the menu: one for the
       // divider and one for the paginator.
@@ -437,10 +399,7 @@ describe('<Typeahead>', () => {
       });
       focusTypeaheadInput(instance);
 
-      const menuItems = ReactTestUtils.scryRenderedDOMComponentsWithTag(
-        instance,
-        'LI'
-      );
+      const menuItems = scryMenuItems(instance);
 
       // When `paginate` is true, it adds 2 menu items to the menu: one for the
       // divider and one for the paginator.
@@ -597,10 +556,10 @@ describe('<Typeahead>', () => {
       const instance = getTypeaheadInstance(props);
       const inputNode = getInputNode(instance);
 
-      simulateTextChange(instance, 'Alab');
+      updateInputValue(instance, 'Alab');
       ReactTestUtils.Simulate.focus(inputNode);
 
-      const menuItems = getMenuItems(instance);
+      const menuItems = scryMenuItems(instance);
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.equal('');
@@ -616,10 +575,10 @@ describe('<Typeahead>', () => {
       });
       const inputNode = getInputNode(instance);
 
-      simulateTextChange(instance, 'Alab');
+      updateInputValue(instance, 'Alab');
       ReactTestUtils.Simulate.focus(inputNode);
 
-      const menuItems = getMenuItems(instance);
+      const menuItems = scryMenuItems(instance);
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.equal('active');
@@ -636,10 +595,10 @@ describe('<Typeahead>', () => {
       });
       const inputNode = getInputNode(instance);
 
-      simulateTextChange(instance, 'qqq');
+      updateInputValue(instance, 'qqq');
       ReactTestUtils.Simulate.focus(inputNode);
 
-      const menuItems = getMenuItems(instance);
+      const menuItems = scryMenuItems(instance);
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.equal('');
@@ -661,10 +620,10 @@ describe('<Typeahead>', () => {
       });
       const inputNode = getInputNode(instance);
 
-      simulateTextChange(instance, 'bar');
+      updateInputValue(instance, 'bar');
       ReactTestUtils.Simulate.focus(inputNode);
 
-      const menuItems = getMenuItems(instance);
+      const menuItems = scryMenuItems(instance);
 
       expect(menuItems.length).to.equal(1);
       expect(head(menuItems).className).to.not.contain('active');
@@ -720,7 +679,7 @@ describe('<Typeahead>', () => {
       onKeyDown: (e) => keyDown = 'success',
     });
 
-    simulateFormSubmit(instance);
+    simulateKeyDown(instance, RETURN);
 
     expect(keyDown).to.equal('success');
   });
@@ -737,7 +696,7 @@ describe('<Typeahead>', () => {
     ReactTestUtils.Simulate.focus(inputNode);
     expect(menuState).to.equal('shown');
 
-    const menuItems = getMenuItems(instance);
+    const menuItems = scryMenuItems(instance);
     ReactTestUtils.Simulate.click(menuItems[0].firstChild);
     expect(menuState).to.equal('hidden');
   });
@@ -750,7 +709,7 @@ describe('<Typeahead>', () => {
       inputNode = getInputNode(instance);
       hintNode = getHintNode(instance);
 
-      simulateTextChange(instance, 'Ala');
+      updateInputValue(instance, 'Ala');
     });
 
     it('does not display a hint when the input is not focused', () => {
@@ -772,11 +731,11 @@ describe('<Typeahead>', () => {
     it('does not display a hint if the menu is hidden', () => {
       let menuNode;
 
-      ReactTestUtils.Simulate.focus(inputNode);
-      menuNode = scryMenuNode(instance);
+      focusTypeaheadInput(instance);
+      menuNode = getMenuNode(instance);
 
       // When focused, the typeahead should show the menu and hint text.
-      expect(menuNode.length).to.equal(1);
+      expect(menuNode).to.exist;
       expect(hintNode.value).to.equal('Alabama');
 
       ReactTestUtils.Simulate.keyDown(inputNode, {
@@ -787,10 +746,10 @@ describe('<Typeahead>', () => {
         instance,
         'form-control'
       );
-      menuNode = scryMenuNode(instance);
+      menuNode = getMenuNode(instance);
 
       // Expect the input to remain focused, but the menu and hint to be hidden.
-      expect(menuNode.length).to.equal(0);
+      expect(menuNode).to.not.exist;
       expect(inputWrapper.className).to.contain('focus');
       expect(hintNode.value).to.equal('');
     });
@@ -816,7 +775,7 @@ describe('<Typeahead>', () => {
         onKeyDown,
         submitFormOnEnter: false,
       });
-      simulateFormSubmit(instance);
+      simulateKeyDown(instance, RETURN);
 
       expect(onKeyDownEvent.defaultPrevented).to.equal(true);
     });
@@ -827,7 +786,7 @@ describe('<Typeahead>', () => {
         onKeyDown,
         submitFormOnEnter: true,
       });
-      simulateFormSubmit(instance);
+      simulateKeyDown(instance, RETURN);
 
       expect(onKeyDownEvent.defaultPrevented).to.equal(undefined);
     });
