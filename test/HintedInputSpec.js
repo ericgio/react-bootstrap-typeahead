@@ -1,31 +1,29 @@
 import {expect} from 'chai';
+import {mount} from 'enzyme';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import HintedInput from '../src/HintedInput';
-import {getHintNode, getInputNode} from './testUtils';
-
-const baseProps = {
-  onChange: () => {},
-  value: '',
-};
-
-function renderInput(props) {
-  return ReactTestUtils.renderIntoDocument(<HintedInput {...props} />);
-}
 
 describe('<HintedInput>', () => {
+  let input;
+
+  beforeEach(() => {
+    input = mount(
+      <HintedInput
+        onChange={() => {}}
+        value=""
+      />
+    );
+  });
 
   it('renders a hinted input', () => {
-    const instance = renderInput(baseProps);
-
-    expect(getInputNode(instance)).to.exist;
-    expect(getHintNode(instance)).to.exist;
+    expect(input.find('.rbt-input-main')).to.have.length(1);
+    expect(input.find('.rbt-input-hint')).to.have.length(1);
   });
 
   it('does not render the hint in multi-select mode', () => {
-    const instance = renderInput({...baseProps, multiple: true});
-    expect(getHintNode(instance)).to.not.exist;
+    input.setProps({multiple: true});
+    expect(input.find('.rbt-input-hint')).to.have.length(0);
   });
 
 });

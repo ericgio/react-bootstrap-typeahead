@@ -1,34 +1,29 @@
 import {expect} from 'chai';
+import {shallow} from 'enzyme';
 import React from 'react';
-import ReactShallowRenderer from 'react-test-renderer/shallow';
 
 import Loader from '../src/Loader';
 
 describe('<Loader>', () => {
+  let loader;
+
+  beforeEach(() => {
+    loader = shallow(<Loader />);
+  });
 
   it('renders a default loading indicator', () => {
-    const renderer = new ReactShallowRenderer();
-    renderer.render(<Loader />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.type).to.equal('div');
-    expect(result.props.className).to.equal('rbt-loader');
+    expect(loader.type()).to.equal('div');
+    expect(loader.hasClass('rbt-loader')).to.equal(true);
   });
 
   it('renders a small loading indicator', () => {
-    const renderer = new ReactShallowRenderer();
-    renderer.render(<Loader bsSize="small" />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props.className).to.contain('rbt-loader-sm');
+    loader.setProps({bsSize: 'small'});
+    expect(loader.hasClass('rbt-loader-sm')).to.equal(true);
   });
 
   it('renders a large loading indicator', () => {
-    const renderer = new ReactShallowRenderer();
-    renderer.render(<Loader bsSize="large" />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props.className).to.contain('rbt-loader-lg');
+    loader.setProps({bsSize: 'large'});
+    expect(loader.hasClass('rbt-loader-lg')).to.equal(true);
   });
 
 });
