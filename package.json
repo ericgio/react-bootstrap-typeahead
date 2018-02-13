@@ -74,6 +74,8 @@
     "babel-preset-stage-1": "^6.16.0",
     "chai": "^4.0.2",
     "css-loader": "^0.28.4",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "es6-promise": "^4.0.5",
     "eslint": "^4.1.1",
     "eslint-config-ericgio": "^2.0.0",

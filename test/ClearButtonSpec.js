@@ -1,26 +1,30 @@
 import {expect} from 'chai';
+import {shallow} from 'enzyme';
 import React from 'react';
-import ReactShallowRenderer from 'react-test-renderer/shallow';
+import sinon from 'sinon';
 
 import ClearButton from '../src/ClearButton';
 
 describe('<ClearButton>', () => {
+  let button, onClick;
+
+  beforeEach(() => {
+    onClick = sinon.spy();
+    button = shallow(<ClearButton onClick={onClick} />);
+  });
 
   it('renders a default clear button', () => {
-    const renderer = new ReactShallowRenderer();
-    renderer.render(<ClearButton />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.type).to.equal('button');
-    expect(result.props.className).to.equal('close rbt-close');
+    expect(button.type()).to.equal('button');
+    expect(button.hasClass('close rbt-close')).to.equal(true);
   });
 
   it('renders a large clear button', () => {
-    const renderer = new ReactShallowRenderer();
-    renderer.render(<ClearButton bsSize="large" />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props.className).to.equal('close rbt-close rbt-close-lg');
+    button.setProps({bsSize: 'large'});
+    expect(button.hasClass('rbt-close-lg')).to.equal(true);
   });
 
+  it('registers a click', () => {
+    button.simulate('click', {stopPropagation: () => {}});
+    expect(onClick.calledOnce).to.equal(true);
+  });
 });
