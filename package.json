@@ -98,6 +98,7 @@
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
     "react-waypoint": "^8.0.0",
+    "sinon": "^4.3.0",
     "style-loader": "^0.20.1",
     "webpack": "^3.0.0"
   },
