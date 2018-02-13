@@ -1,5 +1,4 @@
 import React from 'react';
-import {Checkbox} from 'react-bootstrap';
 
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
@@ -7,28 +6,28 @@ import options from '../../example/exampleData';
 /* example-start */
 class ControlledExample extends React.Component {
   state = {
-    value: ''
+    value: '',
   };
 
 
   handleInputChange = (text) => {
-    this.setState({ value: text });
+    this.setState({value: text});
   }
 
   handleSelectOption = (option) => {
-    if (option.length == 1) {
-      this.setState({ value: option[0].name });      
+    if (option.length === 1) {
+      this.setState({value: option[0].name});
     }
     else {
-      this.setState({value: ''})
+      this.setState({value: ''});
     }
   }
 
   _clearValue = () => {
-    this.setState({ value: '' });
+    this.setState({value: ''});
   }
   _changeValue = () => {
-    this.setState({ value: 'California' });
+    this.setState({value: 'California'});
 
   }
   render() {
@@ -38,15 +37,15 @@ class ControlledExample extends React.Component {
       <div>
         <Typeahead
           labelKey="name"
+          onChange={this.handleSelectOption}
+          onInputChange={this.handleInputChange}
           options={options}
           placeholder="Choose a state..."
-          onInputChange={this.handleInputChange}
-          onChange={this.handleSelectOption}
-          selected={[{ name: value }]}
+          selected={[{name: value}]}
         />
-          <button onClick={this._clearValue}>Clear</button>
+        <button onClick={this._clearValue}>Clear</button>
         <button onClick={this._changeValue}>Change selected</button>
-        
+
       </div>
     );
   }
