@@ -1,77 +1,92 @@
 import {expect} from 'chai';
+import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import TypeaheadInput from '../src/TypeaheadInput';
-
-import {getHintNode, getInputNode, simulateKeyDown} from './testUtils';
 
 import options from '../example/exampleData';
 import {RETURN, RIGHT, TAB} from '../src/constants/keyCode';
 
-const baseProps = {
-  inputProps: {},
-  isFocused: true,
-  labelKey: 'name',
-  onFocus: noop,
-  options,
-  selected: [],
-  text: '',
-};
+function getRoot(wrapper) {
+  return wrapper.find('.rbt-input');
+}
 
-function renderTypeaheadInput(props) {
-  return ReactTestUtils.renderIntoDocument(<TypeaheadInput {...props} />);
+function getInput(wrapper) {
+  return wrapper.find('.rbt-input-main');
+}
+
+function getHint(wrapper) {
+  return wrapper.find('.rbt-input-hint');
+}
+
+function setCursorPosition(wrapper, pos) {
+  const input = getInput(wrapper);
+  input.instance().selectionStart = pos;
+  input.simulate('change');
+}
+
+function simulateKeyDown(wrapper, value) {
+  const input = getInput(wrapper);
+  input.simulate('focus');
+  input.simulate('keyDown', {
+    keyCode: value,
+    which: value,
+  });
 }
 
 describe('<TypeaheadInput>', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = mount(
+      <TypeaheadInput
+        inputProps={{}}
+        isFocused={true}
+        labelKey="name"
+        onFocus={noop}
+        options={options}
+        selected={[]}
+        text=""
+      />
+    );
+  });
 
   it('renders a TypeaheadInput', () => {
-    const instance = renderTypeaheadInput(baseProps);
-    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-input'
-    );
-
-    expect(inputNode).to.exist;
+    const rootNode = getRoot(wrapper);
+    expect(rootNode.length).to.equal(1);
+    expect(rootNode.hasClass('form-control')).to.equal(true);
   });
 
   it('displays the selected text', () => {
     const text = 'text';
-    const instance = renderTypeaheadInput({...baseProps, text});
-    const inputNode = getInputNode(instance);
 
-    expect(inputNode.value).to.equal(text);
+    wrapper.setProps({text});
+
+    expect(getInput(wrapper).props().value).to.equal(text);
   });
 
   it('displays a hint', () => {
     const initialItem = head(options);
-    const text = 'Al';
-    const instance = renderTypeaheadInput({
-      ...baseProps,
+
+    wrapper.setProps({
       initialItem,
       isMenuShown: true,
-      text,
+      text: 'Al',
     });
 
-    const inputNode = getInputNode(instance);
-    const hintNode = getHintNode(instance);
-
-    ReactTestUtils.Simulate.focus(inputNode);
-
-    expect(hintNode.value).to.equal(initialItem.name);
+    getInput(wrapper).simulate('focus');
+    expect(getHint(wrapper).props().value).to.equal(initialItem.name);
   });
 
   describe('behavior when selecting the hinted result', () => {
-    let props;
-    let keyCode;
-    let selected;
+    let keyCode, selected;
 
     beforeEach(() => {
       keyCode = 0;
       selected = [];
-      props = {
-        ...baseProps,
+
+      wrapper.setProps({
         initialItem: head(options),
         isMenuShown: true,
         onAdd: (selectedItem) => selected = [selectedItem],
@@ -79,24 +94,19 @@ describe('<TypeaheadInput>', () => {
         onKeyDown: (e) => keyCode = e.keyCode,
         selected,
         text: 'Ala',
-      };
+      });
     });
 
     it('should select the hinted result on tab keydown', () => {
-      const instance = renderTypeaheadInput(props);
-      simulateKeyDown(instance, TAB);
+      simulateKeyDown(wrapper, TAB);
 
       expect(keyCode).to.equal(TAB);
       expect(selected.length).to.equal(1);
     });
 
     it('should select the hinted result on right arrow keydown', () => {
-      const instance = renderTypeaheadInput(props);
-
-      const inputNode = getInputNode(instance);
-      inputNode.selectionStart = props.text.length;
-      ReactTestUtils.Simulate.change(inputNode);
-      simulateKeyDown(instance, RIGHT);
+      setCursorPosition(wrapper, wrapper.props().text.length);
+      simulateKeyDown(wrapper, RIGHT);
 
       expect(keyCode).to.equal(RIGHT);
       expect(selected.length).to.equal(1);
@@ -106,12 +116,8 @@ describe('<TypeaheadInput>', () => {
       'should not select the hinted result on right arrow keydown unless ' +
       'the cursor is at the end of the input value',
       () => {
-        const instance = renderTypeaheadInput(props);
-
-        const inputNode = getInputNode(instance);
-        inputNode.selectionStart = 1;
-        ReactTestUtils.Simulate.change(inputNode);
-        simulateKeyDown(instance, RIGHT);
+        setCursorPosition(wrapper, 1);
+        simulateKeyDown(wrapper, RIGHT);
 
         expect(keyCode).to.equal(RIGHT);
         expect(selected.length).to.equal(0);
@@ -119,19 +125,15 @@ describe('<TypeaheadInput>', () => {
     );
 
     it('should not select the hinted result on enter keydown', () => {
-      const instance = renderTypeaheadInput(props);
-      simulateKeyDown(instance, RETURN);
+      simulateKeyDown(wrapper, RETURN);
 
       expect(keyCode).to.equal(RETURN);
       expect(selected.length).to.equal(0);
     });
 
     it('should select the hinted result on enter keydown', () => {
-      const instance = renderTypeaheadInput({
-        ...props,
-        selectHintOnEnter: true,
-      });
-      simulateKeyDown(instance, RETURN);
+      wrapper.setProps({selectHintOnEnter: true});
+      simulateKeyDown(wrapper, RETURN);
 
       expect(keyCode).to.equal(RETURN);
       expect(selected.length).to.equal(1);
@@ -139,34 +141,17 @@ describe('<TypeaheadInput>', () => {
   });
 
   describe('multi-select state', () => {
-    let multiProps;
-
     beforeEach(() => {
-      multiProps = {...baseProps, multiple: true};
+      wrapper.setProps({multiple: true});
     });
 
     it('renders a multi-select input', () => {
-      const instance = renderTypeaheadInput(multiProps);
-      const node = ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'rbt-input-multi'
-      );
-
-      expect(node).to.exist;
+      expect(wrapper.find('.rbt-input-multi').length).to.equal(1);
     });
 
     it('renders tokens in the input', () => {
-      const instance = renderTypeaheadInput({
-        ...multiProps,
-        selected: options.slice(0, 3),
-      });
-
-      const tokens = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-        instance,
-        'rbt-token'
-      );
-
-      expect(tokens.length).to.equal(3);
+      wrapper.setProps({selected: options.slice(0, 3)});
+      expect(wrapper.find('.rbt-token').length).to.equal(3);
     });
   });
 
