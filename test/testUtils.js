@@ -1,6 +1,5 @@
-import {head, noop} from 'lodash';
+import {noop} from 'lodash';
 import PropTypes from 'prop-types';
-import TestUtils from 'react-dom/test-utils';
 
 export const childContextTypes = {
   activeIndex: PropTypes.number.isRequired,
@@ -18,72 +17,44 @@ export const context = {
   onMenuItemClick: noop,
 };
 
+/* Events */
 export function focus(wrapper) {
   getInput(wrapper).simulate('focus');
 }
 
-export function focusTypeaheadInput(instance) {
-  const inputNode = getInputNode(instance);
-  TestUtils.Simulate.focus(inputNode);
+export function keyDown(wrapper, value) {
+  getInput(wrapper).simulate('keyDown', {
+    keyCode: value,
+    which: value,
+  });
 }
 
+export function change(wrapper, value) {
+  // Calling `simulate` doesn't actually change the value, so call the
+  // `onChange` prop directly: https://github.com/airbnb/enzyme/issues/1412
+  getInput(wrapper).prop('onChange')({target: {value}});
+}
+
+
+/* Finding React Elements */
 export function getHint(wrapper) {
   return wrapper.find('.rbt-input-hint');
-}
-
-export function getHintNode(instance) {
-  const nodes = TestUtils.scryRenderedDOMComponentsWithClass(
-    instance,
-    'rbt-input-hint'
-  );
-  return head(nodes);
 }
 
 export function getInput(wrapper) {
   return wrapper.find('.rbt-input-main');
 }
 
-export function getInputNode(instance) {
-  return TestUtils.findRenderedDOMComponentWithClass(
-    instance,
-    'rbt-input-main'
-  );
-}
-
-export function getMenuNode(instance) {
-  const nodes = TestUtils.scryRenderedDOMComponentsWithClass(
-    instance,
-    'rbt-menu'
-  );
-  return head(nodes);
+export function getMenu(wrapper) {
+  return wrapper.find('.rbt-menu').hostNodes();
 }
 
 export function getMenuItems(wrapper) {
   return wrapper.find('li');
 }
 
-export function scryMenuItems(instance) {
-  return TestUtils.scryRenderedDOMComponentsWithTag(
-    instance,
-    'LI'
-  );
-}
-
+/* Other Functions */
 export function search(wrapper, query, callback) {
   getInput(wrapper).simulate('change', {target: {value: query}});
   setTimeout(callback, wrapper.props().delay);
-}
-
-export function simulateKeyDown(instance, keyCode) {
-  const inputNode = getInputNode(instance);
-  TestUtils.Simulate.focus(inputNode);
-  TestUtils.Simulate.keyDown(inputNode, {
-    keyCode,
-    which: keyCode,
-  });
-}
-
-export function updateInputValue(instance, value) {
-  const inputNode = getInputNode(instance);
-  TestUtils.Simulate.change(inputNode, {target: {value}});
 }

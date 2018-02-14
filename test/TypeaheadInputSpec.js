@@ -6,7 +6,7 @@ import React from 'react';
 import TypeaheadInput from '../src/TypeaheadInput';
 
 import options from '../example/exampleData';
-import {getHint, getInput} from './testUtils';
+import {getHint, getInput, keyDown} from './testUtils';
 import {RETURN, RIGHT, TAB} from '../src/constants/keyCode';
 
 function getRoot(wrapper) {
@@ -17,15 +17,6 @@ function setCursorPosition(wrapper, pos) {
   const input = getInput(wrapper);
   input.instance().selectionStart = pos;
   input.simulate('change');
-}
-
-function simulateKeyDown(wrapper, value) {
-  const input = getInput(wrapper);
-  input.simulate('focus');
-  input.simulate('keyDown', {
-    keyCode: value,
-    which: value,
-  });
 }
 
 describe('<TypeaheadInput>', () => {
@@ -91,7 +82,7 @@ describe('<TypeaheadInput>', () => {
     });
 
     it('should select the hinted result on tab keydown', () => {
-      simulateKeyDown(wrapper, TAB);
+      keyDown(wrapper, TAB);
 
       expect(keyCode).to.equal(TAB);
       expect(selected.length).to.equal(1);
@@ -99,7 +90,7 @@ describe('<TypeaheadInput>', () => {
 
     it('should select the hinted result on right arrow keydown', () => {
       setCursorPosition(wrapper, wrapper.props().text.length);
-      simulateKeyDown(wrapper, RIGHT);
+      keyDown(wrapper, RIGHT);
 
       expect(keyCode).to.equal(RIGHT);
       expect(selected.length).to.equal(1);
@@ -110,7 +101,7 @@ describe('<TypeaheadInput>', () => {
       'the cursor is at the end of the input value',
       () => {
         setCursorPosition(wrapper, 1);
-        simulateKeyDown(wrapper, RIGHT);
+        keyDown(wrapper, RIGHT);
 
         expect(keyCode).to.equal(RIGHT);
         expect(selected.length).to.equal(0);
@@ -118,7 +109,7 @@ describe('<TypeaheadInput>', () => {
     );
 
     it('should not select the hinted result on enter keydown', () => {
-      simulateKeyDown(wrapper, RETURN);
+      keyDown(wrapper, RETURN);
 
       expect(keyCode).to.equal(RETURN);
       expect(selected.length).to.equal(0);
@@ -126,7 +117,7 @@ describe('<TypeaheadInput>', () => {
 
     it('should select the hinted result on enter keydown', () => {
       wrapper.setProps({selectHintOnEnter: true});
-      simulateKeyDown(wrapper, RETURN);
+      keyDown(wrapper, RETURN);
 
       expect(keyCode).to.equal(RETURN);
       expect(selected.length).to.equal(1);

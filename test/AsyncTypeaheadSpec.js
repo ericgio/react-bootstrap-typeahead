@@ -5,11 +5,7 @@ import React from 'react';
 import sinon from 'sinon';
 
 import {AsyncTypeahead} from '../src/';
-import {focus, getMenuItems, search} from './testUtils';
-
-function change(wrapper, value) {
-  getInput(wrapper).prop('onChange')({target: {value}});
-}
+import {change, focus, getMenuItems, search} from './testUtils';
 
 describe('<AsyncTypeahead>', () => {
   let wrapper;

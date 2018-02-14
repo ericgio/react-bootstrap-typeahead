@@ -1,13 +1,13 @@
 import {expect} from 'chai';
+import {mount} from 'enzyme';
 import {head, range} from 'lodash';
 import React from 'react';
-import {render} from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
+import sinon from 'sinon';
 
 import Typeahead from '../src/Typeahead';
 import TypeaheadInput from '../src/TypeaheadInput';
 
-import {focusTypeaheadInput, getHintNode, getInputNode, getMenuNode, scryMenuItems, simulateKeyDown, updateInputValue} from './testUtils';
+import {change, focus, getHint, getInput, getMenu, getMenuItems, keyDown} from './testUtils';
 
 import states from '../example/exampleData';
 import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../src/constants/keyCode';
@@ -19,157 +19,133 @@ let baseProps = {
   options: states,
 };
 
-function getTypeaheadInstance(props) {
-  return ReactTestUtils.renderIntoDocument(<Typeahead {...props} />);
+function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
+  keyDown(wrapper, dir);
+  return wrapper.find('a.active');
 }
 
-class FormWrapper extends React.Component {
-  render() {
-    return (
-      <form onKeyDown={this.props.onKeyDown}>
-        <Typeahead {...this.props} />
-      </form>
-    );
-  }
+function mountTypeahead(props) {
+  return mount(<Typeahead {...baseProps} {...props} />);
 }
 
-function getFormWithTypeaheadInstance(props) {
-  return ReactTestUtils.renderIntoDocument(<FormWrapper {...props}/>);
+function getClearButton(wrapper) {
+  return wrapper.find('.rbt-close');
 }
 
 describe('<Typeahead>', () => {
+  let typeahead;
+
+  beforeEach(() => {
+    typeahead = mountTypeahead();
+  });
+
+  afterEach(() => {
+    typeahead.unmount();
+  });
 
   it('should have a TypeaheadInput', () => {
-    const instance = getTypeaheadInstance(baseProps);
-    const input = ReactTestUtils.findRenderedComponentWithType(
-      instance,
-      TypeaheadInput
-    );
-
-    expect(input).to.exist;
+    expect(typeahead.find(TypeaheadInput)).to.have.length(1);
   });
 
   it('should render in multi-select mode when `multiple=true`', () => {
-    const instance = getTypeaheadInstance({
-      ...baseProps,
-      multiple: true,
-    });
-
-    const node = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-input-multi'
-    );
-
-    expect(node).to.exist;
+    typeahead.setProps({multiple: true});
+    expect(typeahead.find('.rbt-input-multi')).to.have.length(1);
   });
 
-  it(
-    'should display tokens when selections are passed into the tokenizer',
-    () => {
-      const instance = getTypeaheadInstance({
-        ...baseProps,
-        multiple: true,
-        selected: states.slice(0, 3),
-      });
-
-      const tokens = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-        instance,
-        'rbt-token'
-      );
-
-      expect(tokens.length).to.equal(3);
-    }
-  );
+  it('should display tokens when selections are passed in', () => {
+    typeahead.setProps({
+      multiple: true,
+      selected: states.slice(0, 3),
+    });
+    expect(typeahead.find('.rbt-token')).to.have.length(3);
+  });
 
   it('sets and unsets the focus state on focus/blur', () => {
-    const instance = getTypeaheadInstance(baseProps);
-
-    const containerNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'form-control'
+    const hasFocus = (wrapper) => (
+      wrapper.find('.form-control').hasClass('focus')
     );
+    const input = getInput(typeahead);
 
-    expect(containerNode.className).to.not.contain('focus');
+    expect(hasFocus(typeahead)).to.equal(false);
 
-    const inputNode = getInputNode(instance);
-    ReactTestUtils.Simulate.focus(inputNode);
-    expect(containerNode.className).to.contain('focus');
+    input.simulate('focus');
+    expect(hasFocus(typeahead)).to.equal(true);
 
-    ReactTestUtils.Simulate.blur(inputNode);
-    expect(containerNode.className).to.not.contain('focus');
+    input.simulate('blur');
+    expect(hasFocus(typeahead)).to.equal(false);
   });
 
   describe('behaviors when selections are passed in', () => {
-    let multiSelections, node, props, selected;
+    const getSelected = (wrapper) => (
+      // Because of all the HOCs, getting the typeahead's state is messy.
+      // Get the selected value from the props passed to the input.
+      typeahead.find(TypeaheadInput).prop('selected')
+    );
+    const multiSelections = states.slice(0, 4);
+    const onChange = (s) => selected = s;
+
+    let selected;
 
     beforeEach(() => {
-      multiSelections = states.slice(0, 4);
-      node = document.createElement('div');
       selected = [];
-      props = {
-        ...baseProps,
-        onChange: (s) => selected = s,
-      };
-      render(<Typeahead {...props} />, node);
     });
 
     it('truncates selections when using `defaultSelected`', () => {
-      const instance = getTypeaheadInstance({
-        ...props,
+      typeahead = mountTypeahead({
         defaultSelected: multiSelections,
+        onChange,
       });
 
-      updateInputValue(instance, BACKSPACE);
+      expect(getSelected(typeahead).length).to.equal(1);
 
+      keyDown(typeahead, BACKSPACE);
       expect(selected.length).to.equal(0);
     });
 
     it('truncates selections when using `selected`', () => {
-      const instance = getTypeaheadInstance({
-        ...props,
-        selected: multiSelections,
-      });
+      typeahead = mountTypeahead({selected: multiSelections});
 
-      updateInputValue(instance, BACKSPACE);
+      expect(getSelected(typeahead).length).to.equal(1);
 
+      keyDown(typeahead, BACKSPACE);
       expect(selected.length).to.equal(0);
     });
 
     it('truncates selections when going from multi- to single-select', () => {
-      render(
-        <Typeahead {...props} multiple selected={multiSelections} />,
-        node
-      );
-      expect(selected.length).to.equal(multiSelections.length);
+      typeahead = mountTypeahead({
+        multiple: true,
+        onChange,
+        selected: multiSelections,
+      });
 
-      render(<Typeahead {...props} selected={multiSelections} />, node);
+      expect(getSelected(typeahead).length).to.equal(multiSelections.length);
+
+      typeahead.setProps({multiple: false});
+
+      expect(selected.length).to.equal(1);
       expect(selected).to.deep.equal(states.slice(0, 1));
     });
 
     it('filters menu options based on `selected` values', () => {
       selected = states.slice(0, 1);
-      const instance = getTypeaheadInstance({...props, selected});
+      typeahead = mountTypeahead({selected});
 
-      const inputNode = getInputNode(instance);
-      ReactTestUtils.Simulate.focus(inputNode);
+      focus(typeahead);
 
-      const menuItems = scryMenuItems(instance);
-
-      expect(inputNode.value).to.equal(selected[0].name);
-      expect(menuItems.length).to.equal(1);
+      expect(getInput(typeahead).props().value).to.equal(selected[0].name);
+      expect(getMenuItems(typeahead).length).to.equal(1);
     });
 
     it('filters menu options based on `defaultSelected` values', () => {
       const defaultSelected = states.slice(0, 1);
-      const instance = getTypeaheadInstance({...props, defaultSelected});
+      const value = defaultSelected[0].name;
 
-      const inputNode = getInputNode(instance);
-      ReactTestUtils.Simulate.focus(inputNode);
+      typeahead = mountTypeahead({defaultSelected, onChange});
 
-      const menuItems = scryMenuItems(instance);
+      focus(typeahead);
 
-      expect(inputNode.value).to.equal(defaultSelected[0].name);
-      expect(menuItems.length).to.equal(1);
+      expect(getInput(typeahead).props().value).to.equal(value);
+      expect(getMenuItems(typeahead).length).to.equal(1);
     });
   });
 
@@ -182,133 +158,86 @@ describe('<Typeahead>', () => {
     });
 
     it('sets a default initial input value', () => {
-      const inputNode = getInputNode(getTypeaheadInstance({
-        ...baseProps,
-        defaultInputValue,
-      }));
-
-      expect(inputNode.value).to.equal(defaultInputValue);
+      typeahead = mountTypeahead({defaultInputValue});
+      expect(getInput(typeahead).props().value).to.equal(defaultInputValue);
     });
 
     it('sets an input value based on the `selected` value', () => {
-      const inputNode = getInputNode(getTypeaheadInstance({
-        ...baseProps,
-        selected,
-      }));
-
-      expect(inputNode.value).to.equal(head(selected).name);
+      typeahead.setProps({selected});
+      expect(getInput(typeahead).props().value).to.equal(head(selected).name);
     });
 
     it('sets an input value based on the `defaultSelected` value', () => {
-      const inputNode = getInputNode(getTypeaheadInstance({
-        ...baseProps,
-        defaultSelected,
-      }));
-
-      expect(inputNode.value).to.equal(head(defaultSelected).name);
+      typeahead = mountTypeahead({defaultSelected});
+      const inputValue = getInput(typeahead).props().value;
+      expect(inputValue).to.equal(head(defaultSelected).name);
     });
 
     it('overrides the initial input value', () => {
-      const inputNode = getInputNode(getTypeaheadInstance({
-        ...baseProps,
-        defaultInputValue,
-        selected,
-      }));
-
-      expect(inputNode.value).to.equal(head(selected).name);
+      typeahead = mountTypeahead({defaultInputValue, selected});
+      expect(getInput(typeahead).props().value).to.equal(head(selected).name);
     });
   });
 
   describe('menu visibility behavior', () => {
+
     it('should display a menu when the input is focused', () => {
-      const instance = getTypeaheadInstance(baseProps);
-
-      focusTypeaheadInput(instance);
-      const menuNode = getMenuNode(instance);
-
-      expect(menuNode).to.exist;
+      focus(typeahead);
+      expect(getMenu(typeahead).length).to.equal(1);
     });
 
     it('should not display a menu on focus when `minLength=1`', () => {
-      const instance = getTypeaheadInstance({
-        ...baseProps,
-        minLength: 1,
-      });
-      focusTypeaheadInput(instance);
-      const menuNode = getMenuNode(instance);
-
-      expect(menuNode).to.equal(undefined);
+      typeahead.setProps({minLength: 1});
+      focus(typeahead);
+      expect(getMenu(typeahead).length).to.equal(0);
     });
 
     it(
       'should display a menu when there are no results, `allowNew=true`, ' +
       'and `emptyLabel` is falsy', () => {
-        const instance = getTypeaheadInstance({
-          ...baseProps,
+        typeahead.setProps({
           allowNew: true,
           emptyLabel: false,
           options: [],
         });
+        change(typeahead, 'xx');
+        focus(typeahead);
 
-        updateInputValue(instance, 'xx');
-        const menuItems = scryMenuItems(instance);
-
+        const menuItems = getMenuItems(typeahead);
         expect(menuItems.length).to.equal(1);
+        expect(menuItems.text()).to.equal('New selection: xx');
       }
     );
   });
 
-  describe('`emptyLabel` behavior', () => {
+  it('should not display a menu if `emptyLabel` is falsy', () => {
     function getMenuWithEmptyLabel(emptyLabel) {
-      const instance = getTypeaheadInstance({
-        ...baseProps,
-        emptyLabel,
-        options: [],
-      });
-
-      focusTypeaheadInput(instance);
-      return getMenuNode(instance);
+      typeahead = mountTypeahead({emptyLabel, options: []});
+      focus(typeahead);
+      return getMenu(typeahead);
     }
 
-    it('should not display a menu if `emptyLabel` is falsy', () => {
-      let menuNode = getMenuWithEmptyLabel('');
-      expect(menuNode).to.not.exist;
+    let menuNode = getMenuWithEmptyLabel('');
+    expect(menuNode.length).to.equal(0);
 
-      menuNode = getMenuWithEmptyLabel(null);
-      expect(menuNode).to.not.exist;
+    menuNode = getMenuWithEmptyLabel(null);
+    expect(menuNode.length).to.equal(0);
 
-      menuNode = getMenuWithEmptyLabel(0);
-      expect(menuNode).to.not.exist;
-    });
+    menuNode = getMenuWithEmptyLabel(0);
+    expect(menuNode.length).to.equal(0);
   });
 
   it('should disable the input if the component is disabled', () => {
-    const instance = getTypeaheadInstance({
-      ...baseProps,
-      disabled: true,
-    });
-    const input = ReactTestUtils.findRenderedComponentWithType(
-      instance,
-      TypeaheadInput
-    );
+    const inputProps = typeahead
+      .setProps({disabled: true})
+      .find(TypeaheadInput)
+      .props();
 
-    expect(input.props.disabled).to.be.true;
+    expect(inputProps.disabled).to.equal(true);
   });
 
   it('should not highlight disabled options', () => {
     let activeItem;
-
-    function cycleThroughMenuAndGetActiveItem(inputNode, direction) {
-      ReactTestUtils.Simulate.keyDown(inputNode, {
-        keyCode: direction,
-        which: direction,
-      });
-
-      return ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'dropdown-item active'
-      );
-    }
 
     const options = [
       {name: 'foo'},
@@ -316,180 +245,127 @@ describe('<Typeahead>', () => {
       {disabled: true, name: 'boo'},
       {name: 'baz'},
     ];
-    const instance = getTypeaheadInstance({...baseProps, options});
-    const inputNode = getInputNode(instance);
 
-    ReactTestUtils.Simulate.focus(inputNode);
+    typeahead = mountTypeahead({options});
+    focus(typeahead);
 
     // Cycling down should activate the first option.
-    activeItem = cycleThroughMenuAndGetActiveItem(inputNode, DOWN);
-    expect(activeItem.innerText).to.equal(options[0].name);
+    activeItem = cycleThroughMenuAndGetActiveItem(typeahead, DOWN);
+    expect(activeItem.text()).to.equal(options[0].name);
 
     // Cycling down should skip the two disabled option.
-    activeItem = cycleThroughMenuAndGetActiveItem(inputNode, DOWN);
-    expect(activeItem.innerText).to.equal(options[3].name);
+    activeItem = cycleThroughMenuAndGetActiveItem(typeahead, DOWN);
+    expect(activeItem.text()).to.equal(options[3].name);
 
     // Cycling back up should again skip the two disabled option.
-    activeItem = cycleThroughMenuAndGetActiveItem(inputNode, UP);
-    expect(activeItem.innerText).to.equal(options[0].name);
+    activeItem = cycleThroughMenuAndGetActiveItem(typeahead, UP);
+    expect(activeItem.text()).to.equal(options[0].name);
   });
 
   it('should have a menu item for pagination', () => {
-    let didPaginate = false;
-    const onPaginate = () => didPaginate = true;
+    const onPaginate = sinon.spy();
     const paginationText = 'See More';
 
-    const instance = getTypeaheadInstance({
+    typeahead.setProps({
       onPaginate,
       options: bigData,
       paginationText,
     });
-    focusTypeaheadInput(instance);
 
-    // Get the anchor node, not the `<li>`
-    const paginatorAnchorNode =
-      ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'rbt-menu-paginator'
-      ).firstChild;
+    focus(typeahead);
+    const paginatorNode = typeahead.find('.rbt-menu-paginator a').hostNodes();
 
-    ReactTestUtils.Simulate.click(paginatorAnchorNode);
+    expect(paginatorNode).to.have.length(1);
+    expect(paginatorNode.text()).to.equal(paginationText);
 
-    expect(paginatorAnchorNode).to.exist;
-    expect(paginatorAnchorNode.innerHTML).to.equal(paginationText);
-    expect(didPaginate).to.equal(true);
+    paginatorNode.simulate('click');
+    expect(onPaginate.calledOnce).to.equal(true);
   });
 
   it('should not have a menu item for pagination', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Typeahead options={bigData} paginate={false} />
-    );
-    focusTypeaheadInput(instance);
+    typeahead.setProps({
+      options: bigData,
+      paginate: false,
+    });
 
-    const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-      instance,
-      'rbt-menu-paginator'
-    );
-
-    expect(paginatorNodes.length).to.equal(0);
+    focus(typeahead);
+    expect(typeahead.find('.rbt-menu-paginator')).to.have.length(0);
   });
 
   describe('should limit the results when `maxResults` is set', () => {
     const maxResults = 5;
 
-    it('should limit results when `paginate=true`', () => {
-      const instance = getTypeaheadInstance({
-        ...baseProps,
-        maxResults,
-      });
-      focusTypeaheadInput(instance);
+    beforeEach(() => {
+      typeahead = mountTypeahead({maxResults});
+    });
 
-      const menuItems = scryMenuItems(instance);
+    it('should limit results when `paginate=true`', () => {
+      focus(typeahead);
 
       // When `paginate` is true, it adds 2 menu items to the menu: one for the
       // divider and one for the paginator.
-      expect(menuItems.length).to.equal(maxResults + 2);
+      expect(getMenuItems(typeahead).length).to.equal(maxResults + 2);
     });
 
     it('should limit results when `paginate=false`', () => {
-      const instance = getTypeaheadInstance({
-        ...baseProps,
-        maxResults,
-        paginate: false,
-      });
-      focusTypeaheadInput(instance);
+      typeahead.setProps({paginate: false});
+      focus(typeahead);
 
-      const menuItems = scryMenuItems(instance);
-
-      // When `paginate` is true, it adds 2 menu items to the menu: one for the
-      // divider and one for the paginator.
-      expect(menuItems.length).to.equal(maxResults);
+      expect(getMenuItems(typeahead).length).to.equal(maxResults);
     });
   });
 
   it('should add the `dropup` className when `dropup=true`', () => {
-    const instance = getTypeaheadInstance({...baseProps, dropup: true});
-    const TypeaheadNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'dropup'
-    );
-
-    expect(TypeaheadNode).to.exist;
+    typeahead.setProps({dropup: true});
+    expect(typeahead.find('.dropup')).to.have.length(1);
   });
 
   it('renders a large input', () => {
-    const instance = getTypeaheadInstance({...baseProps, bsSize: 'large'});
-    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'form-control input-lg'
-    );
-
-    expect(inputNode).to.exist;
+    typeahead.setProps({bsSize: 'large'});
+    expect(typeahead.find('.input-lg')).to.have.length(1);
   });
 
   it('renders a small input', () => {
-    const instance = getTypeaheadInstance({...baseProps, bsSize: 'small'});
-    const inputNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'form-control input-sm'
-    );
-
-    expect(inputNode).to.exist;
+    typeahead.setProps({bsSize: 'small'});
+    expect(typeahead.find('.input-sm')).to.have.length(1);
   });
 
-  it('displays a loader when `isLoading=true`', () => {
-    const instance = getTypeaheadInstance({...baseProps, isLoading: true});
-    const LoaderNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-loader'
-    );
-
-    expect(LoaderNode).to.exist;
+  it('renders a small input', () => {
+    typeahead.setProps({isLoading: true});
+    expect(typeahead.find('.rbt-loader')).to.have.length(1);
   });
 
-  describe('clear button state', () => {
-    let instance, clearButtonNode;
-
+  describe('ClearButton behavior', () => {
     beforeEach(() => {
-      instance = getTypeaheadInstance({
-        ...baseProps,
+      typeahead = mountTypeahead();
+    });
+
+    it('displays a clear button when there are selections', () => {
+      typeahead.setProps({
         clearButton: true,
         selected: states.slice(0, 1),
       });
 
-      clearButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'rbt-close'
-      );
-    });
-
-    it('displays a clear button', () => {
-      expect(clearButtonNode).to.exist;
+      expect(getClearButton(typeahead).length).to.equal(1);
     });
 
     it('does not display a clear button when there are no selections', () => {
-      // Clear the selection
-      ReactTestUtils.Simulate.click(clearButtonNode);
-      const nodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-        instance,
-        'rbt-close'
-      );
-      expect(nodes.length).to.equal(0);
+      typeahead.setProps({
+        clearButton: true,
+        selected: [],
+      });
+      expect(getClearButton(typeahead).length).to.equal(0);
     });
   });
 
   describe('updates when re-rendering with new props', () => {
-    let node, selected, text;
-
-    const props = {
-      ...baseProps,
-      onChange: (s) => selected = s,
-      onInputChange: (t) => text = t,
-    };
+    let selected, text;
 
     beforeEach(() => {
-      node = document.createElement('div');
-      render(<Typeahead {...props} />, node);
+      typeahead = mountTypeahead({
+        onChange: (s) => selected = s,
+        onInputChange: (t) => text = t,
+      });
     });
 
     it('acts as a controlled input in single-select mode', () => {
@@ -497,19 +373,19 @@ describe('<Typeahead>', () => {
       const selected2 = states.slice(1, 2);
 
       // Pass in new selection
-      render(<Typeahead {...props} selected={selected1} />, node);
+      typeahead.setProps({selected: selected1});
 
       expect(selected).to.deep.equal(selected1);
       expect(text).to.equal(selected1[0][baseProps.labelKey]);
 
       // Pass in another new selection
-      render(<Typeahead {...props} selected={selected2} />, node);
+      typeahead.setProps({selected: selected2});
 
       expect(selected).to.deep.equal(selected2);
       expect(text).to.equal(selected2[0][baseProps.labelKey]);
 
-      // "Clear" the component
-      render(<Typeahead {...props} selected={[]} />, node);
+      // Clear the selections.
+      typeahead.setProps({selected: []});
 
       expect(selected).to.deep.equal([]);
       expect(text).to.equal('');
@@ -519,13 +395,16 @@ describe('<Typeahead>', () => {
       const selected1 = states.slice(0, 4);
 
       // Pass in new selection
-      render(<Typeahead {...props} multiple selected={selected1} />, node);
+      typeahead.setProps({
+        multiple: true,
+        selected: selected1,
+      });
 
       expect(selected).to.deep.equal(selected1);
       expect(text).to.equal('');
 
-      // "Clear" the component
-      render(<Typeahead {...props} multiple selected={[]} />, node);
+      // Clear the selections.
+      typeahead.setProps({selected: []});
 
       expect(selected).to.deep.equal([]);
       expect(text).to.equal('');
@@ -533,83 +412,67 @@ describe('<Typeahead>', () => {
   });
 
   describe('`highlightOnlyResult` behavior', () => {
-    let props;
     let selected;
 
-    function simulateEnter(node) {
-      ReactTestUtils.Simulate.keyDown(node, {
-        key: 'Enter',
-        keyCode: RETURN,
-        which: RETURN,
-      });
-    }
-
     beforeEach(() => {
-      props = {
-        ...baseProps,
-        onChange: (s) => selected = [s],
-      };
       selected = [];
+      typeahead = mountTypeahead({
+        onChange: (s) => selected = [s],
+      });
     });
 
     it('does not highlight the only result', () => {
-      const instance = getTypeaheadInstance(props);
-      const inputNode = getInputNode(instance);
 
-      updateInputValue(instance, 'Alab');
-      ReactTestUtils.Simulate.focus(inputNode);
+      change(typeahead, 'Alab');
+      focus(typeahead);
 
-      const menuItems = scryMenuItems(instance);
+      const menuItems = getMenuItems(typeahead);
 
       expect(menuItems.length).to.equal(1);
-      expect(head(menuItems).className).to.equal('');
+      expect(menuItems.hasClass('active')).to.equal(false);
 
-      simulateEnter(inputNode);
+      keyDown(typeahead, RETURN);
+
       expect(selected.length).to.equal(0);
     });
 
     it('highlights the only result', () => {
-      const instance = getTypeaheadInstance({
-        ...props,
-        highlightOnlyResult: true,
-      });
-      const inputNode = getInputNode(instance);
+      typeahead.setProps({highlightOnlyResult: true});
 
-      updateInputValue(instance, 'Alab');
-      ReactTestUtils.Simulate.focus(inputNode);
+      change(typeahead, 'Alab');
+      focus(typeahead);
 
-      const menuItems = scryMenuItems(instance);
+      const menuItems = getMenuItems(typeahead);
 
       expect(menuItems.length).to.equal(1);
-      expect(head(menuItems).className).to.equal('active');
+      expect(menuItems.hasClass('active')).to.equal(true);
 
-      simulateEnter(inputNode);
+      keyDown(typeahead, RETURN);
+
       expect(selected.length).to.equal(1);
     });
 
     it('does not highlight the only result when `allowNew=true`', () => {
-      const instance = getTypeaheadInstance({
-        ...props,
+      typeahead.setProps({
         allowNew: true,
         highlightOnlyResult: true,
       });
-      const inputNode = getInputNode(instance);
 
-      updateInputValue(instance, 'qqq');
-      ReactTestUtils.Simulate.focus(inputNode);
+      change(typeahead, 'qqq');
+      focus(typeahead);
 
-      const menuItems = scryMenuItems(instance);
+      const menuItems = getMenuItems(typeahead);
 
       expect(menuItems.length).to.equal(1);
-      expect(head(menuItems).className).to.equal('');
+      expect(menuItems.hasClass('active')).to.equal(false);
 
-      simulateEnter(inputNode);
+      keyDown(typeahead, RETURN);
+
       expect(selected.length).to.equal(0);
     });
 
     it('does not highlight or select a disabled result', () => {
-      const instance = getTypeaheadInstance({
-        ...props,
+      typeahead.setProps({
         highlightOnlyResult: true,
         options: [
           {name: 'foo'},
@@ -618,17 +481,17 @@ describe('<Typeahead>', () => {
           {name: 'baz'},
         ],
       });
-      const inputNode = getInputNode(instance);
 
-      updateInputValue(instance, 'bar');
-      ReactTestUtils.Simulate.focus(inputNode);
+      change(typeahead, 'bar');
+      focus(typeahead);
 
-      const menuItems = scryMenuItems(instance);
+      const menuItems = getMenuItems(typeahead);
 
       expect(menuItems.length).to.equal(1);
-      expect(head(menuItems).className).to.not.contain('active');
+      expect(menuItems.hasClass('active')).to.equal(false);
 
-      simulateEnter(inputNode);
+      keyDown(typeahead, RETURN);
+
       expect(selected.length).to.equal(0);
     });
   });
@@ -636,10 +499,10 @@ describe('<Typeahead>', () => {
   // DEPRECATED
   it('adds a name to the input', () => {
     const name = 'input-name';
-    const instance = getTypeaheadInstance({...baseProps, name});
-    const inputNode = getInputNode(instance);
 
-    expect(inputNode.name).to.equal(name);
+    typeahead.setProps({name});
+
+    expect(getInput(typeahead).props().name).to.equal(name);
   });
 
   it('applies arbitrary attributes to the input', () => {
@@ -651,197 +514,145 @@ describe('<Typeahead>', () => {
       type: 'number',
     };
 
-    const instance = getTypeaheadInstance({
-      ...baseProps,
+    typeahead.setProps({
       inputProps,
       multiple: true,
       selected: states.slice(0, 1),
     });
-    const inputNode = getInputNode(instance);
 
-    expect(inputNode.className).to.contain(inputProps.className);
-    expect(inputNode.id).to.equal(inputProps.id);
-    expect(inputNode.name).to.equal(inputProps.name);
-    expect(inputNode.tabIndex).to.equal(inputProps.tabIndex);
-    expect(inputNode.type).to.equal(inputProps.type);
+    const props = getInput(typeahead).props();
 
-    const tokenNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-token'
-    );
-    expect(tokenNode.tabIndex).to.equal(inputProps.tabIndex);
+    expect(props.className).to.contain(inputProps.className);
+    expect(props.id).to.equal(inputProps.id);
+    expect(props.name).to.equal(inputProps.name);
+    expect(props.tabIndex).to.equal(inputProps.tabIndex);
+    expect(props.type).to.equal(inputProps.type);
+
+    const token = typeahead.find('.rbt-token');
+    expect(token.props().tabIndex).to.equal(inputProps.tabIndex);
   });
 
   it('triggers the `onKeyDown` callback', () => {
-    let keyDown;
-    const instance = getTypeaheadInstance({
-      ...baseProps,
-      onKeyDown: (e) => keyDown = 'success',
-    });
+    const onKeyDown = sinon.spy();
 
-    simulateKeyDown(instance, RETURN);
+    typeahead.setProps({onKeyDown});
+    keyDown(typeahead, RETURN);
 
-    expect(keyDown).to.equal('success');
+    expect(onKeyDown.calledOnce).to.equal(true);
   });
 
   it('triggers the `onMenuHide` and `onMenuShow` callbacks', () => {
-    let menuState;
-    const instance = getTypeaheadInstance({
-      ...baseProps,
-      onMenuHide: () => menuState = 'hidden',
-      onMenuShow: () => menuState = 'shown',
-    });
+    const onMenuHide = sinon.spy();
+    const onMenuShow = sinon.spy();
 
-    const inputNode = getInputNode(instance);
-    ReactTestUtils.Simulate.focus(inputNode);
-    expect(menuState).to.equal('shown');
+    typeahead.setProps({onMenuHide, onMenuShow});
 
-    const menuItems = scryMenuItems(instance);
-    ReactTestUtils.Simulate.click(menuItems[0].firstChild);
-    expect(menuState).to.equal('hidden');
+    expect(onMenuHide.notCalled).to.equal(true);
+    expect(onMenuShow.notCalled).to.equal(true);
+
+    focus(typeahead);
+    expect(onMenuShow.calledOnce).to.equal(true);
+
+    // Simulating a `blur` event doesn't actually hide the menu. Simulating an
+    // `esc` keystroke does.
+    keyDown(typeahead, ESC);
+    expect(onMenuHide.calledOnce).to.equal(true);
   });
 
   describe('hint behavior', () => {
-    let hintNode, inputNode, instance;
-
     beforeEach(() => {
-      instance = getTypeaheadInstance(baseProps);
-      inputNode = getInputNode(instance);
-      hintNode = getHintNode(instance);
-
-      updateInputValue(instance, 'Ala');
+      typeahead = mountTypeahead();
+      change(typeahead, 'Ala');
     });
 
     it('does not display a hint when the input is not focused', () => {
-      expect(hintNode.value).to.equal('');
+      expect(getHint(typeahead).props().value).to.equal('');
     });
 
     it('displays a hint when the input is focused', () => {
-      ReactTestUtils.Simulate.focus(inputNode);
-      expect(hintNode.value).to.equal('Alabama');
+      focus(typeahead);
+      expect(getHint(typeahead).props().value).to.equal('Alabama');
     });
 
     it('does not display a hint in multi-select mode', () => {
-      instance = getTypeaheadInstance({...baseProps, multiple: true});
-      hintNode = getHintNode(instance);
-
-      expect(hintNode).to.equal(undefined);
+      typeahead.setProps({multiple: true});
+      expect(getHint(typeahead).length).to.equal(0);
     });
 
     it('does not display a hint if the menu is hidden', () => {
-      let menuNode;
-
-      focusTypeaheadInput(instance);
-      menuNode = getMenuNode(instance);
+      focus(typeahead);
 
       // When focused, the typeahead should show the menu and hint text.
-      expect(menuNode).to.exist;
-      expect(hintNode.value).to.equal('Alabama');
+      expect(getMenu(typeahead).length).to.equal(1);
+      expect(getHint(typeahead).props().value).to.equal('Alabama');
 
-      ReactTestUtils.Simulate.keyDown(inputNode, {
-        keyCode: ESC,
-        which: ESC,
-      });
-      const inputWrapper = ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'form-control'
-      );
-      menuNode = getMenuNode(instance);
+      keyDown(typeahead, ESC);
 
       // Expect the input to remain focused, but the menu and hint to be hidden.
-      expect(menuNode).to.not.exist;
-      expect(inputWrapper.className).to.contain('focus');
-      expect(hintNode.value).to.equal('');
+      expect(typeahead.find('.form-control').hasClass('focus')).to.equal(true);
+      expect(getMenu(typeahead).length).to.equal(0);
+      expect(getHint(typeahead).props().value).to.equal('');
     });
   });
 
   describe('form integration', () => {
-    let onKeyDownEvent;
+    let event;
+
+    const onKeyDown = (e) => event = e;
 
     beforeEach(() => {
-      onKeyDownEvent = null;
+      event = null;
+      typeahead.setProps({onKeyDown});
     });
 
-    const onKeyDown = (e) => onKeyDownEvent = e;
+    it('should not submit form when `submitFormOnEnter=false`', () => {
+      focus(typeahead);
+      keyDown(typeahead, RETURN);
 
-    /**
-     * Since react test simulation doesn't trigger form submit on RETURN press,
-     * we should handle keyDown event on form level and test whether default was
-     * prevented or not.
-     */
-    it('should not submit form when `submitFormOnEnter=false', () => {
-      const instance = getFormWithTypeaheadInstance({
-        ...baseProps,
-        onKeyDown,
-        submitFormOnEnter: false,
-      });
-      simulateKeyDown(instance, RETURN);
-
-      expect(onKeyDownEvent.defaultPrevented).to.equal(true);
+      expect(event.defaultPrevented).to.equal(true);
     });
 
-    it('should submit form when `submitFormOnEnter=true', () => {
-      const instance = getFormWithTypeaheadInstance({
-        ...baseProps,
-        onKeyDown,
-        submitFormOnEnter: true,
-      });
-      simulateKeyDown(instance, RETURN);
+    it('should submit form when `submitFormOnEnter=true`', () => {
+      typeahead.setProps({submitFormOnEnter: true});
+      focus(typeahead);
+      keyDown(typeahead, RETURN);
 
-      expect(onKeyDownEvent.defaultPrevented).to.equal(undefined);
+      expect(event.defaultPrevented).to.equal(undefined);
     });
   });
 
   describe('accessibility status', () => {
-    let inputNode, instance, statusNode;
+    let statusNode;
 
     beforeEach(() => {
-      instance = getTypeaheadInstance(baseProps);
-      inputNode = getInputNode(instance);
-      statusNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'rbt-sr-status'
-      );
-      ReactTestUtils.Simulate.focus(inputNode);
+      focus(typeahead);
+      statusNode = typeahead.find('.rbt-sr-status');
     });
 
     it('lists the number of results when the input is focused', () => {
-      expect(statusNode.innerHTML).to.contain('50 results');
+      expect(statusNode.text()).to.contain('50 results');
     });
 
     it('lists the number of selected items', () => {
-      ReactTestUtils.Simulate.keyDown(inputNode, {
-        keyCode: DOWN,
-        which: DOWN,
-      });
-      ReactTestUtils.Simulate.keyDown(inputNode, {
-        keyCode: RETURN,
-        which: RETURN,
-      });
+      keyDown(typeahead, DOWN);
+      keyDown(typeahead, RETURN);
 
-      expect(statusNode.innerHTML).to.contain('1 selection');
+      expect(statusNode.text()).to.contain('1 selection');
     });
   });
 
   describe('bodyContainer behavior', () => {
     it('renders the menu inline', () => {
-      const instance = getTypeaheadInstance(baseProps);
-
-      focusTypeaheadInput(instance);
-      const menuNode = getMenuNode(instance);
-
+      focus(typeahead);
+      const menuNode = getMenu(typeahead).instance();
       expect(menuNode.parentNode.nodeName).to.equal('DIV');
     });
 
     it('appends the menu to the document body', () => {
-      const instance = getTypeaheadInstance({
-        ...baseProps,
-        bodyContainer: true,
-      });
+      typeahead.setProps({bodyContainer: true});
+      focus(typeahead);
 
-      focusTypeaheadInput(instance);
-      const menuNode = getMenuNode(instance);
-
+      const menuNode = getMenu(typeahead).instance();
       expect(menuNode.parentNode.nodeName).to.equal('BODY');
     });
   });
