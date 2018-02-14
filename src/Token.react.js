@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import {noop} from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -84,7 +83,6 @@ Token.propTypes = {
 
 Token.defaultProps = {
   active: false,
-  onRemove: noop,
   tabIndex: 0,
 };
 

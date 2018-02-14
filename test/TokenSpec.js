@@ -1,37 +1,34 @@
 import {expect} from 'chai';
-import {noop} from 'lodash';
+import {mount} from 'enzyme';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import sinon from 'sinon';
 
 import Token from '../src/Token';
 
 describe('<Token>', () => {
-  it('renders a basic token', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Token>Basic</Token>);
-    const tokenNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-token'
-    );
+  let token;
 
-    expect(tokenNode).to.exist;
+  beforeEach(() => {
+    token = mount(<Token>This is a token</Token>);
+  });
+
+  it('renders a basic token', () => {
+    expect(token.find('div').hasClass('rbt-token')).to.equal(true);
+    expect(token.text()).to.equal('This is a token');
   });
 
   it('renders a removeable token', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Token onRemove={noop}>
-        Removeable
-      </Token>
-    );
-    const tokenNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-token-removeable'
-    );
-    const closeButtonNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-token-remove-button'
-    );
+    const onRemove = sinon.spy();
 
-    expect(tokenNode).to.exist;
-    expect(closeButtonNode).to.exist;
+    token.setProps({onRemove});
+
+    const rootNode = token.find('.rbt-token');
+    expect(rootNode.hasClass('rbt-token-removeable')).to.equal(true);
+
+    const closeButton = token.find('button');
+    closeButton.simulate('click');
+
+    expect(closeButton.hasClass('rbt-token-remove-button')).to.equal(true);
+    expect(onRemove.calledOnce).to.equal(true);
   });
 });
