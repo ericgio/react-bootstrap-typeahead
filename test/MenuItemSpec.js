@@ -1,11 +1,11 @@
 import {expect} from 'chai';
 import {mount, shallow} from 'enzyme';
 import {noop} from 'lodash';
-import PropTypes from 'prop-types';
 import React from 'react';
 import sinon from 'sinon';
 
 import MenuItem, {BaseMenuItem} from '../src/MenuItem';
+import {childContextTypes, context} from './testUtils';
 
 const event = {
   preventDefault: noop,
@@ -50,22 +50,6 @@ describe('<BaseMenuItem>', () => {
 
 describe('<MenuItem>', () => {
   let menuItem, onClick;
-
-  const context = {
-    activeIndex: -1,
-    isOnlyResult: false,
-    onActiveItemChange: noop,
-    onInitialItemChange: noop,
-    onMenuItemClick: noop,
-  };
-
-  const childContextTypes = {
-    activeIndex: PropTypes.number.isRequired,
-    isOnlyResult: PropTypes.bool.isRequired,
-    onActiveItemChange: PropTypes.func.isRequired,
-    onInitialItemChange: PropTypes.func.isRequired,
-    onMenuItemClick: PropTypes.func.isRequired,
-  };
 
   beforeEach(() => {
     onClick = sinon.spy();

@@ -1,5 +1,22 @@
-import {head} from 'lodash';
+import {head, noop} from 'lodash';
+import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
+
+export const childContextTypes = {
+  activeIndex: PropTypes.number.isRequired,
+  isOnlyResult: PropTypes.bool.isRequired,
+  onActiveItemChange: PropTypes.func.isRequired,
+  onInitialItemChange: PropTypes.func.isRequired,
+  onMenuItemClick: PropTypes.func.isRequired,
+};
+
+export const context = {
+  activeIndex: -1,
+  isOnlyResult: false,
+  onActiveItemChange: noop,
+  onInitialItemChange: noop,
+  onMenuItemClick: noop,
+};
 
 export function focusTypeaheadInput(instance) {
   const inputNode = getInputNode(instance);

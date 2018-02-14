@@ -1,129 +1,112 @@
 import {expect} from 'chai';
+import {mount} from 'enzyme';
 import {range} from 'lodash';
 import React from 'react';
 
-import ReactTestUtils from 'react-dom/test-utils';
-
 import MenuItem, {BaseMenuItem} from '../src/MenuItem';
-import TypeaheadContext from './utils/TypeaheadContext';
 import TypeaheadMenu from '../src/TypeaheadMenu';
 
 import options from '../example/exampleData';
-import {getMenuNode} from './testUtils';
+import {childContextTypes, context} from './testUtils';
 
 const bigData = range(0, 300).map((option) => ({name: option.toString()}));
 
-function getMenuInstance(props={}) {
-  return ReactTestUtils.renderIntoDocument(
-    <TypeaheadContext>
+function getPaginator(menu) {
+  return menu.find('.rbt-menu-paginator').hostNodes();
+}
+
+describe('<TypeaheadMenu>', () => {
+  let menu;
+
+  beforeEach(() => {
+    menu = mount(
       <TypeaheadMenu
         labelKey="name"
         options={options}
         text=""
-        {...props}
-      />
-    </TypeaheadContext>
-  );
-}
-
-function renderMenuNode(props={}) {
-  return getMenuNode(getMenuInstance(props));
-}
-
-describe('<TypeaheadMenu>', () => {
+      />,
+      {childContextTypes, context}
+    );
+  });
 
   it('renders a basic typeahead menu', () => {
-    const menuNode = renderMenuNode();
-    expect(menuNode).to.exist;
+    expect(menu.find('ul').hasClass('rbt-menu')).to.equal(true);
+    expect(menu.find(MenuItem).length).to.equal(options.length);
   });
 
   it('renders a right-aligned typeahead menu', () => {
-    const menuNode = renderMenuNode({align: 'right'});
-    expect(menuNode.className).to.contain('dropdown-menu-right');
+    const menuNode = menu
+      .setProps({align: 'right'})
+      .find('ul');
+
+    expect(menuNode.hasClass('dropdown-menu-right')).to.equal(true);
   });
 
   it('renders a menu with a max-height of 200px', () => {
-    const menuNode = renderMenuNode({maxHeight: 200});
-    expect(menuNode.style.maxHeight).to.equal('200px');
+    const menuNode = menu
+      .setProps({maxHeight: 200})
+      .find('ul');
+
+    expect(menuNode.props().style.maxHeight).to.equal('200px');
   });
 
   it ('renders disabled menu items', () => {
-    const disabledOptions = options.map((option) => (
-      {...option, disabled: true}
-    ));
-    const instance = getMenuInstance({options: disabledOptions});
-    const menuItems = ReactTestUtils.scryRenderedComponentsWithType(
-      instance,
-      MenuItem
-    );
-    expect(menuItems[0].props.disabled).to.equal(true);
+    const menuItems = menu
+      .setProps({options: options.map((o) => ({...o, disabled: true}))})
+      .find(MenuItem);
+
+    expect(menuItems.first().props().disabled).to.equal(true);
   });
 
   it('renders an empty state when there are no results', () => {
     const emptyLabel = 'No matches found.';
-    const instance = getMenuInstance({
-      emptyLabel,
-      options: [],
-    });
-    const menuItems = ReactTestUtils.scryRenderedComponentsWithType(
-      instance,
-      BaseMenuItem
-    );
+
+    const menuItems = menu
+      .setProps({emptyLabel, options: []})
+      .find(BaseMenuItem);
 
     expect(menuItems.length).to.equal(1);
-    expect(menuItems[0].props.children).to.equal(emptyLabel);
+    expect(menuItems.first().text()).to.equal(emptyLabel);
   });
 
   it('displays a paginator', () => {
-    const instance = getMenuInstance({
+    menu.setProps({
       options: bigData,
       paginate: true,
     });
-    const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-menu-paginator'
-    );
-    expect(paginatorNode).to.exist;
-    expect(paginatorNode.firstChild.innerHTML).to.equal(
-      'Display additional results...'
-    );
+
+    const paginatorNode = getPaginator(menu);
+    expect(paginatorNode.length).to.equal(1);
+    expect(paginatorNode.text()).to.equal('Display additional results...');
   });
 
   it('does not show a paginator when there are no results', () => {
-    const instance = getMenuInstance({
+    menu.setProps({
       options: [],
       paginate: true,
     });
-    const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-      instance,
-      'rbt-menu-paginator'
-    );
-    expect(paginatorNodes.length).to.equal(0);
+
+    expect(getPaginator(menu).length).to.equal(0);
   });
 
   it('does not show a paginator if `paginate=false`', () => {
-    const instance = getMenuInstance({
+    menu.setProps({
       options: bigData,
       paginate: false,
     });
-    const paginatorNodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(
-      instance,
-      'rbt-menu-paginator'
-    );
-    expect(paginatorNodes.length).to.equal(0);
+
+    expect(getPaginator(menu).length).to.equal(0);
   });
 
   it('displays custom pagination text', () => {
     const paginationText = 'See All';
-    const instance = getMenuInstance({
+
+    menu.setProps({
       options: bigData,
       paginationText,
     });
-    const paginatorNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'rbt-menu-paginator'
-    );
-    expect(paginatorNode.firstChild.innerHTML).to.equal(paginationText);
+
+    expect(getPaginator(menu).text()).to.equal(paginationText);
   });
 
 });
