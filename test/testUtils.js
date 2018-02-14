@@ -18,9 +18,17 @@ export const context = {
   onMenuItemClick: noop,
 };
 
+export function focus(wrapper) {
+  getInput(wrapper).simulate('focus');
+}
+
 export function focusTypeaheadInput(instance) {
   const inputNode = getInputNode(instance);
   TestUtils.Simulate.focus(inputNode);
+}
+
+export function getHint(wrapper) {
+  return wrapper.find('.rbt-input-hint');
 }
 
 export function getHintNode(instance) {
@@ -29,6 +37,10 @@ export function getHintNode(instance) {
     'rbt-input-hint'
   );
   return head(nodes);
+}
+
+export function getInput(wrapper) {
+  return wrapper.find('.rbt-input-main');
 }
 
 export function getInputNode(instance) {
@@ -46,10 +58,8 @@ export function getMenuNode(instance) {
   return head(nodes);
 }
 
-export function performSearch(query, instance, callback) {
-  const inputNode = getInputNode(instance);
-  TestUtils.Simulate.change(inputNode, {target: {value: query}});
-  setTimeout(callback, instance.props.delay);
+export function getMenuItems(wrapper) {
+  return wrapper.find('li');
 }
 
 export function scryMenuItems(instance) {
@@ -57,6 +67,11 @@ export function scryMenuItems(instance) {
     instance,
     'LI'
   );
+}
+
+export function search(wrapper, query, callback) {
+  getInput(wrapper).simulate('change', {target: {value: query}});
+  setTimeout(callback, wrapper.props().delay);
 }
 
 export function simulateKeyDown(instance, keyCode) {
@@ -71,10 +86,4 @@ export function simulateKeyDown(instance, keyCode) {
 export function updateInputValue(instance, value) {
   const inputNode = getInputNode(instance);
   TestUtils.Simulate.change(inputNode, {target: {value}});
-}
-
-// Specifically to simulate `componentWillReceiveProps`. Does not actually
-// update the instance's props.
-export function updateProps(instance, newProps) {
-  instance.componentWillReceiveProps({...instance.props, ...newProps});
 }

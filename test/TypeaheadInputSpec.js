@@ -6,18 +6,11 @@ import React from 'react';
 import TypeaheadInput from '../src/TypeaheadInput';
 
 import options from '../example/exampleData';
+import {getHint, getInput} from './testUtils';
 import {RETURN, RIGHT, TAB} from '../src/constants/keyCode';
 
 function getRoot(wrapper) {
   return wrapper.find('.rbt-input');
-}
-
-function getInput(wrapper) {
-  return wrapper.find('.rbt-input-main');
-}
-
-function getHint(wrapper) {
-  return wrapper.find('.rbt-input-hint');
 }
 
 function setCursorPosition(wrapper, pos) {

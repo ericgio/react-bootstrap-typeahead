@@ -5,27 +5,10 @@ import React from 'react';
 import sinon from 'sinon';
 
 import {AsyncTypeahead} from '../src/';
-import {focusTypeaheadInput, performSearch, scryMenuItems, updateProps} from './testUtils';
+import {focus, getMenuItems, search} from './testUtils';
 
 function change(wrapper, value) {
   getInput(wrapper).prop('onChange')({target: {value}});
-}
-
-function focus(wrapper) {
-  getInput(wrapper).simulate('focus');
-}
-
-function getInput(wrapper) {
-  return wrapper.find('.rbt-input-main');
-}
-
-function getMenuItems(wrapper) {
-  return wrapper.find('li');
-}
-
-function search(wrapper, query, callback) {
-  getInput(wrapper).simulate('change', {target: {value: query}})
-  setTimeout(callback, wrapper.props().delay);
 }
 
 describe('<AsyncTypeahead>', () => {
@@ -111,13 +94,10 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('should use cached results and not perform a new search', (done) => {
-    let searchCount = 0;
-
     const onSearch = sinon.spy();
 
     wrapper.setProps({
       isLoading: true,
-      // onSearch: (query) => searchCount++,
       onSearch,
     });
 
@@ -179,8 +159,6 @@ describe('<AsyncTypeahead>', () => {
       options: ['one', 'two'],
       selected: ['one'],
     });
-
-    // wrapper.setState({hasSelection: true});
 
     search(wrapper, 'two', () => {
       expect(onSearch.callCount).to.equal(1);
