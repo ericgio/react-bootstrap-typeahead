@@ -1,114 +1,147 @@
 import {expect} from 'chai';
+import {mount} from 'enzyme';
+import {noop} from 'lodash';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
+import sinon from 'sinon';
 
 import {AsyncTypeahead} from '../src/';
 import {focusTypeaheadInput, performSearch, scryMenuItems, updateProps} from './testUtils';
 
-const defaultProps = {
-  delay: 0,
-  onSearch() {},
-};
+function change(wrapper, value) {
+  getInput(wrapper).prop('onChange')({target: {value}});
+}
 
-function getTypeaheadInstance(props) {
-  return TestUtils.renderIntoDocument(<AsyncTypeahead {...props} />);
+function focus(wrapper) {
+  getInput(wrapper).simulate('focus');
+}
+
+function getInput(wrapper) {
+  return wrapper.find('.rbt-input-main');
+}
+
+function getMenuItems(wrapper) {
+  return wrapper.find('li');
+}
+
+function search(wrapper, query, callback) {
+  getInput(wrapper).simulate('change', {target: {value: query}})
+  setTimeout(callback, wrapper.props().delay);
 }
 
 describe('<AsyncTypeahead>', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = mount(
+      <AsyncTypeahead
+        delay={0}
+        isLoading={false}
+        onSearch={noop}
+      />
+    );
+  });
 
   it('should display a search prompt when focused', () => {
     const promptText = 'Prompt text';
-    const instance = getTypeaheadInstance({
-      ...defaultProps,
+
+    wrapper.setProps({
       minLength: 0,
       promptText,
     });
 
-    focusTypeaheadInput(instance);
-    const menuItems = scryMenuItems(instance);
+    focus(wrapper);
+    const menuItems = getMenuItems(wrapper);
 
     expect(menuItems.length).to.equal(1);
-    expect(menuItems[0].children[0].innerHTML).to.equal(promptText);
+    expect(menuItems.text()).to.equal(promptText);
   });
 
   it('should display the search text while searching', (done) => {
     const searchText = 'Search text';
-    const instance = getTypeaheadInstance({
-      ...defaultProps,
-      searchText,
-    });
 
-    performSearch('search', instance, () => {
-      focusTypeaheadInput(instance);
-      const menuItems = scryMenuItems(instance);
+    wrapper.setProps({searchText});
+
+    search(wrapper, 'search', () => {
+      focus(wrapper);
+      const menuItems = getMenuItems(wrapper);
 
       expect(menuItems.length).to.equal(1);
-      expect(menuItems[0].children[0].innerHTML).to.equal(searchText);
+      expect(menuItems.text()).to.equal(searchText);
       done();
     });
   });
 
   it('should display the empty label if there are no results', (done) => {
     const emptyLabel = 'empty label';
-    const instance = getTypeaheadInstance({
-      ...defaultProps,
+
+    wrapper.setProps({
       emptyLabel,
       useCache: false,
     });
 
-    performSearch('search', instance, () => {
-      instance.setState({requestPending: false}, () => {
-        focusTypeaheadInput(instance);
-        const menuItems = scryMenuItems(instance);
+    search(wrapper, 'search', () => {
+      wrapper.setState({requestPending: false}, () => {
+        focus(wrapper);
+        const menuItems = getMenuItems(wrapper);
 
         expect(menuItems.length).to.equal(1);
-        expect(menuItems[0].children[0].innerHTML).to.equal(emptyLabel);
+        expect(menuItems.text()).to.equal(emptyLabel);
         done();
       });
     });
   });
 
   it('should delay the search by at least the specified amount', (done) => {
-    let beforeSearch = new Date();
-    let afterSearch = new Date();
-
     const delay = 100;
-    const instance = getTypeaheadInstance({
-      delay,
-      onSearch(query) {
-        afterSearch = new Date();
-      },
-    });
+    const preSearch = Date.now();
 
-    performSearch('search', instance, () => {
-      const actualDelay = afterSearch.getTime() - beforeSearch.getTime();
-      expect(actualDelay).to.be.at.least(delay);
-      done();
-    });
+    wrapper = mount(
+      <AsyncTypeahead
+        delay={delay}
+        isLoading={false}
+        onSearch={(query) => {
+          expect(Date.now() - preSearch).to.be.at.least(delay);
+          done();
+        }}
+      />
+    );
+
+    // Perform search.
+    change(wrapper, 'search');
   });
 
   it('should use cached results and not perform a new search', (done) => {
     let searchCount = 0;
 
-    const instance = getTypeaheadInstance({
-      ...defaultProps,
+    const onSearch = sinon.spy();
+
+    wrapper.setProps({
       isLoading: true,
-      onSearch: (query) => searchCount++,
+      // onSearch: (query) => searchCount++,
+      onSearch,
     });
 
     // Initial search
-    performSearch('search', instance, () => {
-      updateProps(instance, {isLoading: false, options: []});
-      expect(searchCount).to.equal(1);
+    search(wrapper, 'search', () => {
+      wrapper.setProps({
+        isLoading: false,
+        options: [],
+      });
+
+      expect(onSearch.callCount).to.equal(1);
 
       // Second search
-      performSearch('newSearch', instance, () => {
-        updateProps(instance, {isLoading: false, options: []});
-        expect(searchCount).to.equal(2);
+      search(wrapper, 'newSearch', () => {
+        wrapper.setProps({
+          isLoading: false,
+          options: [],
+        });
+
+        expect(onSearch.callCount).to.equal(2);
 
         // Perform the original search again.
-        performSearch('search', instance, () => {
-          expect(searchCount).to.equal(2);
+        search(wrapper, 'search', () => {
+          expect(onSearch.callCount).to.equal(2);
           done();
         });
       });
@@ -116,42 +149,41 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('should not use cached results', (done) => {
-    let searchCount = 0;
+    const onSearch = sinon.spy();
 
-    const instance = getTypeaheadInstance({
-      ...defaultProps,
+    wrapper.setProps({
       isLoading: true,
-      onSearch: (query) => searchCount++,
+      onSearch,
       useCache: false,
     });
 
     // Initial search
-    performSearch('search', instance, () => {
-      updateProps(instance, {isLoading: false, options: []});
-      expect(searchCount).to.equal(1);
+    search(wrapper, 'search', () => {
+      wrapper.setProps({isLoading: false, options: []});
+      expect(onSearch.callCount).to.equal(1);
 
       // Perform the search again.
-      performSearch('search', instance, () => {
-        expect(searchCount).to.equal(2);
+      search(wrapper, 'search', () => {
+        expect(onSearch.callCount).to.equal(2);
         done();
       });
     });
   });
 
   it('should perform a search when there is already a selection', (done) => {
-    let searchCount = 0;
+    const onSearch = sinon.spy();
 
-    const instance = getTypeaheadInstance({
-      ...defaultProps,
+    wrapper.setProps({
       multiple: true,
-      onSearch: (query) => searchCount++,
+      onSearch,
       options: ['one', 'two'],
       selected: ['one'],
     });
-    instance.state.hasSelection = true;
 
-    performSearch('two', instance, () => {
-      expect(searchCount).to.equal(1);
+    // wrapper.setState({hasSelection: true});
+
+    search(wrapper, 'two', () => {
+      expect(onSearch.callCount).to.equal(1);
       done();
     });
   });
