@@ -14,18 +14,19 @@ import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../src/constants/keyCode';
 
 const bigData = range(0, 500).map((o) => o.toString());
 
-let baseProps = {
-  labelKey: 'name',
-  options: states,
-};
-
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
   return wrapper.find('a.active');
 }
 
 function mountTypeahead(props) {
-  return mount(<Typeahead {...baseProps} {...props} />);
+  return mount(
+    <Typeahead
+      labelKey="name"
+      options={states}
+      {...props}
+    />
+  );
 }
 
 function getClearButton(wrapper) {
@@ -132,13 +133,13 @@ describe('<Typeahead>', () => {
 
       focus(typeahead);
 
-      expect(getInput(typeahead).props().value).to.equal(selected[0].name);
+      expect(getInput(typeahead).props().value).to.equal(head(selected).name);
       expect(getMenuItems(typeahead).length).to.equal(1);
     });
 
     it('filters menu options based on `defaultSelected` values', () => {
       const defaultSelected = states.slice(0, 1);
-      const value = defaultSelected[0].name;
+      const value = head(defaultSelected).name;
 
       typeahead = mountTypeahead({defaultSelected, onChange});
 
@@ -376,13 +377,13 @@ describe('<Typeahead>', () => {
       typeahead.setProps({selected: selected1});
 
       expect(selected).to.deep.equal(selected1);
-      expect(text).to.equal(selected1[0][baseProps.labelKey]);
+      expect(text).to.equal(head(selected1).name);
 
       // Pass in another new selection
       typeahead.setProps({selected: selected2});
 
       expect(selected).to.deep.equal(selected2);
-      expect(text).to.equal(selected2[0][baseProps.labelKey]);
+      expect(text).to.equal(head(selected2).name);
 
       // Clear the selections.
       typeahead.setProps({selected: []});
@@ -654,6 +655,20 @@ describe('<Typeahead>', () => {
 
       const menuNode = getMenu(typeahead).instance();
       expect(menuNode.parentNode.nodeName).to.equal('BODY');
+    });
+  });
+
+  describe('public methods', () => {
+    it('calls the `clear` method', () => {
+      let selected = states.slice(0, 1);
+      typeahead.setProps({
+        onChange: (s) => selected = s,
+        selected,
+      });
+
+      expect(selected.length).to.equal(1);
+      typeahead.instance().getInstance().clear();
+      expect(selected.length).to.equal(0);
     });
   });
 
