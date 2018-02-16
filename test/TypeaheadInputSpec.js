@@ -3,6 +3,8 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
+import ClearButton from '../src/ClearButton';
+import Loader from '../src/Loader';
 import TypeaheadInput from '../src/TypeaheadInput';
 
 import options from '../example/exampleData';
@@ -28,6 +30,7 @@ describe('<TypeaheadInput>', () => {
         inputProps={{}}
         isFocused={true}
         labelKey="name"
+        onClear={noop}
         onFocus={noop}
         options={options}
         selected={[]}
@@ -124,18 +127,31 @@ describe('<TypeaheadInput>', () => {
     });
   });
 
-  describe('multi-select state', () => {
-    beforeEach(() => {
-      wrapper.setProps({multiple: true});
+  it('renders a multi-select input with tokens', () => {
+    wrapper.setProps({
+      multiple: true,
+      selected: options.slice(0, 3),
     });
 
-    it('renders a multi-select input', () => {
-      expect(wrapper.find('.rbt-input-multi').length).to.equal(1);
+    expect(wrapper.find('.rbt-input-multi').length).to.equal(1);
+    expect(wrapper.find('.rbt-token').length).to.equal(3);
+  });
+
+  describe('aux component behaviors', () => {
+    it('renders a Loader', () => {
+      wrapper.setProps({isLoading: true});
+      expect(wrapper.find(Loader).length).to.equal(1);
     });
 
-    it('renders tokens in the input', () => {
-      wrapper.setProps({selected: options.slice(0, 3)});
-      expect(wrapper.find('.rbt-token').length).to.equal(3);
+    it('conditionally renders a ClearButton', () => {
+      wrapper.setProps({clearButton: true});
+      expect(wrapper.find(ClearButton).length).to.equal(0);
+
+      wrapper.setProps({selected: options.slice(0, 1)});
+      expect(wrapper.find(ClearButton).length).to.equal(1);
+
+      wrapper.setProps({disabled: true});
+      expect(wrapper.find(ClearButton).length).to.equal(0);
     });
   });
 
