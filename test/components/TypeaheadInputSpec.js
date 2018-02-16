@@ -3,17 +3,13 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
-import ClearButton from '../src/ClearButton';
-import Loader from '../src/Loader';
-import TypeaheadInput from '../src/TypeaheadInput';
+import ClearButton from '../../src/ClearButton';
+import Loader from '../../src/Loader';
+import TypeaheadInput from '../../src/TypeaheadInput';
 
-import options from '../example/exampleData';
-import {getHint, getInput, keyDown} from './testUtils';
-import {RETURN, RIGHT, TAB} from '../src/constants/keyCode';
-
-function getRoot(wrapper) {
-  return wrapper.find('.rbt-input');
-}
+import options from '../../example/exampleData';
+import {getHint, getInput, keyDown} from '../helpers';
+import {RETURN, RIGHT, TAB} from '../../src/constants/keyCode';
 
 function setCursorPosition(wrapper, pos) {
   const input = getInput(wrapper);
@@ -40,7 +36,7 @@ describe('<TypeaheadInput>', () => {
   });
 
   it('renders a TypeaheadInput', () => {
-    const rootNode = getRoot(wrapper);
+    const rootNode = wrapper.find('.rbt-input');
     expect(rootNode.length).to.equal(1);
     expect(rootNode.hasClass('form-control')).to.equal(true);
   });

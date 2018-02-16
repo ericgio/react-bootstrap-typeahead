@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 
-import defaultFilterBy from '../src/utils/defaultFilterBy';
-import states from '../example/exampleData';
+import defaultFilterBy from '../../src/utils/defaultFilterBy';
+import states from '../../example/exampleData';
 
 const FILTERED_RESULTS = [
   /* eslint-disable max-len, sort-keys */

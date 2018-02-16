@@ -1,18 +1,16 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
-import {head, range} from 'lodash';
+import {head} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import Typeahead from '../src/Typeahead';
-import TypeaheadInput from '../src/TypeaheadInput';
+import Typeahead from '../../src/Typeahead';
+import TypeaheadInput from '../../src/TypeaheadInput';
 
-import {change, focus, getHint, getInput, getMenu, getMenuItems, keyDown} from './testUtils';
+import {bigDataSet, change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, keyDown} from '../helpers';
 
-import states from '../example/exampleData';
-import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../src/constants/keyCode';
-
-const bigData = range(0, 500).map((o) => o.toString());
+import states from '../../example/exampleData';
+import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../../src/constants/keyCode';
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
@@ -269,7 +267,7 @@ describe('<Typeahead>', () => {
 
     typeahead.setProps({
       onPaginate,
-      options: bigData,
+      options: bigDataSet,
       paginationText,
     });
 
@@ -285,12 +283,12 @@ describe('<Typeahead>', () => {
 
   it('should not have a menu item for pagination', () => {
     typeahead.setProps({
-      options: bigData,
+      options: bigDataSet,
       paginate: false,
     });
 
     focus(typeahead);
-    expect(typeahead.find('.rbt-menu-paginator')).to.have.length(0);
+    expect(getPaginator(typeahead)).to.have.length(0);
   });
 
   describe('should limit the results when `maxResults` is set', () => {

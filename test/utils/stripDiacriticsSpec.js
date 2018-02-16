@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {range} from 'lodash';
 
-import stripDiacritics from '../src/utils/stripDiacritics';
+import stripDiacritics from '../../src/utils/stripDiacritics';
 
 describe('stripDiacritics', () => {
 

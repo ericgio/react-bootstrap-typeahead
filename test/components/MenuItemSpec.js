@@ -4,8 +4,8 @@ import {noop} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import MenuItem, {BaseMenuItem} from '../src/MenuItem';
-import {childContextTypes, context} from './testUtils';
+import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
+import {childContextTypes, context} from '../helpers';
 
 const event = {
   preventDefault: noop,

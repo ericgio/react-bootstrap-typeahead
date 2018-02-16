@@ -4,7 +4,7 @@ import {noop} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import Overlay from '../src/Overlay';
+import Overlay from '../../src/Overlay';
 
 describe('<Overlay>', () => {
   describe('shallow behaviors', () => {

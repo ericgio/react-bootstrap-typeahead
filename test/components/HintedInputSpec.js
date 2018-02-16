@@ -2,8 +2,8 @@ import {expect} from 'chai';
 import {mount} from 'enzyme';
 import React from 'react';
 
-import HintedInput from '../src/HintedInput';
-import {getHint, getInput} from './testUtils';
+import HintedInput from '../../src/HintedInput';
+import {getHint, getInput} from '../helpers';
 
 describe('<HintedInput>', () => {
   let wrapper;

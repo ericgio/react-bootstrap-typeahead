@@ -1,5 +1,7 @@
-import {noop} from 'lodash';
+import {noop, range} from 'lodash';
 import PropTypes from 'prop-types';
+
+export const bigDataSet = range(0, 300).map((o) => ({name: o.toString()}));
 
 export const childContextTypes = {
   activeIndex: PropTypes.number.isRequired,
@@ -53,8 +55,12 @@ export function getMenuItems(wrapper) {
   return wrapper.find('li');
 }
 
+export function getPaginator(wrapper) {
+  return wrapper.find('.rbt-menu-paginator').hostNodes();
+}
+
 /* Other Functions */
 export function search(wrapper, query, callback) {
   getInput(wrapper).simulate('change', {target: {value: query}});
-  setTimeout(callback, wrapper.props().delay);
+  setTimeout(callback, 100);
 }

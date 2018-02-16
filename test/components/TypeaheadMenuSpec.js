@@ -1,19 +1,12 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
-import {range} from 'lodash';
 import React from 'react';
 
-import MenuItem, {BaseMenuItem} from '../src/MenuItem';
-import TypeaheadMenu from '../src/TypeaheadMenu';
+import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
+import TypeaheadMenu from '../../src/TypeaheadMenu';
 
-import options from '../example/exampleData';
-import {childContextTypes, context} from './testUtils';
-
-const bigData = range(0, 300).map((option) => ({name: option.toString()}));
-
-function getPaginator(menu) {
-  return menu.find('.rbt-menu-paginator').hostNodes();
-}
+import options from '../../example/exampleData';
+import {bigDataSet, childContextTypes, context, getPaginator} from '../helpers';
 
 describe('<TypeaheadMenu>', () => {
   let menu;
@@ -69,44 +62,36 @@ describe('<TypeaheadMenu>', () => {
     expect(menuItems.first().text()).to.equal(emptyLabel);
   });
 
-  it('displays a paginator', () => {
-    menu.setProps({
-      options: bigData,
-      paginate: true,
+  describe('pagination behaviors', () => {
+    beforeEach(() => {
+      menu.setProps({
+        options: bigDataSet,
+        paginate: true,
+      });
     });
 
-    const paginatorNode = getPaginator(menu);
-    expect(paginatorNode.length).to.equal(1);
-    expect(paginatorNode.text()).to.equal('Display additional results...');
-  });
-
-  it('does not show a paginator when there are no results', () => {
-    menu.setProps({
-      options: [],
-      paginate: true,
+    it('displays a paginator', () => {
+      const paginatorNode = getPaginator(menu);
+      expect(paginatorNode.length).to.equal(1);
+      expect(paginatorNode.text()).to.equal('Display additional results...');
     });
 
-    expect(getPaginator(menu).length).to.equal(0);
-  });
-
-  it('does not show a paginator if `paginate=false`', () => {
-    menu.setProps({
-      options: bigData,
-      paginate: false,
+    it('does not show a paginator when there are no results', () => {
+      menu.setProps({options: []});
+      expect(getPaginator(menu).length).to.equal(0);
     });
 
-    expect(getPaginator(menu).length).to.equal(0);
-  });
-
-  it('displays custom pagination text', () => {
-    const paginationText = 'See All';
-
-    menu.setProps({
-      options: bigData,
-      paginationText,
+    it('does not show a paginator if `paginate=false`', () => {
+      menu.setProps({paginate: false});
+      expect(getPaginator(menu).length).to.equal(0);
     });
 
-    expect(getPaginator(menu).text()).to.equal(paginationText);
-  });
+    it('displays custom pagination text', () => {
+      const paginationText = 'See All';
 
+      menu.setProps({paginationText});
+
+      expect(getPaginator(menu).text()).to.equal(paginationText);
+    });
+  });
 });

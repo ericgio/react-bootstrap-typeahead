@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {getMatchBounds} from '../src/utils/';
+import {getMatchBounds} from '../../src/utils/';
 
 describe('getMatchBounds', () => {
   it('handles a normal string', () => {

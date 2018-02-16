@@ -3,8 +3,8 @@ import {shallow} from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
-import Menu from '../src/Menu';
-import MenuItem, {BaseMenuItem} from '../src/MenuItem';
+import Menu from '../../src/Menu';
+import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
 
 describe('<Menu>', () => {
   let menu;

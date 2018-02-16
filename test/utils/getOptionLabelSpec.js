@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import getOptionLabel from '../src/utils/getOptionLabel';
+import getOptionLabel from '../../src/utils/getOptionLabel';
 
 describe('getOptionLabel', () => {
   let label, option;

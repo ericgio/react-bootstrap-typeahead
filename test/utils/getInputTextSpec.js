@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 
-import getInputText from '../src/utils/getInputText';
-import states from '../example/exampleData';
+import getInputText from '../../src/utils/getInputText';
+import states from '../../example/exampleData';
 
 const labelKey = 'name';
 const baseArgs = {

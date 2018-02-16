@@ -4,8 +4,8 @@ import {noop} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import {AsyncTypeahead} from '../src/';
-import {change, focus, getMenuItems, search} from './testUtils';
+import {AsyncTypeahead} from '../../src/';
+import {change, focus, getMenuItems, search} from '../helpers';
 
 describe('<AsyncTypeahead>', () => {
   let wrapper;

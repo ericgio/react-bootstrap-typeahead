@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 
-import getHintText from '../src/utils/getHintText';
-import states from '../example/exampleData';
+import getHintText from '../../src/utils/getHintText';
+import states from '../../example/exampleData';
 
 const props = {
   activeItem: null,
