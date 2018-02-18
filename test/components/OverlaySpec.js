@@ -9,7 +9,6 @@ import Overlay from '../../src/Overlay';
 describe('<Overlay>', () => {
   describe('shallow behaviors', () => {
     let wrapper;
-
     beforeEach(() => {
       const div = document.createElement('div');
       wrapper = shallow(
@@ -33,6 +32,26 @@ describe('<Overlay>', () => {
       wrapper.setProps({show: true});
       expect(wrapper.type()).to.equal('div');
       expect(wrapper.text()).to.equal('This is the menu');
+    });
+
+    it('returns `null` when child is `null`', () => {
+      wrapper.setProps({children: null, show: true});
+      expect(wrapper.length).to.equal(1);
+      expect(wrapper.type()).to.equal(null);
+    });
+
+    it('throws when has multiple children', () => {
+      expect(() => {
+        wrapper.setProps({
+          children: [
+            <div key="1"/>,
+            <div key="2"/>,
+          ],
+          show: true,
+        });
+      }).to.throw(
+        'React.Children.only expected to receive a single React element child.'
+      );
     });
 
     it('calls `onMenuShow` and `onMenuHide`', () => {

@@ -75,7 +75,13 @@ class Overlay extends React.Component {
     }
 
     const {container, children} = this.props;
-    let child = Children.only(children);
+
+    let child;
+    if (Children.count(children) > 0) {
+      child = Children.only(children);
+    } else {
+      return null;
+    }
 
     // When not attaching the overlay to `document.body` treat the child as a
     // simple inline element.
@@ -139,6 +145,7 @@ class Overlay extends React.Component {
 }
 
 Overlay.propTypes = {
+  children: PropTypes.element,
   container: componentOrElement.isRequired,
   onMenuHide: PropTypes.func.isRequired,
   onMenuShow: PropTypes.func.isRequired,
