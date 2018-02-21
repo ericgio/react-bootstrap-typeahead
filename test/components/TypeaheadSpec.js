@@ -31,6 +31,10 @@ function getClearButton(wrapper) {
   return wrapper.find('.rbt-close');
 }
 
+function hasFocus(wrapper) {
+  return wrapper.find('.form-control').hasClass('focus');
+}
+
 describe('<Typeahead>', () => {
   let typeahead;
 
@@ -56,9 +60,6 @@ describe('<Typeahead>', () => {
   });
 
   it('sets and unsets the focus state on focus/blur', () => {
-    const hasFocus = (wrapper) => (
-      wrapper.find('.form-control').hasClass('focus')
-    );
     const input = getInput(typeahead);
 
     expect(hasFocus(typeahead)).to.equal(false);
@@ -68,6 +69,32 @@ describe('<Typeahead>', () => {
 
     input.simulate('blur');
     expect(hasFocus(typeahead)).to.equal(false);
+  });
+
+  describe('input focus', () => {
+    beforeEach(() => {
+      typeahead.setProps({
+        clearButton: true,
+        selected: states.slice(0, 1),
+      });
+
+      focus(typeahead);
+      expect(hasFocus(typeahead)).to.equal(true);
+    });
+
+    afterEach(() => {
+      // The menu should close but the input stays focused.
+      expect(getMenuItems(typeahead).length).to.equal(0);
+      expect(hasFocus(typeahead)).to.equal(true);
+    });
+
+    it('maintains focus when clicking a menu item', () => {
+      getMenuItems(typeahead).first().simulate('click');
+    });
+
+    it('maintains focus when clicking the clear button', () => {
+      getClearButton(typeahead).simulate('click');
+    });
   });
 
   describe('behaviors when selections are passed in', () => {
@@ -297,9 +324,9 @@ describe('<Typeahead>', () => {
     it('should limit results when `paginate=true`', () => {
       focus(typeahead);
 
-      // When `paginate` is true, it adds 2 menu items to the menu: one for the
-      // divider and one for the paginator.
-      expect(getMenuItems(typeahead).length).to.equal(maxResults + 2);
+      // When `paginate` is true, there will be a pagination menu item in
+      // addition to the shown results.
+      expect(getMenuItems(typeahead).length).to.equal(maxResults + 1);
     });
 
     it('should limit results when `paginate=false`', () => {
@@ -584,7 +611,7 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, ESC);
 
       // Expect the input to remain focused, but the menu and hint to be hidden.
-      expect(typeahead.find('.form-control').hasClass('focus')).to.equal(true);
+      expect(hasFocus(typeahead)).to.equal(true);
       expect(getMenu(typeahead).length).to.equal(0);
       expect(getHint(typeahead).props().value).to.equal('');
     });

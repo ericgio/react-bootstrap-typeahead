@@ -6,7 +6,7 @@ import menuItemContainer from './containers/menuItemContainer';
 
 class BaseMenuItem extends React.Component {
   render() {
-    const {active, children, className, disabled} = this.props;
+    const {active, children, className, disabled, ...props} = this.props;
     const conditionalClassNames = {
       'active': active,
       'disabled': disabled,
@@ -16,6 +16,7 @@ class BaseMenuItem extends React.Component {
       <li
         className={cx(conditionalClassNames, className)}>
         <a
+          {...props}
           className={cx('dropdown-item', conditionalClassNames)}
           href="#"
           onClick={this._handleClick}

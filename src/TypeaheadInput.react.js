@@ -7,7 +7,7 @@ import Loader from './Loader.react';
 import HintedInput from './HintedInput.react';
 import Token from './Token.react';
 
-import {getOptionLabel} from './utils/';
+import {getOptionLabel, preventInputBlur} from './utils/';
 import typeaheadInputContainer from './containers/typeaheadInputContainer';
 
 class TypeaheadInput extends React.Component {
@@ -115,6 +115,7 @@ class TypeaheadInput extends React.Component {
               // Prevent the main input from auto-focusing again.
               e.stopPropagation();
             }}
+            onMouseDown={preventInputBlur}
           />
         </div>
       );

@@ -52,15 +52,18 @@ export function getMenu(wrapper) {
 }
 
 export function getMenuItems(wrapper) {
-  return wrapper.find('li');
+  // Rather than finding the <li> node, find the <a> so we can simulate clicks
+  // if needed. This also skips over things like menu item dividers.
+  return wrapper.find('a.dropdown-item');
 }
 
 export function getPaginator(wrapper) {
   return wrapper.find('.rbt-menu-paginator').hostNodes();
 }
 
+
 /* Other Functions */
 export function search(wrapper, query, callback) {
-  getInput(wrapper).simulate('change', {target: {value: query}});
+  change(wrapper, query);
   setTimeout(callback, 100);
 }

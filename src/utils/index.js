@@ -9,6 +9,7 @@ export getMatchBounds from './getMatchBounds';
 export getOptionLabel from './getOptionLabel';
 export getTruncatedOptions from './getTruncatedOptions';
 export pluralize from './pluralize';
+export preventInputBlur from './preventInputBlur';
 export scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
 export stripDiacritics from './stripDiacritics';
 export warn from './warn';

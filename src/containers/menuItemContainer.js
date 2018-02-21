@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
-import {getDisplayName, scrollIntoViewIfNeeded} from '../utils/';
+import {getDisplayName, preventInputBlur, scrollIntoViewIfNeeded} from '../utils/';
 
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
@@ -43,6 +43,7 @@ const menuItemContainer = (Component) => {
           {...props}
           active={active}
           onClick={this._handleClick}
+          onMouseDown={preventInputBlur}
         />
       );
     }
