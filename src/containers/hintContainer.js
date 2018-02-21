@@ -38,7 +38,9 @@ function hintContainer(Input) {
 
     render() {
       return (
-        <div style={{position: 'relative'}}>
+        <div
+          className="rbt-input-hint-container"
+          style={{position: 'relative'}}>
           <Input
             {...this.props}
             inputRef={(input) => {

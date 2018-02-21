@@ -19,17 +19,17 @@ class PublicMethodsExample extends React.Component {
         />
         <ButtonToolbar style={{marginTop: '10px'}}>
           <Button
-            className="btn-secondary"
+            className="btn-outline-secondary"
             onClick={() => this._typeahead.getInstance().clear()}>
             Clear
           </Button>
           <Button
-            className="btn-secondary"
+            className="btn-outline-secondary"
             onClick={() => this._typeahead.getInstance().focus()}>
             Focus
           </Button>
           <Button
-            className="btn-secondary"
+            className="btn-outline-secondary"
             onClick={() => {
               const instance = this._typeahead.getInstance();
               instance.focus();

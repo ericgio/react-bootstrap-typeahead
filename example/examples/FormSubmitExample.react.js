@@ -17,14 +17,17 @@ class FormSubmitExample extends React.Component {
     return (
       <form onSubmit={(e) => alert('Form submitted!')}>
         <InputGroup>
+          <InputGroup.Addon className="input-group-prepend">
+            <span className="input-group-text">Example</span>
+          </InputGroup.Addon>
           <Typeahead
             labelKey="name"
             options={options}
             placeholder="Choose a state..."
             submitFormOnEnter={submitFormOnEnter}
           />
-          <InputGroup.Button>
-            <Button className="btn-secondary" type="submit">
+          <InputGroup.Button className="input-group-append">
+            <Button bsStyle="primary" type="submit">
               Submit
             </Button>
           </InputGroup.Button>
