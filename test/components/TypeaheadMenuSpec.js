@@ -6,7 +6,7 @@ import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
 import TypeaheadMenu from '../../src/TypeaheadMenu';
 
 import options from '../../example/exampleData';
-import {bigDataSet, childContextTypes, context, getPaginator} from '../helpers';
+import {bigDataSet, childContextTypes, context, getMenu, getPaginator} from '../helpers';
 
 describe('<TypeaheadMenu>', () => {
   let menu;
@@ -28,27 +28,23 @@ describe('<TypeaheadMenu>', () => {
   });
 
   it('renders a right-aligned typeahead menu', () => {
-    const menuNode = menu
-      .setProps({align: 'right'})
-      .find('ul');
-
-    expect(menuNode.hasClass('dropdown-menu-right')).to.equal(true);
+    menu.setProps({align: 'right'});
+    expect(getMenu(menu).hasClass('dropdown-menu-right')).to.equal(true);
   });
 
-  it('renders a menu with a max-height of 200px', () => {
-    const menuNode = menu
-      .setProps({maxHeight: 200})
-      .find('ul');
+  it('renders a menu with the specified max-height', () => {
+    const getMaxHeight = (wrapper) => getMenu(wrapper).prop('style').maxHeight;
 
-    expect(menuNode.props().style.maxHeight).to.equal('200px');
+    menu.setProps({maxHeight: 200});
+    expect(getMaxHeight(menu)).to.equal('200px');
+
+    menu.setProps({maxHeight: '50%'});
+    expect(getMaxHeight(menu)).to.equal('50%');
   });
 
   it ('renders disabled menu items', () => {
-    const menuItems = menu
-      .setProps({options: options.map((o) => ({...o, disabled: true}))})
-      .find(MenuItem);
-
-    expect(menuItems.first().props().disabled).to.equal(true);
+    menu.setProps({options: options.map((o) => ({...o, disabled: true}))});
+    expect(menu.find(MenuItem).first().prop('disabled')).to.equal(true);
   });
 
   it('renders an empty state when there are no results', () => {

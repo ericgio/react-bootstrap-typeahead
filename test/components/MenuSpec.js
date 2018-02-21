@@ -49,16 +49,23 @@ describe('<Menu>', () => {
   });
 
   it('sets the maxHeight and other styles', () => {
-    const maxHeight = 100;
+    let maxHeight = 100;
+
+    function getAttribute(wrapper, attribute) {
+      return wrapper.prop('style')[attribute];
+    }
 
     menu.setProps({
       maxHeight,
       style: {backgroundColor: 'red'},
     });
 
-    const style = menu.prop('style');
-    expect(style.backgroundColor).to.equal('red');
-    expect(style.maxHeight).to.equal(maxHeight + 'px');
+    expect(getAttribute(menu, 'backgroundColor')).to.equal('red');
+    expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight + 'px');
+
+    maxHeight = '75%';
+    menu.setProps({maxHeight});
+    expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight);
   });
 
   it('renders an empty label when there are no children', () => {

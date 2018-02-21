@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 
 import {BaseMenuItem} from './MenuItem.react';
 
+function getMaxHeightValue(maxHeight) {
+  return typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight;
+}
+
 const BaseMenu = (props) => (
   <ul
     {...props}
@@ -44,7 +48,7 @@ class Menu extends React.Component {
         style={{
           ...style,
           display: 'block',
-          maxHeight: `${maxHeight}px`,
+          maxHeight: getMaxHeightValue(maxHeight),
           overflow: 'auto',
         }}>
         {contents}
@@ -88,7 +92,10 @@ Menu.propTypes = {
   /**
    * Maximum height of the dropdown menu, in px.
    */
-  maxHeight: PropTypes.number,
+  maxHeight: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   /**
    * Prompt displayed when large data sets are paginated.
    */
