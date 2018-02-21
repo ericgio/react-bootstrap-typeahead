@@ -98,6 +98,7 @@
     "react-prism": "^4.3.2",
     "react-test-renderer": "^16.0.0",
     "react-waypoint": "^8.0.0",
+    "reactstrap": "^5.0.0-beta.2",
     "sinon": "^4.3.0",
     "style-loader": "^0.20.1",
     "webpack": "^3.0.0"
