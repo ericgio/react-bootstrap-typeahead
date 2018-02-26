@@ -57,19 +57,19 @@ Allows you to control the contents of a menu item. Your function will be passed 
 />
 ```
 
-### `renderToken(option: Object|String, onRemove: Function, index: Number)`
-Provides the ability to customize rendering of tokens when multiple selections are enabled. The first parameter is the current selected option in the loop, while the second parameter is the `onRemove` callback passed down by the main component. This callback is ignored if `multiple=false`.
+### `renderToken(option: Object|String, props: Object, index: Number)`
+Provides the ability to customize rendering of tokens when multiple selections are enabled. This callback is ignored if `multiple=false`.
 
 ```jsx
 <Typeahead
   ...
   multiple
-  renderToken={(option, onRemove, index) => {
+  renderToken={(option, props, index) => {
     /* Render custom token here. */
   }}
 />
 ```
 
-Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `onRemove`) yourself. It is highly recommended that you use the provided `Token` component. If you want to use a completely custom token, wrap it with the [`tokenContainer`](API.md#tokencontainer) HOC to retain keystroke behaviors.
+Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `props.onRemove`) yourself. It is highly recommended that you use the provided `Token` component. If you want to use a completely custom token, wrap it with the [`tokenContainer`](API.md#tokencontainer) HOC to retain keystroke behaviors.
 
 [Next: Public Methods](Methods.md)

@@ -70,22 +70,13 @@ class TypeaheadInput extends React.Component {
   }
 
   _renderToken = (option, idx) => {
-    const {disabled, inputProps, labelKey, onRemove, renderToken} = this.props;
-    const onRemoveWrapped = () => onRemove(option);
+    const {onRemove, renderToken} = this.props;
+    const props = {
+      ...this.props,
+      onRemove: () => onRemove(option),
+    };
 
-    if (typeof renderToken === 'function') {
-      return renderToken(option, onRemoveWrapped, idx);
-    }
-
-    return (
-      <Token
-        disabled={disabled}
-        key={idx}
-        onRemove={onRemoveWrapped}
-        tabIndex={inputProps.tabIndex}>
-        {getOptionLabel(option, labelKey)}
-      </Token>
-    );
+    return renderToken(option, props, idx);
   }
 
   _renderAux = () => {
@@ -130,6 +121,18 @@ TypeaheadInput.propTypes = {
    * selections are enabled.
    */
   renderToken: PropTypes.func,
+};
+
+TypeaheadInput.defaultProps = {
+  renderToken: (option, props, idx) => (
+    <Token
+      disabled={props.disabled}
+      key={idx}
+      onRemove={props.onRemove}
+      tabIndex={props.inputProps.tabIndex}>
+      {getOptionLabel(option, props.labelKey)}
+    </Token>
+  ),
 };
 
 export default typeaheadInputContainer(TypeaheadInput);

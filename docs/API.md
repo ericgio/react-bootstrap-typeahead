@@ -156,8 +156,8 @@ const MyCustomToken = tokenContainer(props => (
 <Typeahead
   multiple
   options={options}
-  renderToken={(selectedItem, onRemove) => (
-    <MyCustomToken onRemove={onRemove} option={selectedItem} />
+  renderToken={(option, props, index) => (
+    <MyCustomToken onRemove={props.onRemove} option={option} />
   )}
 />
 ```

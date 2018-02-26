@@ -98,11 +98,11 @@ class RenderingExample extends React.Component {
     ];
   }
 
-  _renderToken(option, onRemove, index) {
+  _renderToken(option, props, index) {
     return (
       <Token
         key={index}
-        onRemove={onRemove}>
+        onRemove={props.onRemove}>
         {`${option.name} (Pop: ${option.population.toLocaleString()})`}
       </Token>
     );
