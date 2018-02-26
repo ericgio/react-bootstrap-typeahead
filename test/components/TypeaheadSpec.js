@@ -527,15 +527,6 @@ describe('<Typeahead>', () => {
     });
   });
 
-  // DEPRECATED
-  it('adds a name to the input', () => {
-    const name = 'input-name';
-
-    typeahead.setProps({name});
-
-    expect(getInput(typeahead).props().name).to.equal(name);
-  });
-
   it('applies arbitrary attributes to the input', () => {
     const inputProps = {
       className: 'input-classname',

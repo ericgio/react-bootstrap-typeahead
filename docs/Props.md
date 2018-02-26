@@ -28,7 +28,6 @@ maxResults | number | 100 | Maximum number of results to display by default. Mos
 menuId | string | {random} | Id applied to the top-level menu element. Required for accessibility.
 minLength | number | 0 | Number of input characters that must be entered before showing results.
 multiple | boolean | false | Whether or not multiple selections are allowed.
-name | string | | DEPRECATED. Name attribute for the input.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
 onBlur | function | | Invoked when the input is blurred. Receives an event.
 onChange | function | | Invoked whenever items are added or removed. Receives an array of the selected options.

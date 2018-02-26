@@ -2,7 +2,6 @@ import {flowRight, head, isEqual, noop} from 'lodash';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
-import {deprecated} from 'prop-types-extra';
 
 import highlightOnlyResultContainer from './highlightOnlyResultContainer';
 import typeaheadInnerContainer from './typeaheadInnerContainer';
@@ -446,10 +445,6 @@ function typeaheadContainer(Typeahead) {
      * Whether or not multiple selections are allowed.
      */
     multiple: PropTypes.bool,
-    /**
-     * DEPRECATED. Name attribute for the input.
-     */
-    name: deprecated(PropTypes.string, 'Use `inputProps` instead'),
     /**
      * Invoked when the input is blurred. Receives an event.
      */
