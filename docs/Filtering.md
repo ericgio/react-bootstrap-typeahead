@@ -32,13 +32,13 @@ By default, the filtering algorithm only searches the field that corresponds to 
 ```
 The field corresponding to `labelKey` is always searched (once), whether or not you specify it.
 
-#### `Function(option: Object|String, text: String)`
-You can also pass your own callback to take complete control over how the filtering works. Note that the `caseSensitive` and `ignoreDiacritics` props will be ignored in this case, since you are now completely overriding the algorithm. The callback receives the option and the current input value as arguments.
+#### `Function(option: Object|String, props: Object)`
+You can also pass your own callback to take complete control over how the filtering works. Note that the `caseSensitive` and `ignoreDiacritics` props will be ignored in this case, since you are now completely overriding the algorithm.
 
 ```jsx
 <Typeahead
   ...
-  filterBy={(option, text) => {
+  filterBy={(option, props) => {
     /* Your own filtering code goes here. */
   }}
 />

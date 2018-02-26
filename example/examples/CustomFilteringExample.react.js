@@ -17,10 +17,10 @@ class CustomFilteringExample extends React.Component {
       {label: 'Use data fields', value: 'fields'},
     ];
 
-    const filterByCallback = (option, text) => {
+    const filterByCallback = (option, props) => {
       return (
-        option.capital.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
-        option.name.toLowerCase().indexOf(text.toLowerCase()) !== -1
+        option.capital.toLowerCase().indexOf(props.text.toLowerCase()) !== -1 ||
+        option.name.toLowerCase().indexOf(props.text.toLowerCase()) !== -1
       );
     };
 

@@ -132,11 +132,10 @@ function typeaheadContainer(Typeahead) {
 
       let results = [];
       if (text.length >= minLength) {
-        const callback = Array.isArray(filterBy) ?
-          (option) => defaultFilterBy(option, this.state, this.props) :
-          (option) => filterBy(option, text);
-
-        results = options.filter(callback);
+        const cb = Array.isArray(filterBy) ? defaultFilterBy : filterBy;
+        results = options.filter((option) => (
+          cb(option, {...this.props, ...this.state})
+        ));
       }
 
       // This must come before results are truncated.
