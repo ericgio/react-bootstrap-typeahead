@@ -36,7 +36,7 @@ describe('<TypeaheadMenu>', () => {
   it('renders a menu with the specified max-height', () => {
     const getMaxHeight = (wrapper) => getMenu(wrapper).prop('style').maxHeight;
 
-    menu.setProps({maxHeight: 200});
+    menu.setProps({maxHeight: '200px'});
     expect(getMaxHeight(menu)).to.equal('200px');
 
     menu.setProps({maxHeight: '50%'});

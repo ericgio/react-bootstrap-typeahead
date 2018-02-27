@@ -49,7 +49,7 @@ describe('<Menu>', () => {
   });
 
   it('sets the maxHeight and other styles', () => {
-    let maxHeight = 100;
+    let maxHeight = '100px';
 
     function getAttribute(wrapper, attribute) {
       return wrapper.prop('style')[attribute];
@@ -61,7 +61,7 @@ describe('<Menu>', () => {
     });
 
     expect(getAttribute(menu, 'backgroundColor')).to.equal('red');
-    expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight + 'px');
+    expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight);
 
     maxHeight = '75%';
     menu.setProps({maxHeight});

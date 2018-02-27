@@ -4,21 +4,6 @@ import PropTypes from 'prop-types';
 import {isRequiredForA11y} from 'prop-types-extra';
 
 import {BaseMenuItem} from './MenuItem.react';
-import {checkPropType} from './propTypes/';
-import {warn} from './utils/';
-
-function getMaxHeightValue(maxHeight) {
-  return typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight;
-}
-
-function maxHeightType(props, propName, componentName) {
-  warn(
-    typeof props.maxHeight === 'string',
-    'Number values are deprecated for the `maxHeight` prop and support ' +
-    'will be removed in the next major version. Pass a valid string ' +
-    'value (eg: \'300px\', \'25%\', \'50vh\') instead.'
-  );
-}
 
 const BaseMenu = (props) => (
   <ul
@@ -63,7 +48,7 @@ class Menu extends React.Component {
         style={{
           ...style,
           display: 'block',
-          maxHeight: getMaxHeightValue(maxHeight),
+          maxHeight: maxHeight,
           overflow: 'auto',
         }}>
         {contents}
@@ -112,12 +97,9 @@ Menu.propTypes = {
     PropTypes.string,
   ])),
   /**
-   * Maximum height of the dropdown menu, in px.
+   * Maximum height of the dropdown menu.
    */
-  maxHeight: checkPropType(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    maxHeightType
-  ),
+  maxHeight: PropTypes.string,
   /**
    * Prompt displayed when large data sets are paginated.
    */
