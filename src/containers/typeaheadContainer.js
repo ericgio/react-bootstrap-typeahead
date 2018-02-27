@@ -80,7 +80,7 @@ function typeaheadContainer(Typeahead) {
 
       // If new selections are passed via props, treat as a controlled input.
       if (selected && !isEqual(selected, this.props.selected)) {
-        this._updateSelected(selected);
+        this.setState({selected});
 
         if (multiple) {
           return;
@@ -100,20 +100,22 @@ function typeaheadContainer(Typeahead) {
           text = '';
         }
 
-        this._updateText(text);
+        this.setState({text});
       }
 
       // Truncate selections when in single-select mode.
       let newSelected = selected || this.state.selected;
       if (!multiple && newSelected.length > 1) {
         newSelected = newSelected.slice(0, 1);
-        this._updateSelected(newSelected);
-        this._updateText(getOptionLabel(head(newSelected), labelKey));
+        this.setState({
+          selected: newSelected,
+          text: getOptionLabel(head(newSelected), labelKey),
+        });
         return;
       }
 
       if (multiple !== this.props.multiple) {
-        this._updateText('');
+        this.setState({text: ''});
       }
     }
 
@@ -165,7 +167,7 @@ function typeaheadContainer(Typeahead) {
           menuId={this.props.menuId || this._menuId}
           onActiveIndexChange={this._handleActiveIndexChange}
           onActiveItemChange={this._handleActiveItemChange}
-          onClear={this.clear}
+          onClear={this._handleClear}
           onFocus={this._handleFocus}
           onHide={this._hideMenu}
           onInitialItemChange={this._handleInitialItemChange}
@@ -185,15 +187,12 @@ function typeaheadContainer(Typeahead) {
       this._hideMenu();
     }
 
-    /**
-     * Public method to allow external clearing of the input. Clears both text
-     * and selection(s).
-     */
     clear = () => {
-      this.setState(getInitialState(this.props));
-
-      this._updateSelected([]);
-      this._updateText('');
+      this.setState({
+        ...getInitialState(this.props),
+        selected: [],
+        text: '',
+      });
     }
 
     focus = () => {
@@ -210,6 +209,11 @@ function typeaheadContainer(Typeahead) {
 
     _handleActiveItemChange = (activeItem) => {
       this.setState({activeItem});
+    }
+
+    _handleClear = () => {
+      this.clear();
+      this.props.onChange([]);
     }
 
     _handleFocus = (e) => {
@@ -239,14 +243,16 @@ function typeaheadContainer(Typeahead) {
       this.setState({initialItem});
     }
 
-    _handleInputChange = (text) => {
+    _handleInputChange = (e) => {
+      const text = e.target.value;
       const {activeIndex, activeItem} = getInitialState(this.props);
       this.setState({
         activeIndex,
         activeItem,
         showMenu: true,
+        text,
       });
-      this._updateText(text);
+      this.props.onInputChange(text);
     }
 
     _handlePaginate = (e) => {
@@ -275,13 +281,14 @@ function typeaheadContainer(Typeahead) {
       }
 
       this._hideMenu();
+      this.setState({
+        initialItem: selection,
+        text,
+      });
 
       // Text must be updated before the selection to fix #211.
       // TODO: Find a more robust way of solving the issue.
-      this._updateText(text);
       this._updateSelected(selected);
-
-      this.setState({initialItem: selection});
     }
 
     _handleSelectionRemove = (selection) => {
@@ -325,11 +332,6 @@ function typeaheadContainer(Typeahead) {
     _updateSelected = (selected) => {
       this.setState({selected});
       this.props.onChange(selected);
-    }
-
-    _updateText = (text) => {
-      this.setState({text});
-      this.props.onInputChange(text);
     }
   }
 

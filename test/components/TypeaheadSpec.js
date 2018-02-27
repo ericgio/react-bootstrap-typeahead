@@ -10,7 +10,7 @@ import TypeaheadInput from '../../src/TypeaheadInput';
 import {bigDataSet, change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 
 import states from '../../example/exampleData';
-import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../../src/constants/keyCode';
+import {DOWN, ESC, RETURN, UP} from '../../src/constants/keyCode';
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
@@ -37,6 +37,10 @@ function getState(wrapper) {
 
 function getSelected(wrapper) {
   return getState(wrapper).selected;
+}
+
+function getText(wrapper) {
+  return getState(wrapper).text;
 }
 
 function hasFocus(wrapper) {
@@ -107,45 +111,25 @@ describe('<Typeahead>', () => {
   });
 
   describe('behaviors when selections are passed in', () => {
-    const getSelected = (wrapper) => (
-      // Because of all the HOCs, getting the typeahead's state is messy.
-      // Get the selected value from the props passed to the input.
-      typeahead.find(TypeaheadInput).prop('selected')
-    );
     const multiSelections = states.slice(0, 4);
-    const onChange = (s) => selected = s;
-
-    let selected;
-
-    beforeEach(() => {
-      selected = [];
-    });
 
     it('truncates selections when using `defaultSelected`', () => {
-      typeahead = mountTypeahead({
+      const wrapper = mountTypeahead({
         defaultSelected: multiSelections,
-        onChange,
       });
 
-      expect(getSelected(typeahead).length).to.equal(1);
-
-      keyDown(typeahead, BACKSPACE);
-      expect(selected.length).to.equal(0);
+      expect(getSelected(wrapper).length).to.equal(1);
     });
 
     it('truncates selections when using `selected`', () => {
       typeahead.setProps({selected: multiSelections});
 
       expect(getSelected(typeahead).length).to.equal(1);
-
-      keyDown(typeahead, BACKSPACE);
-      expect(selected.length).to.equal(0);
     });
 
     it('truncates selections when going from multi- to single-select', () => {
       typeahead.setProps({
         multiple: true,
-        onChange,
         selected: multiSelections,
       });
 
@@ -153,12 +137,12 @@ describe('<Typeahead>', () => {
 
       typeahead.setProps({multiple: false});
 
-      expect(selected.length).to.equal(1);
-      expect(selected).to.deep.equal(states.slice(0, 1));
+      expect(getSelected(typeahead).length).to.equal(1);
+      expect(getSelected(typeahead)).to.deep.equal(states.slice(0, 1));
     });
 
     it('filters menu options based on `selected` values', () => {
-      selected = states.slice(0, 1);
+      const selected = states.slice(0, 1);
       typeahead.setProps({selected});
 
       focus(typeahead);
@@ -171,7 +155,7 @@ describe('<Typeahead>', () => {
       const defaultSelected = states.slice(0, 1);
       const value = head(defaultSelected).name;
 
-      typeahead = mountTypeahead({defaultSelected, onChange});
+      typeahead = mountTypeahead({defaultSelected});
 
       focus(typeahead);
 
@@ -390,15 +374,6 @@ describe('<Typeahead>', () => {
   });
 
   describe('updates when re-rendering with new props', () => {
-    let selected, text;
-
-    beforeEach(() => {
-      typeahead = mountTypeahead({
-        onChange: (s) => selected = s,
-        onInputChange: (t) => text = t,
-      });
-    });
-
     it('acts as a controlled input in single-select mode', () => {
       const selected1 = states.slice(0, 1);
       const selected2 = states.slice(1, 2);
@@ -406,20 +381,20 @@ describe('<Typeahead>', () => {
       // Pass in new selection
       typeahead.setProps({selected: selected1});
 
-      expect(selected).to.deep.equal(selected1);
-      expect(text).to.equal(head(selected1).name);
+      expect(getSelected(typeahead)).to.deep.equal(selected1);
+      expect(getText(typeahead)).to.equal(head(selected1).name);
 
       // Pass in another new selection
       typeahead.setProps({selected: selected2});
 
-      expect(selected).to.deep.equal(selected2);
-      expect(text).to.equal(head(selected2).name);
+      expect(getSelected(typeahead)).to.deep.equal(selected2);
+      expect(getText(typeahead)).to.equal(head(selected2).name);
 
       // Clear the selections.
       typeahead.setProps({selected: []});
 
-      expect(selected).to.deep.equal([]);
-      expect(text).to.equal('');
+      expect(getSelected(typeahead)).to.deep.equal([]);
+      expect(getText(typeahead)).to.equal('');
     });
 
     it('acts as a controlled input in multi-select mode', () => {
@@ -431,14 +406,14 @@ describe('<Typeahead>', () => {
         selected: selected1,
       });
 
-      expect(selected).to.deep.equal(selected1);
-      expect(text).to.equal('');
+      expect(getSelected(typeahead)).to.deep.equal(selected1);
+      expect(getText(typeahead)).to.equal('');
 
       // Clear the selections.
       typeahead.setProps({selected: []});
 
-      expect(selected).to.deep.equal([]);
-      expect(text).to.equal('');
+      expect(getSelected(typeahead)).to.deep.equal([]);
+      expect(getText(typeahead)).to.equal('');
     });
   });
 
@@ -742,28 +717,19 @@ describe('<Typeahead>', () => {
     });
   });
 
-  describe('public methods', () => {
-    it('calls the `clear` method', () => {
-      let selected = states.slice(0, 1);
-      typeahead.setProps({
-        onChange: (s) => selected = s,
-        selected,
-      });
+  it('calls the public `clear` method', () => {
+    typeahead.setProps({selected: states.slice(0, 1)});
 
-      expect(selected.length).to.equal(1);
-      typeahead.instance().getInstance().clear();
-      expect(selected.length).to.equal(0);
-    });
+    expect(getSelected(typeahead).length).to.equal(1);
+    expect(getText(typeahead)).to.equal('Alabama');
+
+    typeahead.instance().getInstance().clear();
+
+    expect(getSelected(typeahead).length).to.equal(0);
+    expect(getText(typeahead)).to.equal('');
   });
 
   describe('clear-on-select behavior', () => {
-    let counter, selected, wrapper;
-
-    const onChange = (s) => {
-      counter++;
-      selected = s;
-    };
-
     class ClearOnSelectTypeahead extends React.Component {
       state = {
         selected: [],
@@ -789,40 +755,113 @@ describe('<Typeahead>', () => {
         );
       }
 
+      getInstance = () => {
+        return this._typeahead.getInstance();
+      }
+
       _handleChange = (selected) => {
         this.props.onChange(selected);
         this.props.controlled && this.setState({selected});
-        selected.length && this._typeahead.getInstance().clear();
+        this._typeahead.getInstance().clear();
       }
     }
 
+    let onChange, wrapper;
+
     beforeEach(() => {
-      counter = 0;
-      selected = [];
+      onChange = sinon.spy();
     });
 
     afterEach(() => {
       // Simulate a manual selection.
       focus(wrapper);
-      keyDown(wrapper, DOWN);
-      keyDown(wrapper, RETURN);
+      getMenuItems(wrapper).first().simulate('click');
 
-      expect(counter).to.equal(2);
-      expect(selected.length).to.equal(0);
-      expect(getInput(wrapper).instance().value).to.equal('');
+      expect(onChange.calledOnce).to.equal(true);
+      expect(getSelected(wrapper).length).to.equal(0);
+      expect(getText(wrapper)).to.equal('');
     });
 
     it('clears an uncontrolled typeahead after selection', () => {
       wrapper = mount(<ClearOnSelectTypeahead onChange={onChange} />);
     });
 
-    it('clears an controlled typeahead after selection', () => {
-      wrapper = mount(
-        <ClearOnSelectTypeahead
-          controlled
-          onChange={onChange}
-        />
-      );
+    // it('clears a controlled typeahead after selection', () => {
+    //   wrapper = mount(
+    //     <ClearOnSelectTypeahead
+    //       controlled
+    //       onChange={onChange}
+    //     />
+    //   );
+    // });
+  });
+
+  describe('`onChange` and `onInputChange` behaviors', () => {
+    let onChange, onInputChange, selected;
+
+    beforeEach(() => {
+      onChange = sinon.spy();
+      onInputChange = sinon.spy();
+      selected = states.slice(0, 1);
+
+      typeahead.setProps({onChange, onInputChange});
+
+      expect(onChange.notCalled).to.equal(true);
+      expect(onInputChange.notCalled).to.equal(true);
+    });
+
+    it('calls `onChange` when a menu item is clicked', () => {
+      focus(typeahead);
+      getMenuItems(typeahead).first().simulate('click');
+
+      expect(onChange.calledOnce).to.equal(true);
+      expect(onInputChange.notCalled).to.equal(true);
+    });
+
+    it('calls `onChange` when a menu item is selected via keyboard', () => {
+      focus(typeahead);
+      keyDown(typeahead, DOWN);
+      keyDown(typeahead, RETURN);
+
+      expect(onChange.calledOnce).to.equal(true);
+      expect(onInputChange.notCalled).to.equal(true);
+    });
+
+    it('calls `onChange` when clicking the clear button', () => {
+      typeahead.setProps({
+        clearButton: true,
+        selected,
+      });
+      getClearButton(typeahead).simulate('click');
+
+      expect(onChange.calledOnce).to.equal(true);
+      expect(onInputChange.notCalled).to.equal(true);
+    });
+
+    it('calls `onInputChange` when text is entered in the input', () => {
+      focus(typeahead);
+      change(typeahead, 'z');
+      expect(onInputChange.calledOnce).to.equal(true);
+    });
+
+    it('does not call either when selections are updated via props', () => {
+      typeahead.setProps({selected});
+      expect(onChange.notCalled).to.equal(true);
+      expect(onInputChange.notCalled).to.equal(true);
+    });
+
+    it('does not call either when `clear()` is called externally', () => {
+      typeahead.setProps({selected});
+
+      expect(getSelected(typeahead).length).to.equal(1);
+      expect(getText(typeahead)).to.equal(head(selected).name);
+
+      typeahead.instance().getInstance().clear();
+
+      expect(getSelected(typeahead).length).to.equal(0);
+      expect(getText(typeahead)).to.equal('');
+      expect(onChange.notCalled).to.equal(true);
+      expect(onInputChange.notCalled).to.equal(true);
     });
   });
 

@@ -75,7 +75,7 @@ function typeaheadInputContainer(Input) {
         !!selected.length && onRemove(head(selected));
       }
 
-      onChange(e.target.value);
+      onChange(e);
     }
 
     _handleFocus = (e) => {
