@@ -15,10 +15,6 @@ import RenderingSection from './sections/RenderingSection';
 
 import '../css/Typeahead.css';
 
-import './css/bs-docs-override.css';
-import './css/example.css';
-import './css/code-style.css';
-
 render(
   <Page title="Examples">
     <BasicSection />

@@ -1,6 +1,7 @@
 css
 dist
 example/package-example.js
+example/assets/prism.min.js
 lib
 **/node_modules
 scripts

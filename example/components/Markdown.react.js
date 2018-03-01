@@ -1,3 +1,5 @@
+/* global Prism */
+
 import cx from 'classnames';
 import marked from 'marked';
 import React from 'react';
@@ -7,14 +9,7 @@ class Markdown extends React.Component {
     marked.setOptions({
       breaks: true,
       gfm: true,
-      highlight(code) {
-        /* eslint-disable max-len */
-        const hljs = require('highlight.js/lib/highlight.js');
-        hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
-        hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
-        return hljs.highlightAuto(code).value;
-        /* eslint-enable max-len */
-      },
+      highlight: (code) => Prism.highlight(code, Prism.languages.markdown),
       pedantic: false,
       sanitize: true,
       smartLists: true,
@@ -24,12 +19,12 @@ class Markdown extends React.Component {
   }
 
   render() {
-    const html = marked.parse(this.props.children);
+    const {children, className} = this.props;
 
     return (
       <div
-        className={cx('markdown-body', this.props.className)}
-        dangerouslySetInnerHTML={{__html: html}}
+        className={cx('markdown-body', className)}
+        dangerouslySetInnerHTML={{__html: marked.parse(children)}}
       />
     );
   }

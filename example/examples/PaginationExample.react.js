@@ -6,7 +6,7 @@ import {Typeahead} from '../../src/';
 
 /* eslint-disable no-console */
 /* example-start */
-class LabelKeyExample extends React.Component {
+class PaginationExample extends React.Component {
   state = {
     paginate: true,
   };
@@ -34,4 +34,4 @@ class LabelKeyExample extends React.Component {
 /* example-end */
 /* eslint-disable no-console */
 
-export default LabelKeyExample;
+export default PaginationExample;

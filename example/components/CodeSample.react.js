@@ -1,34 +1,37 @@
-import React from 'react';
+import {PrismCode} from 'react-prism';
 import PropTypes from 'prop-types';
-
-import Markdown from './Markdown';
+import React from 'react';
 
 const START_STR = '/* example-start */';
 const END_STR = '/* example-end */';
 
+function getExampleCode(str) {
+  return str.slice(
+    str.indexOf(START_STR) + START_STR.length + 1,
+    str.indexOf(END_STR)
+  );
+}
+
 class CodeSample extends React.Component {
   render() {
-    // Strip out extraneous parts of the code.
-    const code = this.props.children;
-    const startIndex = code.indexOf(START_STR) + START_STR.length + 1;
-    const endIndex = code.indexOf(END_STR);
+    const {children, component, language} = this.props;
 
     return (
-      <Markdown className="code-sample">
-        {`\`\`\`${this.props.lang}
-${code.slice(startIndex, endIndex)}
-        \`\`\``}
-      </Markdown>
+      <PrismCode className={`language-${language}`} component={component}>
+        {getExampleCode(children)}
+      </PrismCode>
     );
   }
 }
 
 CodeSample.propTypes = {
-  lang: PropTypes.string,
+  component: PropTypes.string,
+  language: PropTypes.string,
 };
 
 CodeSample.defaultProps = {
-  lang: 'jsx',
+  component: 'pre',
+  language: 'jsx',
 };
 
 
