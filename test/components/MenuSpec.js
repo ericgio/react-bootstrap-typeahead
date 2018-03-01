@@ -1,7 +1,6 @@
 import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import React from 'react';
-import sinon from 'sinon';
 
 import Menu from '../../src/Menu';
 import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
@@ -31,7 +30,7 @@ describe('<Menu>', () => {
   });
 
   it('renders a basic menu with menu items', () => {
-    expect(menu.hasClass('rbt-menu')).to.equal(true);
+    expect(menu.hasClass('rbt-menu dropdown-menu')).to.equal(true);
     expect(menu.children().length).to.equal(3);
   });
 
@@ -83,26 +82,5 @@ describe('<Menu>', () => {
 
     // See: http://airbnb.io/enzyme/docs/api/ShallowWrapper/dive.html
     expect(emptyLabelItem.dive().text()).to.equal(emptyLabel);
-  });
-
-  it('renders a menu item for pagination', () => {
-    const onPaginate = sinon.spy();
-    const paginationText = 'More...';
-
-    menu.setProps({
-      onPaginate,
-      paginate: true,
-      paginationText,
-    });
-
-    const paginationItem = menu.find(BaseMenuItem);
-
-    // 3 menu items + a divider and the pagination item.
-    expect(menu.children().length).to.equal(5);
-    expect(paginationItem.hasClass('rbt-menu-paginator')).to.equal(true);
-    expect(paginationItem.dive().text()).to.equal(paginationText);
-
-    paginationItem.simulate('click');
-    expect(onPaginate.calledOnce).to.equal(true);
   });
 });

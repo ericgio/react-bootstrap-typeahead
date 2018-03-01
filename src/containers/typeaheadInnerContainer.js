@@ -34,7 +34,7 @@ function typeaheadInnerContainer(Typeahead) {
         onActiveItemChange,
         onHide,
         onKeyDown,
-        onSelectionAdd,
+        onMenuItemSelect,
         onShow,
         results,
         submitFormOnEnter,
@@ -94,7 +94,7 @@ function typeaheadInnerContainer(Typeahead) {
           }
 
           if (activeItem) {
-            onSelectionAdd(activeItem);
+            onMenuItemSelect(activeItem, e);
             break;
           }
           break;

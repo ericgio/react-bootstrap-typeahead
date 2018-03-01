@@ -7,8 +7,7 @@ import sinon from 'sinon';
 import {Menu, MenuItem, Typeahead} from '../../src/';
 import TypeaheadInput from '../../src/TypeaheadInput';
 
-import {bigDataSet, change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
-
+import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 import states from '../../example/exampleData';
 import {DOWN, ESC, RETURN, UP} from '../../src/constants/keyCode';
 
@@ -277,34 +276,64 @@ describe('<Typeahead>', () => {
     expect(activeItem.text()).to.equal(options[0].name);
   });
 
-  it('should have a menu item for pagination', () => {
-    const onPaginate = sinon.spy();
-    const paginationText = 'See More';
+  describe('pagination behaviors', () => {
+    let onPaginate;
 
-    typeahead.setProps({
-      onPaginate,
-      options: bigDataSet,
-      paginationText,
+    beforeEach(() => {
+      onPaginate = sinon.spy();
+
+      typeahead = mountTypeahead({
+        maxResults: 10,
+        onPaginate,
+      });
     });
 
-    focus(typeahead);
-    const paginatorNode = typeahead.find('.rbt-menu-paginator a').hostNodes();
+    it('should have a menu item for pagination', () => {
+      focus(typeahead);
+      const paginator = getPaginator(typeahead);
 
-    expect(paginatorNode).to.have.length(1);
-    expect(paginatorNode.text()).to.equal(paginationText);
-
-    paginatorNode.simulate('click');
-    expect(onPaginate.calledOnce).to.equal(true);
-  });
-
-  it('should not have a menu item for pagination', () => {
-    typeahead.setProps({
-      options: bigDataSet,
-      paginate: false,
+      expect(paginator).to.have.length(1);
+      expect(paginator.text()).to.equal('Display additional results...');
     });
 
-    focus(typeahead);
-    expect(getPaginator(typeahead)).to.have.length(0);
+    it('should call `onPaginate` when the menu item is clicked', () => {
+      focus(typeahead);
+      typeahead
+        .find('.rbt-menu-pagination-option a')
+        .hostNodes()
+        .simulate('click');
+
+      expect(onPaginate.calledOnce).to.equal(true);
+    });
+
+    it(
+      'should call `onPaginate` when the menu item is selected via ' +
+      'keypress', () => {
+        focus(typeahead);
+
+        // Hitting the up key navigates to the last menu item, which is the
+        // pagination item.
+        keyDown(typeahead, UP);
+        keyDown(typeahead, RETURN);
+
+        expect(onPaginate.calledOnce).to.equal(true);
+      }
+    );
+
+    it('should display custom pagination text', () => {
+      const paginationText = 'More Results...';
+      typeahead.setProps({paginationText});
+
+      focus(typeahead);
+      expect(getPaginator(typeahead).text()).to.equal(paginationText);
+    });
+
+    it('should not have a menu item for pagination', () => {
+      typeahead.setProps({paginate: false});
+
+      focus(typeahead);
+      expect(getPaginator(typeahead)).to.have.length(0);
+    });
   });
 
   describe('should limit the results when `maxResults` is set', () => {

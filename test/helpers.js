@@ -58,7 +58,7 @@ export function getMenuItems(wrapper) {
 }
 
 export function getPaginator(wrapper) {
-  return wrapper.find('.rbt-menu-paginator').hostNodes();
+  return wrapper.find('.rbt-menu-pagination-option').hostNodes();
 }
 
 export function getTokens(wrapper) {

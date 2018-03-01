@@ -60,7 +60,7 @@ function typeaheadContainer(Typeahead) {
         activeIndex: this.state.activeIndex,
         onActiveItemChange: this._handleActiveItemChange,
         onInitialItemChange: this._handleInitialItemChange,
-        onMenuItemClick: this._handleSelectionAdd,
+        onMenuItemClick: this._handleMenuItemSelect,
       };
     }
 
@@ -128,6 +128,7 @@ function typeaheadContainer(Typeahead) {
         minLength,
         options,
         paginate,
+        paginationText,
       } = this.props;
 
       const {shownResults, showMenu, text} = this.state;
@@ -151,6 +152,14 @@ function typeaheadContainer(Typeahead) {
         results = addCustomOption(results, text, labelKey);
       }
 
+      // Add the pagination item.
+      if (shouldPaginate) {
+        results = results.concat({
+          [labelKey]: paginationText,
+          paginationOption: true,
+        });
+      }
+
       // This must come after the custom option is added, if applicable.
       const isMenuShown = !!(
         text.length >= minLength &&
@@ -172,11 +181,10 @@ function typeaheadContainer(Typeahead) {
           onHide={this._hideMenu}
           onInitialItemChange={this._handleInitialItemChange}
           onInputChange={this._handleInputChange}
-          onPaginate={this._handlePaginate}
+          onMenuItemSelect={this._handleMenuItemSelect}
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
           onShow={this._showMenu}
-          paginate={shouldPaginate}
           results={results}
         />
       );
@@ -253,6 +261,14 @@ function typeaheadContainer(Typeahead) {
         text,
       });
       this.props.onInputChange(text);
+    }
+
+    _handleMenuItemSelect = (option, e) => {
+      if (option.paginationOption) {
+        this._handlePaginate(e);
+      } else {
+        this._handleSelectionAdd(option);
+      }
     }
 
     _handlePaginate = (e) => {
@@ -491,6 +507,10 @@ function typeaheadContainer(Typeahead) {
      */
     paginate: PropTypes.bool,
     /**
+     * Prompt displayed when large data sets are paginated.
+     */
+    paginationText: PropTypes.string,
+    /**
      * Placeholder text for the input.
      */
     placeholder: PropTypes.string,
@@ -549,6 +569,7 @@ function typeaheadContainer(Typeahead) {
     onMenuShow: noop,
     onPaginate: noop,
     paginate: true,
+    paginationText: 'Display additional results...',
     placeholder: '',
     selectHintOnEnter: false,
     submitFormOnEnter: false,

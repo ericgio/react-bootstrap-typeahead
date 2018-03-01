@@ -39,6 +39,15 @@ describe('getInputText', () => {
     expect(inputText).to.equal(states[0][labelKey]);
   });
 
+  it('returns an empty string if the pagination item is active', () => {
+    const activeItem = {
+      [labelKey]: 'More Results...',
+      paginationOption: true,
+    };
+
+    expect(getInputText({...baseArgs, activeItem})).to.equal('');
+  });
+
   it('returns the label for the selected item', () => {
     const selected = states.slice(0, 1);
     const inputText = getInputText({...baseArgs, selected});

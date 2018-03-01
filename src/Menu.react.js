@@ -5,17 +5,8 @@ import {isRequiredForA11y} from 'prop-types-extra';
 
 import {BaseMenuItem} from './MenuItem.react';
 
-const BaseMenu = (props) => (
-  <ul
-    {...props}
-    className={cx('dropdown-menu', props.className)}>
-    {props.children}
-  </ul>
-);
-
 /**
- * Menu component that automatically handles pagination and empty state when
- * passed a set of filtered and truncated results.
+ * Menu component that handles empty state when passed a set of results.
  */
 class Menu extends React.Component {
   displayName = 'Menu';
@@ -38,8 +29,8 @@ class Menu extends React.Component {
       children;
 
     return (
-      <BaseMenu
-        className={cx('rbt-menu', {
+      <ul
+        className={cx('rbt-menu', 'dropdown-menu', {
           'dropdown-menu-justify': align === 'justify',
           'dropdown-menu-right': align === 'right',
         }, className)}
@@ -52,32 +43,8 @@ class Menu extends React.Component {
           overflow: 'auto',
         }}>
         {contents}
-        {this._renderPaginationMenuItem()}
-      </BaseMenu>
+      </ul>
     );
-  }
-
-  /**
-   * Allow user to see more results, if available.
-   */
-  _renderPaginationMenuItem() {
-    const {children, onPaginate, paginate, paginationText} = this.props;
-
-    if (paginate && Children.count(children)) {
-      return [
-        <li
-          className="divider"
-          key="pagination-item-divider"
-          role="separator"
-        />,
-        <BaseMenuItem
-          className="rbt-menu-paginator"
-          key="pagination-item"
-          onClick={onPaginate}>
-          {paginationText}
-        </BaseMenuItem>,
-      ];
-    }
   }
 }
 
@@ -100,18 +67,11 @@ Menu.propTypes = {
    * Maximum height of the dropdown menu.
    */
   maxHeight: PropTypes.string,
-  /**
-   * Prompt displayed when large data sets are paginated.
-   */
-  paginationText: PropTypes.string,
 };
 
 Menu.defaultProps = {
   align: 'justify',
   maxHeight: '300px',
-  paginate: true,
-  paginationText: 'Display additional results...',
 };
-
 
 export default Menu;

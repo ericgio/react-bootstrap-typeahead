@@ -55,7 +55,7 @@ const menuItemContainer = (Component) => {
     _handleClick = (e) => {
       const {option, onClick} = this.props;
 
-      this.context.onMenuItemClick(option);
+      this.context.onMenuItemClick(option, e);
       onClick && onClick(e);
     }
 

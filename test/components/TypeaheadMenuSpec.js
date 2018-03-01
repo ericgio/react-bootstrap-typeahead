@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 
 import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
 import TypeaheadMenu from '../../src/TypeaheadMenu';
@@ -60,35 +61,29 @@ describe('<TypeaheadMenu>', () => {
   });
 
   describe('pagination behaviors', () => {
+    let onPaginate, paginationLabel;
+
     beforeEach(() => {
+      onPaginate = sinon.spy();
+      paginationLabel = 'More results...';
       menu.setProps({
-        options: bigDataSet,
-        paginate: true,
+        onPaginate,
+        options: bigDataSet.concat({
+          name: paginationLabel,
+          paginationOption: true,
+        }),
       });
     });
 
     it('displays a paginator', () => {
       const paginatorNode = getPaginator(menu);
       expect(paginatorNode.length).to.equal(1);
-      expect(paginatorNode.text()).to.equal('Display additional results...');
+      expect(paginatorNode.text()).to.equal(paginationLabel);
     });
 
     it('does not show a paginator when there are no results', () => {
       menu.setProps({options: []});
       expect(getPaginator(menu).length).to.equal(0);
-    });
-
-    it('does not show a paginator if `paginate=false`', () => {
-      menu.setProps({paginate: false});
-      expect(getPaginator(menu).length).to.equal(0);
-    });
-
-    it('displays custom pagination text', () => {
-      const paginationText = 'See All';
-
-      menu.setProps({paginationText});
-
-      expect(getPaginator(menu).text()).to.equal(paginationText);
     });
   });
 });

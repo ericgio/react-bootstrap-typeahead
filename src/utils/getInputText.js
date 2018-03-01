@@ -7,7 +7,10 @@ function getInputText({activeItem, labelKey, multiple, selected, text}) {
   }
 
   if (activeItem) {
-    return getOptionLabel(activeItem, labelKey);
+    // Don't display a value when the pagination item is active.
+    return activeItem.paginationOption ?
+      '' :
+      getOptionLabel(activeItem, labelKey);
   }
 
   const selectedItem = !!selected.length && head(selected);

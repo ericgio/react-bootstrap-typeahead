@@ -13,13 +13,9 @@ class TypeaheadMenu extends React.Component {
     const menuProps = pick(this.props, [
       'align',
       'className',
-      'dropup',
       'emptyLabel',
       'id',
       'maxHeight',
-      'onPaginate',
-      'paginate',
-      'paginationText',
       'style',
     ]);
 
@@ -60,6 +56,22 @@ class TypeaheadMenu extends React.Component {
       );
     }
 
+    if (option.paginationOption) {
+      return [
+        <li
+          className="divider"
+          key="pagination-item-divider"
+          role="separator"
+        />,
+        <MenuItem
+          {...menuItemProps}
+          className="rbt-menu-pagination-option"
+          key="pagination-item">
+          {getOptionLabel(option, labelKey)}
+        </MenuItem>,
+      ];
+    }
+
     return (
       <MenuItem {...menuItemProps}>
         {renderMenuItemChildren(option, this.props, idx)}
@@ -68,16 +80,6 @@ class TypeaheadMenu extends React.Component {
   }
 }
 
-/**
- * In addition to the propTypes below, the following props are automatically
- * passed down by `Typeahead`:
- *
- *  - labelKey
- *  - onPaginate
- *  - options
- *  - paginate
- *  - text
- */
 TypeaheadMenu.propTypes = {
   /**
    * Provides the ability to specify a prefix before the user-entered text to
