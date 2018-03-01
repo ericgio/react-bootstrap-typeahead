@@ -45,6 +45,7 @@ class Menu extends React.Component {
           'dropdown-menu-justify': align === 'justify',
           'dropdown-menu-right': align === 'right',
         }, className)}
+        role="listbox"
         style={{
           ...style,
           display: 'block',

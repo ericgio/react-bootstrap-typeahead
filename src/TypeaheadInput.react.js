@@ -35,7 +35,6 @@ class TypeaheadInput extends React.Component {
       disabled,
       hintText,
       inputRef,
-      isFocused,
       multiple,
       name: name || this.props.inputProps.name,
       onBlur,
