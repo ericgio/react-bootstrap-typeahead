@@ -4,6 +4,7 @@ import React from 'react';
 const GithubMenuItem = ({user}) => (
   <div>
     <img
+      alt={user.login}
       src={user.avatar_url}
       style={{
         height: '24px',

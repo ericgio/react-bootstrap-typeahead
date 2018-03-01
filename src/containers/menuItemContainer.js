@@ -34,14 +34,12 @@ const menuItemContainer = (Component) => {
 
     render() {
       const {activeIndex, isOnlyResult} = this.context;
-      const {position, ...props} = this.props;
-
-      const active = isOnlyResult || activeIndex === position;
+      const {option, position, ...props} = this.props;
 
       return (
         <Component
           {...props}
-          active={active}
+          active={isOnlyResult || activeIndex === position}
           onClick={this._handleClick}
           onMouseDown={preventInputBlur}
         />

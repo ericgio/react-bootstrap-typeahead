@@ -47,6 +47,8 @@ class TypeaheadInput extends React.Component {
     };
 
     return (
+      /* eslint-disable jsx-a11y/no-static-element-interactions */
+      /* eslint-disable jsx-a11y/click-events-have-key-events */
       <div
         className={cx('rbt-input', 'form-control', {
           'focus': isFocused,
@@ -64,6 +66,8 @@ class TypeaheadInput extends React.Component {
         </div>
         {this._renderAux()}
       </div>
+      /* eslint-enable jsx-a11y/no-static-element-interactions */
+      /* eslint-enable jsx-a11y/click-events-have-key-events */
     );
   }
 

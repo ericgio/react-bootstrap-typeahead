@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'react-bootstrap';
 
 import CodeSample from '../components/CodeSample';
 
@@ -16,15 +17,13 @@ class ExampleSection extends React.Component {
         <div className="example">
           <div className="clearfix">
             <h6>Example</h6>
-            <a
+            <Button
+              bsSize="xsmall"
+              bsStyle="link"
               className="example-toggle-code"
-              onClick={(e) => {
-                e.preventDefault();
-                this.setState({open: !open});
-              }}
-              role="button">
+              onClick={(e) => this.setState({open: !open})}>
               {`${open ? 'Hide' : 'Show'} Code`}
-            </a>
+            </Button>
           </div>
           {children}
         </div>

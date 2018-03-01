@@ -13,17 +13,18 @@ class BaseMenuItem extends React.Component {
     };
 
     return (
+      /* eslint-disable jsx-a11y/anchor-is-valid */
       <li
         className={cx(conditionalClassNames, className)}>
         <a
           {...props}
           className={cx('dropdown-item', conditionalClassNames)}
           href="#"
-          onClick={this._handleClick}
-          role="button">
+          onClick={this._handleClick}>
           {children}
         </a>
       </li>
+      /* eslint-enable jsx-a11y/anchor-is-valid */
     );
   }
 
