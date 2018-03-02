@@ -4,7 +4,7 @@ import {head} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import Typeahead from '../../src/Typeahead';
+import {Menu, MenuItem, Typeahead} from '../../src/';
 import TypeaheadInput from '../../src/TypeaheadInput';
 
 import {bigDataSet, change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, keyDown} from '../helpers';
@@ -31,9 +31,18 @@ function getClearButton(wrapper) {
   return wrapper.find('.rbt-close');
 }
 
+function getState(wrapper) {
+  return wrapper.instance().getInstance().state;
+}
+
+function getSelected(wrapper) {
+  return getState(wrapper).selected;
+}
+
 function hasFocus(wrapper) {
   return wrapper.find('.form-control').hasClass('focus');
 }
+
 
 describe('<Typeahead>', () => {
   let typeahead;
@@ -154,7 +163,7 @@ describe('<Typeahead>', () => {
 
       focus(typeahead);
 
-      expect(getInput(typeahead).props().value).to.equal(head(selected).name);
+      expect(getInput(typeahead).prop('value')).to.equal(head(selected).name);
       expect(getMenuItems(typeahead).length).to.equal(1);
     });
 
@@ -166,7 +175,7 @@ describe('<Typeahead>', () => {
 
       focus(typeahead);
 
-      expect(getInput(typeahead).props().value).to.equal(value);
+      expect(getInput(typeahead).prop('value')).to.equal(value);
       expect(getMenuItems(typeahead).length).to.equal(1);
     });
   });
@@ -181,23 +190,23 @@ describe('<Typeahead>', () => {
 
     it('sets a default initial input value', () => {
       typeahead = mountTypeahead({defaultInputValue});
-      expect(getInput(typeahead).props().value).to.equal(defaultInputValue);
+      expect(getInput(typeahead).prop('value')).to.equal(defaultInputValue);
     });
 
     it('sets an input value based on the `selected` value', () => {
       typeahead.setProps({selected});
-      expect(getInput(typeahead).props().value).to.equal(head(selected).name);
+      expect(getInput(typeahead).prop('value')).to.equal(head(selected).name);
     });
 
     it('sets an input value based on the `defaultSelected` value', () => {
       typeahead = mountTypeahead({defaultSelected});
-      const inputValue = getInput(typeahead).props().value;
+      const inputValue = getInput(typeahead).prop('value');
       expect(inputValue).to.equal(head(defaultSelected).name);
     });
 
     it('overrides the initial input value', () => {
       typeahead = mountTypeahead({defaultInputValue, selected});
-      expect(getInput(typeahead).props().value).to.equal(head(selected).name);
+      expect(getInput(typeahead).prop('value')).to.equal(head(selected).name);
     });
   });
 
@@ -551,7 +560,7 @@ describe('<Typeahead>', () => {
     expect(props.type).to.equal(inputProps.type);
 
     const token = typeahead.find('.rbt-token');
-    expect(token.props().tabIndex).to.equal(inputProps.tabIndex);
+    expect(token.prop('tabIndex')).to.equal(inputProps.tabIndex);
   });
 
   it('triggers the `onKeyDown` callback', () => {
@@ -588,12 +597,12 @@ describe('<Typeahead>', () => {
     });
 
     it('does not display a hint when the input is not focused', () => {
-      expect(getHint(typeahead).props().value).to.equal('');
+      expect(getHint(typeahead).prop('value')).to.equal('');
     });
 
     it('displays a hint when the input is focused', () => {
       focus(typeahead);
-      expect(getHint(typeahead).props().value).to.equal('Alabama');
+      expect(getHint(typeahead).prop('value')).to.equal('Alabama');
     });
 
     it('does not display a hint in multi-select mode', () => {
@@ -606,14 +615,14 @@ describe('<Typeahead>', () => {
 
       // When focused, the typeahead should show the menu and hint text.
       expect(getMenu(typeahead).length).to.equal(1);
-      expect(getHint(typeahead).props().value).to.equal('Alabama');
+      expect(getHint(typeahead).prop('value')).to.equal('Alabama');
 
       keyDown(typeahead, ESC);
 
       // Expect the input to remain focused, but the menu and hint to be hidden.
       expect(hasFocus(typeahead)).to.equal(true);
       expect(getMenu(typeahead).length).to.equal(0);
-      expect(getHint(typeahead).props().value).to.equal('');
+      expect(getHint(typeahead).prop('value')).to.equal('');
     });
   });
 
@@ -760,6 +769,55 @@ describe('<Typeahead>', () => {
           onChange={onChange}
         />
       );
+    });
+  });
+
+  /**
+   * Some basic tests for the custom menu-rendering use-case.
+   * Helps ensure that the context-related logic doesn't break.
+   */
+  describe('behaviors when rendering a custom menu', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      // Render a menu with states in reverse alphabetical order.
+      wrapper = mountTypeahead({
+        renderMenu: (results, menuProps) => (
+          <Menu {...menuProps}>
+            {results.reverse().map((r, idx) => (
+              <MenuItem key={idx} option={r} position={idx}>
+                {r.name}
+              </MenuItem>
+            ))}
+          </Menu>
+        ),
+      });
+    });
+
+    it('renders the custom menu', () => {
+      focus(wrapper);
+
+      // Make sure the rendered menu and the internal state agree.
+      expect(getState(wrapper).initialItem.name).to.equal('Wyoming');
+      expect(getMenuItems(wrapper).first().text()).to.equal('Wyoming');
+    });
+
+    it('shows the correct hint', () => {
+      change(wrapper, 'u');
+      focus(wrapper); // Focus needs to come after change.
+
+      expect(getMenuItems(wrapper).first().text()).to.equal('Utah');
+      expect(getHint(wrapper).prop('value')).to.equal('utah');
+    });
+
+    it('selects the correct option', () => {
+      focus(wrapper);
+      keyDown(wrapper, DOWN);
+
+      expect(getState(wrapper).activeItem.name).to.equal('Wyoming');
+
+      keyDown(wrapper, RETURN);
+      expect(getSelected(wrapper)[0].name).to.equal('Wyoming');
     });
   });
 

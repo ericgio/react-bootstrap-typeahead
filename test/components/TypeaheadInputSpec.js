@@ -46,7 +46,7 @@ describe('<TypeaheadInput>', () => {
 
     wrapper.setProps({text});
 
-    expect(getInput(wrapper).props().value).to.equal(text);
+    expect(getInput(wrapper).prop('value')).to.equal(text);
   });
 
   it('displays a hint', () => {
@@ -59,7 +59,7 @@ describe('<TypeaheadInput>', () => {
     });
 
     getInput(wrapper).simulate('focus');
-    expect(getHint(wrapper).props().value).to.equal(initialItem.name);
+    expect(getHint(wrapper).prop('value')).to.equal(initialItem.name);
   });
 
   describe('behavior when selecting the hinted result', () => {
@@ -88,7 +88,7 @@ describe('<TypeaheadInput>', () => {
     });
 
     it('should select the hinted result on right arrow keydown', () => {
-      setCursorPosition(wrapper, wrapper.props().text.length);
+      setCursorPosition(wrapper, wrapper.prop('text').length);
       keyDown(wrapper, RIGHT);
 
       expect(keyCode).to.equal(RIGHT);
