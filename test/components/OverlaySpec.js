@@ -40,18 +40,15 @@ describe('<Overlay>', () => {
       expect(wrapper.type()).to.equal(null);
     });
 
-    it('throws when has multiple children', () => {
-      expect(() => {
+    it('throws when multiple children are passed', () => {
+      const willThrow = () => {
         wrapper.setProps({
-          children: [
-            <div key="1"/>,
-            <div key="2"/>,
-          ],
+          children: [<div key="1" />, <div key="2" />],
           show: true,
         });
-      }).to.throw(
-        'React.Children.only expected to receive a single React element child.'
-      );
+      };
+
+      expect(willThrow).to.throw(Error);
     });
 
     it('calls `onMenuShow` and `onMenuHide`', () => {

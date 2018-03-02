@@ -70,18 +70,13 @@ class Overlay extends React.Component {
   }
 
   render() {
-    if (!this.props.show) {
+    const {children, container, show} = this.props;
+
+    if (!(show && Children.count(children))) {
       return null;
     }
 
-    const {container, children} = this.props;
-
-    let child;
-    if (Children.count(children) > 0) {
-      child = Children.only(children);
-    } else {
-      return null;
-    }
+    let child = Children.only(children);
 
     // When not attaching the overlay to `document.body` treat the child as a
     // simple inline element.
