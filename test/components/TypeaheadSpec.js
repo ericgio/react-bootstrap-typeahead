@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import {Menu, MenuItem, Typeahead} from '../../src/';
 import TypeaheadInput from '../../src/TypeaheadInput';
 
-import {bigDataSet, change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, keyDown} from '../helpers';
+import {bigDataSet, change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 
 import states from '../../example/exampleData';
 import {BACKSPACE, DOWN, ESC, RETURN, UP} from '../../src/constants/keyCode';
@@ -65,7 +65,7 @@ describe('<Typeahead>', () => {
       multiple: true,
       selected: states.slice(0, 3),
     });
-    expect(typeahead.find('.rbt-token')).to.have.length(3);
+    expect(getTokens(typeahead)).to.have.length(3);
   });
 
   it('sets and unsets the focus state on focus/blur', () => {
@@ -559,8 +559,7 @@ describe('<Typeahead>', () => {
     expect(props.tabIndex).to.equal(inputProps.tabIndex);
     expect(props.type).to.equal(inputProps.type);
 
-    const token = typeahead.find('.rbt-token');
-    expect(token.prop('tabIndex')).to.equal(inputProps.tabIndex);
+    expect(getTokens(typeahead).prop('tabIndex')).to.equal(inputProps.tabIndex);
   });
 
   it('triggers the `onKeyDown` callback', () => {
@@ -821,4 +820,28 @@ describe('<Typeahead>', () => {
     });
   });
 
+  it('renders custom content in the menu items', () => {
+    typeahead.setProps({
+      // Render the capital instead of the state name.
+      renderMenuItemChildren: (option, props) => option.capital,
+    });
+
+    focus(typeahead);
+
+    expect(getMenuItems(typeahead).first().text()).to.equal('Montgomery');
+  });
+
+  it('renders custom tokens', () => {
+    typeahead.setProps({
+      multiple: true,
+      renderToken: (option, props, idx) => (
+        <div className="custom-token" key={idx}>
+          {option.capital}
+        </div>
+      ),
+      selected: states.slice(0, 1),
+    });
+
+    expect(typeahead.find('.custom-token').text()).to.equal('Montgomery');
+  });
 });

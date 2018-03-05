@@ -8,7 +8,7 @@ import Loader from '../../src/Loader';
 import TypeaheadInput from '../../src/TypeaheadInput';
 
 import options from '../../example/exampleData';
-import {getHint, getInput, keyDown} from '../helpers';
+import {getHint, getInput, getTokens, keyDown} from '../helpers';
 import {RETURN, RIGHT, TAB} from '../../src/constants/keyCode';
 
 function setCursorPosition(wrapper, pos) {
@@ -130,7 +130,7 @@ describe('<TypeaheadInput>', () => {
     });
 
     expect(wrapper.find('.rbt-input-multi').length).to.equal(1);
-    expect(wrapper.find('.rbt-token').length).to.equal(3);
+    expect(getTokens(wrapper).length).to.equal(3);
   });
 
   describe('aux component behaviors', () => {

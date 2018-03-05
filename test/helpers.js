@@ -61,6 +61,10 @@ export function getPaginator(wrapper) {
   return wrapper.find('.rbt-menu-paginator').hostNodes();
 }
 
+export function getTokens(wrapper) {
+  return wrapper.find('.rbt-token');
+}
+
 
 /* Other Functions */
 export function search(wrapper, query, callback) {
