@@ -102,9 +102,6 @@ Provides the markup for a Bootstrap menu, along with some extra functionality fo
 ### `<MenuItem>`
 Provides the markup for a Bootstrap menu item, but is wrapped with the `menuItemContainer` HOC to ensure proper behavior within the typeahead context. Provided for use if a more customized `Menu` is desired.
 
-### `<TypeaheadMenu>`
-The default menu which is rendered by the `Typeahead` component. Can be used in a custom `renderMenu` function for wrapping or modifying the props passed to it without having to re-implemen the default functionality.
-
 #### Props
 
 ##### `option: Object` (required)
@@ -112,6 +109,9 @@ The data item to be displayed.
 
 ##### `position: Number`
 The position of the item as rendered in the menu. Allows the top-level `Typeahead` component to be be aware of the item's position despite any custom ordering or grouping in `renderMenu`. **Note:** The value must be a unique, zero-based, sequential integer for proper behavior when keying through the menu.
+
+### `<TypeaheadMenu>`
+The default menu which is rendered by the `Typeahead` component. Can be used in a custom `renderMenu` function for wrapping or modifying the props passed to it without having to re-implement the default functionality.
 
 ### `<Token>`
 Individual token component, most commonly for use within `renderToken` to customize the `Token` contents.
