@@ -8,7 +8,7 @@ let warned = {};
 
 export default function warn(falseToWarn, message, ...args) {
   // Only issue deprecation warnings once.
-  if (message.indexOf('deprecated') !== -1) {
+  if (!falseToWarn && message.indexOf('deprecated') !== -1) {
     if (warned[message]) {
       return;
     }
