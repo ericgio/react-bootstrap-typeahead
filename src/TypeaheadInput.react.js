@@ -16,33 +16,12 @@ class TypeaheadInput extends React.Component {
       bsSize,
       disabled,
       hintText,
+      inputProps,
       inputRef,
       isFocused,
       multiple,
-      onBlur,
-      onChange,
-      onContainerClickOrFocus,
-      onFocus,
-      onKeyDown,
-      placeholder,
       selected,
-      value,
     } = this.props;
-
-    const inputProps = {
-      ...this.props.inputProps,
-      disabled,
-      hintText,
-      inputRef,
-      multiple,
-      onBlur,
-      onChange,
-      onClick: onFocus,
-      onFocus,
-      onKeyDown,
-      placeholder,
-      value,
-    };
 
     return (
       /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -55,12 +34,20 @@ class TypeaheadInput extends React.Component {
           'rbt-input-multi': multiple,
         })}
         disabled={disabled}
-        onClick={onContainerClickOrFocus}
-        onFocus={onContainerClickOrFocus}
+        onClick={this._handleContainerClickOrFocus}
+        onFocus={this._handleContainerClickOrFocus}
         tabIndex={-1}>
         <div className="rbt-input-wrapper">
           {multiple && selected.map(this._renderToken)}
-          <HintedInput {...inputProps} />
+          <HintedInput
+            {...inputProps}
+            hintText={hintText}
+            inputRef={(el) => {
+              this._input = el;
+              inputRef(el);
+            }}
+            multiple={multiple}
+          />
         </div>
         {this._renderAux()}
       </div>
@@ -112,6 +99,25 @@ class TypeaheadInput extends React.Component {
         </div>
       );
     }
+  }
+
+  /**
+   * Forward click or focus events on the container element to the input.
+   */
+  _handleContainerClickOrFocus = (e) => {
+    // Don't focus the input if it's disabled.
+    if (this.props.disabled) {
+      e.target.blur();
+      return;
+    }
+
+    // Move cursor to the end if the user clicks outside the actual input.
+    const inputNode = this._input.getInput();
+    if (e.target !== inputNode) {
+      inputNode.selectionStart = inputNode.value.length;
+    }
+
+    inputNode.focus();
   }
 }
 

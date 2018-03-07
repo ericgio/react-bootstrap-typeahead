@@ -15,6 +15,7 @@ function typeaheadInputContainer(Input) {
     render() {
       const {
         activeIndex,
+        disabled,
         isMenuShown,
         menuId,
         multiple,
@@ -33,31 +34,34 @@ function typeaheadInputContainer(Input) {
         'aria-haspopup': 'listbox',
         'aria-owns': menuId,
         autoComplete: 'off',
+        disabled,
+        onBlur: this._handleBlur,
+        onChange: this._handleChange,
+        onClick: this._handleFocus,
+        onFocus: this._handleFocus,
+        onKeyDown: this._handleKeyDown,
+        placeholder: selected.length ? null : placeholder,
         // Comboboxes are single-select by definition:
         // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
         role: multiple ? '' : 'combobox',
+        value: getInputText(this.props),
       };
 
       return (
         <Input
           {...this.props}
-          {...this.state}
           hintText={getHintText(this.props)}
           inputProps={inputProps}
           inputRef={(input) => this._input = input}
-          onBlur={this._handleBlur}
-          onChange={this._handleChange}
-          onContainerClickOrFocus={this._handleContainerClickOrFocus}
-          onFocus={this._handleFocus}
-          onKeyDown={this._handleKeyDown}
-          placeholder={selected.length ? null : placeholder}
-          value={getInputText(this.props)}
+          isFocused={this.state.isFocused}
         />
       );
     }
 
     getInputNode() {
-      return this._input.getInput();
+      return typeof this._input.getInput === 'function' ?
+        this._input.getInput() :
+        this._input;
     }
 
     _handleBlur = (e) => {
@@ -81,25 +85,6 @@ function typeaheadInputContainer(Input) {
     _handleFocus = (e) => {
       this.props.onFocus(e);
       this.setState({isFocused: true});
-    }
-
-    /**
-     * Forward click or focus events on the container element to the input.
-     */
-    _handleContainerClickOrFocus = (e) => {
-      // Don't focus the input if it's disabled.
-      if (this.props.disabled) {
-        e.target.blur();
-        return;
-      }
-
-      // Move cursor to the end if the user clicks outside the actual input.
-      const inputNode = this.getInputNode();
-      if (e.target !== inputNode) {
-        inputNode.selectionStart = inputNode.value.length;
-      }
-
-      inputNode.focus();
     }
 
     _handleKeyDown = (e) => {
