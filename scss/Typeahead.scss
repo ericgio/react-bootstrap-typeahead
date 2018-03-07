@@ -63,8 +63,7 @@
       overflow: hidden;
     }
 
-    &-main,
-    &-hint {
+    &-main {
       // Set input height for cross-browser consistency
       height: 20px;
     }
@@ -172,15 +171,13 @@
 .input,
 .form-control {
   &-lg {
-    .rbt-input-main,
-    .rbt-input-hint {
+    .rbt-input-main {
       height: 24px;
     }
   }
 
   &-sm {
-    .rbt-input-main,
-    .rbt-input-hint {
+    .rbt-input-main {
       height: 18px;
     }
   }

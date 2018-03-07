@@ -586,17 +586,17 @@ describe('<Typeahead>', () => {
 
   describe('hint behavior', () => {
     beforeEach(() => {
-      typeahead = mountTypeahead();
-      change(typeahead, 'Ala');
+      typeahead = mountTypeahead({defaultInputValue: 'Ala'});
     });
 
     it('does not display a hint when the input is not focused', () => {
-      expect(getHint(typeahead).prop('value')).to.equal('');
+      expect(hasFocus(typeahead)).to.equal(false);
+      expect(getHint(typeahead).text()).to.equal('');
     });
 
     it('displays a hint when the input is focused', () => {
       focus(typeahead);
-      expect(getHint(typeahead).prop('value')).to.equal('Alabama');
+      expect(getHint(typeahead).text()).to.equal('Alabama');
     });
 
     it('does not display a hint in multi-select mode', () => {
@@ -609,14 +609,14 @@ describe('<Typeahead>', () => {
 
       // When focused, the typeahead should show the menu and hint text.
       expect(getMenu(typeahead).length).to.equal(1);
-      expect(getHint(typeahead).prop('value')).to.equal('Alabama');
+      expect(getHint(typeahead).text()).to.equal('Alabama');
 
       keyDown(typeahead, ESC);
 
       // Expect the input to remain focused, but the menu and hint to be hidden.
       expect(hasFocus(typeahead)).to.equal(true);
       expect(getMenu(typeahead).length).to.equal(0);
-      expect(getHint(typeahead).prop('value')).to.equal('');
+      expect(getHint(typeahead).text()).to.equal('');
     });
   });
 
@@ -946,7 +946,7 @@ describe('<Typeahead>', () => {
       focus(wrapper); // Focus needs to come after change.
 
       expect(getMenuItems(wrapper).first().text()).to.equal('Utah');
-      expect(getHint(wrapper).prop('value')).to.equal('utah');
+      expect(getHint(wrapper).text()).to.equal('utah');
     });
 
     it('selects the correct option', () => {

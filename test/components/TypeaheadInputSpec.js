@@ -59,7 +59,7 @@ describe('<TypeaheadInput>', () => {
     });
 
     getInput(wrapper).simulate('focus');
-    expect(getHint(wrapper).prop('value')).to.equal(initialItem.name);
+    expect(getHint(wrapper).text()).to.equal(initialItem.name);
   });
 
   describe('behavior when selecting the hinted result', () => {

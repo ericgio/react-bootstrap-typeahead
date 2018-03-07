@@ -84,24 +84,22 @@ class HintedInput extends React.Component {
     // TODO: Support hinting for multi-selection.
     return multiple ?
       null :
-      <AutosizeInput
+      <div
         aria-hidden
-        inputClassName="rbt-input-hint"
-        inputStyle={{
-          ...STYLES,
-          color: 'rgba(0, 0, 0, 0.35)',
-        }}
+        className="rbt-input-hint"
         style={{
+          ...STYLES,
           bottom: 0,
+          color: 'rgba(0, 0, 0, 0.35)',
           display: 'block',
           pointerEvents: 'none',
           position: 'absolute',
           top: 0,
           zIndex: 0,
         }}
-        tabIndex={-1}
-        value={hintText}
-      />;
+        tabIndex={-1}>
+        {hintText}
+      </div>;
   }
 }
 
