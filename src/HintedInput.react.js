@@ -1,7 +1,8 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import AutosizeInput from 'react-input-autosize';
+
+import AutosizeInput from './AutosizeInput.react';
 
 const STYLES = {
   backgroundColor: 'transparent',
