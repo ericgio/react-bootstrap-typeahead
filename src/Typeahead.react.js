@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -16,34 +17,61 @@ class Typeahead extends React.Component {
       bodyContainer,
       className,
       dropup,
-      emptyLabel,
       inputRef,
       isMenuShown,
-      labelKey,
-      maxHeight,
       menuId,
-      newSelectionPrefix,
       onInputChange,
       onMenuHide,
       onMenuShow,
       onSelectionAdd,
       onSelectionRemove,
       renderMenu,
-      renderMenuItemChildren,
       results,
-      text,
     } = this.props;
 
+    const inputProps = {
+      ...pick(this.props, [
+        'activeIndex',
+        'activeItem',
+        'bsSize',
+        'clearButton',
+        'disabled',
+        'initialItem',
+        'inputProps',
+        'isLoading',
+        'isMenuShown',
+        'labelKey',
+        'menuId',
+        'minLength',
+        'multiple',
+        'onBlur',
+        'onClear',
+        'onFocus',
+        'onKeyDown',
+        'placeholder',
+        'renderToken',
+        'selected',
+        'selectHintOnEnter',
+        'text',
+      ]),
+      onAdd: onSelectionAdd,
+      onChange: onInputChange,
+      onRemove: onSelectionRemove,
+      ref: inputRef,
+    };
+
     const menuProps = {
-      align,
-      dropup,
-      emptyLabel,
+      ...pick(this.props, [
+        'align',
+        'dropup',
+        'emptyLabel',
+        'labelKey',
+        'maxHeight',
+        'newSelectionPrefix',
+        'renderMenuItemChildren',
+        'text',
+      ]),
       id: menuId,
-      labelKey,
-      maxHeight,
-      newSelectionPrefix,
-      renderMenuItemChildren,
-      text,
     };
 
     return (
@@ -51,14 +79,7 @@ class Typeahead extends React.Component {
         className={cx('rbt', 'open', 'clearfix', {'dropup': dropup}, className)}
         style={{position: 'relative'}}
         tabIndex={-1}>
-        <TypeaheadInput
-          {...this.props}
-          onAdd={onSelectionAdd}
-          onChange={onInputChange}
-          onRemove={onSelectionRemove}
-          options={results}
-          ref={inputRef}
-        />
+        {this._renderInput(inputProps)}
         <Overlay
           align={align}
           className={className}
@@ -79,6 +100,10 @@ class Typeahead extends React.Component {
         </div>
       </div>
     );
+  }
+
+  _renderInput = (inputProps) => {
+    return <TypeaheadInput {...inputProps} />;
   }
 }
 
