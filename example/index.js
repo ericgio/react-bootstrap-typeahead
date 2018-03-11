@@ -12,6 +12,8 @@ import CustomSelectionsSection from './sections/CustomSelectionsSection';
 import FilteringSection from './sections/FilteringSection';
 import PublicMethodsSection from './sections/PublicMethodsSection';
 import RenderingSection from './sections/RenderingSection';
+import ControlledSection from './sections/ControlledSection';
+import ControlledAsyncSection from './sections/ControlledAsyncSection';
 
 import '../css/Typeahead.css';
 
@@ -24,6 +26,8 @@ render(
     <CustomSelectionsSection />
     <AsyncSection />
     <PublicMethodsSection />
+    <ControlledSection />
+    <ControlledAsyncSection />
   </Page>,
   document.getElementById('root')
 );

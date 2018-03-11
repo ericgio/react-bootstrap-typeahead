@@ -71,7 +71,7 @@ function typeaheadContainer(Typeahead) {
 
       // If new selections are passed via props, treat as a controlled input.
       if (selected && !isEqual(selected, this.props.selected)) {
-        this._updateSelected(selected);
+        this.setState({selected});
 
         if (multiple) {
           return;
@@ -91,20 +91,19 @@ function typeaheadContainer(Typeahead) {
           text = '';
         }
 
-        this._updateText(text);
+        this.setState({text});
       }
 
       // Truncate selections when in single-select mode.
       let newSelected = selected || this.state.selected;
       if (!multiple && newSelected.length > 1) {
         newSelected = newSelected.slice(0, 1);
-        this._updateSelected(newSelected);
-        this._updateText(getOptionLabel(head(newSelected), labelKey));
+        this.setState({selected: newSelected, text: getOptionLabel(head(newSelected), labelKey)});
         return;
       }
 
       if (multiple !== this.props.multiple) {
-        this._updateText('');
+        this.setState({text: ''});
       }
     }
 
@@ -320,7 +319,7 @@ function typeaheadContainer(Typeahead) {
     }
   }
 
-  WrappedTypeahead.displayName = 'Typeahead';
+  WrappedTypeahead.displayName = 'typeaheadContainer(' + (Typeahead.displayName || Typeahead.name) + ')';
 
   WrappedTypeahead.propTypes = {
     /**

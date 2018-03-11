@@ -99,9 +99,15 @@ const asyncContainer = (Typeahead) => {
     }
 
     _handleChange = (selected) => {
-      this.setState({hasSelection: !!selected.length}, () => {
+      const hasSelection = !!selected.length;
+      if (hasSelection !== this.state.hasSelection) {
+        this.setState({hasSelection}, () => {
+          this.props.onChange && this.props.onChange(selected);
+        });
+      }
+      else {
         this.props.onChange && this.props.onChange(selected);
-      });
+      }
     }
 
     _handleInputChange = (query) => {
@@ -144,6 +150,8 @@ const asyncContainer = (Typeahead) => {
       onSearch(query);
     }
   }
+
+  Container.displayName =  'asyncContainer(' + (Typeahead.displayName || Typeahead.name) + ')';
 
   Container.propTypes = {
     /**
