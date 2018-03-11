@@ -31,7 +31,6 @@ function typeaheadInnerContainer(Typeahead) {
         activeItem,
         isMenuShown,
         onActiveIndexChange,
-        onActiveItemChange,
         onHide,
         onKeyDown,
         onMenuItemSelect,
@@ -69,11 +68,6 @@ function typeaheadInnerContainer(Typeahead) {
           }
 
           onActiveIndexChange(activeIndex);
-
-          if (activeIndex === -1) {
-            // Reset the active item if there is no active index.
-            onActiveItemChange(null);
-          }
           break;
         case ESC:
         case TAB:

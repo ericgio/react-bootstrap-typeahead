@@ -175,7 +175,6 @@ function typeaheadContainer(Typeahead) {
           isMenuShown={isMenuShown}
           menuId={this.props.menuId || this._menuId}
           onActiveIndexChange={this._handleActiveIndexChange}
-          onActiveItemChange={this._handleActiveItemChange}
           onClear={this._handleClear}
           onFocus={this._handleFocus}
           onHide={this._hideMenu}
@@ -212,7 +211,14 @@ function typeaheadContainer(Typeahead) {
     }
 
     _handleActiveIndexChange = (activeIndex) => {
-      this.setState({activeIndex});
+      const newState = {activeIndex};
+
+      if (activeIndex === -1) {
+        // Reset the active item if there is no active index.
+        newState.activeItem = null;
+      }
+
+      this.setState(newState);
     }
 
     _handleActiveItemChange = (activeItem) => {
