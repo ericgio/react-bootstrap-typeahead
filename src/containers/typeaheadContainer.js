@@ -161,7 +161,6 @@ function typeaheadContainer(Typeahead) {
           onHide={this._hideMenu}
           onInitialItemChange={this._handleInitialItemChange}
           onInputChange={this._handleInputChange}
-          onInputFocus={this._handleInputFocus}
           onPaginate={this._handlePaginate}
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
