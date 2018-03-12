@@ -40,12 +40,12 @@ function highlightOnlyResultContainer(Typeahead) {
     }
 
     _handleKeyDown = (e) => {
-      const {initialItem, onKeyDown, onSelectionAdd} = this.props;
+      const {initialItem, onKeyDown, onAdd} = this.props;
 
       switch (e.keyCode) {
         case RETURN:
           if (this.state.isOnlyResult) {
-            onSelectionAdd(initialItem);
+            onAdd(initialItem);
           }
           break;
       }

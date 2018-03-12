@@ -175,14 +175,14 @@ function typeaheadContainer(Typeahead) {
           isMenuShown={isMenuShown}
           menuId={this.props.menuId || this._menuId}
           onActiveIndexChange={this._handleActiveIndexChange}
+          onAdd={this._handleSelectionAdd}
+          onChange={this._handleInputChange}
           onClear={this._handleClear}
           onFocus={this._handleFocus}
           onHide={this._hideMenu}
           onInitialItemChange={this._handleInitialItemChange}
-          onInputChange={this._handleInputChange}
           onMenuItemSelect={this._handleMenuItemSelect}
-          onSelectionAdd={this._handleSelectionAdd}
-          onSelectionRemove={this._handleSelectionRemove}
+          onRemove={this._handleSelectionRemove}
           onShow={this._showMenu}
           results={results}
         />

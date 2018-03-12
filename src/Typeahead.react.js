@@ -20,66 +20,57 @@ class Typeahead extends React.Component {
       inputRef,
       isMenuShown,
       menuId,
-      onInputChange,
       onMenuHide,
       onMenuShow,
-      onSelectionAdd,
-      onSelectionRemove,
       renderMenu,
       results,
     } = this.props;
 
-    const inputProps = {
-      ...pick(this.props, [
-        'activeIndex',
-        'activeItem',
-        'bsSize',
-        'clearButton',
-        'disabled',
-        'initialItem',
-        'inputProps',
-        'isLoading',
-        'isMenuShown',
-        'labelKey',
-        'menuId',
-        'minLength',
-        'multiple',
-        'onBlur',
-        'onClear',
-        'onFocus',
-        'onKeyDown',
-        'placeholder',
-        'renderToken',
-        'selected',
-        'selectHintOnEnter',
-        'text',
-      ]),
-      onAdd: onSelectionAdd,
-      onChange: onInputChange,
-      onRemove: onSelectionRemove,
-      ref: inputRef,
-    };
+    const inputProps = pick(this.props, [
+      'activeIndex',
+      'activeItem',
+      'bsSize',
+      'clearButton',
+      'disabled',
+      'initialItem',
+      'inputProps',
+      'isLoading',
+      'isMenuShown',
+      'labelKey',
+      'menuId',
+      'minLength',
+      'multiple',
+      'onAdd',
+      'onBlur',
+      'onChange',
+      'onClear',
+      'onFocus',
+      'onKeyDown',
+      'onRemove',
+      'placeholder',
+      'renderToken',
+      'selected',
+      'selectHintOnEnter',
+      'text',
+    ]);
 
-    const menuProps = {
-      ...pick(this.props, [
-        'align',
-        'dropup',
-        'emptyLabel',
-        'labelKey',
-        'maxHeight',
-        'newSelectionPrefix',
-        'renderMenuItemChildren',
-        'text',
-      ]),
-      id: menuId,
-    };
+    const menuProps = pick(this.props, [
+      'align',
+      'dropup',
+      'emptyLabel',
+      'labelKey',
+      'maxHeight',
+      'newSelectionPrefix',
+      'renderMenuItemChildren',
+      'text',
+    ]);
 
     return (
       <div
         className={cx('rbt', 'open', 'clearfix', {'dropup': dropup}, className)}
         style={{position: 'relative'}}
         tabIndex={-1}>
-        {this._renderInput(inputProps)}
+        {this._renderInput({...inputProps, ref: inputRef})}
         <Overlay
           align={align}
           className={className}
@@ -89,7 +80,7 @@ class Typeahead extends React.Component {
           onMenuShow={onMenuShow}
           show={isMenuShown}
           target={this}>
-          {renderMenu(results, menuProps)}
+          {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
         <div
           aria-atomic={true}
