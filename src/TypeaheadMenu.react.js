@@ -46,7 +46,7 @@ class TypeaheadMenu extends React.Component {
 
     if (option.customOption) {
       return (
-        <MenuItem {...menuItemProps}>
+        <MenuItem {...menuItemProps} className="bootstrap-typeahead-new">
           {newSelectionPrefix}
           <Highlighter search={text}>
             {option[labelKey]}
