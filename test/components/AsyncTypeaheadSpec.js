@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
-import {noop} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
@@ -8,14 +7,15 @@ import {AsyncTypeahead} from '../../src/';
 import {change, focus, getMenuItems, search} from '../helpers';
 
 describe('<AsyncTypeahead>', () => {
-  let wrapper;
+  let onSearch, wrapper;
 
   beforeEach(() => {
+    onSearch = sinon.spy();
     wrapper = mount(
       <AsyncTypeahead
         delay={0}
         isLoading={false}
-        onSearch={noop}
+        onSearch={onSearch}
       />
     );
   });
@@ -70,6 +70,13 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
+  it('should not perform a search when the query is empty', (done) => {
+    search(wrapper, '   ', () => {
+      expect(onSearch.notCalled).to.equal(true);
+      done();
+    });
+  });
+
   it('should delay the search by at least the specified amount', (done) => {
     const delay = 100;
     const preSearch = Date.now();
@@ -90,12 +97,7 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('should use cached results and not perform a new search', (done) => {
-    const onSearch = sinon.spy();
-
-    wrapper.setProps({
-      isLoading: true,
-      onSearch,
-    });
+    wrapper.setProps({isLoading: true});
 
     // Initial search
     search(wrapper, 'search', () => {
@@ -125,11 +127,8 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('should not use cached results', (done) => {
-    const onSearch = sinon.spy();
-
     wrapper.setProps({
       isLoading: true,
-      onSearch,
       useCache: false,
     });
 
@@ -147,11 +146,8 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('should perform a search when there is already a selection', (done) => {
-    const onSearch = sinon.spy();
-
     wrapper.setProps({
       multiple: true,
-      onSearch,
       options: ['one', 'two'],
       selected: ['one'],
     });
