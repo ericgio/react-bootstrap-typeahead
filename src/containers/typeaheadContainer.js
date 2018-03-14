@@ -4,9 +4,10 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 
 import highlightOnlyResultContainer from './highlightOnlyResultContainer';
-import typeaheadInnerContainer from './typeaheadInnerContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
 import {addCustomOption, defaultFilterBy, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
+
+import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
 
 function genId(prefix='') {
   return prefix + Math.random().toString(36).substr(2, 12);
@@ -46,7 +47,6 @@ function typeaheadContainer(Typeahead) {
   // Nested HOCs to encapsulate behaviors. In order from outer to inner.
   Typeahead = flowRight(
     highlightOnlyResultContainer,
-    typeaheadInnerContainer,
   )(Typeahead);
 
   class WrappedTypeahead extends React.Component {
@@ -174,16 +174,13 @@ function typeaheadContainer(Typeahead) {
           inputRef={(input) => this._input = input}
           isMenuShown={isMenuShown}
           menuId={this.props.menuId || this._menuId}
-          onActiveIndexChange={this._handleActiveIndexChange}
           onAdd={this._handleSelectionAdd}
           onChange={this._handleInputChange}
           onClear={this._handleClear}
           onFocus={this._handleFocus}
-          onHide={this._hideMenu}
           onInitialItemChange={this._handleInitialItemChange}
-          onMenuItemSelect={this._handleMenuItemSelect}
+          onKeyDown={(e) => this._handleKeyDown(e, results, isMenuShown)}
           onRemove={this._handleSelectionRemove}
-          onShow={this._showMenu}
           results={results}
         />
       );
@@ -267,6 +264,68 @@ function typeaheadContainer(Typeahead) {
         text,
       });
       this.props.onInputChange(text);
+    }
+
+    _handleKeyDown = (e, results, isMenuShown) => {
+      const {onKeyDown, submitFormOnEnter} = this.props;
+      const {activeItem} = this.state;
+
+      switch (e.keyCode) {
+        case UP:
+        case DOWN:
+          if (!isMenuShown) {
+            this._showMenu();
+            break;
+          }
+
+          let {activeIndex} = this.state;
+
+          // Prevents input cursor from going to the beginning when pressing up.
+          e.preventDefault();
+
+          // Increment or decrement index based on user keystroke.
+          activeIndex += e.keyCode === UP ? -1 : 1;
+
+          // Skip over any disabled options.
+          while (results[activeIndex] && results[activeIndex].disabled) {
+            activeIndex += e.keyCode === UP ? -1 : 1;
+          }
+
+          // If we've reached the end, go back to the beginning or vice-versa.
+          if (activeIndex === results.length) {
+            activeIndex = -1;
+          } else if (activeIndex === -2) {
+            activeIndex = results.length - 1;
+          }
+
+          this._handleActiveIndexChange(activeIndex);
+          break;
+        case ESC:
+        case TAB:
+          // Prevent closing dialogs.
+          e.keyCode === ESC && e.preventDefault();
+
+          this._hideMenu();
+          break;
+        case RETURN:
+          if (!isMenuShown) {
+            break;
+          }
+
+          // Don't submit form if menu is shown and an item is active.
+          if (!submitFormOnEnter || activeItem) {
+            // Prevent submitting forms.
+            e.preventDefault();
+          }
+
+          if (activeItem) {
+            this._handleMenuItemSelect(activeItem, e);
+            break;
+          }
+          break;
+      }
+
+      onKeyDown(e);
     }
 
     _handleMenuItemSelect = (option, e) => {

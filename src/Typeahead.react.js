@@ -11,6 +11,15 @@ import typeaheadContainer from './containers/typeaheadContainer';
 import {getAccessibilityStatus} from './utils/';
 
 class Typeahead extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    const {allowNew, onInitialItemChange, results} = nextProps;
+
+    // Clear the initial item when there are no results.
+    if (!(allowNew || results.length)) {
+      onInitialItemChange(null);
+    }
+  }
+
   render() {
     const {
       align,
