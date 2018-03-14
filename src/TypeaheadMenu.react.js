@@ -48,7 +48,10 @@ class TypeaheadMenu extends React.Component {
 
     if (option.customOption) {
       return (
-        <MenuItem {...menuItemProps}>
+        <MenuItem
+          {...menuItemProps}
+          className="rbt-menu-custom-option"
+          label={newSelectionPrefix + option[labelKey]}>
           {newSelectionPrefix}
           <Highlighter search={text}>
             {option[labelKey]}
