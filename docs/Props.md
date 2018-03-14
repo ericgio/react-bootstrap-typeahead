@@ -25,6 +25,7 @@ isLoading | boolean | false | Indicate whether an asynchronous data fetch is hap
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
 maxHeight | number | 300 | Maximum height of the dropdown menu, in px.
 maxResults | number | 100 | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
+menuId | string | {random} | Id applied to the top-level menu element. Required for accessibility.
 minLength | number | 0 | Number of input characters that must be entered before showing results.
 multiple | boolean | false | Whether or not multiple selections are allowed.
 name | string | | DEPRECATED. Name attribute for the input.

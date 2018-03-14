@@ -15,6 +15,7 @@ class TypeaheadMenu extends React.Component {
       'className',
       'dropup',
       'emptyLabel',
+      'id',
       'maxHeight',
       'onPaginate',
       'paginate',
@@ -40,6 +41,7 @@ class TypeaheadMenu extends React.Component {
     const menuItemProps = {
       disabled: option.disabled,
       key: idx,
+      label: getOptionLabel(option, labelKey),
       option,
       position: idx,
     };

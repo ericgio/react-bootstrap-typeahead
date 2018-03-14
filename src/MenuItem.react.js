@@ -6,7 +6,7 @@ import menuItemContainer from './containers/menuItemContainer';
 
 class BaseMenuItem extends React.Component {
   render() {
-    const {active, children, className, disabled, ...props} = this.props;
+    const {active, children, className, disabled, label, ...props} = this.props;
     const conditionalClassNames = {
       'active': active,
       'disabled': disabled,
@@ -15,7 +15,10 @@ class BaseMenuItem extends React.Component {
     return (
       /* eslint-disable jsx-a11y/anchor-is-valid */
       <li
-        className={cx(conditionalClassNames, className)}>
+        aria-label={label}
+        aria-selected={active}
+        className={cx(conditionalClassNames, className)}
+        role="option">
         <a
           {...props}
           className={cx('dropdown-item', conditionalClassNames)}

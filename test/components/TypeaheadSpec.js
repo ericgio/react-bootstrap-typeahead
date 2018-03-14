@@ -671,6 +671,20 @@ describe('<Typeahead>', () => {
     });
   });
 
+  it('adds an id to the menu for accessibility', () => {
+    focus(typeahead);
+
+    // Default id.
+    expect(getMenu(typeahead).prop('id')).to.contain('rbt-menu-');
+    expect(getInput(typeahead).prop('aria-owns')).to.contain('rbt-menu-');
+
+    const menuId = 'my-id';
+    typeahead.setProps({menuId});
+
+    expect(getMenu(typeahead).prop('id')).to.equal(menuId);
+    expect(getInput(typeahead).prop('aria-owns')).to.equal(menuId);
+  });
+
   describe('bodyContainer behavior', () => {
     it('renders the menu inline', () => {
       focus(typeahead);

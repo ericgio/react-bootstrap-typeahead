@@ -13,14 +13,15 @@ function typeaheadInputContainer(Input) {
     };
 
     render() {
-      const {isMenuShown, placeholder, selected} = this.props;
+      const {isMenuShown, menuId, placeholder, selected} = this.props;
 
       // Add a11y-related props.
       const inputProps = {
         ...this.props.inputProps,
         'aria-autocomplete': 'list',
         'aria-expanded': isMenuShown,
-        'aria-haspopup': 'true',
+        'aria-haspopup': 'listbox',
+        'aria-owns': menuId,
         autoComplete: 'off',
         role: 'combobox',
       };

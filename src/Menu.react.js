@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React, {Children} from 'react';
 import PropTypes from 'prop-types';
+import {isRequiredForA11y} from 'prop-types-extra';
 
 import {BaseMenuItem} from './MenuItem.react';
 import {checkPropType} from './propTypes/';
@@ -40,6 +41,7 @@ class Menu extends React.Component {
       children,
       className,
       emptyLabel,
+      id,
       maxHeight,
       style,
     } = this.props;
@@ -56,6 +58,7 @@ class Menu extends React.Component {
           'dropdown-menu-justify': align === 'justify',
           'dropdown-menu-right': align === 'right',
         }, className)}
+        id={id}
         role="listbox"
         style={{
           ...style,
@@ -101,6 +104,13 @@ Menu.propTypes = {
    * determined by the length of menu item values.
    */
   align: PropTypes.oneOf(['justify', 'left', 'right']),
+  /**
+   * Needed for accessibility.
+   */
+  id: isRequiredForA11y(PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ])),
   /**
    * Maximum height of the dropdown menu, in px.
    */

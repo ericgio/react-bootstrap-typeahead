@@ -9,6 +9,10 @@ import typeaheadInnerContainer from './typeaheadInnerContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
 import {addCustomOption, defaultFilterBy, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
 
+function genId(prefix='') {
+  return prefix + Math.random().toString(36).substr(2, 12);
+}
+
 function getInitialState(props) {
   const {defaultInputValue, defaultSelected, maxResults, multiple} = props;
 
@@ -59,6 +63,12 @@ function typeaheadContainer(Typeahead) {
         onInitialItemChange: this._handleInitialItemChange,
         onMenuItemClick: this._handleSelectionAdd,
       };
+    }
+
+    componentWillMount() {
+      // Generate random id here since doing it in defaultProps will generate
+      // the same id for every instance.
+      this._menuId = genId('rbt-menu-');
     }
 
     componentDidMount() {
@@ -154,6 +164,7 @@ function typeaheadContainer(Typeahead) {
           {...this.state}
           inputRef={(input) => this._input = input}
           isMenuShown={isMenuShown}
+          menuId={this.props.menuId || this._menuId}
           onActiveIndexChange={this._handleActiveIndexChange}
           onActiveItemChange={this._handleActiveItemChange}
           onClear={this.clear}
@@ -415,6 +426,13 @@ function typeaheadContainer(Typeahead) {
      * large data sets.
      */
     maxResults: PropTypes.number,
+    /**
+     * Id applied to the top-level menu element. Required for accessibility.
+     */
+    menuId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
     /**
      * Number of input characters that must be entered before showing results.
      */
