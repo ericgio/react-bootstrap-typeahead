@@ -175,6 +175,7 @@ function typeaheadContainer(Typeahead) {
           onPaginate={this._handlePaginate}
           onSelectionAdd={this._handleSelectionAdd}
           onSelectionRemove={this._handleSelectionRemove}
+          onShow={this._showMenu}
           paginate={shouldPaginate}
           results={results}
         />
@@ -317,6 +318,10 @@ function typeaheadContainer(Typeahead) {
         showMenu,
         shownResults,
       });
+    }
+
+    _showMenu = () => {
+      this.setState({showMenu: true});
     }
 
     _updateSelected = (selected) => {

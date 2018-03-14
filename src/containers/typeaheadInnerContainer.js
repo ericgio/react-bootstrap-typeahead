@@ -35,6 +35,7 @@ function typeaheadInnerContainer(Typeahead) {
         onHide,
         onKeyDown,
         onSelectionAdd,
+        onShow,
         results,
         submitFormOnEnter,
       } = this.props;
@@ -42,8 +43,8 @@ function typeaheadInnerContainer(Typeahead) {
       switch (e.keyCode) {
         case UP:
         case DOWN:
-          // Don't cycle through the options if the menu is hidden.
           if (!isMenuShown) {
+            onShow();
             break;
           }
 

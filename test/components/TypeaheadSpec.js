@@ -785,6 +785,23 @@ describe('<Typeahead>', () => {
     });
   });
 
+  it('opens the menu when the up or down arrow keys are pressed', () => {
+    focus(typeahead);
+    expect(getState(typeahead).showMenu).to.equal(true);
+
+    keyDown(typeahead, ESC);
+    expect(getState(typeahead).showMenu).to.equal(false);
+
+    keyDown(typeahead, DOWN);
+    expect(getState(typeahead).showMenu).to.equal(true);
+
+    keyDown(typeahead, ESC);
+    expect(getState(typeahead).showMenu).to.equal(false);
+
+    keyDown(typeahead, UP);
+    expect(getState(typeahead).showMenu).to.equal(true);
+  });
+
   /**
    * Some basic tests for the custom menu-rendering use-case.
    * Helps ensure that the context-related logic doesn't break.
