@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
 import {Typeahead} from '../../src/';
@@ -8,7 +8,7 @@ import options from '../../example/exampleData';
 class PublicMethodsExample extends React.Component {
   render() {
     return (
-      <div>
+      <Fragment>
         <Typeahead
           labelKey="name"
           multiple
@@ -38,7 +38,7 @@ class PublicMethodsExample extends React.Component {
             Focus, then blur after 1 second
           </Button>
         </ButtonToolbar>
-      </div>
+      </Fragment>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -15,7 +15,7 @@ class FilteringExample extends React.Component {
     const {caseSensitive, ignoreDiacritics} = this.state;
 
     return (
-      <div>
+      <Fragment>
         <Typeahead
           {...this.state}
           options={[
@@ -63,7 +63,7 @@ class FilteringExample extends React.Component {
             Don't ignore diacritical marks
           </Control>
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 }

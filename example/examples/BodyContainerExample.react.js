@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -16,7 +16,7 @@ class BodyContainerExample extends React.Component {
     const {bodyContainer, dropup} = this.state;
 
     return (
-      <div>
+      <Fragment>
         <div
           style={{
             border: '1px solid #ddd',
@@ -49,7 +49,7 @@ class BodyContainerExample extends React.Component {
             Dropup menu
           </Control>
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 

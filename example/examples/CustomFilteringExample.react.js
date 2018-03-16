@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -28,7 +28,7 @@ class CustomFilteringExample extends React.Component {
     const filterByFields = ['capital', 'name'];
 
     return (
-      <div>
+      <Fragment>
         <Typeahead
           filterBy={filterBy === 'callback' ? filterByCallback : filterByFields}
           labelKey="name"
@@ -55,7 +55,7 @@ class CustomFilteringExample extends React.Component {
             </Control>
           ))}
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 }

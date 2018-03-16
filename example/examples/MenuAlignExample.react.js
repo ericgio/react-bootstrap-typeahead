@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -20,7 +20,7 @@ class MenuAlignExample extends React.Component {
     ];
 
     return (
-      <div>
+      <Fragment>
         <Typeahead
           align={align}
           labelKey="name"
@@ -39,7 +39,7 @@ class MenuAlignExample extends React.Component {
             </Control>
           ))}
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 }

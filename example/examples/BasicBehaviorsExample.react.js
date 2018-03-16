@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -38,7 +38,7 @@ class BasicBehaviorsExample extends React.Component {
     ];
 
     return (
-      <div>
+      <Fragment>
         <Typeahead
           {...this.state}
           emptyLabel={emptyLabel ? '' : undefined}
@@ -56,7 +56,7 @@ class BasicBehaviorsExample extends React.Component {
             />
           ))}
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 

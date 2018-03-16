@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -15,7 +15,7 @@ class BasicExample extends React.Component {
     const {multiple} = this.state;
 
     return (
-      <div>
+      <Fragment>
         <Typeahead
           labelKey="name"
           multiple={multiple}
@@ -30,7 +30,7 @@ class BasicExample extends React.Component {
             Multi-Select
           </Control>
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 }

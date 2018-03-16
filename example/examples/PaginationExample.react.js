@@ -1,5 +1,5 @@
 import {range} from 'lodash';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -16,7 +16,7 @@ class PaginationExample extends React.Component {
     const {paginate} = this.state;
 
     return (
-      <div>
+      <Fragment>
         <Typeahead
           onPaginate={(e) => console.log('Results paginated')}
           options={range(0, 1000).map((o) => o.toString())}
@@ -31,7 +31,7 @@ class PaginationExample extends React.Component {
             Paginate results
           </Control>
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 }

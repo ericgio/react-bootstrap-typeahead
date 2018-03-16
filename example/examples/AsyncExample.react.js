@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import {AsyncTypeahead} from '../../src/';
@@ -17,7 +17,7 @@ class AsyncExample extends React.Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <AsyncTypeahead
           {...this.state}
           labelKey="login"
@@ -31,7 +31,7 @@ class AsyncExample extends React.Component {
         <FormGroup>
           {this._renderCheckboxes()}
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 

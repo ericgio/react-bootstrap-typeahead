@@ -1,5 +1,5 @@
 import {groupBy, map} from 'lodash';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
@@ -40,7 +40,7 @@ class RenderingExample extends React.Component {
     }
 
     return (
-      <div>
+      <Fragment>
         <Typeahead
           {...props}
           labelKey="name"
@@ -59,7 +59,7 @@ class RenderingExample extends React.Component {
             </Control>
           ))}
         </FormGroup>
-      </div>
+      </Fragment>
     );
   }
 
