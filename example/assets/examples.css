@@ -198,6 +198,7 @@ h4:hover .anchor-icon {
 .example-toggle-code {
   border: 0;
   float: right;
+  font-size: 12px;
   line-height: 1.1;
   margin-bottom: 10px;
   padding: 0;
