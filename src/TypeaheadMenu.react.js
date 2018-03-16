@@ -58,11 +58,7 @@ class TypeaheadMenu extends React.Component {
 
     if (option.paginationOption) {
       return [
-        <li
-          className="divider"
-          key="pagination-item-divider"
-          role="separator"
-        />,
+        <Menu.Divider key="pagination-item-divider" />,
         <MenuItem
           {...menuItemProps}
           className="rbt-menu-pagination-option"

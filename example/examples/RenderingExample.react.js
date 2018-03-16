@@ -6,11 +6,6 @@ import Control from '../components/Control';
 import {Highlighter, Menu, MenuItem, Token, Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
-const MenuDivider = (props) => (
-  <li className="divider dropdown-divider" role="separator" />
-);
-const MenuHeader = (props) => <li {...props} className="dropdown-header" />;
-
 /* example-start */
 class RenderingExample extends React.Component {
   state = {
@@ -68,10 +63,10 @@ class RenderingExample extends React.Component {
     const grouped = groupBy(results, (r) => r.region);
     const items = Object.keys(grouped).sort().map((region) => {
       return [
-        !!idx && <MenuDivider key={`${region}-divider`} />,
-        <MenuHeader key={`${region}-header`}>
+        !!idx && <Menu.Divider key={`${region}-divider`} />,
+        <Menu.Header key={`${region}-header`}>
           {region}
-        </MenuHeader>,
+        </Menu.Header>,
         map(grouped[region], (state) => {
           const item =
             <MenuItem key={idx} option={state} position={idx}>

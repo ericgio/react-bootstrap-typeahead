@@ -74,4 +74,12 @@ Menu.defaultProps = {
   maxHeight: '300px',
 };
 
+Menu.Divider = (props) => (
+  <li className="divider dropdown-divider" role="separator" />
+);
+
+Menu.Header = (props) => (
+  <li {...props} className="dropdown-header" />
+);
+
 export default Menu;
