@@ -1,7 +1,8 @@
 import React from 'react';
-import {Checkbox} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
 
 import {AsyncTypeahead} from '../../src/';
+import Control from '../components/Control';
 import GithubMenuItem from '../components/GithubMenuItem.react';
 import makeAndHandleRequest from '../util/makeAndHandleRequest';
 
@@ -27,7 +28,9 @@ class AsyncExample extends React.Component {
             <GithubMenuItem key={option.id} user={option} />
           )}
         />
-        {this._renderCheckboxes()}
+        <FormGroup>
+          {this._renderCheckboxes()}
+        </FormGroup>
       </div>
     );
   }
@@ -39,13 +42,14 @@ class AsyncExample extends React.Component {
     ];
 
     return checkboxes.map(({label, name}) => (
-      <Checkbox
+      <Control
         checked={this.state[name]}
         key={name}
         name={name}
-        onChange={this._handleChange}>
+        onChange={this._handleChange}
+        type="checkbox">
         {label}
-      </Checkbox>
+      </Control>
     ));
   }
 

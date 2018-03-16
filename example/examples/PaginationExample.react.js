@@ -1,7 +1,8 @@
 import {range} from 'lodash';
 import React from 'react';
-import {Checkbox} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
 
+import Control from '../components/Control';
 import {Typeahead} from '../../src/';
 
 /* eslint-disable no-console */
@@ -22,11 +23,14 @@ class PaginationExample extends React.Component {
           paginate={paginate}
           placeholder="Pick a number..."
         />
-        <Checkbox
-          checked={paginate}
-          onChange={(e) => this.setState({paginate: !!e.target.checked})}>
-          Paginate results
-        </Checkbox>
+        <FormGroup>
+          <Control
+            checked={paginate}
+            onChange={(e) => this.setState({paginate: !!e.target.checked})}
+            type="checkbox">
+            Paginate results
+          </Control>
+        </FormGroup>
       </div>
     );
   }

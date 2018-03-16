@@ -1,6 +1,7 @@
 import React from 'react';
-import {Checkbox, FormGroup} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
 
+import Control from '../components/Control';
 import {Typeahead} from '../../src/';
 
 import options from '../../example/exampleData';
@@ -25,6 +26,17 @@ class BasicBehaviorsExample extends React.Component {
       selectHintOnEnter,
     } = this.state;
 
+    const checkboxes = [
+      /* eslint-disable max-len */
+      {checked: disabled, children: 'Disable', name: 'disabled'},
+      {checked: dropup, children: 'Dropup menu', name: 'dropup'},
+      {checked: !!minLength, children: 'Require minimum input before showing results (2 chars)', name: 'minLength'},
+      {checked: emptyLabel, children: 'Hide the menu when there are no results', name: 'emptyLabel'},
+      {checked: selectHintOnEnter, children: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter'},
+      {checked: highlightOnlyResult, children: 'Highlight the only result', name: 'highlightOnlyResult'},
+      /* eslint-enable max-len */
+    ];
+
     return (
       <div>
         <Typeahead
@@ -35,42 +47,14 @@ class BasicBehaviorsExample extends React.Component {
           placeholder="Choose a state..."
         />
         <FormGroup>
-          <Checkbox
-            checked={disabled}
-            name="disabled"
-            onChange={this._handleChange}>
-            Disable
-          </Checkbox>
-          <Checkbox
-            checked={dropup}
-            name="dropup"
-            onChange={this._handleChange}>
-            Dropup menu
-          </Checkbox>
-          <Checkbox
-            checked={!!minLength}
-            name="minLength"
-            onChange={this._handleChange}>
-            Require minimum input before showing results (2 chars)
-          </Checkbox>
-          <Checkbox
-            checked={emptyLabel}
-            name="emptyLabel"
-            onChange={this._handleChange}>
-            Hide the menu when there are no results
-          </Checkbox>
-          <Checkbox
-            checked={selectHintOnEnter}
-            name="selectHintOnEnter"
-            onChange={this._handleChange}>
-            Select the hinted result by pressing enter
-          </Checkbox>
-          <Checkbox
-            checked={highlightOnlyResult}
-            name="highlightOnlyResult"
-            onChange={this._handleChange}>
-            Highlight the only result
-          </Checkbox>
+          {checkboxes.map((props) => (
+            <Control
+              {...props}
+              key={props.name}
+              onChange={this._handleChange}
+              type="checkbox"
+            />
+          ))}
         </FormGroup>
       </div>
     );

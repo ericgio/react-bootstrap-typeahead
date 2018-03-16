@@ -1,7 +1,8 @@
 import {groupBy, map} from 'lodash';
 import React from 'react';
-import {Radio} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
 
+import Control from '../components/Control';
 import {Highlighter, Menu, MenuItem, Token, Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
@@ -46,15 +47,18 @@ class RenderingExample extends React.Component {
           options={options}
           placeholder="Choose a state..."
         />
-        {radios.map(({label, value}) => (
-          <Radio
-            checked={selectedOption === value}
-            key={value}
-            onChange={(e) => this.setState({selectedOption: value})}
-            value={value}>
-            {label}
-          </Radio>
-        ))}
+        <FormGroup>
+          {radios.map(({label, value}) => (
+            <Control
+              checked={selectedOption === value}
+              key={value}
+              onChange={(e) => this.setState({selectedOption: value})}
+              type="radio"
+              value={value}>
+              {label}
+            </Control>
+          ))}
+        </FormGroup>
       </div>
     );
   }

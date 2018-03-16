@@ -1,6 +1,7 @@
 import React from 'react';
-import {Radio} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
 
+import Control from '../components/Control';
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
@@ -42,15 +43,18 @@ class CustomFilteringExample extends React.Component {
             </div>
           )}
         />
-        {radios.map(({label, value}) => (
-          <Radio
-            checked={filterBy === value}
-            key={value}
-            onChange={(e) => this.setState({filterBy: value})}
-            value={value}>
-            {label}
-          </Radio>
-        ))}
+        <FormGroup>
+          {radios.map(({label, value}) => (
+            <Control
+              checked={filterBy === value}
+              key={value}
+              onChange={(e) => this.setState({filterBy: value})}
+              type="radio"
+              value={value}>
+              {label}
+            </Control>
+          ))}
+        </FormGroup>
       </div>
     );
   }

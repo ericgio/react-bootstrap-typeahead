@@ -1,6 +1,7 @@
 import React from 'react';
-import {Radio} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
 
+import Control from '../components/Control';
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
@@ -26,15 +27,18 @@ class MenuAlignExample extends React.Component {
           options={options}
           placeholder="Choose a state..."
         />
-        {radios.map(({label, value}) => (
-          <Radio
-            checked={align === value}
-            key={value}
-            onChange={(e) => this.setState({align: value})}
-            value={value}>
-            {label}
-          </Radio>
-        ))}
+        <FormGroup>
+          {radios.map(({label, value}) => (
+            <Control
+              checked={align === value}
+              key={value}
+              onChange={(e) => this.setState({align: value})}
+              type="radio"
+              value={value}>
+              {label}
+            </Control>
+          ))}
+        </FormGroup>
       </div>
     );
   }

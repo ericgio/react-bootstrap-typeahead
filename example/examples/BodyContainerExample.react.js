@@ -1,6 +1,7 @@
 import React from 'react';
-import {Checkbox} from 'react-bootstrap';
+import {FormGroup} from 'react-bootstrap';
 
+import Control from '../components/Control';
 import {Typeahead} from '../../src/';
 import options from '../../example/exampleData';
 
@@ -32,18 +33,22 @@ class BodyContainerExample extends React.Component {
             />
           </div>
         </div>
-        <Checkbox
-          checked={bodyContainer}
-          name="bodyContainer"
-          onChange={this._handleChange}>
-          Attach menu to document body
-        </Checkbox>
-        <Checkbox
-          checked={dropup}
-          name="dropup"
-          onChange={this._handleChange}>
-          Dropup menu
-        </Checkbox>
+        <FormGroup>
+          <Control
+            checked={bodyContainer}
+            name="bodyContainer"
+            onChange={this._handleChange}
+            type="checkbox">
+            Attach menu to document body
+          </Control>
+          <Control
+            checked={dropup}
+            name="dropup"
+            onChange={this._handleChange}
+            type="checkbox">
+            Dropup menu
+          </Control>
+        </FormGroup>
       </div>
     );
   }
