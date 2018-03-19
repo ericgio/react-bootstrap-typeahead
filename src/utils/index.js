@@ -6,6 +6,7 @@ export getDisplayName from './getDisplayName';
 export getHintText from './getHintText';
 export getInputText from './getInputText';
 export getMatchBounds from './getMatchBounds';
+export getMenuItemId from './getMenuItemId';
 export getOptionLabel from './getOptionLabel';
 export getTruncatedOptions from './getTruncatedOptions';
 export pluralize from './pluralize';

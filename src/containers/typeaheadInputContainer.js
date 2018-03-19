@@ -2,7 +2,7 @@ import {head} from 'lodash';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
-import {getHintText, getInputText} from '../utils/';
+import {getHintText, getInputText, getMenuItemId} from '../utils/';
 
 import {BACKSPACE, RETURN, RIGHT, TAB} from '../constants/keyCode';
 
@@ -13,17 +13,29 @@ function typeaheadInputContainer(Input) {
     };
 
     render() {
-      const {isMenuShown, menuId, placeholder, selected} = this.props;
+      const {
+        activeIndex,
+        isMenuShown,
+        menuId,
+        multiple,
+        placeholder,
+        selected,
+      } = this.props;
 
       // Add a11y-related props.
       const inputProps = {
         ...this.props.inputProps,
-        'aria-autocomplete': 'list',
+        'aria-activedescendant': activeIndex >= 0 ?
+          getMenuItemId(activeIndex) :
+          '',
+        'aria-autocomplete': multiple ? 'list' : 'both',
         'aria-expanded': isMenuShown,
         'aria-haspopup': 'listbox',
         'aria-owns': menuId,
         autoComplete: 'off',
-        role: 'combobox',
+        // Comboboxes are single-select by definition:
+        // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
+        role: multiple ? '' : 'combobox',
       };
 
       return (

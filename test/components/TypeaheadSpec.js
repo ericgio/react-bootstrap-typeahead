@@ -671,18 +671,68 @@ describe('<Typeahead>', () => {
     });
   });
 
-  it('adds an id to the menu for accessibility', () => {
-    focus(typeahead);
+  describe('accessibility attributes', () => {
+    it('adds an id to the menu for accessibility', () => {
+      focus(typeahead);
 
-    // Default id.
-    expect(getMenu(typeahead).prop('id')).to.contain('rbt-menu-');
-    expect(getInput(typeahead).prop('aria-owns')).to.contain('rbt-menu-');
+      // Default id.
+      expect(getMenu(typeahead).prop('id')).to.contain('rbt-menu-');
+      expect(getInput(typeahead).prop('aria-owns')).to.contain('rbt-menu-');
 
-    const menuId = 'my-id';
-    typeahead.setProps({menuId});
+      const menuId = 'my-id';
+      typeahead.setProps({menuId});
 
-    expect(getMenu(typeahead).prop('id')).to.equal(menuId);
-    expect(getInput(typeahead).prop('aria-owns')).to.equal(menuId);
+      expect(getMenu(typeahead).prop('id')).to.equal(menuId);
+      expect(getInput(typeahead).prop('aria-owns')).to.equal(menuId);
+    });
+
+    it('sets the input `role`', () => {
+      // Single-select
+      expect(getInput(typeahead).prop('role')).to.equal('combobox');
+
+      // Multi-select
+      typeahead.setProps({multiple: true});
+      expect(getInput(typeahead).prop('role')).to.equal('');
+    });
+
+    it('sets the input `aria-autocomplete` description', () => {
+      // Single-select
+      expect(getInput(typeahead).prop('aria-autocomplete')).to.equal('both');
+
+      // Multi-select
+      typeahead.setProps({multiple: true});
+      expect(getInput(typeahead).prop('aria-autocomplete')).to.equal('list');
+    });
+
+    it('sets the input `aria-expanded` description', () => {
+      expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
+
+      focus(typeahead);
+      expect(getInput(typeahead).prop('aria-expanded')).to.equal(true);
+    });
+
+    it('sets the input `aria-activedescendant` description', () => {
+      expect(getInput(typeahead).prop('aria-activedescendant')).to.equal('');
+
+      focus(typeahead);
+      keyDown(typeahead, DOWN);
+
+      expect(getInput(typeahead).prop('aria-activedescendant'))
+        .to.equal('rbt-menu-item-0');
+    });
+
+    it('sets menu item attributes', () => {
+      focus(typeahead);
+
+      const menuItem = typeahead.find('.rbt-menu li').first();
+      expect(menuItem.prop('aria-label')).to.equal('Alabama');
+      expect(menuItem.prop('aria-selected')).to.equal(false);
+      expect(menuItem.prop('role')).to.equal('option');
+
+      keyDown(typeahead, DOWN);
+      expect(typeahead.find('.rbt-menu li').first().prop('aria-selected'))
+        .to.equal(true);
+    });
   });
 
   describe('bodyContainer behavior', () => {

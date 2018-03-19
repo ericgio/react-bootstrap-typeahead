@@ -6,7 +6,16 @@ import menuItemContainer from './containers/menuItemContainer';
 
 class BaseMenuItem extends React.Component {
   render() {
-    const {active, children, className, disabled, label, ...props} = this.props;
+    const {
+      active,
+      children,
+      className,
+      disabled,
+      onClick,
+      onMouseDown,
+      ...props
+    } = this.props;
+
     const conditionalClassNames = {
       'active': active,
       'disabled': disabled,
@@ -15,15 +24,13 @@ class BaseMenuItem extends React.Component {
     return (
       /* eslint-disable jsx-a11y/anchor-is-valid */
       <li
-        aria-label={label}
-        aria-selected={active}
-        className={cx(conditionalClassNames, className)}
-        role="option">
+        {...props}
+        className={cx(conditionalClassNames, className)}>
         <a
-          {...props}
           className={cx('dropdown-item', conditionalClassNames)}
           href="#"
-          onClick={this._handleClick}>
+          onClick={this._handleClick}
+          onMouseDown={onMouseDown}>
           {children}
         </a>
       </li>
@@ -43,7 +50,5 @@ BaseMenuItem.defaultProps = {
   onClick: noop,
 };
 
-const MenuItem = menuItemContainer(BaseMenuItem);
-
 export {BaseMenuItem};
-export default MenuItem;
+export default menuItemContainer(BaseMenuItem);
