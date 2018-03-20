@@ -263,7 +263,7 @@ function typeaheadContainer(Typeahead) {
         showMenu: true,
         text,
       });
-      this.props.onInputChange(text);
+      this.props.onInputChange(text, e);
     }
 
     _handleKeyDown = (e, results, isMenuShown) => {

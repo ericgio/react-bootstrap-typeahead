@@ -873,6 +873,19 @@ describe('<Typeahead>', () => {
       expect(onInputChange.calledOnce).to.equal(true);
     });
 
+    it('`onInputChange` receives an event as the second param', () => {
+      let event;
+
+      typeahead.setProps({
+        onInputChange: (text, e) => event = e,
+      });
+
+      focus(typeahead);
+      change(typeahead, 'z');
+
+      expect(event).to.not.equal(undefined);
+    });
+
     it('does not call either when selections are updated via props', () => {
       typeahead.setProps({selected});
       expect(onChange.notCalled).to.equal(true);
