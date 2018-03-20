@@ -374,7 +374,7 @@ describe('<Typeahead>', () => {
     expect(typeahead.find('.input-sm')).to.have.length(1);
   });
 
-  it('renders a small input', () => {
+  it('renders a loading indicator', () => {
     typeahead.setProps({isLoading: true});
     expect(typeahead.find('.rbt-loader')).to.have.length(1);
   });

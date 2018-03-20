@@ -41,7 +41,6 @@
 
 
   &-input {
-    @include display-flex();
     cursor: text;
     overflow: hidden;
     position: relative;
@@ -59,7 +58,6 @@
     }
 
     &-wrapper {
-      @include flex(1);
       overflow: hidden;
     }
 
@@ -137,27 +135,28 @@
   }
 
   &-aux {
-    margin-left: 5px;
+    @include display-flex();
+    align-items: center;
+    bottom: 0;
+    justify-content: center;
+    pointer-events: none; /* Don't block clicks on the input */
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 34px;
+
+    &-lg {
+      width: 46px;
+    }
 
     & .rbt-close {
-      margin-top: -12px;
-      position: relative;
-      top: 50%;
-
-      &-lg {
-        margin-top: -15px;
-      }
+      margin-top: -4px;
+      pointer-events: auto; /* Override pointer-events: none; above */
     }
+  }
 
-    & .rbt-loader {
-      margin-top: -8px;
-      position: relative;
-      top: 50%;
-
-      &-lg {
-        margin-top: -10px;
-      }
-    }
+  .has-aux &-input {
+    padding-right: 34px;
   }
 
   &-highlight-text {

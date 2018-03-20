@@ -3,12 +3,14 @@ import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import ClearButton from './ClearButton.react';
+import Loader from './Loader.react';
 import Overlay from './Overlay.react';
 import TypeaheadInput from './TypeaheadInput.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import typeaheadContainer from './containers/typeaheadContainer';
-import {getAccessibilityStatus} from './utils/';
+import {getAccessibilityStatus, preventInputBlur} from './utils/';
 
 class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -39,11 +41,9 @@ class Typeahead extends React.Component {
       'activeIndex',
       'activeItem',
       'bsSize',
-      'clearButton',
       'disabled',
       'initialItem',
       'inputProps',
-      'isLoading',
       'isMenuShown',
       'labelKey',
       'menuId',
@@ -52,7 +52,6 @@ class Typeahead extends React.Component {
       'onAdd',
       'onBlur',
       'onChange',
-      'onClear',
       'onFocus',
       'onKeyDown',
       'onRemove',
@@ -74,12 +73,18 @@ class Typeahead extends React.Component {
       'text',
     ]);
 
+    const auxContent = this._renderAux();
+
     return (
       <div
-        className={cx('rbt', 'open', 'clearfix', {'dropup': dropup}, className)}
+        className={cx('rbt', 'open', 'clearfix', {
+          'dropup': dropup,
+          'has-aux': !!auxContent,
+        }, className)}
         style={{position: 'relative'}}
         tabIndex={-1}>
         {this._renderInput({...inputProps, ref: inputRef})}
+        {auxContent}
         <Overlay
           align={align}
           className={className}
@@ -104,6 +109,43 @@ class Typeahead extends React.Component {
 
   _renderInput = (inputProps) => {
     return <TypeaheadInput {...inputProps} />;
+  }
+
+  _renderAux = () => {
+    const {
+      bsSize,
+      clearButton,
+      disabled,
+      isLoading,
+      onClear,
+      selected,
+    } = this.props;
+
+    let content;
+
+    if (isLoading) {
+      content = <Loader bsSize={bsSize} />;
+    } else if (clearButton && !disabled && selected.length) {
+      content =
+        <ClearButton
+          bsSize={bsSize}
+          onClick={onClear}
+          onFocus={(e) => {
+            // Prevent the main input from auto-focusing again.
+            e.stopPropagation();
+          }}
+          onMouseDown={preventInputBlur}
+        />;
+    }
+
+    return content ?
+      <div
+        className={cx('rbt-aux', {
+          'rbt-aux-lg': bsSize === 'large' || bsSize === 'lg',
+        })}>
+        {content}
+      </div> :
+      null;
   }
 }
 

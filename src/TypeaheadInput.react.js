@@ -2,12 +2,10 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ClearButton from './ClearButton.react';
-import Loader from './Loader.react';
 import HintedInput from './HintedInput.react';
 import Token from './Token.react';
 
-import {getOptionLabel, preventInputBlur} from './utils/';
+import {getOptionLabel} from './utils/';
 import typeaheadInputContainer from './containers/typeaheadInputContainer';
 
 class TypeaheadInput extends React.Component {
@@ -47,7 +45,6 @@ class TypeaheadInput extends React.Component {
             multiple={multiple}
           />
         </div>
-        {this._renderAux()}
       </div>
       /* eslint-enable jsx-a11y/no-static-element-interactions */
       /* eslint-enable jsx-a11y/click-events-have-key-events */
@@ -62,41 +59,6 @@ class TypeaheadInput extends React.Component {
     };
 
     return renderToken(option, props, idx);
-  }
-
-  _renderAux = () => {
-    const {
-      bsSize,
-      clearButton,
-      disabled,
-      isLoading,
-      onClear,
-      selected,
-    } = this.props;
-
-    if (isLoading) {
-      return (
-        <div className="rbt-aux">
-          <Loader bsSize={bsSize} />
-        </div>
-      );
-    }
-
-    if (clearButton && !disabled && selected.length) {
-      return (
-        <div className="rbt-aux">
-          <ClearButton
-            bsSize={bsSize}
-            onClick={onClear}
-            onFocus={(e) => {
-              // Prevent the main input from auto-focusing again.
-              e.stopPropagation();
-            }}
-            onMouseDown={preventInputBlur}
-          />
-        </div>
-      );
-    }
   }
 
   /**

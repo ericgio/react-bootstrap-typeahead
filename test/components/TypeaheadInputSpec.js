@@ -3,8 +3,6 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
-import ClearButton from '../../src/ClearButton';
-import Loader from '../../src/Loader';
 import TypeaheadInput from '../../src/TypeaheadInput';
 
 import options from '../../example/exampleData';
@@ -131,24 +129,6 @@ describe('<TypeaheadInput>', () => {
 
     expect(wrapper.find('.rbt-input-multi').length).to.equal(1);
     expect(getTokens(wrapper).length).to.equal(3);
-  });
-
-  describe('aux component behaviors', () => {
-    it('renders a Loader', () => {
-      wrapper.setProps({isLoading: true});
-      expect(wrapper.find(Loader).length).to.equal(1);
-    });
-
-    it('conditionally renders a ClearButton', () => {
-      wrapper.setProps({clearButton: true});
-      expect(wrapper.find(ClearButton).length).to.equal(0);
-
-      wrapper.setProps({selected: options.slice(0, 1)});
-      expect(wrapper.find(ClearButton).length).to.equal(1);
-
-      wrapper.setProps({disabled: true});
-      expect(wrapper.find(ClearButton).length).to.equal(0);
-    });
   });
 
 });
