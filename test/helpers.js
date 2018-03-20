@@ -5,6 +5,7 @@ export const bigDataSet = range(0, 300).map((o) => ({name: o.toString()}));
 
 export const childContextTypes = {
   activeIndex: PropTypes.number.isRequired,
+  hintText: PropTypes.string.isRequired,
   isOnlyResult: PropTypes.bool.isRequired,
   onActiveItemChange: PropTypes.func.isRequired,
   onInitialItemChange: PropTypes.func.isRequired,
@@ -13,6 +14,7 @@ export const childContextTypes = {
 
 export const context = {
   activeIndex: -1,
+  hintText: '',
   isOnlyResult: false,
   onActiveItemChange: noop,
   onInitialItemChange: noop,

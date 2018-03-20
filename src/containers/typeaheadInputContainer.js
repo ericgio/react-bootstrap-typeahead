@@ -1,4 +1,5 @@
 import {head} from 'lodash';
+import PropTypes from 'prop-types';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
@@ -11,6 +12,12 @@ function typeaheadInputContainer(Input) {
     state = {
       isFocused: false,
     };
+
+    getChildContext() {
+      return {
+        hintText: getHintText(this.props),
+      };
+    }
 
     render() {
       const {
@@ -50,7 +57,6 @@ function typeaheadInputContainer(Input) {
       return (
         <Input
           {...this.props}
-          hintText={getHintText(this.props)}
           inputProps={inputProps}
           inputRef={(input) => this._input = input}
           isFocused={this.state.isFocused}
@@ -154,6 +160,10 @@ function typeaheadInputContainer(Input) {
       this.props.onKeyDown(e);
     }
   }
+
+  WrappedInput.childContextTypes = {
+    hintText: PropTypes.string.isRequired,
+  };
 
   return WrappedInput;
 }

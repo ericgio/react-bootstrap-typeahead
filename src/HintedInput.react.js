@@ -53,13 +53,7 @@ class HintedInput extends React.Component {
   }
 
   _renderInput = () => {
-    const {
-      className,
-      hintText,
-      inputRef,
-      multiple,
-      ...props
-    } = this.props;
+    const {className, inputRef, multiple, ...props} = this.props;
 
     // Render a standard input in the single-select case to address #278.
     const InputComponent = multiple ? AutosizeInput : StandardInput;
@@ -79,10 +73,8 @@ class HintedInput extends React.Component {
   }
 
   _renderHint = () => {
-    const {hintText, multiple} = this.props;
-
     // TODO: Support hinting for multi-selection.
-    return multiple ?
+    return this.props.multiple ?
       null :
       <div
         aria-hidden
@@ -98,17 +90,21 @@ class HintedInput extends React.Component {
           zIndex: 0,
         }}
         tabIndex={-1}>
-        {hintText}
+        {this.context.hintText}
       </div>;
   }
 }
 
-HintedInput.propTypes = {
-  type: PropTypes.string,
+HintedInput.contextTypes = {
+  hintText: PropTypes.string.isRequired,
 };
 
 HintedInput.defaultProps = {
   type: 'text',
+};
+
+HintedInput.propTypes = {
+  type: PropTypes.string,
 };
 
 export default HintedInput;

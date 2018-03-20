@@ -15,7 +15,6 @@ class TypeaheadInput extends React.Component {
     const {
       bsSize,
       disabled,
-      hintText,
       inputProps,
       inputRef,
       isFocused,
@@ -41,7 +40,6 @@ class TypeaheadInput extends React.Component {
           {multiple && selected.map(this._renderToken)}
           <HintedInput
             {...inputProps}
-            hintText={hintText}
             inputRef={(el) => {
               this._input = el;
               inputRef(el);

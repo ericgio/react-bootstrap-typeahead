@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import React from 'react';
 
 import HintedInput from '../../src/HintedInput';
-import {getHint, getInput} from '../helpers';
+import {childContextTypes, context, getHint, getInput} from '../helpers';
 
 describe('<HintedInput>', () => {
   let wrapper;
@@ -13,7 +13,8 @@ describe('<HintedInput>', () => {
       <HintedInput
         onChange={() => {}}
         value=""
-      />
+      />,
+      {childContextTypes, context}
     );
   });
 
