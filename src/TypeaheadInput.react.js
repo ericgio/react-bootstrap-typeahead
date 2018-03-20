@@ -11,11 +11,10 @@ import typeaheadInputContainer from './containers/typeaheadInputContainer';
 class TypeaheadInput extends React.Component {
   render() {
     const {
-      bsSize,
+      className,
       disabled,
       inputProps,
       inputRef,
-      isFocused,
       multiple,
       selected,
     } = this.props;
@@ -25,11 +24,8 @@ class TypeaheadInput extends React.Component {
       /* eslint-disable jsx-a11y/click-events-have-key-events */
       <div
         className={cx('rbt-input', 'form-control', {
-          'focus': isFocused,
-          'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
-          'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
           'rbt-input-multi': multiple,
-        })}
+        }, className)}
         disabled={disabled}
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}

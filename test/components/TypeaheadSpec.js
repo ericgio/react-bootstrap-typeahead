@@ -365,13 +365,19 @@ describe('<Typeahead>', () => {
   });
 
   it('renders a large input', () => {
-    typeahead.setProps({bsSize: 'large'});
-    expect(typeahead.find('.input-lg')).to.have.length(1);
+    const input = typeahead
+      .setProps({bsSize: 'large'})
+      .find('.rbt-input');
+
+    expect(input.hasClass('input-lg form-control-lg')).to.equal(true);
   });
 
   it('renders a small input', () => {
-    typeahead.setProps({bsSize: 'small'});
-    expect(typeahead.find('.input-sm')).to.have.length(1);
+    const input = typeahead
+      .setProps({bsSize: 'small'})
+      .find('.rbt-input');
+
+    expect(input.hasClass('input-sm form-control-sm')).to.equal(true);
   });
 
   it('renders a loading indicator', () => {

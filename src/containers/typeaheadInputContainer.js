@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import {head} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -22,6 +23,7 @@ function typeaheadInputContainer(Input) {
     render() {
       const {
         activeIndex,
+        bsSize,
         disabled,
         isMenuShown,
         menuId,
@@ -44,6 +46,7 @@ function typeaheadInputContainer(Input) {
         disabled,
         onBlur: this._handleBlur,
         onChange: this._handleChange,
+        // Re-open the menu, eg: if it's closed via ESC.
         onClick: this._handleFocus,
         onFocus: this._handleFocus,
         onKeyDown: this._handleKeyDown,
@@ -57,9 +60,13 @@ function typeaheadInputContainer(Input) {
       return (
         <Input
           {...this.props}
+          className={cx({
+            'focus': this.state.isFocused,
+            'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
+            'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
+          })}
           inputProps={inputProps}
           inputRef={(input) => this._input = input}
-          isFocused={this.state.isFocused}
         />
       );
     }
@@ -71,8 +78,6 @@ function typeaheadInputContainer(Input) {
     }
 
     _handleBlur = (e) => {
-      // Note: Don't hide the menu here, since that interferes with other
-      // actions like making a selection by clicking on a menu item.
       this.props.onBlur(e);
       this.setState({isFocused: false});
     }
