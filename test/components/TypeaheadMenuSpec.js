@@ -14,6 +14,7 @@ describe('<TypeaheadMenu>', () => {
   beforeEach(() => {
     menu = mount(
       <TypeaheadMenu
+        id="menu-id"
         labelKey="name"
         options={options}
         text=""

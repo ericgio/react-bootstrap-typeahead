@@ -17,7 +17,7 @@ describe('<Menu>', () => {
     ];
 
     menu = shallow(
-      <Menu paginate={false}>
+      <Menu id="menu-id" paginate={false}>
         {options.map((o, idx) => (
           <MenuItem
             key={idx}
