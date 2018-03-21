@@ -3,10 +3,10 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
-import TypeaheadInput from '../../src/TypeaheadInput';
+import TypeaheadInputSingle from '../../src/TypeaheadInputSingle';
 
 import options from '../../example/exampleData';
-import {getHint, getInput, getTokens, keyDown} from '../helpers';
+import {getHint, getInput, keyDown} from '../helpers';
 import {RETURN, RIGHT, TAB} from '../../src/constants/keyCode';
 
 function setCursorPosition(wrapper, pos) {
@@ -15,14 +15,14 @@ function setCursorPosition(wrapper, pos) {
   input.simulate('change');
 }
 
-describe('<TypeaheadInput>', () => {
+describe('<TypeaheadInputSingle>', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <TypeaheadInput
+      <TypeaheadInputSingle
         inputProps={{}}
-        isFocused={true}
+        inputRef={noop}
         labelKey="name"
         onClear={noop}
         onFocus={noop}
@@ -33,10 +33,12 @@ describe('<TypeaheadInput>', () => {
     );
   });
 
-  it('renders a TypeaheadInput', () => {
-    const rootNode = wrapper.find('.rbt-input');
-    expect(rootNode.length).to.equal(1);
-    expect(rootNode.hasClass('form-control')).to.equal(true);
+  it('renders a single-select input', () => {
+    const input = wrapper.find('.form-control');
+
+    expect(input.length).to.equal(1);
+    expect(input.hasClass('rbt-input')).to.equal(true);
+    expect(input.hasClass('rbt-input-main')).to.equal(true);
   });
 
   it('displays the selected text', () => {
@@ -119,16 +121,6 @@ describe('<TypeaheadInput>', () => {
       expect(keyCode).to.equal(RETURN);
       expect(selected.length).to.equal(1);
     });
-  });
-
-  it('renders a multi-select input with tokens', () => {
-    wrapper.setProps({
-      multiple: true,
-      selected: options.slice(0, 3),
-    });
-
-    expect(wrapper.find('.rbt-input-multi').length).to.equal(1);
-    expect(getTokens(wrapper).length).to.equal(3);
   });
 
 });

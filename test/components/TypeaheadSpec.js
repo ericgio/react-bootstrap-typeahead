@@ -5,7 +5,6 @@ import React from 'react';
 import sinon from 'sinon';
 
 import {Menu, MenuItem, Typeahead} from '../../src/';
-import TypeaheadInput from '../../src/TypeaheadInput';
 
 import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 import states from '../../example/exampleData';
@@ -54,8 +53,8 @@ describe('<Typeahead>', () => {
     typeahead = mountTypeahead();
   });
 
-  it('should have a TypeaheadInput', () => {
-    expect(typeahead.find(TypeaheadInput)).to.have.length(1);
+  it('should have an input', () => {
+    expect(typeahead.find('input.rbt-input-main')).to.have.length(1);
   });
 
   it('should render in multi-select mode when `multiple=true`', () => {
@@ -242,12 +241,11 @@ describe('<Typeahead>', () => {
   });
 
   it('should disable the input if the component is disabled', () => {
-    const inputProps = typeahead
+    const input = typeahead
       .setProps({disabled: true})
-      .find(TypeaheadInput)
-      .props();
+      .find('.form-control');
 
-    expect(inputProps.disabled).to.equal(true);
+    expect(input.prop('disabled')).to.equal(true);
   });
 
   it('should not highlight disabled options', () => {
@@ -367,7 +365,7 @@ describe('<Typeahead>', () => {
   it('renders a large input', () => {
     const input = typeahead
       .setProps({bsSize: 'large'})
-      .find('.rbt-input');
+      .find('.form-control');
 
     expect(input.hasClass('input-lg form-control-lg')).to.equal(true);
   });
@@ -375,7 +373,7 @@ describe('<Typeahead>', () => {
   it('renders a small input', () => {
     const input = typeahead
       .setProps({bsSize: 'small'})
-      .find('.rbt-input');
+      .find('.form-control');
 
     expect(input.hasClass('input-sm form-control-sm')).to.equal(true);
   });

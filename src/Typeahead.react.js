@@ -6,7 +6,8 @@ import React from 'react';
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
 import Overlay from './Overlay.react';
-import TypeaheadInput from './TypeaheadInput.react';
+import TypeaheadInputMulti from './TypeaheadInputMulti.react';
+import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import typeaheadContainer from './containers/typeaheadContainer';
@@ -28,7 +29,6 @@ class Typeahead extends React.Component {
       bodyContainer,
       className,
       dropup,
-      inputRef,
       isMenuShown,
       menuId,
       onMenuHide,
@@ -44,6 +44,7 @@ class Typeahead extends React.Component {
       'disabled',
       'initialItem',
       'inputProps',
+      'inputRef',
       'isMenuShown',
       'labelKey',
       'menuId',
@@ -83,7 +84,7 @@ class Typeahead extends React.Component {
         }, className)}
         style={{position: 'relative'}}
         tabIndex={-1}>
-        {this._renderInput({...inputProps, ref: inputRef})}
+        {this._renderInput(inputProps)}
         {auxContent}
         <Overlay
           align={align}
@@ -108,7 +109,11 @@ class Typeahead extends React.Component {
   }
 
   _renderInput = (inputProps) => {
-    return <TypeaheadInput {...inputProps} />;
+    const Input = inputProps.multiple ?
+      TypeaheadInputMulti :
+      TypeaheadInputSingle;
+
+    return <Input {...inputProps} />;
   }
 
   _renderAux = () => {

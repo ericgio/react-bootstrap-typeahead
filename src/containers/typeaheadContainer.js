@@ -75,7 +75,7 @@ function typeaheadContainer(Typeahead) {
     }
 
     componentWillReceiveProps(nextProps) {
-      const inputValue = this._getInputNode().value;
+      const inputValue = this.getInput().value;
       const {labelKey, multiple, selected} = nextProps;
 
       // If new selections are passed via props, treat as a controlled input.
@@ -187,7 +187,7 @@ function typeaheadContainer(Typeahead) {
     }
 
     blur = () => {
-      this._getInputNode().blur();
+      this.getInput().blur();
       this._hideMenu();
     }
 
@@ -200,11 +200,13 @@ function typeaheadContainer(Typeahead) {
     }
 
     focus = () => {
-      this._getInputNode().focus();
+      this.getInput().focus();
     }
 
-    _getInputNode = () => {
-      return this._input.getInputNode();
+    getInput = () => {
+      return typeof this._input.getInput === 'function' ?
+        this._input.getInput() :
+        this._input;
     }
 
     _handleActiveIndexChange = (activeIndex) => {

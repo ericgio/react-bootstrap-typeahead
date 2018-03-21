@@ -2,13 +2,12 @@ import cx from 'classnames';
 import {head} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 
-import {getHintText, getInputText, getMenuItemId} from '../utils/';
+import {getDisplayName, getHintText, getInputText, getMenuItemId} from '../utils/';
 
-import {BACKSPACE, RETURN, RIGHT, TAB} from '../constants/keyCode';
+import {RETURN, RIGHT, TAB} from '../constants/keyCode';
 
-function typeaheadInputContainer(Input) {
+function inputContainer(Input) {
   class WrappedInput extends React.Component {
     state = {
       isFocused: false,
@@ -25,15 +24,19 @@ function typeaheadInputContainer(Input) {
         activeIndex,
         bsSize,
         disabled,
+        inputRef,
         isMenuShown,
+        labelKey,
         menuId,
         multiple,
+        onRemove,
         placeholder,
+        renderToken,
         selected,
       } = this.props;
 
       // Add a11y-related props.
-      const inputProps = {
+      let inputProps = {
         ...this.props.inputProps,
         'aria-activedescendant': activeIndex >= 0 ?
           getMenuItemId(activeIndex) :
@@ -44,6 +47,7 @@ function typeaheadInputContainer(Input) {
         'aria-owns': menuId,
         autoComplete: 'off',
         disabled,
+        inputRef,
         onBlur: this._handleBlur,
         onChange: this._handleChange,
         // Re-open the menu, eg: if it's closed via ESC.
@@ -53,28 +57,35 @@ function typeaheadInputContainer(Input) {
         placeholder: selected.length ? null : placeholder,
         // Comboboxes are single-select by definition:
         // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
-        role: multiple ? '' : 'combobox',
+        role: 'combobox',
         value: getInputText(this.props),
       };
 
+      const className = inputProps.className || '';
+
+      if (multiple) {
+        inputProps = {
+          ...inputProps,
+          inputClassName: className,
+          labelKey,
+          onRemove,
+          renderToken,
+          role: '',
+          selected,
+        };
+      }
+
       return (
         <Input
-          {...this.props}
-          className={cx({
+          {...inputProps}
+          className={cx('rbt-input', {
+            [className]: !multiple,
             'focus': this.state.isFocused,
             'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
             'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
           })}
-          inputProps={inputProps}
-          inputRef={(input) => this._input = input}
         />
       );
-    }
-
-    getInputNode() {
-      return typeof this._input.getInput === 'function' ?
-        this._input.getInput() :
-        this._input;
     }
 
     _handleBlur = (e) => {
@@ -104,6 +115,7 @@ function typeaheadInputContainer(Input) {
         initialItem,
         multiple,
         onAdd,
+        onKeyDown,
         selected,
         selectHintOnEnter,
       } = this.props;
@@ -111,26 +123,6 @@ function typeaheadInputContainer(Input) {
       const value = getInputText(this.props);
 
       switch (e.keyCode) {
-        case BACKSPACE:
-          if (!multiple) {
-            break;
-          }
-
-          const inputContainer = findDOMNode(this._input);
-          if (
-            inputContainer &&
-            inputContainer.contains(document.activeElement) &&
-            !value
-          ) {
-            // If the input is selected and there is no text, select the last
-            // token when the user hits backspace.
-            const sibling = inputContainer.parentElement.previousSibling;
-            sibling && sibling.focus();
-
-            // Prevent browser "back" action.
-            e.preventDefault();
-          }
-          break;
         case RETURN:
         case RIGHT:
         case TAB:
@@ -162,7 +154,7 @@ function typeaheadInputContainer(Input) {
           break;
       }
 
-      this.props.onKeyDown(e);
+      onKeyDown(e);
     }
   }
 
@@ -170,7 +162,9 @@ function typeaheadInputContainer(Input) {
     hintText: PropTypes.string.isRequired,
   };
 
+  WrappedInput.displayName = `InputContainer(${getDisplayName(Input)})`;
+
   return WrappedInput;
 }
 
-export default typeaheadInputContainer;
+export default inputContainer;

@@ -3,18 +3,6 @@
 .rbt {
   outline: none;
 
-  // Apply Bootstrap focus styles
-  & .focus {
-    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6));
-    border-color: #66afe9;
-    outline: 0;
-  }
-
-  // Apply Bootstrap placeholder styles
-  input {
-    @include placeholder(#999);
-  }
-
   &-menu {
     & > li a {
       overflow: hidden;
@@ -40,30 +28,49 @@
   }
 
 
-  &-input {
+  &-input-multi {
     cursor: text;
     overflow: hidden;
     position: relative;
     height: auto;
 
-    &-multi {
-      .rbt-input-wrapper {
-        margin-bottom: -4px;
-        margin-top: -1px;
-      }
-
-      .rbt-input-main {
-        margin: 1px 0 4px;
-      }
+    // Apply Bootstrap focus styles
+    &.focus {
+      @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6));
+      border-color: #66afe9;
+      outline: 0;
     }
 
-    &-wrapper {
+    // Apply Bootstrap placeholder styles
+    input {
+      @include placeholder(#999);
+    }
+
+    .rbt-input-wrapper {
+      margin-bottom: -4px;
+      margin-top: -1px;
       overflow: hidden;
     }
 
-    &-main {
+    .rbt-input-main {
       // Set input height for cross-browser consistency
       height: 20px;
+      margin: 1px 0 4px;
+    }
+
+    &.input,
+    &.form-control {
+      &-lg {
+        .rbt-input-main {
+          height: 24px;
+        }
+      }
+
+      &-sm {
+        .rbt-input-main {
+          height: 18px;
+        }
+      }
     }
   }
 
@@ -164,21 +171,6 @@
     color: inherit;
     font-weight: bold;
     padding: 0;
-  }
-}
-
-.input,
-.form-control {
-  &-lg {
-    .rbt-input-main {
-      height: 24px;
-    }
-  }
-
-  &-sm {
-    .rbt-input-main {
-      height: 18px;
-    }
   }
 }
 
