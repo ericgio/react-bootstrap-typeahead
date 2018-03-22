@@ -68,7 +68,7 @@ const menuItemContainer = (Component) => {
   }
 
   WrappedMenuItem.displayName =
-    `menuItemContainer(${getDisplayName(Component)})`;
+    `MenuItemContainer(${getDisplayName(Component)})`;
 
   WrappedMenuItem.propTypes = {
     option: PropTypes.oneOfType([

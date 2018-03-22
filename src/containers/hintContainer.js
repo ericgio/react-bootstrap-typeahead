@@ -71,11 +71,11 @@ function hintContainer(Input) {
     }
   }
 
+  HintedInput.displayName = `HintContainer(${getDisplayName(Input)})`;
+
   HintedInput.contextTypes = {
     hintText: PropTypes.string.isRequired,
   };
-
-  HintedInput.displayName = `HintContainer(${getDisplayName(Input)})`;
 
   return HintedInput;
 }

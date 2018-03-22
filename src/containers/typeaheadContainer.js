@@ -5,7 +5,7 @@ import React from 'react';
 
 import highlightOnlyResultContainer from './highlightOnlyResultContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
-import {addCustomOption, defaultFilterBy, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
+import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
 
 import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
 
@@ -418,7 +418,8 @@ function typeaheadContainer(Typeahead) {
     }
   }
 
-  WrappedTypeahead.displayName = 'Typeahead';
+  WrappedTypeahead.displayName =
+    `TypeaheadContainer(${getDisplayName(Typeahead)})`;
 
   WrappedTypeahead.propTypes = {
     /**

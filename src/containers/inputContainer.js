@@ -158,11 +158,11 @@ function inputContainer(Input) {
     }
   }
 
+  WrappedInput.displayName = `InputContainer(${getDisplayName(Input)})`;
+
   WrappedInput.childContextTypes = {
     hintText: PropTypes.string.isRequired,
   };
-
-  WrappedInput.displayName = `InputContainer(${getDisplayName(Input)})`;
 
   return WrappedInput;
 }

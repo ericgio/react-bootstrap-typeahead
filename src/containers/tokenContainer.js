@@ -10,8 +10,6 @@ import {BACKSPACE} from '../constants/keyCode';
  */
 const tokenContainer = (Component) => {
   class WrappedComponent extends React.Component {
-    displayName = `tokenContainer(${getDisplayName(Component)})`;
-
     state = {
       active: false,
     };
@@ -68,6 +66,8 @@ const tokenContainer = (Component) => {
       this.setState({active: true});
     }
   }
+
+  WrappedComponent.displayName = `TokenContainer(${getDisplayName(Component)})`;
 
   return onClickOutside(WrappedComponent);
 };

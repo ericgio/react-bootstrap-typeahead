@@ -2,6 +2,8 @@ import {debounce} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {getDisplayName} from '../utils/';
+
 const DEFAULT_DELAY_MS = 200;
 
 /**
@@ -13,7 +15,7 @@ const DEFAULT_DELAY_MS = 200;
  *  - Search prompt and empty results behaviors
  */
 const asyncContainer = (Typeahead) => {
-  class Container extends React.Component {
+  class WrappedTypeahead extends React.Component {
     state = {
       hasSelection: false,
       query: '',
@@ -145,7 +147,9 @@ const asyncContainer = (Typeahead) => {
     }
   }
 
-  Container.propTypes = {
+  WrappedTypeahead.displayName = `AsyncContainer(${getDisplayName(Typeahead)})`;
+
+  WrappedTypeahead.propTypes = {
     /**
      * Delay, in milliseconds, before performing search.
      */
@@ -178,7 +182,7 @@ const asyncContainer = (Typeahead) => {
     useCache: PropTypes.bool,
   };
 
-  Container.defaultProps = {
+  WrappedTypeahead.defaultProps = {
     delay: DEFAULT_DELAY_MS,
     minLength: 2,
     options: [],
@@ -187,7 +191,7 @@ const asyncContainer = (Typeahead) => {
     useCache: true,
   };
 
-  return Container;
+  return WrappedTypeahead;
 };
 
 export default asyncContainer;
