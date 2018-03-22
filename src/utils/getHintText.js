@@ -6,6 +6,7 @@ function getHintText({
   initialItem,
   isMenuShown,
   labelKey,
+  multiple,
   selected,
   text,
 }) {
@@ -21,8 +22,8 @@ function getHintText({
     initialItem.customOption ||
     // One of the menu items is active.
     activeItem ||
-    // There's already a selection.
-    !!selected.length
+    // There's already a selection in single-select mode.
+    (!!selected.length && !multiple)
   ) {
     return '';
   }

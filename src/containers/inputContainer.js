@@ -126,11 +126,6 @@ function inputContainer(Input) {
         case RETURN:
         case RIGHT:
         case TAB:
-          // TODO: Support hinting for multi-selection.
-          if (multiple) {
-            break;
-          }
-
           const hintText = getHintText(this.props);
           const {selectionStart} = e.target;
 
@@ -138,8 +133,8 @@ function inputContainer(Input) {
           if (
             // There's a hint or a menu item is highlighted.
             (hintText || activeItem) &&
-            // There's no current selection.
-            !selected.length &&
+            // There's no current selection, unless in multi-select mode.
+            (!selected.length || multiple) &&
             // The input cursor is at the end of the text string when the user
             // hits the right arrow key.
             !(e.keyCode === RIGHT && selectionStart !== value.length) &&

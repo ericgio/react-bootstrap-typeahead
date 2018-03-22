@@ -1,22 +1,23 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 
 import AutosizeInput from './AutosizeInput.react';
 import Token from './Token.react';
 
 import {getOptionLabel} from './utils/';
+import hintContainer from './containers/hintContainer';
 import inputContainer from './containers/inputContainer';
 
 import {BACKSPACE} from './constants/keyCode';
+
+const HintedAutosizeInput = hintContainer(AutosizeInput);
 
 class TypeaheadInputMulti extends React.Component {
   render() {
     const {
       className,
       inputClassName,
-      inputRef,
       labelKey,
       onRemove,
       renderToken,
@@ -33,11 +34,15 @@ class TypeaheadInputMulti extends React.Component {
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
         tabIndex={-1}>
-        <div className="rbt-input-wrapper">
+        <div className="rbt-input-wrapper" ref={(el) => this._wrapper = el}>
           {selected.map(this._renderToken)}
-          <AutosizeInput
+          <HintedAutosizeInput
             {...props}
             inputClassName={cx('rbt-input-main', inputClassName)}
+            inputRef={(input) => {
+              this._input = input;
+              this.props.inputRef(input);
+            }}
             inputStyle={{
               backgroundColor: 'transparent',
               border: 0,
@@ -47,10 +52,6 @@ class TypeaheadInputMulti extends React.Component {
               padding: 0,
             }}
             onKeyDown={this._handleKeyDown}
-            ref={(input) => {
-              this._input = input;
-              inputRef(input);
-            }}
             style={{
               position: 'relative',
               zIndex: 1,
@@ -84,7 +85,7 @@ class TypeaheadInputMulti extends React.Component {
     }
 
     // Move cursor to the end if the user clicks outside the actual input.
-    const inputNode = this._input.getInput();
+    const inputNode = this._input;
     if (e.target !== inputNode) {
       inputNode.selectionStart = inputNode.value.length;
     }
@@ -93,23 +94,16 @@ class TypeaheadInputMulti extends React.Component {
   }
 
   _handleKeyDown = (e) => {
-    const {onKeyDown, value} = this.props;
+    const {onKeyDown, selected, value} = this.props;
 
     switch (e.keyCode) {
       case BACKSPACE:
-        const inputContainer = findDOMNode(this._input);
-        if (
-          inputContainer &&
-          inputContainer.contains(document.activeElement) &&
-          !value
-        ) {
-          // If the input is selected and there is no text, select the last
+        if (e.target === this._input && selected.length && !value) {
+          // If the input is selected and there is no text, focus the last
           // token when the user hits backspace.
-          const sibling = inputContainer.previousSibling;
-          sibling && sibling.focus();
-
-          // Prevent browser "back" action.
-          e.preventDefault();
+          const children = this._wrapper.children;
+          const lastToken = children[children.length - 2];
+          lastToken && lastToken.focus();
         }
         break;
     }

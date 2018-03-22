@@ -1,12 +1,12 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
-import {noop} from 'lodash';
+import {head, noop} from 'lodash';
 import React from 'react';
 
 import TypeaheadInputMulti from '../../src/TypeaheadInputMulti';
 
 import options from '../../example/exampleData';
-import {getInput, getTokens} from '../helpers';
+import {focus, getHint, getInput, getTokens} from '../helpers';
 
 describe('<TypeaheadInputMulti>', () => {
   let text, wrapper;
@@ -22,7 +22,7 @@ describe('<TypeaheadInputMulti>', () => {
         onFocus={noop}
         onKeyDown={noop}
         options={options}
-        selected={options.slice(0, 3)}
+        selected={options.slice(1, 4)}
         text={text}
       />
     );
@@ -42,6 +42,19 @@ describe('<TypeaheadInputMulti>', () => {
 
   it('renders a multi-select input with tokens', () => {
     expect(getTokens(wrapper).length).to.equal(3);
+  });
+
+  it('displays a hint', () => {
+    const initialItem = head(options);
+
+    wrapper.setProps({
+      initialItem,
+      isMenuShown: true,
+      text: 'Al',
+    });
+
+    focus(wrapper);
+    expect(getHint(wrapper).text()).to.equal(initialItem.name);
   });
 
 });

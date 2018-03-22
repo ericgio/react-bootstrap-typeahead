@@ -9,7 +9,7 @@ import {Menu, MenuItem, Typeahead} from '../../src/';
 
 import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 import states from '../../example/exampleData';
-import {DOWN, ESC, RETURN, UP} from '../../src/constants/keyCode';
+import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
@@ -46,6 +46,11 @@ function hasFocus(wrapper) {
   return wrapper.find('.form-control').hasClass('focus');
 }
 
+function setCursorPosition(wrapper, pos) {
+  const input = getInput(wrapper);
+  input.instance().selectionStart = pos;
+  input.simulate('change');
+}
 
 describe('<Typeahead>', () => {
   let typeahead;
@@ -606,9 +611,13 @@ describe('<Typeahead>', () => {
       expect(getHint(typeahead).text()).to.equal('Alabama');
     });
 
-    it('does not display a hint in multi-select mode', () => {
+    it('displays a hint in multi-select mode', () => {
       typeahead.setProps({multiple: true});
-      expect(getHint(typeahead).length).to.equal(0);
+
+      change(typeahead, 'Ala');
+      focus(typeahead);
+
+      expect(getHint(typeahead).text()).to.equal('Alabama');
     });
 
     it('does not display a hint if the menu is hidden', () => {
@@ -624,6 +633,63 @@ describe('<Typeahead>', () => {
       expect(hasFocus(typeahead)).to.equal(true);
       expect(getMenu(typeahead).length).to.equal(0);
       expect(getHint(typeahead).text()).to.equal('');
+    });
+  });
+
+  describe('behavior when selecting the hinted result', () => {
+    let keyCode;
+
+    beforeEach(() => {
+      keyCode = 0;
+
+      typeahead.setProps({
+        onKeyDown: (e) => keyCode = e.keyCode,
+      });
+
+      change(typeahead, 'Ala');
+      focus(typeahead);
+    });
+
+    it('should select the hinted result on tab keydown', () => {
+      keyDown(typeahead, TAB);
+
+      expect(keyCode).to.equal(TAB);
+      expect(getSelected(typeahead).length).to.equal(1);
+    });
+
+    it('should select the hinted result on right arrow keydown', () => {
+      setCursorPosition(typeahead, getText(typeahead).length);
+      keyDown(typeahead, RIGHT);
+
+      expect(keyCode).to.equal(RIGHT);
+      expect(getSelected(typeahead).length).to.equal(1);
+    });
+
+    it(
+      'should not select the hinted result on right arrow keydown unless ' +
+      'the cursor is at the end of the input value',
+      () => {
+        setCursorPosition(typeahead, 1);
+        keyDown(typeahead, RIGHT);
+
+        expect(keyCode).to.equal(RIGHT);
+        expect(getSelected(typeahead).length).to.equal(0);
+      }
+    );
+
+    it('should not select the hinted result on enter keydown', () => {
+      keyDown(typeahead, RETURN);
+
+      expect(keyCode).to.equal(RETURN);
+      expect(getSelected(typeahead).length).to.equal(0);
+    });
+
+    it('should select the hinted result on enter keydown', () => {
+      typeahead.setProps({selectHintOnEnter: true});
+      keyDown(typeahead, RETURN);
+
+      expect(keyCode).to.equal(RETURN);
+      expect(getSelected(typeahead).length).to.equal(1);
     });
   });
 

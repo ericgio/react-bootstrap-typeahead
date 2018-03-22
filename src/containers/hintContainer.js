@@ -23,6 +23,7 @@ function copyStyles(inputNode, hintNode) {
   hintNode.style.borderWidth = interpolateStyle(inputStyle, 'border', 'width');
   hintNode.style.fontSize = inputStyle.fontSize;
   hintNode.style.lineHeight = inputStyle.lineHeight;
+  hintNode.style.margin = interpolateStyle(inputStyle, 'margin');
   hintNode.style.padding = interpolateStyle(inputStyle, 'padding');
 }
 
