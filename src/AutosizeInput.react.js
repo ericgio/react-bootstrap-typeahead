@@ -123,7 +123,7 @@ class AutosizeInput extends React.Component {
       (this._placeHolderSizer && this._placeHolderSizer.scrollWidth) ||
       MIN_WIDTH;
 
-    const inputWidth = Math.max(this._sizer.scrollWidth, placeholderWidth);
+    const inputWidth = Math.max(this._sizer.scrollWidth, placeholderWidth) + 2;
 
     if (inputWidth !== this.state.inputWidth) {
       this.setState({inputWidth});
