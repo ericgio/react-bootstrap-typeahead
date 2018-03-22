@@ -1,13 +1,13 @@
 import {expect} from 'chai';
 
 import getInputText from '../../src/utils/getInputText';
-import states from '../../example/exampleData';
+import options from '../../example/exampleData';
 
 const labelKey = 'name';
 const baseArgs = {
   activeItem: null,
   labelKey,
-  options: states,
+  multiple: false,
   selected: [],
   text: '',
 };
@@ -21,22 +21,34 @@ describe('getInputText', () => {
 
   it('returns the input text in multiple mode', () => {
     const text = 'Cali';
-    const args = {
+    const inputText = getInputText({
       ...baseArgs,
       multiple: true,
       text,
-    };
-    const inputText = getInputText(args);
+    });
+
     expect(inputText).to.equal(text);
   });
 
-  it('returns the label for the active option', () => {
-    const args = {
+  it('returns the active option label in single-select mode', () => {
+    const name = 'California';
+    const inputText = getInputText({
       ...baseArgs,
-      activeItem: {name: 'Alabama'},
-    };
-    const inputText = getInputText(args);
-    expect(inputText).to.equal(states[0][labelKey]);
+      activeItem: {name},
+    });
+
+    expect(inputText).to.equal(name);
+  });
+
+  it('returns the active option label in multi-select mode', () => {
+    const name = 'California';
+    const inputText = getInputText({
+      ...baseArgs,
+      activeItem: {name},
+      multiple: true,
+    });
+
+    expect(inputText).to.equal(name);
   });
 
   it('returns an empty string if the pagination item is active', () => {
@@ -48,10 +60,20 @@ describe('getInputText', () => {
     expect(getInputText({...baseArgs, activeItem})).to.equal('');
   });
 
-  it('returns the label for the selected item', () => {
-    const selected = states.slice(0, 1);
+  it('returns the selected item label in single-select mode', () => {
+    const selected = options.slice(0, 1);
     const inputText = getInputText({...baseArgs, selected});
     expect(inputText).to.equal(selected[0][labelKey]);
+  });
+
+  it('does not return the selected item label in multi-select mode', () => {
+    const inputText = getInputText({
+      ...baseArgs,
+      multiple: true,
+      selected: options.slice(0, 1),
+    });
+
+    expect(inputText).to.equal('');
   });
 
 });
