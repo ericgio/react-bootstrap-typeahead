@@ -48,7 +48,6 @@ class Typeahead extends React.Component {
       'isMenuShown',
       'labelKey',
       'menuId',
-      'minLength',
       'multiple',
       'onAdd',
       'onBlur',

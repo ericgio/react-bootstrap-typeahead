@@ -6,7 +6,6 @@ function getHintText({
   initialItem,
   isMenuShown,
   labelKey,
-  minLength,
   selected,
   text,
 }) {
@@ -14,8 +13,6 @@ function getHintText({
   if (
     // No text entered.
     !text ||
-    // Text doesn't meet `minLength` threshold.
-    text.length < minLength ||
     // The menu is hidden.
     !isMenuShown ||
     // No item in the menu.
