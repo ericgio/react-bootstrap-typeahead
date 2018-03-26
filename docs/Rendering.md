@@ -34,39 +34,37 @@ Along with stylistic customization, the `renderMenu` hook also allows you to do 
 <Typeahead
   options={options}
   renderMenu={(results, menuProps) => (
-    return (
-      <Menu {...menuProps}>
-        {results.map((result, index) => (
-          <MenuItem option={result} position={index}>
-            {result.label}
-          </MenuItem>
-        ))}
-      </Menu>
-    );
+    <Menu {...menuProps}>
+      {results.map((result, index) => (
+        <MenuItem option={result} position={index}>
+          {result.label}
+        </MenuItem>
+      ))}
+    </Menu>
   )}
 />
 ```
 
-### `renderMenuItemChildren(result: Object|String, props: Object)`
-Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
+### `renderMenuItemChildren(option: Object|String, props: Object, index: Number)`
+Allows you to control the contents of a menu item. Your function will be passed an item from your `options` array, the `TypeaheadMenu` props, and the item's index within the array:
 
 ```jsx
 <Typeahead
   options={options}
-  renderMenuItemChildren={(result, props) => {
+  renderMenuItemChildren={(option, props, index) => {
     /* Render custom contents here. */
   }}
 />
 ```
 
-### `renderToken(selectedItem: Object|String, onRemove: Function)`
+### `renderToken(option: Object|String, onRemove: Function, index: Number)`
 Provides the ability to customize rendering of tokens when multiple selections are enabled. The first parameter is the current selected option in the loop, while the second parameter is the `onRemove` callback passed down by the main component. This callback is ignored if `multiple=false`.
 
 ```jsx
 <Typeahead
   ...
   multiple
-  renderToken={(selectedItem, onRemove) => {
+  renderToken={(option, onRemove, index) => {
     /* Render custom token here. */
   }}
 />
