@@ -2,6 +2,7 @@ import {expect} from 'chai';
 import {mount} from 'enzyme';
 import {head} from 'lodash';
 import React from 'react';
+import {Popper} from 'react-popper';
 import sinon from 'sinon';
 
 import {Menu, MenuItem, Typeahead} from '../../src/';
@@ -357,9 +358,11 @@ describe('<Typeahead>', () => {
     });
   });
 
-  it('should add the `dropup` className when `dropup=true`', () => {
+  it('should position the menu above the input when `dropup=true`', () => {
     typeahead.setProps({dropup: true});
-    expect(typeahead.find('.dropup')).to.have.length(1);
+    focus(typeahead);
+
+    expect(typeahead.find(Popper).prop('placement')).to.equal('top-start');
   });
 
   it('renders a large input', () => {

@@ -484,6 +484,11 @@ function typeaheadContainer(Typeahead) {
       PropTypes.func,
     ]),
     /**
+     * Whether or not to automatically adjust the position of the menu when it
+     * reaches the viewport boundaries.
+     */
+    flip: PropTypes.bool,
+    /**
      * Highlights the menu item if there is only one result and allows selecting
      * that item by hitting enter. Does not work with `allowNew`.
      */
@@ -620,6 +625,7 @@ function typeaheadContainer(Typeahead) {
     dropup: false,
     emptyLabel: 'No matches found.',
     filterBy: [],
+    flip: false,
     highlightOnlyResult: false,
     ignoreDiacritics: true,
     inputProps: {},

@@ -4,6 +4,8 @@
   outline: none;
 
   &-menu {
+    margin-bottom: 2px;
+
     & > li a {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -16,10 +18,6 @@
     &-pagination-option {
       text-align: center;
     }
-  }
-
-  .dropdown-menu-justify {
-    right: 0;
   }
 
   // Hide IE's native "clear" button
@@ -183,9 +181,11 @@
 .input-group > .rbt {
   @include flex(1);
 
-  // Fixes height issue in IE
+  // Fixes input height bug with IE + BS4
+  & > div,
   & .rbt-input-hint-container {
     @include display-flex();
+    @include flex(1);
     height: 100%;
   }
 

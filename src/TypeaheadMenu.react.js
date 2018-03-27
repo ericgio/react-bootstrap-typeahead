@@ -1,4 +1,3 @@
-import {pick} from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -10,18 +9,18 @@ import {getOptionLabel} from './utils/';
 
 class TypeaheadMenu extends React.Component {
   render() {
-    const menuProps = pick(this.props, [
-      'align',
-      'className',
-      'emptyLabel',
-      'id',
-      'maxHeight',
-      'style',
-    ]);
+    const {
+      labelKey,
+      newSelectionPrefix,
+      options,
+      renderMenuItemChildren,
+      text,
+      ...menuProps
+    } = this.props;
 
     return (
       <Menu {...menuProps}>
-        {this.props.options.map(this._renderMenuItem)}
+        {options.map(this._renderMenuItem)}
       </Menu>
     );
   }

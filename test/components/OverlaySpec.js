@@ -83,8 +83,7 @@ describe('<Overlay>', () => {
           container={div}
           onMenuHide={noop}
           onMenuShow={noop}
-          show={true}
-          target={div}>
+          show={true}>
           <div>This is the menu</div>
         </Overlay>,
         {attachTo: div}

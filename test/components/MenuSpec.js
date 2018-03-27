@@ -34,17 +34,17 @@ describe('<Menu>', () => {
     expect(menu.children().length).to.equal(3);
   });
 
-  it('changes the menu alignment', () => {
-    expect(menu.hasClass('dropdown-menu-justify')).to.equal(true);
-    expect(menu.hasClass('dropdown-menu-right')).to.equal(false);
+  it('changes the horizontal and vertical positioning', () => {
+    expect(menu.prop('placement')).to.equal('bottom-start');
 
     menu.setProps({align: 'right'});
-    expect(menu.hasClass('dropdown-menu-justify')).to.equal(false);
-    expect(menu.hasClass('dropdown-menu-right')).to.equal(true);
+    expect(menu.prop('placement')).to.equal('bottom-end');
 
     menu.setProps({align: 'left'});
-    expect(menu.hasClass('dropdown-menu-justify')).to.equal(false);
-    expect(menu.hasClass('dropdown-menu-right')).to.equal(false);
+    expect(menu.prop('placement')).to.equal('bottom-start');
+
+    menu.setProps({dropup: true});
+    expect(menu.prop('placement')).to.equal('top-start');
   });
 
   it('sets the maxHeight and other styles', () => {

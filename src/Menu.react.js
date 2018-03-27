@@ -1,9 +1,31 @@
 import cx from 'classnames';
-import React, {Children} from 'react';
 import PropTypes from 'prop-types';
 import {isRequiredForA11y} from 'prop-types-extra';
+import React, {Children} from 'react';
+import {Popper} from 'react-popper';
 
 import {BaseMenuItem} from './MenuItem.react';
+
+function getModifiers({align, flip}) {
+  return {
+    computeStyles: {
+      enabled: true,
+      fn: (data) => {
+        if (align === 'justify') {
+          // Set the popper width to match the
+          data.styles.width = data.offsets.reference.width;
+        }
+        return data;
+      },
+    },
+    flip: {
+      enabled: flip,
+    },
+    preventOverflow: {
+      escapeWithReference: true,
+    },
+  };
+}
 
 /**
  * Menu component that handles empty state when passed a set of results.
@@ -16,6 +38,7 @@ class Menu extends React.Component {
       align,
       children,
       className,
+      dropup,
       emptyLabel,
       id,
       maxHeight,
@@ -28,13 +51,16 @@ class Menu extends React.Component {
       </BaseMenuItem> :
       children;
 
+    const xPlacement = align === 'right' ? 'end' : 'start';
+    const yPlacement = dropup ? 'top' : 'bottom';
+
     return (
-      <ul
-        className={cx('rbt-menu', 'dropdown-menu', {
-          'dropdown-menu-justify': align === 'justify',
-          'dropdown-menu-right': align === 'right',
-        }, className)}
+      <Popper
+        className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
+        component="ul"
         id={id}
+        modifiers={getModifiers(this.props)}
+        placement={`${yPlacement}-${xPlacement}`}
         role="listbox"
         style={{
           ...style,
@@ -43,7 +69,7 @@ class Menu extends React.Component {
           overflow: 'auto',
         }}>
         {contents}
-      </ul>
+      </Popper>
     );
   }
 }

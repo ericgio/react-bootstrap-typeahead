@@ -11,6 +11,7 @@ class BasicBehaviorsExample extends React.Component {
   state = {
     disabled: false,
     dropup: false,
+    flip: false,
     highlightOnlyResult: false,
     minLength: 0,
     selectHintOnEnter: false,
@@ -21,6 +22,7 @@ class BasicBehaviorsExample extends React.Component {
       disabled,
       dropup,
       emptyLabel,
+      flip,
       highlightOnlyResult,
       minLength,
       selectHintOnEnter,
@@ -28,8 +30,9 @@ class BasicBehaviorsExample extends React.Component {
 
     const checkboxes = [
       /* eslint-disable max-len */
-      {checked: disabled, children: 'Disable', name: 'disabled'},
+      {checked: disabled, children: 'Disable the input', name: 'disabled'},
       {checked: dropup, children: 'Dropup menu', name: 'dropup'},
+      {checked: flip, children: 'Flip the menu position when it reaches the viewport bounds', name: 'flip'},
       {checked: !!minLength, children: 'Require minimum input before showing results (2 chars)', name: 'minLength'},
       {checked: emptyLabel, children: 'Hide the menu when there are no results', name: 'emptyLabel'},
       {checked: selectHintOnEnter, children: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter'},

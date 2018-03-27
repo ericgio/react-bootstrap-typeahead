@@ -2,6 +2,7 @@ import cx from 'classnames';
 import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {Manager, Target} from 'react-popper';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -25,10 +26,8 @@ class Typeahead extends React.Component {
 
   render() {
     const {
-      align,
       bodyContainer,
       className,
-      dropup,
       isMenuShown,
       menuId,
       onMenuHide,
@@ -66,6 +65,7 @@ class Typeahead extends React.Component {
       'align',
       'dropup',
       'emptyLabel',
+      'flip',
       'labelKey',
       'maxHeight',
       'newSelectionPrefix',
@@ -76,24 +76,23 @@ class Typeahead extends React.Component {
     const auxContent = this._renderAux();
 
     return (
-      <div
-        className={cx('rbt', 'open', 'clearfix', {
-          'dropup': dropup,
+      <Manager
+        className={cx('rbt', 'clearfix', 'open', {
           'has-aux': !!auxContent,
         }, className)}
         style={{position: 'relative'}}
-        tabIndex={-1}>
-        {this._renderInput(inputProps)}
+        tabIndex={-1}
+        tag="div">
+        <Target>
+          {this._renderInput(inputProps)}
+        </Target>
         {auxContent}
         <Overlay
-          align={align}
           className={className}
           container={bodyContainer ? document.body : this}
-          dropup={dropup}
           onMenuHide={onMenuHide}
           onMenuShow={onMenuShow}
-          show={isMenuShown}
-          target={this}>
+          show={isMenuShown}>
           {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
         <div
@@ -103,7 +102,7 @@ class Typeahead extends React.Component {
           role="status">
           {getAccessibilityStatus(this.props)}
         </div>
-      </div>
+      </Manager>
     );
   }
 

@@ -1,13 +1,10 @@
 import cx from 'classnames';
-import {isEqual} from 'lodash';
 import React, {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 import {Portal} from 'react-overlays';
 import {componentOrElement} from 'prop-types-extra';
 
 const BODY_CLASS = 'rbt-body-container';
-const DROPUP_SPACING = -4;
 
 // When appending the overlay to `document.body`, clicking on it will register
 // as an "outside" click and immediately close the overlay. This classname tells
@@ -24,22 +21,8 @@ function isBody(container) {
  * the customized placement we need.
  */
 class Overlay extends React.Component {
-  displayName = 'Overlay';
-
-  state = {
-    left: 0,
-    right: 0,
-    top: 0,
-  };
-
   componentDidMount() {
-    this._mounted = true;
     this._update();
-
-    this._updateThrottled = requestAnimationFrame.bind(null, this._update);
-
-    window.addEventListener('resize', this._updateThrottled);
-    window.addEventListener('scroll', this._updateThrottled, true);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,13 +43,7 @@ class Overlay extends React.Component {
       !!className && container.classList.remove(...className.split(' '));
     }
 
-    this._updateThrottled();
-  }
-
-  componentWillUnmount() {
-    this._mounted = false;
-    window.removeEventListener('resize', this._updateThrottled);
-    window.removeEventListener('scroll', this._updateThrottled);
+    this._update();
   }
 
   render() {
@@ -78,8 +55,6 @@ class Overlay extends React.Component {
 
     let child = Children.only(children);
 
-    // When not attaching the overlay to `document.body` treat the child as a
-    // simple inline element.
     if (!isBody(container)) {
       return child;
     }
@@ -87,12 +62,10 @@ class Overlay extends React.Component {
     child = cloneElement(child, {
       ...child.props,
       className: cx(child.props.className, IGNORE_CLICK_OUTSIDE),
-      ref: (menu) => this._menu = menu,
-      style: this.state,
     });
 
     return (
-      <Portal container={container} ref={(portal) => this._portal = portal}>
+      <Portal container={container}>
         {child}
       </Portal>
     );
@@ -102,40 +75,13 @@ class Overlay extends React.Component {
     const {className, container, show} = this.props;
 
     // Positioning is only used when body is the container.
-    if (!(show && isBody(container) && this._mounted)) {
+    if (!(show && isBody(container))) {
       return;
     }
 
     // Set a classname on the body for scoping purposes.
     container.classList.add(BODY_CLASS);
     !!className && container.classList.add(...className.split(' '));
-
-    this._updatePosition();
-  }
-
-  _updatePosition = () => {
-    const {align, dropup, target} = this.props;
-
-    const menuNode = findDOMNode(this._menu);
-    const targetNode = findDOMNode(target);
-
-    if (menuNode && targetNode) {
-      const {innerWidth, pageYOffset} = window;
-      const {bottom, left, top, width} = targetNode.getBoundingClientRect();
-
-      const newState = {
-        left: align === 'right' ? 'auto' : left,
-        right: align === 'left' ? 'auto' : innerWidth - left - width,
-        top: dropup ?
-          pageYOffset - menuNode.offsetHeight + top + DROPUP_SPACING :
-          pageYOffset + bottom,
-      };
-
-      // Don't update unless the target element position has changed.
-      if (!isEqual(this.state, newState)) {
-        this.setState(newState);
-      }
-    }
   }
 }
 
@@ -145,7 +91,6 @@ Overlay.propTypes = {
   onMenuHide: PropTypes.func.isRequired,
   onMenuShow: PropTypes.func.isRequired,
   show: PropTypes.bool,
-  target: componentOrElement.isRequired,
 };
 
 Overlay.defaultProps = {

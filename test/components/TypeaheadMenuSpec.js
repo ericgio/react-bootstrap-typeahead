@@ -1,6 +1,9 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
+import {noop} from 'lodash';
+import PropTypes from 'prop-types';
 import React from 'react';
+import {Popper} from 'react-popper';
 import sinon from 'sinon';
 
 import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
@@ -20,7 +23,19 @@ describe('<TypeaheadMenu>', () => {
         options={options}
         text=""
       />,
-      {childContextTypes, context}
+      {
+        childContextTypes: {
+          ...childContextTypes,
+          popperManager: PropTypes.object.isRequired,
+        },
+        context: {
+          ...context,
+          popperManager: {
+            getTargetNode: () => document.createElement('div'),
+            setTargetNode: noop,
+          },
+        },
+      }
     );
   });
 
@@ -31,7 +46,8 @@ describe('<TypeaheadMenu>', () => {
 
   it('renders a right-aligned typeahead menu', () => {
     menu.setProps({align: 'right'});
-    expect(getMenu(menu).hasClass('dropdown-menu-right')).to.equal(true);
+
+    expect(menu.find(Popper).prop('placement')).to.equal('bottom-end');
   });
 
   it('renders a menu with the specified max-height', () => {

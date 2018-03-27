@@ -24,10 +24,11 @@ const BehaviorsSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       The typeahead has several basic configurable behaviors. You can `disable`
-      it as you would any input. You can also position the menu above the input
-      with `dropup` or require minimum user input with `minLength`. Finally, you
-      can hide the menu when there are no results by passing an empty string to
-      `emptyLabel`.
+      it as you would any input. You can position the menu above the input
+      with `dropup` or aoutomatically re-position it when it hits the viewport
+      bounds. Use `minLength` to require a minimum user input before displaying
+      results, or hide the menu when there are no results by passing an empty
+      string to `emptyLabel`.
     </Markdown>
     <ExampleSection code={BasicBehaviorsExampleCode}>
       <BasicBehaviorsExample />
