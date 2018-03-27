@@ -111,19 +111,8 @@ const asyncContainer = (Typeahead) => {
       this._handleSearchDebounced(query);
     }
 
-    _handleSearch = (initialQuery) => {
-      const {
-        caseSensitive,
-        minLength,
-        multiple,
-        onSearch,
-        useCache,
-      } = this.props;
-
-      let query = initialQuery.trim();
-      if (!caseSensitive) {
-        query = query.toLowerCase();
-      }
+    _handleSearch = (query) => {
+      const {minLength, multiple, onSearch, useCache} = this.props;
 
       this.setState({query});
 

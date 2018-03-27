@@ -70,13 +70,6 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('should not perform a search when the query is empty', (done) => {
-    search(wrapper, '   ', () => {
-      expect(onSearch.notCalled).to.equal(true);
-      done();
-    });
-  });
-
   it('should delay the search by at least the specified amount', (done) => {
     const delay = 100;
     const preSearch = Date.now();
