@@ -59,10 +59,10 @@ function hintContainer(Input) {
               bottom: 0,
               boxShadow: 'none',
               color: 'rgba(0, 0, 0, 0.35)',
+              left: 0,
               pointerEvents: 'none',
               position: 'absolute',
               top: 0,
-              zIndex: 0,
             }}
             tabIndex={-1}>
             {this.context.hintText}

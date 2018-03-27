@@ -5,9 +5,16 @@
   animation: $animation;
 }
 
-@mixin box-shadow($inset, $shadow) {
-	-webkit-box-shadow: $inset, $shadow;
-  box-shadow: $inset, $shadow;
+@mixin box-shadow($shadow, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow: $inset, $shadow;
+    -moz-box-shadow: $inset, $shadow;
+    box-shadow: $inset, $shadow;
+  } @else {
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+  }
 }
 
 @mixin display-flex()  {

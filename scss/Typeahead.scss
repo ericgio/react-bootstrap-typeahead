@@ -1,4 +1,4 @@
-@import 'mixins';
+@import '_mixins';
 
 .rbt {
   outline: none;
@@ -33,7 +33,7 @@
 
     // Apply Bootstrap focus styles
     &.focus {
-      @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6));
+      @include box-shadow(0 0 8px rgba(102, 175, 233, .6), inset 0 1px 1px rgba(0, 0, 0, .075));
       border-color: #66afe9;
       outline: 0;
     }
@@ -185,12 +185,13 @@
 .input-group > .rbt {
   @include flex(1);
 
-  // Fixes input height bug with IE + BS4
-  & > div,
   & .rbt-input-hint-container {
     @include display-flex();
-    @include flex(1);
-    height: 100%;
+  }
+
+  & .rbt-input-hint {
+    // Form-controls within input-groups have a higher z-index.
+    z-index: 5;
   }
 
   &:not(:first-child) .form-control {

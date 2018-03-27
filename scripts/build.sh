@@ -4,11 +4,17 @@
 ./scripts/cleanup.sh
 
 # Compile SCSS file to development and prod CSS files
-./node_modules/node-sass/bin/node-sass scss/Typeahead.scss css/Typeahead.css \
-	--output-style expanded
+for file in scss/Typeahead*; do
+  filename=$(basename "$file")
+  extension="${filename##*.}"
+  filename="${filename%.*}"
 
-./node_modules/node-sass/bin/node-sass scss/Typeahead.scss css/Typeahead.min.css \
-  --output-style compressed
+  ./node_modules/node-sass/bin/node-sass ${file} css/${filename}.css \
+    --output-style expanded
+
+  ./node_modules/node-sass/bin/node-sass ${file} css/${filename}.min.css \
+    --output-style compressed
+done;
 
 # Build minified standalone version in dist
 ./node_modules/.bin/webpack --config webpack/webpack.config.js

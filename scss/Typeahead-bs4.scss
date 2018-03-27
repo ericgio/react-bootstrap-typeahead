@@ -1,0 +1,46 @@
+@import '_mixins';
+
+.rbt {
+  &-input-multi {
+    // Bootstrap 4 focus style
+    &.focus {
+      background-color: #fff;
+      border-color: #80bdff;
+      @include box-shadow(0 0 0 0.2rem rgba(0, 123, 255, 0.25));
+      color: #495057;
+      outline: 0;
+    }
+
+    input {
+      @include placeholder(#6c757d);
+    }
+
+    .rbt-input-main {
+      // Override height in main CSS file :/
+      height: auto;
+    }
+
+    &.form-control {
+      &-lg {
+        .rbt-input-main {
+          height: auto;
+        }
+      }
+
+      &-sm {
+        .rbt-input-main {
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+.input-group > .rbt {
+  // Fixes input height bug with IE + BS4
+  & > div,
+  & .rbt-input-hint-container {
+    @include flex(1);
+    height: 100%;
+  }
+}
