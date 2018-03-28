@@ -1,5 +1,9 @@
 # Upgrade Guide
 
+- [Version 3.0](Upgrading.md#v30)
+- [Version 2.0](Upgrading.md#v20)
+- [Version 1.0](Upgrading.md#v10)
+
 ## v3.0
 
 #### Props
@@ -7,7 +11,7 @@
 - Non-string values for the `maxHeight` prop were deprecated in v2.5 and are now no longer allowed.
 
 #### Changes to `filterBy` and `renderToken` callback signatures
-If `filterBy` receives [a function](Filtering.md#functionoption-objectstring-text-string), it now passes the set of internal props as the second parameter instead of the user-input `text` value:
+If you [pass a callback to `filterBy`]((Filtering.md#functionoption-objectstring-text-string)), it will now receive the set of internal props as the second parameter instead of the user-input `text` value:
 
 ```jsx
 // v2.0
