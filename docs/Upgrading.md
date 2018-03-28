@@ -6,11 +6,13 @@
 
 ## v3.0
 
-#### Props
+### Props
 - The `name` prop was deprecated in v2.0 and is now gone.
 - Non-string values for the `maxHeight` prop were deprecated in v2.5 and are now no longer allowed.
 
-#### Changes to `filterBy` and `renderToken` callback signatures
+### Changes to `filterBy` and `renderToken` callback signatures
+
+#### `filterBy`
 If you [pass a callback to `filterBy`]((Filtering.md#functionoption-objectstring-text-string)), it will now receive the set of internal props as the second parameter instead of the user-input `text` value:
 
 ```jsx
@@ -31,7 +33,7 @@ If you [pass a callback to `filterBy`]((Filtering.md#functionoption-objectstring
   }}
 />
 ```
-
+#### `renderToken`
 Similarly, [`renderToken`](Rendering.md#rendertokenoption-objectstring-onremove-function-index-number) now receives internal props as the second param rather than just the `onRemove` function:
 
 ```jsx
@@ -55,20 +57,23 @@ Similarly, [`renderToken`](Rendering.md#rendertokenoption-objectstring-onremove-
 />
 ```
 
-#### Internal changes & CSS
+### Internal changes & CSS
 This version includes some significant internal refactoring in an effort to provide better support for Bootstrap 4. If you have custom CSS that depends on internal (eg: `rbt-*`) classnames, you should check to make sure things still work as you expect.
 
-#### Query normalization in `AsyncTypeahead`
+### Query normalization in `AsyncTypeahead`
 `AsyncTypeahead` no longer trims whitespace on or lowercases queries. The original intent was to provide some basic normalization of queries, but this resulted in strange behaviors. You should now do any checking you want, like ignoring queries with only whitespace, in your `onSearch` function.
 
-#### Change events no longer triggered by prop changes
+### Change events no longer triggered by prop changes
 The `onChange` and `onInputChange` callbacks were previously called in `componentWillReceiveProps`, which triggered multiple calls and didn't emulate how a normal form element works. These change callbacks are now only triggered by user actions, eg: typing in the input, clicking on a menu item, etc. You may need to update your code if it relied on a change event being triggered due to prop changes.
 
-#### Custom menu rendering
+### Custom menu rendering
 Finally, if you use the `renderMenu` prop, a couple changes were made that may affect you:
 
-1) The component now uses [Popper.js](https://popper.js.org/) (via [`react-popper`](https://github.com/souporserious/react-popper)) for menu positioning. As a result, the `Menu` component is now wrapped with by a `Popper` from the latter library. If you're using a `Menu` inside `renderMenu`, just be sure to pass down all the menu props and everything should work fine. If you're using your own component to render the menu, you will need to wrap it in a `Popper` as well, or the component will not work correctly. **It is strongly recommended that you use the included `Menu` component.**
-2) To make the pagination menu item keyboard-accessible, it is no longer included in the `Menu` component. Instead, it is added to the result set, similar to the custom (`allowNew`) item. That means you must now handle rendering of the pagination item yourself if you need pagination. See [`TypeaheadMenu`](../src/TypeaheadMenu.react.js) for an example of how to do this.
+#### Popper.js for positioning
+The component now uses [Popper.js](https://popper.js.org/) (via [`react-popper`](https://github.com/souporserious/react-popper)) for menu positioning. As a result, the `Menu` component is now wrapped with by a `Popper` from the latter library. If you're using a `Menu` inside `renderMenu`, just be sure to pass down all the menu props and everything should work fine. If you're using your own component to render the menu, you will need to wrap it in a `Popper` as well, or the component will not work correctly. **It is strongly recommended that you use the included `Menu` component.**
+
+#### Manual handling of pagination option
+To make the pagination menu item keyboard-accessible, it is no longer automatically included in the `Menu` component. Instead, it is added to the result set, similar to the custom (`allowNew`) item. That means you must now handle rendering of the pagination item yourself if you want pagination. See [`TypeaheadMenu`](../src/TypeaheadMenu.react.js) for an example of how to do this.
 
 ## v2.0
 Version 2.0 consists mainly of internal refactoring aimed at reducing parallel code paths and making certain complex feature requests possible. These changes should mostly be transparent, though you may notice that the component behaves a bit differently.
