@@ -70,7 +70,19 @@ The `onChange` and `onInputChange` callbacks were previously called in `componen
 Finally, if you use the `renderMenu` prop, a couple changes were made that may affect you:
 
 #### Popper.js for positioning
-The component now uses [Popper.js](https://popper.js.org/) (via [`react-popper`](https://github.com/souporserious/react-popper)) for menu positioning. If you're using a `Menu` inside `renderMenu`, simply pass down all the menu props and everything should work fine. If you're using your own component to render the menu, be sure it properly consumes the `innerRef` prop that gets passed down or the component will not work correctly.
+The typeahead now uses [Popper.js](https://popper.js.org/) (via [`react-popper`](https://github.com/souporserious/react-popper)) for menu positioning. If you're using the provided `Menu` component inside `renderMenu`, simply pass down all the menu props and everything should work fine. If you're using your own component to render the menu, be sure it properly consumes the `innerRef` prop that gets passed down or the component will not work correctly:
+
+```jsx
+class MyCustomMenu extends React.Component {
+  render() {
+    // `innerRef` is passed down by the Popper...
+    const {innerRef, ...props} = this.props;
+    
+    // ...and must be passed to the `ref` of your custom component.
+    return <div {...props} ref={innerRef} />;
+  }
+}
+```
 
 #### Manual handling of pagination option
 To make the pagination menu item keyboard-accessible, it is no longer automatically included in the `Menu` component. Instead, it is added to the result set, similar to the custom (`allowNew`) item. That means you must now handle rendering of the pagination item yourself if you want pagination. See [`TypeaheadMenu`](../src/TypeaheadMenu.react.js) for an example of how to do this.
