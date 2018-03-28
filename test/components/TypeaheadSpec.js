@@ -30,6 +30,10 @@ function getClearButton(wrapper) {
   return wrapper.find('.rbt-close');
 }
 
+function getPlacement(wrapper) {
+  return wrapper.find(Popper).prop('placement');
+}
+
 function getState(wrapper) {
   return wrapper.instance().getInstance().state;
 }
@@ -363,11 +367,23 @@ describe('<Typeahead>', () => {
     });
   });
 
+  it('changes the menu\'s horizontal positioning', () => {
+    focus(typeahead);
+
+    expect(getPlacement(typeahead)).to.equal('bottom-start');
+
+    typeahead.setProps({align: 'right'});
+    expect(getPlacement(typeahead)).to.equal('bottom-end');
+
+    typeahead.setProps({align: 'left'});
+    expect(getPlacement(typeahead)).to.equal('bottom-start');
+  });
+
   it('should position the menu above the input when `dropup=true`', () => {
     typeahead.setProps({dropup: true});
     focus(typeahead);
 
-    expect(typeahead.find(Popper).prop('placement')).to.equal('top-start');
+    expect(getPlacement(typeahead)).to.equal('top-start');
   });
 
   it('renders a large input', () => {

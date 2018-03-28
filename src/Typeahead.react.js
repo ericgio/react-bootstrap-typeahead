@@ -2,7 +2,6 @@ import cx from 'classnames';
 import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Manager, Target} from 'react-popper';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -30,8 +29,6 @@ class Typeahead extends React.Component {
       className,
       isMenuShown,
       menuId,
-      onMenuHide,
-      onMenuShow,
       renderMenu,
       results,
     } = this.props;
@@ -61,11 +58,17 @@ class Typeahead extends React.Component {
       'text',
     ]);
 
-    const menuProps = pick(this.props, [
+    const overlayProps = pick(this.props, [
       'align',
+      'className',
       'dropup',
-      'emptyLabel',
       'flip',
+      'onMenuHide',
+      'onMenuShow',
+    ]);
+
+    const menuProps = pick(this.props, [
+      'emptyLabel',
       'labelKey',
       'maxHeight',
       'newSelectionPrefix',
@@ -76,23 +79,20 @@ class Typeahead extends React.Component {
     const auxContent = this._renderAux();
 
     return (
-      <Manager
+      <div
         className={cx('rbt', 'clearfix', 'open', {
           'has-aux': !!auxContent,
         }, className)}
+        ref={(target) => this._target = target}
         style={{position: 'relative'}}
-        tabIndex={-1}
-        tag="div">
-        <Target>
-          {this._renderInput(inputProps)}
-        </Target>
+        tabIndex={-1}>
+        {this._renderInput(inputProps)}
         {auxContent}
         <Overlay
-          className={className}
+          {...overlayProps}
           container={bodyContainer ? document.body : this}
-          onMenuHide={onMenuHide}
-          onMenuShow={onMenuShow}
-          show={isMenuShown}>
+          show={isMenuShown}
+          target={this._target}>
           {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
         <div
@@ -102,7 +102,7 @@ class Typeahead extends React.Component {
           role="status">
           {getAccessibilityStatus(this.props)}
         </div>
-      </Manager>
+      </div>
     );
   }
 

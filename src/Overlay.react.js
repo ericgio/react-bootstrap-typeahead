@@ -1,8 +1,9 @@
 import cx from 'classnames';
 import React, {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
-import {Portal} from 'react-overlays';
 import {componentOrElement} from 'prop-types-extra';
+import {Portal} from 'react-overlays';
+import {Popper} from 'react-popper';
 
 const BODY_CLASS = 'rbt-body-container';
 
@@ -10,6 +11,30 @@ const BODY_CLASS = 'rbt-body-container';
 // as an "outside" click and immediately close the overlay. This classname tells
 // `react-onclickoutside` to ignore the click.
 const IGNORE_CLICK_OUTSIDE = 'ignore-react-onclickoutside';
+
+function getModifiers({align, flip}) {
+  return {
+    computeStyles: {
+      enabled: true,
+      fn: (data) => {
+        // Use the following condition instead of `align === 'justify'` since
+        // it allows the component to fall back to justifying the menu width
+        // even when `align` is undefined.
+        if (align !== 'right' && align !== 'left') {
+          // Set the popper width to match the target width.
+          data.styles.width = data.offsets.reference.width;
+        }
+        return data;
+      },
+    },
+    flip: {
+      enabled: flip,
+    },
+    preventOverflow: {
+      escapeWithReference: true,
+    },
+  };
+}
 
 function isBody(container) {
   return container === document.body;
@@ -47,26 +72,35 @@ class Overlay extends React.Component {
   }
 
   render() {
-    const {children, container, show} = this.props;
+    const {align, children, container, dropup, show, target} = this.props;
 
-    if (!(show && Children.count(children))) {
+    if (!(show && Children.count(children) && target)) {
       return null;
     }
 
-    let child = Children.only(children);
+    const child = Children.only(children);
 
-    if (!isBody(container)) {
-      return child;
-    }
-
-    child = cloneElement(child, {
-      ...child.props,
-      className: cx(child.props.className, IGNORE_CLICK_OUTSIDE),
-    });
+    const xPlacement = align === 'right' ? 'end' : 'start';
+    const yPlacement = dropup ? 'top' : 'bottom';
 
     return (
       <Portal container={container}>
-        {child}
+        <Popper
+          modifiers={getModifiers(this.props)}
+          placement={`${yPlacement}-${xPlacement}`}
+          target={target}>
+          {(props) => {
+            const {ref, ...popperProps} = props.popperProps;
+            return cloneElement(child, {
+              ...child.props,
+              ...popperProps,
+              className: cx(child.props.className, {
+                [IGNORE_CLICK_OUTSIDE]: isBody(container),
+              }),
+              innerRef: ref,
+            });
+          }}
+        </Popper>
       </Portal>
     );
   }
@@ -91,6 +125,7 @@ Overlay.propTypes = {
   onMenuHide: PropTypes.func.isRequired,
   onMenuShow: PropTypes.func.isRequired,
   show: PropTypes.bool,
+  target: componentOrElement,
 };
 
 Overlay.defaultProps = {

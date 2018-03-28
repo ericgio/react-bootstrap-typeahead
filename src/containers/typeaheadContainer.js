@@ -433,6 +433,13 @@ function typeaheadContainer(Typeahead) {
      */
     a11yNumSelected: PropTypes.func,
     /**
+     * Specify menu alignment. The default value is `justify`, which makes the
+     * menu as wide as the input and truncates long values. Specifying `left`
+     * or `right` will align the menu to that side and the width will be
+     * determined by the length of menu item values.
+     */
+    align: PropTypes.oneOf(['justify', 'left', 'right']),
+    /**
      * Allows the creation of new selections on the fly. Note that any new items
      * will be added to the list of selections, but not the list of original
      * options unless handled as such by `Typeahead`'s parent.
@@ -614,6 +621,7 @@ function typeaheadContainer(Typeahead) {
     a11yNumSelected: (selected) => {
       return pluralize('selection', selected.length);
     },
+    align: 'justify',
     allowNew: false,
     autoFocus: false,
     bodyContainer: false,

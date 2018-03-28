@@ -2,45 +2,20 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {isRequiredForA11y} from 'prop-types-extra';
 import React, {Children} from 'react';
-import {Popper} from 'react-popper';
 
 import {BaseMenuItem} from './MenuItem.react';
-
-function getModifiers({align, flip}) {
-  return {
-    computeStyles: {
-      enabled: true,
-      fn: (data) => {
-        if (align === 'justify') {
-          // Set the popper width to match the
-          data.styles.width = data.offsets.reference.width;
-        }
-        return data;
-      },
-    },
-    flip: {
-      enabled: flip,
-    },
-    preventOverflow: {
-      escapeWithReference: true,
-    },
-  };
-}
 
 /**
  * Menu component that handles empty state when passed a set of results.
  */
 class Menu extends React.Component {
-  displayName = 'Menu';
-
   render() {
     const {
-      align,
       children,
       className,
-      dropup,
       emptyLabel,
       id,
+      innerRef,
       maxHeight,
       style,
     } = this.props;
@@ -51,16 +26,11 @@ class Menu extends React.Component {
       </BaseMenuItem> :
       children;
 
-    const xPlacement = align === 'right' ? 'end' : 'start';
-    const yPlacement = dropup ? 'top' : 'bottom';
-
     return (
-      <Popper
+      <ul
         className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
-        component="ul"
         id={id}
-        modifiers={getModifiers(this.props)}
-        placement={`${yPlacement}-${xPlacement}`}
+        ref={innerRef}
         role="listbox"
         style={{
           ...style,
@@ -69,19 +39,12 @@ class Menu extends React.Component {
           overflow: 'auto',
         }}>
         {contents}
-      </Popper>
+      </ul>
     );
   }
 }
 
 Menu.propTypes = {
-  /**
-   * Specify menu alignment. The default value is `justify`, which makes the
-   * menu as wide as the input and truncates long values. Specifying `left`
-   * or `right` will align the menu to that side and the width will be
-   * determined by the length of menu item values.
-   */
-  align: PropTypes.oneOf(['justify', 'left', 'right']),
   /**
    * Needed for accessibility.
    */
@@ -96,7 +59,6 @@ Menu.propTypes = {
 };
 
 Menu.defaultProps = {
-  align: 'justify',
   maxHeight: '300px',
 };
 

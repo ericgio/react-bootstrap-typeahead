@@ -34,19 +34,6 @@ describe('<Menu>', () => {
     expect(menu.children().length).to.equal(3);
   });
 
-  it('changes the horizontal and vertical positioning', () => {
-    expect(menu.prop('placement')).to.equal('bottom-start');
-
-    menu.setProps({align: 'right'});
-    expect(menu.prop('placement')).to.equal('bottom-end');
-
-    menu.setProps({align: 'left'});
-    expect(menu.prop('placement')).to.equal('bottom-start');
-
-    menu.setProps({dropup: true});
-    expect(menu.prop('placement')).to.equal('top-start');
-  });
-
   it('sets the maxHeight and other styles', () => {
     let maxHeight = '100px';
 

@@ -38,7 +38,6 @@
 
 .input-group > .rbt {
   // Fixes input height bug with IE + BS4
-  & > div,
   & .rbt-input-hint-container {
     @include flex(1);
     height: 100%;

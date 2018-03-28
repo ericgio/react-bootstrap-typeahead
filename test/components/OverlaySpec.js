@@ -2,9 +2,11 @@ import {expect} from 'chai';
 import {mount, shallow} from 'enzyme';
 import {noop} from 'lodash';
 import React from 'react';
+import {Popper} from 'react-popper';
 import sinon from 'sinon';
 
-import Overlay from '../../src/Overlay';
+import Menu from '../../src/Menu.react';
+import Overlay from '../../src/Overlay.react';
 
 describe('<Overlay>', () => {
   describe('shallow behaviors', () => {
@@ -28,10 +30,12 @@ describe('<Overlay>', () => {
       expect(wrapper.type()).to.equal(null);
     });
 
-    it('returns the child when `show=true`', () => {
+    it('renders a Popper when `show=true`', () => {
       wrapper.setProps({show: true});
-      expect(wrapper.type()).to.equal('div');
-      expect(wrapper.text()).to.equal('This is the menu');
+      const child = wrapper.children();
+
+      expect(child.type()).to.equal(Popper);
+      expect(child.dive().text()).to.equal('This is the menu');
     });
 
     it('returns `null` when child is `null`', () => {
@@ -83,8 +87,11 @@ describe('<Overlay>', () => {
           container={div}
           onMenuHide={noop}
           onMenuShow={noop}
-          show={true}>
-          <div>This is the menu</div>
+          show={true}
+          target={div}>
+          <Menu id="menu-id">
+            This is the menu
+          </Menu>
         </Overlay>,
         {attachTo: div}
       );
