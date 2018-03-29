@@ -25,10 +25,11 @@ class PageHeader extends React.Component {
 
     return (
       <Navbar
-        className={cx('bs-docs-nav', {
+        className={cx('bs-docs-nav', 'fixed-top', {
           'navbar-expand-md': !isV3,
           'navbar-toggleable-sm': isV3,
         })}
+        fixedTop
         inverse
         staticTop>
         {this._renderNavbarHeader(isV3)}

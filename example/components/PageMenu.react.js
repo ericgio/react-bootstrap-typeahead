@@ -3,7 +3,7 @@ import {AutoAffix} from 'react-overlays';
 import {Nav} from 'react-bootstrap';
 
 const PageMenu = (props) => (
-  <AutoAffix>
+  <AutoAffix viewportOffsetTop={50}>
     <div
       className="bs-docs-sidebar hidden-print hidden-xs hidden-sm"
       role="complementary">

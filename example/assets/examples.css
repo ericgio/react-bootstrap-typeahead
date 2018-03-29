@@ -17,6 +17,10 @@ body {
   background-color: #fafafa;
 }
 
+.bs-docs-page {
+  padding-top: 50px;
+}
+
 /* Override */
 .bs-docs-nav {
   background-color: #222;
@@ -128,6 +132,11 @@ body {
 }
 
 @media (min-width: 768px) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: -15px;
+  }
+
   .bs-docs-page .jumbotron h1 {
     font-size: 63px;
   }
@@ -213,6 +222,51 @@ h4:hover .anchor-icon {
 
 .example-section .form-group {
   margin: 10px 0 0;
+}
+
+/* Bootstrap 4 */
+.bs4 .rbt-input-multi.focus {
+  background-color: #fff;
+  border-color: #80bdff;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  -moz-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  color: #495057;
+  outline: 0;
+}
+
+.bs4 .rbt-input-multi input::-moz-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.bs4 .rbt-input-multi input:-ms-input-placeholder {
+  color: #6c757d;
+}
+
+.bs4 .rbt-input-multi input::-webkit-input-placeholder {
+  color: #6c757d;
+}
+
+.bs4 .rbt-input-multi .rbt-input-main {
+  height: auto;
+}
+
+.bs4 .rbt-input-multi.form-control-lg .rbt-input-main {
+  height: auto;
+}
+
+.bs4 .rbt-input-multi.form-control-sm .rbt-input-main {
+  height: auto;
+}
+
+.bs4 .input-group > .rbt .rbt-input-hint-container {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  height: 100%;
 }
 
 /* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+clike+javascript+bash+jsx&plugins=autolinker */

@@ -1,5 +1,6 @@
-import React, {Children} from 'react';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
+import React, {Children} from 'react';
 import {Col, Jumbotron, NavItem, Row} from 'react-bootstrap';
 
 import Container from './Container';
@@ -36,12 +37,16 @@ class Page extends React.Component {
 
   render() {
     const {children, title} = this.props;
+    const {bsVersion} = this.state;
 
     return (
-      <div className="bs-docs-page">
+      <div
+        className={cx('bs-docs-page', {
+          'bs4': bsVersion === BS_VERSIONS.v4,
+        })}>
         <PageHeader
           onVersionChange={this._handleVersionChange}
-          selectedVersion={this.state.bsVersion}
+          selectedVersion={bsVersion}
         />
         <Jumbotron>
           <Container>
