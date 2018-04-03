@@ -60,7 +60,7 @@ Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), wh
 Recent versions of the following browsers are supported:
 - Chrome
 - Firefox
-- IE (10/11)
+- IE (>=11)
 - Safari
 
 Special thanks to [BrowserStack](https://www.browserstack.com) for providing cross-browser testing support.
