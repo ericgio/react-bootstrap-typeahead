@@ -28,7 +28,7 @@ Pass in a function to create a custom string without modifying your data. Note: 
 ### `renderMenu(results: Array<Object|String>, menuProps: Object)`
 Provides complete flexibility for rendering the typeahead's menu. `results` are the subset of options after they have been filtered and paginated. `menuProps` are any menu-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `Menu`.
 
-Along with stylistic customization, the `renderMenu` hook also allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or wrap your own menu item components with [`menuItemContainer`](API.md#menuitemcontainer) to ensure proper behavior.
+Along with stylistic customization, the `renderMenu` hook allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or wrap your own menu item components with [`menuItemContainer`](API.md#menuitemcontainer) to ensure proper behavior.
 
 ```jsx
 <Typeahead
@@ -44,6 +44,10 @@ Along with stylistic customization, the `renderMenu` hook also allows you to do 
   )}
 />
 ```
+
+#### `renderMenu` Gotchas
+- It is highly recommended that you use the `Menu` component included with the package. If you choose to use your own component, you will need to properly consume the `innerRef` prop passed down as part of `menuProps` or your menu will not be properly positioned.
+- If you want to allow custom options or pagination, you will need to render these menu items yourself. If present, they should be the last two items in the `results` array. See the `TypeaheadMenu` component for an example of how to handle rendering.
 
 ### `renderMenuItemChildren(option: Object|String, props: Object, index: Number)`
 Allows you to control the contents of a menu item. Your function will be passed an item from your `options` array, the `TypeaheadMenu` props, and the item's index within the array:

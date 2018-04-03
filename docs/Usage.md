@@ -23,7 +23,7 @@ The component provides single-selection by default, but also supports multi-sele
 ```
 
 ### Controlled vs. Uncontrolled
-Like an `input`, the component can be [controlled](https://facebook.github.io/react/docs/forms.html#controlled-components) or [uncontrolled](https://facebook.github.io/react/docs/forms.html#uncontrolled-components). Use the `selected` prop to control it via the parent, or `defaultSelected` to optionally set defaults and then allow the component to control itself.
+Similar to other form elements, the typeahead can be [controlled](https://facebook.github.io/react/docs/forms.html#controlled-components) or [uncontrolled](https://facebook.github.io/react/docs/forms.html#uncontrolled-components). Use the `selected` prop to control it via the parent, or `defaultSelected` to optionally set defaults and then allow the component to control itself. Note that the *selections* can be controlled, not the input value.
 
 #### Controlled (Recommended)
 ```jsx
