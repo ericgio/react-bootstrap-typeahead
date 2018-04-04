@@ -17,10 +17,6 @@
       "react-overlays": {
         "transform": "react-overlays/lib/${member}",
         "preventFullImport": true
-      },
-      "react-popper": {
-        "transform": "react-popper/lib/${member}",
-        "preventFullImport": true
       }
     }]
   ],
