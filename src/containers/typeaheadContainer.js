@@ -75,32 +75,19 @@ function typeaheadContainer(Typeahead) {
     }
 
     componentWillReceiveProps(nextProps) {
-      const inputValue = this.getInput().value;
       const {labelKey, multiple, selected} = nextProps;
 
       // If new selections are passed via props, treat as a controlled input.
-      if (selected && !isEqual(selected, this.props.selected)) {
+      if (selected && !isEqual(selected, this.state.selected)) {
         this.setState({selected});
 
         if (multiple) {
           return;
         }
 
-        // Update the input text.
-        let text;
-        if (selected.length) {
-          // If a new selection has been passed in, display the label.
-          text = getOptionLabel(head(selected), labelKey);
-        } else if (this.state.text !== inputValue) {
-          // The input value was modified by the user, removing the selection.
-          // Set the input value as the new text.
-          text = inputValue;
-        } else {
-          // An empty array was passed.
-          text = '';
-        }
-
-        this.setState({text});
+        this.setState({
+          text: selected.length ? getOptionLabel(head(selected), labelKey) : '',
+        });
       }
 
       // Truncate selections when in single-select mode.
@@ -226,12 +213,11 @@ function typeaheadContainer(Typeahead) {
 
     _handleClear = () => {
       this.clear();
-      this.props.onChange([]);
+      this._updateSelected([]);
     }
 
     _handleFocus = (e) => {
-      this.props.onFocus(e);
-      this.setState({showMenu: true});
+      this.setState({showMenu: true}, () => this.props.onFocus(e));
     }
 
     _handleInitialItemChange = (initialItem) => {
@@ -266,14 +252,12 @@ function typeaheadContainer(Typeahead) {
         activeItem,
         showMenu: true,
         text,
-      });
+      }, () => onInputChange(text, e));
 
       // Clear any selections if text is entered in single-select mode.
       if (this.state.selected.length && !multiple) {
         this._updateSelected([]);
       }
-
-      onInputChange(text, e);
     }
 
     _handleKeyDown = (e, results, isMenuShown) => {
@@ -353,8 +337,9 @@ function typeaheadContainer(Typeahead) {
     _handlePaginate = (e) => {
       const {maxResults, onPaginate} = this.props;
 
-      onPaginate(e);
-      this.setState({shownResults: this.state.shownResults + maxResults});
+      this.setState({
+        shownResults: this.state.shownResults + maxResults,
+      }, () => onPaginate(e));
     }
 
     _handleSelectionAdd = (selection) => {
@@ -425,8 +410,7 @@ function typeaheadContainer(Typeahead) {
     }
 
     _updateSelected = (selected) => {
-      this.setState({selected});
-      this.props.onChange(selected);
+      this.setState({selected}, () => this.props.onChange(selected));
     }
   }
 

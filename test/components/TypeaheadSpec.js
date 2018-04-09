@@ -474,6 +474,23 @@ describe('<Typeahead>', () => {
       expect(getSelected(typeahead)).to.deep.equal([]);
       expect(getText(typeahead)).to.equal('');
     });
+
+    it('updates the selections and input value in single-select mode', () => {
+      typeahead.setProps({
+        // Simulate a controlled component.
+        onChange: (selected) => typeahead.setProps({selected}),
+        selected: states.slice(0, 1),
+      });
+
+      expect(getSelected(typeahead).length).to.equal(1);
+
+      // Simulate deleting the last character.
+      change(typeahead, 'Alabam');
+
+      // Text entry should clear the selection and keep the entry.
+      expect(getSelected(typeahead).length).to.equal(0);
+      expect(getText(typeahead)).to.equal('Alabam');
+    });
   });
 
   describe('`highlightOnlyResult` behavior', () => {
