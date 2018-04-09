@@ -51,14 +51,13 @@ function hintContainer(Input) {
             }}
             onKeyDown={this._handleKeyDown}
           />
-          <div
+          <input
             aria-hidden
             className="rbt-input-hint"
             ref={(hint) => this._hint = hint}
             style={{
               backgroundColor: 'transparent',
               borderColor: 'transparent',
-              bottom: 0,
               boxShadow: 'none',
               color: 'rgba(0, 0, 0, 0.35)',
               left: 0,
@@ -66,9 +65,9 @@ function hintContainer(Input) {
               position: 'absolute',
               top: 0,
             }}
-            tabIndex={-1}>
-            {this.context.hintText}
-          </div>
+            tabIndex={-1}
+            value={this.context.hintText}
+          />
         </div>
       );
     }

@@ -42,7 +42,7 @@ export function change(wrapper, value) {
 
 /* Finding React Elements */
 export function getHint(wrapper) {
-  return wrapper.find('.rbt-input-hint');
+  return wrapper.find('.rbt-input-hint').prop('value');
 }
 
 export function getInput(wrapper) {

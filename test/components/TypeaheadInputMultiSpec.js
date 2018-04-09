@@ -54,7 +54,7 @@ describe('<TypeaheadInputMulti>', () => {
     });
 
     focus(wrapper);
-    expect(getHint(wrapper).text()).to.equal(initialItem.name);
+    expect(getHint(wrapper)).to.equal(initialItem.name);
   });
 
 });
