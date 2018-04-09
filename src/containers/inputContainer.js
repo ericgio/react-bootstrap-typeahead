@@ -4,8 +4,6 @@ import React from 'react';
 
 import {getDisplayName, getHintText, getInputText, getMenuItemId} from '../utils/';
 
-import {RETURN, RIGHT, TAB} from '../constants/keyCode';
-
 function inputContainer(Input) {
   class WrappedInput extends React.Component {
     state = {
@@ -13,8 +11,13 @@ function inputContainer(Input) {
     };
 
     getChildContext() {
+      const {initialItem, onAdd, selectHintOnEnter} = this.props;
+
       return {
         hintText: getHintText(this.props),
+        initialItem,
+        onAdd,
+        selectHintOnEnter,
       };
     }
 
@@ -29,6 +32,7 @@ function inputContainer(Input) {
         menuId,
         multiple,
         onChange,
+        onKeyDown,
         onRemove,
         placeholder,
         renderToken,
@@ -53,7 +57,7 @@ function inputContainer(Input) {
         // Re-open the menu, eg: if it's closed via ESC.
         onClick: this._handleFocus,
         onFocus: this._handleFocus,
-        onKeyDown: this._handleKeyDown,
+        onKeyDown,
         placeholder: selected.length ? null : placeholder,
         // Comboboxes are single-select by definition:
         // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
@@ -97,38 +101,18 @@ function inputContainer(Input) {
       this.props.onFocus(e);
       this.setState({isFocused: true});
     }
-
-    _handleKeyDown = (e) => {
-      const {initialItem, onAdd, onKeyDown, selectHintOnEnter} = this.props;
-
-      const hint = getHintText(this.props);
-      const value = getInputText(this.props);
-
-      if (!hint) {
-        onKeyDown(e);
-        return;
-      }
-
-      switch (e.keyCode) {
-        case RETURN:
-          selectHintOnEnter && onAdd(initialItem);
-          break;
-        case RIGHT:
-          e.target.selectionStart === value.length && onAdd(initialItem);
-          break;
-        case TAB:
-          onAdd(initialItem);
-          break;
-      }
-
-      onKeyDown(e);
-    }
   }
 
   WrappedInput.displayName = `InputContainer(${getDisplayName(Input)})`;
 
   WrappedInput.childContextTypes = {
     hintText: PropTypes.string.isRequired,
+    initialItem: PropTypes.oneOfType([
+      PropTypes.object.isRequired,
+      PropTypes.string.isRequired,
+    ]),
+    onAdd: PropTypes.func.isRequired,
+    selectHintOnEnter: PropTypes.bool.isRequired,
   };
 
   return WrappedInput;

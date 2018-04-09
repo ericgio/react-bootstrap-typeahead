@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {getDisplayName} from '../utils/';
+import {RETURN, RIGHT, TAB} from '../constants/keyCode';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
@@ -48,6 +49,7 @@ function hintContainer(Input) {
               this._input = input;
               this.props.inputRef(input);
             }}
+            onKeyDown={this._handleKeyDown}
           />
           <div
             aria-hidden
@@ -70,12 +72,36 @@ function hintContainer(Input) {
         </div>
       );
     }
+
+    _handleKeyDown = (e) => {
+      const {hintText, initialItem, onAdd, selectHintOnEnter} = this.context;
+      const {onKeyDown, value} = this.props;
+
+      if (
+        hintText && (
+          (e.keyCode === RETURN && selectHintOnEnter) ||
+          (e.keyCode === RIGHT && e.target.selectionStart === value.length) ||
+          e.keyCode === TAB
+        )
+      ) {
+        e.preventDefault(); // Prevent input from blurring on TAB.
+        onAdd(initialItem);
+      }
+
+      onKeyDown(e);
+    }
   }
 
   HintedInput.displayName = `HintContainer(${getDisplayName(Input)})`;
 
   HintedInput.contextTypes = {
     hintText: PropTypes.string.isRequired,
+    initialItem: PropTypes.oneOfType([
+      PropTypes.object.isRequired,
+      PropTypes.string.isRequired,
+    ]),
+    onAdd: PropTypes.func.isRequired,
+    selectHintOnEnter: PropTypes.bool.isRequired,
   };
 
   return HintedInput;
