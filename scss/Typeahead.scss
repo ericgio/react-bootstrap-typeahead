@@ -21,7 +21,7 @@
   }
 
   // Hide IE's native "clear" button
-  & input[type=text]::-ms-clear {
+  & .rbt-input-main::-ms-clear {
     display: none;
   }
 
