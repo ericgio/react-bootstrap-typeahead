@@ -259,13 +259,18 @@ function typeaheadContainer(Typeahead) {
     _handleInputChange = (e) => {
       const text = e.target.value;
       const {activeIndex, activeItem} = getInitialState(this.props);
+      const {multiple, onInputChange} = this.props;
+
       this.setState({
         activeIndex,
         activeItem,
+        // Clear selection whenever text is entered in single-select mode.
+        selected: multiple ? this.state.selected : [],
         showMenu: true,
         text,
       });
-      this.props.onInputChange(text, e);
+
+      onInputChange(text, e);
     }
 
     _handleKeyDown = (e, results, isMenuShown) => {

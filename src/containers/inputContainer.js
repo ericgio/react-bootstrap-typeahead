@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import {head} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -29,6 +28,7 @@ function inputContainer(Input) {
         labelKey,
         menuId,
         multiple,
+        onChange,
         onRemove,
         placeholder,
         renderToken,
@@ -49,7 +49,7 @@ function inputContainer(Input) {
         disabled,
         inputRef,
         onBlur: this._handleBlur,
-        onChange: this._handleChange,
+        onChange,
         // Re-open the menu, eg: if it's closed via ESC.
         onClick: this._handleFocus,
         onFocus: this._handleFocus,
@@ -91,17 +91,6 @@ function inputContainer(Input) {
     _handleBlur = (e) => {
       this.props.onBlur(e);
       this.setState({isFocused: false});
-    }
-
-    _handleChange = (e) => {
-      const {multiple, onChange, onRemove, selected} = this.props;
-
-      if (!multiple) {
-        // Clear any selections when text is entered.
-        !!selected.length && onRemove(head(selected));
-      }
-
-      onChange(e);
     }
 
     _handleFocus = (e) => {
