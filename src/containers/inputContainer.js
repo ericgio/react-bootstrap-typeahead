@@ -99,42 +99,25 @@ function inputContainer(Input) {
     }
 
     _handleKeyDown = (e) => {
-      const {
-        activeItem,
-        initialItem,
-        multiple,
-        onAdd,
-        onKeyDown,
-        selected,
-        selectHintOnEnter,
-      } = this.props;
+      const {initialItem, onAdd, onKeyDown, selectHintOnEnter} = this.props;
 
+      const hint = getHintText(this.props);
       const value = getInputText(this.props);
+
+      if (!hint) {
+        onKeyDown(e);
+        return;
+      }
 
       switch (e.keyCode) {
         case RETURN:
+          selectHintOnEnter && onAdd(initialItem);
+          break;
         case RIGHT:
+          e.target.selectionStart === value.length && onAdd(initialItem);
+          break;
         case TAB:
-          const hintText = getHintText(this.props);
-          const {selectionStart} = e.target;
-
-          // Autocomplete the selection if all of the following are true:
-          if (
-            // There's a hint or a menu item is highlighted.
-            (hintText || activeItem) &&
-            // There's no current selection, unless in multi-select mode.
-            (!selected.length || multiple) &&
-            // The input cursor is at the end of the text string when the user
-            // hits the right arrow key.
-            !(e.keyCode === RIGHT && selectionStart !== value.length) &&
-            !(e.keyCode === RETURN && !selectHintOnEnter)
-          ) {
-            e.preventDefault();
-
-            const selectedOption = hintText ? initialItem : activeItem;
-
-            onAdd && onAdd(selectedOption);
-          }
+          onAdd(initialItem);
           break;
       }
 

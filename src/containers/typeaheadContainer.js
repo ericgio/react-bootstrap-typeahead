@@ -7,7 +7,7 @@ import highlightOnlyResultContainer from './highlightOnlyResultContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
 import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
 
-import {DOWN, ESC, RETURN, TAB, UP} from '../constants/keyCode';
+import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants/keyCode';
 
 function genId(prefix='') {
   return prefix + Math.random().toString(36).substr(2, 12);
@@ -308,26 +308,30 @@ function typeaheadContainer(Typeahead) {
           this._handleActiveIndexChange(activeIndex);
           break;
         case ESC:
-        case TAB:
           // Prevent closing dialogs.
-          e.keyCode === ESC && e.preventDefault();
-
+          e.preventDefault();
           this._hideMenu();
           break;
         case RETURN:
+        case RIGHT:
+        case TAB:
           if (!isMenuShown) {
             break;
           }
 
-          // Don't submit form if menu is shown and an item is active.
-          if (!submitFormOnEnter || activeItem) {
-            // Prevent submitting forms.
-            e.preventDefault();
-          }
-
           if (activeItem) {
+            // Prevent TAB from blurring input or RETURN from submitting form.
+            e.preventDefault();
             this._handleMenuItemSelect(activeItem, e);
             break;
+          }
+
+          if (e.keyCode === TAB) {
+            this._hideMenu();
+          }
+
+          if (e.keyCode === RETURN && !submitFormOnEnter) {
+            e.preventDefault();
           }
           break;
       }

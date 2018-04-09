@@ -709,6 +709,30 @@ describe('<Typeahead>', () => {
     });
   });
 
+  describe('behavior when selecting the active item', () => {
+    beforeEach(() => {
+      // Focus and navigate to the first result.
+      focus(typeahead);
+      keyDown(typeahead, DOWN);
+      expect(getSelected(typeahead).length).to.equal(0);
+    });
+
+    it('selects the active item when pressing return', () => {
+      keyDown(typeahead, RETURN);
+      expect(getSelected(typeahead).length).to.equal(1);
+    });
+
+    it('selects the active item when pressing right', () => {
+      keyDown(typeahead, RIGHT);
+      expect(getSelected(typeahead).length).to.equal(1);
+    });
+
+    it('selects the active item when pressing tab', () => {
+      keyDown(typeahead, TAB);
+      expect(getSelected(typeahead).length).to.equal(1);
+    });
+  });
+
   describe('form integration', () => {
     let event;
 
@@ -944,6 +968,20 @@ describe('<Typeahead>', () => {
       expect(onChange.calledOnce).to.equal(true);
       expect(onInputChange.notCalled).to.equal(true);
     });
+
+    it(
+      'calls `onChange` once when a menu item is selected via keyboard and ' +
+      '`selectHintOnEnter={true}`',
+      () => {
+        typeahead.setProps({selectHintOnEnter: true});
+
+        focus(typeahead);
+        keyDown(typeahead, DOWN);
+        keyDown(typeahead, RETURN);
+
+        expect(onChange.calledOnce).to.equal(true);
+      }
+    );
 
     it('calls `onChange` when clicking the clear button', () => {
       typeahead.setProps({
