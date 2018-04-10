@@ -9,7 +9,7 @@ import {Menu, MenuItem, Typeahead} from '../../src/';
 
 import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 import states from '../../example/exampleData';
-import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
+import {BACKSPACE, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
@@ -1011,6 +1011,19 @@ describe('<Typeahead>', () => {
       change(typeahead, 'z');
 
       expect(event).to.not.equal(undefined);
+    });
+
+    it('calls `onChange` when there is a selection and text is entered', () => {
+      typeahead.setProps({selected});
+
+      expect(getSelected(typeahead).length).to.equal(1);
+
+      focus(typeahead);
+      change(typeahead, 'z');
+
+      expect(onInputChange.calledOnce).to.equal(true);
+      expect(onChange.calledOnce).to.equal(true);
+      expect(getSelected(typeahead).length).to.equal(0);
     });
 
     it('does not call either when selections are updated via props', () => {

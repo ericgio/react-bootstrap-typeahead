@@ -264,11 +264,14 @@ function typeaheadContainer(Typeahead) {
       this.setState({
         activeIndex,
         activeItem,
-        // Clear selection whenever text is entered in single-select mode.
-        selected: multiple ? this.state.selected : [],
         showMenu: true,
         text,
       });
+
+      // Clear any selections if text is entered in single-select mode.
+      if (this.state.selected.length && !multiple) {
+        this._updateSelected([]);
+      }
 
       onInputChange(text, e);
     }
