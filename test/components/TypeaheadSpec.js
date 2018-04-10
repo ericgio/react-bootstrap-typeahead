@@ -9,7 +9,7 @@ import {Menu, MenuItem, Typeahead} from '../../src/';
 
 import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 import states from '../../example/exampleData';
-import {BACKSPACE, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
+import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
