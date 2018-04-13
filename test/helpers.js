@@ -1,7 +1,5 @@
-import {noop, range} from 'lodash';
+import {noop} from 'lodash';
 import PropTypes from 'prop-types';
-
-export const bigDataSet = range(0, 300).map((o) => ({name: o.toString()}));
 
 export const childContextTypes = {
   activeIndex: PropTypes.number.isRequired,

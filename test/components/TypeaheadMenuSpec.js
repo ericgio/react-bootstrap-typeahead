@@ -7,7 +7,7 @@ import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
 import TypeaheadMenu from '../../src/TypeaheadMenu';
 
 import options from '../../example/exampleData';
-import {bigDataSet, childContextTypes, context, getMenu, getPaginator} from '../helpers';
+import {childContextTypes, context, getMenu, getPaginator} from '../helpers';
 
 describe('<TypeaheadMenu>', () => {
   let menu;
@@ -62,8 +62,9 @@ describe('<TypeaheadMenu>', () => {
       onPaginate = sinon.spy();
       paginationLabel = 'More results...';
       menu.setProps({
+        maxResults: 10,
         onPaginate,
-        options: bigDataSet.concat({
+        options: options.concat({
           name: paginationLabel,
           paginationOption: true,
         }),

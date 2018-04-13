@@ -312,6 +312,7 @@ describe('<Typeahead>', () => {
         .simulate('click');
 
       expect(onPaginate.calledOnce).to.equal(true);
+      expect(getMenuItems(typeahead).length).to.equal(21);
     });
 
     it(
@@ -325,6 +326,7 @@ describe('<Typeahead>', () => {
         keyDown(typeahead, RETURN);
 
         expect(onPaginate.calledOnce).to.equal(true);
+        expect(getMenuItems(typeahead).length).to.equal(21);
       }
     );
 
