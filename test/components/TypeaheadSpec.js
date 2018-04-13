@@ -872,70 +872,31 @@ describe('<Typeahead>', () => {
   });
 
   describe('clear-on-select behavior', () => {
-    class ClearOnSelectTypeahead extends React.Component {
-      state = {
-        selected: [],
-      };
-
-      componentDidMount() {
-        expect(this._typeahead).to.exist;
-      }
-
-      render() {
-        const selected = this.props.controlled ?
-          this.state.selected :
-          undefined;
-
-        return (
-          <Typeahead
-            labelKey="name"
-            onChange={this._handleChange}
-            options={states}
-            ref={(t) => this._typeahead = t}
-            selected={selected}
-          />
-        );
-      }
-
-      getInstance = () => {
-        return this._typeahead.getInstance();
-      }
-
-      _handleChange = (selected) => {
-        this.props.onChange(selected);
-        this.props.controlled && this.setState({selected});
-        this._typeahead.getInstance().clear();
-      }
-    }
-
-    let onChange, wrapper;
-
-    beforeEach(() => {
-      onChange = sinon.spy();
-    });
+    let onChange;
 
     afterEach(() => {
+      typeahead.setProps({onChange});
+
       // Simulate a manual selection.
-      focus(wrapper);
-      getMenuItems(wrapper).first().simulate('click');
+      focus(typeahead);
+      getMenuItems(typeahead).first().simulate('click');
 
       expect(onChange.calledOnce).to.equal(true);
-      expect(getSelected(wrapper).length).to.equal(0);
-      expect(getText(wrapper)).to.equal('');
+      expect(getSelected(typeahead).length).to.equal(0);
+      expect(getText(typeahead)).to.equal('');
     });
 
     it('clears an uncontrolled typeahead after selection', () => {
-      wrapper = mount(<ClearOnSelectTypeahead onChange={onChange} />);
+      onChange = sinon.spy((selected) => {
+        typeahead.instance().getInstance().clear();
+      });
     });
 
-    // it('clears a controlled typeahead after selection', () => {
-    //   wrapper = mount(
-    //     <ClearOnSelectTypeahead
-    //       controlled
-    //       onChange={onChange}
-    //     />
-    //   );
-    // });
+    it('clears a controlled typeahead after selection', () => {
+      onChange = sinon.spy((selected) => {
+        typeahead.setProps({selected: []});
+      });
+    });
   });
 
   describe('`onChange` and `onInputChange` behaviors', () => {
