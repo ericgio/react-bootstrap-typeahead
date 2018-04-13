@@ -19,10 +19,13 @@ describe('<TypeaheadInputMulti>', () => {
         inputRef={noop}
         labelKey="name"
         multiple
+        onAdd={noop}
+        onChange={noop}
         onFocus={noop}
         onKeyDown={noop}
         options={options}
         selected={options.slice(1, 4)}
+        selectHintOnEnter={false}
         text={text}
       />
     );

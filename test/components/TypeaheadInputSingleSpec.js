@@ -17,10 +17,12 @@ describe('<TypeaheadInputSingle>', () => {
         inputProps={{}}
         inputRef={noop}
         labelKey="name"
+        onAdd={noop}
         onClear={noop}
         onFocus={noop}
         options={options}
         selected={[]}
+        selectHintOnEnter={false}
         text=""
       />
     );
