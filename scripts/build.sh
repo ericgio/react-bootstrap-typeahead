@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Delete existing dist & lib files
-./scripts/cleanup.sh
+npm run clean
 
 # Compile SCSS file to development and prod CSS files
 for file in scss/Typeahead*; do
@@ -17,11 +17,11 @@ for file in scss/Typeahead*; do
 done;
 
 # Build minified standalone version in dist
-./node_modules/.bin/webpack --config webpack/webpack.config.js
-./node_modules/.bin/webpack --config webpack/webpack.config.prod.js
+./node_modules/.bin/webpack
+./node_modules/.bin/webpack --env production
 
 # Build ES5 modules to lib
 ./node_modules/.bin/babel src --out-dir lib
 
 # Build example file
-./node_modules/.bin/webpack --config webpack/webpack.config.example.prod.js
+./node_modules/.bin/webpack --config example/webpack.config.js --env production

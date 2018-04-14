@@ -8,6 +8,8 @@
 CONTRIBUTING.md
 karma.conf.js
 tests.webpack.js
+webpack.config.base.js
+webpack.config.js
 
 .github/
 example/
@@ -15,4 +17,3 @@ scripts/
 scss/
 src/
 test/
-webpack/

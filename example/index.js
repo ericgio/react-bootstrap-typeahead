@@ -13,7 +13,7 @@ import FilteringSection from './sections/FilteringSection';
 import PublicMethodsSection from './sections/PublicMethodsSection';
 import RenderingSection from './sections/RenderingSection';
 
-import '../css/Typeahead.css';
+import '../scss/Typeahead.scss';
 
 render(
   <Page title="Examples">
