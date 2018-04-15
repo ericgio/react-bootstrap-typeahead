@@ -4,7 +4,7 @@ import {FormGroup} from 'react-bootstrap';
 import Control from '../components/Control';
 import {Typeahead} from '../../src/';
 
-import options from '../../example/exampleData';
+import options from '../exampleData';
 
 /* example-start */
 class BasicBehaviorsExample extends React.Component {

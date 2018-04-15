@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Typeahead} from '../../src/';
-import options from '../../example/exampleData';
+import options from '../exampleData';
 
 /* example-start */
 const SelectionsExample = (props) => (

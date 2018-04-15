@@ -4,7 +4,7 @@ import {FormGroup} from 'react-bootstrap';
 
 import Control from '../components/Control';
 import {Highlighter, Menu, MenuItem, Token, Typeahead} from '../../src/';
-import options from '../../example/exampleData';
+import options from '../exampleData';
 
 /* example-start */
 class RenderingExample extends React.Component {
