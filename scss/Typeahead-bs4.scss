@@ -11,6 +11,16 @@
       outline: 0;
     }
 
+    &.is-invalid.focus {
+      border-color: #dc3545;
+      @include box-shadow(0 0 0 0.2rem rgba(220, 53, 69, 0.25));
+    }
+
+    &.is-valid.focus {
+      border-color: #28a745;
+      @include box-shadow(0 0 0 0.2rem rgba(40, 167, 69, 0.25));
+    }
+
     input {
       @include placeholder(#6c757d);
     }

@@ -33,7 +33,7 @@
 
     // Apply Bootstrap focus styles
     &.focus {
-      @include box-shadow(0 0 8px rgba(102, 175, 233, .6), inset 0 1px 1px rgba(0, 0, 0, .075));
+      @include box-shadow(0 0 8px rgba(102, 175, 233, 0.6), inset 0 1px 1px rgba(0, 0, 0, .075));
       border-color: #66afe9;
       outline: 0;
     }
@@ -204,6 +204,23 @@
     border-bottom-right-radius: 0;
   }
 }
+
+/* Validation States */
+.has-error .rbt-input-multi.focus {
+  border-color: #843534;
+  @include box-shadow(0 0 6px #ce8483, inset 0 1px 1px rgba(0, 0, 0, 0.075));
+}
+
+.has-warning .rbt-input-multi.focus {
+  border-color: #66512c;
+  @include box-shadow(0 0 6px #c0a16b, inset 0 1px 1px rgba(0, 0, 0, 0.075));
+}
+
+.has-success .rbt-input-multi.focus {
+  border-color: #2b542c;
+  @include box-shadow(0 0 6px #67b168, inset 0 1px 1px rgba(0, 0, 0, 0.075));
+}
+
 
 @keyframes loader-animation {
   to {
