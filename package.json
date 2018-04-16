@@ -1,11 +1,10 @@
 {
   "name": "react-bootstrap-typeahead",
   "version": "3.0.3",
-  "description": "React-based typeahead using the Bootstrap theme",
+  "description": "React typeahead with Bootstrap styling",
+  "author": "ericgio",
+  "license": "MIT",
   "main": "lib/index.js",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "build": "./scripts/build.sh",
     "check": "npm run lint && npm test",
@@ -44,8 +43,6 @@
     "tokenizer",
     "typeahead"
   ],
-  "author": "ericgio",
-  "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.0",
     "escape-string-regexp": "^1.0.5",
@@ -90,7 +87,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-mocha": "^1.1.1",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.2",
+    "karma-webpack": "^3.0.0",
     "marked": "^0.3.6",
     "mocha": "^5.0.0",
     "node-sass": "^4.5.3",
