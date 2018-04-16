@@ -10,7 +10,9 @@
     "build": "./scripts/build.sh",
     "check": "npm run lint && npm test",
     "clean": "rm -rf css && rm -rf dist && rm -rf lib",
+    "deploy-example": "./scripts/deployExample.sh",
     "lint": "eslint .",
+    "postpublish": "npm run deploy-example",
     "prepublishOnly": "npm run check && npm run build",
     "start": "webpack -w --progress --config example/webpack.config.js",
     "test": "karma start"
@@ -80,6 +82,7 @@
     "eslint-config-ericgio": "^2.0.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.1.0",
+    "gh-pages": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
     "karma": "^2.0.0",
