@@ -9,14 +9,14 @@ addons:
 
 language: node_js
 node_js:
+  - "8"
+  - "7"
   - "6"
-  - "5"
 cache:
   directories: node_modules
 
 script:
-  - npm run lint
-  - npm test
+  - npm run check
   - npm run build
 
 # Google Chrome
