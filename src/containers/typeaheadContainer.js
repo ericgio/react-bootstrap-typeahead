@@ -261,9 +261,6 @@ function typeaheadContainer(Typeahead) {
     }
 
     _handleKeyDown = (e, results, isMenuShown) => {
-      const {onKeyDown, submitFormOnEnter} = this.props;
-      const {activeItem} = this.state;
-
       switch (e.keyCode) {
         case UP:
         case DOWN:
@@ -306,10 +303,10 @@ function typeaheadContainer(Typeahead) {
             break;
           }
 
-          if (activeItem) {
+          if (this.state.activeItem) {
             // Prevent TAB from blurring input or RETURN from submitting form.
             e.preventDefault();
-            this._handleMenuItemSelect(activeItem, e);
+            this._handleMenuItemSelect(this.state.activeItem, e);
             break;
           }
 
@@ -317,13 +314,13 @@ function typeaheadContainer(Typeahead) {
             this._hideMenu();
           }
 
-          if (e.keyCode === RETURN && !submitFormOnEnter) {
+          if (e.keyCode === RETURN) {
             e.preventDefault();
           }
           break;
       }
 
-      onKeyDown(e);
+      this.props.onKeyDown(e);
     }
 
     _handleMenuItemSelect = (option, e) => {
@@ -603,10 +600,6 @@ function typeaheadContainer(Typeahead) {
      * Allows selecting the hinted result by pressing enter.
      */
     selectHintOnEnter: PropTypes.bool,
-    /**
-     * Propagate <RETURN> event to parent form.
-     */
-    submitFormOnEnter: PropTypes.bool,
   };
 
   WrappedTypeahead.defaultProps = {
@@ -650,7 +643,6 @@ function typeaheadContainer(Typeahead) {
     paginationText: 'Display additional results...',
     placeholder: '',
     selectHintOnEnter: false,
-    submitFormOnEnter: false,
   };
 
   WrappedTypeahead.childContextTypes = {

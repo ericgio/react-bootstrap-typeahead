@@ -752,7 +752,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  describe('form integration', () => {
+  describe('form submission', () => {
     let event;
 
     const onKeyDown = (e) => event = e;
@@ -762,16 +762,16 @@ describe('<Typeahead>', () => {
       typeahead.setProps({onKeyDown});
     });
 
-    it('should not submit form when `submitFormOnEnter=false`', () => {
+    it('prevents form submission when the menu is open', () => {
       focus(typeahead);
       keyDown(typeahead, RETURN);
 
       expect(event.defaultPrevented).to.equal(true);
     });
 
-    it('should submit form when `submitFormOnEnter=true`', () => {
-      typeahead.setProps({submitFormOnEnter: true});
+    it('allows form submission when the menu is closed', () => {
       focus(typeahead);
+      keyDown(typeahead, ESC); // Close the menu
       keyDown(typeahead, RETURN);
 
       expect(event.defaultPrevented).to.equal(undefined);

@@ -4,8 +4,8 @@ import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
 import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample';
 import BodyContainerExample from '../examples/BodyContainerExample';
 import BodyContainerExampleCode from '!raw-loader!../examples/BodyContainerExample';
-import FormSubmitExample from '../examples/FormSubmitExample';
-import FormSubmitExampleCode from '!raw-loader!../examples/FormSubmitExample';
+import InputGroupExample from '../examples/InputGroupExample';
+import InputGroupExampleCode from '!raw-loader!../examples/InputGroupExample';
 import InputSizeExample from '../examples/InputSizeExample';
 import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample';
 import MenuAlignExample from '../examples/MenuAlignExample';
@@ -58,14 +58,13 @@ const BehaviorsSection = (props) => (
     <ExampleSection code={MenuAlignExampleCode}>
       <MenuAlignExample />
     </ExampleSection>
-    <Title>Use With Forms</Title>
+    <Title>Use With Input Groups</Title>
     <Markdown>
-      To prevent inadvertent form submission, the typeahead does not propagate
-      Return/Enter key events by default. However, you can override this
-      behavior with the `submitFormOnEnter` prop.
+      The typeahead can be used with prepended or appended elements within input
+      groups.
     </Markdown>
-    <ExampleSection code={FormSubmitExampleCode}>
-      <FormSubmitExample />
+    <ExampleSection code={InputGroupExampleCode}>
+      <InputGroupExample />
     </ExampleSection>
     <Title>Pagination</Title>
     <Markdown>
