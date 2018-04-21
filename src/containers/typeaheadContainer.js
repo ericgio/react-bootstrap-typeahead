@@ -191,9 +191,7 @@ function typeaheadContainer(Typeahead) {
     }
 
     getInput = () => {
-      return typeof this._input.getInput === 'function' ?
-        this._input.getInput() :
-        this._input;
+      return this._input;
     }
 
     _handleActiveIndexChange = (activeIndex) => {

@@ -66,7 +66,15 @@ class AutosizeInput extends React.Component {
 
     return (
       <div className={className} style={wrapperStyle}>
-        <input {...inputProps} ref={this._getInputRef} />
+        <input
+          {...inputProps}
+          ref={(el) => {
+            this._input = el;
+            if (typeof this.props.inputRef === 'function') {
+              this.props.inputRef(el);
+            }
+          }}
+        />
         <div
           ref={(el) => this._sizer = el}
           style={SIZER_STYLE}>
@@ -83,17 +91,6 @@ class AutosizeInput extends React.Component {
       </div>
     );
   }
-
-  getInput() {
-    return this._input;
-  }
-
-  _getInputRef = (el) => {
-    this._input = el;
-    if (typeof this.props.inputRef === 'function') {
-      this.props.inputRef(el);
-    }
-  };
 
   _copyInputStyles = () => {
     const inputStyles =
