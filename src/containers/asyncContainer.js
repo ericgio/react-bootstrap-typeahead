@@ -17,7 +17,6 @@ const DEFAULT_DELAY_MS = 200;
 const asyncContainer = (Typeahead) => {
   class WrappedTypeahead extends React.Component {
     state = {
-      hasSelection: false,
       query: '',
     };
 
@@ -62,7 +61,6 @@ const asyncContainer = (Typeahead) => {
           {...props}
           allowNew={shouldAllowNew}
           emptyLabel={emptyLabel}
-          onChange={this._handleChange}
           onInputChange={this._handleInputChange}
           options={useCache && cachedQuery ? cachedQuery : options}
           ref={(instance) => this._instance = instance}
@@ -100,19 +98,13 @@ const asyncContainer = (Typeahead) => {
       return emptyLabel;
     }
 
-    _handleChange = (selected) => {
-      this.setState({hasSelection: !!selected.length}, () => {
-        this.props.onChange && this.props.onChange(selected);
-      });
-    }
-
     _handleInputChange = (query) => {
       this.props.onInputChange && this.props.onInputChange(query);
       this._handleSearchDebounced(query);
     }
 
     _handleSearch = (query) => {
-      const {minLength, multiple, onSearch, useCache} = this.props;
+      const {minLength, onSearch, useCache} = this.props;
 
       this.setState({query});
 
@@ -122,12 +114,6 @@ const asyncContainer = (Typeahead) => {
 
       // Use cached results, if available.
       if (useCache && this._cache[query]) {
-        return;
-      }
-
-      // In the single-selection case, perform a search only on user input
-      // not selection.
-      if (!multiple && this.state.hasSelection) {
         return;
       }
 

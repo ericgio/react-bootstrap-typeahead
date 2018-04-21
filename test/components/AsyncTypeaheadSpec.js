@@ -4,7 +4,8 @@ import React from 'react';
 import sinon from 'sinon';
 
 import {AsyncTypeahead} from '../../src/';
-import {change, focus, getMenuItems, search} from '../helpers';
+import {change, focus, getMenuItems, keyDown, search} from '../helpers';
+import {DOWN, RETURN} from '../../src/constants/keyCode';
 
 describe('<AsyncTypeahead>', () => {
   let onSearch, wrapper;
@@ -55,18 +56,19 @@ describe('<AsyncTypeahead>', () => {
 
     wrapper.setProps({
       emptyLabel,
+      isLoading: true,
       useCache: false,
     });
 
     search(wrapper, 'search', () => {
-      wrapper.setState({requestPending: false}, () => {
-        focus(wrapper);
-        const menuItems = getMenuItems(wrapper);
+      wrapper.setProps({isLoading: false});
 
-        expect(menuItems.length).to.equal(1);
-        expect(menuItems.text()).to.equal(emptyLabel);
-        done();
-      });
+      focus(wrapper);
+      const menuItems = getMenuItems(wrapper);
+
+      expect(menuItems.length).to.equal(1);
+      expect(menuItems.text()).to.equal(emptyLabel);
+      done();
     });
   });
 
@@ -87,6 +89,29 @@ describe('<AsyncTypeahead>', () => {
 
     // Perform search.
     change(wrapper, 'search');
+  });
+
+  it('should not call onSearch when a selection is made', (done) => {
+    let selected = [];
+
+    wrapper.setProps({
+      minLength: 0,
+      onChange: (s) => selected = s,
+    });
+
+    search(wrapper, 'o', () => {
+      wrapper.setProps({
+        options: ['one', 'two', 'four'],
+      });
+
+      focus(wrapper);
+      keyDown(wrapper, DOWN);
+      keyDown(wrapper, RETURN);
+
+      expect(selected.length).to.equal(1);
+      expect(onSearch.calledOnce).to.equal(true);
+      done();
+    });
   });
 
   it('should use cached results and not perform a new search', (done) => {
