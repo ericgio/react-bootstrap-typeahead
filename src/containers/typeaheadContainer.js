@@ -290,9 +290,7 @@ function typeaheadContainer(Typeahead) {
           this._handleActiveIndexChange(activeIndex);
           break;
         case ESC:
-          // Prevent closing dialogs.
-          e.preventDefault();
-          this._hideMenu();
+          isMenuShown && this._hideMenu();
           break;
         case RETURN:
         case RIGHT:
