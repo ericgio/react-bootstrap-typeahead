@@ -3,9 +3,9 @@ import getOptionLabel from './getOptionLabel';
 
 function getInputText({activeItem, labelKey, multiple, selected, text}) {
   if (activeItem) {
-    // Don't display a value when the pagination item is active.
+    // Display the input value if the pagination item is active.
     return activeItem.paginationOption ?
-      '' :
+      text :
       getOptionLabel(activeItem, labelKey);
   }
 

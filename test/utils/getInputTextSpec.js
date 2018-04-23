@@ -51,13 +51,17 @@ describe('getInputText', () => {
     expect(inputText).to.equal(name);
   });
 
-  it('returns an empty string if the pagination item is active', () => {
-    const activeItem = {
-      [labelKey]: 'More Results...',
-      paginationOption: true,
+  it('returns the input text if the pagination item is active', () => {
+    const args = {
+      ...baseArgs,
+      activeItem: {
+        [labelKey]: 'More Results...',
+        paginationOption: true,
+      },
+      text: 'foo',
     };
 
-    expect(getInputText({...baseArgs, activeItem})).to.equal('');
+    expect(getInputText(args)).to.equal('foo');
   });
 
   it('returns the selected item label in single-select mode', () => {
