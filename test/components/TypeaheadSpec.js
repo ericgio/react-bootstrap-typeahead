@@ -315,18 +315,32 @@ describe('<Typeahead>', () => {
       expect(getMenuItems(typeahead).length).to.equal(21);
     });
 
+    it('should call `onPaginate` when the return key is pressed', () => {
+      focus(typeahead);
+
+      // Navigates to the pagination item, which is last.
+      keyDown(typeahead, UP);
+      keyDown(typeahead, RETURN);
+
+      expect(onPaginate.calledOnce).to.equal(true);
+      expect(getMenuItems(typeahead).length).to.equal(21);
+    });
+
     it(
-      'should call `onPaginate` when the menu item is selected via ' +
-      'keypress', () => {
+      'should not call `onPaginate` when the right arrow or tab keys are ' +
+      'pressed', () => {
         focus(typeahead);
 
-        // Hitting the up key navigates to the last menu item, which is the
-        // pagination item.
         keyDown(typeahead, UP);
-        keyDown(typeahead, RETURN);
+        keyDown(typeahead, RIGHT);
 
-        expect(onPaginate.calledOnce).to.equal(true);
-        expect(getMenuItems(typeahead).length).to.equal(21);
+        expect(onPaginate.notCalled).to.equal(true);
+
+        keyDown(typeahead, TAB);
+        expect(onPaginate.notCalled).to.equal(true);
+
+        // The menu should close when the tab key is pressed.
+        expect(getMenuItems(typeahead).length).to.equal(0);
       }
     );
 

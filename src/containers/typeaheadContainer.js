@@ -259,6 +259,8 @@ function typeaheadContainer(Typeahead) {
     }
 
     _handleKeyDown = (e, results, isMenuShown) => {
+      const {activeItem} = this.state;
+
       switch (e.keyCode) {
         case UP:
         case DOWN:
@@ -293,25 +295,29 @@ function typeaheadContainer(Typeahead) {
           isMenuShown && this._hideMenu();
           break;
         case RETURN:
+          if (!isMenuShown) {
+            break;
+          }
+
+          // Prevent form submission while menu is open.
+          e.preventDefault();
+          activeItem && this._handleMenuItemSelect(activeItem, e);
+          break;
         case RIGHT:
         case TAB:
           if (!isMenuShown) {
             break;
           }
 
-          if (this.state.activeItem) {
-            // Prevent TAB from blurring input or RETURN from submitting form.
-            e.preventDefault();
-            this._handleMenuItemSelect(this.state.activeItem, e);
+          if (activeItem && !activeItem.paginationOption) {
+            // Prevent blurring when selecting the active item.
+            e.keyCode === TAB && e.preventDefault();
+            this._handleSelectionAdd(activeItem);
             break;
           }
 
           if (e.keyCode === TAB) {
             this._hideMenu();
-          }
-
-          if (e.keyCode === RETURN) {
-            e.preventDefault();
           }
           break;
       }
