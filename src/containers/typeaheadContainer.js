@@ -5,8 +5,9 @@ import React from 'react';
 
 import highlightOnlyResultContainer from './highlightOnlyResultContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
-import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getTruncatedOptions, pluralize} from '../utils/';
+import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, pluralize} from '../utils/';
 
+import {DEFAULT_LABELKEY} from '../constants/defaultLabelKey';
 import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants/keyCode';
 
 function genId(prefix='') {
@@ -141,8 +142,8 @@ function typeaheadContainer(Typeahead) {
 
       // Add the pagination item.
       if (shouldPaginate) {
-        results = results.concat({
-          [labelKey]: paginationText,
+        results.push({
+          [getStringLabelKey(labelKey)]: paginationText,
           paginationOption: true,
         });
       }
@@ -629,7 +630,7 @@ function typeaheadContainer(Typeahead) {
     ignoreDiacritics: true,
     inputProps: {},
     isLoading: false,
-    labelKey: 'label',
+    labelKey: DEFAULT_LABELKEY,
     maxResults: 100,
     minLength: 0,
     multiple: false,

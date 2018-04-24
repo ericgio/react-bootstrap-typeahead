@@ -1,12 +1,18 @@
 import invariant from 'invariant';
 import {isPlainObject} from 'lodash';
 
+import getStringLabelKey from './getStringLabelKey';
+
 /**
  * Retrieves the display string from an option. Options can be the string
  * themselves, or an object with a defined display string. Anything else throws
  * an error.
  */
 function getOptionLabel(option, labelKey) {
+  if (option.paginationOption || option.customOption) {
+    return option[getStringLabelKey(labelKey)];
+  }
+
   let optionLabel;
 
   if (typeof option === 'string') {

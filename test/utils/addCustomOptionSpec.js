@@ -17,6 +17,15 @@ describe('addCustomOption', () => {
     expect(last(results).customOption).to.be.true;
   });
 
+  it('adds a custom option when `labelKey` is a function', () => {
+    const text = 'zzz';
+    const results = addCustomOption(states, text, (o) => o.name);
+
+    expect(results.length).to.equal(51);
+    expect(last(results).label).to.equal(text);
+    expect(last(results).customOption).to.be.true;
+  });
+
   it('displays a custom option when no exact matches are found', () => {
     const text = 'Ala';
     const results = addCustomOption(states, text, labelKey);
@@ -33,12 +42,6 @@ describe('addCustomOption', () => {
     expect(results.length).to.equal(50);
     expect(last(results)[labelKey]).to.equal(text);
     expect(last(results).customOption).to.be.undefined;
-  });
-
-  it('throws if `labelKey` is not a string', () => {
-    const text = 'Ala';
-    const willThrow = () => addCustomOption(states, text, (o) => o.name);
-    expect(willThrow).to.throw(Error);
   });
 
 });

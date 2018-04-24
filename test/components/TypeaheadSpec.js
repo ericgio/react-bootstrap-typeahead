@@ -317,8 +317,17 @@ describe('<Typeahead>', () => {
 
     it('should call `onPaginate` when the return key is pressed', () => {
       focus(typeahead);
+      keyDown(typeahead, UP);
+      keyDown(typeahead, RETURN);
 
-      // Navigates to the pagination item, which is last.
+      expect(onPaginate.calledOnce).to.equal(true);
+      expect(getMenuItems(typeahead).length).to.equal(21);
+    });
+
+    it('should call `onPaginate` when `labelKey` is a function', () => {
+      typeahead.setProps({labelKey: (o) => o.name});
+
+      focus(typeahead);
       keyDown(typeahead, UP);
       keyDown(typeahead, RETURN);
 

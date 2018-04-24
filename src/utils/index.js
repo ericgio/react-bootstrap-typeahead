@@ -8,6 +8,7 @@ export getInputText from './getInputText';
 export getMatchBounds from './getMatchBounds';
 export getMenuItemId from './getMenuItemId';
 export getOptionLabel from './getOptionLabel';
+export getStringLabelKey from './getStringLabelKey';
 export getTruncatedOptions from './getTruncatedOptions';
 export pluralize from './pluralize';
 export preventInputBlur from './preventInputBlur';
