@@ -158,6 +158,16 @@ body {
   }
 }
 
+/* Add "space" above in-page anchors to account for fixed nav. */
+.page-anchor {
+  content: " ";
+  display: block;
+  height: 60px;
+  margin-top: -60px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 /* Anchors */
 .anchor,
 .anchor:active,
@@ -175,14 +185,9 @@ body {
   left: -.8em;
   opacity: 0;
 }
-h1 a:focus .anchor-icon,
-h1:hover .anchor-icon,
-h2 a:focus .anchor-icon,
-h2:hover .anchor-icon,
-h3 a:focus .anchor-icon,
-h3:hover .anchor-icon,
-h4 a:focus .anchor-icon,
-h4:hover .anchor-icon {
+
+.anchor:focus .anchor-icon,
+.anchor:hover .anchor-icon {
   opacity: .5;
 }
 
