@@ -242,6 +242,7 @@ function typeaheadContainer(Typeahead) {
     }
 
     _handleInputChange = (e) => {
+      e.persist();
       const text = e.target.value;
       const {activeIndex, activeItem} = getInitialState(this.props);
       const {multiple, onInputChange} = this.props;
@@ -335,6 +336,7 @@ function typeaheadContainer(Typeahead) {
     }
 
     _handlePaginate = (e) => {
+      e.persist();
       const {maxResults, onPaginate} = this.props;
 
       this.setState({

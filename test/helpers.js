@@ -19,13 +19,19 @@ export const context = {
   onMenuItemClick: noop,
 };
 
+// Make sure e.persist() is present in events.
+const baseEvent = {
+  persist: noop,
+};
+
 /* Events */
 export function focus(wrapper) {
-  getInput(wrapper).simulate('focus');
+  getInput(wrapper).simulate('focus', baseEvent);
 }
 
 export function keyDown(wrapper, value) {
   getInput(wrapper).simulate('keyDown', {
+    ...baseEvent,
     keyCode: value,
     which: value,
   });
@@ -34,7 +40,7 @@ export function keyDown(wrapper, value) {
 export function change(wrapper, value) {
   // Calling `simulate` doesn't actually change the value, so call the
   // `onChange` prop directly: https://github.com/airbnb/enzyme/issues/1412
-  getInput(wrapper).prop('onChange')({target: {value}});
+  getInput(wrapper).prop('onChange')({...baseEvent, target: {value}});
 }
 
 

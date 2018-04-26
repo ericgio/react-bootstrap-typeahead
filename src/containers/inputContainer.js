@@ -93,10 +93,12 @@ function inputContainer(Input) {
     }
 
     _handleBlur = (e) => {
+      e.persist();
       this.setState({isFocused: false}, () => this.props.onBlur(e));
     }
 
     _handleFocus = (e) => {
+      e.persist();
       this.setState({isFocused: true}, () => this.props.onFocus(e));
     }
   }
