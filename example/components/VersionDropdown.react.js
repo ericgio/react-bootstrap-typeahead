@@ -7,9 +7,9 @@ import withBSVersion from '../util/withBSVersion';
 
 class VersionDropdown extends React.Component {
   render() {
-    const {children, isOpen, isV3, onSelect, onToggle, title} = this.props;
+    const {children, isBS3, isOpen, onSelect, onToggle, title} = this.props;
 
-    return isV3 ?
+    return isBS3 ?
       <NavDropdown id="bs-version-selector" onSelect={onSelect} title={title}>
         {children}
       </NavDropdown> :
@@ -25,14 +25,14 @@ class VersionDropdown extends React.Component {
 }
 
 VersionDropdown.propTypes = {
+  isBS3: PropTypes.bool.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  isV3: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-const VersionDropdownItem = ({eventKey, isV3, onClick, ...props}) => isV3 ?
+const VersionDropdownItem = ({eventKey, isBS3, onClick, ...props}) => isBS3 ?
   <MenuItem {...props} eventKey={eventKey} /> :
   <DropdownItem {...props} onClick={onClick} />;
 

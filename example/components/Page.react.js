@@ -9,17 +9,17 @@ import PageHeader from './PageHeader';
 import PageMenu from './PageMenu';
 
 import getIdFromTitle from '../util/getIdFromTitle';
-import BS_VERSIONS from '../util/bsVersions';
+import {BS3, BS4, HASHES} from '../util/bsVersions';
 
 class Page extends React.Component {
   state = {
     activeHref: window.location.hash,
-    bsVersion: BS_VERSIONS.v3,
+    bsVersion: BS3,
   };
 
   getChildContext() {
     return {
-      isV3: this.state.bsVersion === BS_VERSIONS.v3,
+      isBS3: this.state.bsVersion === BS3,
       onAfter: this._onAfter,
       onBefore: this._onBefore,
     };
@@ -42,7 +42,7 @@ class Page extends React.Component {
     return (
       <div
         className={cx('bs-docs-page', {
-          'bs4': bsVersion === BS_VERSIONS.v4,
+          'bs4': bsVersion === BS4,
         })}>
         <PageHeader
           onVersionChange={this._handleVersionChange}
@@ -88,15 +88,12 @@ class Page extends React.Component {
     }
 
     const items = document.head.children;
-    const hash = bsVersion === BS_VERSIONS.v3 ?
-      'BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' :
-      'Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm';
 
     for (let ii = 0; ii < items.length; ii++) {
       const item = items[ii];
       if (item.href && item.href.indexOf('bootstrap.min.css') !== -1) {
         // `integrity` must be set before `href`.
-        item.setAttribute('integrity', `sha384-${hash}`);
+        item.setAttribute('integrity', `sha384-${HASHES[bsVersion]}`);
         item.setAttribute(
           'href',
           `https://maxcdn.bootstrapcdn.com/bootstrap/${bsVersion}/css/bootstrap.min.css`
@@ -135,7 +132,7 @@ class Page extends React.Component {
 }
 
 Page.childContextTypes = {
-  isV3: PropTypes.bool.isRequired,
+  isBS3: PropTypes.bool.isRequired,
   onAfter: PropTypes.func.isRequired,
   onBefore: PropTypes.func.isRequired,
 };

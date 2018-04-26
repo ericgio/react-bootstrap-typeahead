@@ -9,7 +9,7 @@ export default function withBSVersion(Component) {
   }
 
   WrappedComponent.contextTypes = {
-    isV3: PropTypes.bool.isRequired,
+    isBS3: PropTypes.bool.isRequired,
   };
 
   return WrappedComponent;

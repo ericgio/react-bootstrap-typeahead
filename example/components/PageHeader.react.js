@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import {values} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
@@ -7,7 +6,7 @@ import {Nav, NavItem, Navbar} from 'react-bootstrap';
 import VersionDropdown from './VersionDropdown';
 
 import {version as PACKAGE_VERSION} from '../../package.json';
-import BS_VERSIONS from '../util/bsVersions';
+import {BS3, BS4} from '../util/bsVersions';
 
 const GITHUB_URL = 'https://github.com/ericgio/react-bootstrap-typeahead';
 
@@ -21,18 +20,18 @@ class PageHeader extends React.Component {
     const {onVersionChange, selectedVersion} = this.props;
     const {isOpen, show} = this.state;
 
-    const isV3 = selectedVersion === BS_VERSIONS.v3;
+    const isBS3 = selectedVersion === BS3;
 
     return (
       <Navbar
         className={cx('bs-docs-nav', 'fixed-top', {
-          'navbar-expand-md': !isV3,
-          'navbar-toggleable-sm': isV3,
+          'navbar-expand-md': !isBS3,
+          'navbar-toggleable-sm': isBS3,
         })}
         fixedTop
         inverse
         staticTop>
-        {this._renderNavbarHeader(isV3)}
+        {this._renderNavbarHeader(isBS3)}
         <Navbar.Collapse className={cx({'show': show})}>
           <Nav className="ml-auto" pullRight>
             <NavItem
@@ -50,7 +49,7 @@ class PageHeader extends React.Component {
               onSelect={onVersionChange}
               onToggle={() => this.setState({isOpen: !isOpen})}
               title={`Bootstrap v${selectedVersion.slice(0, 1)}`}>
-              {values(BS_VERSIONS).map((bsVersion) => (
+              {[BS3, BS4].map((bsVersion) => (
                 <VersionDropdown.Item
                   eventKey={bsVersion}
                   key={bsVersion}
@@ -65,7 +64,7 @@ class PageHeader extends React.Component {
     );
   }
 
-  _renderNavbarHeader = (isV3) => {
+  _renderNavbarHeader = (isBS3) => {
     const {show} = this.state;
 
     const contents =
@@ -77,7 +76,7 @@ class PageHeader extends React.Component {
         />
       </Fragment>;
 
-    return isV3 ?
+    return isBS3 ?
       <Navbar.Header className="d-flex justify-content-between hidden-md-up">
         {contents}
       </Navbar.Header> :
