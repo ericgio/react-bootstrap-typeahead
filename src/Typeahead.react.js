@@ -69,6 +69,7 @@ class Typeahead extends React.Component {
       'flip',
       'onMenuHide',
       'onMenuShow',
+      'onMenuToggle',
     ]);
 
     const menuProps = pick(this.props, [

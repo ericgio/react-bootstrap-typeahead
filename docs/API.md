@@ -49,8 +49,11 @@ Invoked when the input value changes. Receives the string value of the input (`t
 ##### `onBlur(event: Event)`, `onFocus(event: Event)`, `onKeyDown(event: Event)`
 As with a normal text input, these are called when the typeahead input has blur, focus, or keydown events.
 
+##### `onMenuToggle(isOpen: Boolean)`
+Invoked when menu visibility changes.
+
 ##### `onMenuHide()` & `onMenuShow()`
-Invoked when the menu is hidden or shown, respectively.
+`DEPRECATED` Invoked when the menu is hidden or shown, respectively.
 
 ##### `onPaginate(event: Event, shownResults: Number)`
 Invoked when the pagination menu item is clicked. Receives an event as the first argument and the number of shown results as the second.

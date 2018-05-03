@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import {noop} from 'lodash';
 import React, {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {componentOrElement} from 'prop-types-extra';
@@ -51,14 +52,11 @@ class Overlay extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {onMenuHide, onMenuShow, show} = nextProps;
+    const {onMenuHide, onMenuShow, onMenuToggle, show} = nextProps;
 
-    if (this.props.show && !show) {
-      onMenuHide();
-    }
-
-    if (!this.props.show && show) {
-      onMenuShow();
+    if (this.props.show !== show) {
+      show ? onMenuShow() : onMenuHide();
+      onMenuToggle(show);
     }
 
     // Remove scoping classes if menu isn't being appended to document body.
@@ -112,7 +110,6 @@ class Overlay extends React.Component {
   _update = () => {
     const {className, container, show} = this.props;
 
-    // Positioning is only used when body is the container.
     if (!(show && isBody(container))) {
       return;
     }
@@ -126,13 +123,17 @@ class Overlay extends React.Component {
 Overlay.propTypes = {
   children: PropTypes.element,
   container: componentOrElement.isRequired,
-  onMenuHide: PropTypes.func.isRequired,
-  onMenuShow: PropTypes.func.isRequired,
+  onMenuHide: PropTypes.func,
+  onMenuShow: PropTypes.func,
+  onMenuToggle: PropTypes.func,
   referenceElement: componentOrElement,
   show: PropTypes.bool,
 };
 
 Overlay.defaultProps = {
+  onMenuHide: noop,
+  onMenuShow: noop,
+  onMenuToggle: noop,
   show: false,
 };
 

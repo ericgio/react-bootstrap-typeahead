@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import {mount, shallow} from 'enzyme';
-import {noop} from 'lodash';
 import React from 'react';
 import {Popper} from 'react-popper';
 import sinon from 'sinon';
@@ -16,8 +15,6 @@ describe('<Overlay>', () => {
       wrapper = shallow(
         <Overlay
           container={div}
-          onMenuHide={noop}
-          onMenuShow={noop}
           referenceElement={div}
           show={false}>
           <div>This is the menu</div>
@@ -52,20 +49,57 @@ describe('<Overlay>', () => {
       expect(willThrow).to.throw(Error);
     });
 
-    it('calls `onMenuShow` and `onMenuHide`', () => {
-      const onMenuHide = sinon.spy();
-      const onMenuShow = sinon.spy();
+    describe('menu visibility hooks', () => {
+      it('calls `onMenuShow`', () => {
+        const onMenuShow = sinon.spy();
 
-      wrapper.setProps({onMenuHide, onMenuShow});
+        wrapper.setProps({onMenuShow});
 
-      expect(onMenuHide.notCalled).to.equal(true);
-      expect(onMenuShow.notCalled).to.equal(true);
+        expect(onMenuShow.notCalled).to.equal(true);
 
-      wrapper.setProps({show: true});
-      expect(onMenuShow.calledOnce).to.equal(true);
+        wrapper.setProps({show: true});
+        expect(onMenuShow.calledOnce).to.equal(true);
 
-      wrapper.setProps({show: false});
-      expect(onMenuHide.calledOnce).to.equal(true);
+        // Shouldn't be called again if not hidden first.
+        wrapper.setProps({show: true});
+        expect(onMenuShow.calledOnce).to.equal(true);
+      });
+
+      it('calls `onMenuHide`', () => {
+        const onMenuHide = sinon.spy();
+
+        wrapper.setProps({
+          onMenuHide,
+          show: true,
+        });
+
+        expect(onMenuHide.notCalled).to.equal(true);
+
+        wrapper.setProps({show: false});
+        expect(onMenuHide.calledOnce).to.equal(true);
+
+        // Shouldn't be called again if not shown first.
+        wrapper.setProps({show: false});
+        expect(onMenuHide.calledOnce).to.equal(true);
+      });
+
+      it('calls `onMenuToggle`', () => {
+        const onMenuToggle = sinon.spy();
+
+        wrapper.setProps({onMenuToggle});
+
+        expect(onMenuToggle.notCalled).to.equal(true);
+
+        wrapper.setProps({show: true});
+        expect(onMenuToggle.callCount).to.equal(1);
+
+        // Shouldn't be called again if not hidden first.
+        wrapper.setProps({show: true});
+        expect(onMenuToggle.callCount).to.equal(1);
+
+        wrapper.setProps({show: false});
+        expect(onMenuToggle.callCount).to.equal(2);
+      });
     });
   });
 
@@ -82,8 +116,6 @@ describe('<Overlay>', () => {
       wrapper = mount(
         <Overlay
           container={div}
-          onMenuHide={noop}
-          onMenuShow={noop}
           referenceElement={div}
           show={true}>
           <Menu id="menu-id">

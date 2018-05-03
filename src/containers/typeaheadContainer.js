@@ -1,5 +1,6 @@
 import {flowRight, head, isEqual, noop, uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
+import {deprecated} from 'prop-types-extra';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 
@@ -583,11 +584,15 @@ function typeaheadContainer(Typeahead) {
     /**
      * Invoked when the menu is hidden.
      */
-    onMenuHide: PropTypes.func,
+    onMenuHide: deprecated(PropTypes.func, 'Use `onMenuToggle` instead'),
     /**
      * Invoked when the menu is shown.
      */
-    onMenuShow: PropTypes.func,
+    onMenuShow: deprecated(PropTypes.func, 'Use `onMenuToggle` instead'),
+    /**
+     * Invoked when menu visibility changes.
+     */
+    onMenuToggle: PropTypes.func,
     /**
      * Invoked when the pagination menu item is clicked. Receives an event.
      */
@@ -661,8 +666,6 @@ function typeaheadContainer(Typeahead) {
     onFocus: noop,
     onInputChange: noop,
     onKeyDown: noop,
-    onMenuHide: noop,
-    onMenuShow: noop,
     onPaginate: noop,
     paginate: true,
     paginationText: 'Display additional results...',

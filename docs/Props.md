@@ -37,8 +37,9 @@ onChange | function | | Invoked whenever items are added or removed. Receives an
 onFocus | function | | Invoked when the input is focused. Receives an event.
 onInputChange | function | | Invoked when the input value changes. Receives the string value of the input.
 onKeyDown | function | | Invoked when a key is pressed. Receives an event.
-onMenuHide | function | | Invoked when the menu is hidden.
-onMenuShow | function | | Invoked when the menu is shown.
+onMenuHide | function | | DEPRECATED. Invoked when the menu is hidden.
+onMenuShow | function | | DEPRECATED. Invoked when the menu is shown.
+onMenuToggle | function | | Invoked when menu visibility changes.
 onPaginate | function | | Invoked when the pagination menu item is clicked.
 options `required` | array | | Full set of options, including any pre-selected options.
 paginate | boolean | true | Give user the ability to display additional results if the number of results exceeds `maxResults`.
