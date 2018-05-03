@@ -12,7 +12,7 @@ I use the issue tracker to keep track of bugs and future improvements to the typ
 
 **For support or usage questions like "how do I do X" and "my code doesn't work", please search and ask on StackOverflow first.**
 
-StackOverflow is a much better forum for getting help with these types of issues than Github, and helps keep the issue tracker more focused and manageable.
+StackOverflow is a much better forum for getting help with these types of issues than Github, and helps keep the issue tracker more focused and manageable. Be sure to use the ["react-bootstrap-typeahead" tag](https://stackoverflow.com/questions/ask?tags=react-bootstrap-typeahead,reactjs).
 
 ### Be descriptive and use specific examples
 Don't simply say "This doesn't work." Please post examples of your code if you think you've run into a bug, or include an in-depth description of your use-case if you're asking for a feature.
