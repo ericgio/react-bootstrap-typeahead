@@ -37,11 +37,14 @@ Invoked when the set of selections changes (ie: an item is added or removed). Fo
 ##### `onInputChange(text: String, event: Event)`
 Invoked when the input value changes. Receives the string value of the input (`text`), as well as the original event.
 
+##### `onBlur(event: Event)`, `onFocus(event: Event)`, `onKeyDown(event: Event)`
+As with a normal text input, these are called when the typeahead input has blur, focus, or keydown events.
+
+##### `onMenuHide()` & `onMenuShow()`
+Invoked when the menu is hidden or shown, respectively.
+
 ##### `onPaginate(event: Event)`
 Invoked when the pagination menu item is clicked. Receives an event.
-
-##### `onBlur(event: Event)` & `onFocus(event: Event)`
-As with a normal text input, these are called when the typeahead input is focused or blurred.
 
 ### `<AsyncTypeahead>`
 An enhanced version of the normal `Typeahead` component for use when performing asynchronous searches. Provides debouncing of user input, optional query caching, and search prompt, empty results, and pending request behaviors.
