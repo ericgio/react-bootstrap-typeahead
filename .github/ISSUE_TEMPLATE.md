@@ -17,7 +17,8 @@ Remove the bug template below and provide thoughtful commentary *and code sample
 
 Bug reports
 ======================
-For bug reports, please fill out the template below.
+For bug reports, please fill out the template below. Better yet, submit a pull request that introduces a failing test due to the bug :)
+
 -->
 
 <!-- BUG TEMPLATE -->
