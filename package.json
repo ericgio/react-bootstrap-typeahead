@@ -52,7 +52,7 @@
     "prop-types-extra": "^1.0.1",
     "react-onclickoutside": "^6.1.1",
     "react-overlays": "^0.8.1",
-    "react-popper": "^0.9.0",
+    "react-popper": "^0.10.4",
     "warning": "^3.0.0"
   },
   "peerDependencies": {
@@ -98,10 +98,10 @@
     "react-prism": "^4.3.2",
     "react-test-renderer": "^16.0.0",
     "react-waypoint": "^8.0.0",
-    "reactstrap": "^5.0.0-beta.2",
+    "reactstrap": "^6.0.1",
     "sass-loader": "^7.0.1",
-    "sinon": "^4.3.0",
-    "style-loader": "^0.20.1",
+    "sinon": "^5.0.3",
+    "style-loader": "^0.21.0",
     "webpack": "^3.0.0"
   },
   "repository": {
