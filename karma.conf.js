@@ -15,10 +15,10 @@ module.exports = function(config) {
         flags: ['--no-sandbox'],
       },
     },
-    files: ['tests.webpack.js'],
+    files: ['test/index.js'],
     frameworks: ['mocha', 'chai'],
     preprocessors: {
-      'tests.webpack.js': ['webpack', 'sourcemap'],
+      'test/index.js': ['webpack', 'sourcemap'],
     },
     reporters: ['dots'],
     singleRun: true,
