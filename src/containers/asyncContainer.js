@@ -79,15 +79,14 @@ const asyncContainer = (Typeahead) => {
       const {
         emptyLabel,
         isLoading,
-        multiple,
         promptText,
         searchText,
         useCache,
       } = this.props;
 
-      const {hasSelection, query} = this.state;
+      const {query} = this.state;
 
-      if (!query.length || (!multiple && hasSelection)) {
+      if (!query.length) {
         return promptText;
       }
 
@@ -98,8 +97,8 @@ const asyncContainer = (Typeahead) => {
       return emptyLabel;
     }
 
-    _handleInputChange = (query) => {
-      this.props.onInputChange && this.props.onInputChange(query);
+    _handleInputChange = (query, e) => {
+      this.props.onInputChange && this.props.onInputChange(query, e);
       this._handleSearchDebounced(query);
     }
 

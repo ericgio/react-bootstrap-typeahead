@@ -176,4 +176,15 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
+  it('receives an event as the second argument of `onInputChange`', () => {
+    wrapper.setProps({
+      onInputChange: (text, e) => {
+        expect(text).to.equal('x');
+        expect(e).to.not.equal(undefined);
+      },
+    });
+
+    change(wrapper, 'x');
+  });
+
 });
