@@ -1,12 +1,12 @@
-var path = require('path');
-var config = require('./webpack.config.base');
+const config = require('./webpack.config.base');
+const path = require('path');
 
-module.exports = function(env) {
-  var filename = env == 'production' ?
+module.exports = (env, argv) => {
+  const filename = argv.mode === 'production' ?
     'react-bootstrap-typeahead.min.js' :
     'react-bootstrap-typeahead.js';
 
-  return Object.assign(config(env), {
+  return Object.assign(config, {
     entry: './src/index',
     output: {
       path: path.resolve('dist'),

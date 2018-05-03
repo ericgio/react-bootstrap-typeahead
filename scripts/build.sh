@@ -17,11 +17,11 @@ for file in scss/Typeahead*; do
 done;
 
 # Build minified standalone version in dist
-./node_modules/.bin/webpack
-./node_modules/.bin/webpack --env production
+./node_modules/.bin/webpack --mode development
+./node_modules/.bin/webpack --mode production
 
 # Build ES5 modules to lib
 ./node_modules/.bin/babel src --out-dir lib
 
-# Build example file
-./node_modules/.bin/webpack --config example/webpack.config.js --env production
+# Build minified example file
+./node_modules/.bin/webpack --config example/webpack.config.js --mode production

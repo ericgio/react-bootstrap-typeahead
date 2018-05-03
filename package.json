@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "postpublish": "npm run deploy-example",
     "prepublishOnly": "npm run check && npm run build",
-    "start": "webpack -w --progress --config example/webpack.config.js",
+    "start": "webpack --mode development -w --progress --config example/webpack.config.js",
     "test": "karma start"
   },
   "keywords": [
@@ -102,7 +102,9 @@
     "sass-loader": "^7.0.1",
     "sinon": "^5.0.3",
     "style-loader": "^0.21.0",
-    "webpack": "^3.0.0"
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.1.2"
   },
   "repository": {
     "type": "git",

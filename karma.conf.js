@@ -22,8 +22,9 @@ module.exports = function(config) {
     },
     reporters: ['dots'],
     singleRun: true,
-    webpack: Object.assign(webpackConfigBase(), {
+    webpack: Object.assign(webpackConfigBase, {
       devtool: 'inline-source-map',
+      mode: 'development',
     }),
     webpackServer: {
       noInfo: true,
