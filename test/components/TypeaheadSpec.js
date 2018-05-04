@@ -1165,4 +1165,28 @@ describe('<Typeahead>', () => {
 
     expect(typeahead.find('.children').text()).to.equal('The menu is open');
   });
+
+  describe('validation states', () => {
+    beforeEach(() => {
+      typeahead.setProps({
+        isInvalid: true,
+        isValid: true,
+      });
+    });
+
+    afterEach(() => {
+      const input = typeahead.find('.form-control');
+
+      expect(input.hasClass('is-invalid')).to.equal(true);
+      expect(input.hasClass('is-valid')).to.equal(true);
+    });
+
+    it('renders with validation classnames in single-select mode', () => {
+      typeahead.setProps({multiple: false});
+    });
+
+    it('renders with validation classnames in multi-select mode', () => {
+      typeahead.setProps({multiple: true});
+    });
+  });
 });

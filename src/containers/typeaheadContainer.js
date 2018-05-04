@@ -508,9 +508,17 @@ function typeaheadContainer(Typeahead) {
      */
     inputProps: checkPropType(PropTypes.object, inputPropsType),
     /**
+     * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
+     */
+    isInvalid: PropTypes.bool,
+    /**
      * Indicate whether an asynchronous data fetch is happening.
      */
     isLoading: PropTypes.bool,
+    /**
+     * Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`.
+     */
+    isValid: PropTypes.bool,
     /**
      * Specify the option key to use for display or a function returning the
      * display string. By default, the selector will use the `label` key.
