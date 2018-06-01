@@ -2815,8 +2815,10 @@ escodegen@1.x.x:
     source-map "~0.6.1"
 
 eslint-config-ericgio@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-ericgio/-/eslint-config-ericgio-2.1.0.tgz#9bb1214a37ebba42337238428e56a8527891e61c"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-ericgio/-/eslint-config-ericgio-2.2.0.tgz#3e9eb336d80b40948f64f2c5709ac02d4979fa8f"
+  dependencies:
+    eslint-plugin-react "^7.8.2"
 
 eslint-plugin-jsx-a11y@^6.0.3:
   version "6.0.3"
@@ -2830,7 +2832,7 @@ eslint-plugin-jsx-a11y@^6.0.3:
     emoji-regex "^6.1.0"
     jsx-ast-utils "^2.0.0"
 
-eslint-plugin-react@^7.1.0:
+eslint-plugin-react@^7.8.2:
   version "7.8.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.8.2.tgz#e95c9c47fece55d2303d1a67c9d01b930b88a51d"
   dependencies:
