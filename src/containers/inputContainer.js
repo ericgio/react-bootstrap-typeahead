@@ -49,7 +49,7 @@ function inputContainer(Input) {
         'aria-expanded': isMenuShown,
         'aria-haspopup': 'listbox',
         'aria-owns': menuId,
-        autoComplete: 'off',
+        autoComplete: 'nope',
         disabled,
         inputRef,
         onBlur: this._handleBlur,
