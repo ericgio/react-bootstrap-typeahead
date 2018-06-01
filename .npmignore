@@ -7,9 +7,12 @@
 
 CONTRIBUTING.md
 karma.conf.js
+npm-debug.log
 tests.webpack.js
 webpack.config.base.js
 webpack.config.js
+yarn-error.log
+yarn.lock
 
 .github/
 example/
