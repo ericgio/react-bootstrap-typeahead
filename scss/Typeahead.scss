@@ -194,6 +194,11 @@
     z-index: 5;
   }
 
+  & .rbt-aux {
+    // Form-controls within input-groups have a higher z-index.
+    z-index: 5;
+  }
+
   &:not(:first-child) .form-control {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
