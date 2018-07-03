@@ -98,13 +98,18 @@ class Typeahead extends React.Component {
         <div
           aria-atomic={true}
           aria-live="polite"
-          className="sr-only rbt-sr-status"
-          role="status">
-          {getAccessibilityStatus(this.props)}
-        </div>
+          className="sr-only rbt-sr-status">
+          {a11yDisplayMatchCount(results.length)}
+          </div>
       </div>
     );
-  }
+  
+
+function a11yDisplayMatchCount (count) {
+return count === 0? "No matches."
+: `${count} ${count === 1? "match" : "matches"}.`;
+} // a11yDisplayMatchCount
+}
 
   _renderInput = (inputProps) => {
     const Input = inputProps.multiple ?

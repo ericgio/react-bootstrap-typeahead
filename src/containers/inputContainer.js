@@ -46,10 +46,10 @@ function inputContainer(Input) {
           getMenuItemId(activeIndex) :
           '',
         'aria-autocomplete': multiple ? 'list' : 'both',
-        'aria-expanded': isMenuShown,
+        'aria-expanded': isMenuShown && activeIndex >= 0,
         'aria-haspopup': 'listbox',
-        'aria-owns': menuId,
-        autoComplete: 'nope',
+        'aria-controls': menuId,
+        autoComplete: 'off',
         disabled,
         inputRef,
         onBlur: this._handleBlur,
