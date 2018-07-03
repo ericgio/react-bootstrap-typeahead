@@ -11,7 +11,7 @@ import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import typeaheadContainer from './containers/typeaheadContainer';
-import {getAccessibilityStatus, preventInputBlur} from './utils/';
+import {preventInputBlur} from './utils/';
 
 class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -100,16 +100,15 @@ class Typeahead extends React.Component {
           aria-live="polite"
           className="sr-only rbt-sr-status">
           {a11yDisplayMatchCount(results.length)}
-          </div>
+        </div>
       </div>
     );
-  
 
-function a11yDisplayMatchCount (count) {
-return count === 0? "No matches."
-: `${count} ${count === 1? "match" : "matches"}.`;
-} // a11yDisplayMatchCount
-}
+    function a11yDisplayMatchCount(count) {
+      return count === 0? 'No matches.'
+        : `${count} ${count === 1?
+          'match' : 'matches'}.`;} // a11yDisplayMatchCount
+  }
 
   _renderInput = (inputProps) => {
     const Input = inputProps.multiple ?

@@ -46,9 +46,9 @@ function inputContainer(Input) {
           getMenuItemId(activeIndex) :
           '',
         'aria-autocomplete': multiple ? 'list' : 'both',
+        'aria-controls': menuId,
         'aria-expanded': isMenuShown && activeIndex >= 0,
         'aria-haspopup': 'listbox',
-        'aria-controls': menuId,
         autoComplete: 'off',
         disabled,
         inputRef,
