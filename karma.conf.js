@@ -4,7 +4,7 @@ var webpackConfigBase = require('./webpack.config.base');
 
 module.exports = function(config) {
   config.set({
-    browsers: [process.env.TRAVIS ? 'Chrome_travis_ci' : 'Chrome'],
+    browsers: [process.env.TRAVIS ? 'Chrome_travis_ci' : 'Chrome','Firefox'],
     client: {
       // Don't show console output.
       captureConsole: false,

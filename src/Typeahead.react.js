@@ -99,12 +99,12 @@ class Typeahead extends React.Component {
           aria-atomic={true}
           aria-live="polite"
           className="sr-only rbt-sr-status">
-          {a11yDisplayMatchCount(results.length)}
+          {a11yDisplayStatus(results.length)}
         </div>
       </div>
     );
 
-    function a11yDisplayMatchCount(count) {
+    function a11yDisplayStatus(matchCount, selectionCount, multiple) {
       return count === 0? 'No matches.'
         : `${count} ${count === 1?
           'match' : 'matches'}.`;} // a11yDisplayMatchCount

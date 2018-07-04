@@ -826,14 +826,15 @@ describe('<Typeahead>', () => {
       focus(typeahead);
 
       // Default id.
+      // (rjc) changed aria-owns to aria-controls to prevent nvda from announcing first two items in list when input focused
       expect(getMenu(typeahead).prop('id')).to.contain('rbt-menu-');
-      expect(getInput(typeahead).prop('aria-owns')).to.contain('rbt-menu-');
+      expect(getInput(typeahead).prop('aria-controls')).to.contain('rbt-menu-');
 
       const menuId = 'my-id';
       typeahead.setProps({menuId});
 
       expect(getMenu(typeahead).prop('id')).to.equal(menuId);
-      expect(getInput(typeahead).prop('aria-owns')).to.equal(menuId);
+      expect(getInput(typeahead).prop('aria-controls')).to.equal(menuId);
     });
 
     it('sets the input `role`', () => {
@@ -857,7 +858,12 @@ describe('<Typeahead>', () => {
     it('sets the input `aria-expanded` description', () => {
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
 
+// (rjc) aria-expanded should only be "true" if (isMenuShown && activeIndex >= 0)
       focus(typeahead);
+      expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
+
+
+      keyDown(typeahead, DOWN);
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(true);
     });
 
