@@ -29,8 +29,10 @@ class Typeahead extends React.Component {
       className,
       isMenuShown,
       menuId,
+      multiple,
       renderMenu,
       results,
+      selected,
     } = this.props;
 
     const inputProps = pick(this.props, [
@@ -99,15 +101,20 @@ class Typeahead extends React.Component {
           aria-atomic={true}
           aria-live="polite"
           className="sr-only rbt-sr-status">
-          {a11yDisplayStatus(results.length)}
+          {a11yDisplayStatus(results.length, multiple, selected.length)}
         </div>
       </div>
     );
 
-    function a11yDisplayStatus(matchCount, selectionCount, multiple) {
-      return count === 0? 'No matches.'
-        : `${count} ${count === 1?
-          'match' : 'matches'}.`;} // a11yDisplayMatchCount
+    function a11yDisplayStatus(resultsCount, multiple, selectionCount) {
+      let statusText = '';
+      if (resultsCount > 0)
+        statusText += `${resultsCount} ${resultsCount > 1? 'results' : 'result'}`;
+      if (selectionCount > 0 && multiple)
+        statusText += ` ${selectionCount} selected`;
+      statusText += '.';
+      return statusText;
+    } // a11yDisplayMatchCount
   }
 
   _renderInput = (inputProps) => {

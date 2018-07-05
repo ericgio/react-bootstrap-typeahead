@@ -813,11 +813,11 @@ describe('<Typeahead>', () => {
       expect(statusNode.text()).to.contain('50 results');
     });
 
-    it('lists the number of selected items', () => {
-      keyDown(typeahead, DOWN);
+    it('if multiselect lists the number of selected items', () => {
+      typeahead.setProps({multiple: true});keyDown(typeahead, DOWN);
       keyDown(typeahead, RETURN);
 
-      expect(statusNode.text()).to.contain('1 selection');
+      expect(statusNode.text()).to.contain('1 selected');
     });
   });
 
@@ -826,7 +826,7 @@ describe('<Typeahead>', () => {
       focus(typeahead);
 
       // Default id.
-      // (rjc) changed aria-owns to aria-controls to prevent nvda from announcing first two items in list when input focused
+      // (rjc) changed aria-owns to aria-controls
       expect(getMenu(typeahead).prop('id')).to.contain('rbt-menu-');
       expect(getInput(typeahead).prop('aria-controls')).to.contain('rbt-menu-');
 
@@ -858,7 +858,7 @@ describe('<Typeahead>', () => {
     it('sets the input `aria-expanded` description', () => {
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
 
-// (rjc) aria-expanded should only be "true" if (isMenuShown && activeIndex >= 0)
+      // (rjc) aria-expanded "true" if (isMenuShown && activeIndex >= 0)
       focus(typeahead);
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
 
