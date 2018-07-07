@@ -1,3 +1,5 @@
+# Issues addressed in pull request
+
 ### NVDA+Firefox reads first two options when input gains focus
 
 Replace `aria-owns` by `aria-controls`.
@@ -23,4 +25,36 @@ Note that browser focus may be different. For instance, when `aria-activedescend
 ### Screen reader should announce number of selections only if `multiple` is set
 
 When in single select mode, it is obvious which element is selected and by definition, only one can be selected at a time, so announcement in this case is superfluous.
+
+### Removing selections
+
+- added the text of the selection to the label of the ClearButton
+- hid the word "remove" in ClearButton's parent div from screen readers
+- parent div now has tabIndex:-1 so only the ClearButton is now in tab order
+- clicking either text "remove" or ClearButton with mouse removes selection
+- pressing enter on ClearButton removes selection
+
+This now allows screen reader users to tab among the selections and hear "remove xxx" as each gains focus, and to press enter to remove selection.
+Previously, only the text of selection was announced when tabbing, and since the actual ClearButton was  not focusable, needed to use screen reader commands to navigate to the ClearButton.
+
+### Removal of selection does not refocus input
+
+This may be an NVDA+Firefox bug.
+Code is correct, and verified that document.activeElement is set to the correct element after removal.
+
+### Added `aria-multiselectable` to the list
+
+This should be present and set to "true" when prop multiple is set, "false" otherwise.
+
+Additionally, when in multiselect mode, each menu item `role="option"` must have `aria-selected="false"` for all unselected options and `aria-selected="true"` for selected ones.
+
+Unlike single select mode where _selection follows focus_, keyboard interaction in multiselect mode is to allow toggling selection via the space key.  Enter key will add all selected options to the tokenizer.
+
+
+### lint
+
+>src/token.react.js line 27: elements with role of "button" must be tabbable.
+
+`tabindex="0"` exists on the element.
+
 

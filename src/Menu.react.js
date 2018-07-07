@@ -17,6 +17,7 @@ class Menu extends React.Component {
       id,
       innerRef,
       maxHeight,
+      multiple,
       style,
     } = this.props;
 
@@ -28,6 +29,7 @@ class Menu extends React.Component {
 
     return (
       <ul
+        aria-multiselectable={multiple? 'true' : 'false'}
         className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
         id={id}
         ref={innerRef}

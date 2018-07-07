@@ -814,7 +814,8 @@ describe('<Typeahead>', () => {
     });
 
     it('if multiselect lists the number of selected items', () => {
-      typeahead.setProps({multiple: true});keyDown(typeahead, DOWN);
+      typeahead.setProps({multiple: true});
+      keyDown(typeahead, DOWN);
       keyDown(typeahead, RETURN);
 
       expect(statusNode.text()).to.contain('1 selected');
@@ -842,8 +843,10 @@ describe('<Typeahead>', () => {
       expect(getInput(typeahead).prop('role')).to.equal('combobox');
 
       // Multi-select
+      // (rjc) same as single ( http://whatsock.com/tsg/Coding%20Arena/ARIA%20Comboboxes/ARIA%20Comboboxes%20(Native%20Inputs,%20Multiselect%20Editable%20with%20Substring%20Match)/demo.htm )
       typeahead.setProps({multiple: true});
-      expect(getInput(typeahead).prop('role')).to.equal('');
+      expect(getInput(typeahead).prop('role')).to.equal('combobox');
+      expect(getInput(typeahead).prop('role')).to.equal('combobox');
     });
 
     it('sets the input `aria-autocomplete` description', () => {
@@ -858,7 +861,7 @@ describe('<Typeahead>', () => {
     it('sets the input `aria-expanded` description', () => {
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
 
-      // (rjc) aria-expanded "true" if (isMenuShown && activeIndex >= 0)
+      // (rjc) aria-expanded "true" if `isMenuShown && activeIndex >= 0`
       focus(typeahead);
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
 
@@ -875,6 +878,18 @@ describe('<Typeahead>', () => {
 
       expect(getInput(typeahead).prop('aria-activedescendant'))
         .to.equal('rbt-menu-item-0');
+    });
+
+    // (rjc) added `aria-multiselectable` ( http://whatsock.com/tsg/Coding%20Arena/ARIA%20Comboboxes/ARIA%20Comboboxes%20(Native%20Inputs,%20Multiselect%20Editable%20with%20Substring%20Match)/demo.htm )
+    it('sets the menu `aria-multiselectable`', () => {
+      focus(typeahead);
+      keyDown(typeahead, DOWN);
+      expect(getMenu(typeahead).prop('aria-multiselectable'))
+        .to.equal('false');
+
+      typeahead.setProps({multiple: true});
+      expect(getMenu(typeahead).prop('aria-multiselectable'))
+        .to.equal('true');
     });
 
     it('sets menu item attributes', () => {

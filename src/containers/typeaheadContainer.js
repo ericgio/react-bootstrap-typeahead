@@ -377,11 +377,12 @@ function typeaheadContainer(Typeahead) {
       const selected = this.state.selected.filter((option) => (
         !isEqual(option, selection)
       ));
-
       // Make sure the input stays focused after the item is removed.
       this.focus();
+
       this._hideMenu();
       this._updateSelected(selected);
+
     }
 
     /**

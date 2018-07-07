@@ -74,7 +74,7 @@ function inputContainer(Input) {
           labelKey,
           onRemove,
           renderToken,
-          role: '',
+          role: 'combobox',
           selected,
         };
       }

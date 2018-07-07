@@ -73,6 +73,7 @@ class Typeahead extends React.Component {
       'emptyLabel',
       'labelKey',
       'maxHeight',
+      'multiple',
       'newSelectionPrefix',
       'renderMenuItemChildren',
       'text',
@@ -107,12 +108,11 @@ class Typeahead extends React.Component {
     );
 
     function a11yDisplayStatus(resultsCount, multiple, selectionCount) {
-      let statusText = '';
-      if (resultsCount > 0)
-        statusText += `${resultsCount} ${resultsCount > 1? 'results' : 'result'}`;
-      if (selectionCount > 0 && multiple)
-        statusText += ` ${selectionCount} selected`;
-      statusText += '.';
+      if (resultsCount === 0) return '';
+      let statusText =
+        `${resultsCount} ${resultsCount > 1? 'results' : 'result'}`;
+      if (multiple && selectionCount > 0)
+        return `${statusText}, ${selectionCount} selected`;
       return statusText;
     } // a11yDisplayMatchCount
   }

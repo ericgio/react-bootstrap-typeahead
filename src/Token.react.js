@@ -28,15 +28,20 @@ class Token extends React.Component {
         {...props}
         className={cx('rbt-token', 'rbt-token-removeable', {
           'rbt-token-active': active,
-        }, className)}>
+        }, className)}
+        onClick={onRemove}
+        onKeyDown={this._handleRemoveButtonKeydown}
+        role="button">
+        <span className="sr-only">
+          remove
+        </span>
         {children}
         <ClearButton
+          aria-hidden="true"
           className="rbt-token-remove-button"
-          label="Remove"
           onClick={onRemove}
-          onKeyDown={this._handleRemoveButtonKeydown}
-          tabIndex={-1}
-        />
+          tabIndex="-1"
+         />
       </div>
     );
   }
