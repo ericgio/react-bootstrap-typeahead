@@ -23,6 +23,7 @@ class Token extends React.Component {
   _renderRemoveableToken = () => {
     const {active, children, className, onRemove, ...props} = this.props;
 
+    /* eslint-disable jsx-a11y/interactive-supports-focus */
     return (
       <div
         {...props}
@@ -41,9 +42,10 @@ class Token extends React.Component {
           className="rbt-token-remove-button"
           onClick={onRemove}
           tabIndex="-1"
-         />
+        />
       </div>
     );
+    /* eslint-enable jsx-a11y/interactive-supports-focus */
   }
 
   _renderToken = () => {

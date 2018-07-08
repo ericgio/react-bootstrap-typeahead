@@ -904,7 +904,7 @@ describe('<Typeahead>', () => {
       expect(typeahead.find('.rbt-menu li').first().prop('aria-selected'))
         .to.equal(true);
 
-      // (rjc) `aria-selected` should be initially `'false'` in multiselect mode 
+      // (rjc) `aria-selected` should be initially `'false'` in `multiple` set
       typeahead.setProps({multiple: true});
       focus(typeahead);
       keyDown(typeahead, DOWN);

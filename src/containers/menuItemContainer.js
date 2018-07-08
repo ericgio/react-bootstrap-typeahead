@@ -36,9 +36,8 @@ const menuItemContainer = (Component) => {
       const {activeIndex, isOnlyResult} = this.context;
       const {multiple, label, option, position, ...props} = this.props;
 
-const active = isOnlyResult || activeIndex === position;
+      const active = isOnlyResult || activeIndex === position;
 
-console.log ("multiple in menuItemContainer: ", multiple);
       return (
         <Component
           {...props}

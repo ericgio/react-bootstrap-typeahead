@@ -48,6 +48,8 @@ Code is correct, and verified that document.activeElement is set to the correct 
 
 `tabindex="0"` exists on the element.
 
+Fixed with eslint comments.
+
 ### Added `aria-multiselectable` to the list
 
 This should be present and set to "true" when prop multiple is set, "false" otherwise.
