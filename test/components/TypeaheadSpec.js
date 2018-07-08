@@ -903,6 +903,13 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, DOWN);
       expect(typeahead.find('.rbt-menu li').first().prop('aria-selected'))
         .to.equal(true);
+
+      // (rjc) `aria-selected` should be initially `'false'` in multiselect mode 
+      typeahead.setProps({multiple: true});
+      focus(typeahead);
+      keyDown(typeahead, DOWN);
+      expect(typeahead.find('.rbt-menu li').first().prop('aria-selected'))
+        .to.equal('false');
     });
   });
 

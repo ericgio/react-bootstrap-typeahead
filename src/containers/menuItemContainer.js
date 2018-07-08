@@ -36,15 +36,15 @@ const menuItemContainer = (Component) => {
       const {activeIndex, isOnlyResult} = this.context;
       const {multiple, label, option, position, ...props} = this.props;
 
-      console.log ("multiple in menuContainer: ", multiple);
 const active = isOnlyResult || activeIndex === position;
 
+console.log ("multiple in menuItemContainer: ", multiple);
       return (
         <Component
           {...props}
           active={active}
           aria-label={label}
-          aria-selected={multiple? false : active}
+          aria-selected={multiple? 'false' : active}
           id={getMenuItemId(position)}
           onClick={this._handleClick}
           onMouseDown={preventInputBlur}

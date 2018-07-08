@@ -28,6 +28,7 @@ class TypeaheadMenu extends React.Component {
   _renderMenuItem = (option, idx) => {
     const {
       labelKey,
+      multiple,
       newSelectionPrefix,
       renderMenuItemChildren,
       text,
@@ -39,6 +40,7 @@ class TypeaheadMenu extends React.Component {
       disabled: option.disabled,
       key: idx,
       label,
+      multiple,
       option,
       position: idx,
     };

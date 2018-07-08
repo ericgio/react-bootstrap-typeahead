@@ -42,6 +42,12 @@ Previously, only the text of selection was announced when tabbing, and since the
 This may be an NVDA+Firefox bug.
 Code is correct, and verified that document.activeElement is set to the correct element after removal.
 
+### lint
+
+>src/token.react.js line 27: elements with role of "button" must be tabbable.
+
+`tabindex="0"` exists on the element.
+
 ### Added `aria-multiselectable` to the list
 
 This should be present and set to "true" when prop multiple is set, "false" otherwise.
@@ -49,12 +55,5 @@ This should be present and set to "true" when prop multiple is set, "false" othe
 Additionally, when in multiselect mode, each menu item `role="option"` must have `aria-selected="false"` for all unselected options and `aria-selected="true"` for selected ones.
 
 Unlike single select mode where _selection follows focus_, keyboard interaction in multiselect mode is to allow toggling selection via the space key.  Enter key will add all selected options to the tokenizer.
-
-
-### lint
-
->src/token.react.js line 27: elements with role of "button" must be tabbable.
-
-`tabindex="0"` exists on the element.
 
 
