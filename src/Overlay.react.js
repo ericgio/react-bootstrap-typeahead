@@ -6,6 +6,7 @@ import {Portal} from 'react-overlays';
 import {Popper} from 'react-popper';
 
 const BODY_CLASS = 'rbt-body-container';
+const a11yStatusDelay = 170; // milliseconds
 
 // When appending the overlay to `document.body`, clicking on it will register
 // as an "outside" click and immediately close the overlay. This classname tells
@@ -51,14 +52,36 @@ class Overlay extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {onMenuHide, onMenuShow, show} = nextProps;
+    const {
+      a11yStatusContainerId,
+      a11yStatus,
+      multiple,
+      onMenuHide,
+      onMenuShow,
+      resultsCount,
+      selectionCount,
+      show
+    } = nextProps;
 
     if (this.props.show && !show) {
       onMenuHide();
+      updateA11yStatus();
     }
 
     if (!this.props.show && show) {
       onMenuShow();
+      updateA11yStatus(true);
+    }
+
+    if (this.props.resultsCount !== nextProps.resultsCount)
+      updateA11yStatus();
+
+    function updateA11yStatus (menuShow = false) {
+      //setTimeout (() => {
+        let container = document.getElementById(a11yStatusContainerId);
+        if (container) container.textContent =
+          a11yStatus(resultsCount, multiple, selectionCount, menuShow);
+      //}, a11yStatusDelay);
     }
 
     // Remove scoping classes if menu isn't being appended to document body.

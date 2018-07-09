@@ -11,8 +11,6 @@ import {BaseMenuItem} from './MenuItem.react';
 class Menu extends React.Component {
   componentWillReceiveProps(nextProps) {
 
-    if (this.props.optionCount !== nextProps.optionCount)
-      nextProps.onMenuChange();
   }
 
 

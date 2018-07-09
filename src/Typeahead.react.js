@@ -83,7 +83,6 @@ class Typeahead extends React.Component {
     ]);
 
     const menuProps = pick(this.props, [
-      'a11yStatusContainerId',
       'emptyLabel',
       'labelKey',
       'maxHeight',
@@ -109,17 +108,12 @@ class Typeahead extends React.Component {
         {auxContent}
         <Overlay
           {...overlayProps}
+          a11yStatus={a11yStatus}
+          a11yStatusContainerId={a11yStatusContainerId}
           container={bodyContainer ? document.body : this}
-          onMenuHide={() => {
-            let container = document.getElementById(a11yStatusContainerId);
-            if (container) container.textContent =
-              a11yStatus(results.length, multiple, selected.length);
-          }}
-          onMenuShow={() => {
-            let container = document.getElementById(a11yStatusContainerId);
-            if (container) container.textContent =
-              a11yStatus(results.length, multiple, selected.length, true);
-          }}
+          multiple={multiple}
+          resultsCount={results.length}
+          selectionCount={selected.length}
           show={isMenuShown}
           target={this._target}>
           {renderMenu(results, {...menuProps, id: menuId})}
