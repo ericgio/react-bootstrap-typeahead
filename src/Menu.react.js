@@ -9,6 +9,13 @@ import {BaseMenuItem} from './MenuItem.react';
  * Menu component that handles empty state when passed a set of results.
  */
 class Menu extends React.Component {
+  componentWillReceiveProps(nextProps) {
+
+    if (this.props.optionCount !== nextProps.optionCount)
+      nextProps.onMenuChange();
+  }
+
+
   render() {
     const {
       children,

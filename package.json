@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "build": "./scripts/build.sh",
+    "build": "bash ./scripts/build.sh",
     "check": "npm run lint && npm test",
     "clean": "rm -rf css && rm -rf dist && rm -rf lib",
     "deploy-example": "./scripts/deployExample.sh",

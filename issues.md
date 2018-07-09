@@ -58,4 +58,13 @@ Additionally, when in multiselect mode, each menu item `role="option"` must have
 
 Unlike single select mode where _selection follows focus_, keyboard interaction in multiselect mode is to allow toggling selection via the space key.  Enter key will add all selected options to the tokenizer.
 
+### NVDA+Firefox repeating contents of live region
+
+This seems to be due to rerendering of the typeahead component multiple times during a search.
+
+The fix is:
+- add componentWillReceiveProps handler to menu.react.js which fires a callback when the number of results changes
+- add code to this callback to write status info to the live region
+- also add code to onMenuShow() and onMenuHide callbacks to do same
+
 

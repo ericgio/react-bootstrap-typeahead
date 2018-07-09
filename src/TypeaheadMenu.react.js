@@ -19,7 +19,7 @@ class TypeaheadMenu extends React.Component {
     } = this.props;
 
     return (
-      <Menu {...menuProps}>
+      <Menu {...menuProps} optionCount={options.length}>
         {options.map(this._renderMenuItem)}
       </Menu>
     );

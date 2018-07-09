@@ -69,6 +69,7 @@ function typeaheadContainer(Typeahead) {
       // Generate random id here since doing it in defaultProps will generate
       // the same id for every instance.
       this._menuId = genId('rbt-menu-');
+      this._a11yStatusContainerId = genId('rbt-a11yStatus-');
     }
 
     componentDidMount() {
@@ -159,6 +160,8 @@ function typeaheadContainer(Typeahead) {
         <Typeahead
           {...this.props}
           {...this.state}
+          a11yStatusContainerId=
+            {this.props.a11yStatusContainerId || this._a11yStatusContainerId}
           inputRef={(input) => this._input = input}
           isMenuShown={isMenuShown}
           menuId={this.props.menuId || this._menuId}

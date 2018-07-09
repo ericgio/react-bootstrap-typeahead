@@ -34,7 +34,7 @@ class Token extends React.Component {
         onKeyDown={this._handleRemoveButtonKeydown}
         role="button">
         <span className="sr-only">
-          remove
+          remove&nbsp;
         </span>
         {children}
         <ClearButton

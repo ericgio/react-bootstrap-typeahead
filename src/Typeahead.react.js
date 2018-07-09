@@ -13,6 +13,18 @@ import TypeaheadMenu from './TypeaheadMenu.react';
 import typeaheadContainer from './containers/typeaheadContainer';
 import {preventInputBlur} from './utils/';
 
+function a11yStatus(resultsCount, multiple, selectionCount, menuShow) {
+  if (resultsCount === 0) return 'no results.';
+  let instructions = 'use up and down arrows to navigate';
+  let statusText =
+    `${resultsCount} ${resultsCount > 1? 'results' : 'result'}`;
+  if (multiple && selectionCount > 0)
+    statusText = `${statusText}, ${selectionCount} selected`;
+  if (menuShow)
+    statusText = `${statusText}, ${instructions}`;
+  return `${statusText}.`;
+} // a11yStatus
+
 class Typeahead extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {allowNew, onInitialItemChange, results} = nextProps;
@@ -25,6 +37,7 @@ class Typeahead extends React.Component {
 
   render() {
     const {
+      a11yStatusContainerId,
       bodyContainer,
       className,
       isMenuShown,
@@ -70,12 +83,15 @@ class Typeahead extends React.Component {
     ]);
 
     const menuProps = pick(this.props, [
+      'a11yStatusContainerId',
       'emptyLabel',
       'labelKey',
       'maxHeight',
       'multiple',
       'newSelectionPrefix',
       'renderMenuItemChildren',
+      'results',
+      'selected',
       'text',
     ]);
 
@@ -94,27 +110,29 @@ class Typeahead extends React.Component {
         <Overlay
           {...overlayProps}
           container={bodyContainer ? document.body : this}
+          onMenuHide={() => {
+            let container = document.getElementById(a11yStatusContainerId);
+            if (container) container.textContent =
+              a11yStatus(results.length, multiple, selected.length);
+          }}
+          onMenuShow={() => {
+            let container = document.getElementById(a11yStatusContainerId);
+            if (container) container.textContent =
+              a11yStatus(results.length, multiple, selected.length, true);
+          }}
           show={isMenuShown}
           target={this._target}>
           {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
         <div
           aria-atomic={true}
+          aria-busy="false"
           aria-live="polite"
-          className="sr-only rbt-sr-status">
-          {a11yDisplayStatus(results.length, multiple, selected.length)}
+          className="sr-only rbt-sr-status"
+          id={a11yStatusContainerId}>
         </div>
       </div>
     );
-
-    function a11yDisplayStatus(resultsCount, multiple, selectionCount) {
-      if (resultsCount === 0) return '';
-      let statusText =
-        `${resultsCount} ${resultsCount > 1? 'results' : 'result'}`;
-      if (multiple && selectionCount > 0)
-        return `${statusText}, ${selectionCount} selected`;
-      return statusText;
-    } // a11yDisplayMatchCount
   }
 
   _renderInput = (inputProps) => {
@@ -169,7 +187,16 @@ Typeahead.propTypes = {
 
 Typeahead.defaultProps = {
   renderMenu: (results, menuProps) => (
-    <TypeaheadMenu {...menuProps} options={results} />
+    <TypeaheadMenu
+      {...menuProps}
+      onMenuChange={() => {
+        const {a11yStatusContainerId, multiple, results, selected} = menuProps;
+        let container = document.getElementById (a11yStatusContainerId);
+        if (container) container.textContent =
+          a11yStatus (results.length, multiple, selected.length);
+      }}
+      options={results}
+    />
   ),
 };
 
