@@ -65,7 +65,7 @@ class Overlay extends React.Component {
 
     if (this.props.show && !show) {
       onMenuHide();
-      updateA11yStatus();
+      //updateA11yStatus();
     }
 
     if (!this.props.show && show) {
@@ -77,11 +77,11 @@ class Overlay extends React.Component {
       updateA11yStatus();
 
     function updateA11yStatus (menuShow = false) {
-      //setTimeout (() => {
+      setTimeout (() => {
         let container = document.getElementById(a11yStatusContainerId);
         if (container) container.textContent =
           a11yStatus(resultsCount, multiple, selectionCount, menuShow);
-      //}, a11yStatusDelay);
+      }, a11yStatusDelay);
     }
 
     // Remove scoping classes if menu isn't being appended to document body.

@@ -801,31 +801,36 @@ describe('<Typeahead>', () => {
     });
   });
 
-  describe('accessibility status', function () {
+  describe('accessibility status', () => {
     let statusNode;
-    let delayTime = 400;
+    let delayTime = 500;
 
-    function delay (func, _delay = 200) {
+    let delay = (func, _delay = 200) => {
       return new Promise (function (resolve, reject) {
-        setTimeout (function () {
-          func();
-          resolve();
+        setTimeout (() => {
+          //try {
+            let value = func();
+            resolve(value);
+          //}      catch (e) {
+            //resolve(e);
+          //} // catch
         }, _delay);
       }); // new Promise
     } // delay
 
-    beforeEach(function () {
+    beforeEach(() => {
       statusNode = typeahead.find('.rbt-sr-status');
       statusNode.textContent = '';
-
     });
 
-    it('lists the number of results when menu becomes hidden', function (done) {
-      expect(statusNode.text()).to.equal('');
+    it('lists the number of results when menu becomes hidden', () => {
+      const onMenuHide = sinon.spy();
+      typeahead.setProps({onMenuHide});      expect(statusNode.text()).to.equal('');
+      focus(typeahead);
       keyDown (typeahead, ESC);
-      delay (function () {
-        expect(statusNode.text()).to.contain('50 results');
-      }, delayTime).then (done);
+      expect(onMenuHide.calledOnce).to.equal(true);
+      return delay(() => statusNode.textContent)
+      .then ((value) => expect(value).to.contain('50 results'));
     });
 
     it('if multiselect lists the number of selected items', function (done) {
@@ -834,8 +839,8 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, RETURN);
 
       delay (function () {
-        expect(statusNode.text()).to.contain('1 selected');
-      }, delayTime).then (done);
+        expect(statusNode.text()).to.contain('1 selected'); done();
+      }).then (function (value) {done(value)});
 
   });
 });
