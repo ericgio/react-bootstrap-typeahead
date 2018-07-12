@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+
 import {mount} from 'enzyme';
 import {head} from 'lodash';
 import React from 'react';
@@ -10,6 +11,8 @@ import {Menu, MenuItem, Typeahead} from '../../src/';
 import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 import states from '../../example/exampleData';
 import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
+
+//chai.use(chaiAsPromised);
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
@@ -801,36 +804,37 @@ describe('<Typeahead>', () => {
     });
   });
 
-  describe('accessibility status', () => {
+  /*describe('accessibility status', function () {
     let statusNode;
     let delayTime = 500;
+    this.timeout (delayTime);
 
-    let delay = (func, _delay = 200) => {
-      return new Promise (function (resolve, reject) {
-        setTimeout (() => {
-          //try {
-            let value = func();
-            resolve(value);
-          //}      catch (e) {
-            //resolve(e);
-          //} // catch
-        }, _delay);
-      }); // new Promise
+    function delay (func, _delay = delayTime) {
+      let startTime = Date.now();
+      setTimeout (function () {
+        let fudge = 5;
+        let time = Date.now() - startTime;
+        expect(time > 0 && time <= _delay + fudge).to.equal(true);
+        func();
+      }, _delay);
     } // delay
 
-    beforeEach(() => {
+    beforeEach(function () {
       statusNode = typeahead.find('.rbt-sr-status');
-      statusNode.textContent = '';
+      //statusNode.textContent = '';
     });
 
-    it('lists the number of results when menu becomes hidden', () => {
-      const onMenuHide = sinon.spy();
-      typeahead.setProps({onMenuHide});      expect(statusNode.text()).to.equal('');
+    it('lists the number of results when menu appears', function (done) {
+      statusNode.textContent = '';
+      expect(statusNode.text()).to.equal('');
       focus(typeahead);
-      keyDown (typeahead, ESC);
-      expect(onMenuHide.calledOnce).to.equal(true);
-      return delay(() => statusNode.textContent)
-      .then ((value) => expect(value).to.contain('50 results'));
+      keyDown (typeahead, DOWN);
+      expect(getMenuItems(typeahead).length).to.equal(50);
+      delay(function (time) {
+        expect(getMenuItems(typeahead).length).to.equal(50);
+        expect(statusNode.text()).to.contain('50 results');
+        done();
+      }, 300);
     });
 
     it('if multiselect lists the number of selected items', function (done) {
@@ -843,6 +847,55 @@ describe('<Typeahead>', () => {
       }).then (function (value) {done(value)});
 
   });
+
+});
+*/
+
+  describe('accessibility status', () => {
+    let statusNode;
+    let delayTime = 500;
+    let noop = () => ({});
+
+    let delay = (func, _delay = 300) => {
+      let startTime = Date.now();
+      let fudgeFactor = 5;
+      return new Promise (function (resolve, reject) {
+        setTimeout (() => resolve(Date.now()+fudgeFactor - startTime), _delay);
+      }); // new Promise
+    } // delay
+
+    beforeEach(() => {
+      statusNode = typeahead.find('.rbt-sr-status');
+      focus(typeahead);
+      typeahead.setProps({minLength: 2});
+    });
+
+    it('lists the number of results when menu appears', () => {
+      expect(statusNode.className).to.equal('rbt-sr-status');
+      expect(statusNode.text()).to.contain('no results');
+      focus(typeahead);
+      keyDown (typeahead, 'm');
+      keyDown (typeahead, 'a');
+      expect(getMenuItems(typeahead).length).to.equal(5);
+      return delay().then ((time) => {
+        console.log ("after delay: ", time, statusNode, " class=", statusNode.className, " textContent=", statusNode.text());
+        expect(getMenuItems(typeahead).length).to.equal(5);
+        expect(statusNode.className).to.equal('rbt-sr-status');
+        expect(statusNode.text()).to.contain('5 results');
+      });
+    });
+
+    /*it('if multiselect lists the number of selected items', function (done) {
+      typeahead.setProps({multiple: true});
+      keyDown(typeahead, DOWN);
+      keyDown(typeahead, RETURN);
+
+      delay (function () {
+        expect(statusNode.text()).to.contain('1 selected'); done();
+      }).then (function (value) {done(value)});
+
+  });
+*/
 });
 
   describe('accessibility attributes', () => {

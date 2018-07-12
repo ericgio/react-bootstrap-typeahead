@@ -120,7 +120,6 @@ class Typeahead extends React.Component {
         </Overlay>
         <div
           aria-atomic={true}
-          aria-busy="false"
           aria-live="polite"
           className="sr-only rbt-sr-status"
           id={a11yStatusContainerId}>
