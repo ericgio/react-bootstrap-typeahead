@@ -15,9 +15,10 @@ module.exports = function(config) {
         flags: ['--no-sandbox'],
       },
     },
-    files: ['test/index.js'],
+    files: ['test/components/a11yResultsSpec.js'/*, 'test/index.js'*/],
     frameworks: ['mocha', 'chai'],
     preprocessors: {
+      'test/components/a11yResultsSpec.js': ['webpack', 'sourcemap'],
       'test/index.js': ['webpack', 'sourcemap'],
     },
     reporters: ['dots'],
@@ -31,3 +32,4 @@ module.exports = function(config) {
     },
   });
 };
+ 

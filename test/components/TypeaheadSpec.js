@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import {mount} from 'enzyme';
+import {mount, render} from 'enzyme';
 import {head} from 'lodash';
 import React from 'react';
 import {Popper} from 'react-popper';
@@ -12,11 +12,20 @@ import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, g
 import states from '../../example/exampleData';
 import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
 
-//chai.use(chaiAsPromised);
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
   return wrapper.find('a.active');
+}
+
+function renderTypeahead(props) {
+  return render(
+    <Typeahead
+      labelKey="name"
+      options={states}
+      {...props}
+    />
+  );
 }
 
 function mountTypeahead(props) {
@@ -28,6 +37,7 @@ function mountTypeahead(props) {
     />
   );
 }
+
 
 function getClearButton(wrapper) {
   return wrapper.find('.rbt-close');
@@ -804,99 +814,60 @@ describe('<Typeahead>', () => {
     });
   });
 
-  /*describe('accessibility status', function () {
-    let statusNode;
-    let delayTime = 500;
-    this.timeout (delayTime);
-
-    function delay (func, _delay = delayTime) {
-      let startTime = Date.now();
-      setTimeout (function () {
-        let fudge = 5;
-        let time = Date.now() - startTime;
-        expect(time > 0 && time <= _delay + fudge).to.equal(true);
-        func();
-      }, _delay);
-    } // delay
-
-    beforeEach(function () {
-      statusNode = typeahead.find('.rbt-sr-status');
-      //statusNode.textContent = '';
-    });
-
-    it('lists the number of results when menu appears', function (done) {
-      statusNode.textContent = '';
-      expect(statusNode.text()).to.equal('');
-      focus(typeahead);
-      keyDown (typeahead, DOWN);
-      expect(getMenuItems(typeahead).length).to.equal(50);
-      delay(function (time) {
-        expect(getMenuItems(typeahead).length).to.equal(50);
-        expect(statusNode.text()).to.contain('50 results');
-        done();
-      }, 300);
-    });
-
-    it('if multiselect lists the number of selected items', function (done) {
-      typeahead.setProps({multiple: true});
-      keyDown(typeahead, DOWN);
-      keyDown(typeahead, RETURN);
-
-      delay (function () {
-        expect(statusNode.text()).to.contain('1 selected'); done();
-      }).then (function (value) {done(value)});
-
-  });
-
-});
-*/
 
   describe('accessibility status', () => {
-    let statusNode;
-    let delayTime = 500;
-    let noop = () => ({});
+    let delayTime = 1000;
 
-    let delay = (func, _delay = 300) => {
+    let delay = (_delay = delayTime) => {
       let startTime = Date.now();
       let fudgeFactor = 5;
       return new Promise (function (resolve, reject) {
-        setTimeout (() => resolve(Date.now()+fudgeFactor - startTime), _delay);
+        setTimeout (() => {
+          try {resolve(Date.now() - startTime - fudgeFactor);}
+          catch(e) {resolve(e);}
+        }, _delay);
       }); // new Promise
     } // delay
 
+    let statusNode;
+    let typeahead;
     beforeEach(() => {
+      typeahead = mountTypeahead();
       statusNode = typeahead.find('.rbt-sr-status');
-      focus(typeahead);
-      typeahead.setProps({minLength: 2});
     });
 
     it('lists the number of results when menu appears', () => {
-      expect(statusNode.className).to.equal('rbt-sr-status');
-      expect(statusNode.text()).to.contain('no results');
       focus(typeahead);
-      keyDown (typeahead, 'm');
-      keyDown (typeahead, 'a');
-      expect(getMenuItems(typeahead).length).to.equal(5);
-      return delay().then ((time) => {
-        console.log ("after delay: ", time, statusNode, " class=", statusNode.className, " textContent=", statusNode.text());
-        expect(getMenuItems(typeahead).length).to.equal(5);
-        expect(statusNode.className).to.equal('rbt-sr-status');
-        expect(statusNode.text()).to.contain('5 results');
+      console.log ('before delay: menu=', getMenuItems(typeahead).length);
+      expect(getMenuItems(typeahead).length).to.equal(50);
+
+      keyDown(typeahead, ESC);
+      expect(getMenuItems(typeahead).length).to.equal(0);
+
+      keyDown(typeahead, DOWN);
+      expect(getMenuItems(typeahead).length).to.equal(50);
+
+      return delay().then (
+        function (time) {
+          expect(time <= delayTime && time > 0).to.equal(true);
+          expect(getMenuItems(typeahead).length).to.equal(50);
+          //console.log('after delay: ', time, statusNode.id, typeahead.find('#'+statusNode.id).text());
+          expect(statusNode.text()).to.contain('50 results');
       });
     });
 
-    /*it('if multiselect lists the number of selected items', function (done) {
+    /*it('if multiselect lists the number of selected items', function () {
       typeahead.setProps({multiple: true});
       keyDown(typeahead, DOWN);
       keyDown(typeahead, RETURN);
 
-      delay (function () {
-        expect(statusNode.text()).to.contain('1 selected'); done();
-      }).then (function (value) {done(value)});
-
+      return delay ().then((time) => {
+        //expect(getMenuItems(typeahead).length).to.equal(49);
+        expect(statusNode.text()).to.contain('1 selected');
+      });
+    });
+    */
   });
-*/
-});
 
   describe('accessibility attributes', () => {
     it('adds an id to the menu for accessibility', () => {

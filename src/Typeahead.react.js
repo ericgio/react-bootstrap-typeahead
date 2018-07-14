@@ -182,12 +182,6 @@ Typeahead.defaultProps = {
   renderMenu: (results, menuProps) => (
     <TypeaheadMenu
       {...menuProps}
-      onMenuChange={() => {
-        const {a11yStatusContainerId, multiple, results, selected} = menuProps;
-        let container = document.getElementById (a11yStatusContainerId);
-        if (container) container.textContent =
-          a11yStatus (results.length, multiple, selected.length);
-      }}
       options={results}
     />
   ),
