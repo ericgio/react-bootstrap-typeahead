@@ -137,7 +137,8 @@ function typeaheadContainer(Typeahead) {
 
       // Add the custom option.
       if (allowNew) {
-        results = addCustomOption(results, text, labelKey);
+        results = addCustomOption(results, text, labelKey,
+          {...this.props, ...this.state});
       }
 
       // Add the pagination item.
@@ -503,6 +504,11 @@ function typeaheadContainer(Typeahead) {
      */
     ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
     /**
+     * Specify whether option from 'allowNew' is included when an exact match
+     * is found.
+     */
+    includeNewOnMatch: PropTypes.bool,
+    /**
      * Props to be applied directly to the input. `onBlur`, `onChange`,
      * `onFocus`, and `onKeyDown` are ignored.
      */
@@ -630,6 +636,7 @@ function typeaheadContainer(Typeahead) {
     flip: false,
     highlightOnlyResult: false,
     ignoreDiacritics: true,
+    includeNewOnMatch: false,
     inputProps: {},
     isLoading: false,
     labelKey: DEFAULT_LABELKEY,

@@ -21,6 +21,7 @@ filterBy | function or array | `[]` | Either an array of fields in `option` to s
 flip | boolean | false | Whether or not to automatically adjust the position of the menu when it reaches the viewport boundaries.
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
+includeNewOnMatch | boolean | false | Specify whether option from 'allowNew' is included when an exact match is found.
 inputProps | object | {} | Props to be applied directly to the input. `onBlur`, `onChange`, `onFocus`, and `onKeyDown` are ignored.
 isLoading | boolean | false | Indicate whether an asynchronous data fetch is happening.
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.

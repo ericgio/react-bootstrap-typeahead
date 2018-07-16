@@ -1140,4 +1140,19 @@ describe('<Typeahead>', () => {
 
     expect(typeahead.find('.custom-token').text()).to.equal('Montgomery');
   });
+
+  it('includes new option when includeNewOnMatch=true', () => {
+    typeahead.setProps({
+      allowNew: true,
+      includeNewOnMatch: true,
+    });
+
+    change(typeahead, 'North Carolina');
+    focus(typeahead);
+
+    const menuItems = getMenuItems(typeahead);
+    expect(menuItems.length).to.equal(2);
+    expect(menuItems.at(0).text()).to.equal('North Carolina');
+    expect(menuItems.at(1).text()).to.equal('New selection: North Carolina');
+  });
 });
