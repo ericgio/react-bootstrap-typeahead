@@ -9,12 +9,12 @@
     "build": "bash ./scripts/build.sh",
     "check": "npm run lint && npm test",
     "clean": "rm -rf css && rm -rf dist && rm -rf lib",
-    "deploy-example": "./scripts/deployExample.sh",
+    "deploy-example": "bash ./scripts/deployExample.sh",
     "lint": "eslint .",
     "postpublish": "npm run deploy-example",
     "prepublishOnly": "npm run check && npm run build",
     "start": "webpack --mode development -w --progress --config example/webpack.config.js",
-    "test": "karma start --no-colors --log error"
+    "test": "karma start  --log error"
   },
   "keywords": [
     "auto complete",
