@@ -79,16 +79,21 @@ describe('test a11y status', () => {
 
   afterEach(cleanup);
 
-  beforeEach(() => {
+  /*beforeEach(() => {
     typeahead = renderTypeahead({minLength: 1, multiple: true});
     statusNode = typeahead.container.querySelector('.rbt-sr-status');
     input = typeahead.container.querySelector('.rbt-input-main');
     input.focus();
   });
+  */
 
-let keyDown = (key) => Simulate.keyDown({key});
 
   it('shows number of results when menu appears', () => {
+    let typeahead = renderTypeahead({minLength: 1});
+    let statusNode = typeahead.container.querySelector('.rbt-sr-status');
+    let input = typeahead.container.querySelector('.rbt-input-main');
+    input.focus();
+
     expect(getMenuItems(typeahead).length).to.equal(0);
     input.value = "m";
     fireEvent.change(input);
@@ -100,12 +105,12 @@ let keyDown = (key) => Simulate.keyDown({key});
   });
 
   it('shows number of results when menu length changes', () => {
-    expect(getMenuItems(typeahead).length).to.equal(0);
-    /*input.value = "m";
-    fireEvent.change(input);
-    expect(getMenuItems(typeahead).length).to.equal(14);
-    */
+    let typeahead = renderTypeahead({minLength: 1, multiple: true});
+    let statusNode = typeahead.container.querySelector('.rbt-sr-status');
+    let input = typeahead.container.querySelector('.rbt-input-main');
+    input.focus();
 
+    expect(getMenuItems(typeahead).length).to.equal(0);
     input.value = "ma";
     fireEvent.change(input);
     expect(getMenuItems(typeahead).length).to.equal(5);
@@ -116,24 +121,18 @@ let keyDown = (key) => Simulate.keyDown({key});
   });
 
   it('shows number of selected when multiple is set', () => {
+    let typeahead = renderTypeahead({multiple: true, defaultSelected: states.slice(0,5)});
+    let statusNode = typeahead.container.querySelector('.rbt-sr-status');
+    let input = typeahead.container.querySelector('.rbt-input-main');
+    input.focus();
     expect(document.activeElement).to.equal(input);
-    expect(getMenuItems(typeahead).length).to.equal(0);
-    
-input.value = "m";
-    fireEvent.change(input);
-    expect(getMenuItems(typeahead).length).to.equal(14);
+    expect(getMenuItems(typeahead).length).to.equal(45);
     expect(input.getAttribute('aria-activedescendant')).to.equal('');
 
-    downArrow(input);
-    //return delay().then(() => {
-      //expect(input.getAttribute('aria-activedescendant')).to.equal('rbt-menu-item-0');
-
-      enterKey(input);
-      return delay().then((time) => {
+    return delay().then((time) => {
         console.log("after: ", time, statusNode.textContent);
-        expect(statusNode.textContent).to.contain('1 selected');
+        expect(statusNode.textContent).to.contain('5 selected');
       });
-    //});
 
   });
 
