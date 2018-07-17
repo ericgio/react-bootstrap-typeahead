@@ -60,7 +60,7 @@ class Overlay extends React.Component {
       onMenuShow,
       resultsCount,
       selectionCount,
-      show
+      show,
     } = nextProps;
 
     if (this.props.show && !show) {
@@ -76,8 +76,8 @@ class Overlay extends React.Component {
     if (this.props.resultsCount !== nextProps.resultsCount)
       updateA11yStatus();
 
-    function updateA11yStatus (menuShow = false) {
-      setTimeout (() => {
+    function updateA11yStatus(menuShow = false) {
+      setTimeout(() => {
         let container = document.getElementById(a11yStatusContainerId);
         if (container) container.textContent =
           a11yStatus(resultsCount, multiple, selectionCount, menuShow);

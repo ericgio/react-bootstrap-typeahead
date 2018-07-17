@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import {mount, render} from 'enzyme';
+import {mount} from 'enzyme';
 import {head} from 'lodash';
 import React from 'react';
 import {Popper} from 'react-popper';
@@ -16,16 +16,6 @@ import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants/keyCode';
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
   return wrapper.find('a.active');
-}
-
-function renderTypeahead(props) {
-  return render(
-    <Typeahead
-      labelKey="name"
-      options={states}
-      {...props}
-    />
-  );
 }
 
 function mountTypeahead(props) {
@@ -815,59 +805,6 @@ describe('<Typeahead>', () => {
   });
 
 
-  describe('accessibility status', () => {
-    let delayTime = 1000;
-
-    let delay = (_delay = delayTime) => {
-      let startTime = Date.now();
-      let fudgeFactor = 5;
-      return new Promise (function (resolve, reject) {
-        setTimeout (() => {
-          try {resolve(Date.now() - startTime - fudgeFactor);}
-          catch(e) {resolve(e);}
-        }, _delay);
-      }); // new Promise
-    } // delay
-
-    let statusNode;
-    let typeahead;
-    beforeEach(() => {
-      typeahead = mountTypeahead();
-      statusNode = typeahead.find('.rbt-sr-status');
-    });
-
-    it('lists the number of results when menu appears', () => {
-      focus(typeahead);
-      console.log ('before delay: menu=', getMenuItems(typeahead).length);
-      expect(getMenuItems(typeahead).length).to.equal(50);
-
-      keyDown(typeahead, ESC);
-      expect(getMenuItems(typeahead).length).to.equal(0);
-
-      keyDown(typeahead, DOWN);
-      expect(getMenuItems(typeahead).length).to.equal(50);
-
-      return delay().then (
-        function (time) {
-          expect(time <= delayTime && time > 0).to.equal(true);
-          expect(getMenuItems(typeahead).length).to.equal(50);
-          //console.log('after delay: ', time, statusNode.id, typeahead.find('#'+statusNode.id).text());
-          expect(statusNode.text()).to.contain('50 results');
-      });
-    });
-
-    /*it('if multiselect lists the number of selected items', function () {
-      typeahead.setProps({multiple: true});
-      keyDown(typeahead, DOWN);
-      keyDown(typeahead, RETURN);
-
-      return delay ().then((time) => {
-        //expect(getMenuItems(typeahead).length).to.equal(49);
-        expect(statusNode.text()).to.contain('1 selected');
-      });
-    });
-    */
-  });
 
   describe('accessibility attributes', () => {
     it('adds an id to the menu for accessibility', () => {

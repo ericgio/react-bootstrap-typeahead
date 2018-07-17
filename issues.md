@@ -11,14 +11,12 @@ _Note: Screen readers which follow specs do not interact with the DOM directly; 
 
 See this article for a more thurrough explanation of `aria-owns`: https://labs.levelaccess.com/index.php/ARIA-owns_Table
 
-- `'aria-controls': menuId`
 
 ### Screen reader announces widgit as "expanded" when screen reader focus is in `input`
 
 The "expanded" announcement in this context means that screen reader focus is in the list.
-This may happen due to `aria-activedescendant` being set, or if `tabindex` is used to an `option` element being placed in the tab order via `tabindex="0"`.
-In either case, `aria-expanded` should be set to "true" only if the list is active and meant to have screen reader focus.
-Note that browser focus may be different. For instance, when `aria-activedescendant` is used, screen reader focus is in the listbox, while browser focus remains in the `input` element.
+This happens due to `aria-activedescendant` being set, which tells the accessibility layer that even though the browser thinks focus is still in the `input`, screen reader focus should be in the list.
+Thus, `aria-expanded` should be set to "true" only if the list is active and meant to have screen reader focus.
 
 - `'aria-expanded': isMenuShown && activeIndex >= 0`
 
@@ -41,6 +39,7 @@ Previously, only the text of selection was announced when tabbing, and since the
 
 This may be an NVDA+Firefox bug.
 Code is correct, and verified that document.activeElement is set to the correct element after removal.
+Oddly enough, if we have more than one selected element, and the one in tab order just *before* the `input` is removed, screen reader focus does not end up in `input`, however if the other one is removed then the `input` gains focus and the screen reader acknowledges this fact.
 
 ### lint
 
@@ -58,13 +57,39 @@ Additionally, when in multiselect mode, each menu item `role="option"` must have
 
 Unlike single select mode where _selection follows focus_, keyboard interaction in multiselect mode is to allow toggling selection via the space key.  Enter key will add all selected options to the tokenizer.
 
+Unfortunately, because the `aria-activedescendant` pattern is used, spacebar enters a space character into the `input`, so cannot be used to toggle selected state of currently *focused* option.
+I am proposing either that we use a different key (such as control+space to toggle selection which is the simplest solution at present), or in keyboard handler, detect whether `aria-activedescendant` is non-null, in which case we toggle selected state of current option, otherwise we place a space character in the `input`. This latter option may be confusing for sighted users who would most likely expect the space character to show up and filter the list accordingly.
+
 ### NVDA+Firefox repeating contents of live region
 
-This seems to be due to rerendering of the typeahead component multiple times during a search.
+This seems to be due to rerendering of the typeahead component multiple times during a search / filter.
 
 The fix is:
 - add componentWillReceiveProps handler to menu.react.js which fires a callback when the number of results changes
 - add code to this callback to write status info to the live region
-- also add code to onMenuShow() and onMenuHide callbacks to do same
+	+ update live region when menu is shown and when menu length changes
 
 
+### Testing
+
+Added tests for all the above.
+
+#### Separated out tests involving live region (i.e. a11y status messages)
+
+This seems to be necessary because of the way I'm updating the live region.
+I'm doing direct updates using ID rather than letting react handle it. This allows me to control timing and insure no repetition.
+
+a timeout is used to update live region because otherwise, reading label text / placeholder gets cut off by live region announcement. Theoretically, `aria-live="polite"` is supposed to queue speech, however I've never seen a screen reader do this correctly.
+
+I'm using a library called "react-testing-library", which allows me to render to a real dom, then test again the real dom.
+
+Using the Enzyme mounted component, and writing something like:
+
+```
+expect(statusNode.textContent).to.contain('50 results');
+```
+
+would always fais, and `statusNode.text()` would always be the empty string.
+Adding a delay did not solve the problem using the enzyme mounted component, whereas it did work using "react-testing-library" and rendering to dom first.
+
+I've thus added "a11yResultsSpec.js" to test/components directory.
