@@ -76,7 +76,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "es6-promise": "^4.0.5",
     "eslint": "^4.1.1",
-    "eslint-config-ericgio": "^2.0.0",
+    "eslint-config-ericgio": "^3.0.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "gh-pages": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",

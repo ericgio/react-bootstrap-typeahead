@@ -6,7 +6,7 @@ import {RETURN, RIGHT, TAB} from '../constants/keyCode';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
-function interpolateStyle(styles, attr, subattr='') {
+function interpolateStyle(styles, attr, subattr = '') {
   // Title-case the sub-attribute.
   if (subattr) {
     subattr = subattr.replace(subattr[0], subattr[0].toUpperCase());
