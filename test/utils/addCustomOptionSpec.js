@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import {last} from 'lodash';
+import sinon from 'sinon';
 
 import addCustomOption from '../../src/utils/addCustomOption';
 import states from '../../example/exampleData';
@@ -7,7 +8,7 @@ import states from '../../example/exampleData';
 const labelKey = 'name';
 
 describe('addCustomOption', () => {
-  const defaultProps = {};
+  const defaultProps = {allowNew: true};
 
   it('displays a custom option if no matches are found', () => {
     const text = 'zzz';
@@ -45,13 +46,35 @@ describe('addCustomOption', () => {
     expect(last(results).customOption).to.be.undefined;
   });
 
-  it('does add custom option on exact match & includeNewOnMatch=true', () => {
+  it('passes correct parameters when allowNew is a function', () => {
+    const allowNew = sinon.spy(() => { return true; });
+    const text = 'North Carolina';
+    const results = addCustomOption(states, text, labelKey, {allowNew});
+
+    expect(results.length).to.equal(51);
+    expect(allowNew.calledOnce).to.equal(true);
+    expect(allowNew.firstCall.args[0]).to.eql(states);
+    expect(allowNew.firstCall.args[1]).to.eql(text);
+    expect(allowNew.firstCall.args[2]).to.eql(labelKey);
+  });
+
+  it('does add custom option when allowNew returns true', () => {
     const text = 'North Carolina';
     const results = addCustomOption(states, text, labelKey,
-      {includeNewOnMatch: true});
+      {allowNew: () => { return true; }});
 
     expect(results.length).to.equal(51);
     expect(last(results)[labelKey]).to.equal(text);
     expect(last(results).customOption).to.not.be.undefined;
+  });
+
+  it('does not custom option when allowNew returns false', () => {
+    const text = 'Wyoming';
+    const results = addCustomOption(states, text, labelKey,
+      {allowNew: () => { return false; }});
+
+    expect(results.length).to.equal(50);
+    expect(last(results)[labelKey]).to.equal(text);
+    expect(last(results).customOption).to.be.undefined;
   });
 });

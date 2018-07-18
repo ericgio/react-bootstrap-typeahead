@@ -1141,10 +1141,9 @@ describe('<Typeahead>', () => {
     expect(typeahead.find('.custom-token').text()).to.equal('Montgomery');
   });
 
-  it('includes new option when includeNewOnMatch=true', () => {
+  it('includes new option when allowNew always returns true', () => {
     typeahead.setProps({
-      allowNew: true,
-      includeNewOnMatch: true,
+      allowNew: (results, text, labelKey) => { return true; },
     });
 
     change(typeahead, 'North Carolina');
@@ -1154,5 +1153,39 @@ describe('<Typeahead>', () => {
     expect(menuItems.length).to.equal(2);
     expect(menuItems.at(0).text()).to.equal('North Carolina');
     expect(menuItems.at(1).text()).to.equal('New selection: North Carolina');
+  });
+
+  it('omits new option when allowNew always returns false', () => {
+    typeahead.setProps({
+      allowNew: (results, text, labelKey) => { return false; },
+    });
+
+    change(typeahead, 'North Carolina');
+    focus(typeahead);
+
+    const menuItems = getMenuItems(typeahead);
+    expect(menuItems.length).to.equal(1);
+    expect(menuItems.at(0).text()).to.equal('North Carolina');
+  });
+
+  it('omits new option when allowNew filters via custom exact match', () => {
+    const allowNew = (results, text, labelKey) => {
+      const foundExactMatch = results.some((o) => (
+        o[labelKey] === text
+      ));
+
+      return !foundExactMatch;
+    };
+
+    typeahead.setProps({
+      allowNew,
+    });
+
+    change(typeahead, 'North Carolina');
+    focus(typeahead);
+
+    const menuItems = getMenuItems(typeahead);
+    expect(menuItems.length).to.equal(1);
+    expect(menuItems.at(0).text()).to.equal('North Carolina');
   });
 });

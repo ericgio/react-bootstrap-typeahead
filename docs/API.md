@@ -22,6 +22,19 @@ The primary component provided by the module.
 
 #### Props
 
+##### `allowNew: boolean|Function`
+If a boolean is specified, indicates whether new entry functionality should be enabled. When true, a new entry menu item will be included when the trimmed input is not falsey and there isn't an exact match against the input.
+
+If a function is specified, implicity enables new entry functionality, but allows for a user defined callback to decide whether the new entry menu item should be included in the results list. The signature of allowNew functions looks like:
+
+`allowNew(results: Object[], text: string, labelKey: string|Function)`
+
+results: Object[]: The list of results that will be rendered
+
+text: string: The current filtering search text
+
+labelKey: string|Function: The labelKey prop passed to the typeahead
+
 ##### `filterBy: Array<String>|Function`
 See full documentation in the [Filtering section](Filtering.md#filterby-arraystring--function).
 
