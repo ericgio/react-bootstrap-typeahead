@@ -10,7 +10,7 @@ import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStr
 import {DEFAULT_LABELKEY} from '../constants/defaultLabelKey';
 import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants/keyCode';
 
-function genId(prefix='') {
+function genId(prefix = '') {
   return prefix + Math.random().toString(36).substr(2, 12);
 }
 

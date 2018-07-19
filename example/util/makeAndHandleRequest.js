@@ -5,7 +5,7 @@ require('es6-promise').polyfill();
 
 const SEARCH_URI = 'https://api.github.com/search/users';
 
-export default function makeAndHandleRequest(query, page=1) {
+export default function makeAndHandleRequest(query, page = 1) {
   return fetch(`${SEARCH_URI}?q=${query}+in:login&page=${page}&per_page=50`)
     .then((resp) => resp.json())
     .then(({items, total_count}) => {
