@@ -91,8 +91,8 @@ class Typeahead extends React.Component {
         <Overlay
           {...overlayProps}
           container={bodyContainer ? document.body : this}
-          show={isMenuShown}
-          target={this._target}>
+          referenceElement={this._target}
+          show={isMenuShown}>
           {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
         <div

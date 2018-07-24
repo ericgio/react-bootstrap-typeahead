@@ -52,7 +52,7 @@
     "prop-types-extra": "^1.0.1",
     "react-onclickoutside": "^6.1.1",
     "react-overlays": "^0.8.1",
-    "react-popper": "^0.10.4",
+    "react-popper": "^1.0.0",
     "warning": "^4.0.1"
   },
   "peerDependencies": {

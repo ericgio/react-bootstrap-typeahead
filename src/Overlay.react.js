@@ -72,9 +72,16 @@ class Overlay extends React.Component {
   }
 
   render() {
-    const {align, children, container, dropup, show, target} = this.props;
+    const {
+      align,
+      children,
+      container,
+      dropup,
+      referenceElement,
+      show,
+    } = this.props;
 
-    if (!(show && Children.count(children) && target)) {
+    if (!(show && Children.count(children) && referenceElement)) {
       return null;
     }
 
@@ -88,18 +95,15 @@ class Overlay extends React.Component {
         <Popper
           modifiers={getModifiers(this.props)}
           placement={`${yPlacement}-${xPlacement}`}
-          target={target}>
-          {(props) => {
-            const {ref, ...popperProps} = props.popperProps;
-            return cloneElement(child, {
-              ...child.props,
-              ...popperProps,
-              className: cx(child.props.className, {
-                [IGNORE_CLICK_OUTSIDE]: isBody(container),
-              }),
-              innerRef: ref,
-            });
-          }}
+          referenceElement={referenceElement}>
+          {({ref, ...props}) => cloneElement(child, {
+            ...child.props,
+            ...props,
+            className: cx(child.props.className, {
+              [IGNORE_CLICK_OUTSIDE]: isBody(container),
+            }),
+            innerRef: ref,
+          })}
         </Popper>
       </Portal>
     );
@@ -124,8 +128,8 @@ Overlay.propTypes = {
   container: componentOrElement.isRequired,
   onMenuHide: PropTypes.func.isRequired,
   onMenuShow: PropTypes.func.isRequired,
+  referenceElement: componentOrElement,
   show: PropTypes.bool,
-  target: componentOrElement,
 };
 
 Overlay.defaultProps = {

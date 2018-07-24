@@ -18,8 +18,8 @@ describe('<Overlay>', () => {
           container={div}
           onMenuHide={noop}
           onMenuShow={noop}
-          show={false}
-          target={div}>
+          referenceElement={div}
+          show={false}>
           <div>This is the menu</div>
         </Overlay>
       );
@@ -32,10 +32,7 @@ describe('<Overlay>', () => {
 
     it('renders a Popper when `show=true`', () => {
       wrapper.setProps({show: true});
-      const child = wrapper.children();
-
-      expect(child.type()).to.equal(Popper);
-      expect(child.dive().text()).to.equal('This is the menu');
+      expect(wrapper.children().type()).to.equal(Popper);
     });
 
     it('returns `null` when child is `null`', () => {
@@ -87,8 +84,8 @@ describe('<Overlay>', () => {
           container={div}
           onMenuHide={noop}
           onMenuShow={noop}
-          show={true}
-          target={div}>
+          referenceElement={div}
+          show={true}>
           <Menu id="menu-id">
             This is the menu
           </Menu>
@@ -99,6 +96,10 @@ describe('<Overlay>', () => {
 
     afterEach(() => {
       wrapper.detach();
+    });
+
+    it('renders a Popper when `show=true`', () => {
+      expect(wrapper.find('.rbt-menu').text()).to.equal('This is the menu');
     });
 
     it('is attached to `div`', () => {
