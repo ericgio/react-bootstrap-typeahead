@@ -37,6 +37,7 @@ class TypeaheadMenu extends React.Component {
 
     const menuItemProps = {
       disabled: option.disabled,
+      active: option.active,
       key: idx,
       label,
       option,
