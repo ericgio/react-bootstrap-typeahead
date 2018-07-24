@@ -10,7 +10,6 @@ addons:
 language: node_js
 node_js:
   - "8"
-  - "7"
   - "6"
 cache:
   directories: node_modules
