@@ -1140,4 +1140,29 @@ describe('<Typeahead>', () => {
 
     expect(typeahead.find('.custom-token').text()).to.equal('Montgomery');
   });
+
+  it('renders children', () => {
+    const text = 'This is the child';
+    const children = <div className="children">{text}</div>;
+
+    typeahead.setProps({children});
+
+    expect(typeahead.find('.children').text()).to.equal(text);
+  });
+
+  it('renders children via a render function', () => {
+    const children = (props) => (
+      <div className="children">
+        The menu {props.isMenuShown ? 'is' : 'is not'} open
+      </div>
+    );
+
+    typeahead.setProps({children});
+
+    expect(typeahead.find('.children').text()).to.equal('The menu is not open');
+
+    focus(typeahead);
+
+    expect(typeahead.find('.children').text()).to.equal('The menu is open');
+  });
 });

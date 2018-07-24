@@ -2,6 +2,7 @@ import cx from 'classnames';
 import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {findDOMNode} from 'react-dom';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -26,6 +27,7 @@ class Typeahead extends React.Component {
   render() {
     const {
       bodyContainer,
+      children,
       className,
       isMenuShown,
       menuId,
@@ -83,15 +85,21 @@ class Typeahead extends React.Component {
         className={cx('rbt', 'clearfix', 'open', {
           'has-aux': !!auxContent,
         }, className)}
-        ref={(target) => this._target = target}
         style={{position: 'relative'}}
         tabIndex={-1}>
-        {this._renderInput(inputProps)}
+        {this._renderInput({
+          ...inputProps,
+          // Use `findDOMNode` here since it's easier and less fragile than
+          // forwarding refs down to the input's container.
+          // TODO: Consider using `forwardRef` when React 16.3 usage is higher.
+          ref: (node) => this._inputContainer = findDOMNode(node),
+        })}
+        {typeof children === 'function' ? children(this.props) : children}
         {auxContent}
         <Overlay
           {...overlayProps}
           container={bodyContainer ? document.body : this}
-          referenceElement={this._target}
+          referenceElement={this._inputContainer}
           show={isMenuShown}>
           {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
