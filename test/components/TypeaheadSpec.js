@@ -1143,7 +1143,7 @@ describe('<Typeahead>', () => {
 
   it('includes new option when allowNew always returns true', () => {
     typeahead.setProps({
-      allowNew: (results, text, labelKey) => { return true; },
+      allowNew: (results, props) => { return true; },
     });
 
     change(typeahead, 'North Carolina');
@@ -1157,7 +1157,7 @@ describe('<Typeahead>', () => {
 
   it('omits new option when allowNew always returns false', () => {
     typeahead.setProps({
-      allowNew: (results, text, labelKey) => { return false; },
+      allowNew: (results, props) => { return false; },
     });
 
     change(typeahead, 'North Carolina');
@@ -1169,9 +1169,9 @@ describe('<Typeahead>', () => {
   });
 
   it('omits new option when allowNew filters via custom exact match', () => {
-    const allowNew = (results, text, labelKey) => {
+    const allowNew = (results, props) => {
       const foundExactMatch = results.some((o) => (
-        o[labelKey] === text
+        o[props.labelKey] === props.text
       ));
 
       return !foundExactMatch;

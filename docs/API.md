@@ -27,7 +27,7 @@ If a boolean is specified, indicates whether new entry functionality should be e
 
 If a function is specified, implicity enables new entry functionality, but allows for a user defined callback to decide whether the new entry menu item should be included in the results list. The signature of allowNew functions looks like:
 
-`allowNew(results: Object[], text: string, labelKey: string|Function)`
+`allowNew(results: Object[], { text: string, labelKey: string|Function })`
 
 results: Object[]: The list of results that will be rendered
 

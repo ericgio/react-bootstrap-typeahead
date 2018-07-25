@@ -137,8 +137,7 @@ function typeaheadContainer(Typeahead) {
 
       // Add the custom option.
       if (allowNew) {
-        results = addCustomOption(results, text, labelKey,
-          {...this.props, ...this.state});
+        results = addCustomOption(results, {...this.props, ...this.state});
       }
 
       // Add the pagination item.

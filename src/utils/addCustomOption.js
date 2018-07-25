@@ -1,13 +1,19 @@
 import {uniqueId} from 'lodash';
 import {getOptionLabel, getStringLabelKey} from './index';
 
-function addCustomOption(results, text, labelKey, props) {
+function addCustomOption(results, props) {
+  const {
+    text,
+    labelKey,
+    allowNew,
+  } = props;
+
   if (!text.trim()) {
     return results;
   }
 
   // If allowNew isn't a function, omit the new entry if there is an exact match
-  if (typeof props.allowNew === 'boolean') {
+  if (typeof allowNew === 'boolean') {
     const exactMatchFound = results.some((o) => (
       getOptionLabel(o, labelKey) === text
     ));
@@ -18,7 +24,7 @@ function addCustomOption(results, text, labelKey, props) {
   } else {
     // Otherwise let the allowNew function determine
     // whether the new entry should be added
-    if (!props.allowNew(results, text, labelKey)) {
+    if (!allowNew(results, {labelKey, text})) {
       return results;
     }
   }
