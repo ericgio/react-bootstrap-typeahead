@@ -1,82 +1,73 @@
 import {expect} from 'chai';
-import {last} from 'lodash';
-import sinon from 'sinon';
 
 import addCustomOption from '../../src/utils/addCustomOption';
-import states from '../../example/exampleData';
-
-const labelKey = 'name';
+import options from '../../example/exampleData';
 
 describe('addCustomOption', () => {
-  const defaultProps = {allowNew: true, labelKey};
+  let defaultProps, labelKey;
 
-  it('displays a custom option if no matches are found', () => {
-    const text = 'zzz';
-    const results = addCustomOption(states, {...defaultProps, text});
+  beforeEach(() => {
+    labelKey = 'name';
+    defaultProps = {
+      allowNew: true,
+      labelKey,
+      text: 'zzz',
+    };
+  });
 
-    expect(results.length).to.equal(51);
-    expect(last(results)[labelKey]).to.equal(text);
-    expect(last(results).customOption).to.be.true;
+  it('does not add a custom option when `allowNew` is false', () => {
+    const props = {
+      ...defaultProps,
+      allowNew: false,
+    };
+    expect(addCustomOption(options, props)).to.equal(false);
+  });
+
+  it('does not add a custom option when no text is entered', () => {
+    const props = {
+      ...defaultProps,
+      text: '',
+    };
+    expect(addCustomOption(options, props)).to.equal(false);
+  });
+
+  it('adds a custom option if no matches are found', () => {
+    expect(addCustomOption(options, defaultProps)).to.equal(true);
   });
 
   it('adds a custom option when `labelKey` is a function', () => {
-    const text = 'zzz';
-    const results = addCustomOption(states, {...defaultProps, labelKey: (o) => o.name, text});
-
-    expect(results.length).to.equal(51);
-    expect(last(results).label).to.equal(text);
-    expect(last(results).customOption).to.be.true;
+    const props = {
+      ...defaultProps,
+      labelKey: (o) => o.name,
+    };
+    expect(addCustomOption(options, props)).to.equal(true);
   });
 
-  it('displays a custom option when no exact matches are found', () => {
-    const text = 'Ala';
-    const results = addCustomOption(states, {...defaultProps, text});
-
-    expect(results.length).to.equal(51);
-    expect(last(results)[labelKey]).to.equal(text);
-    expect(last(results).customOption).to.be.true;
+  it('adds a custom option when no exact matches are found', () => {
+    const props = {...defaultProps, text: 'Ala'};
+    expect(addCustomOption(options, props)).to.equal(true);
   });
 
   it('does not add a custom option when an exact match is found', () => {
-    const text = 'Wyoming';
-    const results = addCustomOption(states, {...defaultProps, text});
-
-    expect(results.length).to.equal(50);
-    expect(last(results)[labelKey]).to.equal(text);
-    expect(last(results).customOption).to.be.undefined;
+    const props = {...defaultProps, text: 'Wyoming'};
+    expect(addCustomOption(options, props)).to.equal(false);
   });
 
-  it('passes correct parameters when allowNew is a function', () => {
-    const allowNew = sinon.spy(() => { return true; });
-    const text = 'North Carolina';
-    const results = addCustomOption(states, {allowNew, labelKey, text});
-
-    expect(results.length).to.equal(51);
-    expect(allowNew.calledOnce).to.equal(true);
-    expect(allowNew.firstCall.args[0]).to.eql(states);
-    expect(allowNew.firstCall.args[1]).to.deep.eql({
-      labelKey,
-      text,
-    });
+  it('adds a custom option when `allowNew` returns true', () => {
+    const props = {
+      ...defaultProps,
+      allowNew: () => true,
+      text: 'North Carolina', // Would otherwise return false
+    };
+    expect(addCustomOption(options, props)).to.equal(true);
   });
 
-  it('does add custom option when allowNew returns true', () => {
-    const text = 'North Carolina';
-    const results = addCustomOption(states,
-      {allowNew: () => { return true; }, labelKey, text});
-
-    expect(results.length).to.equal(51);
-    expect(last(results)[labelKey]).to.equal(text);
-    expect(last(results).customOption).to.not.be.undefined;
-  });
-
-  it('does not custom option when allowNew returns false', () => {
-    const text = 'Wyoming';
-    const results = addCustomOption(states,
-      {allowNew: () => { return false; }, labelKey, text});
-
-    expect(results.length).to.equal(50);
-    expect(last(results)[labelKey]).to.equal(text);
-    expect(last(results).customOption).to.be.undefined;
+  it('does not add a custom option when `allowNew` returns false', () => {
+    const props = {
+      ...defaultProps,
+      allowNew: () => false,
+      text: 'xxx', // Would otherwise return true
+    };
+    expect(addCustomOption(options, props)).to.equal(false);
   });
 });

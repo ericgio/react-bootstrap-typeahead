@@ -1,4 +1,4 @@
-import {flowRight, head, isEqual, noop} from 'lodash';
+import {flowRight, head, isEqual, noop, uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import React from 'react';
@@ -109,7 +109,6 @@ function typeaheadContainer(Typeahead) {
 
     render() {
       const {
-        allowNew,
         emptyLabel,
         filterBy,
         labelKey,
@@ -120,12 +119,13 @@ function typeaheadContainer(Typeahead) {
       } = this.props;
 
       const {shownResults, showMenu, text} = this.state;
+      const mergedPropsAndState = {...this.props, ...this.state};
 
       let results = [];
       if (text.length >= minLength) {
         const cb = Array.isArray(filterBy) ? defaultFilterBy : filterBy;
         results = options.filter((option) => (
-          cb(option, {...this.props, ...this.state})
+          cb(option, mergedPropsAndState)
         ));
       }
 
@@ -135,12 +135,16 @@ function typeaheadContainer(Typeahead) {
       // Truncate results if necessary.
       results = getTruncatedOptions(results, shownResults);
 
-      // Add the custom option.
-      if (allowNew) {
-        results = addCustomOption(results, {...this.props, ...this.state});
+      // Add the custom option if necessary.
+      if (addCustomOption(results, mergedPropsAndState)) {
+        results.push({
+          customOption: true,
+          id: uniqueId('new-id-'),
+          [getStringLabelKey(labelKey)]: text,
+        });
       }
 
-      // Add the pagination item.
+      // Add the pagination item if necessary.
       if (shouldPaginate) {
         results.push({
           [getStringLabelKey(labelKey)]: paginationText,

@@ -1,41 +1,21 @@
-import {uniqueId} from 'lodash';
-import {getOptionLabel, getStringLabelKey} from './index';
+import {getOptionLabel} from './index';
 
 function addCustomOption(results, props) {
-  const {
-    text,
-    labelKey,
-    allowNew,
-  } = props;
+  const {allowNew, labelKey, text} = props;
 
-  if (!text.trim()) {
-    return results;
+  if (!allowNew || !text.trim()) {
+    return false;
   }
 
-  // If allowNew isn't a function, omit the new entry if there is an exact match
-  if (typeof allowNew === 'boolean') {
-    const exactMatchFound = results.some((o) => (
-      getOptionLabel(o, labelKey) === text
-    ));
-
-    if (exactMatchFound) {
-      return results;
-    }
-  } else {
-    // Otherwise let the allowNew function determine
-    // whether the new entry should be added
-    if (!allowNew(results, {labelKey, text})) {
-      return results;
-    }
+  // If the consumer has provided a callback, use that to determine whether or
+  // not to add the custom option.
+  if (typeof allowNew === 'function') {
+    return allowNew(results, props);
   }
 
-  const customOption = {
-    customOption: true,
-    id: uniqueId('new-id-'),
-    [getStringLabelKey(labelKey)]: text,
-  };
-
-  return [...results, customOption];
+  // By default, don't add the custom option if there is an exact text match
+  // with an existing option.
+  return !results.some((o) => getOptionLabel(o, labelKey) === text);
 }
 
 export default addCustomOption;
