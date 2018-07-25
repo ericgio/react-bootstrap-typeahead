@@ -4,8 +4,8 @@ import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
 import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample';
 import BodyContainerExample from '../examples/BodyContainerExample';
 import BodyContainerExampleCode from '!raw-loader!../examples/BodyContainerExample';
-import InputGroupExample from '../examples/InputGroupExample';
-import InputGroupExampleCode from '!raw-loader!../examples/InputGroupExample';
+import FormExample from '../examples/FormExample';
+import FormExampleCode from '!raw-loader!../examples/FormExample';
 import InputSizeExample from '../examples/InputSizeExample';
 import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample';
 import MenuAlignExample from '../examples/MenuAlignExample';
@@ -58,13 +58,13 @@ const BehaviorsSection = (props) => (
     <ExampleSection code={MenuAlignExampleCode}>
       <MenuAlignExample />
     </ExampleSection>
-    <Title>Use With Input Groups</Title>
+    <Title>Input Groups and Validation States</Title>
     <Markdown>
-      The typeahead can be used with prepended or appended elements within input
-      groups.
+      The typeahead works with Bootstrap input groups and add-ons; it
+      also handles validation states.
     </Markdown>
-    <ExampleSection code={InputGroupExampleCode}>
-      <InputGroupExample />
+    <ExampleSection code={FormExampleCode}>
+      <FormExample />
     </ExampleSection>
     <Title>Pagination</Title>
     <Markdown>

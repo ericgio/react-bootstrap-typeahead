@@ -18,6 +18,10 @@
         "transform": "react-overlays/lib/${member}",
         "preventFullImport": true
       },
+      "react-popper": {
+        "transform": "react-popper/lib/cjs/${member}",
+        "preventFullImport": true
+      },
       "reactstrap": {
         "transform": "reactstrap/lib/${member}",
         "preventFullImport": true

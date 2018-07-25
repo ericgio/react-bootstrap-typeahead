@@ -27,7 +27,9 @@ function inputContainer(Input) {
         bsSize,
         disabled,
         inputRef,
+        isInvalid,
         isMenuShown,
+        isValid,
         labelKey,
         menuId,
         multiple,
@@ -87,6 +89,8 @@ function inputContainer(Input) {
             'focus': this.state.isFocused,
             'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
             'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
+            'is-invalid': isInvalid,
+            'is-valid': isValid,
           })}
         />
       );
