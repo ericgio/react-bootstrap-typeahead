@@ -137,7 +137,7 @@ function typeaheadContainer(Typeahead) {
 
       // Add the custom option.
       if (allowNew) {
-        results = addCustomOption(results, text, labelKey);
+        results = addCustomOption(results, {...this.props, ...this.state});
       }
 
       // Add the pagination item.
@@ -441,8 +441,14 @@ function typeaheadContainer(Typeahead) {
      * Allows the creation of new selections on the fly. Note that any new items
      * will be added to the list of selections, but not the list of original
      * options unless handled as such by `Typeahead`'s parent.
+     *
+     * If a function is specified, it will be used to determine whether a custom
+     * option should be included. The return value should be true or false.
      */
-    allowNew: PropTypes.bool,
+    allowNew: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.func,
+    ]),
     /**
      * Autofocus the input when the component initially mounts.
      */
