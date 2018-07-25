@@ -248,6 +248,20 @@ body {
   outline: 0;
 }
 
+.bs4 .rbt-input-multi.is-invalid.focus {
+  border-color: #dc3545;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  -moz-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.bs4 .rbt-input-multi.is-valid.focus {
+  border-color: #28a745;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  -moz-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
 .bs4 .rbt-input-multi input::-moz-placeholder {
   color: #6c757d;
   opacity: 1;
