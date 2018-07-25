@@ -25,15 +25,11 @@ The primary component provided by the module.
 ##### `allowNew: boolean|Function`
 If a boolean is specified, indicates whether new entry functionality should be enabled. When true, a new entry menu item will be included when the trimmed input is not falsey and there isn't an exact match against the input.
 
-If a function is specified, implicity enables new entry functionality, but allows for a user defined callback to decide whether the new entry menu item should be included in the results list. The signature of allowNew functions looks like:
+If a function is specified, implicity enables new entry functionality, but allows for a user defined callback to decide whether the new entry menu item should be included in the results list. The callback should return a boolean value and the signature is as follows:
 
-`allowNew(results: Object[], { text: string, labelKey: string|Function })`
-
-results: Object[]: The list of results that will be rendered
-
-text: string: The current filtering search text
-
-labelKey: string|Function: The labelKey prop passed to the typeahead
+```js
+allowNew(results: Array<string|Object>, props: Object): bool
+```
 
 ##### `filterBy: Array<String>|Function`
 See full documentation in the [Filtering section](Filtering.md#filterby-arraystring--function).
@@ -113,7 +109,7 @@ The substring to look for. This value should correspond to the input text of the
 ```
 
 ### `<Menu>`
-Provides the markup for a Bootstrap menu, along with some extra functionality for alignment, paginating results, and specifying empty label text.
+Provides the markup for a Bootstrap menu, along with some extra functionality for specifying a label when there are no results.
 
 ### `<MenuItem>`
 Provides the markup for a Bootstrap menu item, but is wrapped with the `menuItemContainer` HOC to ensure proper behavior within the typeahead context. Provided for use if a more customized `Menu` is desired.
