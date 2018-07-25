@@ -106,9 +106,9 @@ const map = [
 /* eslint-enable max-len */
 
 let diacriticsMap = {};
-for (let ii=0; ii < map.length; ii++) {
+for (let ii = 0; ii < map.length; ii++) {
   let letters = map[ii].letters;
-  for (let jj=0; jj < letters.length; jj++) {
+  for (let jj = 0; jj < letters.length; jj++) {
     diacriticsMap[letters[jj]] = map[ii].base;
   }
 }
@@ -117,5 +117,6 @@ for (let ii=0; ii < map.length; ii++) {
 export default function stripDiacritics(str) {
   return str
     .replace(/[\u0300-\u036F]/g, '') // Remove combining diacritics
+    /* eslint-disable-next-line no-control-regex */
     .replace(/[^\u0000-\u007E]/g, (a) => diacriticsMap[a] || a);
 }
