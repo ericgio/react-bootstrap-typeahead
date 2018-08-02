@@ -187,4 +187,35 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'x');
   });
 
+  it('adds a custom option when exact match is found ' +
+      'and `allowNew` returns true', (done) => {
+    const emptyLabel = 'No results...';
+    const newSelectionPrefix = 'New selection: ';
+    const text = 'zzz';
+
+    wrapper.setProps({
+      allowNew: (results, props) => true,
+      emptyLabel,
+      isLoading: true,
+      newSelectionPrefix,
+      useCache: false,
+    });
+
+    focus(wrapper);
+
+    search(wrapper, text, () => {
+      wrapper.setProps({
+        isLoading: false,
+        options: [text],
+      });
+
+      focus(wrapper);
+      const menuItems = getMenuItems(wrapper);
+
+      expect(menuItems.length).to.equal(2);
+      expect(menuItems.at(0).text()).to.equal(text);
+      expect(menuItems.at(1).text()).to.equal(`${newSelectionPrefix}${text}`);
+      done();
+    });
+  });
 });
