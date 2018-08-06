@@ -46,7 +46,7 @@ const asyncContainer = (Typeahead) => {
     }
 
     render() {
-      const {allowNew, options, useCache, ...props} = this.props;
+      const {options, useCache, ...props} = this.props;
       const cachedQuery = this._cache[this.state.query];
       const emptyLabel = this._getEmptyLabel();
 
@@ -54,12 +54,17 @@ const asyncContainer = (Typeahead) => {
       // the process of searching. The logic for whether or not to display the
       // custom menu option is basically the same as whether we display the
       // empty label, so use that as a proxy.
-      const shouldAllowNew = allowNew && emptyLabel === props.emptyLabel;
+      let allowNew = props.allowNew && emptyLabel === props.emptyLabel;
+      // Unless allowNew is a function,
+      // in which case it is up to the function to decide
+      if (typeof props.allowNew === 'function') {
+        allowNew = props.allowNew;
+      }
 
       return (
         <Typeahead
           {...props}
-          allowNew={shouldAllowNew}
+          allowNew={allowNew}
           emptyLabel={emptyLabel}
           onInputChange={this._handleInputChange}
           options={useCache && cachedQuery ? cachedQuery : options}
