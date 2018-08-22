@@ -51,7 +51,7 @@ function inputContainer(Input) {
         'aria-expanded': isMenuShown,
         'aria-haspopup': 'listbox',
         'aria-owns': menuId,
-        autoComplete: 'nope',
+        autoComplete: this.props.inputProps.autoComplete || 'nope',
         disabled,
         inputRef,
         onBlur: this._handleBlur,

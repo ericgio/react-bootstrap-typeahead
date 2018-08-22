@@ -603,6 +603,7 @@ describe('<Typeahead>', () => {
 
   it('applies arbitrary attributes to the input', () => {
     const inputProps = {
+      autoComplete: 'off',
       className: 'input-classname',
       id: 'input-id',
       name: 'input-name',
@@ -618,6 +619,7 @@ describe('<Typeahead>', () => {
 
     const props = getInput(typeahead).props();
 
+    expect(props.autoComplete).to.equal(inputProps.autoComplete);
     expect(props.className).to.contain(inputProps.className);
     expect(props.id).to.equal(inputProps.id);
     expect(props.name).to.equal(inputProps.name);
