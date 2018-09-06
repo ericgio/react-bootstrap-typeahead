@@ -54,6 +54,7 @@ function hintContainer(Input) {
           <input
             aria-hidden
             className="rbt-input-hint"
+            readOnly
             ref={(hint) => this._hint = hint}
             style={{
               backgroundColor: 'transparent',
@@ -66,7 +67,6 @@ function hintContainer(Input) {
               top: 0,
             }}
             tabIndex={-1}
-            readOnly
             value={this.context.hintText}
           />
         </div>
