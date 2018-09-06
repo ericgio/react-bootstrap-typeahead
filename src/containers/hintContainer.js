@@ -66,6 +66,7 @@ function hintContainer(Input) {
               top: 0,
             }}
             tabIndex={-1}
+            readOnly
             value={this.context.hintText}
           />
         </div>
