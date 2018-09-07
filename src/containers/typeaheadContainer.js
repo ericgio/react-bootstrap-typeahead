@@ -154,9 +154,13 @@ function typeaheadContainer(Typeahead) {
 
       // This must come after the custom option is added, if applicable.
       const isMenuShown = !!(
-        text.length >= minLength &&
         showMenu &&
-        (results.length || emptyLabel)
+          (
+            (options.length === 0 && emptyLabel) ||
+            (text.length >= minLength &&
+              (results.length || emptyLabel)
+            )
+          )
       );
 
       return (

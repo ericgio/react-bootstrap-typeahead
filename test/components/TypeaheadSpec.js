@@ -216,6 +216,19 @@ describe('<Typeahead>', () => {
     });
 
     it(
+      'should display a menu on focus when there are no options,' +
+      '`minLength=1` and `emptyLabel` is truthy', () => {
+        typeahead.setProps({
+          emptyLabel: 'no results',
+          minLength: 1,
+          options: [],
+        });
+        focus(typeahead);
+        expect(getMenu(typeahead).length).to.equal(1);
+      }
+    );
+
+    it(
       'should display a menu when there are no results, `allowNew=true`, ' +
       'and `emptyLabel` is falsy', () => {
         typeahead.setProps({
