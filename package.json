@@ -86,7 +86,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-mocha": "^1.1.1",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^3.0.0",
+    "karma-webpack": "^4.0.0-rc.2",
     "marked": "^0.4.0",
     "mocha": "^5.0.0",
     "node-sass": "^4.5.3",
