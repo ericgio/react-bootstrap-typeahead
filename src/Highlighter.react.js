@@ -9,7 +9,7 @@ import {getMatchBounds} from './utils';
  * Results are already filtered by the time the component is used internally so
  * we can safely ignore case and diacritical marks for the purposes of matching.
  */
-class Highlighter extends React.Component {
+class Highlighter extends React.PureComponent {
   _count = 0;
 
   render() {
