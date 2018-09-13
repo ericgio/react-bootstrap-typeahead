@@ -5,7 +5,7 @@ import React from 'react';
 
 import highlightOnlyResultContainer from './highlightOnlyResultContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
-import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, pluralize} from '../utils/';
+import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils/';
 
 import {DEFAULT_LABELKEY} from '../constants/defaultLabelKey';
 import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants/keyCode';
@@ -108,18 +108,18 @@ function typeaheadContainer(Typeahead) {
     }
 
     render() {
+      const mergedPropsAndState = {...this.props, ...this.state};
+
       const {
-        emptyLabel,
         filterBy,
         labelKey,
         minLength,
         options,
         paginate,
         paginationText,
-      } = this.props;
-
-      const {shownResults, showMenu, text} = this.state;
-      const mergedPropsAndState = {...this.props, ...this.state};
+        shownResults,
+        text,
+      } = mergedPropsAndState;
 
       let results = [];
       if (text.length >= minLength) {
@@ -152,17 +152,12 @@ function typeaheadContainer(Typeahead) {
         });
       }
 
-      // This must come after the custom option is added, if applicable.
-      const isMenuShown = !!(
-        text.length >= minLength &&
-        showMenu &&
-        (results.length || emptyLabel)
-      );
+      // This must come after checks for the custom option and pagination.
+      const isMenuShown = isShown(results, mergedPropsAndState);
 
       return (
         <Typeahead
-          {...this.props}
-          {...this.state}
+          {...mergedPropsAndState}
           inputRef={(input) => this._input = input}
           isMenuShown={isMenuShown}
           menuId={this.props.menuId || this._menuId}
