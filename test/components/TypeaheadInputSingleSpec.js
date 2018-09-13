@@ -18,6 +18,7 @@ describe('<TypeaheadInputSingle>', () => {
         inputRef={noop}
         labelKey="name"
         onAdd={noop}
+        onChange={noop}
         onClear={noop}
         onFocus={noop}
         options={options}
