@@ -40,17 +40,24 @@ class AsyncPaginationExample extends React.Component {
     this.setState({query});
   }
 
-  _handlePagination = (e) => {
+  _handlePagination = (e, shownResults) => {
     const {query} = this.state;
     const cachedQuery = this._cache[query];
-    const page = cachedQuery.page + 1;
 
-    // Don't make another request if we already have all the results.
-    if (cachedQuery.options.length === cachedQuery.total_count) {
+    // Don't make another request if:
+    // - the cached results exceed the shown results
+    // - we've already fetched all possible results
+    if (
+      cachedQuery.options.length > shownResults ||
+      cachedQuery.options.length === cachedQuery.total_count
+    ) {
       return;
     }
 
     this.setState({isLoading: true});
+
+    const page = cachedQuery.page + 1;
+
     makeAndHandleRequest(query, page)
       .then((resp) => {
         const options = cachedQuery.options.concat(resp.options);

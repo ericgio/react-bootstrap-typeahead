@@ -285,18 +285,23 @@ describe('<Typeahead>', () => {
   });
 
   describe('pagination behaviors', () => {
-    let onPaginate;
+    let maxResults, onPaginate, shownResultsCount;
 
     beforeEach(() => {
-      onPaginate = sinon.spy();
+      maxResults = 10;
+      shownResultsCount = maxResults;
+
+      onPaginate = sinon.spy((e, shownResults) => {
+        shownResultsCount = shownResults;
+      });
 
       typeahead = mountTypeahead({
-        maxResults: 10,
+        maxResults,
         onPaginate,
       });
     });
 
-    it('should have a menu item for pagination', () => {
+    it('has a menu item for pagination', () => {
       focus(typeahead);
       const paginator = getPaginator(typeahead);
 
@@ -304,7 +309,7 @@ describe('<Typeahead>', () => {
       expect(paginator.text()).to.equal('Display additional results...');
     });
 
-    it('should call `onPaginate` when the menu item is clicked', () => {
+    it('calls `onPaginate` when the menu item is clicked', () => {
       focus(typeahead);
       typeahead
         .find('.rbt-menu-pagination-option a')
@@ -312,19 +317,21 @@ describe('<Typeahead>', () => {
         .simulate('click');
 
       expect(onPaginate.calledOnce).to.equal(true);
+      expect(shownResultsCount).to.equal(maxResults * 2);
       expect(getMenuItems(typeahead).length).to.equal(21);
     });
 
-    it('should call `onPaginate` when the return key is pressed', () => {
+    it('calls `onPaginate` when the return key is pressed', () => {
       focus(typeahead);
       keyDown(typeahead, UP);
       keyDown(typeahead, RETURN);
 
       expect(onPaginate.calledOnce).to.equal(true);
+      expect(shownResultsCount).to.equal(maxResults * 2);
       expect(getMenuItems(typeahead).length).to.equal(21);
     });
 
-    it('should call `onPaginate` when `labelKey` is a function', () => {
+    it('calls `onPaginate` when `labelKey` is a function', () => {
       typeahead.setProps({labelKey: (o) => o.name});
 
       focus(typeahead);
@@ -332,11 +339,12 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, RETURN);
 
       expect(onPaginate.calledOnce).to.equal(true);
+      expect(shownResultsCount).to.equal(maxResults * 2);
       expect(getMenuItems(typeahead).length).to.equal(21);
     });
 
     it(
-      'should not call `onPaginate` when the right arrow or tab keys are ' +
+      'does not call `onPaginate` when the right arrow or tab keys are ' +
       'pressed', () => {
         focus(typeahead);
 
@@ -353,7 +361,7 @@ describe('<Typeahead>', () => {
       }
     );
 
-    it('should display custom pagination text', () => {
+    it('displays custom pagination text', () => {
       const paginationText = 'More Results...';
       typeahead.setProps({paginationText});
 
@@ -361,11 +369,32 @@ describe('<Typeahead>', () => {
       expect(getPaginator(typeahead).text()).to.equal(paginationText);
     });
 
-    it('should not have a menu item for pagination', () => {
+    it('does not have a menu item for pagination', () => {
       typeahead.setProps({paginate: false});
 
       focus(typeahead);
       expect(getPaginator(typeahead)).to.have.length(0);
+    });
+
+    it('resets the shown results when the input value changes', () => {
+      maxResults = 5;
+      typeahead.setProps({maxResults});
+
+      change(typeahead, 'ar');
+      focus(typeahead);
+      keyDown(typeahead, UP);
+      keyDown(typeahead, RETURN);
+
+      expect(onPaginate.callCount).to.equal(1);
+      expect(shownResultsCount).to.equal(maxResults * 2);
+
+      change(typeahead, 'or');
+      focus(typeahead);
+      keyDown(typeahead, UP);
+      keyDown(typeahead, RETURN);
+
+      expect(onPaginate.callCount).to.equal(2);
+      expect(shownResultsCount).to.equal(maxResults * 2);
     });
   });
 

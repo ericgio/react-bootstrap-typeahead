@@ -52,8 +52,8 @@ As with a normal text input, these are called when the typeahead input has blur,
 ##### `onMenuHide()` & `onMenuShow()`
 Invoked when the menu is hidden or shown, respectively.
 
-##### `onPaginate(event: Event)`
-Invoked when the pagination menu item is clicked. Receives an event.
+##### `onPaginate(event: Event, shownResults: Number)`
+Invoked when the pagination menu item is clicked. Receives an event as the first argument and the number of shown results as the second.
 
 ### `<AsyncTypeahead>`
 An enhanced version of the normal `Typeahead` component for use when performing asynchronous searches. Provides debouncing of user input, optional query caching, and search prompt, empty results, and pending request behaviors.

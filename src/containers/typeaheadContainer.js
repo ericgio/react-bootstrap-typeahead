@@ -247,14 +247,20 @@ function typeaheadContainer(Typeahead) {
 
     _handleInputChange = (e) => {
       e.persist();
+
       const text = e.target.value;
-      const {activeIndex, activeItem} = getInitialState(this.props);
+      const {
+        activeIndex,
+        activeItem,
+        shownResults,
+      } = getInitialState(this.props);
       const {multiple, onInputChange} = this.props;
 
       this.setState({
         activeIndex,
         activeItem,
         showMenu: true,
+        shownResults,
         text,
       }, () => onInputChange(text, e));
 
@@ -342,10 +348,9 @@ function typeaheadContainer(Typeahead) {
     _handlePaginate = (e) => {
       e.persist();
       const {maxResults, onPaginate} = this.props;
+      const shownResults = this.state.shownResults + maxResults;
 
-      this.setState({
-        shownResults: this.state.shownResults + maxResults,
-      }, () => onPaginate(e));
+      this.setState({shownResults}, () => onPaginate(e, shownResults));
     }
 
     _handleSelectionAdd = (selection) => {
