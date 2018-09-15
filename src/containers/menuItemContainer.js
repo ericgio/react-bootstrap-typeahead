@@ -4,16 +4,31 @@ import {findDOMNode} from 'react-dom';
 
 import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded} from '../utils/';
 
+const withContext = (Component) => {
+  return class extends React.Component {
+    static contextTypes = {
+      activeIndex: PropTypes.number.isRequired,
+      isOnlyResult: PropTypes.bool.isRequired,
+      onActiveItemChange: PropTypes.func.isRequired,
+      onInitialItemChange: PropTypes.func.isRequired,
+      onMenuItemClick: PropTypes.func.isRequired,
+    };
+
+    render() {
+      return <Component {...this.props} {...this.context} />;
+    }
+  };
+};
+
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
     componentDidMount() {
       this._updateInitialItem(this.props);
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
-      const currentlyActive = this.context.activeIndex === this.props.position;
-      const {option, position} = nextProps;
-      const {activeIndex, onActiveItemChange} = nextContext;
+    componentDidUpdate(prevProps, prevState) {
+      const wasActive = prevProps.activeIndex === prevProps.position;
+      const {activeIndex, onActiveItemChange, option, position} = this.props;
 
       if (position == null) {
         return;
@@ -26,15 +41,24 @@ const menuItemContainer = (Component) => {
         scrollIntoViewIfNeeded(findDOMNode(this));
 
         // Fire the change handler when the menu item becomes active.
-        !currentlyActive && onActiveItemChange(option);
+        !wasActive && onActiveItemChange(option);
       }
 
-      this._updateInitialItem(nextProps);
+      this._updateInitialItem(this.props);
     }
 
     render() {
-      const {activeIndex, isOnlyResult} = this.context;
-      const {label, option, position, ...props} = this.props;
+      const {
+        activeIndex,
+        isOnlyResult,
+        label,
+        onActiveItemChange,
+        onInitialItemChange,
+        onMenuItemClick,
+        option,
+        position,
+        ...props
+      } = this.props;
 
       const active = isOnlyResult || activeIndex === position;
 
@@ -53,16 +77,16 @@ const menuItemContainer = (Component) => {
     }
 
     _handleClick = (e) => {
-      const {option, onClick} = this.props;
+      const {onMenuItemClick, option, onClick} = this.props;
 
-      this.context.onMenuItemClick(option, e);
+      onMenuItemClick(option, e);
       onClick && onClick(e);
     }
 
     _updateInitialItem = (props) => {
-      const {option, position} = props;
+      const {onInitialItemChange, option, position} = props;
       if (position === 0) {
-        this.context.onInitialItemChange(option);
+        onInitialItemChange(option);
       }
     }
   }
@@ -78,15 +102,7 @@ const menuItemContainer = (Component) => {
     position: PropTypes.number,
   };
 
-  WrappedMenuItem.contextTypes = {
-    activeIndex: PropTypes.number.isRequired,
-    isOnlyResult: PropTypes.bool.isRequired,
-    onActiveItemChange: PropTypes.func.isRequired,
-    onInitialItemChange: PropTypes.func.isRequired,
-    onMenuItemClick: PropTypes.func.isRequired,
-  };
-
-  return WrappedMenuItem;
+  return withContext(WrappedMenuItem);
 };
 
 export default menuItemContainer;
