@@ -52,10 +52,11 @@ function typeaheadContainer(Typeahead) {
   )(Typeahead);
 
   class WrappedTypeahead extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = getInitialState(props);
-    }
+    state = getInitialState(this.props);
+
+    // Generate random id here since doing it in defaultProps will generate
+    // the same id for every instance.
+    _menuId = genId('rbt-menu-');
 
     getChildContext() {
       return {
@@ -64,12 +65,6 @@ function typeaheadContainer(Typeahead) {
         onInitialItemChange: this._handleInitialItemChange,
         onMenuItemClick: this._handleMenuItemSelect,
       };
-    }
-
-    componentWillMount() {
-      // Generate random id here since doing it in defaultProps will generate
-      // the same id for every instance.
-      this._menuId = genId('rbt-menu-');
     }
 
     componentDidMount() {

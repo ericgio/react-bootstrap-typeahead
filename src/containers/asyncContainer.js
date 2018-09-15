@@ -20,8 +20,9 @@ const asyncContainer = (Typeahead) => {
       query: '',
     };
 
-    componentWillMount() {
-      this._cache = {};
+    _cache = {};
+
+    componentDidMount() {
       this._handleSearchDebounced = debounce(
         this._handleSearch,
         this.props.delay

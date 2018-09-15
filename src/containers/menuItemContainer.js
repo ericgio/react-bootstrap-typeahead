@@ -6,7 +6,7 @@ import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded}
 
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
       this._updateInitialItem(this.props);
     }
 
