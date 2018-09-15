@@ -5,7 +5,7 @@ import onClickOutside from 'react-onclickoutside';
 import React from 'react';
 
 import highlightOnlyResultContainer from './highlightOnlyResultContainer';
-import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType} from '../propTypes/';
+import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes/';
 import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils/';
 
 import {DEFAULT_LABELKEY} from '../constants/defaultLabelKey';
@@ -412,7 +412,9 @@ function typeaheadContainer(Typeahead) {
     }
 
     _updateSelected = (selected) => {
-      this.setState({selected}, () => this.props.onChange(selected));
+      this.setState({selected}, () => {
+        this.props.onChange && this.props.onChange(selected);
+      });
     }
   }
 
@@ -618,7 +620,7 @@ function typeaheadContainer(Typeahead) {
      * The selected option(s) displayed in the input. Use this prop if you want
      * to control the component via its parent.
      */
-    selected: optionType,
+    selected: checkPropType(optionType, selectedType),
     /**
      * Allows selecting the hinted result by pressing enter.
      */
@@ -657,7 +659,6 @@ function typeaheadContainer(Typeahead) {
     minLength: 0,
     multiple: false,
     onBlur: noop,
-    onChange: noop,
     onFocus: noop,
     onInputChange: noop,
     onKeyDown: noop,

@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
-import {head} from 'lodash';
+import {head, noop} from 'lodash';
 import React from 'react';
 import {Popper} from 'react-popper';
 import sinon from 'sinon';
@@ -20,6 +20,7 @@ function mountTypeahead(props) {
   return mount(
     <Typeahead
       labelKey="name"
+      onChange={noop}
       options={states}
       {...props}
     />
@@ -535,6 +536,7 @@ describe('<Typeahead>', () => {
       });
 
       expect(getSelected(typeahead).length).to.equal(1);
+      expect(getText(typeahead)).to.equal('Alabama');
 
       // Simulate deleting the last character.
       change(typeahead, 'Alabam');
@@ -966,15 +968,17 @@ describe('<Typeahead>', () => {
   });
 
   it('calls the public `clear` method', () => {
-    typeahead.setProps({selected: states.slice(0, 1)});
+    const wrapper = mountTypeahead({
+      defaultSelected: states.slice(0, 1),
+    });
 
-    expect(getSelected(typeahead).length).to.equal(1);
-    expect(getText(typeahead)).to.equal('Alabama');
+    expect(getSelected(wrapper).length).to.equal(1);
+    expect(getText(wrapper)).to.equal('Alabama');
 
-    typeahead.instance().getInstance().clear();
+    wrapper.instance().getInstance().clear();
 
-    expect(getSelected(typeahead).length).to.equal(0);
-    expect(getText(typeahead)).to.equal('');
+    expect(getSelected(wrapper).length).to.equal(0);
+    expect(getText(wrapper)).to.equal('');
   });
 
   describe('clear-on-select behavior', () => {
@@ -1100,15 +1104,17 @@ describe('<Typeahead>', () => {
     });
 
     it('does not call either when `clear()` is called externally', () => {
-      typeahead.setProps({selected});
+      const wrapper = mountTypeahead({
+        defaultSelected: selected,
+      });
 
-      expect(getSelected(typeahead).length).to.equal(1);
-      expect(getText(typeahead)).to.equal(head(selected).name);
+      expect(getSelected(wrapper).length).to.equal(1);
+      expect(getText(wrapper)).to.equal(head(selected).name);
 
-      typeahead.instance().getInstance().clear();
+      wrapper.instance().getInstance().clear();
 
-      expect(getSelected(typeahead).length).to.equal(0);
-      expect(getText(typeahead)).to.equal('');
+      expect(getSelected(wrapper).length).to.equal(0);
+      expect(getText(wrapper)).to.equal('');
       expect(onChange.notCalled).to.equal(true);
       expect(onInputChange.notCalled).to.equal(true);
     });

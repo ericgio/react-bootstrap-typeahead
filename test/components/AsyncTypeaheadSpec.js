@@ -166,6 +166,7 @@ describe('<AsyncTypeahead>', () => {
   it('should perform a search when there is already a selection', (done) => {
     wrapper.setProps({
       multiple: true,
+      onChange: () => {},
       options: ['one', 'two'],
       selected: ['one'],
     });

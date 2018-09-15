@@ -10,12 +10,12 @@ class PublicMethodsExample extends React.Component {
     return (
       <Fragment>
         <Typeahead
+          defaultSelected={options.slice(0, 4)}
           labelKey="name"
           multiple
           options={options}
           placeholder="Choose a state..."
           ref={(ref) => this._typeahead = ref}
-          selected={options.slice(0, 4)}
         />
         <ButtonToolbar style={{marginTop: '10px'}}>
           <Button
