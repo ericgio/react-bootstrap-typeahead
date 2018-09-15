@@ -51,17 +51,17 @@ class Overlay extends React.Component {
     this._update();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {onMenuHide, onMenuShow, onMenuToggle, show} = nextProps;
+  componentDidUpdate(prevProps, prevState) {
+    const {onMenuHide, onMenuShow, onMenuToggle, show} = this.props;
 
-    if (this.props.show !== show) {
+    if (show !== prevProps.show) {
       show ? onMenuShow() : onMenuHide();
       onMenuToggle(show);
     }
 
     // Remove scoping classes if menu isn't being appended to document body.
-    const {className, container} = this.props;
-    if (isBody(container) && !isBody(nextProps.container)) {
+    const {className, container} = prevProps;
+    if (isBody(container) && !isBody(this.props.container)) {
       container.classList.remove(BODY_CLASS);
       !!className && container.classList.remove(...className.split(' '));
     }
