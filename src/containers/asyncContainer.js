@@ -29,10 +29,10 @@ const asyncContainer = (Typeahead) => {
       );
     }
 
-    componentWillReceiveProps(nextProps) {
-      const {options, useCache} = nextProps;
+    componentDidUpdate(prevProps, prevState) {
+      const {options, useCache} = this.props;
 
-      if (!this.props.isLoading) {
+      if (!prevProps.isLoading) {
         return;
       }
 
@@ -111,8 +111,6 @@ const asyncContainer = (Typeahead) => {
     _handleSearch = (query) => {
       const {minLength, onSearch, useCache} = this.props;
 
-      this.setState({query});
-
       if (!query || (minLength && query.length < minLength)) {
         return;
       }
@@ -123,7 +121,7 @@ const asyncContainer = (Typeahead) => {
       }
 
       // Perform the search.
-      onSearch(query);
+      this.setState({query}, () => onSearch(query));
     }
   }
 
