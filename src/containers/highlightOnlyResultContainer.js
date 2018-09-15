@@ -1,6 +1,7 @@
 import {head} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {polyfill} from 'react-lifecycles-compat';
 
 import {RETURN} from '../constants/keyCode';
 
@@ -10,18 +11,16 @@ function highlightOnlyResultContainer(Typeahead) {
       isOnlyResult: false,
     };
 
-    componentWillReceiveProps(nextProps) {
-      const {allowNew, highlightOnlyResult, results} = nextProps;
+    static getDerivedStateFromProps(props, state) {
+      const {allowNew, highlightOnlyResult, results} = props;
 
       if (!highlightOnlyResult || allowNew) {
-        return;
+        return null;
       }
 
-      if (results.length !== this.props.results.length) {
-        this.setState({
-          isOnlyResult: results.length === 1 && !head(results).disabled,
-        });
-      }
+      return {
+        isOnlyResult: results.length === 1 && !head(results).disabled,
+      };
     }
 
     getChildContext() {
@@ -57,6 +56,8 @@ function highlightOnlyResultContainer(Typeahead) {
   WrappedTypeahead.childContextTypes = {
     isOnlyResult: PropTypes.bool.isRequired,
   };
+
+  polyfill(WrappedTypeahead);
 
   return WrappedTypeahead;
 }
