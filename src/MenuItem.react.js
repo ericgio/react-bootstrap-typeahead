@@ -28,7 +28,6 @@ class BaseMenuItem extends React.Component {
         className={cx(conditionalClassNames, className)}>
         <a
           className={cx('dropdown-item', conditionalClassNames)}
-          href="#"
           onClick={this._handleClick}
           onMouseDown={onMouseDown}>
           {children}

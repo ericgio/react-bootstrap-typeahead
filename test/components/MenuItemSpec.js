@@ -66,6 +66,10 @@ describe('<MenuItem>', () => {
     expect(menuItem.find('a')).to.have.length(1);
   });
 
+  it('does not include a href to prevent unwanted redirect', () => {
+    expect(menuItem.find('a').prop('href')).to.be.undefined
+  })
+
   it('changes the active state of the menu item', () => {
     expect(menuItem.hasClass('active')).to.equal(false);
 
