@@ -4,9 +4,20 @@ import stripDiacritics from './stripDiacritics';
 const CASE_INSENSITIVE = 'i';
 const COMBINING_MARKS = /[\u0300-\u036F]/;
 
-export default function getMatchBounds(subject, search) {
+export default function getMatchBounds(subject, search, options = {}) {
+  const {multiword = false, beginningOnly = false} = options;
+  const boundry = beginningOnly ? '\\b' : '';
+  search = boundry + escapeStringRegexp(stripDiacritics(search));
+
+  if (multiword) {
+    const searchsplit = search.split(/\s+/);
+    if (searchsplit.length > 1) {
+      search += '|' + boundry + searchsplit.join('|' + boundry);
+    }
+  }
+
   search = new RegExp(
-    escapeStringRegexp(stripDiacritics(search)),
+    search,
     CASE_INSENSITIVE
   );
 

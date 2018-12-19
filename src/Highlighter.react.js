@@ -22,10 +22,10 @@ class Highlighter extends React.PureComponent {
 
   _renderHighlightedChildren() {
     const children = [];
-    let remaining = this.props.children;
+    let {search, children: remaining, ...options} = this.props;
 
     while (remaining) {
-      const bounds = getMatchBounds(remaining, this.props.search);
+      const bounds = getMatchBounds(remaining, search, options);
 
       if (!bounds) {
         this._count++;
@@ -68,7 +68,9 @@ class Highlighter extends React.PureComponent {
 }
 
 Highlighter.propTypes = {
+  beginningOnly: PropTypes.boolean,
   children: PropTypes.string.isRequired,
+  multiword: PropTypes.boolean,
   search: PropTypes.string.isRequired,
 };
 

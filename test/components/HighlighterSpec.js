@@ -55,4 +55,56 @@ describe('<Highlighter>', () => {
     expect(matches.length).to.equal(1);
     expect(matches.first().text()).to.equal('Krakó');
   });
+    matches = highlighter
+      .setProps({search: 'nia cal'})
+      .find('mark');
+
+    expect(matches.length).to.equal(0);
+  });
+
+    beforeEach(() => {
+      highlighter = shallow(
+        <Highlighter multiword={true} search="">
+          California is warm
+        </Highlighter>
+      );
+    });
+      matches = highlighter
+        .setProps({search: 'nia cal'})
+        .find('mark');
+
+      expect(matches.length).to.equal(2);
+      expect(matches.first().text()).to.equal('Cal');
+      expect(matches.at(1).text()).to.equal('nia');
+    });
+
+    it('combined match', () => {
+      matches = highlighter
+        .setProps({search: 'is warm'})
+        .find('mark');
+
+      expect(matches.length).to.equal(1);
+      expect(matches.first().text()).to.equal('is warm');
+    });
+  });
+
+  describe('beginningOnly', function() {
+    beforeEach(() => {
+      highlighter = shallow(
+        <Highlighter beginningOnly={true} multiword={true} search="">
+          California is warm
+        </Highlighter>
+      );
+    });
+
+    it('not matches partly', () => {
+      matches = highlighter
+        .setProps({search: 'nia cal warm'})
+        .find('mark');
+
+      expect(matches.length).to.equal(2);
+      expect(matches.first().text()).to.equal('Cal');
+      expect(matches.at(1).text()).to.equal('warm');
+    });
+  });
 });
