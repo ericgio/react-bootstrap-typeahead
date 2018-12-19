@@ -55,6 +55,8 @@ describe('<Highlighter>', () => {
     expect(matches.length).to.equal(1);
     expect(matches.first().text()).to.equal('Krakó');
   });
+
+  it('matches multiword disabled by default', () => {
     matches = highlighter
       .setProps({search: 'nia cal'})
       .find('mark');
@@ -62,6 +64,7 @@ describe('<Highlighter>', () => {
     expect(matches.length).to.equal(0);
   });
 
+  describe('multiword', function() {
     beforeEach(() => {
       highlighter = shallow(
         <Highlighter multiword={true} search="">
@@ -69,6 +72,8 @@ describe('<Highlighter>', () => {
         </Highlighter>
       );
     });
+
+    it('matches', () => {
       matches = highlighter
         .setProps({search: 'nia cal'})
         .find('mark');
