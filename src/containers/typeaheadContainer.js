@@ -623,6 +623,10 @@ function typeaheadContainer(Typeahead) {
      * Allows selecting the hinted result by pressing enter.
      */
     selectHintOnEnter: PropTypes.bool,
+    /**
+     * Forces the Overlay to be always open, in order to simulate an on-page results list
+     */
+    alwaysOpen: PropTypes.bool
   };
 
   WrappedTypeahead.defaultProps = {

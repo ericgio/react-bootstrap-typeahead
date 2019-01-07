@@ -33,6 +33,7 @@ class Typeahead extends React.Component {
       menuId,
       renderMenu,
       results,
+      alwaysOpen
     } = this.props;
 
     const inputProps = pick(this.props, [
@@ -101,8 +102,8 @@ class Typeahead extends React.Component {
         <Overlay
           {...overlayProps}
           container={bodyContainer ? document.body : this}
-          referenceElement={this._inputContainer}
-          show={isMenuShown}>
+          referenceElement={this._inputContainer ? this._inputContainer : alwaysOpen}
+          show={alwaysOpen ? true : isMenuShown}>
           {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
         <div
