@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import AutosizeInput from '../AutosizeInput.react';
+
 import {getDisplayName} from '../utils/';
 import {RETURN, RIGHT, TAB} from '../constants/keyCode';
 
@@ -51,16 +53,18 @@ function hintContainer(Input) {
             }}
             onKeyDown={this._handleKeyDown}
           />
-          <input
+          <AutosizeInput
             aria-hidden
-            className="rbt-input-hint"
-            readOnly
-            ref={(hint) => this._hint = hint}
-            style={{
+            inputClassName="rbt-input-hint"
+            inputRef={(hint) => this._hint = hint}
+            inputStyle={{
               backgroundColor: 'transparent',
               borderColor: 'transparent',
               boxShadow: 'none',
               color: 'rgba(0, 0, 0, 0.35)',
+            }}
+            readOnly
+            style={{
               left: 0,
               pointerEvents: 'none',
               position: 'absolute',
