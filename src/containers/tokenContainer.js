@@ -1,5 +1,5 @@
 import React from 'react';
-import onClickOutside from 'react-onclickoutside';
+import {RootCloseWrapper} from 'react-overlays';
 
 import {getDisplayName} from '../utils/';
 import {BACKSPACE} from '../constants/keyCode';
@@ -15,25 +15,17 @@ const tokenContainer = (Component) => {
     };
 
     render() {
-      const {
-        disableOnClickOutside,
-        enableOnClickOutside,
-        eventTypes,
-        outsideClickIgnoreClass,
-        preventDefault,
-        stopPropagation,
-        ...tokenProps
-      } = this.props;
-
       return (
-        <Component
-          {...tokenProps}
-          {...this.state}
-          onBlur={this._handleBlur}
-          onClick={this._handleActive}
-          onFocus={this._handleActive}
-          onKeyDown={this._handleKeyDown}
-        />
+        <RootCloseWrapper onRootClose={this._handleBlur}>
+          <Component
+            {...this.props}
+            {...this.state}
+            onBlur={this._handleBlur}
+            onClick={this._handleActive}
+            onFocus={this._handleActive}
+            onKeyDown={this._handleKeyDown}
+          />
+        </RootCloseWrapper>
       );
     }
 
@@ -54,13 +46,6 @@ const tokenContainer = (Component) => {
       }
     }
 
-    /**
-     * From `onClickOutside` HOC.
-     */
-    handleClickOutside = (e) => {
-      this._handleBlur();
-    }
-
     _handleActive = (e) => {
       e.stopPropagation();
       this.setState({active: true});
@@ -69,7 +54,7 @@ const tokenContainer = (Component) => {
 
   WrappedComponent.displayName = `TokenContainer(${getDisplayName(Component)})`;
 
-  return onClickOutside(WrappedComponent);
+  return WrappedComponent;
 };
 
 export default tokenContainer;

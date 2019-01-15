@@ -1,8 +1,8 @@
 import {flowRight, head, isEqual, noop, uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
 import {deprecated} from 'prop-types-extra';
-import onClickOutside from 'react-onclickoutside';
 import React from 'react';
+import {RootCloseWrapper} from 'react-overlays';
 
 import highlightOnlyResultContainer from './highlightOnlyResultContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes/';
@@ -152,20 +152,22 @@ function typeaheadContainer(Typeahead) {
       const isMenuShown = isShown(results, mergedPropsAndState);
 
       return (
-        <Typeahead
-          {...mergedPropsAndState}
-          inputRef={(input) => this._input = input}
-          isMenuShown={isMenuShown}
-          menuId={this.props.menuId || this._menuId}
-          onAdd={this._handleSelectionAdd}
-          onChange={this._handleInputChange}
-          onClear={this._handleClear}
-          onFocus={this._handleFocus}
-          onInitialItemChange={this._handleInitialItemChange}
-          onKeyDown={(e) => this._handleKeyDown(e, results, isMenuShown)}
-          onRemove={this._handleSelectionRemove}
-          results={results}
-        />
+        <RootCloseWrapper onRootClose={this._handleRootClose}>
+          <Typeahead
+            {...mergedPropsAndState}
+            inputRef={(input) => this._input = input}
+            isMenuShown={isMenuShown}
+            menuId={this.props.menuId || this._menuId}
+            onAdd={this._handleSelectionAdd}
+            onChange={this._handleInputChange}
+            onClear={this._handleClear}
+            onFocus={this._handleFocus}
+            onInitialItemChange={this._handleInitialItemChange}
+            onKeyDown={(e) => this._handleKeyDown(e, results, isMenuShown)}
+            onRemove={this._handleSelectionRemove}
+            results={results}
+          />
+        </RootCloseWrapper>
       );
     }
 
@@ -188,6 +190,11 @@ function typeaheadContainer(Typeahead) {
 
     getInput = () => {
       return this._input;
+    }
+
+    // Included for backwards-compatibility.
+    getInstance = () => {
+      return this;
     }
 
     _handleActiveIndexChange = (activeIndex) => {
@@ -384,10 +391,7 @@ function typeaheadContainer(Typeahead) {
       this._updateSelected(selected);
     }
 
-    /**
-     * From `onClickOutside` HOC.
-     */
-    handleClickOutside = (e) => {
+    _handleRootClose = (e) => {
       this.state.showMenu && this._hideMenu();
     }
 
@@ -676,7 +680,7 @@ function typeaheadContainer(Typeahead) {
     onMenuItemClick: PropTypes.func.isRequired,
   };
 
-  return onClickOutside(WrappedTypeahead);
+  return WrappedTypeahead;
 }
 
 export default typeaheadContainer;

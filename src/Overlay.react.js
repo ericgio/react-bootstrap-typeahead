@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import {noop} from 'lodash';
 import React, {Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
@@ -7,11 +6,6 @@ import {Portal} from 'react-overlays';
 import {Popper} from 'react-popper';
 
 const BODY_CLASS = 'rbt-body-container';
-
-// When appending the overlay to `document.body`, clicking on it will register
-// as an "outside" click and immediately close the overlay. This classname tells
-// `react-onclickoutside` to ignore the click.
-const IGNORE_CLICK_OUTSIDE = 'ignore-react-onclickoutside';
 
 function getModifiers({align, flip}) {
   return {
@@ -97,9 +91,6 @@ class Overlay extends React.Component {
           {({ref, ...props}) => cloneElement(child, {
             ...child.props,
             ...props,
-            className: cx(child.props.className, {
-              [IGNORE_CLICK_OUTSIDE]: isBody(container),
-            }),
             innerRef: ref,
           })}
         </Popper>
