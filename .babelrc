@@ -1,5 +1,7 @@
 {
   "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-export-default-from",
     "dev-expression",
     ["transform-imports", {
       "lodash": {
@@ -36,8 +38,7 @@
     }
   },
   "presets": [
-    "env",
-    "react",
-    "stage-1",
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
 }
