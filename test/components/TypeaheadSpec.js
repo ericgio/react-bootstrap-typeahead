@@ -209,6 +209,11 @@ describe('<Typeahead>', () => {
   });
 
   describe('menu visibility behavior', () => {
+    it('displays a menu by default on initial render', () => {
+      typeahead = mountTypeahead({defaultOpen: true});
+      expect(getState(typeahead).showMenu).to.equal(true);
+      expect(getMenu(typeahead).length).to.equal(1);
+    });
 
     it('should display a menu when the input is focused', () => {
       focus(typeahead);

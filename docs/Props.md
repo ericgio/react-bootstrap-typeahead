@@ -13,6 +13,7 @@ bsSize | one of: `'large'`, `'lg'`, `'small'`, `'sm'` | | Specify the size of th
 caseSensitive | boolean | false | Whether or not filtering should be case-sensitive.
 clearButton | boolean | false | Displays a button to clear the input when there are selections.
 defaultInputValue | string | '' | The initial value displayed in the text input.
+defaultOpen | boolean | false | Whether or not the menu is displayed upon initial render.
 defaultSelected | array | `[]` | Specify any pre-selected options. Use only if you want the component to be uncontrolled.
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 dropup | boolean | false | Specify whether the menu should appear above the input.

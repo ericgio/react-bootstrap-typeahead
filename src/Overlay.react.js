@@ -73,7 +73,7 @@ class Overlay extends React.Component {
       show,
     } = this.props;
 
-    if (!(show && Children.count(children) && referenceElement)) {
+    if (!(show && Children.count(children))) {
       return null;
     }
 

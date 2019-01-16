@@ -16,7 +16,13 @@ function genId(prefix = '') {
 }
 
 function getInitialState(props) {
-  const {defaultInputValue, defaultSelected, maxResults, multiple} = props;
+  const {
+    defaultInputValue,
+    defaultOpen,
+    defaultSelected,
+    maxResults,
+    multiple,
+  } = props;
 
   let selected = props.selected ?
     props.selected.slice() :
@@ -40,7 +46,7 @@ function getInitialState(props) {
     initialItem: null,
     isFocused: false,
     selected,
-    showMenu: false,
+    showMenu: defaultOpen,
     shownResults: maxResults,
     text,
   };
@@ -107,6 +113,7 @@ function typeaheadContainer(Typeahead) {
       } = mergedPropsAndState;
 
       let results = [];
+
       if (text.length >= minLength) {
         const cb = Array.isArray(filterBy) ? defaultFilterBy : filterBy;
         results = options.filter((option) => (
@@ -401,14 +408,13 @@ function typeaheadContainer(Typeahead) {
       const {
         activeIndex,
         activeItem,
-        showMenu,
         shownResults,
       } = getInitialState(this.props);
 
       this.setState({
         activeIndex,
         activeItem,
-        showMenu,
+        showMenu: false,
         shownResults,
       });
     }
@@ -477,6 +483,10 @@ function typeaheadContainer(Typeahead) {
      * The initial value displayed in the text input.
      */
     defaultInputValue: checkPropType(PropTypes.string, defaultInputValueType),
+    /**
+     * Whether or not the menu is displayed upon initial render.
+     */
+    defaultOpen: PropTypes.bool,
     /**
      * Specify any pre-selected options. Use only if you want the component to
      * be uncontrolled.
@@ -648,6 +658,7 @@ function typeaheadContainer(Typeahead) {
     caseSensitive: false,
     clearButton: false,
     defaultInputValue: '',
+    defaultOpen: false,
     defaultSelected: [],
     disabled: false,
     dropup: false,
