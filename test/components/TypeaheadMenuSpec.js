@@ -7,7 +7,7 @@ import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
 import TypeaheadMenu from '../../src/TypeaheadMenu';
 
 import options from '../../example/exampleData';
-import {childContextTypes, context, getMenu, getPaginator} from '../helpers';
+import {getMenu, getPaginator} from '../helpers';
 
 describe('<TypeaheadMenu>', () => {
   let menu;
@@ -19,8 +19,7 @@ describe('<TypeaheadMenu>', () => {
         labelKey="name"
         options={options}
         text=""
-      />,
-      {childContextTypes, context}
+      />
     );
   });
 

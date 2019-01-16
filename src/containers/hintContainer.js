@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import AutosizeInput from '../AutosizeInput.react';
+import {withContext} from '../TypeaheadContext';
 
 import {getDisplayName} from '../utils/';
 import {RETURN, RIGHT, TAB} from '../constants/keyCode';
@@ -32,6 +32,8 @@ function copyStyles(inputNode, hintNode) {
 
 function hintContainer(Input) {
   class HintedInput extends React.Component {
+    static displayName = `HintContainer(${getDisplayName(Input)})`;
+
     componentDidMount() {
       copyStyles(this._input, this._hint);
     }
@@ -41,15 +43,24 @@ function hintContainer(Input) {
     }
 
     render() {
+      const {
+        hintText,
+        initialItem,
+        inputRef,
+        onAdd,
+        selectHintOnEnter,
+        ...props
+      } = this.props;
+
       return (
         <div
           className="rbt-input-hint-container"
           style={{position: 'relative'}}>
           <Input
-            {...this.props}
+            {...props}
             inputRef={(input) => {
               this._input = input;
-              this.props.inputRef(input);
+              inputRef(input);
             }}
             onKeyDown={this._handleKeyDown}
           />
@@ -71,15 +82,21 @@ function hintContainer(Input) {
               top: 0,
             }}
             tabIndex={-1}
-            value={this.context.hintText}
+            value={hintText}
           />
         </div>
       );
     }
 
     _handleKeyDown = (e) => {
-      const {hintText, initialItem, onAdd, selectHintOnEnter} = this.context;
-      const {onKeyDown, value} = this.props;
+      const {
+        hintText,
+        initialItem,
+        onAdd,
+        onKeyDown,
+        selectHintOnEnter,
+        value,
+      } = this.props;
 
       if (
         hintText && (
@@ -96,19 +113,12 @@ function hintContainer(Input) {
     }
   }
 
-  HintedInput.displayName = `HintContainer(${getDisplayName(Input)})`;
-
-  HintedInput.contextTypes = {
-    hintText: PropTypes.string.isRequired,
-    initialItem: PropTypes.oneOfType([
-      PropTypes.object.isRequired,
-      PropTypes.string.isRequired,
-    ]),
-    onAdd: PropTypes.func.isRequired,
-    selectHintOnEnter: PropTypes.bool.isRequired,
-  };
-
-  return HintedInput;
+  return withContext(HintedInput, [
+    'hintText',
+    'initialItem',
+    'onAdd',
+    'selectHintOnEnter',
+  ]);
 }
 
 export default hintContainer;

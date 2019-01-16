@@ -4,9 +4,12 @@ import {head, noop} from 'lodash';
 import React from 'react';
 
 import TypeaheadInputMulti from '../../src/TypeaheadInputMulti';
+import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
-import {focus, getHint, getInput, getTokens} from '../helpers';
+import {context, focus, getHint, getInput, getTokens} from '../helpers';
+
+const TypeaheadInputMultiWithContext = contextContainer(TypeaheadInputMulti);
 
 describe('<TypeaheadInputMulti>', () => {
   let text, wrapper;
@@ -14,7 +17,8 @@ describe('<TypeaheadInputMulti>', () => {
   beforeEach(() => {
     text = 'text';
     wrapper = mount(
-      <TypeaheadInputMulti
+      <TypeaheadInputMultiWithContext
+        {...context}
         inputProps={{}}
         inputRef={noop}
         labelKey="name"

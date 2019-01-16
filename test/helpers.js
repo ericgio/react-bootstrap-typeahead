@@ -1,22 +1,16 @@
 import {noop} from 'lodash';
-import PropTypes from 'prop-types';
-
-export const childContextTypes = {
-  activeIndex: PropTypes.number.isRequired,
-  hintText: PropTypes.string.isRequired,
-  isOnlyResult: PropTypes.bool.isRequired,
-  onActiveItemChange: PropTypes.func.isRequired,
-  onInitialItemChange: PropTypes.func.isRequired,
-  onMenuItemClick: PropTypes.func.isRequired,
-};
 
 export const context = {
   activeIndex: -1,
   hintText: '',
+  initialItem: null,
   isOnlyResult: false,
   onActiveItemChange: noop,
+  onAdd: noop,
   onInitialItemChange: noop,
   onMenuItemClick: noop,
+  results: [],
+  selectHintOnEnter: false,
 };
 
 // Make sure e.persist() is present in events.

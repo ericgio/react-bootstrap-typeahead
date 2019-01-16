@@ -15,15 +15,6 @@ import typeaheadContainer from './containers/typeaheadContainer';
 import {getAccessibilityStatus, preventInputBlur} from './utils/';
 
 class Typeahead extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
-    const {allowNew, onInitialItemChange, results} = this.props;
-
-    // Clear the initial item when there are no results.
-    if (!(allowNew || results.length)) {
-      onInitialItemChange(null);
-    }
-  }
-
   render() {
     const {
       bodyContainer,
@@ -40,16 +31,15 @@ class Typeahead extends React.Component {
       'activeItem',
       'bsSize',
       'disabled',
-      'initialItem',
       'inputProps',
       'inputRef',
+      'isFocused',
       'isInvalid',
       'isMenuShown',
       'isValid',
       'labelKey',
       'menuId',
       'multiple',
-      'onAdd',
       'onBlur',
       'onChange',
       'onFocus',
@@ -58,7 +48,6 @@ class Typeahead extends React.Component {
       'placeholder',
       'renderToken',
       'selected',
-      'selectHintOnEnter',
       'text',
     ]);
 

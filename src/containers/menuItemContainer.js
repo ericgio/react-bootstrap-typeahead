@@ -2,26 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
+import {withContext} from '../TypeaheadContext';
 import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded} from '../utils/';
-
-const withContext = (Component) => {
-  return class extends React.Component {
-    static contextTypes = {
-      activeIndex: PropTypes.number.isRequired,
-      isOnlyResult: PropTypes.bool.isRequired,
-      onActiveItemChange: PropTypes.func.isRequired,
-      onInitialItemChange: PropTypes.func.isRequired,
-      onMenuItemClick: PropTypes.func.isRequired,
-    };
-
-    render() {
-      return <Component {...this.props} {...this.context} />;
-    }
-  };
-};
 
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
+    static displayName = `MenuItemContainer(${getDisplayName(Component)})`;
+
     componentDidMount() {
       this._updateInitialItem(this.props);
     }
@@ -91,9 +78,6 @@ const menuItemContainer = (Component) => {
     }
   }
 
-  WrappedMenuItem.displayName =
-    `MenuItemContainer(${getDisplayName(Component)})`;
-
   WrappedMenuItem.propTypes = {
     option: PropTypes.oneOfType([
       PropTypes.object,
@@ -102,7 +86,13 @@ const menuItemContainer = (Component) => {
     position: PropTypes.number,
   };
 
-  return withContext(WrappedMenuItem);
+  return withContext(WrappedMenuItem, [
+    'activeIndex',
+    'isOnlyResult',
+    'onActiveItemChange',
+    'onInitialItemChange',
+    'onMenuItemClick',
+  ]);
 };
 
 export default menuItemContainer;

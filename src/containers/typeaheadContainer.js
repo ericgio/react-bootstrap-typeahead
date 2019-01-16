@@ -1,10 +1,10 @@
-import {flowRight, head, isEqual, noop, uniqueId} from 'lodash';
+import {head, isEqual, noop, uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
 import {deprecated} from 'prop-types-extra';
 import React from 'react';
 import {RootCloseWrapper} from 'react-overlays';
 
-import highlightOnlyResultContainer from './highlightOnlyResultContainer';
+import contextContainer from './contextContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes/';
 import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils/';
 
@@ -38,6 +38,7 @@ function getInitialState(props) {
     activeIndex: -1,
     activeItem: null,
     initialItem: null,
+    isFocused: false,
     selected,
     showMenu: false,
     shownResults: maxResults,
@@ -46,10 +47,7 @@ function getInitialState(props) {
 }
 
 function typeaheadContainer(Typeahead) {
-  // Nested HOCs to encapsulate behaviors. In order from outer to inner.
-  Typeahead = flowRight(
-    highlightOnlyResultContainer,
-  )(Typeahead);
+  Typeahead = contextContainer(Typeahead);
 
   class WrappedTypeahead extends React.Component {
     state = getInitialState(this.props);
@@ -57,15 +55,6 @@ function typeaheadContainer(Typeahead) {
     // Generate random id here since doing it in defaultProps will generate
     // the same id for every instance.
     _menuId = genId('rbt-menu-');
-
-    getChildContext() {
-      return {
-        activeIndex: this.state.activeIndex,
-        onActiveItemChange: this._handleActiveItemChange,
-        onInitialItemChange: this._handleInitialItemChange,
-        onMenuItemClick: this._handleMenuItemSelect,
-      };
-    }
 
     componentDidMount() {
       this.props.autoFocus && this.focus();
@@ -158,12 +147,15 @@ function typeaheadContainer(Typeahead) {
             inputRef={(input) => this._input = input}
             isMenuShown={isMenuShown}
             menuId={this.props.menuId || this._menuId}
+            onActiveItemChange={this._handleActiveItemChange}
             onAdd={this._handleSelectionAdd}
+            onBlur={this._handleBlur}
             onChange={this._handleInputChange}
             onClear={this._handleClear}
             onFocus={this._handleFocus}
             onInitialItemChange={this._handleInitialItemChange}
             onKeyDown={(e) => this._handleKeyDown(e, results, isMenuShown)}
+            onMenuItemClick={this._handleMenuItemSelect}
             onRemove={this._handleSelectionRemove}
             results={results}
           />
@@ -177,11 +169,12 @@ function typeaheadContainer(Typeahead) {
     }
 
     clear = () => {
-      this.setState({
-        ...getInitialState(this.props),
+      this.setState((state, props) => ({
+        ...getInitialState(props),
+        isFocused: state.isFocused,
         selected: [],
         text: '',
-      });
+      }));
     }
 
     focus = () => {
@@ -212,13 +205,22 @@ function typeaheadContainer(Typeahead) {
       this.setState({activeItem});
     }
 
+    _handleBlur = (e) => {
+      e.persist();
+      this.setState({isFocused: false}, () => this.props.onBlur(e));
+    }
+
     _handleClear = () => {
       this.clear();
       this._updateSelected([]);
     }
 
     _handleFocus = (e) => {
-      this.setState({showMenu: true}, () => this.props.onFocus(e));
+      e.persist();
+      this.setState({
+        isFocused: true,
+        showMenu: true,
+      }, () => this.props.onFocus(e));
     }
 
     _handleInitialItemChange = (initialItem) => {
@@ -671,13 +673,6 @@ function typeaheadContainer(Typeahead) {
     paginationText: 'Display additional results...',
     placeholder: '',
     selectHintOnEnter: false,
-  };
-
-  WrappedTypeahead.childContextTypes = {
-    activeIndex: PropTypes.number.isRequired,
-    onActiveItemChange: PropTypes.func.isRequired,
-    onInitialItemChange: PropTypes.func.isRequired,
-    onMenuItemClick: PropTypes.func.isRequired,
   };
 
   return WrappedTypeahead;

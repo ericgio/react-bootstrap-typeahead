@@ -1,25 +1,11 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-import {getDisplayName, getHintText, getInputText, getMenuItemId} from '../utils/';
+import {getDisplayName, getInputText, getMenuItemId} from '../utils/';
 
 function inputContainer(Input) {
   class WrappedInput extends React.Component {
-    state = {
-      isFocused: false,
-    };
-
-    getChildContext() {
-      const {initialItem, onAdd, selectHintOnEnter} = this.props;
-
-      return {
-        hintText: getHintText(this.props),
-        initialItem,
-        onAdd,
-        selectHintOnEnter,
-      };
-    }
+    static displayName = `InputContainer(${getDisplayName(Input)})`;
 
     render() {
       const {
@@ -27,13 +13,16 @@ function inputContainer(Input) {
         bsSize,
         disabled,
         inputRef,
+        isFocused,
         isInvalid,
         isMenuShown,
         isValid,
         labelKey,
         menuId,
         multiple,
+        onBlur,
         onChange,
+        onFocus,
         onKeyDown,
         onRemove,
         placeholder,
@@ -54,11 +43,11 @@ function inputContainer(Input) {
         autoComplete: this.props.inputProps.autoComplete || 'nope',
         disabled,
         inputRef,
-        onBlur: this._handleBlur,
+        onBlur,
         onChange,
         // Re-open the menu, eg: if it's closed via ESC.
-        onClick: this._handleFocus,
-        onFocus: this._handleFocus,
+        onClick: onFocus,
+        onFocus,
         onKeyDown,
         placeholder: selected.length ? null : placeholder,
         // Comboboxes are single-select by definition:
@@ -86,7 +75,7 @@ function inputContainer(Input) {
           {...inputProps}
           className={cx('rbt-input', {
             [className]: !multiple,
-            'focus': this.state.isFocused,
+            'focus': isFocused,
             'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
             'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
             'is-invalid': isInvalid,
@@ -95,29 +84,7 @@ function inputContainer(Input) {
         />
       );
     }
-
-    _handleBlur = (e) => {
-      e.persist();
-      this.setState({isFocused: false}, () => this.props.onBlur(e));
-    }
-
-    _handleFocus = (e) => {
-      e.persist();
-      this.setState({isFocused: true}, () => this.props.onFocus(e));
-    }
   }
-
-  WrappedInput.displayName = `InputContainer(${getDisplayName(Input)})`;
-
-  WrappedInput.childContextTypes = {
-    hintText: PropTypes.string.isRequired,
-    initialItem: PropTypes.oneOfType([
-      PropTypes.object.isRequired,
-      PropTypes.string.isRequired,
-    ]),
-    onAdd: PropTypes.func.isRequired,
-    selectHintOnEnter: PropTypes.bool.isRequired,
-  };
 
   return WrappedInput;
 }

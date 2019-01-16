@@ -4,16 +4,20 @@ import {head, noop} from 'lodash';
 import React from 'react';
 
 import TypeaheadInputSingle from '../../src/TypeaheadInputSingle';
+import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
-import {getHint, getInput} from '../helpers';
+import {context, getHint, getInput} from '../helpers';
+
+const TypeaheadInputSingleWithContext = contextContainer(TypeaheadInputSingle);
 
 describe('<TypeaheadInputSingle>', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <TypeaheadInputSingle
+      <TypeaheadInputSingleWithContext
+        {...context}
         inputProps={{}}
         inputRef={noop}
         labelKey="name"

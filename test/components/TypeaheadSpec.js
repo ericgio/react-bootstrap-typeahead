@@ -48,7 +48,12 @@ function getText(wrapper) {
 }
 
 function hasFocus(wrapper) {
-  return wrapper.find('.form-control').hasClass('focus');
+  // Focus state is stored at the top level and propagated down to the input.
+  // Check both.
+  return (
+    getState(wrapper).isFocused &&
+    wrapper.find('.form-control').hasClass('focus')
+  );
 }
 
 function setCursorPosition(wrapper, pos) {
