@@ -4,6 +4,7 @@ import getOptionLabel from './getOptionLabel';
 function getHintText({
   activeItem,
   initialItem,
+  isFocused,
   isMenuShown,
   labelKey,
   multiple,
@@ -14,6 +15,8 @@ function getHintText({
   if (
     // No text entered.
     !text ||
+    // The input is not focused.
+    !isFocused ||
     // The menu is hidden.
     !isMenuShown ||
     // No item in the menu.

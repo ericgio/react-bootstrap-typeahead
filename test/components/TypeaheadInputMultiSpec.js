@@ -7,7 +7,7 @@ import TypeaheadInputMulti from '../../src/TypeaheadInputMulti';
 import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
-import {context, focus, getHint, getInput, getTokens} from '../helpers';
+import {context, getHint, getInput, getTokens} from '../helpers';
 
 const TypeaheadInputMultiWithContext = contextContainer(TypeaheadInputMulti);
 
@@ -56,11 +56,11 @@ describe('<TypeaheadInputMulti>', () => {
 
     wrapper.setProps({
       initialItem,
+      isFocused: true,
       isMenuShown: true,
       text: 'Al',
     });
 
-    focus(wrapper);
     expect(getHint(wrapper)).to.equal(initialItem.name);
   });
 

@@ -6,6 +6,7 @@ import states from '../../example/exampleData';
 const props = {
   activeItem: null,
   initialItem: {name: 'Alabama'},
+  isFocused: true,
   isMenuShown: true,
   labelKey: 'name',
   minLength: 0,
@@ -22,6 +23,11 @@ describe('getHintText', () => {
 
   it('returns an empty string when the text is empty', () => {
     const hintText = getHintText({...props, text: ''});
+    expect(hintText).to.equal('');
+  });
+
+  it('returns an empty string when the menu is not focused', () => {
+    const hintText = getHintText({...props, isFocused: false});
     expect(hintText).to.equal('');
   });
 

@@ -54,11 +54,11 @@ describe('<TypeaheadInputSingle>', () => {
 
     wrapper.setProps({
       initialItem,
+      isFocused: true,
       isMenuShown: true,
       text: 'Al',
     });
 
-    getInput(wrapper).simulate('focus');
     expect(getHint(wrapper)).to.equal(initialItem.name);
   });
 
