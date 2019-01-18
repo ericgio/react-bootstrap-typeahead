@@ -209,25 +209,43 @@ describe('<Typeahead>', () => {
   });
 
   describe('menu visibility behavior', () => {
-    it('displays a menu by default on initial render', () => {
+    it('shows the menu on initial render', () => {
       typeahead = mountTypeahead({defaultOpen: true});
       expect(getState(typeahead).showMenu).to.equal(true);
       expect(getMenu(typeahead).length).to.equal(1);
     });
 
-    it('should display a menu when the input is focused', () => {
+    it('shows the menu when `open` is `true`', () => {
+      typeahead.setProps({open: true});
+
+      // TODO: Menu isn't immediately rendered when changing props in testing
+      // environment for some reason. For now, test that it at least stays open
+      // when blurred.
+      focus(typeahead);
+      getInput(typeahead).simulate('blur');
+
+      expect(getMenu(typeahead).length).to.equal(1);
+    });
+
+    it('hides the menu when `open` is `false`', () => {
+      typeahead.setProps({open: false});
+      focus(typeahead);
+      expect(getMenu(typeahead).length).to.equal(0);
+    });
+
+    it('shows the menu when the input is focused', () => {
       focus(typeahead);
       expect(getMenu(typeahead).length).to.equal(1);
     });
 
-    it('should not display a menu on focus when `minLength=1`', () => {
+    it('hides the menu on focus when `minLength=1`', () => {
       typeahead.setProps({minLength: 1});
       focus(typeahead);
       expect(getMenu(typeahead).length).to.equal(0);
     });
 
     it(
-      'should display a menu when there are no results, `allowNew=true`, ' +
+      'shows the menu when there are no results, `allowNew=true`, ' +
       'and `emptyLabel` is falsy', () => {
         typeahead.setProps({
           allowNew: true,

@@ -15,6 +15,20 @@ describe('isShown', () => {
     expect(isShown(options, {...baseProps, showMenu: true})).to.equal(true);
   });
 
+  it('shows the menu when `open` is true', () => {
+    expect(isShown(options, {...baseProps, open: true})).to.equal(true);
+  });
+
+  it('hides the menu when `open` is false', () => {
+    const props = {
+      ...baseProps,
+      open: false,
+      showMenu: true,
+    };
+
+    expect(isShown(options, props)).to.equal(false);
+  });
+
   it('hides the menu when `showMenu` is false', () => {
     expect(isShown(options, baseProps)).to.equal(false);
   });

@@ -14,6 +14,7 @@ class BasicBehaviorsExample extends React.Component {
     flip: false,
     highlightOnlyResult: false,
     minLength: 0,
+    open: undefined,
     selectHintOnEnter: false,
   };
 
@@ -25,6 +26,7 @@ class BasicBehaviorsExample extends React.Component {
       flip,
       highlightOnlyResult,
       minLength,
+      open,
       selectHintOnEnter,
     } = this.state;
 
@@ -37,6 +39,7 @@ class BasicBehaviorsExample extends React.Component {
       {checked: emptyLabel, children: 'Hide the menu when there are no results', name: 'emptyLabel'},
       {checked: selectHintOnEnter, children: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter'},
       {checked: highlightOnlyResult, children: 'Highlight the only result', name: 'highlightOnlyResult'},
+      {checked: !!open, children: 'Force the menu to stay open', name: 'open'},
       /* eslint-enable max-len */
     ];
 
@@ -67,8 +70,13 @@ class BasicBehaviorsExample extends React.Component {
     const {checked, name} = e.target;
     const newState = {[name]: checked};
 
-    if (name === 'minLength') {
-      newState.minLength = checked ? 2 : 0;
+    switch (name) {
+      case 'minLength':
+        newState[name] = checked ? 2 : 0;
+        break;
+      case 'open':
+        newState[name] = checked ? true : undefined;
+        break;
     }
 
     this.setState(newState);

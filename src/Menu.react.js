@@ -9,6 +9,15 @@ import {BaseMenuItem} from './MenuItem.react';
  * Menu component that handles empty state when passed a set of results.
  */
 class Menu extends React.Component {
+  componentDidUpdate(prevProps, prevState) {
+    const {inputHeight, scheduleUpdate} = this.props;
+
+    // Update the menu position if the height of the input changes.
+    if (inputHeight !== prevProps.inputHeight) {
+      scheduleUpdate();
+    }
+  }
+
   render() {
     const {
       children,

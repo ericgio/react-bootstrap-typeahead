@@ -92,6 +92,7 @@ class Overlay extends React.Component {
             ...child.props,
             ...props,
             innerRef: ref,
+            inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
           })}
         </Popper>
       </Portal>

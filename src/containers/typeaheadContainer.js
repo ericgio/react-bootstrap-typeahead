@@ -148,7 +148,9 @@ function typeaheadContainer(Typeahead) {
       const isMenuShown = isShown(results, mergedPropsAndState);
 
       return (
-        <RootCloseWrapper onRootClose={this._handleRootClose}>
+        <RootCloseWrapper
+          disabled={this.props.open}
+          onRootClose={this._handleRootClose}>
           <Typeahead
             {...mergedPropsAndState}
             inputRef={(input) => this._input = input}
@@ -610,6 +612,12 @@ function typeaheadContainer(Typeahead) {
      * Invoked when the pagination menu item is clicked. Receives an event.
      */
     onPaginate: PropTypes.func,
+    /**
+     * Whether or not the menu should be displayed. `undefined` allows the
+     * component to control visibility, while `true` and `false` show and hide
+     * the menu, respectively.
+     */
+    open: PropTypes.bool,
     /**
      * Full set of options, including pre-selected options. Must either be an
      * array of objects (recommended) or strings.

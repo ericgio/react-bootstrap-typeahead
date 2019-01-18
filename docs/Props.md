@@ -42,6 +42,7 @@ onMenuHide | function | | DEPRECATED. Invoked when the menu is hidden.
 onMenuShow | function | | DEPRECATED. Invoked when the menu is shown.
 onMenuToggle | function | | Invoked when menu visibility changes.
 onPaginate | function | | Invoked when the pagination menu item is clicked.
+open | boolean | | Whether or not the menu should be displayed. `undefined` allows the component to control visibility, while `true` and `false` show and hide the menu, respectively.
 options `required` | array | | Full set of options, including any pre-selected options.
 paginate | boolean | true | Give user the ability to display additional results if the number of results exceeds `maxResults`.
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
