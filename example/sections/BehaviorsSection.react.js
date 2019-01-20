@@ -25,7 +25,7 @@ const BehaviorsSection = (props) => (
     <Markdown>
       The typeahead has several basic configurable behaviors. You can `disable`
       it as you would any input. You can position the menu above the input
-      with `dropup` or aoutomatically re-position it when it hits the viewport
+      with `dropup` or automatically re-position it when it hits the viewport
       bounds. Use `minLength` to require a minimum user input before displaying
       results, or hide the menu when there are no results by passing an empty
       string to `emptyLabel`.
