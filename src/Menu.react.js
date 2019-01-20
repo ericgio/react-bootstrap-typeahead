@@ -18,6 +18,7 @@ class Menu extends React.Component {
       innerRef,
       maxHeight,
       style,
+      text,
     } = this.props;
 
     const contents = Children.count(children) === 0 ?
@@ -30,6 +31,11 @@ class Menu extends React.Component {
       <ul
         className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
         id={id}
+        key={
+          // Force a re-render if the text changes to ensure that menu
+          // positioning updates correctly.
+          text
+        }
         ref={innerRef}
         role="listbox"
         style={{

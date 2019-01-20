@@ -14,7 +14,6 @@ class TypeaheadMenu extends React.Component {
       newSelectionPrefix,
       options,
       renderMenuItemChildren,
-      text,
       ...menuProps
     } = this.props;
 
