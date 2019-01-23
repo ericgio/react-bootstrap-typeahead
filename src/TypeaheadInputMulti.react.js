@@ -9,7 +9,7 @@ import {getOptionLabel} from './utils/';
 import hintContainer from './containers/hintContainer';
 import inputContainer from './containers/inputContainer';
 
-import {BACKSPACE} from './constants/keyCode';
+import {BACKSPACE} from './constants';
 
 const HintedAutosizeInput = hintContainer(AutosizeInput);
 

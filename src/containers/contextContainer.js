@@ -4,7 +4,7 @@ import {polyfill} from 'react-lifecycles-compat';
 
 import TypeaheadContext from '../TypeaheadContext';
 import {getHintText} from '../utils/';
-import {RETURN} from '../constants/keyCode';
+import {RETURN} from '../constants';
 
 function contextContainer(Typeahead) {
   class WrappedTypeahead extends React.Component {

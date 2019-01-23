@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ClearButton from './ClearButton.react';
 
 import tokenContainer from './containers/tokenContainer';
-import {RETURN} from './constants/keyCode';
+import {RETURN} from './constants';
 
 /**
  * Token

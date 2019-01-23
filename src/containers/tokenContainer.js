@@ -2,7 +2,7 @@ import React from 'react';
 import {RootCloseWrapper} from 'react-overlays';
 
 import {getDisplayName} from '../utils/';
-import {BACKSPACE} from '../constants/keyCode';
+import {BACKSPACE} from '../constants';
 
 /**
  * Higher-order component that encapsulates Token behaviors, allowing them to

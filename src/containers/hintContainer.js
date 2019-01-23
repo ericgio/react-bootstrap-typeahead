@@ -4,7 +4,7 @@ import AutosizeInput from '../AutosizeInput.react';
 import {withContext} from '../TypeaheadContext';
 
 import {getDisplayName} from '../utils/';
-import {RETURN, RIGHT, TAB} from '../constants/keyCode';
+import {RETURN, RIGHT, TAB} from '../constants';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.

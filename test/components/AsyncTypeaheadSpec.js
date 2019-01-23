@@ -5,7 +5,7 @@ import sinon from 'sinon';
 
 import {AsyncTypeahead} from '../../src/';
 import {change, focus, getMenuItems, keyDown, search} from '../helpers';
-import {DOWN, RETURN} from '../../src/constants/keyCode';
+import {DOWN, RETURN} from '../../src/constants';
 
 describe('<AsyncTypeahead>', () => {
   let onSearch, wrapper;
