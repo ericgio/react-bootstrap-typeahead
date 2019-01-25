@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {mount, shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import React from 'react';
 import {Popper} from 'react-popper';
 import sinon from 'sinon';
@@ -7,143 +7,97 @@ import sinon from 'sinon';
 import Menu from '../../src/Menu.react';
 import Overlay from '../../src/core/Overlay';
 
+function getPopper(wrapper) {
+  return wrapper.find(Popper);
+}
+
+function isPositionFixed(wrapper) {
+  return getPopper(wrapper).prop('positionFixed');
+}
+
 describe('<Overlay>', () => {
-  describe('shallow behaviors', () => {
-    let wrapper;
-    beforeEach(() => {
-      const div = document.createElement('div');
-      wrapper = shallow(
-        <Overlay
-          container={div}
-          referenceElement={div}
-          show={false}>
-          <div>This is the menu</div>
-        </Overlay>
-      );
-    });
+  let wrapper;
 
-    it('returns `null` when `show=false`', () => {
-      expect(wrapper.length).to.equal(1);
-      expect(wrapper.type()).to.equal(null);
-    });
-
-    it('renders a Popper when `show=true`', () => {
-      wrapper.setProps({show: true});
-      expect(wrapper.children().type()).to.equal(Popper);
-    });
-
-    it('returns `null` when child is `null`', () => {
-      wrapper.setProps({children: null, show: true});
-      expect(wrapper.length).to.equal(1);
-      expect(wrapper.type()).to.equal(null);
-    });
-
-    it('throws when multiple children are passed', () => {
-      const willThrow = () => {
-        wrapper.setProps({
-          children: [<div key="1" />, <div key="2" />],
-          show: true,
-        });
-      };
-
-      expect(willThrow).to.throw(Error);
-    });
-
-    describe('menu visibility hooks', () => {
-      it('calls `onMenuShow`', () => {
-        const onMenuShow = sinon.spy();
-
-        wrapper.setProps({onMenuShow});
-
-        expect(onMenuShow.notCalled).to.equal(true);
-
-        wrapper.setProps({show: true});
-        expect(onMenuShow.calledOnce).to.equal(true);
-
-        // Shouldn't be called again if not hidden first.
-        wrapper.setProps({show: true});
-        expect(onMenuShow.calledOnce).to.equal(true);
-      });
-
-      it('calls `onMenuHide`', () => {
-        const onMenuHide = sinon.spy();
-
-        wrapper.setProps({
-          onMenuHide,
-          show: true,
-        });
-
-        expect(onMenuHide.notCalled).to.equal(true);
-
-        wrapper.setProps({show: false});
-        expect(onMenuHide.calledOnce).to.equal(true);
-
-        // Shouldn't be called again if not shown first.
-        wrapper.setProps({show: false});
-        expect(onMenuHide.calledOnce).to.equal(true);
-      });
-
-      it('calls `onMenuToggle`', () => {
-        const onMenuToggle = sinon.spy();
-
-        wrapper.setProps({onMenuToggle});
-
-        expect(onMenuToggle.notCalled).to.equal(true);
-
-        wrapper.setProps({show: true});
-        expect(onMenuToggle.callCount).to.equal(1);
-
-        // Shouldn't be called again if not hidden first.
-        wrapper.setProps({show: true});
-        expect(onMenuToggle.callCount).to.equal(1);
-
-        wrapper.setProps({show: false});
-        expect(onMenuToggle.callCount).to.equal(2);
-      });
-    });
+  beforeEach(() => {
+    wrapper = mount(
+      <Overlay
+        referenceElement={document.createElement('div')}
+        show={false}>
+        {(props) => <Menu {...props} id="menu-id">This is the menu</Menu>}
+      </Overlay>
+    );
   });
 
-  describe('mounted behaviors', () => {
-    let BASE_NODE_COUNT, div, wrapper;
+  it('does not render children when `show=false`', () => {
+    expect(wrapper.length).to.equal(1);
+    expect(getPopper(wrapper).length).to.equal(0);
+  });
 
-    beforeEach(() => {
-      // Karma adds a bunch of extra nodes to the body.
-      BASE_NODE_COUNT = document.body.childNodes.length;
+  it('renders children `show=true`', () => {
+    wrapper.setProps({show: true});
+    expect(getPopper(wrapper).length).to.equal(1);
+  });
 
-      div = document.createElement('div');
-      document.body.appendChild(div);
+  it('updates the positioning type', () => {
+    wrapper.setProps({show: true});
 
-      wrapper = mount(
-        <Overlay
-          container={div}
-          referenceElement={div}
-          show>
-          <Menu id="menu-id">
-            This is the menu
-          </Menu>
-        </Overlay>,
-        {attachTo: div}
-      );
+    // Uses absolute positioning by default.
+    expect(isPositionFixed(wrapper)).to.equal(false);
+
+    wrapper.setProps({positionFixed: true});
+    expect(isPositionFixed(wrapper)).to.equal(true);
+  });
+
+  describe('menu visibility hooks', () => {
+    it('calls `onMenuShow`', () => {
+      const onMenuShow = sinon.spy();
+
+      wrapper.setProps({onMenuShow});
+
+      expect(onMenuShow.notCalled).to.equal(true);
+
+      wrapper.setProps({show: true});
+      expect(onMenuShow.calledOnce).to.equal(true);
+
+      // Shouldn't be called again if not hidden first.
+      wrapper.setProps({show: true});
+      expect(onMenuShow.calledOnce).to.equal(true);
     });
 
-    afterEach(() => {
-      wrapper.detach();
+    it('calls `onMenuHide`', () => {
+      const onMenuHide = sinon.spy();
+
+      wrapper.setProps({
+        onMenuHide,
+        show: true,
+      });
+
+      expect(onMenuHide.notCalled).to.equal(true);
+
+      wrapper.setProps({show: false});
+      expect(onMenuHide.calledOnce).to.equal(true);
+
+      // Shouldn't be called again if not shown first.
+      wrapper.setProps({show: false});
+      expect(onMenuHide.calledOnce).to.equal(true);
     });
 
-    it('renders a Popper when `show=true`', () => {
-      expect(wrapper.find('.rbt-menu').text()).to.equal('This is the menu');
-    });
+    it('calls `onMenuToggle`', () => {
+      const onMenuToggle = sinon.spy();
 
-    it('is attached to `div`', () => {
-      expect(document.body.childNodes.length).to.equal(BASE_NODE_COUNT + 1);
-      expect(div.childNodes.length).to.equal(1);
-    });
+      wrapper.setProps({onMenuToggle});
 
-    it('is attached to `document.body`', () => {
-      wrapper.setProps({container: document.body});
+      expect(onMenuToggle.notCalled).to.equal(true);
 
-      expect(document.body.childNodes.length).to.equal(BASE_NODE_COUNT + 2);
-      expect(div.childNodes.length).to.equal(0);
+      wrapper.setProps({show: true});
+      expect(onMenuToggle.callCount).to.equal(1);
+
+      // Shouldn't be called again if not hidden first.
+      wrapper.setProps({show: true});
+      expect(onMenuToggle.callCount).to.equal(1);
+
+      wrapper.setProps({show: false});
+      expect(onMenuToggle.callCount).to.equal(2);
     });
   });
 });
