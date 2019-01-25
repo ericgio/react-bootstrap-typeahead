@@ -8,13 +8,12 @@ const TypeaheadMenu = (props) => {
 
   const overlayProps = pick(props, [
     'align',
-    'className',
-    'container',
     'dropup',
     'flip',
     'onMenuHide',
     'onMenuShow',
     'onMenuToggle',
+    'positionFixed',
     'referenceElement',
   ]);
 
@@ -30,10 +29,11 @@ const TypeaheadMenu = (props) => {
   menuProps.id = menuId;
 
   return (
-    <Overlay
-      {...overlayProps}
-      show={isMenuShown}>
-      {children(results, menuProps)}
+    <Overlay {...overlayProps} show={isMenuShown}>
+      {(propsFromOverlay) => children(results, {
+        ...propsFromOverlay,
+        ...menuProps,
+      })}
     </Overlay>
   );
 };
