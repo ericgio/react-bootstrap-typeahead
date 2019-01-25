@@ -8,14 +8,13 @@ import {Typeahead} from '../../src';
 import options from '../exampleData';
 
 /* example-start */
-class BodyContainerExample extends React.Component {
+class PositionFixedExample extends React.Component {
   state = {
-    bodyContainer: true,
-    dropup: false,
+    positionFixed: true,
   };
 
   render() {
-    const {bodyContainer, dropup} = this.state;
+    const {positionFixed} = this.state;
 
     return (
       <Fragment>
@@ -37,18 +36,11 @@ class BodyContainerExample extends React.Component {
         </div>
         <FormGroup>
           <Control
-            checked={bodyContainer}
-            name="bodyContainer"
+            checked={positionFixed}
+            name="positionFixed"
             onChange={this._handleChange}
             type="checkbox">
-            Attach menu to document body
-          </Control>
-          <Control
-            checked={dropup}
-            name="dropup"
-            onChange={this._handleChange}
-            type="checkbox">
-            Dropup menu
+            Use fixed positioning
           </Control>
         </FormGroup>
       </Fragment>
@@ -62,4 +54,4 @@ class BodyContainerExample extends React.Component {
 }
 /* example-end */
 
-export default BodyContainerExample;
+export default PositionFixedExample;

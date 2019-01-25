@@ -1,11 +1,8 @@
 import {noop} from 'lodash';
-import React, {Children, cloneElement} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {componentOrElement} from 'prop-types-extra';
-import {Portal} from 'react-overlays';
 import {Popper} from 'react-popper';
-
-const BODY_CLASS = 'rbt-body-container';
 
 function getModifiers({align, flip}) {
   return {
@@ -32,20 +29,7 @@ function getModifiers({align, flip}) {
   };
 }
 
-function isBody(container) {
-  return container === document.body;
-}
-
-/**
- * Custom `Overlay` component, since the version in `react-overlays` doesn't
- * work for our needs. Specifically, the `Position` component doesn't provide
- * the customized placement we need.
- */
 class Overlay extends React.Component {
-  componentDidMount() {
-    this._update();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     const {onMenuHide, onMenuShow, onMenuToggle, show} = this.props;
 
@@ -53,72 +37,47 @@ class Overlay extends React.Component {
       show ? onMenuShow() : onMenuHide();
       onMenuToggle(show);
     }
-
-    // Remove scoping classes if menu isn't being appended to document body.
-    const {className, container} = prevProps;
-    if (isBody(container) && !isBody(this.props.container)) {
-      container.classList.remove(BODY_CLASS);
-      !!className && container.classList.remove(...className.split(' '));
-    }
-
-    this._update();
   }
 
   render() {
     const {
       align,
       children,
-      container,
       dropup,
+      positionFixed,
       referenceElement,
       show,
     } = this.props;
 
-    if (!(show && Children.count(children))) {
+    if (!show) {
       return null;
     }
-
-    const child = Children.only(children);
 
     const xPlacement = align === 'right' ? 'end' : 'start';
     const yPlacement = dropup ? 'top' : 'bottom';
 
     return (
-      <Portal container={container}>
-        <Popper
-          modifiers={getModifiers(this.props)}
-          placement={`${yPlacement}-${xPlacement}`}
-          referenceElement={referenceElement}>
-          {({ref, ...props}) => cloneElement(child, {
-            ...child.props,
-            ...props,
-            innerRef: ref,
-            inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
-          })}
-        </Popper>
-      </Portal>
+      <Popper
+        modifiers={getModifiers(this.props)}
+        placement={`${yPlacement}-${xPlacement}`}
+        positionFixed={positionFixed}
+        referenceElement={referenceElement}>
+        {({ref, ...props}) => children({
+          ...props,
+          innerRef: ref,
+          inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
+        })}
+      </Popper>
     );
-  }
-
-  _update = () => {
-    const {className, container, show} = this.props;
-
-    if (!(show && isBody(container))) {
-      return;
-    }
-
-    // Set a classname on the body for scoping purposes.
-    container.classList.add(BODY_CLASS);
-    !!className && container.classList.add(...className.split(' '));
   }
 }
 
 Overlay.propTypes = {
-  children: PropTypes.element,
-  container: componentOrElement.isRequired,
+  children: PropTypes.func.isRequired,
   onMenuHide: PropTypes.func,
   onMenuShow: PropTypes.func,
   onMenuToggle: PropTypes.func,
+  positionFixed: PropTypes.bool,
   referenceElement: componentOrElement,
   show: PropTypes.bool,
 };
@@ -127,6 +86,7 @@ Overlay.defaultProps = {
   onMenuHide: noop,
   onMenuShow: noop,
   onMenuToggle: noop,
+  positionFixed: false,
   show: false,
 };
 
