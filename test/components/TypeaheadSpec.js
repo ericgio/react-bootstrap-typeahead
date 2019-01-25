@@ -1030,22 +1030,6 @@ describe('<Typeahead>', () => {
     });
   });
 
-  describe('bodyContainer behavior', () => {
-    it('renders the menu inline', () => {
-      focus(typeahead);
-      const menuNode = getMenu(typeahead).instance();
-      expect(menuNode.parentNode.nodeName).to.equal('DIV');
-    });
-
-    it('appends the menu to the document body', () => {
-      typeahead.setProps({bodyContainer: true});
-      focus(typeahead);
-
-      const menuNode = getMenu(typeahead).instance();
-      expect(menuNode.parentNode.nodeName).to.equal('BODY');
-    });
-  });
-
   it('calls the public `clear` method', () => {
     const wrapper = mountTypeahead({
       defaultSelected: states.slice(0, 1),
