@@ -159,7 +159,6 @@ class Typeahead extends React.Component {
 
     const props = {
       ...mergedPropsAndState,
-      container: this.props.bodyContainer ? document.body : this,
       getReferenceElement: (element) => {
         // Use `findDOMNode` here because it's easier and less fragile than
         // forwarding refs to the input's container.
@@ -468,10 +467,6 @@ Typeahead.propTypes = {
    */
   autoFocus: PropTypes.bool,
   /**
-   * Whether to render the menu inline or attach to `document.body`.
-   */
-  bodyContainer: PropTypes.bool,
-  /**
    * Whether or not filtering should be case-sensitive.
    */
   caseSensitive: checkPropType(PropTypes.bool, caseSensitiveType),
@@ -660,7 +655,6 @@ Typeahead.defaultProps = {
   align: 'justify',
   allowNew: false,
   autoFocus: false,
-  bodyContainer: false,
   caseSensitive: false,
   clearButton: false,
   defaultInputValue: '',

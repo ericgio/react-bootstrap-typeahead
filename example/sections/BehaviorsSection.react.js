@@ -1,20 +1,20 @@
 import React from 'react';
 
 import BasicBehaviorsExample from '../examples/BasicBehaviorsExample.react';
-import BodyContainerExample from '../examples/BodyContainerExample.react';
 import FormExample from '../examples/FormExample.react';
 import InputSizeExample from '../examples/InputSizeExample.react';
 import MenuAlignExample from '../examples/MenuAlignExample.react';
 import PaginationExample from '../examples/PaginationExample.react';
+import PositionFixedExample from '../examples/PositionFixedExample.react';
 import SelectionsExample from '../examples/SelectionsExample.react';
 
 /* eslint-disable import/no-unresolved */
 import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample.react';
-import BodyContainerExampleCode from '!raw-loader!../examples/BodyContainerExample.react';
 import FormExampleCode from '!raw-loader!../examples/FormExample.react';
 import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample.react';
 import MenuAlignExampleCode from '!raw-loader!../examples/MenuAlignExample.react';
 import PaginationExampleCode from '!raw-loader!../examples/PaginationExample.react';
+import PositionFixedExampleCode from '!raw-loader!../examples/PositionFixedExample.react';
 import SelectionsExampleCode from '!raw-loader!../examples/SelectionsExample.react';
 /* eslint-enable import/no-unresolved */
 
@@ -79,14 +79,14 @@ const BehaviorsSection = (props) => (
     <ExampleSection code={PaginationExampleCode}>
       <PaginationExample />
     </ExampleSection>
-    <Title>Body Container</Title>
+    <Title>Positioning</Title>
     <Markdown>
-      Setting the `bodyContainer` prop will attach the menu to `document.body`
-      instead of the typeahead. Compare the behaviors in the srolling container
-      below.
+      Setting the `positionFixed` prop will position the menu using fixed
+      instead of absolute positioning. This is useful when a parent container
+      has `overflow: hidden` set.
     </Markdown>
-    <ExampleSection code={BodyContainerExampleCode}>
-      <BodyContainerExample />
+    <ExampleSection code={PositionFixedExampleCode}>
+      <PositionFixedExample />
     </ExampleSection>
   </Section>
 );
