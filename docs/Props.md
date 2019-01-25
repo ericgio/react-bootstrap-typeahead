@@ -8,7 +8,6 @@ a11yNumSelected | function | | For localized accessibility: Should return a stri
 align | One of: `justify`, `left`, `right` | 'justify' | Specify menu alignment. The default value is `justify`, which makes the menu as wide as the input and truncates long values. Specifying `left` or `right` will align the menu to that side and the width will be determined by the length of menu item values.
 allowNew | boolean or function | false | Allows the creation of new selections on the fly. Any new items will be added to the list of selections, but not the list of original options unless handled as such by `Typeahead`'s parent. The newly added item will *always* be returned as an object even if the other options are simply strings, so be sure your `onChange` callback can handle this. If a function is specified, it will be used to determine whether a custom option should be included. The return value should be `true` or `false`.
 autoFocus | boolean | false | Autofocus the input when the component initially mounts.
-bodyContainer | boolean | false | Whether to render the menu inline or attach to `document.body`.
 bsSize | one of: `'large'`, `'lg'`, `'small'`, `'sm'` | | Specify the size of the input.
 caseSensitive | boolean | false | Whether or not filtering should be case-sensitive.
 clearButton | boolean | false | Displays a button to clear the input when there are selections.
@@ -47,6 +46,7 @@ options `required` | array | | Full set of options, including any pre-selected o
 paginate | boolean | true | Give user the ability to display additional results if the number of results exceeds `maxResults`.
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
+positionFixed | boolean | false | Whether to use fixed positioning for the menu, which is useful when rendering inside a container with `overflow: hidden;`. Uses absolute positioning by default.
 renderMenu | function | | Callback for custom menu rendering.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
