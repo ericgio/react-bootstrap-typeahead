@@ -2,7 +2,8 @@ import {debounce} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {getDisplayName} from '../utils/';
+import {optionType} from '../propTypes';
+import {getDisplayName} from '../utils';
 
 const DEFAULT_DELAY_MS = 200;
 
@@ -59,7 +60,7 @@ const asyncContainer = (Typeahead) => {
       // Unless allowNew is a function,
       // in which case it is up to the function to decide
       if (typeof props.allowNew === 'function') {
-        allowNew = props.allowNew;
+        allowNew = props.allowNew; /* eslint-disable-line prefer-destructuring */
       }
 
       return (
@@ -138,6 +139,10 @@ const asyncContainer = (Typeahead) => {
      */
     isLoading: PropTypes.bool.isRequired,
     /**
+     * Number of input characters that must be entered before showing results.
+     */
+    minLength: PropTypes.number,
+    /**
      * Callback to perform when the search is executed.
      */
     onSearch: PropTypes.func.isRequired,
@@ -145,7 +150,7 @@ const asyncContainer = (Typeahead) => {
      * Options to be passed to the typeahead. Will typically be the query
      * results, but can also be initial default options.
      */
-    options: PropTypes.array,
+    options: optionType,
     /**
      * Message displayed in the menu when there is no user input.
      */

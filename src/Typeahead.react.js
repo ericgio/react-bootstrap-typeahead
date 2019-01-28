@@ -12,7 +12,7 @@ import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import typeaheadContainer from './containers/typeaheadContainer';
-import {getAccessibilityStatus, preventInputBlur} from './utils/';
+import {getAccessibilityStatus, preventInputBlur} from './utils';
 
 class Typeahead extends React.Component {
   render() {
@@ -84,6 +84,7 @@ class Typeahead extends React.Component {
           // Use `findDOMNode` here since it's easier and less fragile than
           // forwarding refs down to the input's container.
           // TODO: Consider using `forwardRef` when React 16.3 usage is higher.
+          /* eslint-disable-next-line react/no-find-dom-node */
           ref: (node) => this._inputContainer = findDOMNode(node),
         })}
         {typeof children === 'function' ? children(this.props) : children}
@@ -96,7 +97,7 @@ class Typeahead extends React.Component {
           {renderMenu(results, {...menuProps, id: menuId})}
         </Overlay>
         <div
-          aria-atomic={true}
+          aria-atomic
           aria-live="polite"
           className="sr-only rbt-sr-status"
           role="status">

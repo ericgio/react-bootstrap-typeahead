@@ -50,7 +50,7 @@ class Menu extends React.Component {
         style={{
           ...style,
           display: 'block',
-          maxHeight: maxHeight,
+          maxHeight,
           overflow: 'auto',
         }}>
         {contents}

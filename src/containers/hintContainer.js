@@ -3,7 +3,7 @@ import React from 'react';
 import AutosizeInput from '../AutosizeInput.react';
 import {withContext} from '../TypeaheadContext';
 
-import {getDisplayName} from '../utils/';
+import {getDisplayName} from '../utils';
 import {RETURN, RIGHT, TAB} from '../constants';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
@@ -11,6 +11,7 @@ import {RETURN, RIGHT, TAB} from '../constants';
 function interpolateStyle(styles, attr, subattr = '') {
   // Title-case the sub-attribute.
   if (subattr) {
+    /* eslint-disable-next-line no-param-reassign */
     subattr = subattr.replace(subattr[0], subattr[0].toUpperCase());
   }
 
@@ -22,12 +23,14 @@ function interpolateStyle(styles, attr, subattr = '') {
 function copyStyles(inputNode, hintNode) {
   const inputStyle = window.getComputedStyle(inputNode);
 
+  /* eslint-disable no-param-reassign */
   hintNode.style.borderStyle = interpolateStyle(inputStyle, 'border', 'style');
   hintNode.style.borderWidth = interpolateStyle(inputStyle, 'border', 'width');
   hintNode.style.fontSize = inputStyle.fontSize;
   hintNode.style.lineHeight = inputStyle.lineHeight;
   hintNode.style.margin = interpolateStyle(inputStyle, 'margin');
   hintNode.style.padding = interpolateStyle(inputStyle, 'padding');
+  /* eslint-enable no-param-reassign */
 }
 
 function hintContainer(Input) {

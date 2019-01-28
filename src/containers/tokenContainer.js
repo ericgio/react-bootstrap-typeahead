@@ -1,7 +1,7 @@
 import React from 'react';
 import {RootCloseWrapper} from 'react-overlays';
 
-import {getDisplayName} from '../utils/';
+import {getDisplayName} from '../utils';
 import {BACKSPACE} from '../constants';
 
 /**
@@ -42,6 +42,8 @@ const tokenContainer = (Component) => {
             e.preventDefault();
             this.props.onRemove();
           }
+          break;
+        default:
           break;
       }
     }

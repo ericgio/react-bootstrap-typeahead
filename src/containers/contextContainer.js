@@ -3,7 +3,7 @@ import React from 'react';
 import {polyfill} from 'react-lifecycles-compat';
 
 import TypeaheadContext from '../TypeaheadContext';
-import {getHintText} from '../utils/';
+import {getHintText} from '../utils';
 import {RETURN} from '../constants';
 
 function contextContainer(Typeahead) {
@@ -67,6 +67,8 @@ function contextContainer(Typeahead) {
           if (this.state.isOnlyResult) {
             onAdd(initialItem);
           }
+          break;
+        default:
           break;
       }
 

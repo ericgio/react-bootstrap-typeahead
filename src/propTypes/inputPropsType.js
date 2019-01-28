@@ -19,7 +19,7 @@ export default function inputPropsType(props, propName, componentName) {
   BLACKLIST.forEach(({alt, prop}) => {
     const msg = alt ? ` Use the top-level \`${alt}\` prop instead.` : null;
     warn(
-      !inputProps.hasOwnProperty(prop),
+      !inputProps[prop],
       `The \`${prop}\` property of \`inputProps\` will be ignored.${msg}`
     );
   });

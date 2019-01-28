@@ -5,7 +5,7 @@ import React from 'react';
 import AutosizeInput from './AutosizeInput.react';
 import Token from './Token.react';
 
-import {getOptionLabel} from './utils/';
+import {getOptionLabel} from './utils';
 import hintContainer from './containers/hintContainer';
 import inputContainer from './containers/inputContainer';
 
@@ -101,10 +101,12 @@ class TypeaheadInputMulti extends React.Component {
         if (e.target === this._input && selected.length && !value) {
           // If the input is selected and there is no text, focus the last
           // token when the user hits backspace.
-          const children = this._wrapper.children;
+          const {children} = this._wrapper;
           const lastToken = children[children.length - 2];
           lastToken && lastToken.focus();
         }
+        break;
+      default:
         break;
     }
 

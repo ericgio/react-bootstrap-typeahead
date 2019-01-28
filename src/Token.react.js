@@ -67,6 +67,8 @@ class Token extends React.Component {
       case RETURN:
         this.props.onRemove();
         break;
+      default:
+        break;
     }
   }
 }

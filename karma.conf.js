@@ -1,8 +1,8 @@
 /* eslint-env node */
 
-var webpackConfigBase = require('./webpack.config.base');
+const webpackConfigBase = require('./webpack.config.base');
 
-module.exports = function(config) {
+module.exports = (config) => {
   config.set({
     browsers: [process.env.TRAVIS ? 'Chrome_travis_ci' : 'Chrome'],
     client: {

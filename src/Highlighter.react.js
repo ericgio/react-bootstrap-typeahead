@@ -28,7 +28,7 @@ class Highlighter extends React.PureComponent {
       const bounds = getMatchBounds(remaining, this.props.search);
 
       if (!bounds) {
-        this._count++;
+        this._count += 1;
         children.push(
           <span key={this._count}>
             {remaining}
@@ -40,7 +40,7 @@ class Highlighter extends React.PureComponent {
       // Capture the string that leads up to a match...
       const nonMatch = remaining.slice(0, bounds.start);
       if (nonMatch) {
-        this._count++;
+        this._count += 1;
         children.push(
           <span key={this._count}>
             {nonMatch}
@@ -51,7 +51,7 @@ class Highlighter extends React.PureComponent {
       // Now, capture the matching string...
       const match = remaining.slice(bounds.start, bounds.end);
       if (match) {
-        this._count++;
+        this._count += 1;
         children.push(
           <mark className="rbt-highlight-text" key={this._count}>
             {match}

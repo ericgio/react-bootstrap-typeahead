@@ -4,9 +4,9 @@ import stripDiacritics from './stripDiacritics';
 const CASE_INSENSITIVE = 'i';
 const COMBINING_MARKS = /[\u0300-\u036F]/;
 
-export default function getMatchBounds(subject, search) {
-  search = new RegExp(
-    escapeStringRegexp(stripDiacritics(search)),
+export default function getMatchBounds(subject, str) {
+  const search = new RegExp(
+    escapeStringRegexp(stripDiacritics(str)),
     CASE_INSENSITIVE
   );
 
@@ -25,7 +25,7 @@ export default function getMatchBounds(subject, search) {
     // combining marks and increment the start index whenever one is found.
     for (let ii = 0; ii <= start; ii++) {
       if (COMBINING_MARKS.test(subject[ii])) {
-        start++;
+        start += 1;
       }
     }
 
@@ -33,7 +33,7 @@ export default function getMatchBounds(subject, search) {
     // combining mark.
     for (let ii = start; ii <= start + matchLength; ii++) {
       if (COMBINING_MARKS.test(subject[ii])) {
-        matchLength++;
+        matchLength += 1;
       }
     }
   }

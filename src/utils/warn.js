@@ -15,10 +15,9 @@ export default function warn(falseToWarn, message, ...args) {
     warned[message] = true;
   }
 
-  message = `[react-bootstrap-typeahead] ${message}`;
-  warning(falseToWarn, message, ...args);
+  warning(falseToWarn, `[react-bootstrap-typeahead] ${message}`, ...args);
 }
 
-export function _resetWarned() {
+export function resetWarned() {
   warned = {};
 }

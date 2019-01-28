@@ -19,7 +19,7 @@ function scrollIntoViewIfNeeded(node) {
 
   const parentComputedStyle = window.getComputedStyle(parent, null);
   const parentBorderTopWidth =
-    parseInt(parentComputedStyle.getPropertyValue('border-top-width'));
+    parseInt(parentComputedStyle.getPropertyValue('border-top-width'), 10);
 
   if (rect.top < parentRect.top || rect.bottom > parentRect.bottom) {
     parent.scrollTop =

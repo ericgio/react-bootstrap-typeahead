@@ -5,8 +5,8 @@ import React from 'react';
 import {RootCloseWrapper} from 'react-overlays';
 
 import contextContainer from './contextContainer';
-import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes/';
-import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils/';
+import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
+import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils';
 
 import {DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants';
 
@@ -51,8 +51,8 @@ function getInitialState(props) {
   };
 }
 
-function typeaheadContainer(Typeahead) {
-  Typeahead = contextContainer(Typeahead);
+function typeaheadContainer(Component) {
+  const Typeahead = contextContainer(Component);
 
   class WrappedTypeahead extends React.Component {
     state = getInitialState(this.props);
@@ -280,6 +280,7 @@ function typeaheadContainer(Typeahead) {
 
     _handleKeyDown = (e, results, isMenuShown) => {
       const {activeItem} = this.state;
+      let {activeIndex} = this.state;
 
       switch (e.keyCode) {
         case UP:
@@ -288,8 +289,6 @@ function typeaheadContainer(Typeahead) {
             this._showMenu();
             break;
           }
-
-          let {activeIndex} = this.state;
 
           // Prevents input cursor from going to the beginning when pressing up.
           e.preventDefault();
@@ -340,6 +339,8 @@ function typeaheadContainer(Typeahead) {
             this._hideMenu();
           }
           break;
+        default:
+          break;
       }
 
       this.props.onKeyDown(e);
@@ -356,6 +357,8 @@ function typeaheadContainer(Typeahead) {
     _handlePaginate = (e) => {
       e.persist();
       const {maxResults, onPaginate} = this.props;
+
+      /* eslint-disable-next-line react/no-access-state-in-setstate */
       const shownResults = this.state.shownResults + maxResults;
 
       this.setState({shownResults}, () => onPaginate(e, shownResults));

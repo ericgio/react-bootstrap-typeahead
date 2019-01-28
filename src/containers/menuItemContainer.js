@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import {withContext} from '../TypeaheadContext';
-import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded} from '../utils/';
+import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded} from '../utils';
 
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
@@ -25,6 +25,7 @@ const menuItemContainer = (Component) => {
       if (activeIndex === position) {
         // Ensures that if the menu items exceed the bounds of the menu, the
         // menu will scroll up or down as the user hits the arrow keys.
+        /* eslint-disable-next-line react/no-find-dom-node */
         scrollIntoViewIfNeeded(findDOMNode(this));
 
         // Fire the change handler when the menu item becomes active.

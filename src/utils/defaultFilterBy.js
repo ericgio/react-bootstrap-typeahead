@@ -4,17 +4,20 @@ import stripDiacritics from './stripDiacritics';
 import warn from './warn';
 
 function isMatch(input, string, props) {
+  let searchStr = input;
+  let str = string;
+
   if (!props.caseSensitive) {
-    input = input.toLowerCase();
-    string = string.toLowerCase();
+    searchStr = searchStr.toLowerCase();
+    str = str.toLowerCase();
   }
 
   if (props.ignoreDiacritics) {
-    input = stripDiacritics(input);
-    string = stripDiacritics(string);
+    searchStr = stripDiacritics(searchStr);
+    str = stripDiacritics(str);
   }
 
-  return string.indexOf(input) !== -1;
+  return str.indexOf(searchStr) !== -1;
 }
 
 /**
@@ -61,7 +64,7 @@ export default function defaultFilterBy(option, props) {
       );
 
       // Coerce to string since `toString` isn't null-safe.
-      value = value + '';
+      value = `${value}`;
     }
 
     return isMatch(text, value, props);

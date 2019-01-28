@@ -1,7 +1,9 @@
+/* eslint-disable react/prefer-stateless-function */
+
 import cx from 'classnames';
 import React from 'react';
 
-import {getDisplayName, getInputText, getMenuItemId} from '../utils/';
+import {getDisplayName, getInputText, getMenuItemId} from '../utils';
 
 function inputContainer(Input) {
   class WrappedInput extends React.Component {
@@ -75,7 +77,7 @@ function inputContainer(Input) {
           {...inputProps}
           className={cx('rbt-input', {
             [className]: !multiple,
-            'focus': isFocused,
+            focus: isFocused,
             'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
             'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
             'is-invalid': isInvalid,

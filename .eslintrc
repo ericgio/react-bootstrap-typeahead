@@ -20,9 +20,13 @@
       "exports": "always-multiline",
       "functions": "ignore",
     }],
-    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
+    "no-plusplus": [2, {"allowForLoopAfterthoughts": true}],
     "no-underscore-dangle": [2, {
       "allowAfterThis": true
+    }],
+    "no-unused-expressions": [2, {
+      "allowShortCircuit": true,
+      "allowTernary": true,
     }],
     "no-unused-vars": [2, {
       "args": "none",

@@ -17,6 +17,7 @@ function getModifiers({align, flip}) {
         // even when `align` is undefined.
         if (align !== 'right' && align !== 'left') {
           // Set the popper width to match the target width.
+          /* eslint-disable-next-line no-param-reassign */
           data.styles.width = data.offsets.reference.width;
         }
         return data;

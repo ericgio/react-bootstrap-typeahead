@@ -17,8 +17,8 @@ class BaseMenuItem extends React.Component {
     } = this.props;
 
     const conditionalClassNames = {
-      'active': active,
-      'disabled': disabled,
+      active,
+      disabled,
     };
 
     return (

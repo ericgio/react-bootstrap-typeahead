@@ -10,6 +10,6 @@ export default function defaultInputValueType(props, propName, componentName) {
       defaultInputValue &&
       (defaultSelected.length || (selected && selected.length))
     ),
-    '`defaultInputValue` will be overridden by the value from `' + name + '`.'
+    `\`defaultInputValue\` will be overridden by the value from \`${name}\`.`
   );
 }

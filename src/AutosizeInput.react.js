@@ -20,17 +20,20 @@ const INPUT_PROPS_BLACKLIST = [
 const MIN_WIDTH = 1;
 
 const cleanInputProps = (inputProps) => {
+  /* eslint-disable-next-line no-param-reassign */
   INPUT_PROPS_BLACKLIST.forEach((field) => delete inputProps[field]);
   return inputProps;
 };
 
 const copyStyles = (styles, node) => {
+  /* eslint-disable no-param-reassign */
   node.style.fontSize = styles.fontSize;
   node.style.fontFamily = styles.fontFamily;
   node.style.fontWeight = styles.fontWeight;
   node.style.fontStyle = styles.fontStyle;
   node.style.letterSpacing = styles.letterSpacing;
   node.style.textTransform = styles.textTransform;
+  /* eslint-enable no-param-reassign */
 };
 
 class AutosizeInput extends React.Component {
@@ -140,7 +143,7 @@ AutosizeInput.propTypes = {
   /**
    * CSS styles for the input element.
    */
-  inputStyle: PropTypes.object,
+  inputStyle: PropTypes.object, /* eslint-disable-line react/forbid-prop-types */
 };
 
 export default AutosizeInput;

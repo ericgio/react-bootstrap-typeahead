@@ -2,7 +2,7 @@ import {noop, pick} from 'lodash';
 import createReactContext from 'create-react-context';
 import React from 'react';
 
-const TypeaheadContext =  createReactContext({
+const TypeaheadContext = createReactContext({
   activeIndex: -1,
   hintText: '',
   initialItem: null,
