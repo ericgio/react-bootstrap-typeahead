@@ -9,7 +9,6 @@
   "globals": {},
   "parser": "babel-eslint",
   "plugins": [
-    "jsx-a11y",
   ],
   "rules": {
     "arrow-parens": [2, "always"],
@@ -20,7 +19,13 @@
       "exports": "always-multiline",
       "functions": "ignore",
     }],
-    "no-plusplus": [2, {"allowForLoopAfterthoughts": true}],
+    "max-len": [1, 80, 2, {
+      "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
+      "ignoreUrls": true,
+    }],
+    "no-plusplus": [2, {
+      "allowForLoopAfterthoughts": true,
+    }],
     "no-underscore-dangle": [2, {
       "allowAfterThis": true
     }],
@@ -39,6 +44,9 @@
     "object-curly-spacing": [2, "never"],
     "operator-linebreak": [2, "after"],
     "react/destructuring-assignment": 0,
+    "react/jsx-filename-extension": [2, {
+      "extensions": [".js", ".jsx"]
+    }],
     "react/jsx-closing-bracket-location": [2, {
       "nonEmpty": "after-props",
       "selfClosing": "tag-aligned",
@@ -62,14 +70,16 @@
         "everything-else"
       ],
     }],
-    "sort-keys": [2, "asc", {"caseSensitive": false, "natural": true}],
+    "sort-keys": [2, "asc", {
+      "caseSensitive": false,
+      "natural": true,
+    }],
 
     "arrow-body-style": 0,
     "import/no-webpack-loader-syntax": 0,
     "no-return-assign": 0,
     "one-var": 0,
     "one-var-declaration-per-line": 0,
-    "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/prop-types": 0,
     "react/require-default-props": 0,

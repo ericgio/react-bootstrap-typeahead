@@ -60,7 +60,8 @@ const asyncContainer = (Typeahead) => {
       // Unless allowNew is a function,
       // in which case it is up to the function to decide
       if (typeof props.allowNew === 'function') {
-        allowNew = props.allowNew; /* eslint-disable-line prefer-destructuring */
+        /* eslint-disable-next-line prefer-destructuring */
+        allowNew = props.allowNew;
       }
 
       return (

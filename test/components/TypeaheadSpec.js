@@ -183,7 +183,8 @@ describe('<Typeahead>', () => {
 
     beforeEach(() => {
       defaultInputValue = 'This is a default value';
-      defaultSelected = selected = states.slice(0, 1); /* eslint-disable-line no-multi-assign */
+      /* eslint-disable-next-line no-multi-assign */
+      defaultSelected = selected = states.slice(0, 1);
     });
 
     it('sets a default initial input value', () => {
