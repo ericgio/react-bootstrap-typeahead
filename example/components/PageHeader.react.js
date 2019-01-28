@@ -1,9 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
 
-import VersionDropdown from './VersionDropdown';
+import VersionDropdown from './VersionDropdown.react';
 
 import {version as PACKAGE_VERSION} from '../../package.json';
 import {BS3, BS4} from '../util/bsVersions';
@@ -32,7 +34,7 @@ class PageHeader extends React.Component {
         inverse
         staticTop>
         {this._renderNavbarHeader(isBS3)}
-        <Navbar.Collapse className={cx({'show': show})}>
+        <Navbar.Collapse className={cx({show})}>
           <Nav className="ml-auto" pullRight>
             <NavItem
               href={`${GITHUB_URL}/releases`}
@@ -71,7 +73,7 @@ class PageHeader extends React.Component {
       <Fragment>
         <Navbar.Brand>React Bootstrap Typeahead</Navbar.Brand>
         <Navbar.Toggle
-          className={cx('navbar-toggler', {'collapsed': !show})}
+          className={cx('navbar-toggler', {collapsed: !show})}
           onClick={() => this.setState({show: !show})}
         />
       </Fragment>;

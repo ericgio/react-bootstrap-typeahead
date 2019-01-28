@@ -1,8 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import {sortBy} from 'lodash';
 import React, {Fragment} from 'react';
 import {Button, FormGroup, InputGroup} from 'react-bootstrap';
 
-import {Typeahead} from '../../src/';
+import {Typeahead} from '../../src';
 import options from '../exampleData';
 
 /* example-start */
@@ -46,7 +48,7 @@ class FormExample extends React.Component {
               isInvalid={isInvalid}
               isValid={isValid}
               labelKey="capital"
-              onChange={(selected) => this.setState({selected})}
+              onChange={(s) => this.setState({selected: s})}
               options={sortBy(options, 'capital')}
               placeholder="Select a capital..."
               selected={selected}

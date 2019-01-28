@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AsyncTypeahead} from '../../src/';
+import {AsyncTypeahead} from '../../src';
 import GithubMenuItem from '../components/GithubMenuItem.react';
 import makeAndHandleRequest from '../util/makeAndHandleRequest';
 

@@ -2,8 +2,8 @@ import React from 'react';
 
 import {version} from '../../package.json';
 
-import Container from './Container';
-import GithubStarsButton from './GithubStarsButton';
+import Container from './Container.react';
+import GithubStarsButton from './GithubStarsButton.react';
 
 const AUTHOR_GITHUB_URL = 'https://github.com/ericgio';
 const BASE_GITHUB_URL = `${AUTHOR_GITHUB_URL}/react-bootstrap-typeahead`;
@@ -11,7 +11,7 @@ const BASE_GITHUB_URL = `${AUTHOR_GITHUB_URL}/react-bootstrap-typeahead`;
 const authorLink =
   <a
     href={AUTHOR_GITHUB_URL}
-    rel="author"
+    rel="author noreferrer noopener"
     target="_blank">
     Eric Giovanola
   </a>;
@@ -26,7 +26,7 @@ const footerLinks = [
 const licenseLink =
   <a
     href={`${BASE_GITHUB_URL}/blob/master/LICENSE.md`}
-    rel="license"
+    rel="license noreferrer noopener"
     target="_blank">
     MIT
   </a>;
@@ -34,7 +34,7 @@ const licenseLink =
 const versionLink =
   <a
     href="https://www.npmjs.com/package/react-bootstrap-typeahead"
-    rel="version"
+    rel="version noreferrer noopener"
     target="_blank">
     v{version}
   </a>;
@@ -43,9 +43,9 @@ const PageFooter = () => (
   <footer className="bs-docs-footer">
     <Container>
       <ul className="bs-docs-footer-links">
-        {footerLinks.map(({href, label}, idx) => (
-          <li key={idx}>
-            <a href={href} target="_blank">
+        {footerLinks.map(({href, label}) => (
+          <li key={label}>
+            <a href={href} rel="noreferrer noopener" target="_blank">
               {label}
             </a>
           </li>

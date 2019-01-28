@@ -1,12 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, {Children} from 'react';
 import {Col, Jumbotron, NavItem, Row} from 'react-bootstrap';
 
-import Container from './Container';
-import PageFooter from './PageFooter';
-import PageHeader from './PageHeader';
-import PageMenu from './PageMenu';
+import Container from './Container.react';
+import PageFooter from './PageFooter.react';
+import PageHeader from './PageHeader.react';
+import PageMenu from './PageMenu.react';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 import {BS3, BS4, HASHES} from '../util/bsVersions';
@@ -42,7 +44,7 @@ class Page extends React.Component {
     return (
       <div
         className={cx('bs-docs-page', {
-          'bs4': bsVersion === BS4,
+          bs4: bsVersion === BS4,
         })}>
         <PageHeader
           onVersionChange={this._handleVersionChange}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Anchor from './Anchor';
+import Anchor from './Anchor.react';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 

@@ -1,12 +1,10 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 
 const AUTHOR_REPO = 'ericgio/react-bootstrap-typeahead';
 
 class GitHubStarsButton extends React.Component {
   componentDidMount() {
-    const node = findDOMNode(this);
-    node.dataset.size = window.innerWidth > 480 ? 'large' : null;
+    this._node.dataset.size = window.innerWidth > 480 ? 'large' : null;
   }
 
   render() {
@@ -16,8 +14,9 @@ class GitHubStarsButton extends React.Component {
         className="github-button"
         data-count-aria-label="# stargazers on GitHub"
         data-count-href={`/${AUTHOR_REPO}/stargazers`}
-        data-show-count={true}
-        href={`https://github.com/${AUTHOR_REPO}`}>
+        data-show-count
+        href={`https://github.com/${AUTHOR_REPO}`}
+        ref={(node) => this._node = node}>
         Star
       </a>
     );

@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Anchor from './Anchor';
-import ScrollSpy from './ScrollSpy';
+import Anchor from './Anchor.react';
+import ScrollSpy from './ScrollSpy.react';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
 const sectionContainer = (Component) => {
-  class WrappedSection extends React.Component {
-    render() {
-      return <Component {...this.props} {...this.context} />;
-    }
-  }
+  const WrappedSection = (props, context) => (
+    <Component {...props} {...context} />
+  );
 
   WrappedSection.contextTypes = {
     onAfter: PropTypes.func.isRequired,

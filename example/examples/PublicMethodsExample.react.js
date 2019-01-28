@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React, {Fragment} from 'react';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
-import {Typeahead} from '../../src/';
+import {Typeahead} from '../../src';
 import options from '../exampleData';
 
 /* example-start */

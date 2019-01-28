@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React from 'react';
 import {Button} from 'react-bootstrap';
 
-import CodeSample from '../components/CodeSample';
+import CodeSample from './CodeSample.react';
 
 class ExampleSection extends React.Component {
   state = {

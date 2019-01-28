@@ -1,11 +1,12 @@
 /* global Prism */
+/* eslint-disable react/no-danger,import/no-extraneous-dependencies */
 
 import cx from 'classnames';
 import marked from 'marked';
 import React from 'react';
 
 class Markdown extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     marked.setOptions({
       breaks: true,
       gfm: true,

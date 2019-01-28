@@ -1,14 +1,17 @@
 import React from 'react';
 
-import CustomFilteringExample from '../examples/CustomFilteringExample';
-import CustomFilteringExampleCode from '!raw-loader!../examples/CustomFilteringExample';
-import FilteringExample from '../examples/FilteringExample';
-import FilteringExampleCode from '!raw-loader!../examples/FilteringExample';
+import CustomFilteringExample from '../examples/CustomFilteringExample.react';
+import FilteringExample from '../examples/FilteringExample.react';
 
-import ExampleSection from '../components/ExampleSection';
-import Markdown from '../components/Markdown';
-import Section from '../components/Section';
-import Title from '../components/Title';
+/* eslint-disable import/no-unresolved */
+import FilteringExampleCode from '!raw-loader!../examples/FilteringExample.react';
+import CustomFilteringExampleCode from '!raw-loader!../examples/CustomFilteringExample.react';
+/* eslint-enable import/no-unresolved */
+
+import ExampleSection from '../components/ExampleSection.react';
+import Markdown from '../components/Markdown.react';
+import Section from '../components/Section.react';
+import Title from '../components/Title.react';
 
 const FilteringSection = (props) => (
   <Section title={props.title}>

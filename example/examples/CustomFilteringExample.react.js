@@ -1,8 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
-import Control from '../components/Control';
-import {Typeahead} from '../../src/';
+import Control from '../components/Control.react';
+import {Typeahead} from '../../src';
 import options from '../exampleData';
 
 /* example-start */
@@ -18,12 +20,10 @@ class CustomFilteringExample extends React.Component {
       {label: 'Use data fields', value: 'fields'},
     ];
 
-    const filterByCallback = (option, props) => {
-      return (
-        option.capital.toLowerCase().indexOf(props.text.toLowerCase()) !== -1 ||
-        option.name.toLowerCase().indexOf(props.text.toLowerCase()) !== -1
-      );
-    };
+    const filterByCallback = (option, props) => (
+      option.capital.toLowerCase().indexOf(props.text.toLowerCase()) !== -1 ||
+      option.name.toLowerCase().indexOf(props.text.toLowerCase()) !== -1
+    );
 
     const filterByFields = ['capital', 'name'];
 

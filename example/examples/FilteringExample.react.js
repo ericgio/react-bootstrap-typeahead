@@ -1,8 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
-import Control from '../components/Control';
-import {Typeahead} from '../../src/';
+import Control from '../components/Control.react';
+import {Typeahead} from '../../src';
 
 /* example-start */
 class FilteringExample extends React.Component {
@@ -60,7 +62,7 @@ class FilteringExample extends React.Component {
               this.setState({ignoreDiacritics: !e.target.checked});
             }}
             type="checkbox">
-            Don't ignore diacritical marks
+            Account for diacritical marks
           </Control>
         </FormGroup>
       </Fragment>

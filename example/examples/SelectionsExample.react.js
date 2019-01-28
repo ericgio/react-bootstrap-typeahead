@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Typeahead} from '../../src/';
+import {Typeahead} from '../../src';
 import options from '../exampleData';
 
 /* example-start */

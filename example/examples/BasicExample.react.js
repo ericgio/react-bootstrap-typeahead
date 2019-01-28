@@ -1,8 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
-import Control from '../components/Control';
-import {Typeahead} from '../../src/';
+import Control from '../components/Control.react';
+import {Typeahead} from '../../src';
 import options from '../exampleData';
 
 /* example-start */

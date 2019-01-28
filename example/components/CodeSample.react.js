@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import {PrismCode} from 'react-prism';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -12,17 +14,11 @@ function getExampleCode(str) {
   );
 }
 
-class CodeSample extends React.Component {
-  render() {
-    const {children, component, language} = this.props;
-
-    return (
-      <PrismCode className={`language-${language}`} component={component}>
-        {getExampleCode(children)}
-      </PrismCode>
-    );
-  }
-}
+const CodeSample = ({children, component, language}) => (
+  <PrismCode className={`language-${language}`} component={component}>
+    {getExampleCode(children)}
+  </PrismCode>
+);
 
 CodeSample.propTypes = {
   component: PropTypes.string,
@@ -33,6 +29,5 @@ CodeSample.defaultProps = {
   component: 'pre',
   language: 'jsx',
 };
-
 
 export default CodeSample;

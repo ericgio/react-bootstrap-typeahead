@@ -1,14 +1,17 @@
 import React from 'react';
 
-import AsyncExample from '../examples/AsyncExample';
-import AsyncExampleCode from '!raw-loader!../examples/AsyncExample';
-import AsyncPaginationExample from '../examples/AsyncPaginationExample';
-import AsyncPaginationExampleCode from '!raw-loader!../examples/AsyncPaginationExample';
+import AsyncExample from '../examples/AsyncExample.react';
+import AsyncPaginationExample from '../examples/AsyncPaginationExample.react';
 
-import ExampleSection from '../components/ExampleSection';
-import Markdown from '../components/Markdown';
-import Section from '../components/Section';
-import Title from '../components/Title';
+/* eslint-disable import/no-unresolved */
+import AsyncExampleCode from '!raw-loader!../examples/AsyncExample.react';
+import AsyncPaginationExampleCode from '!raw-loader!../examples/AsyncPaginationExample.react';
+/* eslint-enable import/no-unresolved */
+
+import ExampleSection from '../components/ExampleSection.react';
+import Markdown from '../components/Markdown.react';
+import Section from '../components/Section.react';
+import Title from '../components/Title.react';
 
 const AsyncSection = (props) => (
   <Section title={props.title}>

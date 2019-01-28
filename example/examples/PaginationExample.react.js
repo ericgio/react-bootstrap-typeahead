@@ -1,9 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import {range} from 'lodash';
 import React, {Fragment} from 'react';
 import {FormGroup} from 'react-bootstrap';
 
-import Control from '../components/Control';
-import {Typeahead} from '../../src/';
+import Control from '../components/Control.react';
+import {Typeahead} from '../../src';
 
 /* eslint-disable no-console */
 /* example-start */

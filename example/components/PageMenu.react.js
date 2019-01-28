@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React from 'react';
 import {AutoAffix} from 'react-overlays';
 import {Nav} from 'react-bootstrap';
