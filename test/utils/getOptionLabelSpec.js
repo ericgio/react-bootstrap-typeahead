@@ -11,7 +11,6 @@ describe('getOptionLabel', () => {
   });
 
   describe('returns a string when', () => {
-
     it('receives an `option` string', () => {
       const optionLabel = getOptionLabel(label);
       expect(optionLabel).to.equal(label);

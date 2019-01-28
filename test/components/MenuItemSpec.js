@@ -4,7 +4,7 @@ import {noop, pick} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
+import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
 import contextContainer from '../../src/containers/contextContainer';
 import {context} from '../helpers';
 
@@ -27,7 +27,7 @@ describe('<BaseMenuItem>', () => {
   });
 
   it('renders a base menu item', () => {
-    expect(baseMenuItem).to.exist;
+    expect(baseMenuItem).to.not.equal(undefined);
     expect(baseMenuItem.type()).to.equal('li');
   });
 
@@ -48,7 +48,6 @@ describe('<BaseMenuItem>', () => {
     expect(baseMenuItem.hasClass('disabled')).to.equal(true);
     expect(onClick.notCalled).to.equal(true);
   });
-
 });
 
 describe('<MenuItem>', () => {
@@ -77,7 +76,7 @@ describe('<MenuItem>', () => {
   });
 
   it('renders a menu item', () => {
-    expect(menuItem).to.exist;
+    expect(menuItem).to.not.equal(undefined);
     expect(menuItem.find('a')).to.have.length(1);
   });
 

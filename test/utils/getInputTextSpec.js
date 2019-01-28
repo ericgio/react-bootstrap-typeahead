@@ -13,7 +13,6 @@ const baseArgs = {
 };
 
 describe('getInputText', () => {
-
   it('returns an empty string when no text is entered', () => {
     const inputText = getInputText(baseArgs);
     expect(inputText).to.equal('');
@@ -79,5 +78,4 @@ describe('getInputText', () => {
 
     expect(inputText).to.equal('');
   });
-
 });

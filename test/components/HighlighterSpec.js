@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import React from 'react';
 
-import Highlighter from '../../src/Highlighter';
+import Highlighter from '../../src/Highlighter.react';
 
 describe('<Highlighter>', () => {
   let highlighter, matches;
@@ -45,7 +45,7 @@ describe('<Highlighter>', () => {
   });
 
   it('ignores diacritical marks', () => {
-    const matches = highlighter
+    matches = highlighter
       .setProps({
         children: 'Kraków',
         search: 'krako',

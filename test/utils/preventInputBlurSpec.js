@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import sinon from 'sinon';
 
-import {preventInputBlur} from '../../src/utils/';
+import {preventInputBlur} from '../../src/utils';
 
 describe('preventInputBlur', () => {
   it('calls `preventDefault` on the event', () => {

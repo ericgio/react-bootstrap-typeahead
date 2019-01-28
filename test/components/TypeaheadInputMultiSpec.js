@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
-import TypeaheadInputMulti from '../../src/TypeaheadInputMulti';
+import TypeaheadInputMulti from '../../src/TypeaheadInputMulti.react';
 import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
@@ -75,5 +75,4 @@ describe('<TypeaheadInputMulti>', () => {
     expect(input.hasClass('is-invalid')).to.equal(true);
     expect(input.hasClass('is-valid')).to.equal(true);
   });
-
 });

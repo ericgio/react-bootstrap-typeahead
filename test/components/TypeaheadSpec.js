@@ -5,7 +5,7 @@ import React from 'react';
 import {Popper} from 'react-popper';
 import sinon from 'sinon';
 
-import {Menu, MenuItem, Typeahead} from '../../src/';
+import {Menu, MenuItem, Typeahead} from '../../src';
 
 import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
 import states from '../../example/exampleData';
@@ -183,7 +183,7 @@ describe('<Typeahead>', () => {
 
     beforeEach(() => {
       defaultInputValue = 'This is a default value';
-      defaultSelected = selected = states.slice(0, 1);
+      defaultSelected = selected = states.slice(0, 1); /* eslint-disable-line no-multi-assign */
     });
 
     it('sets a default initial input value', () => {
@@ -586,7 +586,6 @@ describe('<Typeahead>', () => {
     });
 
     it('does not highlight the only result', () => {
-
       change(typeahead, 'Alab');
       focus(typeahead);
 
@@ -795,6 +794,7 @@ describe('<Typeahead>', () => {
       keyCode = 0;
 
       typeahead.setProps({
+        /* eslint-disable-next-line prefer-destructuring */
         onKeyDown: (e) => keyCode = e.keyCode,
       });
 
@@ -1178,6 +1178,7 @@ describe('<Typeahead>', () => {
         renderMenu: (results, menuProps) => (
           <Menu {...menuProps}>
             {results.reverse().map((r, idx) => (
+              /* eslint-disable-next-line react/no-array-index-key */
               <MenuItem key={idx} option={r} position={idx}>
                 {r.name}
               </MenuItem>

@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {getAccessibilityStatus} from '../../src/utils/';
+import {getAccessibilityStatus} from '../../src/utils';
 
 describe('getAccessibilityStatus', () => {
   it('displays the number of selections when the menu is hidden', () => {

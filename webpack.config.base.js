@@ -39,6 +39,6 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.react.js'],
+    extensions: ['.js'],
   },
 };

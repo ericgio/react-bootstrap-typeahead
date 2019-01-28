@@ -15,7 +15,6 @@ const props = {
 };
 
 describe('getHintText', () => {
-
   it('returns a case-sensitive hint string', () => {
     const hintText = getHintText(props);
     expect(hintText).to.equal('alAbama');
@@ -78,5 +77,4 @@ describe('getHintText', () => {
     });
     expect(hintText).to.equal('schon ist, was scho\u0308n la\u0308sst.');
   });
-
 });

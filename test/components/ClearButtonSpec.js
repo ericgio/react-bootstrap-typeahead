@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
-import ClearButton from '../../src/ClearButton';
+import ClearButton from '../../src/ClearButton.react';
 
 describe('<ClearButton>', () => {
   let button, onClick;

@@ -4,7 +4,6 @@ import getTruncatedOptions from '../../src/utils/getTruncatedOptions';
 import options from '../../example/exampleData';
 
 describe('getTruncatedOptions', () => {
-
   it('truncates the results', () => {
     const maxResults = 10;
     const truncatedResults = getTruncatedOptions(options, maxResults);
@@ -25,5 +24,4 @@ describe('getTruncatedOptions', () => {
 
     expect(truncatedResults.length).to.equal(options.length);
   });
-
 });

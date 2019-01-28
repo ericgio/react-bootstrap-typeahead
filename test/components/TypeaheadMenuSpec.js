@@ -3,8 +3,8 @@ import {mount} from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
-import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
-import TypeaheadMenu from '../../src/TypeaheadMenu';
+import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
+import TypeaheadMenu from '../../src/TypeaheadMenu.react';
 
 import options from '../../example/exampleData';
 import {getMenu, getPaginator} from '../helpers';
@@ -38,7 +38,7 @@ describe('<TypeaheadMenu>', () => {
     expect(getMaxHeight(menu)).to.equal('50%');
   });
 
-  it ('renders disabled menu items', () => {
+  it('renders disabled menu items', () => {
     menu.setProps({options: options.map((o) => ({...o, disabled: true}))});
     expect(menu.find(MenuItem).first().prop('disabled')).to.equal(true);
   });

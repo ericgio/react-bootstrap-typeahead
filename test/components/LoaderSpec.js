@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import React from 'react';
 
-import Loader from '../../src/Loader';
+import Loader from '../../src/Loader.react';
 
 describe('<Loader>', () => {
   let loader;
@@ -25,5 +25,4 @@ describe('<Loader>', () => {
     loader.setProps({bsSize: 'large'});
     expect(loader.hasClass('rbt-loader-lg')).to.equal(true);
   });
-
 });

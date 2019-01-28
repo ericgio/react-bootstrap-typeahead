@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
-import {AsyncTypeahead} from '../../src/';
+import {AsyncTypeahead} from '../../src';
 import {change, focus, getMenuItems, keyDown, search} from '../helpers';
 import {DOWN, RETURN} from '../../src/constants';
 

@@ -2,8 +2,8 @@ import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import React from 'react';
 
-import Menu from '../../src/Menu';
-import MenuItem, {BaseMenuItem} from '../../src/MenuItem';
+import Menu from '../../src/Menu.react';
+import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
 
 describe('<Menu>', () => {
   let menu;
@@ -19,7 +19,7 @@ describe('<Menu>', () => {
       <Menu id="menu-id" paginate={false}>
         {options.map((o, idx) => (
           <MenuItem
-            key={idx}
+            key={o.label}
             option={o}
             position={idx}>
             {o.label}

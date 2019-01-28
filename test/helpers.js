@@ -18,27 +18,9 @@ const baseEvent = {
   persist: noop,
 };
 
-/* Events */
-export function focus(wrapper) {
-  getInput(wrapper).simulate('focus', baseEvent);
-}
-
-export function keyDown(wrapper, value) {
-  getInput(wrapper).simulate('keyDown', {
-    ...baseEvent,
-    keyCode: value,
-    which: value,
-  });
-}
-
-export function change(wrapper, value) {
-  // Calling `simulate` doesn't actually change the value, so call the
-  // `onChange` prop directly: https://github.com/airbnb/enzyme/issues/1412
-  getInput(wrapper).prop('onChange')({...baseEvent, target: {value}});
-}
-
-
-/* Finding React Elements */
+/**
+ * Finding React Elements
+ */
 export function getHint(wrapper) {
   return wrapper.find('.rbt-input-hint').prop('value');
 }
@@ -65,8 +47,30 @@ export function getTokens(wrapper) {
   return wrapper.find('.rbt-token');
 }
 
+/**
+ * Events
+ */
+export function focus(wrapper) {
+  getInput(wrapper).simulate('focus', baseEvent);
+}
 
-/* Other Functions */
+export function keyDown(wrapper, value) {
+  getInput(wrapper).simulate('keyDown', {
+    ...baseEvent,
+    keyCode: value,
+    which: value,
+  });
+}
+
+export function change(wrapper, value) {
+  // Calling `simulate` doesn't actually change the value, so call the
+  // `onChange` prop directly: https://github.com/airbnb/enzyme/issues/1412
+  getInput(wrapper).prop('onChange')({...baseEvent, target: {value}});
+}
+
+/**
+ * Other Functions
+ */
 export function search(wrapper, query, callback) {
   change(wrapper, query);
   setTimeout(callback, 100);

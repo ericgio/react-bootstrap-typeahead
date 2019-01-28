@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
-import TypeaheadInputSingle from '../../src/TypeaheadInputSingle';
+import TypeaheadInputSingle from '../../src/TypeaheadInputSingle.react';
 import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
@@ -73,5 +73,4 @@ describe('<TypeaheadInputSingle>', () => {
     expect(input.hasClass('is-invalid')).to.equal(true);
     expect(input.hasClass('is-valid')).to.equal(true);
   });
-
 });

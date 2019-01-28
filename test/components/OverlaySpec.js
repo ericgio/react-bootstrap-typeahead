@@ -117,7 +117,7 @@ describe('<Overlay>', () => {
         <Overlay
           container={div}
           referenceElement={div}
-          show={true}>
+          show>
           <Menu id="menu-id">
             This is the menu
           </Menu>

@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {pluralize} from '../../src/utils/';
+import {pluralize} from '../../src/utils';
 
 describe('pluralize', () => {
   it('performs basic pluralization', () => {
