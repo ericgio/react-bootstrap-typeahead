@@ -356,12 +356,10 @@ function typeaheadContainer(Component) {
 
     _handlePaginate = (e) => {
       e.persist();
-      const {maxResults, onPaginate} = this.props;
 
-      /* eslint-disable-next-line react/no-access-state-in-setstate */
-      const shownResults = this.state.shownResults + maxResults;
-
-      this.setState({shownResults}, () => onPaginate(e, shownResults));
+      this.setState(({shownResults}, {maxResults}) => ({
+        shownResults: shownResults + maxResults,
+      }), () => this.props.onPaginate(e, this.state.shownResults));
     }
 
     _handleSelectionAdd = (selection) => {
