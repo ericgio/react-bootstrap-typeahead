@@ -41,7 +41,7 @@ function inputContainer(Input) {
         'aria-autocomplete': multiple ? 'list' : 'both',
         'aria-expanded': isMenuShown,
         'aria-haspopup': 'listbox',
-        'aria-owns': menuId,
+        'aria-owns': isMenuShown ? menuId : '',
         autoComplete: this.props.inputProps.autoComplete || 'nope',
         disabled,
         inputRef,
@@ -63,11 +63,12 @@ function inputContainer(Input) {
       if (multiple) {
         inputProps = {
           ...inputProps,
+          'aria-expanded': undefined,
           inputClassName: className,
           labelKey,
           onRemove,
           renderToken,
-          role: '',
+          role: undefined,
           selected,
         };
       }

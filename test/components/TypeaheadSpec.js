@@ -918,6 +918,8 @@ describe('<Typeahead>', () => {
 
   describe('accessibility attributes', () => {
     it('adds an id to the menu for accessibility', () => {
+      expect(getInput(typeahead).prop('aria-owns')).to.equal('');
+
       focus(typeahead);
 
       // Default id.
@@ -937,7 +939,7 @@ describe('<Typeahead>', () => {
 
       // Multi-select
       typeahead.setProps({multiple: true});
-      expect(getInput(typeahead).prop('role')).to.equal('');
+      expect(getInput(typeahead).prop('role')).to.equal(undefined);
     });
 
     it('sets the input `aria-autocomplete` description', () => {
@@ -950,10 +952,15 @@ describe('<Typeahead>', () => {
     });
 
     it('sets the input `aria-expanded` description', () => {
+      // Single-select
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(false);
 
       focus(typeahead);
       expect(getInput(typeahead).prop('aria-expanded')).to.equal(true);
+
+      // Multi-select
+      typeahead.setProps({multiple: true});
+      expect(getInput(typeahead).prop('aria-expanded')).to.equal(undefined);
     });
 
     it('sets the input `aria-activedescendant` description', () => {
