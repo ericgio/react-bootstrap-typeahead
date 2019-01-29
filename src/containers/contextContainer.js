@@ -1,29 +1,13 @@
-import {head, pick} from 'lodash';
+import {pick} from 'lodash';
 import React from 'react';
 import {polyfill} from 'react-lifecycles-compat';
 
 import TypeaheadContext from '../TypeaheadContext';
-import {getHintText} from '../utils';
+import {getHintText, getIsOnlyResult} from '../utils';
 import {RETURN} from '../constants';
 
 function contextContainer(Typeahead) {
   class WrappedTypeahead extends React.Component {
-    state = {
-      isOnlyResult: false,
-    };
-
-    static getDerivedStateFromProps(props, state) {
-      const {allowNew, highlightOnlyResult, results} = props;
-
-      if (!highlightOnlyResult || allowNew) {
-        return null;
-      }
-
-      return {
-        isOnlyResult: results.length === 1 && !head(results).disabled,
-      };
-    }
-
     componentDidUpdate(prevProps, prevState) {
       const {allowNew, onInitialItemChange, results} = this.props;
 
@@ -49,7 +33,7 @@ function contextContainer(Typeahead) {
           value={{
             ...contextValues,
             hintText: getHintText(this.props),
-            isOnlyResult: this.state.isOnlyResult,
+            isOnlyResult: getIsOnlyResult(this.props),
           }}>
           <Typeahead
             {...this.props}
@@ -64,7 +48,7 @@ function contextContainer(Typeahead) {
 
       switch (e.keyCode) {
         case RETURN:
-          if (this.state.isOnlyResult) {
+          if (getIsOnlyResult(this.props)) {
             onAdd(initialItem);
           }
           break;
