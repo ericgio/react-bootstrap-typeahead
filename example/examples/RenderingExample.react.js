@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import {groupBy, map} from 'lodash';
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import { groupBy, map } from 'lodash';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import {Highlighter, Menu, MenuItem, Token, Typeahead} from '../../src';
+import { Highlighter, Menu, MenuItem, Token, Typeahead } from '../../src';
 import options from '../exampleData';
 
 /* example-start */
@@ -15,12 +15,12 @@ class RenderingExample extends React.Component {
   };
 
   render() {
-    const {selectedOption} = this.state;
+    const { selectedOption } = this.state;
     const props = {};
     const radios = [
-      {label: 'Custom menu', value: 'renderMenu'},
-      {label: 'Custom menu item contents', value: 'renderMenuItemChildren'},
-      {label: 'Custom token', value: 'renderToken'},
+      { label: 'Custom menu', value: 'renderMenu' },
+      { label: 'Custom menu item contents', value: 'renderMenuItemChildren' },
+      { label: 'Custom token', value: 'renderToken' },
     ];
 
     switch (selectedOption) {
@@ -47,11 +47,11 @@ class RenderingExample extends React.Component {
           placeholder="Choose a state..."
         />
         <FormGroup>
-          {radios.map(({label, value}) => (
+          {radios.map(({ label, value }) => (
             <Control
               checked={selectedOption === value}
               key={value}
-              onChange={(e) => this.setState({selectedOption: value})}
+              onChange={(e) => this.setState({ selectedOption: value })}
               type="radio"
               value={value}>
               {label}

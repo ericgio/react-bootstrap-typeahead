@@ -1,8 +1,8 @@
-import {expect} from 'chai';
-import {range} from 'lodash';
+import { expect } from 'chai';
+import { range } from 'lodash';
 
 import shouldSelectHint from '../../src/utils/shouldSelectHint';
-import {RETURN, RIGHT, TAB} from '../../src/constants';
+import { RETURN, RIGHT, TAB } from '../../src/constants';
 
 describe('shouldSelectHint', () => {
   let event, props;

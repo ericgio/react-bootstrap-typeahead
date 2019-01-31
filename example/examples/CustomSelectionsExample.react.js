@@ -1,5 +1,5 @@
 import React from 'react';
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 
 /* example-start */
 const CustomSelectionsExample = (props) => (

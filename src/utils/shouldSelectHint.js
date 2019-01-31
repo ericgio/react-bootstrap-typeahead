@@ -1,8 +1,8 @@
 import isSelectable from './isSelectable';
-import {RETURN, RIGHT, TAB} from '../constants';
+import { RETURN, RIGHT, TAB } from '../constants';
 
 export default function shouldSelectHint(e, props) {
-  const {hintText, selectHintOnEnter, value} = props;
+  const { hintText, selectHintOnEnter, value } = props;
 
   if (!hintText) {
     return false;

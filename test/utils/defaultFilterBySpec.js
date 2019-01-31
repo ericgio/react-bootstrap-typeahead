@@ -1,13 +1,13 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import defaultFilterBy from '../../src/utils/defaultFilterBy';
 import states from '../../example/exampleData';
 
 const FILTERED_RESULTS = [
   /* eslint-disable max-len, sort-keys */
-  {name: 'California', population: 37254503, capital: 'Sacramento', region: 'West'},
-  {name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South'},
-  {name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South'},
+  { name: 'California', population: 37254503, capital: 'Sacramento', region: 'West' },
+  { name: 'North Carolina', population: 9535692, capital: 'Raleigh', region: 'South' },
+  { name: 'South Carolina', population: 4625401, capital: 'Columbia', region: 'South' },
   /* eslint-enable max-len, sort-keys */
 ];
 
@@ -34,7 +34,7 @@ describe('defaultFilterBy', () => {
 
   describe('when `labelKey` is a function', () => {
     beforeEach(() => {
-      props = {...props, labelKey: (o) => o.name};
+      props = { ...props, labelKey: (o) => o.name };
     });
 
     it('returns a set of results', () => {
@@ -43,21 +43,21 @@ describe('defaultFilterBy', () => {
     });
 
     it('returns no results if the text doesn\'t find a match', () => {
-      props = {...props, text: 'zzz'};
+      props = { ...props, text: 'zzz' };
       const results = options.filter((o) => defaultFilterBy(o, props));
       expect(results.length).to.equal(0);
     });
   });
 
   it('returns case-sensitive filtered results', () => {
-    props = {...props, caseSensitive: true, text: 'alab'};
+    props = { ...props, caseSensitive: true, text: 'alab' };
     const results = options.filter((o) => defaultFilterBy(o, props));
 
     expect(results.length).to.equal(0);
   });
 
   it('filters based on a set of fields and returns results', () => {
-    props = {...props, filterBy: ['name', 'capital'], text: 'sacr'};
+    props = { ...props, filterBy: ['name', 'capital'], text: 'sacr' };
     const results = options.filter((o) => defaultFilterBy(o, props));
 
     expect(results).to.deep.equal(FILTERED_RESULTS.slice(0, 1));
@@ -77,13 +77,13 @@ describe('defaultFilterBy', () => {
   });
 
   it('returns no results if the text doesn\'t find a match', () => {
-    props = {...props, text: 'zzz'};
+    props = { ...props, text: 'zzz' };
     const results = options.filter((o) => defaultFilterBy(o, props));
     expect(results.length).to.equal(0);
   });
 
   it('returns the option if the text matches exactly', () => {
-    props = {...props, text: 'California'};
+    props = { ...props, text: 'California' };
     const results = options.filter((o) => defaultFilterBy(o, props));
 
     expect(results.length).to.equal(1);
@@ -107,7 +107,7 @@ describe('defaultFilterBy', () => {
   describe('behavior with diacritical marks', () => {
     beforeEach(() => {
       options = ['Español', 'Français'];
-      props = {...props, text: 'franc'};
+      props = { ...props, text: 'franc' };
     });
 
     it('ignores diacritical marks when filtering', () => {
@@ -116,7 +116,7 @@ describe('defaultFilterBy', () => {
     });
 
     it('considers diacritical marks when filtering', () => {
-      props = {...props, ignoreDiacritics: false};
+      props = { ...props, ignoreDiacritics: false };
       const results = options.filter((o) => defaultFilterBy(o, props));
       expect(results.length).to.equal(0);
     });

@@ -1,7 +1,7 @@
 import warn from '../utils/warn';
 
 export default function defaultInputValueType(props, propName, componentName) {
-  const {defaultInputValue, defaultSelected, multiple, selected} = props;
+  const { defaultInputValue, defaultSelected, multiple, selected } = props;
   const name = defaultSelected.length ? 'defaultSelected' : 'selected';
 
   warn(

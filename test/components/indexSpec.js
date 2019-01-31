@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {AsyncTypeahead, Highlighter, Menu, MenuItem, Token, Typeahead, TypeaheadMenu, asyncContainer, menuItemContainer, tokenContainer} from '../../src';
+import { expect } from 'chai';
+import { AsyncTypeahead, Highlighter, Menu, MenuItem, Token, Typeahead, TypeaheadMenu, asyncContainer, menuItemContainer, tokenContainer } from '../../src';
 import _AsyncTypeahead from '../../src/AsyncTypeahead.react';
 import _Highlighter from '../../src/Highlighter.react';
 import _Menu from '../../src/Menu.react';

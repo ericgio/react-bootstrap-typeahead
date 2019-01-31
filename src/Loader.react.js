@@ -2,7 +2,7 @@ import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Loader = ({bsSize}) => (
+const Loader = ({ bsSize }) => (
   <div
     className={cx('rbt-loader', {
       'rbt-loader-lg': bsSize === 'large' || bsSize === 'lg',

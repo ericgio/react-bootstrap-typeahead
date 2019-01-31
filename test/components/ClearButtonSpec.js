@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
@@ -19,12 +19,12 @@ describe('<ClearButton>', () => {
   });
 
   it('renders a large clear button', () => {
-    button.setProps({bsSize: 'large'});
+    button.setProps({ bsSize: 'large' });
     expect(button.hasClass('rbt-close-lg')).to.equal(true);
   });
 
   it('registers a click', () => {
-    button.simulate('click', {stopPropagation: () => {}});
+    button.simulate('click', { stopPropagation: () => {} });
     expect(onClick.calledOnce).to.equal(true);
   });
 });

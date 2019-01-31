@@ -1,13 +1,13 @@
-import {pick} from 'lodash';
+import { pick } from 'lodash';
 import React from 'react';
 
 import TypeaheadContext from '../TypeaheadContext';
-import {getHintText, getIsOnlyResult} from '../utils';
-import {RETURN} from '../constants';
+import { getHintText, getIsOnlyResult } from '../utils';
+import { RETURN } from '../constants';
 
 class TypeaheadInnerManager extends React.Component {
   componentDidUpdate(prevProps, prevState) {
-    const {allowNew, onInitialItemChange, results} = this.props;
+    const { allowNew, onInitialItemChange, results } = this.props;
 
     // Clear the initial item when there are no results.
     if (!(allowNew || results.length)) {
@@ -42,7 +42,7 @@ class TypeaheadInnerManager extends React.Component {
   }
 
   _handleKeyDown = (e) => {
-    const {initialItem, onKeyDown, onAdd} = this.props;
+    const { initialItem, onKeyDown, onAdd } = this.props;
 
     switch (e.keyCode) {
       case RETURN:

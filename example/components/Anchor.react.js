@@ -1,6 +1,6 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 
-const Anchor = ({children, id}) => (
+const Anchor = ({ children, id }) => (
   <Fragment>
     <div className="page-anchor" id={id} />
     <a
