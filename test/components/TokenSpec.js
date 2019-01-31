@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {mount} from 'enzyme';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
@@ -20,7 +20,7 @@ describe('<Token>', () => {
   it('renders a removeable token', () => {
     const onRemove = sinon.spy();
 
-    token.setProps({onRemove});
+    token.setProps({ onRemove });
 
     const rootNode = token.find('.rbt-token');
     expect(rootNode.hasClass('rbt-token-removeable')).to.equal(true);

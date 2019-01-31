@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 
 import options from '../exampleData';
 
@@ -34,14 +34,14 @@ class BasicBehaviorsExample extends React.Component {
 
     const checkboxes = [
       /* eslint-disable max-len */
-      {checked: disabled, children: 'Disable the input', name: 'disabled'},
-      {checked: dropup, children: 'Dropup menu', name: 'dropup'},
-      {checked: flip, children: 'Flip the menu position when it reaches the viewport bounds', name: 'flip'},
-      {checked: !!minLength, children: 'Require minimum input before showing results (2 chars)', name: 'minLength'},
-      {checked: emptyLabel, children: 'Hide the menu when there are no results', name: 'emptyLabel'},
-      {checked: selectHintOnEnter, children: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter'},
-      {checked: highlightOnlyResult, children: 'Highlight the only result', name: 'highlightOnlyResult'},
-      {checked: !!open, children: 'Force the menu to stay open', name: 'open'},
+      { checked: disabled, children: 'Disable the input', name: 'disabled' },
+      { checked: dropup, children: 'Dropup menu', name: 'dropup' },
+      { checked: flip, children: 'Flip the menu position when it reaches the viewport bounds', name: 'flip' },
+      { checked: !!minLength, children: 'Require minimum input before showing results (2 chars)', name: 'minLength' },
+      { checked: emptyLabel, children: 'Hide the menu when there are no results', name: 'emptyLabel' },
+      { checked: selectHintOnEnter, children: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter' },
+      { checked: highlightOnlyResult, children: 'Highlight the only result', name: 'highlightOnlyResult' },
+      { checked: !!open, children: 'Force the menu to stay open', name: 'open' },
       /* eslint-enable max-len */
     ];
 
@@ -69,8 +69,8 @@ class BasicBehaviorsExample extends React.Component {
   }
 
   _handleChange = (e) => {
-    const {checked, name} = e.target;
-    const newState = {[name]: checked};
+    const { checked, name } = e.target;
+    const newState = { [name]: checked };
 
     switch (name) {
       case 'minLength':

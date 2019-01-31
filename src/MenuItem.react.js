@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {noop} from 'lodash';
+import { noop } from 'lodash';
 import React from 'react';
 
 import menuItemContainer from './containers/menuItemContainer';
@@ -39,7 +39,7 @@ class BaseMenuItem extends React.Component {
   }
 
   _handleClick = (e) => {
-    const {disabled, onClick} = this.props;
+    const { disabled, onClick } = this.props;
 
     e.preventDefault();
     !disabled && onClick(e);
@@ -50,5 +50,5 @@ BaseMenuItem.defaultProps = {
   onClick: noop,
 };
 
-export {BaseMenuItem};
+export { BaseMenuItem };
 export default menuItemContainer(BaseMenuItem);

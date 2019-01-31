@@ -1,6 +1,6 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
-import {getMenuItemId} from '../../src/utils';
+import { getMenuItemId } from '../../src/utils';
 
 describe('getMenuItemId', () => {
   it('generates an id', () => {

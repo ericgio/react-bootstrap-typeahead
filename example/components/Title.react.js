@@ -5,7 +5,7 @@ import Anchor from './Anchor.react';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
-const Title = ({children}) => (
+const Title = ({ children }) => (
   <h3>
     <Anchor id={getIdFromTitle(children)}>
       {children}

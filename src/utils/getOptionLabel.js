@@ -1,5 +1,5 @@
 import invariant from 'invariant';
-import {isPlainObject} from 'lodash';
+import { isPlainObject } from 'lodash';
 
 import getStringLabelKey from './getStringLabelKey';
 

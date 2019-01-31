@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import {range} from 'lodash';
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import { range } from 'lodash';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 
 /* eslint-disable no-console */
 /* example-start */
@@ -15,7 +15,7 @@ class PaginationExample extends React.Component {
   };
 
   render() {
-    const {paginate} = this.state;
+    const { paginate } = this.state;
 
     return (
       <Fragment>
@@ -28,7 +28,7 @@ class PaginationExample extends React.Component {
         <FormGroup>
           <Control
             checked={paginate}
-            onChange={(e) => this.setState({paginate: !!e.target.checked})}
+            onChange={(e) => this.setState({ paginate: !!e.target.checked })}
             type="checkbox">
             Paginate results
           </Control>

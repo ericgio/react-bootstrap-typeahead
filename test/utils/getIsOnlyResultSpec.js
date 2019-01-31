@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import getIsOnlyResult from '../../src/utils/getIsOnlyResult';
 
@@ -36,7 +36,7 @@ describe('getIsOnlyResult', () => {
   });
 
   it('returns false when the only result is disabled', () => {
-    props.results = [{disabled: true}];
+    props.results = [{ disabled: true }];
     expect(getIsOnlyResult(props)).to.equal(false);
   });
 });
