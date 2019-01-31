@@ -1,7 +1,7 @@
 import getOptionLabel from './getOptionLabel';
 
 function addCustomOption(results, props) {
-  const {allowNew, labelKey, text} = props;
+  const { allowNew, labelKey, text } = props;
 
   if (!allowNew || !text.trim()) {
     return false;

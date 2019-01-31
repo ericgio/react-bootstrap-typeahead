@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AsyncTypeahead} from '../../src';
+import { AsyncTypeahead } from '../../src';
 import GithubMenuItem from '../components/GithubMenuItem.react';
 import makeAndHandleRequest from '../util/makeAndHandleRequest';
 
@@ -37,11 +37,11 @@ class AsyncPaginationExample extends React.Component {
   }
 
   _handleInputChange = (query) => {
-    this.setState({query});
+    this.setState({ query });
   }
 
   _handlePagination = (e, shownResults) => {
-    const {query} = this.state;
+    const { query } = this.state;
     const cachedQuery = this._cache[query];
 
     // Don't make another request if:
@@ -54,14 +54,14 @@ class AsyncPaginationExample extends React.Component {
       return;
     }
 
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
 
     const page = cachedQuery.page + 1;
 
     makeAndHandleRequest(query, page)
       .then((resp) => {
         const options = cachedQuery.options.concat(resp.options);
-        this._cache[query] = {...cachedQuery, options, page};
+        this._cache[query] = { ...cachedQuery, options, page };
         this.setState({
           isLoading: false,
           options,
@@ -71,14 +71,14 @@ class AsyncPaginationExample extends React.Component {
 
   _handleSearch = (query) => {
     if (this._cache[query]) {
-      this.setState({options: this._cache[query].options});
+      this.setState({ options: this._cache[query].options });
       return;
     }
 
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     makeAndHandleRequest(query)
       .then((resp) => {
-        this._cache[query] = {...resp, page: 1};
+        this._cache[query] = { ...resp, page: 1 };
         this.setState({
           isLoading: false,
           options: resp.options,

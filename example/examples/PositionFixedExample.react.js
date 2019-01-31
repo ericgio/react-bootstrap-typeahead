@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 import options from '../exampleData';
 
 /* example-start */
@@ -14,7 +14,7 @@ class PositionFixedExample extends React.Component {
   };
 
   render() {
-    const {positionFixed} = this.state;
+    const { positionFixed } = this.state;
 
     return (
       <Fragment>
@@ -25,7 +25,7 @@ class PositionFixedExample extends React.Component {
             overflowY: 'scroll',
             padding: '40px',
           }}>
-          <div style={{height: '300px'}}>
+          <div style={{ height: '300px' }}>
             <Typeahead
               {...this.state}
               labelKey="name"
@@ -48,8 +48,8 @@ class PositionFixedExample extends React.Component {
   }
 
   _handleChange = (e) => {
-    const {checked, name} = e.target;
-    this.setState({[name]: checked});
+    const { checked, name } = e.target;
+    this.setState({ [name]: checked });
   }
 }
 /* example-end */

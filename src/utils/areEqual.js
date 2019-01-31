@@ -1,4 +1,4 @@
-import {isEqual} from 'lodash';
+import { isEqual } from 'lodash';
 import getStringLabelKey from './getStringLabelKey';
 
 /**

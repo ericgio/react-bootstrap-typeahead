@@ -1,8 +1,8 @@
 import React from 'react';
-import {RootCloseWrapper} from 'react-overlays';
+import { RootCloseWrapper } from 'react-overlays';
 
-import {getDisplayName} from '../utils';
-import {BACKSPACE} from '../constants';
+import { getDisplayName } from '../utils';
+import { BACKSPACE } from '../constants';
 
 /**
  * Higher-order component that encapsulates Token behaviors, allowing them to
@@ -30,7 +30,7 @@ const tokenContainer = (Component) => {
     }
 
     _handleBlur = (e) => {
-      this.setState({active: false});
+      this.setState({ active: false });
     }
 
     _handleKeyDown = (e) => {
@@ -50,7 +50,7 @@ const tokenContainer = (Component) => {
 
     _handleActive = (e) => {
       e.stopPropagation();
-      this.setState({active: true});
+      this.setState({ active: true });
     }
   }
 

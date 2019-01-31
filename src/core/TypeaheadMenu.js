@@ -1,10 +1,10 @@
-import {pick} from 'lodash';
+import { pick } from 'lodash';
 import React from 'react';
 
 import Overlay from './Overlay';
 
 const TypeaheadMenu = (props) => {
-  const {children, isMenuShown, menuId, results} = props;
+  const { children, isMenuShown, menuId, results } = props;
 
   const overlayProps = pick(props, [
     'align',
