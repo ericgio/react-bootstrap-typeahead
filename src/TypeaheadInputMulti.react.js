@@ -5,10 +5,10 @@ import React from 'react';
 import AutosizeInput from './AutosizeInput.react';
 import Token from './Token.react';
 
-import {getOptionLabel, isSelectable} from './utils';
+import { getOptionLabel, isSelectable } from './utils';
 import hintContainer from './containers/hintContainer';
 
-import {BACKSPACE} from './constants';
+import { BACKSPACE } from './constants';
 
 const HintedAutosizeInput = hintContainer(AutosizeInput);
 
@@ -64,7 +64,7 @@ class TypeaheadInputMulti extends React.Component {
   }
 
   _renderToken = (option, idx) => {
-    const {onRemove, renderToken} = this.props;
+    const { onRemove, renderToken } = this.props;
     const props = {
       ...this.props,
       onRemove: () => onRemove(option),
@@ -93,7 +93,7 @@ class TypeaheadInputMulti extends React.Component {
   }
 
   _handleKeyDown = (e) => {
-    const {onKeyDown, selected, value} = this.props;
+    const { onKeyDown, selected, value } = this.props;
 
     switch (e.keyCode) {
       case BACKSPACE:
@@ -103,7 +103,7 @@ class TypeaheadInputMulti extends React.Component {
 
           // If the input is selected and there is no text, focus the last
           // token when the user hits backspace.
-          const {children} = this._wrapper;
+          const { children } = this._wrapper;
           const lastToken = children[children.length - 2];
           lastToken && lastToken.focus();
         }

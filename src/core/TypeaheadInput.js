@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {getInputText, getMenuItemId} from '../utils';
+import { getInputText, getMenuItemId } from '../utils';
 
 const TypeaheadInput = (props) => {
   const {
@@ -26,7 +26,7 @@ const TypeaheadInput = (props) => {
     selected,
   } = props;
 
-  const {autoComplete, type} = props.inputProps;
+  const { autoComplete, type } = props.inputProps;
 
   // Add a11y-related props.
   let inputProps = {

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
  *
  * http://getbootstrap.com/css/#helper-classes-close
  */
-const ClearButton = ({bsSize, className, label, onClick, ...props}) => (
+const ClearButton = ({ bsSize, className, label, onClick, ...props }) => (
   <button
     {...props}
     aria-label={label}

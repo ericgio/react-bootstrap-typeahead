@@ -5,7 +5,7 @@ export default function highlightOnlyResultType(
   propName,
   componentName
 ) {
-  const {allowNew, highlightOnlyResult} = props;
+  const { allowNew, highlightOnlyResult } = props;
   warn(
     !(highlightOnlyResult && allowNew),
     '`highlightOnlyResult` will not work with `allowNew`.'

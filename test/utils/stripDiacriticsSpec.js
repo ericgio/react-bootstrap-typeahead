@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {range} from 'lodash';
+import { expect } from 'chai';
+import { range } from 'lodash';
 
 import stripDiacritics from '../../src/utils/stripDiacritics';
 

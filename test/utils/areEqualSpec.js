@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import areEqual from '../../src/utils/areEqual';
 import options from '../../example/exampleData';

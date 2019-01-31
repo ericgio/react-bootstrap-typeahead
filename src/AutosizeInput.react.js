@@ -54,9 +54,9 @@ class AutosizeInput extends React.Component {
   }
 
   render() {
-    const {className, defaultValue, placeholder, value} = this.props;
+    const { className, defaultValue, placeholder, value } = this.props;
 
-    const wrapperStyle = {...this.props.style};
+    const wrapperStyle = { ...this.props.style };
     if (!wrapperStyle.display) {
       wrapperStyle.display = 'inline-block';
     }
@@ -131,7 +131,7 @@ class AutosizeInput extends React.Component {
     const inputWidth = Math.max(this._sizer.scrollWidth, placeholderWidth) + 2;
 
     if (inputWidth !== this.state.inputWidth) {
-      this.setState({inputWidth});
+      this.setState({ inputWidth });
     }
   }
 }
