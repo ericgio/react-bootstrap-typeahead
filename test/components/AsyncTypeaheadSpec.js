@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
+import {noop} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
@@ -16,7 +17,9 @@ describe('<AsyncTypeahead>', () => {
       <AsyncTypeahead
         delay={0}
         isLoading={false}
+        onChange={noop}
         onSearch={onSearch}
+        selected={[]}
       />
     );
   });

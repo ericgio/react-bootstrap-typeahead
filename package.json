@@ -55,6 +55,7 @@
     "lodash": "^4.17.2",
     "prop-types": "^15.5.8",
     "prop-types-extra": "^1.0.1",
+    "react-lifecycles-compat": "^3.0.4",
     "react-overlays": "^0.8.1",
     "react-popper": "^1.0.0",
     "warning": "^4.0.1"
