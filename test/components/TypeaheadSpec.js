@@ -314,6 +314,24 @@ describe('<Typeahead>', () => {
     expect(activeItem.text()).to.equal(options[0].name);
   });
 
+  it(
+    'should not highlight disabled option which is the last in the list',
+    () => {
+      const options = [
+        {name: 'foo'},
+        {name: 'bar'},
+        {disabled: true, name: 'boo'},
+      ];
+
+      typeahead = mountTypeahead({options});
+      focus(typeahead);
+
+      // Cycling back up should skip the last option disabled.
+      const activeOption = cycleThroughMenuAndGetActiveItem(typeahead, UP);
+      expect(activeOption.text()).to.equal(options[1].name);
+    }
+  );
+
   describe('pagination behaviors', () => {
     let maxResults, onPaginate, shownResultsCount;
 
