@@ -2,13 +2,13 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {MenuItem, NavDropdown} from 'react-bootstrap';
-import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+import { MenuItem, NavDropdown } from 'react-bootstrap';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 import withBSVersion from '../util/withBSVersion';
 
 const VersionDropdown = (props) => {
-  const {children, isBS3, isOpen, onSelect, onToggle, title} = props;
+  const { children, isBS3, isOpen, onSelect, onToggle, title } = props;
 
   return isBS3 ?
     <NavDropdown id="bs-version-selector" onSelect={onSelect} title={title}>
@@ -32,7 +32,7 @@ VersionDropdown.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-const VersionDropdownItem = ({eventKey, isBS3, onClick, ...props}) => (
+const VersionDropdownItem = ({ eventKey, isBS3, onClick, ...props }) => (
   isBS3 ?
     <MenuItem {...props} eventKey={eventKey} /> :
     <DropdownItem {...props} onClick={onClick} />

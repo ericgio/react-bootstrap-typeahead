@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 import Highlighter from '../../src/Highlighter.react';
@@ -23,7 +23,7 @@ describe('<Highlighter>', () => {
 
   it('correctly highlights text', () => {
     matches = highlighter
-      .setProps({search: 'a'})
+      .setProps({ search: 'a' })
       .find('mark');
 
     expect(matches.length).to.equal(2);
@@ -31,13 +31,13 @@ describe('<Highlighter>', () => {
   });
 
   it('does not highlight text when there is no match', () => {
-    highlighter.setProps({search: 'x'});
+    highlighter.setProps({ search: 'x' });
     expect(highlighter.find('mark')).to.have.length(0);
   });
 
   it('is case-insensitive', () => {
     matches = highlighter
-      .setProps({search: 'cal'})
+      .setProps({ search: 'cal' })
       .find('mark');
 
     expect(matches.length).to.equal(1);

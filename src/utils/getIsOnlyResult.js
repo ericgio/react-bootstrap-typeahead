@@ -1,6 +1,6 @@
-import {head} from 'lodash';
+import { head } from 'lodash';
 
-function getIsOnlyResult({allowNew, highlightOnlyResult, results}) {
+function getIsOnlyResult({ allowNew, highlightOnlyResult, results }) {
   if (!highlightOnlyResult || allowNew) {
     return false;
   }

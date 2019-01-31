@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import getInputText from '../../src/utils/getInputText';
 import options from '../../example/exampleData';
@@ -33,7 +33,7 @@ describe('getInputText', () => {
     const name = 'California';
     const inputText = getInputText({
       ...baseArgs,
-      activeItem: {name},
+      activeItem: { name },
     });
 
     expect(inputText).to.equal(name);
@@ -43,7 +43,7 @@ describe('getInputText', () => {
     const name = 'California';
     const inputText = getInputText({
       ...baseArgs,
-      activeItem: {name},
+      activeItem: { name },
       multiple: true,
     });
 
@@ -65,7 +65,7 @@ describe('getInputText', () => {
 
   it('returns the selected item label in single-select mode', () => {
     const selected = options.slice(0, 1);
-    const inputText = getInputText({...baseArgs, selected});
+    const inputText = getInputText({ ...baseArgs, selected });
     expect(inputText).to.equal(selected[0][labelKey]);
   });
 

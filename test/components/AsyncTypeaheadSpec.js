@@ -1,19 +1,19 @@
-import {expect} from 'chai';
-import {mount} from 'enzyme';
-import {noop} from 'lodash';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import { noop } from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import {AsyncTypeahead} from '../../src';
-import {change, focus, getMenuItems, keyDown} from '../helpers';
-import {DOWN, RETURN} from '../../src/constants';
+import { AsyncTypeahead } from '../../src';
+import { change, focus, getMenuItems, keyDown } from '../helpers';
+import { DOWN, RETURN } from '../../src/constants';
 
 function search(wrapper, query, callback) {
   change(wrapper, query);
-  wrapper.setProps({isLoading: true});
+  wrapper.setProps({ isLoading: true });
 
   setTimeout(() => {
-    wrapper.setProps({isLoading: false});
+    wrapper.setProps({ isLoading: false });
     callback();
   }, 0);
 }
@@ -38,7 +38,7 @@ describe('<AsyncTypeahead>', () => {
   it('displays a prompt', () => {
     const promptText = 'Prompt text';
 
-    wrapper.setProps({promptText});
+    wrapper.setProps({ promptText });
 
     focus(wrapper);
     const menuItems = getMenuItems(wrapper);
@@ -51,7 +51,7 @@ describe('<AsyncTypeahead>', () => {
     const searchText = 'Search text';
 
     onSearch = () => {
-      wrapper.setProps({isLoading: true});
+      wrapper.setProps({ isLoading: true });
 
       const menuItems = getMenuItems(wrapper);
       expect(menuItems.length).to.equal(1);
@@ -128,7 +128,7 @@ describe('<AsyncTypeahead>', () => {
     onSearch = (options, callback) => (query) => {
       callCount += 1;
 
-      wrapper.setProps({isLoading: true});
+      wrapper.setProps({ isLoading: true });
 
       setTimeout(() => {
         wrapper.setProps({

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const GithubMenuItem = ({user}) => (
+const GithubMenuItem = ({ user }) => (
   <div>
     <img
       alt={user.login}

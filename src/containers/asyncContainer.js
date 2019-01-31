@@ -1,9 +1,9 @@
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {optionType} from '../propTypes';
-import {getDisplayName} from '../utils';
+import { optionType } from '../propTypes';
+import { getDisplayName } from '../utils';
 
 const DEFAULT_DELAY_MS = 200;
 
@@ -40,7 +40,7 @@ const asyncContainer = (Typeahead) => {
     }
 
     render() {
-      const {options, useCache, ...props} = this.props;
+      const { options, useCache, ...props } = this.props;
       const cachedQuery = this._cache[this._query];
 
       // Disable custom selections during a search unless `allowNew` is a
@@ -95,7 +95,7 @@ const asyncContainer = (Typeahead) => {
     _handleSearch = (query) => {
       this._query = query;
 
-      const {minLength, onSearch, useCache} = this.props;
+      const { minLength, onSearch, useCache } = this.props;
 
       if (!query || (minLength && query.length < minLength)) {
         return;

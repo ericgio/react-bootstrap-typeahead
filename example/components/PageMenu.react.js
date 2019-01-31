@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import React from 'react';
-import {AutoAffix} from 'react-overlays';
-import {Nav} from 'react-bootstrap';
+import { AutoAffix } from 'react-overlays';
+import { Nav } from 'react-bootstrap';
 
 const PageMenu = (props) => (
   <AutoAffix viewportOffsetTop={50}>

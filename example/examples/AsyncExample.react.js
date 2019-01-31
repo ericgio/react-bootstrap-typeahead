@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
-import {AsyncTypeahead} from '../../src';
+import { AsyncTypeahead } from '../../src';
 import Control from '../components/Control.react';
 import GithubMenuItem from '../components/GithubMenuItem.react';
 import makeAndHandleRequest from '../util/makeAndHandleRequest';
@@ -39,11 +39,11 @@ class AsyncExample extends React.Component {
 
   _renderCheckboxes() {
     const checkboxes = [
-      {label: 'Multi-Select', name: 'multiple'},
-      {label: 'Allow custom selections', name: 'allowNew'},
+      { label: 'Multi-Select', name: 'multiple' },
+      { label: 'Allow custom selections', name: 'allowNew' },
     ];
 
-    return checkboxes.map(({label, name}) => (
+    return checkboxes.map(({ label, name }) => (
       <Control
         checked={this.state[name]}
         key={name}
@@ -56,14 +56,14 @@ class AsyncExample extends React.Component {
   }
 
   _handleChange = (e) => {
-    const {checked, name} = e.target;
-    this.setState({[name]: checked});
+    const { checked, name } = e.target;
+    this.setState({ [name]: checked });
   }
 
   _handleSearch = (query) => {
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     makeAndHandleRequest(query)
-      .then(({options}) => {
+      .then(({ options }) => {
         this.setState({
           isLoading: false,
           options,
