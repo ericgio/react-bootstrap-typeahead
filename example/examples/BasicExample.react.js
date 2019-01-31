@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 import options from '../exampleData';
 
 /* example-start */
@@ -14,7 +14,7 @@ class BasicExample extends React.Component {
   };
 
   render() {
-    const {multiple} = this.state;
+    const { multiple } = this.state;
 
     return (
       <Fragment>
@@ -27,7 +27,7 @@ class BasicExample extends React.Component {
         <FormGroup>
           <Control
             checked={multiple}
-            onChange={(e) => this.setState({multiple: e.target.checked})}
+            onChange={(e) => this.setState({ multiple: e.target.checked })}
             type="checkbox">
             Multi-Select
           </Control>

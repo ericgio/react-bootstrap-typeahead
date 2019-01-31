@@ -1,12 +1,12 @@
-import {expect} from 'chai';
-import {mount} from 'enzyme';
-import {head, noop} from 'lodash';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import { head, noop } from 'lodash';
 import React from 'react';
 
 import TypeaheadInputSingle from '../../src/TypeaheadInputSingle.react';
 
 import options from '../../example/exampleData';
-import {context, getHint, getInput, TestInputProvider} from '../helpers';
+import { context, getHint, getInput, TestInputProvider } from '../helpers';
 
 describe('<TypeaheadInputSingle>', () => {
   let wrapper;
@@ -46,7 +46,7 @@ describe('<TypeaheadInputSingle>', () => {
   it('displays the selected text', () => {
     const text = 'text';
 
-    wrapper.setProps({text});
+    wrapper.setProps({ text });
 
     expect(getInput(wrapper).prop('value')).to.equal(text);
   });

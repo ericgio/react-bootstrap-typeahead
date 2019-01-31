@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 import options from '../exampleData';
 
 /* example-start */
@@ -14,10 +14,10 @@ class CustomFilteringExample extends React.Component {
   };
 
   render() {
-    const {filterBy} = this.state;
+    const { filterBy } = this.state;
     const radios = [
-      {label: 'Use callback', value: 'callback'},
-      {label: 'Use data fields', value: 'fields'},
+      { label: 'Use callback', value: 'callback' },
+      { label: 'Use data fields', value: 'fields' },
     ];
 
     const filterByCallback = (option, props) => (
@@ -44,11 +44,11 @@ class CustomFilteringExample extends React.Component {
           )}
         />
         <FormGroup>
-          {radios.map(({label, value}) => (
+          {radios.map(({ label, value }) => (
             <Control
               checked={filterBy === value}
               key={value}
-              onChange={(e) => this.setState({filterBy: value})}
+              onChange={(e) => this.setState({ filterBy: value })}
               type="radio"
               value={value}>
               {label}
