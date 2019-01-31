@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {version} from '../../package.json';
+import { version } from '../../package.json';
 
 import Container from './Container.react';
 import GithubStarsButton from './GithubStarsButton.react';
@@ -18,9 +18,9 @@ const authorLink =
 
 const currentYear = (new Date()).getFullYear();
 const footerLinks = [
-  {href: BASE_GITHUB_URL, label: 'GitHub'},
-  {href: `${BASE_GITHUB_URL}/issues`, label: 'Issues'},
-  {href: `${BASE_GITHUB_URL}/releases`, label: 'Releases'},
+  { href: BASE_GITHUB_URL, label: 'GitHub' },
+  { href: `${BASE_GITHUB_URL}/issues`, label: 'Issues' },
+  { href: `${BASE_GITHUB_URL}/releases`, label: 'Releases' },
 ];
 
 const licenseLink =
@@ -43,7 +43,7 @@ const PageFooter = () => (
   <footer className="bs-docs-footer">
     <Container>
       <ul className="bs-docs-footer-links">
-        {footerLinks.map(({href, label}) => (
+        {footerLinks.map(({ href, label }) => (
           <li key={label}>
             <a href={href} rel="noreferrer noopener" target="_blank">
               {label}

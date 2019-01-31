@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ClearButton from './ClearButton.react';
 
 import tokenContainer from './containers/tokenContainer';
-import {RETURN} from './constants';
+import { RETURN } from './constants';
 
 /**
  * Token
@@ -21,7 +21,7 @@ class Token extends React.Component {
   }
 
   _renderRemoveableToken = () => {
-    const {active, children, className, onRemove, ...props} = this.props;
+    const { active, children, className, onRemove, ...props } = this.props;
 
     return (
       <div
@@ -42,7 +42,7 @@ class Token extends React.Component {
   }
 
   _renderToken = () => {
-    const {children, className, disabled, href} = this.props;
+    const { children, className, disabled, href } = this.props;
     const classnames = cx('rbt-token', {
       'rbt-token-disabled': disabled,
     }, className);

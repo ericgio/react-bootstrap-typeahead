@@ -1,13 +1,13 @@
-import {expect} from 'chai';
-import {mount} from 'enzyme';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
-import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
+import MenuItem, { BaseMenuItem } from '../../src/MenuItem.react';
 import TypeaheadMenu from '../../src/TypeaheadMenu.react';
 
 import options from '../../example/exampleData';
-import {getMenu, getPaginator} from '../helpers';
+import { getMenu, getPaginator } from '../helpers';
 
 describe('<TypeaheadMenu>', () => {
   let menu;
@@ -31,15 +31,15 @@ describe('<TypeaheadMenu>', () => {
   it('renders a menu with the specified max-height', () => {
     const getMaxHeight = (wrapper) => getMenu(wrapper).prop('style').maxHeight;
 
-    menu.setProps({maxHeight: '200px'});
+    menu.setProps({ maxHeight: '200px' });
     expect(getMaxHeight(menu)).to.equal('200px');
 
-    menu.setProps({maxHeight: '50%'});
+    menu.setProps({ maxHeight: '50%' });
     expect(getMaxHeight(menu)).to.equal('50%');
   });
 
   it('renders disabled menu items', () => {
-    menu.setProps({options: options.map((o) => ({...o, disabled: true}))});
+    menu.setProps({ options: options.map((o) => ({ ...o, disabled: true })) });
     expect(menu.find(MenuItem).first().prop('disabled')).to.equal(true);
   });
 
@@ -47,7 +47,7 @@ describe('<TypeaheadMenu>', () => {
     const emptyLabel = 'No matches found.';
 
     const menuItems = menu
-      .setProps({emptyLabel, options: []})
+      .setProps({ emptyLabel, options: [] })
       .find(BaseMenuItem);
 
     expect(menuItems.length).to.equal(1);
@@ -77,7 +77,7 @@ describe('<TypeaheadMenu>', () => {
     });
 
     it('does not show a paginator when there are no results', () => {
-      menu.setProps({options: []});
+      menu.setProps({ options: [] });
       expect(getPaginator(menu).length).to.equal(0);
     });
   });

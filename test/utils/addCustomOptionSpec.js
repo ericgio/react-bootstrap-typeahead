@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import addCustomOption from '../../src/utils/addCustomOption';
 import options from '../../example/exampleData';
@@ -44,12 +44,12 @@ describe('addCustomOption', () => {
   });
 
   it('adds a custom option when no exact matches are found', () => {
-    const props = {...defaultProps, text: 'Ala'};
+    const props = { ...defaultProps, text: 'Ala' };
     expect(addCustomOption(options, props)).to.equal(true);
   });
 
   it('does not add a custom option when an exact match is found', () => {
-    const props = {...defaultProps, text: 'Wyoming'};
+    const props = { ...defaultProps, text: 'Wyoming' };
     expect(addCustomOption(options, props)).to.equal(false);
   });
 

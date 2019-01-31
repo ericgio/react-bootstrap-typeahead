@@ -2,8 +2,8 @@
 
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React, {Children} from 'react';
-import {Col, Jumbotron, NavItem, Row} from 'react-bootstrap';
+import React, { Children } from 'react';
+import { Col, Jumbotron, NavItem, Row } from 'react-bootstrap';
 
 import Container from './Container.react';
 import PageFooter from './PageFooter.react';
@@ -11,7 +11,7 @@ import PageHeader from './PageHeader.react';
 import PageMenu from './PageMenu.react';
 
 import getIdFromTitle from '../util/getIdFromTitle';
-import {BS3, BS4, HASHES} from '../util/bsVersions';
+import { BS3, BS4, HASHES } from '../util/bsVersions';
 
 class Page extends React.Component {
   state = {
@@ -31,15 +31,15 @@ class Page extends React.Component {
     this._hrefs = [];
     this._sections = [];
 
-    Children.forEach(this.props.children, ({props}) => {
+    Children.forEach(this.props.children, ({ props }) => {
       this._hrefs.push(`#${getIdFromTitle(props.title)}`);
       this._sections.push(props.title);
     });
   }
 
   render() {
-    const {children, title} = this.props;
-    const {bsVersion} = this.state;
+    const { children, title } = this.props;
+    const { bsVersion } = this.state;
 
     return (
       <div
@@ -104,7 +104,7 @@ class Page extends React.Component {
       }
     }
 
-    this.setState({bsVersion});
+    this.setState({ bsVersion });
   }
 
   _handleMenuItemClick = (activeHref) => {
@@ -128,7 +128,7 @@ class Page extends React.Component {
 
     this._updateActiveHrefHandle = setTimeout(() => {
       this._updateActiveHrefHandle = null;
-      this.setState({activeHref});
+      this.setState({ activeHref });
     });
   }
 }

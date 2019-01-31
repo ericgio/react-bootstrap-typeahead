@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import {PrismCode} from 'react-prism';
+import { PrismCode } from 'react-prism';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -14,7 +14,7 @@ function getExampleCode(str) {
   );
 }
 
-const CodeSample = ({children, component, language}) => (
+const CodeSample = ({ children, component, language }) => (
   <PrismCode className={`language-${language}`} component={component}>
     {getExampleCode(children)}
   </PrismCode>

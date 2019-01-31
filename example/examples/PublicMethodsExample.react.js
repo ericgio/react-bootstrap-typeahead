@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React, {Fragment} from 'react';
-import {Button, ButtonToolbar} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 import options from '../exampleData';
 
 /* example-start */
@@ -19,7 +19,7 @@ class PublicMethodsExample extends React.Component {
           placeholder="Choose a state..."
           ref={(ref) => this._typeahead = ref}
         />
-        <ButtonToolbar style={{marginTop: '10px'}}>
+        <ButtonToolbar style={{ marginTop: '10px' }}>
           <Button
             className="btn-outline-secondary"
             onClick={() => this._typeahead.getInstance().clear()}>

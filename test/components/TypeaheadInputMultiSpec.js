@@ -1,12 +1,12 @@
-import {expect} from 'chai';
-import {mount} from 'enzyme';
-import {head, noop} from 'lodash';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import { head, noop } from 'lodash';
 import React from 'react';
 
 import TypeaheadInputMulti from '../../src/TypeaheadInputMulti.react';
 
 import options from '../../example/exampleData';
-import {context, getHint, getInput, getTokens, TestInputProvider} from '../helpers';
+import { context, getHint, getInput, getTokens, TestInputProvider } from '../helpers';
 
 describe('<TypeaheadInputMulti>', () => {
   let text, wrapper;

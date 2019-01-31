@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 import Loader from '../../src/Loader.react';
@@ -17,12 +17,12 @@ describe('<Loader>', () => {
   });
 
   it('renders a small loading indicator', () => {
-    loader.setProps({bsSize: 'small'});
+    loader.setProps({ bsSize: 'small' });
     expect(loader.hasClass('rbt-loader-sm')).to.equal(true);
   });
 
   it('renders a large loading indicator', () => {
-    loader.setProps({bsSize: 'large'});
+    loader.setProps({ bsSize: 'large' });
     expect(loader.hasClass('rbt-loader-lg')).to.equal(true);
   });
 });

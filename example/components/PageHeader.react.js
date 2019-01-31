@@ -2,13 +2,13 @@
 
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
-import {Nav, NavItem, Navbar} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { Nav, NavItem, Navbar } from 'react-bootstrap';
 
 import VersionDropdown from './VersionDropdown.react';
 
-import {version as PACKAGE_VERSION} from '../../package.json';
-import {BS3, BS4} from '../util/bsVersions';
+import { version as PACKAGE_VERSION } from '../../package.json';
+import { BS3, BS4 } from '../util/bsVersions';
 
 const GITHUB_URL = 'https://github.com/ericgio/react-bootstrap-typeahead';
 
@@ -19,8 +19,8 @@ class PageHeader extends React.Component {
   };
 
   render() {
-    const {onVersionChange, selectedVersion} = this.props;
-    const {isOpen, show} = this.state;
+    const { onVersionChange, selectedVersion } = this.props;
+    const { isOpen, show } = this.state;
 
     const isBS3 = selectedVersion === BS3;
 
@@ -34,7 +34,7 @@ class PageHeader extends React.Component {
         inverse
         staticTop>
         {this._renderNavbarHeader(isBS3)}
-        <Navbar.Collapse className={cx({show})}>
+        <Navbar.Collapse className={cx({ show })}>
           <Nav className="ml-auto" pullRight>
             <NavItem
               href={`${GITHUB_URL}/releases`}
@@ -49,7 +49,7 @@ class PageHeader extends React.Component {
             <VersionDropdown
               isOpen={isOpen}
               onSelect={onVersionChange}
-              onToggle={() => this.setState({isOpen: !isOpen})}
+              onToggle={() => this.setState({ isOpen: !isOpen })}
               title={`Bootstrap v${selectedVersion.slice(0, 1)}`}>
               {[BS3, BS4].map((bsVersion) => (
                 <VersionDropdown.Item
@@ -67,14 +67,14 @@ class PageHeader extends React.Component {
   }
 
   _renderNavbarHeader = (isBS3) => {
-    const {show} = this.state;
+    const { show } = this.state;
 
     const contents =
       <Fragment>
         <Navbar.Brand>React Bootstrap Typeahead</Navbar.Brand>
         <Navbar.Toggle
-          className={cx('navbar-toggler', {collapsed: !show})}
-          onClick={() => this.setState({show: !show})}
+          className={cx('navbar-toggler', { collapsed: !show })}
+          onClick={() => this.setState({ show: !show })}
         />
       </Fragment>;
 

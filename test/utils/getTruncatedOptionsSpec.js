@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import getTruncatedOptions from '../../src/utils/getTruncatedOptions';
 import options from '../../example/exampleData';

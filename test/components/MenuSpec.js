@@ -1,18 +1,18 @@
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 import Menu from '../../src/Menu.react';
-import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
+import MenuItem, { BaseMenuItem } from '../../src/MenuItem.react';
 
 describe('<Menu>', () => {
   let menu;
 
   beforeEach(() => {
     const options = [
-      {label: 'Item 1'},
-      {label: 'Item 2'},
-      {label: 'Item 3'},
+      { label: 'Item 1' },
+      { label: 'Item 2' },
+      { label: 'Item 3' },
     ];
 
     menu = shallow(
@@ -43,14 +43,14 @@ describe('<Menu>', () => {
 
     menu.setProps({
       maxHeight,
-      style: {backgroundColor: 'red'},
+      style: { backgroundColor: 'red' },
     });
 
     expect(getAttribute(menu, 'backgroundColor')).to.equal('red');
     expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight);
 
     maxHeight = '75%';
-    menu.setProps({maxHeight});
+    menu.setProps({ maxHeight });
     expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight);
   });
 
