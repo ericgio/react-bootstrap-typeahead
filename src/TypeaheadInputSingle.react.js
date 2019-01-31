@@ -5,7 +5,7 @@ import hintContainer from './containers/hintContainer';
 
 class TypeaheadInputSingle extends React.Component {
   render() {
-    const {className, inputRef, ...props} = this.props;
+    const { className, inputRef, ...props } = this.props;
 
     return (
       <input

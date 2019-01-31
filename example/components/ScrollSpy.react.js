@@ -3,13 +3,13 @@
 import React from 'react';
 import Waypoint from 'react-waypoint';
 
-const ScrollSpy = ({href, onBefore, onAfter}) => (
+const ScrollSpy = ({ href, onBefore, onAfter }) => (
   <Waypoint
     bottomOffset={-10}
-    onEnter={({previousPosition}) => (
+    onEnter={({ previousPosition }) => (
       previousPosition === Waypoint.above && onBefore(href)
     )}
-    onLeave={({currentPosition}) => (
+    onLeave={({ currentPosition }) => (
       currentPosition === Waypoint.above && onAfter(href)
     )}
     topOffset={10}

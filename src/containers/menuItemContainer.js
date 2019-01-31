@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
+import { findDOMNode } from 'react-dom';
 
-import {withContext} from '../TypeaheadContext';
-import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded} from '../utils';
+import { withContext } from '../TypeaheadContext';
+import { getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded } from '../utils';
 
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
@@ -15,7 +15,7 @@ const menuItemContainer = (Component) => {
 
     componentDidUpdate(prevProps, prevState) {
       const wasActive = prevProps.activeIndex === prevProps.position;
-      const {activeIndex, onActiveItemChange, option, position} = this.props;
+      const { activeIndex, onActiveItemChange, option, position } = this.props;
 
       if (position == null) {
         return;
@@ -65,14 +65,14 @@ const menuItemContainer = (Component) => {
     }
 
     _handleClick = (e) => {
-      const {onMenuItemClick, option, onClick} = this.props;
+      const { onMenuItemClick, option, onClick } = this.props;
 
       onMenuItemClick(option, e);
       onClick && onClick(e);
     }
 
     _updateInitialItem = (props) => {
-      const {onInitialItemChange, option, position} = props;
+      const { onInitialItemChange, option, position } = props;
       if (position === 0) {
         onInitialItemChange(option);
       }

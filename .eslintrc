@@ -41,7 +41,6 @@
       "consistent": true,
       "multiline": true,
     }],
-    "object-curly-spacing": [2, "never"],
     "operator-linebreak": [2, "after"],
     "react/destructuring-assignment": 0,
     "react/jsx-filename-extension": [2, {

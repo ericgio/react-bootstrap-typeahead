@@ -1,9 +1,9 @@
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {optionType} from '../propTypes';
-import {getDisplayName} from '../utils';
+import { optionType } from '../propTypes';
+import { getDisplayName } from '../utils';
 
 const DEFAULT_DELAY_MS = 200;
 
@@ -31,7 +31,7 @@ const asyncContainer = (Typeahead) => {
     }
 
     componentDidUpdate(prevProps, prevState) {
-      const {options, useCache} = this.props;
+      const { options, useCache } = this.props;
 
       if (!prevProps.isLoading) {
         return;
@@ -48,7 +48,7 @@ const asyncContainer = (Typeahead) => {
     }
 
     render() {
-      const {options, useCache, ...props} = this.props;
+      const { options, useCache, ...props } = this.props;
       const cachedQuery = this._cache[this.state.query];
       const emptyLabel = this._getEmptyLabel();
 
@@ -92,7 +92,7 @@ const asyncContainer = (Typeahead) => {
         useCache,
       } = this.props;
 
-      const {query} = this.state;
+      const { query } = this.state;
 
       if (!query.length) {
         return promptText;
@@ -111,7 +111,7 @@ const asyncContainer = (Typeahead) => {
     }
 
     _handleSearch = (query) => {
-      const {minLength, onSearch, useCache} = this.props;
+      const { minLength, onSearch, useCache } = this.props;
 
       if (!query || (minLength && query.length < minLength)) {
         return;
@@ -123,7 +123,7 @@ const asyncContainer = (Typeahead) => {
       }
 
       // Perform the search.
-      this.setState({query}, () => onSearch(query));
+      this.setState({ query }, () => onSearch(query));
     }
   }
 

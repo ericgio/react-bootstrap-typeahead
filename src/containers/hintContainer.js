@@ -1,10 +1,10 @@
 import React from 'react';
 
 import AutosizeInput from '../AutosizeInput.react';
-import {withContext} from '../TypeaheadContext';
+import { withContext } from '../TypeaheadContext';
 
-import {getDisplayName} from '../utils';
-import {RETURN, RIGHT, TAB} from '../constants';
+import { getDisplayName } from '../utils';
+import { RETURN, RIGHT, TAB } from '../constants';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
@@ -58,7 +58,7 @@ function hintContainer(Input) {
       return (
         <div
           className="rbt-input-hint-container"
-          style={{position: 'relative'}}>
+          style={{ position: 'relative' }}>
           <Input
             {...props}
             inputRef={(input) => {

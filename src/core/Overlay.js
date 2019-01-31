@@ -1,10 +1,10 @@
-import {noop} from 'lodash';
+import { noop } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {componentOrElement} from 'prop-types-extra';
-import {Popper} from 'react-popper';
+import { componentOrElement } from 'prop-types-extra';
+import { Popper } from 'react-popper';
 
-function getModifiers({align, flip}) {
+function getModifiers({ align, flip }) {
   return {
     computeStyles: {
       enabled: true,
@@ -31,7 +31,7 @@ function getModifiers({align, flip}) {
 
 class Overlay extends React.Component {
   componentDidUpdate(prevProps, prevState) {
-    const {onMenuToggle, show} = this.props;
+    const { onMenuToggle, show } = this.props;
 
     if (show !== prevProps.show) {
       onMenuToggle(show);
@@ -61,7 +61,7 @@ class Overlay extends React.Component {
         placement={`${yPlacement}-${xPlacement}`}
         positionFixed={positionFixed}
         referenceElement={referenceElement}>
-        {({ref, ...props}) => children({
+        {({ ref, ...props }) => children({
           ...props,
           innerRef: ref,
           inputHeight: referenceElement ? referenceElement.offsetHeight : 0,

@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import getOptionLabel from '../../src/utils/getOptionLabel';
 
@@ -7,7 +7,7 @@ describe('getOptionLabel', () => {
 
   beforeEach(() => {
     label = 'California';
-    option = {label};
+    option = { label };
   });
 
   describe('returns a string when', () => {

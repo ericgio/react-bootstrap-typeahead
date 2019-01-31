@@ -1,4 +1,4 @@
-import {isEqual, isFunction, isString, some} from 'lodash';
+import { isEqual, isFunction, isString, some } from 'lodash';
 
 import stripDiacritics from './stripDiacritics';
 import warn from './warn';
@@ -24,7 +24,7 @@ function isMatch(input, string, props) {
  * Default algorithm for filtering results.
  */
 export default function defaultFilterBy(option, props) {
-  const {filterBy, labelKey, multiple, selected, text} = props;
+  const { filterBy, labelKey, multiple, selected, text } = props;
 
   // Don't show selected options in the menu for the multi-select case.
   if (multiple && selected.some((o) => isEqual(o, option))) {

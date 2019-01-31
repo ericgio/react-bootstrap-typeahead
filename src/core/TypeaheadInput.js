@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {getInputText, getMenuItemId} from '../utils';
+import { getInputText, getMenuItemId } from '../utils';
 
 const TypeaheadInput = (props) => {
   const {

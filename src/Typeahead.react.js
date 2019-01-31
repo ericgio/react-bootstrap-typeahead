@@ -10,11 +10,11 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {preventInputBlur} from './utils';
+import { preventInputBlur } from './utils';
 
 class TypeaheadComponent extends React.Component {
   render() {
-    const {children, className, renderMenu} = this.props;
+    const { children, className, renderMenu } = this.props;
 
     return (
       <Typeahead
@@ -28,7 +28,7 @@ class TypeaheadComponent extends React.Component {
               className={cx('rbt', 'clearfix', 'open', {
                 'has-aux': !!auxContent,
               }, className)}
-              style={{position: 'relative'}}
+              style={{ position: 'relative' }}
               tabIndex={-1}>
               <Typeahead.Input {...props}>
                 {this._renderInput}

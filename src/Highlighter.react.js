@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {getMatchBounds} from './utils';
+import { getMatchBounds } from './utils';
 
 /**
  * Stripped-down version of https://github.com/helior/react-highlighter

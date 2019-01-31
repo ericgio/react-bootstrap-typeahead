@@ -1,12 +1,12 @@
-import {expect} from 'chai';
-import {mount, shallow} from 'enzyme';
-import {noop, pick} from 'lodash';
+import { expect } from 'chai';
+import { mount, shallow } from 'enzyme';
+import { noop, pick } from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
+import MenuItem, { BaseMenuItem } from '../../src/MenuItem.react';
 import TypeaheadInner from '../../src/core/TypeaheadInner';
-import {context} from '../helpers';
+import { context } from '../helpers';
 
 const event = {
   preventDefault: noop,
@@ -30,7 +30,7 @@ describe('<BaseMenuItem>', () => {
   });
 
   it('renders an active base menu item', () => {
-    baseMenuItem.setProps({active: true});
+    baseMenuItem.setProps({ active: true });
     expect(baseMenuItem.hasClass('active')).to.equal(true);
   });
 
@@ -40,7 +40,7 @@ describe('<BaseMenuItem>', () => {
   });
 
   it('renders a disabled base menu item', () => {
-    baseMenuItem.setProps({disabled: true});
+    baseMenuItem.setProps({ disabled: true });
     baseMenuItem.find('a').simulate('click', event);
 
     expect(baseMenuItem.hasClass('disabled')).to.equal(true);
@@ -68,7 +68,7 @@ describe('<MenuItem>', () => {
           <MenuItem
             {...props}
             onClick={onClick}
-            option={{label: 'test'}}
+            option={{ label: 'test' }}
             position={0}>
             This is a menu item.
           </MenuItem>
@@ -85,7 +85,7 @@ describe('<MenuItem>', () => {
   it('changes the active state of the menu item', () => {
     expect(menuItem.hasClass('active')).to.equal(false);
 
-    menuItem.setProps({activeIndex: 0});
+    menuItem.setProps({ activeIndex: 0 });
     expect(menuItem.find('a').hasClass('active')).to.equal(true);
   });
 

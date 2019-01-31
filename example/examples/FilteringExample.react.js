@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React, {Fragment} from 'react';
-import {FormGroup} from 'react-bootstrap';
+import React, { Fragment } from 'react';
+import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import {Typeahead} from '../../src';
+import { Typeahead } from '../../src';
 
 /* example-start */
 class FilteringExample extends React.Component {
@@ -14,7 +14,7 @@ class FilteringExample extends React.Component {
   };
 
   render() {
-    const {caseSensitive, ignoreDiacritics} = this.state;
+    const { caseSensitive, ignoreDiacritics } = this.state;
 
     return (
       <Fragment>
@@ -52,14 +52,14 @@ class FilteringExample extends React.Component {
         <FormGroup>
           <Control
             checked={caseSensitive}
-            onChange={(e) => this.setState({caseSensitive: e.target.checked})}
+            onChange={(e) => this.setState({ caseSensitive: e.target.checked })}
             type="checkbox">
             Case-sensitive filtering
           </Control>
           <Control
             checked={!ignoreDiacritics}
             onChange={(e) => {
-              this.setState({ignoreDiacritics: !e.target.checked});
+              this.setState({ ignoreDiacritics: !e.target.checked });
             }}
             type="checkbox">
             Account for diacritical marks

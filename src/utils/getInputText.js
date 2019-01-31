@@ -1,7 +1,7 @@
-import {head} from 'lodash';
+import { head } from 'lodash';
 import getOptionLabel from './getOptionLabel';
 
-function getInputText({activeItem, labelKey, multiple, selected, text}) {
+function getInputText({ activeItem, labelKey, multiple, selected, text }) {
   if (activeItem) {
     // Display the input value if the pagination item is active.
     return activeItem.paginationOption ?

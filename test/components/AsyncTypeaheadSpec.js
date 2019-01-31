@@ -1,12 +1,12 @@
-import {expect} from 'chai';
-import {mount} from 'enzyme';
-import {noop} from 'lodash';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import { noop } from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import {AsyncTypeahead} from '../../src';
-import {change, focus, getMenuItems, keyDown, search} from '../helpers';
-import {DOWN, RETURN} from '../../src/constants';
+import { AsyncTypeahead } from '../../src';
+import { change, focus, getMenuItems, keyDown, search } from '../helpers';
+import { DOWN, RETURN } from '../../src/constants';
 
 describe('<AsyncTypeahead>', () => {
   let onSearch, wrapper;
@@ -42,7 +42,7 @@ describe('<AsyncTypeahead>', () => {
   it('should display the search text while searching', (done) => {
     const searchText = 'Search text';
 
-    wrapper.setProps({searchText});
+    wrapper.setProps({ searchText });
 
     search(wrapper, 'search', () => {
       focus(wrapper);
@@ -64,7 +64,7 @@ describe('<AsyncTypeahead>', () => {
     });
 
     search(wrapper, 'search', () => {
-      wrapper.setProps({isLoading: false});
+      wrapper.setProps({ isLoading: false });
 
       focus(wrapper);
       const menuItems = getMenuItems(wrapper);
@@ -118,7 +118,7 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('should use cached results and not perform a new search', (done) => {
-    wrapper.setProps({isLoading: true});
+    wrapper.setProps({ isLoading: true });
 
     // Initial search
     search(wrapper, 'search', () => {
@@ -155,7 +155,7 @@ describe('<AsyncTypeahead>', () => {
 
     // Initial search
     search(wrapper, 'search', () => {
-      wrapper.setProps({isLoading: false, options: []});
+      wrapper.setProps({ isLoading: false, options: [] });
       expect(onSearch.callCount).to.equal(1);
 
       // Perform the search again.

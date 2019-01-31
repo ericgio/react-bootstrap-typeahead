@@ -5,7 +5,7 @@ import Highlighter from './Highlighter.react';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
-import {getOptionLabel} from './utils';
+import { getOptionLabel } from './utils';
 
 class TypeaheadMenu extends React.Component {
   render() {

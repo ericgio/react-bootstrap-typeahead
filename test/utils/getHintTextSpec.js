@@ -1,11 +1,11 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import getHintText from '../../src/utils/getHintText';
 import states from '../../example/exampleData';
 
 const props = {
   activeItem: null,
-  initialItem: {name: 'Alabama'},
+  initialItem: { name: 'Alabama' },
   isFocused: true,
   isMenuShown: true,
   labelKey: 'name',
@@ -21,27 +21,27 @@ describe('getHintText', () => {
   });
 
   it('returns an empty string when the text is empty', () => {
-    const hintText = getHintText({...props, text: ''});
+    const hintText = getHintText({ ...props, text: '' });
     expect(hintText).to.equal('');
   });
 
   it('returns an empty string when the menu is not focused', () => {
-    const hintText = getHintText({...props, isFocused: false});
+    const hintText = getHintText({ ...props, isFocused: false });
     expect(hintText).to.equal('');
   });
 
   it('returns an empty string when a menu item is active', () => {
-    const hintText = getHintText({...props, activeItem: props.initialItem});
+    const hintText = getHintText({ ...props, activeItem: props.initialItem });
     expect(hintText).to.equal('');
   });
 
   it('returns an empty string when there is a selection', () => {
-    const hintText = getHintText({...props, selected: [states[0]]});
+    const hintText = getHintText({ ...props, selected: [states[0]] });
     expect(hintText).to.equal('');
   });
 
   it('returns an empty string when the menu is hidden', () => {
-    const hintText = getHintText({...props, isMenuShown: false});
+    const hintText = getHintText({ ...props, isMenuShown: false });
     expect(hintText).to.equal('');
   });
 
@@ -49,14 +49,14 @@ describe('getHintText', () => {
     'returns an empty string when the initial item does not begin with the ' +
     'input string',
     () => {
-      const hintText = getHintText({...props, text: 'Cal'});
+      const hintText = getHintText({ ...props, text: 'Cal' });
       expect(hintText).to.equal('');
     }
   );
 
   it('returns an empty string when the initial item is a custom option', () => {
-    const initialItem = {...props.initialItem, customOption: true};
-    const hintText = getHintText({...props, initialItem});
+    const initialItem = { ...props.initialItem, customOption: true };
+    const hintText = getHintText({ ...props, initialItem });
     expect(hintText).to.equal('');
   });
 

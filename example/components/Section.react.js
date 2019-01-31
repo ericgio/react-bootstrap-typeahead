@@ -19,7 +19,7 @@ const sectionContainer = (Component) => {
   return WrappedSection;
 };
 
-const Section = ({children, onAfter, onBefore, title}) => {
+const Section = ({ children, onAfter, onBefore, title }) => {
   const id = getIdFromTitle(title);
   return (
     <section className="section">
