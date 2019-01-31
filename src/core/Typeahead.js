@@ -9,12 +9,40 @@ import TypeaheadInput from './TypeaheadInput';
 import TypeaheadMenu from './TypeaheadMenu';
 
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
-import {addCustomOption, areEqual, defaultFilterBy, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown} from '../utils';
+import {addCustomOption, areEqual, defaultFilterBy, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, warn} from '../utils';
 
 import {DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants';
 
 function genId(prefix = '') {
   return prefix + Math.random().toString(36).substr(2, 12);
+}
+
+function maybeWarnAboutControlledSelections(prevSelected, selected) {
+  const uncontrolledToControlled = !prevSelected && selected;
+  const controlledToUncontrolled = prevSelected && !selected;
+
+  let from, to, precedent;
+
+  if (uncontrolledToControlled) {
+    from = 'uncontrolled';
+    to = 'controlled';
+    precedent = 'an';
+  } else {
+    from = 'controlled';
+    to = 'uncontrolled';
+    precedent = 'a';
+  }
+
+  const message =
+    `You are changing ${precedent} ${from} typeahead to be ${to}. ` +
+    `Input elements should not switch from ${from} to ${to} (or vice versa). ` +
+    'Decide between using a controlled or uncontrolled element for the ' +
+    'lifetime of the component.';
+
+  warn(
+    !(uncontrolledToControlled || controlledToUncontrolled),
+    message,
+  );
 }
 
 function getInitialState(props) {
@@ -71,38 +99,54 @@ class Typeahead extends React.Component {
   // the same id for every instance.
   _menuId = genId('rbt-menu-');
 
+  static getDerivedStateFromProps(props, state) {
+    const {labelKey, multiple} = props;
+
+    // Truncate selections when in single-select mode.
+    let selected = props.selected || state.selected;
+    if (!multiple && selected.length > 1) {
+      selected = selected.slice(0, 1);
+
+      return {
+        selected,
+        text: getOptionLabel(head(selected), labelKey),
+      };
+    }
+
+    return null;
+  }
+
   componentDidMount() {
     this.props.autoFocus && this.focus();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {labelKey, multiple, selected} = nextProps;
+  componentDidUpdate(prevProps, prevState) {
+    const {labelKey, multiple, selected} = this.props;
 
-    // If new selections are passed via props, treat as a controlled input.
-    if (selected && !isEqual(selected, this.state.selected)) {
-      this.setState({selected});
+    maybeWarnAboutControlledSelections(prevProps.selected, selected);
 
-      if (multiple) {
-        return;
-      }
+    // Keep `selected` state and props in sync. Use `componentDidUpdate`
+    // rather than `getDerivedStateFromProps` to compare with previous
+    // props and differentiate between externally changed selections and
+    // internally changed ones that trigger `onChange` in a controlled
+    // component, eg. passing an empty array vs. clearing a selection by
+    // deleting part of the input value.
+    if (
+      isEqual(prevProps.selected, this.state.selected) &&
+      !isEqual(prevProps.selected, selected)
+    ) {
+      // Selections were changed externally, update state accordingly.
+      const text = selected.length && !multiple ?
+        getOptionLabel(head(selected), labelKey) :
+        '';
 
       this.setState({
-        text: selected.length ? getOptionLabel(head(selected), labelKey) : '',
+        selected,
+        text,
       });
     }
 
-    // Truncate selections when in single-select mode.
-    let newSelected = selected || this.state.selected;
-    if (!multiple && newSelected.length > 1) {
-      newSelected = newSelected.slice(0, 1);
-      this.setState({
-        selected: newSelected,
-        text: getOptionLabel(head(newSelected), labelKey),
-      });
-      return;
-    }
-
-    if (multiple !== this.props.multiple) {
+    if (prevProps.multiple !== multiple) {
       this.setState({text: ''});
     }
   }

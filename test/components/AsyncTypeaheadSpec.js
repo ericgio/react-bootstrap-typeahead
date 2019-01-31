@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import {mount} from 'enzyme';
+import {noop} from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
@@ -27,7 +28,9 @@ describe('<AsyncTypeahead>', () => {
         delay={0}
         isLoading={false}
         minLength={0}
+        onChange={noop}
         onSearch={onSearch}
+        selected={[]}
       />
     );
   });
@@ -214,7 +217,6 @@ describe('<AsyncTypeahead>', () => {
   it('performs a search when there is already a selection', (done) => {
     wrapper.setProps({
       multiple: true,
-      onChange: () => {},
       options: ['one', 'two'],
       selected: ['one'],
     });
