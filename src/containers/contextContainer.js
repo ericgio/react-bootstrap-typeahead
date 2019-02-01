@@ -1,6 +1,5 @@
 import {pick} from 'lodash';
 import React from 'react';
-import {polyfill} from 'react-lifecycles-compat';
 
 import TypeaheadContext from '../TypeaheadContext';
 import {getHintText, getIsOnlyResult} from '../utils';
@@ -59,8 +58,6 @@ function contextContainer(Typeahead) {
       onKeyDown(e);
     }
   }
-
-  polyfill(WrappedTypeahead);
 
   return WrappedTypeahead;
 }
