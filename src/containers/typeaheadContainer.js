@@ -51,6 +51,16 @@ function getInitialState(props) {
   };
 }
 
+function skipDisabledOptions(results, activeIndex, keyCode) {
+  let newActiveIndex = activeIndex;
+
+  while (results[newActiveIndex] && results[newActiveIndex].disabled) {
+    newActiveIndex += keyCode === UP ? -1 : 1;
+  }
+
+  return newActiveIndex;
+}
+
 function typeaheadContainer(Component) {
   const Typeahead = contextContainer(Component);
 
@@ -297,15 +307,16 @@ function typeaheadContainer(Component) {
           activeIndex += e.keyCode === UP ? -1 : 1;
 
           // Skip over any disabled options.
-          while (results[activeIndex] && results[activeIndex].disabled) {
-            activeIndex += e.keyCode === UP ? -1 : 1;
-          }
+          activeIndex = skipDisabledOptions(results, activeIndex, e.keyCode);
 
           // If we've reached the end, go back to the beginning or vice-versa.
           if (activeIndex === results.length) {
             activeIndex = -1;
           } else if (activeIndex === -2) {
             activeIndex = results.length - 1;
+
+            // Skip over any disabled options.
+            activeIndex = skipDisabledOptions(results, activeIndex, e.keyCode);
           }
 
           this._handleActiveIndexChange(activeIndex);
