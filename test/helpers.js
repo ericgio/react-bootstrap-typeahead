@@ -1,8 +1,8 @@
 import {noop} from 'lodash';
 import React from 'react';
 
-import TypeaheadInput from '../src/base/TypeaheadInput';
-import TypeaheadInnerManager from '../src/base/TypeaheadInnerManager';
+import TypeaheadInput from '../src/core/TypeaheadInput';
+import TypeaheadInner from '../src/core/TypeaheadInner';
 
 export const context = {
   activeIndex: -1,
@@ -18,13 +18,13 @@ export const context = {
 };
 
 export const TestInputProvider = ({children, ...props}) => (
-  <TypeaheadInnerManager {...props}>
+  <TypeaheadInner {...props}>
     {(providerProps) => (
       <TypeaheadInput {...providerProps}>
         {children}
       </TypeaheadInput>
     )}
-  </TypeaheadInnerManager>
+  </TypeaheadInner>
 );
 
 // Make sure e.persist() is present in events.
