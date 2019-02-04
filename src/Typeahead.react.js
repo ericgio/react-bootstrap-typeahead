@@ -2,7 +2,6 @@ import cx from 'classnames';
 import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -38,6 +37,7 @@ class Typeahead extends React.Component {
             'onMenuHide',
             'onMenuShow',
             'onMenuToggle',
+            'referenceElement',
           ]);
 
           const menuProps = pick(props, [
@@ -64,7 +64,6 @@ class Typeahead extends React.Component {
               <Overlay
                 {...overlayProps}
                 container={bodyContainer ? document.body : this}
-                referenceElement={this._inputContainer}
                 show={isMenuShown}>
                 {renderMenu(results, {...menuProps, id: menuId})}
               </Overlay>
@@ -112,11 +111,7 @@ class Typeahead extends React.Component {
       'text',
     ]);
 
-    // Use `findDOMNode` here since it's easier and less fragile than
-    // forwarding refs down to the input's container.
-    // TODO: Consider using `forwardRef` when React 16.3 usage is higher.
-    /* eslint-disable-next-line react/no-find-dom-node */
-    inputProps.ref = (node) => this._inputContainer = findDOMNode(node);
+    inputProps.ref = props.getReferenceElement;
 
     const Input = props.multiple ?
       TypeaheadInputMulti :
