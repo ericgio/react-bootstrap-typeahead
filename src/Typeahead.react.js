@@ -11,22 +11,83 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import typeaheadContainer from './containers/typeaheadContainer';
+import TypeaheadManager from './base/TypeaheadManager';
 import {getAccessibilityStatus, preventInputBlur} from './utils';
 
 class Typeahead extends React.Component {
   render() {
-    const {
-      bodyContainer,
-      children,
-      className,
-      isMenuShown,
-      menuId,
-      renderMenu,
-      results,
-    } = this.props;
+    const {children, className, renderMenu} = this.props;
 
-    const inputProps = pick(this.props, [
+    return (
+      <TypeaheadManager
+        {...this.props}
+        ref={(instance) => this._instance = instance}>
+        {(props) => {
+          const {
+            bodyContainer,
+            isMenuShown,
+            menuId,
+            results,
+          } = props;
+
+          const overlayProps = pick(props, [
+            'align',
+            'className',
+            'dropup',
+            'flip',
+            'onMenuHide',
+            'onMenuShow',
+            'onMenuToggle',
+          ]);
+
+          const menuProps = pick(props, [
+            'emptyLabel',
+            'labelKey',
+            'maxHeight',
+            'newSelectionPrefix',
+            'renderMenuItemChildren',
+            'text',
+          ]);
+
+          const auxContent = this._renderAux(props);
+
+          return (
+            <div
+              className={cx('rbt', 'clearfix', 'open', {
+                'has-aux': !!auxContent,
+              }, className)}
+              style={{position: 'relative'}}
+              tabIndex={-1}>
+              {this._renderInput(props)}
+              {typeof children === 'function' ? children(props) : children}
+              {auxContent}
+              <Overlay
+                {...overlayProps}
+                container={bodyContainer ? document.body : this}
+                referenceElement={this._inputContainer}
+                show={isMenuShown}>
+                {renderMenu(results, {...menuProps, id: menuId})}
+              </Overlay>
+              <div
+                aria-atomic
+                aria-live="polite"
+                className="sr-only rbt-sr-status"
+                role="status">
+                {getAccessibilityStatus(props)}
+              </div>
+            </div>
+          );
+        }}
+      </TypeaheadManager>
+    );
+  }
+
+  getInstance = () => {
+    return this._instance;
+  }
+
+  _renderInput = (props) => {
+    const inputProps = pick(props, [
       'activeIndex',
       'activeItem',
       'bsSize',
@@ -51,71 +112,20 @@ class Typeahead extends React.Component {
       'text',
     ]);
 
-    const overlayProps = pick(this.props, [
-      'align',
-      'className',
-      'dropup',
-      'flip',
-      'onMenuHide',
-      'onMenuShow',
-      'onMenuToggle',
-    ]);
+    // Use `findDOMNode` here since it's easier and less fragile than
+    // forwarding refs down to the input's container.
+    // TODO: Consider using `forwardRef` when React 16.3 usage is higher.
+    /* eslint-disable-next-line react/no-find-dom-node */
+    inputProps.ref = (node) => this._inputContainer = findDOMNode(node);
 
-    const menuProps = pick(this.props, [
-      'emptyLabel',
-      'labelKey',
-      'maxHeight',
-      'newSelectionPrefix',
-      'renderMenuItemChildren',
-      'text',
-    ]);
-
-    const auxContent = this._renderAux();
-
-    return (
-      <div
-        className={cx('rbt', 'clearfix', 'open', {
-          'has-aux': !!auxContent,
-        }, className)}
-        style={{position: 'relative'}}
-        tabIndex={-1}>
-        {this._renderInput({
-          ...inputProps,
-          // Use `findDOMNode` here since it's easier and less fragile than
-          // forwarding refs down to the input's container.
-          // TODO: Consider using `forwardRef` when React 16.3 usage is higher.
-          /* eslint-disable-next-line react/no-find-dom-node */
-          ref: (node) => this._inputContainer = findDOMNode(node),
-        })}
-        {typeof children === 'function' ? children(this.props) : children}
-        {auxContent}
-        <Overlay
-          {...overlayProps}
-          container={bodyContainer ? document.body : this}
-          referenceElement={this._inputContainer}
-          show={isMenuShown}>
-          {renderMenu(results, {...menuProps, id: menuId})}
-        </Overlay>
-        <div
-          aria-atomic
-          aria-live="polite"
-          className="sr-only rbt-sr-status"
-          role="status">
-          {getAccessibilityStatus(this.props)}
-        </div>
-      </div>
-    );
-  }
-
-  _renderInput = (inputProps) => {
-    const Input = inputProps.multiple ?
+    const Input = props.multiple ?
       TypeaheadInputMulti :
       TypeaheadInputSingle;
 
     return <Input {...inputProps} />;
   }
 
-  _renderAux = () => {
+  _renderAux = (props) => {
     const {
       bsSize,
       clearButton,
@@ -123,7 +133,7 @@ class Typeahead extends React.Component {
       isLoading,
       onClear,
       selected,
-    } = this.props;
+    } = props;
 
     let content;
 
@@ -163,4 +173,4 @@ Typeahead.defaultProps = {
   ),
 };
 
-export default typeaheadContainer(Typeahead);
+export default Typeahead;
