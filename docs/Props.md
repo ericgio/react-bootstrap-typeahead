@@ -36,8 +36,6 @@ onChange | function | | Invoked whenever items are added or removed. Receives an
 onFocus | function | | Invoked when the input is focused. Receives an event.
 onInputChange | function | | Invoked when the input value changes. Receives the string value of the input.
 onKeyDown | function | | Invoked when a key is pressed. Receives an event.
-onMenuHide | function | | DEPRECATED. Invoked when the menu is hidden.
-onMenuShow | function | | DEPRECATED. Invoked when the menu is shown.
 onMenuToggle | function | | Invoked when menu visibility changes.
 onPaginate | function | | Invoked when the pagination menu item is clicked.
 open | boolean | | Whether or not the menu should be displayed. `undefined` allows the component to control visibility, while `true` and `false` show and hide the menu, respectively.

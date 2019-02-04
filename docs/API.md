@@ -52,9 +52,6 @@ As with a normal text input, these are called when the typeahead input has blur,
 ##### `onMenuToggle(isOpen: Boolean)`
 Invoked when menu visibility changes.
 
-##### `onMenuHide()` & `onMenuShow()`
-`DEPRECATED` Invoked when the menu is hidden or shown, respectively.
-
 ##### `onPaginate(event: Event, shownResults: Number)`
 Invoked when the pagination menu item is clicked. Receives an event as the first argument and the number of shown results as the second.
 

@@ -749,55 +749,22 @@ describe('<Typeahead>', () => {
     expect(onKeyDown.calledOnce).to.equal(true);
   });
 
-  describe('menu visibility hooks', () => {
-    it('calls `onMenuShow`', () => {
-      const onMenuShow = sinon.spy();
+  it('calls `onMenuToggle`', () => {
+    const onMenuToggle = sinon.spy();
 
-      typeahead.setProps({onMenuShow});
+    typeahead.setProps({onMenuToggle});
 
-      expect(onMenuShow.notCalled).to.equal(true);
+    expect(onMenuToggle.notCalled).to.equal(true);
 
-      focus(typeahead);
-      expect(onMenuShow.calledOnce).to.equal(true);
+    focus(typeahead);
+    expect(onMenuToggle.callCount).to.equal(1);
 
-      // Shouldn't be called again if not hidden first.
-      focus(typeahead);
-      expect(onMenuShow.calledOnce).to.equal(true);
-    });
+    // Shouldn't be called again if not hidden first.
+    focus(typeahead);
+    expect(onMenuToggle.callCount).to.equal(1);
 
-    it('calls `onMenuHide`', () => {
-      const onMenuHide = sinon.spy();
-
-      typeahead.setProps({onMenuHide});
-
-      focus(typeahead);
-      expect(onMenuHide.notCalled).to.equal(true);
-
-      keyDown(typeahead, ESC);
-      expect(onMenuHide.calledOnce).to.equal(true);
-
-      // Shouldn't be called again if not shown first.
-      keyDown(typeahead, ESC);
-      expect(onMenuHide.calledOnce).to.equal(true);
-    });
-
-    it('calls `onMenuToggle`', () => {
-      const onMenuToggle = sinon.spy();
-
-      typeahead.setProps({onMenuToggle});
-
-      expect(onMenuToggle.notCalled).to.equal(true);
-
-      focus(typeahead);
-      expect(onMenuToggle.callCount).to.equal(1);
-
-      // Shouldn't be called again if not hidden first.
-      focus(typeahead);
-      expect(onMenuToggle.callCount).to.equal(1);
-
-      keyDown(typeahead, ESC);
-      expect(onMenuToggle.callCount).to.equal(2);
-    });
+    keyDown(typeahead, ESC);
+    expect(onMenuToggle.callCount).to.equal(2);
   });
 
   describe('hint behavior', () => {
