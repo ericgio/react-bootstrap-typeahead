@@ -2,7 +2,6 @@ import cx from 'classnames';
 import React from 'react';
 
 import hintContainer from './containers/hintContainer';
-import inputContainer from './containers/inputContainer';
 
 class TypeaheadInputSingle extends React.Component {
   render() {
@@ -19,4 +18,4 @@ class TypeaheadInputSingle extends React.Component {
   }
 }
 
-export default inputContainer(hintContainer(TypeaheadInputSingle));
+export default hintContainer(TypeaheadInputSingle);
