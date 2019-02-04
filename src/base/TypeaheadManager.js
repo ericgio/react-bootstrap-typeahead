@@ -2,6 +2,7 @@ import {head, isEqual, noop, uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
 import {deprecated} from 'prop-types-extra';
 import React from 'react';
+import {findDOMNode} from 'react-dom';
 import {RootCloseWrapper} from 'react-overlays';
 
 import TypeaheadInnerManager from './TypeaheadInnerManager';
@@ -155,6 +156,12 @@ class TypeaheadManager extends React.Component {
 
     const props = {
       ...mergedPropsAndState,
+      getReferenceElement: (element) => {
+        // Use `findDOMNode` here because it's easier and less fragile than
+        // forwarding refs to the input's container.
+        /* eslint-disable-next-line react/no-find-dom-node */
+        this._referenceElement = findDOMNode(element);
+      },
       inputRef: (input) => this._input = input,
       isMenuShown,
       menuId: this.props.menuId || this._menuId,
@@ -168,6 +175,7 @@ class TypeaheadManager extends React.Component {
       onKeyDown: (e) => this._handleKeyDown(e, results, isMenuShown),
       onMenuItemClick: this._handleMenuItemSelect,
       onRemove: this._handleSelectionRemove,
+      referenceElement: this._referenceElement,
       results,
     };
 
