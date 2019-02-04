@@ -5,7 +5,7 @@ import React from 'react';
 import sinon from 'sinon';
 
 import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
-import TypeaheadInnerManager from '../../src/base/TypeaheadInnerManager';
+import TypeaheadInner from '../../src/core/TypeaheadInner';
 import {context} from '../helpers';
 
 const event = {
@@ -63,7 +63,7 @@ describe('<MenuItem>', () => {
 
     onClick = sinon.spy();
     menuItem = mount(
-      <TypeaheadInnerManager {...contextProps}>
+      <TypeaheadInner {...contextProps}>
         {(props) => (
           <MenuItem
             {...props}
@@ -73,7 +73,7 @@ describe('<MenuItem>', () => {
             This is a menu item.
           </MenuItem>
         )}
-      </TypeaheadInnerManager>
+      </TypeaheadInner>
     );
   });
 
