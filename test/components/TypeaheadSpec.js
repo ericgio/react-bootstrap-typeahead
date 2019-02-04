@@ -939,26 +939,6 @@ describe('<Typeahead>', () => {
     });
   });
 
-  describe('accessibility status', () => {
-    let statusNode;
-
-    beforeEach(() => {
-      focus(typeahead);
-      statusNode = typeahead.find('.rbt-sr-status');
-    });
-
-    it('lists the number of results when the input is focused', () => {
-      expect(statusNode.text()).to.contain('50 results');
-    });
-
-    it('lists the number of selected items', () => {
-      keyDown(typeahead, DOWN);
-      keyDown(typeahead, RETURN);
-
-      expect(statusNode.text()).to.contain('1 selection');
-    });
-  });
-
   describe('accessibility attributes', () => {
     it('adds an id to the menu for accessibility', () => {
       expect(getInput(typeahead).prop('aria-owns')).to.equal('');
