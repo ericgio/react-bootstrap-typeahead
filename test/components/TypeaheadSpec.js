@@ -680,7 +680,7 @@ describe('<Typeahead>', () => {
 
   it('applies arbitrary attributes to the input', () => {
     const inputProps = {
-      autoComplete: 'off',
+      autoComplete: 'nope',
       className: 'input-classname',
       id: 'input-id',
       name: 'input-name',
