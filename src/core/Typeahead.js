@@ -1,6 +1,5 @@
 import {head, isEqual, noop, uniqueId} from 'lodash';
 import PropTypes from 'prop-types';
-import {deprecated} from 'prop-types-extra';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 import {RootCloseWrapper} from 'react-overlays';
@@ -591,14 +590,6 @@ Typeahead.propTypes = {
    * Invoked when a key is pressed. Receives an event.
    */
   onKeyDown: PropTypes.func,
-  /**
-   * Invoked when the menu is hidden.
-   */
-  onMenuHide: deprecated(PropTypes.func, 'Use `onMenuToggle` instead'),
-  /**
-   * Invoked when the menu is shown.
-   */
-  onMenuShow: deprecated(PropTypes.func, 'Use `onMenuToggle` instead'),
   /**
    * Invoked when menu visibility changes.
    */
