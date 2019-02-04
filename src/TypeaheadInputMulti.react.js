@@ -7,7 +7,6 @@ import Token from './Token.react';
 
 import {getOptionLabel, isSelectable} from './utils';
 import hintContainer from './containers/hintContainer';
-import inputContainer from './containers/inputContainer';
 
 import {BACKSPACE} from './constants';
 
@@ -137,4 +136,4 @@ TypeaheadInputMulti.defaultProps = {
   ),
 };
 
-export default inputContainer(TypeaheadInputMulti);
+export default TypeaheadInputMulti;

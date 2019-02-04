@@ -3,11 +3,10 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
-import TypeaheadInnerManager from '../../src/base/TypeaheadInnerManager';
 import TypeaheadInputMulti from '../../src/TypeaheadInputMulti.react';
 
 import options from '../../example/exampleData';
-import {context, getHint, getInput, getTokens} from '../helpers';
+import {context, getHint, getInput, getTokens, TestInputProvider} from '../helpers';
 
 describe('<TypeaheadInputMulti>', () => {
   let text, wrapper;
@@ -15,7 +14,7 @@ describe('<TypeaheadInputMulti>', () => {
   beforeEach(() => {
     text = 'text';
     wrapper = mount(
-      <TypeaheadInnerManager
+      <TestInputProvider
         {...context}
         inputProps={{}}
         labelKey="name"
@@ -34,7 +33,7 @@ describe('<TypeaheadInputMulti>', () => {
             onKeyDown={noop}
           />
         )}
-      </TypeaheadInnerManager>
+      </TestInputProvider>
     );
   });
 
