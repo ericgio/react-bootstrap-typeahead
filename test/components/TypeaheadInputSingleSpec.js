@@ -3,33 +3,36 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
+import TypeaheadInnerManager from '../../src/base/TypeaheadInnerManager';
 import TypeaheadInputSingle from '../../src/TypeaheadInputSingle.react';
-import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
 import {context, getHint, getInput} from '../helpers';
-
-const TypeaheadInputSingleWithContext = contextContainer(TypeaheadInputSingle);
 
 describe('<TypeaheadInputSingle>', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <TypeaheadInputSingleWithContext
+      <TypeaheadInnerManager
         {...context}
         inputProps={{}}
-        inputRef={noop}
         labelKey="name"
-        onAdd={noop}
-        onChange={noop}
-        onClear={noop}
-        onFocus={noop}
         options={options}
         selected={[]}
         selectHintOnEnter={false}
-        text=""
-      />
+        text="">
+        {(props) => (
+          <TypeaheadInputSingle
+            {...props}
+            inputRef={noop}
+            onAdd={noop}
+            onChange={noop}
+            onClear={noop}
+            onFocus={noop}
+          />
+        )}
+      </TypeaheadInnerManager>
     );
   });
 

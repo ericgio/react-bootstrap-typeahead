@@ -5,10 +5,8 @@ import React from 'react';
 import sinon from 'sinon';
 
 import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
-import contextContainer from '../../src/containers/contextContainer';
+import TypeaheadInnerManager from '../../src/base/TypeaheadInnerManager';
 import {context} from '../helpers';
-
-const MenuItemWithContext = contextContainer(MenuItem);
 
 const event = {
   preventDefault: noop,
@@ -65,13 +63,17 @@ describe('<MenuItem>', () => {
 
     onClick = sinon.spy();
     menuItem = mount(
-      <MenuItemWithContext
-        {...contextProps}
-        onClick={onClick}
-        option={{label: 'test'}}
-        position={0}>
-        This is a menu item.
-      </MenuItemWithContext>
+      <TypeaheadInnerManager {...contextProps}>
+        {(props) => (
+          <MenuItem
+            {...props}
+            onClick={onClick}
+            option={{label: 'test'}}
+            position={0}>
+            This is a menu item.
+          </MenuItem>
+        )}
+      </TypeaheadInnerManager>
     );
   });
 
