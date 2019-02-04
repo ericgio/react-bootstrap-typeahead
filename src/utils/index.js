@@ -2,7 +2,6 @@
 export addCustomOption from './addCustomOption';
 export areEqual from './areEqual';
 export defaultFilterBy from './defaultFilterBy';
-export getAccessibilityStatus from './getAccessibilityStatus';
 export getDisplayName from './getDisplayName';
 export getHintText from './getHintText';
 export getInputText from './getInputText';
@@ -14,7 +13,6 @@ export getStringLabelKey from './getStringLabelKey';
 export getTruncatedOptions from './getTruncatedOptions';
 export isSelectable from './isSelectable';
 export isShown from './isShown';
-export pluralize from './pluralize';
 export preventInputBlur from './preventInputBlur';
 export scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
 export shouldSelectHint from './shouldSelectHint';
