@@ -5,7 +5,10 @@ import React from 'react';
 import {findDOMNode} from 'react-dom';
 import {RootCloseWrapper} from 'react-overlays';
 
-import TypeaheadInnerManager from './TypeaheadInnerManager';
+import TypeaheadInner from './TypeaheadInner';
+import TypeaheadInput from './TypeaheadInput';
+import TypeaheadMenu from './TypeaheadMenu';
+
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
 import {addCustomOption, areEqual, defaultFilterBy, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils';
 
@@ -62,7 +65,7 @@ function skipDisabledOptions(results, activeIndex, keyCode) {
   return newActiveIndex;
 }
 
-class TypeaheadManager extends React.Component {
+class Typeahead extends React.Component {
   state = getInitialState(this.props);
 
   // Generate random id here since doing it in defaultProps will generate
@@ -184,7 +187,7 @@ class TypeaheadManager extends React.Component {
       <RootCloseWrapper
         disabled={this.props.open || !isMenuShown}
         onRootClose={this._hideMenu}>
-        <TypeaheadInnerManager {...props} />
+        <TypeaheadInner {...props} />
       </RootCloseWrapper>
     );
   }
@@ -430,7 +433,7 @@ class TypeaheadManager extends React.Component {
   }
 }
 
-TypeaheadManager.propTypes = {
+Typeahead.propTypes = {
   /**
    * For localized accessibility: Should return a string indicating the number
    * of results for screen readers. Receives the current results.
@@ -646,7 +649,7 @@ TypeaheadManager.propTypes = {
   selectHintOnEnter: PropTypes.bool,
 };
 
-TypeaheadManager.defaultProps = {
+Typeahead.defaultProps = {
   a11yNumResults: (results) => {
     const resultString = pluralize('result', results.length);
     return `${resultString}. Use up and down arrow keys to navigate.`;
@@ -689,4 +692,7 @@ TypeaheadManager.defaultProps = {
   selectHintOnEnter: false,
 };
 
-export default TypeaheadManager;
+Typeahead.Input = TypeaheadInput;
+Typeahead.Menu = TypeaheadMenu;
+
+export default Typeahead;
