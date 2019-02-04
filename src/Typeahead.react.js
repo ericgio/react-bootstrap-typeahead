@@ -3,6 +3,9 @@ import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import TypeaheadInput from './base/TypeaheadInput';
+import TypeaheadManager from './base/TypeaheadManager';
+
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
 import Overlay from './Overlay.react';
@@ -10,7 +13,6 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import TypeaheadManager from './base/TypeaheadManager';
 import {getAccessibilityStatus, preventInputBlur} from './utils';
 
 class Typeahead extends React.Component {
@@ -58,7 +60,9 @@ class Typeahead extends React.Component {
               }, className)}
               style={{position: 'relative'}}
               tabIndex={-1}>
-              {this._renderInput(props)}
+              <TypeaheadInput {...props}>
+                {this._renderInput}
+              </TypeaheadInput>
               {typeof children === 'function' ? children(props) : children}
               {auxContent}
               <Overlay
@@ -85,35 +89,8 @@ class Typeahead extends React.Component {
     return this._instance;
   }
 
-  _renderInput = (props) => {
-    const inputProps = pick(props, [
-      'activeIndex',
-      'activeItem',
-      'bsSize',
-      'disabled',
-      'inputProps',
-      'inputRef',
-      'isFocused',
-      'isInvalid',
-      'isMenuShown',
-      'isValid',
-      'labelKey',
-      'menuId',
-      'multiple',
-      'onBlur',
-      'onChange',
-      'onFocus',
-      'onKeyDown',
-      'onRemove',
-      'placeholder',
-      'renderToken',
-      'selected',
-      'text',
-    ]);
-
-    inputProps.ref = props.getReferenceElement;
-
-    const Input = props.multiple ?
+  _renderInput = (inputProps) => {
+    const Input = inputProps.multiple ?
       TypeaheadInputMulti :
       TypeaheadInputSingle;
 
