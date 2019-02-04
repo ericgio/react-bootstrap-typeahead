@@ -65,7 +65,7 @@ const asyncContainer = (Typeahead) => {
      * Make the component instance available.
      */
     getInstance() {
-      return this._instance;
+      return this._instance.getInstance();
     }
 
     _getEmptyLabel = () => {

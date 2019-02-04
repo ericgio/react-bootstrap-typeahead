@@ -3,13 +3,11 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
+import TypeaheadInnerManager from '../../src/base/TypeaheadInnerManager';
 import TypeaheadInputMulti from '../../src/TypeaheadInputMulti.react';
-import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
 import {context, getHint, getInput, getTokens} from '../helpers';
-
-const TypeaheadInputMultiWithContext = contextContainer(TypeaheadInputMulti);
 
 describe('<TypeaheadInputMulti>', () => {
   let text, wrapper;
@@ -17,21 +15,26 @@ describe('<TypeaheadInputMulti>', () => {
   beforeEach(() => {
     text = 'text';
     wrapper = mount(
-      <TypeaheadInputMultiWithContext
+      <TypeaheadInnerManager
         {...context}
         inputProps={{}}
-        inputRef={noop}
         labelKey="name"
         multiple
-        onAdd={noop}
-        onChange={noop}
-        onFocus={noop}
-        onKeyDown={noop}
         options={options}
         selected={options.slice(1, 4)}
         selectHintOnEnter={false}
-        text={text}
-      />
+        text={text}>
+        {(props) => (
+          <TypeaheadInputMulti
+            {...props}
+            inputRef={noop}
+            onAdd={noop}
+            onChange={noop}
+            onFocus={noop}
+            onKeyDown={noop}
+          />
+        )}
+      </TypeaheadInnerManager>
     );
   });
 
