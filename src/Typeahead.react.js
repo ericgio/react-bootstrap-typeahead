@@ -2,24 +2,22 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import TypeaheadInput from './base/TypeaheadInput';
-import TypeaheadManager from './base/TypeaheadManager';
-import TypeaheadMenu from './base/TypeaheadMenu';
+import Typeahead from './core/Typeahead';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
 import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
-import TypeaheadMenuComponent from './TypeaheadMenu.react';
+import TypeaheadMenu from './TypeaheadMenu.react';
 
 import {getAccessibilityStatus, preventInputBlur} from './utils';
 
-class Typeahead extends React.Component {
+class TypeaheadComponent extends React.Component {
   render() {
     const {children, className, renderMenu} = this.props;
 
     return (
-      <TypeaheadManager
+      <Typeahead
         {...this.props}
         ref={(instance) => this._instance = instance}>
         {(props) => {
@@ -32,14 +30,14 @@ class Typeahead extends React.Component {
               }, className)}
               style={{position: 'relative'}}
               tabIndex={-1}>
-              <TypeaheadInput {...props}>
+              <Typeahead.Input {...props}>
                 {this._renderInput}
-              </TypeaheadInput>
+              </Typeahead.Input>
               {typeof children === 'function' ? children(props) : children}
               {auxContent}
-              <TypeaheadMenu {...props}>
+              <Typeahead.Menu {...props}>
                 {renderMenu}
-              </TypeaheadMenu>
+              </Typeahead.Menu>
               <div
                 aria-atomic
                 aria-live="polite"
@@ -50,7 +48,7 @@ class Typeahead extends React.Component {
             </div>
           );
         }}
-      </TypeaheadManager>
+      </Typeahead>
     );
   }
 
@@ -104,14 +102,14 @@ class Typeahead extends React.Component {
   }
 }
 
-Typeahead.propTypes = {
+TypeaheadComponent.propTypes = {
   renderMenu: PropTypes.func,
 };
 
-Typeahead.defaultProps = {
+TypeaheadComponent.defaultProps = {
   renderMenu: (results, menuProps) => (
-    <TypeaheadMenuComponent {...menuProps} options={results} />
+    <TypeaheadMenu {...menuProps} options={results} />
   ),
 };
 
-export default Typeahead;
+export default TypeaheadComponent;
