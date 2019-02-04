@@ -10,7 +10,7 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import {getAccessibilityStatus, preventInputBlur} from './utils';
+import {preventInputBlur} from './utils';
 
 class TypeaheadComponent extends React.Component {
   render() {
@@ -38,13 +38,6 @@ class TypeaheadComponent extends React.Component {
               <Typeahead.Menu {...props}>
                 {renderMenu}
               </Typeahead.Menu>
-              <div
-                aria-atomic
-                aria-live="polite"
-                className="sr-only rbt-sr-status"
-                role="status">
-                {getAccessibilityStatus(props)}
-              </div>
             </div>
           );
         }}
