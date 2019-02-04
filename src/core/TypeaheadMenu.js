@@ -10,8 +10,6 @@ const TypeaheadMenu = (props) => {
     'align',
     'dropup',
     'flip',
-    'onMenuHide',
-    'onMenuShow',
     'onMenuToggle',
     'positionFixed',
     'referenceElement',
