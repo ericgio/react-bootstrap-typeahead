@@ -5,7 +5,7 @@ import {Popper} from 'react-popper';
 import sinon from 'sinon';
 
 import Menu from '../../src/Menu.react';
-import Overlay from '../../src/Overlay.react';
+import Overlay from '../../src/base/Overlay';
 
 describe('<Overlay>', () => {
   describe('shallow behaviors', () => {
