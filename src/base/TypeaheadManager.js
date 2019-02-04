@@ -156,6 +156,7 @@ class TypeaheadManager extends React.Component {
 
     const props = {
       ...mergedPropsAndState,
+      container: this.props.bodyContainer ? document.body : this,
       getReferenceElement: (element) => {
         // Use `findDOMNode` here because it's easier and less fragile than
         // forwarding refs to the input's container.
