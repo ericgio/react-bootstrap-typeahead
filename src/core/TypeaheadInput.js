@@ -38,7 +38,7 @@ const TypeaheadInput = (props) => {
     'aria-expanded': isMenuShown,
     'aria-haspopup': 'listbox',
     'aria-owns': isMenuShown ? menuId : '',
-    autoComplete: autoComplete || 'nope',
+    autoComplete: autoComplete || 'off',
     disabled,
     inputRef,
     onBlur,
