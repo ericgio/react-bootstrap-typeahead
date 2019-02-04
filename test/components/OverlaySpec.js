@@ -48,56 +48,21 @@ describe('<Overlay>', () => {
     expect(isPositionFixed(wrapper)).to.equal(true);
   });
 
-  describe('menu visibility hooks', () => {
-    it('calls `onMenuShow`', () => {
-      const onMenuShow = sinon.spy();
+  it('calls `onMenuToggle`', () => {
+    const onMenuToggle = sinon.spy();
 
-      wrapper.setProps({onMenuShow});
+    wrapper.setProps({onMenuToggle});
 
-      expect(onMenuShow.notCalled).to.equal(true);
+    expect(onMenuToggle.notCalled).to.equal(true);
 
-      wrapper.setProps({show: true});
-      expect(onMenuShow.calledOnce).to.equal(true);
+    wrapper.setProps({show: true});
+    expect(onMenuToggle.callCount).to.equal(1);
 
-      // Shouldn't be called again if not hidden first.
-      wrapper.setProps({show: true});
-      expect(onMenuShow.calledOnce).to.equal(true);
-    });
+    // Shouldn't be called again if not hidden first.
+    wrapper.setProps({show: true});
+    expect(onMenuToggle.callCount).to.equal(1);
 
-    it('calls `onMenuHide`', () => {
-      const onMenuHide = sinon.spy();
-
-      wrapper.setProps({
-        onMenuHide,
-        show: true,
-      });
-
-      expect(onMenuHide.notCalled).to.equal(true);
-
-      wrapper.setProps({show: false});
-      expect(onMenuHide.calledOnce).to.equal(true);
-
-      // Shouldn't be called again if not shown first.
-      wrapper.setProps({show: false});
-      expect(onMenuHide.calledOnce).to.equal(true);
-    });
-
-    it('calls `onMenuToggle`', () => {
-      const onMenuToggle = sinon.spy();
-
-      wrapper.setProps({onMenuToggle});
-
-      expect(onMenuToggle.notCalled).to.equal(true);
-
-      wrapper.setProps({show: true});
-      expect(onMenuToggle.callCount).to.equal(1);
-
-      // Shouldn't be called again if not hidden first.
-      wrapper.setProps({show: true});
-      expect(onMenuToggle.callCount).to.equal(1);
-
-      wrapper.setProps({show: false});
-      expect(onMenuToggle.callCount).to.equal(2);
-    });
+    wrapper.setProps({show: false});
+    expect(onMenuToggle.callCount).to.equal(2);
   });
 });
