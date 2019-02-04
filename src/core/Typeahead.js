@@ -10,7 +10,7 @@ import TypeaheadInput from './TypeaheadInput';
 import TypeaheadMenu from './TypeaheadMenu';
 
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
-import {addCustomOption, defaultFilterBy, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils';
+import {addCustomOption, defaultFilterBy, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown} from '../utils';
 
 import {DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants';
 
@@ -446,16 +446,6 @@ class Typeahead extends React.Component {
 
 Typeahead.propTypes = {
   /**
-   * For localized accessibility: Should return a string indicating the number
-   * of results for screen readers. Receives the current results.
-   */
-  a11yNumResults: PropTypes.func,
-  /**
-   * For localized accessibility: Should return a string indicating the number
-   * of selections for screen readers. Receives the current selections.
-   */
-  a11yNumSelected: PropTypes.func,
-  /**
    * Specify menu alignment. The default value is `justify`, which makes the
    * menu as wide as the input and truncates long values. Specifying `left`
    * or `right` will align the menu to that side and the width will be
@@ -657,13 +647,6 @@ Typeahead.propTypes = {
 };
 
 Typeahead.defaultProps = {
-  a11yNumResults: (results) => {
-    const resultString = pluralize('result', results.length);
-    return `${resultString}. Use up and down arrow keys to navigate.`;
-  },
-  a11yNumSelected: (selected) => {
-    return pluralize('selection', selected.length);
-  },
   align: 'justify',
   allowNew: false,
   autoFocus: false,
