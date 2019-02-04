@@ -3,18 +3,17 @@ import {mount} from 'enzyme';
 import {head, noop} from 'lodash';
 import React from 'react';
 
-import TypeaheadInnerManager from '../../src/base/TypeaheadInnerManager';
 import TypeaheadInputSingle from '../../src/TypeaheadInputSingle.react';
 
 import options from '../../example/exampleData';
-import {context, getHint, getInput} from '../helpers';
+import {context, getHint, getInput, TestInputProvider} from '../helpers';
 
 describe('<TypeaheadInputSingle>', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <TypeaheadInnerManager
+      <TestInputProvider
         {...context}
         inputProps={{}}
         labelKey="name"
@@ -32,7 +31,7 @@ describe('<TypeaheadInputSingle>', () => {
             onFocus={noop}
           />
         )}
-      </TypeaheadInnerManager>
+      </TestInputProvider>
     );
   });
 
