@@ -1,17 +1,16 @@
 import cx from 'classnames';
-import {pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import TypeaheadInput from './base/TypeaheadInput';
 import TypeaheadManager from './base/TypeaheadManager';
+import TypeaheadMenu from './base/TypeaheadMenu';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
-import Overlay from './Overlay.react';
 import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
-import TypeaheadMenu from './TypeaheadMenu.react';
+import TypeaheadMenuComponent from './TypeaheadMenu.react';
 
 import {getAccessibilityStatus, preventInputBlur} from './utils';
 
@@ -24,33 +23,6 @@ class Typeahead extends React.Component {
         {...this.props}
         ref={(instance) => this._instance = instance}>
         {(props) => {
-          const {
-            bodyContainer,
-            isMenuShown,
-            menuId,
-            results,
-          } = props;
-
-          const overlayProps = pick(props, [
-            'align',
-            'className',
-            'dropup',
-            'flip',
-            'onMenuHide',
-            'onMenuShow',
-            'onMenuToggle',
-            'referenceElement',
-          ]);
-
-          const menuProps = pick(props, [
-            'emptyLabel',
-            'labelKey',
-            'maxHeight',
-            'newSelectionPrefix',
-            'renderMenuItemChildren',
-            'text',
-          ]);
-
           const auxContent = this._renderAux(props);
 
           return (
@@ -65,12 +37,9 @@ class Typeahead extends React.Component {
               </TypeaheadInput>
               {typeof children === 'function' ? children(props) : children}
               {auxContent}
-              <Overlay
-                {...overlayProps}
-                container={bodyContainer ? document.body : this}
-                show={isMenuShown}>
-                {renderMenu(results, {...menuProps, id: menuId})}
-              </Overlay>
+              <TypeaheadMenu {...props}>
+                {renderMenu}
+              </TypeaheadMenu>
               <div
                 aria-atomic
                 aria-live="polite"
@@ -141,7 +110,7 @@ Typeahead.propTypes = {
 
 Typeahead.defaultProps = {
   renderMenu: (results, menuProps) => (
-    <TypeaheadMenu {...menuProps} options={results} />
+    <TypeaheadMenuComponent {...menuProps} options={results} />
   ),
 };
 
