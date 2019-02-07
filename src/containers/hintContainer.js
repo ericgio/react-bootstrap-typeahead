@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AutosizeInput from '../AutosizeInput.react';
-import { withContext } from '../TypeaheadContext';
+import { withContext } from '../core/TypeaheadContext';
 
 import { getDisplayName, shouldSelectHint } from '../utils';
 
