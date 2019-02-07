@@ -1,7 +1,7 @@
 import { pick } from 'lodash';
 import React from 'react';
 
-import TypeaheadContext from '../TypeaheadContext';
+import TypeaheadContext from './TypeaheadContext';
 import { getHintText, getIsOnlyResult } from '../utils';
 import { RETURN } from '../constants';
 
