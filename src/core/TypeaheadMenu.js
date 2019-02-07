@@ -16,11 +16,7 @@ const TypeaheadMenu = (props) => {
   ]);
 
   const menuProps = pick(props, [
-    'emptyLabel',
     'labelKey',
-    'maxHeight',
-    'newSelectionPrefix',
-    'renderMenuItemChildren',
     'text',
   ]);
 

@@ -10,7 +10,7 @@ class TypeaheadInputSingle extends React.Component {
     return (
       <input
         {...props}
-        className={cx('rbt-input-main', 'form-control', className)}
+        className={cx('form-control', 'rbt-input', 'rbt-input-main', className)}
         ref={inputRef}
         type="text"
       />

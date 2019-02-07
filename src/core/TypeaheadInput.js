@@ -4,15 +4,12 @@ import { getInputText, getMenuItemId } from '../utils';
 const TypeaheadInput = (props) => {
   const {
     activeIndex,
-    bsSize,
     children,
     disabled,
     getReferenceElement,
     inputRef,
     isFocused,
-    isInvalid,
     isMenuShown,
-    isValid,
     labelKey,
     menuId,
     multiple,
@@ -22,7 +19,6 @@ const TypeaheadInput = (props) => {
     onKeyDown,
     onRemove,
     placeholder,
-    renderToken,
     selected,
   } = props;
 
@@ -60,21 +56,15 @@ const TypeaheadInput = (props) => {
       'aria-expanded': undefined,
       inputClassName: className,
       labelKey,
-      multiple,
       onRemove,
-      renderToken,
       role: undefined,
       selected,
     };
   }
 
-  inputProps.className = cx('rbt-input', {
+  inputProps.className = cx({
     [className]: !multiple,
     focus: isFocused,
-    'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
-    'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
-    'is-invalid': isInvalid,
-    'is-valid': isValid,
   });
 
   inputProps.ref = getReferenceElement;
