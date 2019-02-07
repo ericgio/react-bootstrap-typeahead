@@ -14,10 +14,20 @@ const TypeaheadContext = createReactContext({
   selectHintOnEnter: false,
 });
 
-export const withContext = (Component, values) => (props) => (
-  <TypeaheadContext.Consumer>
-    {(context) => <Component {...props} {...pick(context, values)} />}
-  </TypeaheadContext.Consumer>
-);
+export const withContext = (Component, values) => {
+  // Note: Use a class instead of function component to support refs.
+  /* eslint-disable-next-line react/prefer-stateless-function */
+  return class extends React.Component {
+    render() {
+      return (
+        <TypeaheadContext.Consumer>
+          {(context) => (
+            <Component {...this.props} {...pick(context, values)} />
+          )}
+        </TypeaheadContext.Consumer>
+      );
+    }
+  };
+};
 
 export default TypeaheadContext;
