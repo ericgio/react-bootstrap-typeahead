@@ -1032,13 +1032,18 @@ describe('<Typeahead>', () => {
 
   describe('validation states', () => {
     beforeEach(() => {
+      const input = typeahead.find('.form-control');
+
+      expect(input.hasClass('is-invalid')).to.equal(false);
+      expect(input.hasClass('is-valid')).to.equal(false);
+    });
+
+    afterEach(() => {
       typeahead.setProps({
         isInvalid: true,
         isValid: true,
       });
-    });
 
-    afterEach(() => {
       const input = typeahead.find('.form-control');
 
       expect(input.hasClass('is-invalid')).to.equal(true);

@@ -28,7 +28,12 @@ class TypeaheadInputMulti extends React.Component {
       /* eslint-disable jsx-a11y/no-static-element-interactions */
       /* eslint-disable jsx-a11y/click-events-have-key-events */
       <div
-        className={cx('form-control', 'rbt-input-multi', className)}
+        className={cx(
+          'form-control',
+          'rbt-input',
+          'rbt-input-multi',
+          className,
+        )}
         disabled={props.disabled}
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
