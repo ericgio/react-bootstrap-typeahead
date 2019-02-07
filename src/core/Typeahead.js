@@ -504,10 +504,6 @@ Typeahead.propTypes = {
    */
   caseSensitive: checkPropType(PropTypes.bool, caseSensitiveType),
   /**
-   * Displays a button to clear the input when there are selections.
-   */
-  clearButton: PropTypes.bool,
-  /**
    * The initial value displayed in the text input.
    */
   defaultInputValue: checkPropType(PropTypes.string, defaultInputValueType),
@@ -528,10 +524,6 @@ Typeahead.propTypes = {
    * Specify whether the menu should appear above the input.
    */
   dropup: PropTypes.bool,
-  /**
-   * Message to display in the menu if there are no valid results.
-   */
-  emptyLabel: PropTypes.node,
   /**
    * Either an array of fields in `option` to search, or a custom filtering
    * callback.
@@ -559,18 +551,6 @@ Typeahead.propTypes = {
    * `onFocus`, and `onKeyDown` are ignored.
    */
   inputProps: checkPropType(PropTypes.object, inputPropsType),
-  /**
-   * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
-   */
-  isInvalid: PropTypes.bool,
-  /**
-   * Indicate whether an asynchronous data fetch is happening.
-   */
-  isLoading: PropTypes.bool,
-  /**
-   * Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`.
-   */
-  isValid: PropTypes.bool,
   /**
    * Specify the option key to use for display or a function returning the
    * display string. By default, the selector will use the `label` key.
@@ -655,10 +635,6 @@ Typeahead.propTypes = {
    */
   placeholder: PropTypes.string,
   /**
-   * Callback for custom menu rendering.
-   */
-  renderMenu: PropTypes.func,
-  /**
    * The selected option(s) displayed in the input. Use this prop if you want
    * to control the component via its parent.
    */
@@ -674,21 +650,16 @@ Typeahead.defaultProps = {
   allowNew: false,
   autoFocus: false,
   caseSensitive: false,
-  clearButton: false,
   defaultInputValue: '',
   defaultOpen: false,
   defaultSelected: [],
   disabled: false,
   dropup: false,
-  emptyLabel: 'No matches found.',
   filterBy: [],
   flip: false,
   highlightOnlyResult: false,
   ignoreDiacritics: true,
   inputProps: {},
-  isInvalid: false,
-  isLoading: false,
-  isValid: false,
   labelKey: DEFAULT_LABELKEY,
   maxResults: 100,
   minLength: 0,
