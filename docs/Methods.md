@@ -12,26 +12,18 @@ To access the component's public methods, add a ref to your typeahead instance a
 </div>
 ```
 
-Note that you *must* use `getInstance` to get the typeahead instance. This is because `react-bootstrap-typeahead` is wrapped by the [`react-onclickoutside`](https://github.com/Pomax/react-onclickoutside) higher-order component, so the `clear` method is not directly available. See [`react-onclickoutside`'s documentation](https://github.com/Pomax/react-onclickoutside#but-how-can-i-access-my-component-it-has-an-api-that-i-rely-on) for more information.
+Note that you must use `getInstance` to get the typeahead instance.
 
 ### `blur()`
 Provides a programmatic way to blur the input.
 
 ### `clear()`
-Provides a programmatic way to reset the input. Calling the method will clear both text and selection(s).
-
-**Warning: Be careful when calling this method from the `onChange` handler**. Doing so can cause an infinite loop since `clear` triggers the change event. If you want to clear the typeahead after a selection, be sure to check the length of the selections:
-
-```jsx
-onChange = (selected) => {
-  ...
-  if (selected.length) {
-    this.typeahead.getInstance().clear();
-  }
-}
-```
+Provides a programmatic way to reset the component. Calling the method will clear both text and selection(s).
 
 ### `focus()`
 Provides a programmatic way to focus the input.
 
 [Next: Props](Props.md)
+
+### `getInput()`
+Provides access to the component's input node.
