@@ -12,9 +12,51 @@ import TypeaheadMenu from './TypeaheadMenu.react';
 
 import { preventInputBlur } from './utils';
 
+const propTypes = {
+  /**
+   * Specifies the size of the input.
+   */
+  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+  /**
+   * Displays a button to clear the input when there are selections.
+   */
+  clearButton: PropTypes.bool,
+  /**
+   * Message to display in the menu if there are no valid results.
+   */
+  emptyLabel: PropTypes.node,
+  /**
+   * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
+   */
+  isInvalid: PropTypes.bool,
+  /**
+   * Indicate whether an asynchronous data fetch is happening.
+   */
+  isLoading: PropTypes.bool,
+  /**
+   * Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`.
+   */
+  isValid: PropTypes.bool,
+  /**
+   * Callback for custom menu rendering.
+   */
+  renderMenu: PropTypes.func,
+};
+
+const defaultProps = {
+  clearButton: false,
+  emptyLabel: 'No matches found.',
+  isInvalid: false,
+  isLoading: false,
+  isValid: false,
+  renderMenu: (results, menuProps) => (
+    <TypeaheadMenu {...menuProps} options={results} />
+  ),
+};
+
 class TypeaheadComponent extends React.Component {
   render() {
-    const { children, className, renderMenu } = this.props;
+    const { children, className } = this.props;
 
     return (
       <Typeahead
@@ -36,7 +78,7 @@ class TypeaheadComponent extends React.Component {
               {typeof children === 'function' ? children(props) : children}
               {auxContent}
               <Typeahead.Menu {...props}>
-                {renderMenu}
+                {this._renderMenu}
               </Typeahead.Menu>
             </div>
           );
@@ -50,11 +92,43 @@ class TypeaheadComponent extends React.Component {
   }
 
   _renderInput = (inputProps) => {
-    const Input = inputProps.multiple ?
-      TypeaheadInputMulti :
-      TypeaheadInputSingle;
+    const { bsSize, isInvalid, isValid, multiple, renderToken } = this.props;
 
-    return <Input {...inputProps} />;
+    const className = cx({
+      'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
+      'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
+      'is-invalid': isInvalid,
+      'is-valid': isValid,
+    }, inputProps.className);
+
+    return multiple ?
+      <TypeaheadInputMulti
+        {...inputProps}
+        className={className}
+        renderToken={renderToken}
+      /> :
+      <TypeaheadInputSingle
+        {...inputProps}
+        className={className}
+      />;
+  }
+
+  _renderMenu = (results, menuProps) => {
+    const {
+      emptyLabel,
+      maxHeight,
+      newSelectionPrefix,
+      renderMenu,
+      renderMenuItemChildren,
+    } = this.props;
+
+    return renderMenu(results, {
+      ...menuProps,
+      emptyLabel,
+      maxHeight,
+      newSelectionPrefix,
+      renderMenuItemChildren,
+    });
   }
 
   _renderAux = (props) => {
@@ -95,14 +169,7 @@ class TypeaheadComponent extends React.Component {
   }
 }
 
-TypeaheadComponent.propTypes = {
-  renderMenu: PropTypes.func,
-};
-
-TypeaheadComponent.defaultProps = {
-  renderMenu: (results, menuProps) => (
-    <TypeaheadMenu {...menuProps} options={results} />
-  ),
-};
+TypeaheadComponent.propTypes = propTypes;
+TypeaheadComponent.defaultProps = defaultProps;
 
 export default TypeaheadComponent;

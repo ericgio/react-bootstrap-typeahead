@@ -65,16 +65,4 @@ describe('<TypeaheadInputMulti>', () => {
 
     expect(getHint(wrapper)).to.equal(initialItem.name);
   });
-
-  it('renders with validation classnames', () => {
-    wrapper.setProps({
-      isInvalid: true,
-      isValid: true,
-    });
-
-    const input = wrapper.find('.form-control');
-
-    expect(input.hasClass('is-invalid')).to.equal(true);
-    expect(input.hasClass('is-valid')).to.equal(true);
-  });
 });
