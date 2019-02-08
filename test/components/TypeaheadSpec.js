@@ -7,7 +7,7 @@ import sinon from 'sinon';
 
 import { Menu, MenuItem, Typeahead } from '../../src';
 
-import { change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown } from '../helpers';
+import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown } from '../helpers';
 import states from '../../example/exampleData';
 import { DOWN, ESC, RETURN, RIGHT, TAB, UP } from '../../src/constants';
 
@@ -52,7 +52,7 @@ function hasFocus(wrapper) {
   // Check both.
   return (
     getState(wrapper).isFocused &&
-    wrapper.find('.form-control').hasClass('focus')
+    getFormControl(wrapper).hasClass('focus')
   );
 }
 
@@ -258,9 +258,8 @@ describe('<Typeahead>', () => {
   });
 
   it('should disable the input if the component is disabled', () => {
-    const input = typeahead
-      .setProps({ disabled: true })
-      .find('.form-control');
+    typeahead.setProps({ disabled: true });
+    const input = getFormControl(typeahead);
 
     expect(input.prop('disabled')).to.equal(true);
   });
@@ -477,17 +476,15 @@ describe('<Typeahead>', () => {
   });
 
   it('renders a large input', () => {
-    const input = typeahead
-      .setProps({ bsSize: 'large' })
-      .find('.form-control');
+    typeahead.setProps({ bsSize: 'large' });
+    const input = getFormControl(typeahead);
 
     expect(input.hasClass('input-lg form-control-lg')).to.equal(true);
   });
 
   it('renders a small input', () => {
-    const input = typeahead
-      .setProps({ bsSize: 'small' })
-      .find('.form-control');
+    typeahead.setProps({ bsSize: 'small' });
+    const input = getFormControl(typeahead);
 
     expect(input.hasClass('input-sm form-control-sm')).to.equal(true);
   });
@@ -1039,7 +1036,7 @@ describe('<Typeahead>', () => {
 
   describe('validation states', () => {
     beforeEach(() => {
-      const input = typeahead.find('.form-control');
+      const input = getFormControl(typeahead);
 
       expect(input.hasClass('is-invalid')).to.equal(false);
       expect(input.hasClass('is-valid')).to.equal(false);
@@ -1051,7 +1048,7 @@ describe('<Typeahead>', () => {
         isValid: true,
       });
 
-      const input = typeahead.find('.form-control');
+      const input = getFormControl(typeahead);
 
       expect(input.hasClass('is-invalid')).to.equal(true);
       expect(input.hasClass('is-valid')).to.equal(true);
