@@ -652,6 +652,13 @@ describe('<Typeahead>', () => {
     });
   });
 
+  it('displays the active item value in the input', () => {
+    focus(typeahead);
+    keyDown(typeahead, DOWN);
+
+    expect(getInput(typeahead).prop('value')).to.equal('Alabama');
+  });
+
   describe('applies attributes to the input', () => {
     let inputProps;
 
@@ -919,14 +926,14 @@ describe('<Typeahead>', () => {
     });
 
     it('sets the input `aria-activedescendant` description', () => {
-      expect(getInput(typeahead).prop('aria-activedescendant'))
-        .to.equal(undefined);
+      typeahead.setProps({ menuId: 'my-id' });
+      expect(getInput(typeahead).prop('aria-activedescendant')).to.equal('');
 
       focus(typeahead);
       keyDown(typeahead, DOWN);
 
       expect(getInput(typeahead).prop('aria-activedescendant'))
-        .to.equal('rbt-menu-item-0');
+        .to.equal('my-id-item-0');
     });
 
     it('sets menu item attributes', () => {

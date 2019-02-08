@@ -4,6 +4,6 @@ import { getMenuItemId } from '../../src/utils';
 
 describe('getMenuItemId', () => {
   it('generates an id', () => {
-    expect(getMenuItemId(0)).to.equal('rbt-menu-item-0');
+    expect(getMenuItemId('menu-id', 0)).to.equal('menu-id-item-0');
   });
 });
