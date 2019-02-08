@@ -1,36 +1,51 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies,react/no-multi-comp */
 
 import { groupBy, map } from 'lodash';
 import React, { Fragment } from 'react';
 import { FormGroup } from 'react-bootstrap';
 
 import Control from '../components/Control.react';
-import { Highlighter, Menu, MenuItem, Token, Typeahead } from '../../src';
+import { Highlighter, hintContainer, Menu, MenuItem, Token, Typeahead } from '../../src';
 import options from '../exampleData';
 
+const RADIO_OPTIONS = [
+  { label: 'Custom input', value: 'renderInput' },
+  { label: 'Custom menu', value: 'renderMenu' },
+  { label: 'Custom menu item contents', value: 'renderMenuItemChildren' },
+  { label: 'Custom token', value: 'renderToken' },
+];
+
 /* example-start */
+class Input extends React.Component {
+  render() {
+    const { inputRef, ...props } = this.props;
+    return <input {...props} ref={inputRef} />;
+  }
+}
+
+const HintedInput = hintContainer(Input);
+
 class RenderingExample extends React.Component {
   state = {
-    selectedOption: 'renderMenu',
+    selectedOption: 'renderInput',
   };
 
   render() {
     const { selectedOption } = this.state;
     const props = {};
-    const radios = [
-      { label: 'Custom menu', value: 'renderMenu' },
-      { label: 'Custom menu item contents', value: 'renderMenuItemChildren' },
-      { label: 'Custom token', value: 'renderToken' },
-    ];
 
     switch (selectedOption) {
-      case radios[0].value:
+      case 'renderInput':
+        props.align = 'left';
+        props.renderInput = this._renderInput;
+        break;
+      case 'renderMenu':
         props.renderMenu = this._renderMenu;
         break;
-      case radios[1].value:
+      case 'renderMenuItemChildren':
         props.renderMenuItemChildren = this._renderMenuItemChildren;
         break;
-      case radios[2].value:
+      case 'renderToken':
         props.multiple = true;
         props.renderToken = this._renderToken;
         break;
@@ -47,7 +62,7 @@ class RenderingExample extends React.Component {
           placeholder="Choose a state..."
         />
         <FormGroup>
-          {radios.map(({ label, value }) => (
+          {RADIO_OPTIONS.map(({ label, value }) => (
             <Control
               checked={selectedOption === value}
               key={value}
@@ -59,6 +74,12 @@ class RenderingExample extends React.Component {
           ))}
         </FormGroup>
       </Fragment>
+    );
+  }
+
+  _renderInput = (inputProps) => {
+    return (
+      <HintedInput {...inputProps} />
     );
   }
 
