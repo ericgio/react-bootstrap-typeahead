@@ -7,6 +7,7 @@ import Token from './Token.react';
 
 import { getOptionLabel, isSelectable } from './utils';
 import hintContainer from './containers/hintContainer';
+import withClassNames from './containers/withClassNames';
 
 import { BACKSPACE } from './constants';
 
@@ -28,12 +29,7 @@ class TypeaheadInputMulti extends React.Component {
       /* eslint-disable jsx-a11y/no-static-element-interactions */
       /* eslint-disable jsx-a11y/click-events-have-key-events */
       <div
-        className={cx(
-          'form-control',
-          'rbt-input',
-          'rbt-input-multi',
-          className,
-        )}
+        className={cx('rbt-input-multi', className)}
         disabled={props.disabled}
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
@@ -138,4 +134,4 @@ TypeaheadInputMulti.defaultProps = {
   ),
 };
 
-export default TypeaheadInputMulti;
+export default withClassNames(TypeaheadInputMulti);
