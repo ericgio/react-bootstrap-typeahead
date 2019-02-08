@@ -1,9 +1,75 @@
 import { pick } from 'lodash';
 import React from 'react';
 
-import TypeaheadContext from './TypeaheadContext';
-import { getHintText, getIsOnlyResult } from '../utils';
+import { InputContext, MenuContext, TypeaheadContext } from './Context';
+import { getHintText, getInputText, getIsOnlyResult } from '../utils';
 import { RETURN } from '../constants';
+
+function getTypeaheadContextValue(props) {
+  const values = pick(props, [
+    'activeIndex',
+    'initialItem',
+    'menuId',
+    'onActiveItemChange',
+    'onAdd',
+    'onInitialItemChange',
+    'onMenuItemClick',
+    'selectHintOnEnter',
+  ]);
+
+  return {
+    ...values,
+    hintText: getHintText(props),
+    isOnlyResult: getIsOnlyResult(props),
+  };
+}
+
+function getInputContextValue(props) {
+  const values = pick(props, [
+    'activeIndex',
+    'disabled',
+    'inputProps',
+    'inputRef',
+    'isFocused',
+    'isMenuShown',
+    'labelKey',
+    'menuId',
+    'multiple',
+    'onBlur',
+    'onChange',
+    'onFocus',
+    'onKeyDown',
+    'onRemove',
+    'placeholder',
+    'selected',
+  ]);
+
+  return {
+    ...values,
+    ref: props.getReferenceElement,
+    value: getInputText(props),
+  };
+}
+
+function getMenuContextValue(props) {
+  const values = pick(props, [
+    'align',
+    'dropup',
+    'flip',
+    'labelKey',
+    'onMenuToggle',
+    'positionFixed',
+    'referenceElement',
+    'results',
+    'text',
+  ]);
+
+  return {
+    ...values,
+    id: props.menuId,
+    show: props.isMenuShown,
+  };
+}
 
 class TypeaheadInnerManager extends React.Component {
   componentDidUpdate(prevProps, prevState) {
@@ -16,28 +82,18 @@ class TypeaheadInnerManager extends React.Component {
   }
 
   render() {
-    const contextValues = pick(this.props, [
-      'activeIndex',
-      'initialItem',
-      'menuId',
-      'onActiveItemChange',
-      'onAdd',
-      'onInitialItemChange',
-      'onMenuItemClick',
-      'selectHintOnEnter',
-    ]);
+    const inputContext = {
+      ...getInputContextValue(this.props),
+      onKeyDown: this._handleKeyDown,
+    };
 
     return (
-      <TypeaheadContext.Provider
-        value={{
-          ...contextValues,
-          hintText: getHintText(this.props),
-          isOnlyResult: getIsOnlyResult(this.props),
-        }}>
-        {this.props.children({
-          ...this.props,
-          onKeyDown: this._handleKeyDown,
-        })}
+      <TypeaheadContext.Provider value={getTypeaheadContextValue(this.props)}>
+        <InputContext.Provider value={inputContext}>
+          <MenuContext.Provider value={getMenuContextValue(this.props)}>
+            {this.props.children(this.props)}
+          </MenuContext.Provider>
+        </InputContext.Provider>
       </TypeaheadContext.Provider>
     );
   }

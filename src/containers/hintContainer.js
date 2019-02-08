@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AutosizeInput from '../AutosizeInput.react';
-import { withContext } from '../core/TypeaheadContext';
+import { withContext } from '../core/Context';
 
 import { getDisplayName } from '../utils';
 import { RETURN, RIGHT, TAB } from '../constants';

@@ -63,7 +63,9 @@ describe('<MenuItem>', () => {
 
     onClick = sinon.spy();
     menuItem = mount(
-      <TypeaheadInner {...contextProps}>
+      <TypeaheadInner
+        {...contextProps}
+        selected={[]}>
         {(props) => (
           <MenuItem
             {...props}

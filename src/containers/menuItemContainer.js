@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
-import { withContext } from '../core/TypeaheadContext';
+import { withContext } from '../core/Context';
 import { getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded } from '../utils';
 
 const menuItemContainer = (Component) => {

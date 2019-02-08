@@ -632,6 +632,13 @@ describe('<Typeahead>', () => {
     });
   });
 
+  it('displays the active item value in the input', () => {
+    focus(typeahead);
+    keyDown(typeahead, DOWN);
+
+    expect(getInput(typeahead).prop('value')).to.equal('Alabama');
+  });
+
   it('applies arbitrary attributes to the input', () => {
     const inputProps = {
       autoComplete: 'nope',
