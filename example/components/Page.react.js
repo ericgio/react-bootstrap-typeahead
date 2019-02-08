@@ -16,7 +16,7 @@ import { BS3, BS4, HASHES } from '../util/bsVersions';
 class Page extends React.Component {
   state = {
     activeHref: window.location.hash,
-    bsVersion: BS3,
+    bsVersion: BS4,
   };
 
   getChildContext() {
