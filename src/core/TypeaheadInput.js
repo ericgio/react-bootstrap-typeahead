@@ -1,78 +1,71 @@
 import cx from 'classnames';
-import { getInputText, getMenuItemId } from '../utils';
+import React from 'react';
 
-const TypeaheadInput = (props) => {
-  const {
-    activeIndex,
-    children,
-    disabled,
-    getReferenceElement,
-    inputRef,
-    isFocused,
-    isMenuShown,
-    labelKey,
-    menuId,
-    multiple,
-    onBlur,
-    onChange,
-    onFocus,
-    onKeyDown,
-    onRemove,
-    placeholder,
-    selected,
-  } = props;
+import { InputContext } from './Context';
+import { getMenuItemId } from '../utils';
 
-  const { autoComplete, type } = props.inputProps;
+const TypeaheadInput = ({ children }) => (
+  <InputContext.Consumer>
+    {(context) => {
+      const {
+        activeIndex,
+        inputProps,
+        isFocused,
+        isMenuShown,
+        labelKey,
+        menuId,
+        multiple,
+        onFocus,
+        onRemove,
+        placeholder,
+        selected,
+        ...otherProps
+      } = context;
 
-  // Add a11y-related props.
-  let inputProps = {
-    ...props.inputProps,
-    'aria-activedescendant': activeIndex >= 0 ?
-      getMenuItemId(activeIndex) :
-      '',
-    'aria-autocomplete': multiple ? 'list' : 'both',
-    'aria-expanded': isMenuShown,
-    'aria-haspopup': 'listbox',
-    'aria-owns': isMenuShown ? menuId : '',
-    autoComplete: autoComplete || 'off',
-    disabled,
-    inputRef,
-    onBlur,
-    onChange,
-    // Re-open the menu, eg: if it's closed via ESC.
-    onClick: onFocus,
-    onFocus,
-    onKeyDown,
-    placeholder: selected.length ? null : placeholder,
-    // Comboboxes are single-select by definition:
-    // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
-    role: 'combobox',
-    type: type || 'text',
-    value: getInputText(props),
-  };
+      // Add a11y-related props.
+      let props = {
+        ...inputProps,
+        ...otherProps,
+        'aria-activedescendant': activeIndex >= 0 ?
+          getMenuItemId(menuId, activeIndex) :
+          '',
+        'aria-autocomplete': multiple ? 'list' : 'both',
+        'aria-expanded': isMenuShown,
+        'aria-haspopup': 'listbox',
+        'aria-owns': isMenuShown ? menuId : '',
+        autoComplete: inputProps.autoComplete || 'off',
+        // Re-open the menu, eg: if it's closed via ESC.
+        onClick: onFocus,
+        onFocus,
+        placeholder: selected.length ? null : placeholder,
+        // Comboboxes are single-select by definition:
+        // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
+        role: 'combobox',
+        type: inputProps.type || 'text',
+      };
 
-  const className = inputProps.className || '';
+      const className = props.className || '';
 
-  if (multiple) {
-    inputProps = {
-      ...inputProps,
-      'aria-expanded': undefined,
-      inputClassName: className,
-      labelKey,
-      onRemove,
-      role: undefined,
-      selected,
-    };
-  }
+      if (multiple) {
+        props = {
+          ...props,
+          'aria-expanded': undefined,
+          inputClassName: className,
+          labelKey,
+          onRemove,
+          role: undefined,
+          selected,
+        };
+      }
 
-  inputProps.className = cx({
-    [className]: !multiple,
-    focus: isFocused,
-  });
+      props.className = cx({
+        [className]: !multiple,
+        focus: isFocused,
+      });
 
-  inputProps.ref = getReferenceElement;
-
-  return children(inputProps);
-};
+      return children(props);
+    }}
+  </InputContext.Consumer>
+);
 
 export default TypeaheadInput;

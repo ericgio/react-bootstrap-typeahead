@@ -1,3 +1,3 @@
-export default function getMenuItemId(position) {
-  return `rbt-menu-item-${position}`;
+export default function getMenuItemId(menuId, position) {
+  return `${menuId}-item-${position}`;
 }
