@@ -11,22 +11,22 @@ import options from '../exampleData';
 class BasicExample extends React.Component {
   state = {
     multiple: false,
+    selected: [],
   };
 
   render() {
-    const { multiple } = this.state;
-
     return (
       <Fragment>
         <Typeahead
+          {...this.state}
           labelKey="name"
-          multiple={multiple}
+          onChange={(selected) => this.setState({ selected })}
           options={options}
           placeholder="Choose a state..."
         />
         <FormGroup>
           <Control
-            checked={multiple}
+            checked={this.state.multiple}
             onChange={(e) => this.setState({ multiple: e.target.checked })}
             type="checkbox">
             Multi-Select
