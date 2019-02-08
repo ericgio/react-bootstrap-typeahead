@@ -19,6 +19,7 @@ class TypeaheadInnerManager extends React.Component {
     const contextValues = pick(this.props, [
       'activeIndex',
       'initialItem',
+      'menuId',
       'onActiveItemChange',
       'onAdd',
       'onInitialItemChange',

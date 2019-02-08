@@ -26,7 +26,7 @@ const TypeaheadInput = (props) => {
   let inputProps = {
     ...props.inputProps,
     'aria-activedescendant': activeIndex >= 0 ?
-      getMenuItemId(activeIndex) :
+      getMenuItemId(menuId, activeIndex) :
       '',
     'aria-autocomplete': multiple ? 'list' : 'both',
     'aria-expanded': isMenuShown,

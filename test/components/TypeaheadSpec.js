@@ -884,13 +884,14 @@ describe('<Typeahead>', () => {
     });
 
     it('sets the input `aria-activedescendant` description', () => {
+      typeahead.setProps({ menuId: 'my-id' });
       expect(getInput(typeahead).prop('aria-activedescendant')).to.equal('');
 
       focus(typeahead);
       keyDown(typeahead, DOWN);
 
       expect(getInput(typeahead).prop('aria-activedescendant'))
-        .to.equal('rbt-menu-item-0');
+        .to.equal('my-id-item-0');
     });
 
     it('sets menu item attributes', () => {
