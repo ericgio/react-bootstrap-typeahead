@@ -11,6 +11,7 @@ The components and higher-order components (HOCs) described below are publicly e
   - [`<Token>`](#token)
 - [Higher-Order Components](#higher-order-components)
   - [`asyncContainer`](#asynccontainer)
+  - [`hintContainer`](#hintcontainer)
   - [`menuItemContainer`](#menuitemcontainer)
   - [`tokenContainer`](#tokencontainer)
 
@@ -37,7 +38,7 @@ See full documentation in the [Filtering section](Filtering.md#filterby-arraystr
 ##### `labelKey: String|Function`
 See full documentation in the [Rendering section](Rendering.md#labelkey-string--function).
 
-##### `renderMenu: Function`, `renderMenuItemChildren: Function`, and `renderToken: Function`
+##### `renderInput: Function`, `renderMenu: Function`, `renderMenuItemChildren: Function`, and `renderToken: Function`
 See full documentation in the [Rendering section](Rendering.md#rendermenuresults-arrayobject--string-menuprops-object).
 
 ##### `onChange(selected: Array<Object|String>)`
@@ -133,14 +134,31 @@ Individual token component, most commonly for use within `renderToken` to custom
 ### `asyncContainer`
 The HOC used in [`AsyncTypeahead`](#asynctypeahead).
 
+### `hintContainer`
+Provides hinting functionality when using a custom input (via `renderInput`).
+
+```jsx
+import { FormControl } from 'react-bootstrap';
+import { hintContainer, Typeahead } from 'react-bootstrap-typeahead';
+
+const HintedFormControl = hintContainer(FormControl);
+
+<Typeahead
+  renderInput={(inputProps) => (
+    <HintedFormControl {...inputProps} />
+  )}
+/>
+```
+
+
 ### `menuItemContainer`
 Connects individual menu items with the main typeahead component via context and abstracts a lot of complex functionality required for behaviors like keying through the menu and input hinting. Also provides `onClick` behavior and active state.
 
 If you use your own menu item components (in `renderMenu` for example), you are strongly advised to wrap them with this HOC:
 
 ```jsx
-import {MenuItem} from 'react-bootstrap';
-import {Menu, menuItemContainer, Typeahead} from 'react-bootstrap-typeahead';
+import { MenuItem } from 'react-bootstrap';
+import { Menu, menuItemContainer, Typeahead } from 'react-bootstrap-typeahead';
 
 const TypeaheadMenuItem = menuItemContainer(MenuItem);
 

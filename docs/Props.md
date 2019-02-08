@@ -44,6 +44,7 @@ paginate | boolean | true | Give user the ability to display additional results 
 paginationText | string | 'Display additional results...' | Prompt displayed when large data sets are paginated.
 placeholder | string | | Placeholder text for the input.
 positionFixed | boolean | false | Whether to use fixed positioning for the menu, which is useful when rendering inside a container with `overflow: hidden;`. Uses absolute positioning by default.
+renderInput | function | | Callback for custom input rendering.
 renderMenu | function | | Callback for custom menu rendering.
 renderMenuItemChildren | function | | Provides a hook for customized rendering of menu item contents.
 renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
