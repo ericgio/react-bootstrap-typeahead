@@ -78,8 +78,8 @@ class TypeaheadComponent extends React.Component {
               <Typeahead.Menu>
                 {this._renderMenu}
               </Typeahead.Menu>
-              {typeof children === 'function' ? children(props) : children}
               {auxContent}
+              {typeof children === 'function' ? children(props) : children}
             </div>
           );
         }}
@@ -94,23 +94,16 @@ class TypeaheadComponent extends React.Component {
   _renderInput = (inputProps) => {
     const { bsSize, isInvalid, isValid, multiple, renderToken } = this.props;
 
-    const className = cx({
-      'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
-      'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
-      'is-invalid': isInvalid,
-      'is-valid': isValid,
-    }, inputProps.className);
+    const props = {
+      ...inputProps,
+      bsSize,
+      isInvalid,
+      isValid,
+    };
 
     return multiple ?
-      <TypeaheadInputMulti
-        {...inputProps}
-        className={className}
-        renderToken={renderToken}
-      /> :
-      <TypeaheadInputSingle
-        {...inputProps}
-        className={className}
-      />;
+      <TypeaheadInputMulti {...props} renderToken={renderToken} /> :
+      <TypeaheadInputSingle {...props} />;
   }
 
   _renderMenu = (results, menuProps) => {

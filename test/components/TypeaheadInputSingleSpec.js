@@ -6,7 +6,7 @@ import React from 'react';
 import TypeaheadInputSingle from '../../src/TypeaheadInputSingle.react';
 
 import options from '../../example/exampleData';
-import { context, getHint, getInput, TestInputProvider } from '../helpers';
+import { context, getFormControl, getHint, getInput, TestInputProvider } from '../helpers';
 
 describe('<TypeaheadInputSingle>', () => {
   let wrapper;
@@ -36,7 +36,7 @@ describe('<TypeaheadInputSingle>', () => {
   });
 
   it('renders a single-select input', () => {
-    const input = wrapper.find('.form-control');
+    const input = getFormControl(wrapper);
 
     expect(input.length).to.equal(1);
     expect(input.hasClass('rbt-input')).to.equal(true);

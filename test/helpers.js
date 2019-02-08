@@ -43,6 +43,10 @@ export function getInput(wrapper) {
   return wrapper.find('.rbt-input-main');
 }
 
+export function getFormControl(wrapper) {
+  return wrapper.find('.form-control').hostNodes();
+}
+
 export function getMenu(wrapper) {
   return wrapper.find('.rbt-menu').hostNodes();
 }
