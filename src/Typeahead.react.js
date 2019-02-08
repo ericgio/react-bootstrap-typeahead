@@ -38,6 +38,10 @@ const propTypes = {
    */
   isValid: PropTypes.bool,
   /**
+   * Callback for custom input rendering.
+   */
+  renderInput: PropTypes.func,
+  /**
    * Callback for custom menu rendering.
    */
   renderMenu: PropTypes.func,
@@ -92,7 +96,18 @@ class TypeaheadComponent extends React.Component {
   }
 
   _renderInput = (inputProps) => {
-    const { bsSize, isInvalid, isValid, multiple, renderToken } = this.props;
+    const {
+      bsSize,
+      isInvalid,
+      isValid,
+      multiple,
+      renderInput,
+      renderToken,
+    } = this.props;
+
+    if (typeof renderInput === 'function') {
+      return renderInput(inputProps);
+    }
 
     const props = {
       ...inputProps,
