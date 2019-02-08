@@ -1,5 +1,3 @@
-/* eslint-disable object-curly-spacing */
-
 // Components
 export AsyncTypeahead from './AsyncTypeahead.react';
 export Highlighter from './Highlighter.react';
@@ -11,7 +9,6 @@ export TypeaheadMenu from './TypeaheadMenu.react';
 
 // HOCs
 export asyncContainer from './containers/asyncContainer';
+export hintContainer from './containers/hintContainer';
 export menuItemContainer from './containers/menuItemContainer';
 export tokenContainer from './containers/tokenContainer';
-
-/* eslint-enable object-curly-spacing */
