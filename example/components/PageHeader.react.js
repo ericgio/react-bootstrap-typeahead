@@ -51,7 +51,7 @@ class PageHeader extends React.Component {
               onSelect={onVersionChange}
               onToggle={() => this.setState({ isOpen: !isOpen })}
               title={`Bootstrap v${selectedVersion.slice(0, 1)}`}>
-              {[BS3, BS4].map((bsVersion) => (
+              {[BS4, BS3].map((bsVersion) => (
                 <VersionDropdown.Item
                   eventKey={bsVersion}
                   key={bsVersion}
