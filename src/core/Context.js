@@ -2,7 +2,7 @@ import { noop, pick } from 'lodash';
 import createReactContext from 'create-react-context';
 import React from 'react';
 
-const TypeaheadContext = createReactContext({
+export const TypeaheadContext = createReactContext({
   activeIndex: -1,
   hintText: '',
   initialItem: null,
@@ -12,6 +12,41 @@ const TypeaheadContext = createReactContext({
   onInitialItemChange: noop,
   onMenuItemClick: noop,
   selectHintOnEnter: false,
+});
+
+export const InputContext = createReactContext({
+  activeIndex: -1,
+  disabled: false,
+  getReferenceElement: noop,
+  inputProps: {},
+  inputRef: noop,
+  isFocused: false,
+  isMenuShown: false,
+  labelKey: '',
+  menuId: '',
+  multiple: false,
+  onBlur: noop,
+  onChange: noop,
+  onFocus: noop,
+  onKeyDown: noop,
+  onRemove: noop,
+  placeholder: '',
+  ref: noop,
+  selected: [],
+});
+
+export const MenuContext = createReactContext({
+  align: '',
+  dropup: false,
+  flip: false,
+  id: '',
+  labelKey: '',
+  onMenuToggle: noop,
+  positionFixed: false,
+  referenceElement: null,
+  results: [],
+  show: false,
+  text: '',
 });
 
 export const withContext = (Component, values) => {
@@ -29,5 +64,3 @@ export const withContext = (Component, values) => {
     }
   };
 };
-
-export default TypeaheadContext;
