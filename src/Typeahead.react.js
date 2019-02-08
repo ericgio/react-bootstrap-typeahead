@@ -72,14 +72,14 @@ class TypeaheadComponent extends React.Component {
               }, className)}
               style={{ position: 'relative' }}
               tabIndex={-1}>
-              <Typeahead.Input {...props}>
+              <Typeahead.Input>
                 {this._renderInput}
               </Typeahead.Input>
-              {typeof children === 'function' ? children(props) : children}
-              {auxContent}
-              <Typeahead.Menu {...props}>
+              <Typeahead.Menu>
                 {this._renderMenu}
               </Typeahead.Menu>
+              {typeof children === 'function' ? children(props) : children}
+              {auxContent}
             </div>
           );
         }}
