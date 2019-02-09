@@ -1,8 +1,36 @@
 # Upgrade Guide
 
+- [Version 4.0](Upgrading.md#v40)
 - [Version 3.0](Upgrading.md#v30)
 - [Version 2.0](Upgrading.md#v20)
 - [Version 1.0](Upgrading.md#v10)
+
+## v4.0
+
+### Props
+- `onMenuHide` and `onMenuShow` were removed. Use `onMenuToggle` instead.
+
+### Input `autoComplete` attribute defaults to "off"
+Behavior is now correct according to a11y standards, but may result in unexpected behaviors since different browsers handle this attribute differently.
+
+- To keep the previous behavior, pass "nope" value in `inputProps`.
+
+### Updates to the `Overlay` component
+Overlay was updated to take advantage of Popper.js' fixed positioning rather than using a portal to attach the menu to the document body. This greatly simplifies the component and gives greater control over styling.
+
+- `bodyContainer` props was removed. Use `positionFixed` instead.
+- Use of `.rbt-body-container` for CSS scoping will no longer work. Pass your own scoping classnames to the component instead.
+
+### A11y announcer removed
+This piece of functionality is not part of the WAI-ARIA authoring guidelines and was difficult to test and support.
+
+- `a11yNumResults` & `a11yNumSelected` are now no-ops
+- If you need this functionality, you can add it yourself as a child (or child function) of the component.
+
+### Removed `componentWillReceiveProps`
+This lifecycle is deprecated and was removed. There should most likely be no impact, but it's possible some subtle behaviors changed in the process.
+
+- If you were passing an empty array to the `selected` prop to "clear" the component, this will not work as expected. Use the `clear()` method instead.
 
 ## v3.0
 
@@ -77,7 +105,7 @@ class MyCustomMenu extends React.Component {
   render() {
     // `innerRef` is passed down by the Popper...
     const {innerRef, ...props} = this.props;
-    
+
     // ...and must be passed to the `ref` of your custom component.
     return <div {...props} ref={innerRef} />;
   }
