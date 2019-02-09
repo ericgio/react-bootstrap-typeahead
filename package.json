@@ -62,8 +62,8 @@
     "warning": "^4.0.1"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.2.0 || ^16.0.0",
-    "react-dom": "^0.14.0 || ^15.2.0 || ^16.0.0"
+    "react": ">=15.3.0",
+    "react-dom": ">=15.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
