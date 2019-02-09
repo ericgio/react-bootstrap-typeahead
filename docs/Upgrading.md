@@ -7,6 +7,9 @@
 
 ## v4.0
 
+### Drop support for older versions of React
+React and ReactDOM >=15.3 are now required as peer dependencies.
+
 ### Props
 - `onMenuHide` and `onMenuShow` were removed. Use `onMenuToggle` instead.
 
