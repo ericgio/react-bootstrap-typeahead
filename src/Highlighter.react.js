@@ -9,9 +9,7 @@ import { getMatchBounds } from './utils';
  * Results are already filtered by the time the component is used internally so
  * we can safely ignore case and diacritical marks for the purposes of matching.
  */
-class Highlighter extends React.Component {
-  _count = 0;
-
+class Highlighter extends React.PureComponent {
   render() {
     const children = this.props.search ?
       this._renderHighlightedChildren() :
@@ -22,15 +20,17 @@ class Highlighter extends React.Component {
 
   _renderHighlightedChildren() {
     const children = [];
+
+    let count = 0;
     let remaining = this.props.children;
 
     while (remaining) {
       const bounds = getMatchBounds(remaining, this.props.search);
 
       if (!bounds) {
-        this._count += 1;
+        count += 1;
         children.push(
-          <span key={this._count}>
+          <span key={count}>
             {remaining}
           </span>
         );
@@ -40,9 +40,9 @@ class Highlighter extends React.Component {
       // Capture the string that leads up to a match...
       const nonMatch = remaining.slice(0, bounds.start);
       if (nonMatch) {
-        this._count += 1;
+        count += 1;
         children.push(
-          <span key={this._count}>
+          <span key={count}>
             {nonMatch}
           </span>
         );
@@ -51,9 +51,9 @@ class Highlighter extends React.Component {
       // Now, capture the matching string...
       const match = remaining.slice(bounds.start, bounds.end);
       if (match) {
-        this._count += 1;
+        count += 1;
         children.push(
-          <mark className="rbt-highlight-text" key={this._count}>
+          <mark className={this.props.highlightClassName} key={count}>
             {match}
           </mark>
         );
@@ -69,7 +69,12 @@ class Highlighter extends React.Component {
 
 Highlighter.propTypes = {
   children: PropTypes.string.isRequired,
+  highlightClassName: PropTypes.string,
   search: PropTypes.string.isRequired,
+};
+
+Highlighter.defaultProps = {
+  highlightClassName: 'rbt-highlight-text',
 };
 
 export default Highlighter;
