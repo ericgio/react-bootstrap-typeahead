@@ -82,7 +82,6 @@
     "es6-promise": "^4.0.5",
     "eslint": "^5.1.0",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-ericgio": "^3.0.0",
     "eslint-plugin-import": "^2.15.0",
     "eslint-plugin-jsx-a11y": "^6.2.0",
     "eslint-plugin-react": "^7.12.4",

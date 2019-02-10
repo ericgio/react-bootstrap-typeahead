@@ -2583,13 +2583,6 @@ eslint-config-airbnb@^17.1.0:
     object.assign "^4.1.0"
     object.entries "^1.0.4"
 
-eslint-config-ericgio@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-ericgio/-/eslint-config-ericgio-3.0.0.tgz#fb6aa19e055eaee04e539793f2d5e319f87ef989"
-  integrity sha512-sTxULrKX14e7g/YOv8yErk5kCiTEap8x6mhdS1Om4E8qs4GbdHrfnyYyZ2EkMVyjCVJJLhc3h1K0KKv61YpdmQ==
-  dependencies:
-    eslint-plugin-react "^7.8.2"
-
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz#58f15fb839b8d0576ca980413476aab2472db66a"
@@ -2640,19 +2633,6 @@ eslint-plugin-react@^7.12.4:
   version "7.12.4"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.12.4.tgz#b1ecf26479d61aee650da612e425c53a99f48c8c"
   integrity sha512-1puHJkXJY+oS1t467MjbqjvX53uQ05HXwjqDgdbGBqf5j9eeydI54G3KwiJmWciQ0HTBacIKw2jgwSBSH3yfgQ==
-  dependencies:
-    array-includes "^3.0.3"
-    doctrine "^2.1.0"
-    has "^1.0.3"
-    jsx-ast-utils "^2.0.1"
-    object.fromentries "^2.0.0"
-    prop-types "^15.6.2"
-    resolve "^1.9.0"
-
-eslint-plugin-react@^7.8.2:
-  version "7.12.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.12.3.tgz#b9ca4cd7cd3f5d927db418a1950366a12d4568fd"
-  integrity sha512-WTIA3cS8OzkPeCi4KWuPmjR33lgG9r9Y/7RmnLTRw08MZKgAfnK/n3BO4X0S67MPkVLazdfCNT/XWqcDu4BLTA==
   dependencies:
     array-includes "^3.0.3"
     doctrine "^2.1.0"
