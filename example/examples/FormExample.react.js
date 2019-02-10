@@ -45,6 +45,7 @@ class FormExample extends React.Component {
               </span>
             </InputGroup.Addon>
             <Typeahead
+              id="form-example"
               isInvalid={isInvalid}
               isValid={isValid}
               labelKey="capital"
