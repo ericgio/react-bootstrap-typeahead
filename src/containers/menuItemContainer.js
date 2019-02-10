@@ -20,9 +20,9 @@ const menuItemContainer = (Component) => {
     render() {
       const {
         activeIndex,
+        id,
         isOnlyResult,
         label,
-        menuId,
         onActiveItemChange,
         onInitialItemChange,
         onMenuItemClick,
@@ -39,7 +39,7 @@ const menuItemContainer = (Component) => {
           active={active}
           aria-label={label}
           aria-selected={active}
-          id={getMenuItemId(menuId, position)}
+          id={getMenuItemId(id, position)}
           onClick={this._handleClick}
           onMouseDown={preventInputBlur}
           role="option"
@@ -87,6 +87,7 @@ const menuItemContainer = (Component) => {
 
   return withContext(WrappedMenuItem, [
     'activeIndex',
+    'id',
     'isOnlyResult',
     'menuId',
     'onActiveItemChange',

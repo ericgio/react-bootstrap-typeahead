@@ -9,6 +9,8 @@ import { Typeahead } from '../../src';
 
 /* eslint-disable no-console */
 /* example-start */
+const options = range(0, 1000).map((o) => o.toString());
+
 class PaginationExample extends React.Component {
   state = {
     paginate: true,
@@ -20,8 +22,9 @@ class PaginationExample extends React.Component {
     return (
       <Fragment>
         <Typeahead
+          id="pagination-example"
           onPaginate={(e) => console.log('Results paginated')}
-          options={range(0, 1000).map((o) => o.toString())}
+          options={options}
           paginate={paginate}
           placeholder="Pick a number..."
         />

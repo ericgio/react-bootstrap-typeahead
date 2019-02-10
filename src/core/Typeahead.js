@@ -1,5 +1,6 @@
 import { head, isEqual, noop, uniqueId } from 'lodash';
 import PropTypes from 'prop-types';
+import { isRequiredForA11y } from 'prop-types-extra';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
@@ -12,10 +13,6 @@ import { caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyR
 import { addCustomOption, areEqual, defaultFilterBy, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, warn } from '../utils';
 
 import { DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP } from '../constants';
-
-function genId(prefix = '') {
-  return prefix + Math.random().toString(36).substr(2, 12);
-}
 
 function maybeWarnAboutControlledSelections(prevSelected, selected) {
   const uncontrolledToControlled = !prevSelected && selected;
@@ -94,10 +91,6 @@ function skipDisabledOptions(results, activeIndex, keyCode) {
 
 class Typeahead extends React.Component {
   state = getInitialState(this.props);
-
-  // Generate random id here since doing it in defaultProps will generate
-  // the same id for every instance.
-  _menuId = genId('rbt-menu-');
 
   static getDerivedStateFromProps(props, state) {
     const { labelKey, multiple } = props;
@@ -210,7 +203,6 @@ class Typeahead extends React.Component {
       },
       inputRef: (input) => this._input = input,
       isMenuShown,
-      menuId: this.props.menuId || this._menuId,
       onActiveItemChange: this._handleActiveItemChange,
       onAdd: this._handleSelectionAdd,
       onBlur: this._handleBlur,
@@ -543,6 +535,14 @@ Typeahead.propTypes = {
    */
   highlightOnlyResult: checkPropType(PropTypes.bool, highlightOnlyResultType),
   /**
+   * An html id attribute, required for assistive technologies such as screen
+   * readers.
+   */
+  id: isRequiredForA11y(PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ])),
+  /**
    * Whether the filter should ignore accents and other diacritical marks.
    */
   ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
@@ -565,13 +565,6 @@ Typeahead.propTypes = {
    * large data sets.
    */
   maxResults: PropTypes.number,
-  /**
-   * Id applied to the top-level menu element. Required for accessibility.
-   */
-  menuId: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
   /**
    * Number of input characters that must be entered before showing results.
    */

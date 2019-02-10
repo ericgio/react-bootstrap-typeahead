@@ -19,6 +19,7 @@ class BasicExample extends React.Component {
       <Fragment>
         <Typeahead
           {...this.state}
+          id="basic-example"
           labelKey="name"
           onChange={(selected) => this.setState({ selected })}
           options={options}

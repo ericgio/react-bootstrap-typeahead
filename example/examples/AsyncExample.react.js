@@ -22,6 +22,7 @@ class AsyncExample extends React.Component {
       <Fragment>
         <AsyncTypeahead
           {...this.state}
+          id="async-example"
           labelKey="login"
           minLength={3}
           onSearch={this._handleSearch}

@@ -8,6 +8,7 @@ const SelectionsExample = (props) => (
   <Typeahead
     clearButton
     defaultSelected={options.slice(0, 5)}
+    id="selections-example"
     labelKey="name"
     multiple
     options={options}
