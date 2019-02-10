@@ -9,11 +9,11 @@ const TypeaheadInput = ({ children }) => (
     {(context) => {
       const {
         activeIndex,
+        id,
         inputProps,
         isFocused,
         isMenuShown,
         labelKey,
-        menuId,
         multiple,
         onFocus,
         onRemove,
@@ -27,12 +27,12 @@ const TypeaheadInput = ({ children }) => (
         ...inputProps,
         ...otherProps,
         'aria-activedescendant': activeIndex >= 0 ?
-          getMenuItemId(menuId, activeIndex) :
+          getMenuItemId(id, activeIndex) :
           '',
         'aria-autocomplete': multiple ? 'list' : 'both',
         'aria-expanded': isMenuShown,
         'aria-haspopup': 'listbox',
-        'aria-owns': isMenuShown ? menuId : '',
+        'aria-owns': isMenuShown ? id : '',
         autoComplete: inputProps.autoComplete || 'off',
         // Re-open the menu, eg: if it's closed via ESC.
         onClick: onFocus,

@@ -4,6 +4,7 @@ import { Typeahead } from '../../src';
 /* example-start */
 const LabelKeyExample = (props) => (
   <Typeahead
+    id="labelkey-example"
     labelKey={(option) => `${option.firstName} ${option.lastName}`}
     options={[
       { firstName: 'Art', lastName: 'Blakey' },

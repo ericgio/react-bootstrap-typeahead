@@ -50,6 +50,7 @@ class BasicBehaviorsExample extends React.Component {
         <Typeahead
           {...this.state}
           emptyLabel={emptyLabel ? '' : undefined}
+          id="basic-behaviors-example"
           labelKey="name"
           options={options}
           placeholder="Choose a state..."

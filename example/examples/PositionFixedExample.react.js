@@ -28,6 +28,7 @@ class PositionFixedExample extends React.Component {
           <div style={{ height: '300px' }}>
             <Typeahead
               {...this.state}
+              id="position-fixed-example"
               labelKey="name"
               options={options}
               placeholder="Choose a state..."

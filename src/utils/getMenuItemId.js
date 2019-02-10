@@ -1,3 +1,3 @@
-export default function getMenuItemId(menuId, position) {
-  return `${menuId}-item-${position}`;
+export default function getMenuItemId(id, position) {
+  return `${id}-item-${position}`;
 }

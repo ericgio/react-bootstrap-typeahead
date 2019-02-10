@@ -5,6 +5,7 @@ import { Typeahead } from '../../src';
 const CustomSelectionsExample = (props) => (
   <Typeahead
     allowNew
+    id="custom-selections-example"
     multiple
     newSelectionPrefix="Add a new item: "
     options={[]}
