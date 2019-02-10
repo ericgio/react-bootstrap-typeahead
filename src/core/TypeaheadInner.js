@@ -8,8 +8,8 @@ import { RETURN } from '../constants';
 function getTypeaheadContextValue(props) {
   const values = pick(props, [
     'activeIndex',
+    'id',
     'initialItem',
-    'menuId',
     'onActiveItemChange',
     'onAdd',
     'onInitialItemChange',
@@ -28,12 +28,12 @@ function getInputContextValue(props) {
   const values = pick(props, [
     'activeIndex',
     'disabled',
+    'id',
     'inputProps',
     'inputRef',
     'isFocused',
     'isMenuShown',
     'labelKey',
-    'menuId',
     'multiple',
     'onBlur',
     'onChange',
@@ -56,6 +56,7 @@ function getMenuContextValue(props) {
     'align',
     'dropup',
     'flip',
+    'id',
     'labelKey',
     'onMenuToggle',
     'positionFixed',
@@ -66,7 +67,6 @@ function getMenuContextValue(props) {
 
   return {
     ...values,
-    id: props.menuId,
     show: props.isMenuShown,
   };
 }

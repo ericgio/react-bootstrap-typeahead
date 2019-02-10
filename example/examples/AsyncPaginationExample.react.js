@@ -20,6 +20,7 @@ class AsyncPaginationExample extends React.Component {
     return (
       <AsyncTypeahead
         {...this.state}
+        id="async-pagination-example"
         labelKey="login"
         maxResults={PER_PAGE - 1}
         minLength={2}
