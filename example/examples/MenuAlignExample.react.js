@@ -25,6 +25,7 @@ class MenuAlignExample extends React.Component {
       <Fragment>
         <Typeahead
           align={align}
+          id="menu-align-example"
           labelKey="name"
           options={options}
           placeholder="Choose a state..."

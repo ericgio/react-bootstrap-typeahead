@@ -31,6 +31,7 @@ class CustomFilteringExample extends React.Component {
       <Fragment>
         <Typeahead
           filterBy={filterBy === 'callback' ? filterByCallback : filterByFields}
+          id="custom-filtering-example"
           labelKey="name"
           options={options}
           placeholder="Filter by state name or capital..."

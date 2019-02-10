@@ -25,6 +25,7 @@ class InputSizeExample extends React.Component {
       <Fragment>
         <Typeahead
           bsSize={bsSize}
+          id="input-size-example"
           labelKey="name"
           options={options}
           placeholder="Choose a state..."
