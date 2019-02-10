@@ -13,6 +13,7 @@ class PublicMethodsExample extends React.Component {
       <Fragment>
         <Typeahead
           defaultSelected={options.slice(0, 4)}
+          id="public-methods-example"
           labelKey="name"
           multiple
           options={options}

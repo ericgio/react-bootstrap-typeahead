@@ -11,6 +11,8 @@ import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems
 import states from '../../example/exampleData';
 import { DOWN, ESC, RETURN, RIGHT, TAB, UP } from '../../src/constants';
 
+const ID = 'rbt-id';
+
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
   keyDown(wrapper, dir);
   return wrapper.find('a.active');
@@ -19,6 +21,7 @@ function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
 function mountTypeahead(props) {
   return mount(
     <Typeahead
+      id={ID}
       labelKey="name"
       onChange={noop}
       options={states}
@@ -872,15 +875,14 @@ describe('<Typeahead>', () => {
 
       focus(typeahead);
 
-      // Default id.
-      expect(getMenu(typeahead).prop('id')).to.contain('rbt-menu-');
-      expect(getInput(typeahead).prop('aria-owns')).to.contain('rbt-menu-');
+      expect(getMenu(typeahead).prop('id')).to.equal(ID);
+      expect(getInput(typeahead).prop('aria-owns')).to.equal(ID);
 
-      const menuId = 'my-id';
-      typeahead.setProps({ menuId });
+      const id = 'my-id';
+      typeahead.setProps({ id });
 
-      expect(getMenu(typeahead).prop('id')).to.equal(menuId);
-      expect(getInput(typeahead).prop('aria-owns')).to.equal(menuId);
+      expect(getMenu(typeahead).prop('id')).to.equal(id);
+      expect(getInput(typeahead).prop('aria-owns')).to.equal(id);
     });
 
     it('sets the input `role`', () => {
@@ -914,7 +916,7 @@ describe('<Typeahead>', () => {
     });
 
     it('sets the input `aria-activedescendant` description', () => {
-      typeahead.setProps({ menuId: 'my-id' });
+      typeahead.setProps({ id: 'my-id' });
       expect(getInput(typeahead).prop('aria-activedescendant')).to.equal('');
 
       focus(typeahead);
