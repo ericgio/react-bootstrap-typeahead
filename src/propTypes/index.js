@@ -4,7 +4,6 @@ export checkPropType from './checkPropType';
 export defaultInputValueType from './defaultInputValueType';
 export emptyLabelType from './emptyLabelType';
 export highlightOnlyResultType from './highlightOnlyResultType';
-export idType from './idType';
 export ignoreDiacriticsType from './ignoreDiacriticsType';
 export inputPropsType from './inputPropsType';
 export labelKeyType from './labelKeyType';

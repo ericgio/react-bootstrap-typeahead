@@ -13,6 +13,9 @@ React and ReactDOM >=15.3 are now required as peer dependencies.
 ### Props
 - `onMenuHide` and `onMenuShow` were removed. Use `onMenuToggle` instead.
 
+### `id` required for assistive technologies
+The `menuId` prop has been replaced by `id` and no longer provides a default value. You must provide an id for assistive technologies like screen readers.
+
 ### Input `autoComplete` attribute defaults to "off"
 Behavior is now correct according to a11y standards, but may result in unexpected behaviors since different browsers handle this attribute differently.
 

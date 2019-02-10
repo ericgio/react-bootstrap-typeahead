@@ -7,6 +7,34 @@ import Control from '../components/Control.react';
 import { Typeahead } from '../../src';
 
 /* example-start */
+const options = [
+  'Warsaw',
+  'Kraków',
+  'Łódź',
+  'Wrocław',
+  'Poznań',
+  'Gdańsk',
+  'Szczecin',
+  'Bydgoszcz',
+  'Lublin',
+  'Katowice',
+  'Białystok',
+  'Gdynia',
+  'Częstochowa',
+  'Radom',
+  'Sosnowiec',
+  'Toruń',
+  'Kielce',
+  'Gliwice',
+  'Zabrze',
+  'Bytom',
+  'Olsztyn',
+  'Bielsko-Biała',
+  'Rzeszów',
+  'Ruda Śląska',
+  'Rybnik',
+];
+
 class FilteringExample extends React.Component {
   state = {
     caseSensitive: false,
@@ -20,33 +48,8 @@ class FilteringExample extends React.Component {
       <Fragment>
         <Typeahead
           {...this.state}
-          options={[
-            'Warsaw',
-            'Kraków',
-            'Łódź',
-            'Wrocław',
-            'Poznań',
-            'Gdańsk',
-            'Szczecin',
-            'Bydgoszcz',
-            'Lublin',
-            'Katowice',
-            'Białystok',
-            'Gdynia',
-            'Częstochowa',
-            'Radom',
-            'Sosnowiec',
-            'Toruń',
-            'Kielce',
-            'Gliwice',
-            'Zabrze',
-            'Bytom',
-            'Olsztyn',
-            'Bielsko-Biała',
-            'Rzeszów',
-            'Ruda Śląska',
-            'Rybnik',
-          ]}
+          id="filtering-example"
+          options={options}
           placeholder="Cities in Poland..."
         />
         <FormGroup>

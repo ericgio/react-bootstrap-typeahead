@@ -57,6 +57,7 @@ class RenderingExample extends React.Component {
       <Fragment>
         <Typeahead
           {...props}
+          id="rendering-example"
           labelKey="name"
           options={options}
           placeholder="Choose a state..."
