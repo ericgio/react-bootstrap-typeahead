@@ -23,7 +23,7 @@ Provides a programmatic way to reset the component. Calling the method will clea
 ### `focus()`
 Provides a programmatic way to focus the input.
 
-[Next: Props](Props.md)
-
 ### `getInput()`
 Provides access to the component's input node.
+
+[Next: Props](Props.md)
