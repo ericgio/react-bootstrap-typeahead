@@ -5,7 +5,7 @@ import React from 'react';
 import AutosizeInput from './AutosizeInput.react';
 import Token from './Token.react';
 
-import {getOptionLabel} from './utils';
+import {getOptionLabel, isSelectable} from './utils';
 import hintContainer from './containers/hintContainer';
 import inputContainer from './containers/inputContainer';
 
@@ -86,7 +86,7 @@ class TypeaheadInputMulti extends React.Component {
 
     // Move cursor to the end if the user clicks outside the actual input.
     const inputNode = this._input;
-    if (e.target !== inputNode) {
+    if (e.target !== inputNode && isSelectable(inputNode)) {
       inputNode.selectionStart = inputNode.value.length;
     }
 

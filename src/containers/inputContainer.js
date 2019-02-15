@@ -32,6 +32,8 @@ function inputContainer(Input) {
         selected,
       } = this.props;
 
+      const {autoComplete, type} = this.props.inputProps;
+
       // Add a11y-related props.
       let inputProps = {
         ...this.props.inputProps,
@@ -42,7 +44,7 @@ function inputContainer(Input) {
         'aria-expanded': isMenuShown,
         'aria-haspopup': 'listbox',
         'aria-owns': isMenuShown ? menuId : '',
-        autoComplete: this.props.inputProps.autoComplete || 'nope',
+        autoComplete: autoComplete || 'nope',
         disabled,
         inputRef,
         onBlur,
@@ -55,6 +57,7 @@ function inputContainer(Input) {
         // Comboboxes are single-select by definition:
         // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
         role: 'combobox',
+        type: type || 'text',
         value: getInputText(this.props),
       };
 

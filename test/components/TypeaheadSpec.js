@@ -678,32 +678,46 @@ describe('<Typeahead>', () => {
     });
   });
 
-  it('applies arbitrary attributes to the input', () => {
-    const inputProps = {
-      autoComplete: 'off',
-      className: 'input-classname',
-      id: 'input-id',
-      name: 'input-name',
-      tabIndex: 5,
-      type: 'number',
-    };
+  describe('applies attributes to the input', () => {
+    let inputProps;
 
-    typeahead.setProps({
-      inputProps,
-      multiple: true,
-      selected: states.slice(0, 1),
+    beforeEach(() => {
+      inputProps = {
+        autoComplete: 'off',
+        className: 'input-classname',
+        id: 'input-id',
+        name: 'input-name',
+        tabIndex: 5,
+        type: 'number',
+      };
+
+      typeahead.setProps({inputProps});
     });
 
-    const props = getInput(typeahead).props();
+    afterEach(() => {
+      const props = getInput(typeahead).props();
 
-    expect(props.autoComplete).to.equal(inputProps.autoComplete);
-    expect(props.className).to.contain(inputProps.className);
-    expect(props.id).to.equal(inputProps.id);
-    expect(props.name).to.equal(inputProps.name);
-    expect(props.tabIndex).to.equal(inputProps.tabIndex);
-    expect(props.type).to.equal(inputProps.type);
+      expect(props.autoComplete).to.equal(inputProps.autoComplete);
+      expect(props.className).to.contain(inputProps.className);
+      expect(props.id).to.equal(inputProps.id);
+      expect(props.name).to.equal(inputProps.name);
+      expect(props.tabIndex).to.equal(inputProps.tabIndex);
+      expect(props.type).to.equal(inputProps.type);
+    });
 
-    expect(getTokens(typeahead).prop('tabIndex')).to.equal(inputProps.tabIndex);
+    it('in single-select mode', () => {
+      // Continue to `afterEach`
+    });
+
+    it('in multi-select mode', () => {
+      typeahead.setProps({
+        multiple: true,
+        selected: states.slice(0, 1),
+      });
+
+      expect(getTokens(typeahead).prop('tabIndex'))
+        .to.equal(inputProps.tabIndex);
+    });
   });
 
   it('triggers the `onKeyDown` callback', () => {

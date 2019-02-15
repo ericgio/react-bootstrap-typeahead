@@ -3,8 +3,7 @@ import React from 'react';
 import AutosizeInput from '../AutosizeInput.react';
 import {withContext} from '../TypeaheadContext';
 
-import {getDisplayName} from '../utils';
-import {RETURN, RIGHT, TAB} from '../constants';
+import {getDisplayName, shouldSelectHint} from '../utils';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
@@ -92,22 +91,9 @@ function hintContainer(Input) {
     }
 
     _handleKeyDown = (e) => {
-      const {
-        hintText,
-        initialItem,
-        onAdd,
-        onKeyDown,
-        selectHintOnEnter,
-        value,
-      } = this.props;
+      const {initialItem, onAdd, onKeyDown} = this.props;
 
-      if (
-        hintText && (
-          (e.keyCode === RETURN && selectHintOnEnter) ||
-          (e.keyCode === RIGHT && e.target.selectionStart === value.length) ||
-          e.keyCode === TAB
-        )
-      ) {
+      if (shouldSelectHint(e, this.props)) {
         e.preventDefault(); // Prevent input from blurring on TAB.
         onAdd(initialItem);
       }

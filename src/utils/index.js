@@ -11,10 +11,12 @@ export getMenuItemId from './getMenuItemId';
 export getOptionLabel from './getOptionLabel';
 export getStringLabelKey from './getStringLabelKey';
 export getTruncatedOptions from './getTruncatedOptions';
+export isSelectable from './isSelectable';
 export isShown from './isShown';
 export pluralize from './pluralize';
 export preventInputBlur from './preventInputBlur';
 export scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
+export shouldSelectHint from './shouldSelectHint';
 export stripDiacritics from './stripDiacritics';
 export warn from './warn';
 /* eslint-enable object-curly-spacing */
