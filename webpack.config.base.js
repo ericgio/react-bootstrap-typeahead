@@ -1,3 +1,4 @@
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
@@ -38,6 +39,14 @@ module.exports = {
       }),
     ],
   },
+  plugins: [
+    new CircularDependencyPlugin({
+      allowAsyncCycles: false,
+      cwd: process.cwd(),
+      exclude: /node_modules/,
+      failOnError: true,
+    }),
+  ],
   resolve: {
     extensions: ['.js'],
   },

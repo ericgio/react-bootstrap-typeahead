@@ -76,6 +76,7 @@
     "babel-plugin-transform-imports": "^1.4.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
     "chai": "^4.0.2",
+    "circular-dependency-plugin": "^5.0.2",
     "css-loader": "^2.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.5.0",

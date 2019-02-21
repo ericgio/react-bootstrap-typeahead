@@ -1,4 +1,4 @@
-import {getOptionLabel} from './index';
+import getOptionLabel from './getOptionLabel';
 
 function addCustomOption(results, props) {
   const {allowNew, labelKey, text} = props;
