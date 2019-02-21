@@ -1,5 +1,6 @@
 /* eslint-disable object-curly-spacing */
 export addCustomOption from './addCustomOption';
+export areEqual from './areEqual';
 export defaultFilterBy from './defaultFilterBy';
 export getAccessibilityStatus from './getAccessibilityStatus';
 export getDisplayName from './getDisplayName';

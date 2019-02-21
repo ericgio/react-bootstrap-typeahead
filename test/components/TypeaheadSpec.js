@@ -444,6 +444,17 @@ describe('<Typeahead>', () => {
       expect(onPaginate.callCount).to.equal(2);
       expect(shownResultsCount).to.equal(maxResults * 2);
     });
+
+    it('updates the active item after pagination', () => {
+      focus(typeahead);
+      keyDown(typeahead, UP);
+
+      const {activeItem} = getState(typeahead);
+      expect(activeItem.paginationOption).to.equal(true);
+
+      keyDown(typeahead, RETURN);
+      expect(getState(typeahead).activeItem).to.deep.equal(states[maxResults]);
+    });
   });
 
   describe('should limit the results when `maxResults` is set', () => {

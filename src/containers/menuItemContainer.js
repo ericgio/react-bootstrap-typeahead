@@ -10,29 +10,11 @@ const menuItemContainer = (Component) => {
     static displayName = `MenuItemContainer(${getDisplayName(Component)})`;
 
     componentDidMount() {
-      this._updateInitialItem(this.props);
+      this._maybeUpdateItem();
     }
 
     componentDidUpdate(prevProps, prevState) {
-      const wasActive = prevProps.activeIndex === prevProps.position;
-      const {activeIndex, onActiveItemChange, option, position} = this.props;
-
-      if (position == null) {
-        return;
-      }
-
-      // The item will become active.
-      if (activeIndex === position) {
-        // Ensures that if the menu items exceed the bounds of the menu, the
-        // menu will scroll up or down as the user hits the arrow keys.
-        /* eslint-disable-next-line react/no-find-dom-node */
-        scrollIntoViewIfNeeded(findDOMNode(this));
-
-        // Fire the change handler when the menu item becomes active.
-        !wasActive && onActiveItemChange(option);
-      }
-
-      this._updateInitialItem(this.props);
+      this._maybeUpdateItem();
     }
 
     render() {
@@ -71,10 +53,25 @@ const menuItemContainer = (Component) => {
       onClick && onClick(e);
     }
 
-    _updateInitialItem = (props) => {
-      const {onInitialItemChange, option, position} = props;
+    _maybeUpdateItem = () => {
+      const {
+        activeIndex,
+        onActiveItemChange,
+        onInitialItemChange,
+        option,
+        position,
+      } = this.props;
+
       if (position === 0) {
         onInitialItemChange(option);
+      }
+
+      if (position === activeIndex) {
+        // Ensures that if the menu items exceed the bounds of the menu, the
+        // menu will scroll up or down as the user hits the arrow keys.
+        /* eslint-disable-next-line react/no-find-dom-node */
+        scrollIntoViewIfNeeded(findDOMNode(this));
+        onActiveItemChange(option);
       }
     }
   }

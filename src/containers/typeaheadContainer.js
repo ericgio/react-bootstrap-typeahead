@@ -6,7 +6,7 @@ import {RootCloseWrapper} from 'react-overlays';
 
 import contextContainer from './contextContainer';
 import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
-import {addCustomOption, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils';
+import {addCustomOption, areEqual, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils';
 
 import {DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants';
 
@@ -220,7 +220,10 @@ function typeaheadContainer(Component) {
     }
 
     _handleActiveItemChange = (activeItem) => {
-      this.setState({activeItem});
+      // Don't update the active item if it hasn't changed.
+      if (!areEqual(activeItem, this.state.activeItem, this.props.labelKey)) {
+        this.setState({activeItem});
+      }
     }
 
     _handleBlur = (e) => {
@@ -242,25 +245,10 @@ function typeaheadContainer(Component) {
     }
 
     _handleInitialItemChange = (initialItem) => {
-      const {labelKey} = this.props;
-      const currentItem = this.state.initialItem;
-
-      // Don't update the initial item if it hasn't changed. For custom items,
-      // compare the `labelKey` values since a unique id is generated each time,
-      // causing the comparison to always return false otherwise.
-      if (
-        isEqual(initialItem, currentItem) ||
-        (
-          currentItem &&
-          initialItem &&
-          initialItem.customOption &&
-          initialItem[labelKey] === currentItem[labelKey]
-        )
-      ) {
-        return;
+      // Don't update the initial item if it hasn't changed.
+      if (!areEqual(initialItem, this.state.initialItem, this.props.labelKey)) {
+        this.setState({initialItem});
       }
-
-      this.setState({initialItem});
     }
 
     _handleInputChange = (e) => {
