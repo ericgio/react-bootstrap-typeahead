@@ -15,6 +15,7 @@
     "clean": "rimraf css && rimraf dist && rimraf lib",
     "deploy-example": "node ./scripts/deployExample.js",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "postpublish": "npm run deploy-example",
     "prepublishOnly": "npm run check && npm run build",
     "start": "webpack --mode development -w --progress --config example/webpack.config.js",
