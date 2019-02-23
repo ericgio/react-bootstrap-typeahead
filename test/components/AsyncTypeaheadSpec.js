@@ -4,8 +4,18 @@ import React from 'react';
 import sinon from 'sinon';
 
 import {AsyncTypeahead} from '../../src';
-import {change, focus, getMenuItems, keyDown, search} from '../helpers';
+import {change, focus, getMenuItems, keyDown} from '../helpers';
 import {DOWN, RETURN} from '../../src/constants';
+
+function search(wrapper, query, callback) {
+  change(wrapper, query);
+  wrapper.setProps({isLoading: true});
+
+  setTimeout(() => {
+    wrapper.setProps({isLoading: false});
+    callback();
+  }, 0);
+}
 
 describe('<AsyncTypeahead>', () => {
   let onSearch, wrapper;
@@ -16,18 +26,16 @@ describe('<AsyncTypeahead>', () => {
       <AsyncTypeahead
         delay={0}
         isLoading={false}
+        minLength={0}
         onSearch={onSearch}
       />
     );
   });
 
-  it('should display a search prompt when focused', () => {
+  it('displays a prompt', () => {
     const promptText = 'Prompt text';
 
-    wrapper.setProps({
-      minLength: 0,
-      promptText,
-    });
+    wrapper.setProps({promptText});
 
     focus(wrapper);
     const menuItems = getMenuItems(wrapper);
@@ -36,54 +44,57 @@ describe('<AsyncTypeahead>', () => {
     expect(menuItems.text()).to.equal(promptText);
   });
 
-  it('should display the search text while searching', (done) => {
+  it('displays the search text while searching', (done) => {
     const searchText = 'Search text';
 
-    wrapper.setProps({searchText});
+    onSearch = () => {
+      wrapper.setProps({isLoading: true});
 
-    search(wrapper, 'search', () => {
-      focus(wrapper);
       const menuItems = getMenuItems(wrapper);
-
       expect(menuItems.length).to.equal(1);
       expect(menuItems.text()).to.equal(searchText);
       done();
+    };
+
+    wrapper.setProps({
+      onSearch,
+      searchText,
     });
+
+    change(wrapper, 'search');
   });
 
-  it('should display the empty label if there are no results', (done) => {
+  it('displays the empty label when there are no results', (done) => {
     const emptyLabel = 'empty label';
 
     wrapper.setProps({
       emptyLabel,
-      isLoading: true,
       useCache: false,
     });
 
     search(wrapper, 'search', () => {
-      wrapper.setProps({isLoading: false});
-
-      focus(wrapper);
       const menuItems = getMenuItems(wrapper);
-
       expect(menuItems.length).to.equal(1);
       expect(menuItems.text()).to.equal(emptyLabel);
       done();
     });
   });
 
-  it('should delay the search by at least the specified amount', (done) => {
+  it('delays the search by at least the specified amount', (done) => {
     const delay = 100;
     const preSearch = Date.now();
 
+    onSearch = () => {
+      expect(Date.now() - preSearch).to.be.at.least(delay);
+      done();
+    };
+
+    // Re-mount since delay is applied in `componentDidMount`.
     wrapper = mount(
       <AsyncTypeahead
         delay={delay}
         isLoading={false}
-        onSearch={(query) => {
-          expect(Date.now() - preSearch).to.be.at.least(delay);
-          done();
-        }}
+        onSearch={onSearch}
       />
     );
 
@@ -91,68 +102,83 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'search');
   });
 
-  it('should not call onSearch when a selection is made', (done) => {
-    let selected = [];
+  it('does not call onSearch when a selection is made', () => {
+    const onChange = sinon.spy();
 
     wrapper.setProps({
-      minLength: 0,
-      onChange: (s) => selected = s,
+      onChange,
+      options: ['one', 'two', 'four'],
     });
 
-    search(wrapper, 'o', () => {
-      wrapper.setProps({
-        options: ['one', 'two', 'four'],
-      });
+    focus(wrapper);
+    keyDown(wrapper, DOWN);
+    keyDown(wrapper, RETURN);
 
-      focus(wrapper);
-      keyDown(wrapper, DOWN);
-      keyDown(wrapper, RETURN);
-
-      expect(selected.length).to.equal(1);
-      expect(onSearch.calledOnce).to.equal(true);
-      done();
-    });
+    expect(onChange.callCount).to.equal(1);
+    expect(onSearch.callCount).to.equal(0);
   });
 
-  it('should use cached results and not perform a new search', (done) => {
-    wrapper.setProps({isLoading: true});
+  it('uses cached results and does not perform a new search', (done) => {
+    let menuItems;
+    let callCount = 0;
 
-    // Initial search
-    search(wrapper, 'search', () => {
-      wrapper.setProps({
-        isLoading: false,
-        options: [],
-      });
+    onSearch = (options, callback) => (query) => {
+      callCount++;
 
-      expect(onSearch.callCount).to.equal(1);
+      wrapper.setProps({isLoading: true});
 
-      // Second search
-      search(wrapper, 'newSearch', () => {
+      setTimeout(() => {
         wrapper.setProps({
           isLoading: false,
-          options: [],
+          options,
+        });
+        callback();
+      }, 0);
+    };
+
+    wrapper.setProps({
+      onSearch: onSearch(['test-one', 'test-two', 'test-three'], () => {
+        focus(wrapper);
+        menuItems = getMenuItems(wrapper);
+        expect(menuItems.length).to.equal(3);
+        expect(callCount).to.equal(1);
+
+        wrapper.setProps({
+          onSearch: onSearch([], () => {
+            focus(wrapper);
+            menuItems = getMenuItems(wrapper);
+            expect(menuItems.length).to.equal(1);
+            expect(menuItems.text()).to.equal('No matches found.');
+            expect(callCount).to.equal(2);
+
+            // Repeat first search
+            change(wrapper, 'test');
+            setTimeout(() => {
+              focus(wrapper);
+              menuItems = getMenuItems(wrapper);
+              expect(menuItems.length).to.equal(3);
+              expect(callCount).to.equal(2);
+              done();
+            }, 0);
+          }),
         });
 
-        expect(onSearch.callCount).to.equal(2);
-
-        // Perform the original search again.
-        search(wrapper, 'search', () => {
-          expect(onSearch.callCount).to.equal(2);
-          done();
-        });
-      });
+        // Second search
+        change(wrapper, 'test!');
+      }),
     });
+
+    // First search
+    change(wrapper, 'test');
   });
 
-  it('should not use cached results', (done) => {
+  it('does not use cached results', (done) => {
     wrapper.setProps({
-      isLoading: true,
       useCache: false,
     });
 
     // Initial search
     search(wrapper, 'search', () => {
-      wrapper.setProps({isLoading: false, options: []});
       expect(onSearch.callCount).to.equal(1);
 
       // Perform the search again.
@@ -163,13 +189,15 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('should perform a search when there is already a selection', (done) => {
+  it('performs a search when there is already a selection', (done) => {
     wrapper.setProps({
       multiple: true,
       onChange: () => {},
       options: ['one', 'two'],
       selected: ['one'],
     });
+
+    expect(onSearch.callCount).to.equal(0);
 
     search(wrapper, 'two', () => {
       expect(onSearch.callCount).to.equal(1);
@@ -206,7 +234,6 @@ describe('<AsyncTypeahead>', () => {
 
     search(wrapper, text, () => {
       wrapper.setProps({
-        isLoading: false,
         options: [text],
       });
 
@@ -218,5 +245,14 @@ describe('<AsyncTypeahead>', () => {
       expect(menuItems.at(1).text()).to.equal(`${newSelectionPrefix}${text}`);
       done();
     });
+  });
+
+  it('makes the typehead instance and public methods available', () => {
+    const instance = wrapper.instance().getInstance();
+
+    expect(typeof instance.clear).to.equal('function');
+    expect(typeof instance.blur).to.equal('function');
+    expect(typeof instance.focus).to.equal('function');
+    expect(typeof instance.getInput).to.equal('function');
   });
 });

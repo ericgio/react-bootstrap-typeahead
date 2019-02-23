@@ -67,11 +67,3 @@ export function change(wrapper, value) {
   // `onChange` prop directly: https://github.com/airbnb/enzyme/issues/1412
   getInput(wrapper).prop('onChange')({...baseEvent, target: {value}});
 }
-
-/**
- * Other Functions
- */
-export function search(wrapper, query, callback) {
-  change(wrapper, query);
-  setTimeout(callback, 100);
-}

@@ -19,6 +19,9 @@
       "exports": "always-multiline",
       "functions": "ignore",
     }],
+    "lines-between-class-members": [2, "always", {
+      "exceptAfterSingleLine": true,
+    }],
     "max-len": [1, 80, 2, {
       "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
       "ignoreUrls": true,

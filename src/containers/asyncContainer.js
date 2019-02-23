@@ -12,16 +12,13 @@ const DEFAULT_DELAY_MS = 200;
  * asynchronous searches, including:
  *
  *  - Debouncing user input
- *  - Query caching (optional)
+ *  - Optional query caching
  *  - Search prompt and empty results behaviors
  */
 const asyncContainer = (Typeahead) => {
   class WrappedTypeahead extends React.Component {
-    state = {
-      query: '',
-    };
-
     _cache = {};
+    _query = '';
 
     componentDidMount() {
       this._handleSearchDebounced = debounce(
@@ -31,44 +28,32 @@ const asyncContainer = (Typeahead) => {
     }
 
     componentDidUpdate(prevProps, prevState) {
-      const {options, useCache} = this.props;
-
-      if (!prevProps.isLoading) {
-        return;
-      }
-
-      if (useCache) {
-        this._cache[this.state.query] = options;
+      if (prevProps.isLoading && this.props.useCache) {
+        this._cache[this._query] = this.props.options;
       }
     }
 
     componentWillUnmount() {
       this._cache = {};
+      this._query = '';
       this._handleSearchDebounced.cancel();
     }
 
     render() {
       const {options, useCache, ...props} = this.props;
-      const cachedQuery = this._cache[this.state.query];
-      const emptyLabel = this._getEmptyLabel();
+      const cachedQuery = this._cache[this._query];
 
-      // Short-circuit the creation of custom selections while the user is in
-      // the process of searching. The logic for whether or not to display the
-      // custom menu option is basically the same as whether we display the
-      // empty label, so use that as a proxy.
-      let allowNew = props.allowNew && emptyLabel === props.emptyLabel;
-      // Unless allowNew is a function,
-      // in which case it is up to the function to decide
-      if (typeof props.allowNew === 'function') {
-        /* eslint-disable-next-line prefer-destructuring */
-        allowNew = props.allowNew;
-      }
+      // Disable custom selections during a search unless `allowNew` is a
+      // function.
+      const allowNew = typeof props.allowNew === 'function' ?
+        props.allowNew :
+        props.allowNew && !props.isLoading;
 
       return (
         <Typeahead
           {...props}
           allowNew={allowNew}
-          emptyLabel={emptyLabel}
+          emptyLabel={this._getEmptyLabel()}
           onInputChange={this._handleInputChange}
           options={useCache && cachedQuery ? cachedQuery : options}
           ref={(instance) => this._instance = instance}
@@ -89,16 +74,13 @@ const asyncContainer = (Typeahead) => {
         isLoading,
         promptText,
         searchText,
-        useCache,
       } = this.props;
 
-      const {query} = this.state;
-
-      if (!query.length) {
+      if (!this._query.length) {
         return promptText;
       }
 
-      if (isLoading || (useCache && !this._cache[query])) {
+      if (isLoading) {
         return searchText;
       }
 
@@ -111,19 +93,23 @@ const asyncContainer = (Typeahead) => {
     }
 
     _handleSearch = (query) => {
+      this._query = query;
+
       const {minLength, onSearch, useCache} = this.props;
 
       if (!query || (minLength && query.length < minLength)) {
         return;
       }
 
-      // Use cached results, if available.
+      // Use cached results, if applicable.
       if (useCache && this._cache[query]) {
+        // Re-render the component with the cached results.
+        this.forceUpdate();
         return;
       }
 
       // Perform the search.
-      this.setState({query}, () => onSearch(query));
+      onSearch(query);
     }
   }
 
