@@ -123,7 +123,7 @@ describe('<AsyncTypeahead>', () => {
     let callCount = 0;
 
     onSearch = (options, callback) => (query) => {
-      callCount++;
+      callCount += 1;
 
       wrapper.setProps({isLoading: true});
 
