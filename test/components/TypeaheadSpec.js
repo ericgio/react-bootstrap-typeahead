@@ -225,39 +225,18 @@ describe('<Typeahead>', () => {
       expect(getMenu(typeahead).length).to.equal(0);
     });
 
-    it(
-      'shows the menu when there are no results, `allowNew=true`, ' +
-      'and `emptyLabel` is falsy', () => {
-        typeahead.setProps({
-          allowNew: true,
-          emptyLabel: false,
-          options: [],
-        });
-        change(typeahead, 'xx');
-        focus(typeahead);
-
-        const menuItems = getMenuItems(typeahead);
-        expect(menuItems.length).to.equal(1);
-        expect(menuItems.text()).to.equal('New selection: xx');
-      }
-    );
-  });
-
-  it('should not display a menu if `emptyLabel` is falsy', () => {
-    function getMenuWithEmptyLabel(emptyLabel) {
-      typeahead = mountTypeahead({ emptyLabel, options: [] });
+    it('shows the menu when there are no results and `allowNew=true`', () => {
+      typeahead.setProps({
+        allowNew: true,
+        options: [],
+      });
+      change(typeahead, 'xx');
       focus(typeahead);
-      return getMenu(typeahead);
-    }
 
-    let menuNode = getMenuWithEmptyLabel('');
-    expect(menuNode.length).to.equal(0);
-
-    menuNode = getMenuWithEmptyLabel(null);
-    expect(menuNode.length).to.equal(0);
-
-    menuNode = getMenuWithEmptyLabel(0);
-    expect(menuNode.length).to.equal(0);
+      const menuItems = getMenuItems(typeahead);
+      expect(menuItems.length).to.equal(1);
+      expect(menuItems.text()).to.equal('New selection: xx');
+    });
   });
 
   it('should disable the input if the component is disabled', () => {

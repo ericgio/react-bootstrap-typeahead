@@ -13,6 +13,22 @@ React and ReactDOM >=15.3 are now required as peer dependencies.
 ### Props
 - `onMenuHide` and `onMenuShow` were removed. Use `onMenuToggle` instead.
 
+### Falsy `emptyLabel` no longer hides the menu when there are no results
+This behavior was a legacy workaround introduced before `renderMenu` could return `null`. That is no longer the case and `renderMenu` should now be used to achieve the behavior:
+
+```jsx
+<Typeahead
+  ...
+  renderMenu={(results, menuProps) => {
+    if (!results.length) {
+      return null;
+    }
+
+    return <TypeaheadMenu {...menuProps} />;
+  }}
+/>
+```
+
 ### `id` required for assistive technologies
 The `menuId` prop has been replaced by `id` and no longer provides a default value. You must provide an id for assistive technologies like screen readers.
 
