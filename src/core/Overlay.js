@@ -1,10 +1,25 @@
+// @flow
+
 import { noop } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { componentOrElement } from 'prop-types-extra';
 import { Popper } from 'react-popper';
 
-function getModifiers({ align, flip }) {
+import type { Align } from '../types';
+
+type Props = {
+  align: Align,
+  children: Function,
+  dropup: boolean,
+  flip: boolean, /* eslint-disable-line react/no-unused-prop-types */
+  onMenuToggle: (boolean) => void,
+  positionFixed: boolean,
+  referenceElement: ?HTMLElement,
+  show: boolean,
+};
+
+function getModifiers({ align, flip }: Props) {
   return {
     computeStyles: {
       enabled: true,
@@ -43,8 +58,11 @@ const defaultProps = {
   show: false,
 };
 
-class Overlay extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
+class Overlay extends React.Component<Props> {
+  static propTypes: Object;
+  static defaultProps: Object;
+
+  componentDidUpdate(prevProps: Props) {
     const { onMenuToggle, show } = this.props;
 
     if (show !== prevProps.show) {

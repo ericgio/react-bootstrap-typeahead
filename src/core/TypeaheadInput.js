@@ -1,10 +1,16 @@
+// @flow
+
 import cx from 'classnames';
 import React from 'react';
 
 import { InputContext } from './Context';
 import { getMenuItemId } from '../utils';
 
-const TypeaheadInput = ({ children }) => (
+type Props = {
+  children: Function,
+};
+
+const TypeaheadInput = ({ children }: Props) => (
   <InputContext.Consumer>
     {(context) => {
       const {
