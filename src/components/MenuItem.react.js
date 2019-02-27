@@ -2,7 +2,7 @@ import cx from 'classnames';
 import { noop } from 'lodash';
 import React from 'react';
 
-import menuItemContainer from './containers/menuItemContainer';
+import menuItemContainer from '../containers/menuItemContainer';
 
 class BaseMenuItem extends React.Component {
   render() {

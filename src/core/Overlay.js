@@ -29,6 +29,20 @@ function getModifiers({ align, flip }) {
   };
 }
 
+const propTypes = {
+  children: PropTypes.func.isRequired,
+  onMenuToggle: PropTypes.func,
+  positionFixed: PropTypes.bool,
+  referenceElement: componentOrElement,
+  show: PropTypes.bool,
+};
+
+const defaultProps = {
+  onMenuToggle: noop,
+  positionFixed: false,
+  show: false,
+};
+
 class Overlay extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { onMenuToggle, show } = this.props;
@@ -71,18 +85,7 @@ class Overlay extends React.Component {
   }
 }
 
-Overlay.propTypes = {
-  children: PropTypes.func.isRequired,
-  onMenuToggle: PropTypes.func,
-  positionFixed: PropTypes.bool,
-  referenceElement: componentOrElement,
-  show: PropTypes.bool,
-};
-
-Overlay.defaultProps = {
-  onMenuToggle: noop,
-  positionFixed: false,
-  show: false,
-};
+Overlay.propTypes = propTypes;
+Overlay.defaultProps = defaultProps;
 
 export default Overlay;

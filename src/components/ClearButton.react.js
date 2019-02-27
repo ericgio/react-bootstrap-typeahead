@@ -2,6 +2,16 @@ import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const propTypes = {
+  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+  label: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+  label: 'Clear',
+};
+
 /**
  * ClearButton
  *
@@ -24,14 +34,7 @@ const ClearButton = ({ bsSize, className, label, onClick, ...props }) => (
   </button>
 );
 
-ClearButton.propTypes = {
-  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
-  label: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-};
-
-ClearButton.defaultProps = {
-  label: 'Clear',
-};
+ClearButton.propTypes = propTypes;
+ClearButton.defaultProps = defaultProps;
 
 export default ClearButton;
