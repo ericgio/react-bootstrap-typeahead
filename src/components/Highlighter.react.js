@@ -1,7 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { getMatchBounds } from './utils';
+import { getMatchBounds } from '../utils';
+
+const propTypes = {
+  children: PropTypes.string.isRequired,
+  highlightClassName: PropTypes.string,
+  search: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+  highlightClassName: 'rbt-highlight-text',
+};
 
 /**
  * Stripped-down version of https://github.com/helior/react-highlighter
@@ -67,14 +77,7 @@ class Highlighter extends React.PureComponent {
   }
 }
 
-Highlighter.propTypes = {
-  children: PropTypes.string.isRequired,
-  highlightClassName: PropTypes.string,
-  search: PropTypes.string.isRequired,
-};
-
-Highlighter.defaultProps = {
-  highlightClassName: 'rbt-highlight-text',
-};
+Highlighter.propTypes = propTypes;
+Highlighter.defaultProps = defaultProps;
 
 export default Highlighter;

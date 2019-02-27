@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AutosizeInput from '../AutosizeInput.react';
+import AutosizeInput from '../components/AutosizeInput.react';
 import { withContext } from '../core/Context';
 
 import { getDisplayName, shouldSelectHint } from '../utils';
@@ -34,6 +34,8 @@ function copyStyles(inputNode, hintNode) {
 
 function hintContainer(Input) {
   class HintedInput extends React.Component {
+    static displayName = `hintContainer(${getDisplayName(Input)})`;
+
     componentDidMount() {
       copyStyles(this._input, this._hint);
     }
@@ -99,8 +101,6 @@ function hintContainer(Input) {
       onKeyDown(e);
     }
   }
-
-  HintedInput.displayName = `HintContainer(${getDisplayName(Input)})`;
 
   return withContext(HintedInput, [
     'hintText',

@@ -4,8 +4,23 @@ import PropTypes from 'prop-types';
 
 import ClearButton from './ClearButton.react';
 
-import tokenContainer from './containers/tokenContainer';
-import { RETURN } from './constants';
+import tokenContainer from '../containers/tokenContainer';
+import { RETURN } from '../constants';
+
+const propTypes = {
+  active: PropTypes.bool,
+  /**
+   * Handler for removing/deleting the token. If not defined, the token will
+   * be rendered in a read-only state.
+   */
+  onRemove: PropTypes.func,
+  tabIndex: PropTypes.number,
+};
+
+const defaultProps = {
+  active: false,
+  tabIndex: 0,
+};
 
 /**
  * Token
@@ -73,20 +88,7 @@ class Token extends React.Component {
   }
 }
 
-Token.propTypes = {
-  active: PropTypes.bool,
-  /**
-   * Handler for removing/deleting the token. If not defined, the token will
-   * be rendered in a read-only state.
-   */
-  onRemove: PropTypes.func,
-  tabIndex: PropTypes.number,
-};
-
-Token.defaultProps = {
-  active: false,
-  tabIndex: 0,
-};
-
+Token.propTypes = propTypes;
+Token.defaultProps = defaultProps;
 
 export default tokenContainer(Token);

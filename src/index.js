@@ -1,11 +1,11 @@
 // Components
-export AsyncTypeahead from './AsyncTypeahead.react';
-export Highlighter from './Highlighter.react';
-export Menu from './Menu.react';
-export MenuItem from './MenuItem.react';
-export Token from './Token.react';
-export Typeahead from './Typeahead.react';
-export TypeaheadMenu from './TypeaheadMenu.react';
+export AsyncTypeahead from './components/AsyncTypeahead.react';
+export Highlighter from './components/Highlighter.react';
+export Menu from './components/Menu.react';
+export MenuItem from './components/MenuItem.react';
+export Token from './components/Token.react';
+export Typeahead from './components/Typeahead.react';
+export TypeaheadMenu from './components/TypeaheadMenu.react';
 
 // HOCs
 export asyncContainer from './containers/asyncContainer';

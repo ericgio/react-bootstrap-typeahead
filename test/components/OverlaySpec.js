@@ -4,7 +4,7 @@ import React from 'react';
 import { Popper } from 'react-popper';
 import sinon from 'sinon';
 
-import Menu from '../../src/Menu.react';
+import Menu from '../../src/components/Menu.react';
 import Overlay from '../../src/core/Overlay';
 
 function getPopper(wrapper) {
