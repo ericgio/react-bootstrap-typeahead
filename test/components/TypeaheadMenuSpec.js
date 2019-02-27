@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
-import MenuItem, { BaseMenuItem } from '../../src/MenuItem.react';
-import TypeaheadMenu from '../../src/TypeaheadMenu.react';
+import MenuItem, { BaseMenuItem } from '../../src/components/MenuItem.react';
+import TypeaheadMenu from '../../src/components/TypeaheadMenu.react';
 
 import options from '../../example/exampleData';
 import { getMenu, getPaginator } from '../helpers';

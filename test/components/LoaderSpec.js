@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import Loader from '../../src/Loader.react';
+import Loader from '../../src/components/Loader.react';
 
 describe('<Loader>', () => {
   let loader;
