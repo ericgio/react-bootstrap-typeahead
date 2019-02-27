@@ -1,8 +1,8 @@
 import cx from 'classnames';
 import React from 'react';
 
-import hintContainer from './containers/hintContainer';
-import withClassNames from './containers/withClassNames';
+import hintContainer from '../containers/hintContainer';
+import withClassNames from '../containers/withClassNames';
 
 class TypeaheadInputSingle extends React.Component {
   render() {

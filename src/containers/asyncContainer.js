@@ -5,7 +5,51 @@ import React from 'react';
 import { optionType } from '../propTypes';
 import { getDisplayName } from '../utils';
 
-const DEFAULT_DELAY_MS = 200;
+const propTypes = {
+  /**
+   * Delay, in milliseconds, before performing search.
+   */
+  delay: PropTypes.number,
+  /**
+   * Whether or not a request is currently pending. Necessary for the
+   * container to know when new results are available.
+   */
+  isLoading: PropTypes.bool.isRequired,
+  /**
+   * Number of input characters that must be entered before showing results.
+   */
+  minLength: PropTypes.number,
+  /**
+   * Callback to perform when the search is executed.
+   */
+  onSearch: PropTypes.func.isRequired,
+  /**
+   * Options to be passed to the typeahead. Will typically be the query
+   * results, but can also be initial default options.
+   */
+  options: optionType,
+  /**
+   * Message displayed in the menu when there is no user input.
+   */
+  promptText: PropTypes.node,
+  /**
+   * Message displayed in the menu while the request is pending.
+   */
+  searchText: PropTypes.node,
+  /**
+   * Whether or not the component should cache query results.
+   */
+  useCache: PropTypes.bool,
+};
+
+const defaultProps = {
+  delay: 200,
+  minLength: 2,
+  options: [],
+  promptText: 'Type to search...',
+  searchText: 'Searching...',
+  useCache: true,
+};
 
 /**
  * HoC that encapsulates common behavior and functionality for doing
@@ -19,6 +63,8 @@ const asyncContainer = (Typeahead) => {
   class WrappedTypeahead extends React.Component {
     _cache = {};
     _query = '';
+
+    static displayName = `asyncContainer(${getDisplayName(Typeahead)})`;
 
     componentDidMount() {
       this._handleSearchDebounced = debounce(
@@ -113,53 +159,8 @@ const asyncContainer = (Typeahead) => {
     }
   }
 
-  WrappedTypeahead.displayName = `AsyncContainer(${getDisplayName(Typeahead)})`;
-
-  WrappedTypeahead.propTypes = {
-    /**
-     * Delay, in milliseconds, before performing search.
-     */
-    delay: PropTypes.number,
-    /**
-     * Whether or not a request is currently pending. Necessary for the
-     * container to know when new results are available.
-     */
-    isLoading: PropTypes.bool.isRequired,
-    /**
-     * Number of input characters that must be entered before showing results.
-     */
-    minLength: PropTypes.number,
-    /**
-     * Callback to perform when the search is executed.
-     */
-    onSearch: PropTypes.func.isRequired,
-    /**
-     * Options to be passed to the typeahead. Will typically be the query
-     * results, but can also be initial default options.
-     */
-    options: optionType,
-    /**
-     * Message displayed in the menu when there is no user input.
-     */
-    promptText: PropTypes.node,
-    /**
-     * Message displayed in the menu while the request is pending.
-     */
-    searchText: PropTypes.node,
-    /**
-     * Whether or not the component should cache query results.
-     */
-    useCache: PropTypes.bool,
-  };
-
-  WrappedTypeahead.defaultProps = {
-    delay: DEFAULT_DELAY_MS,
-    minLength: 2,
-    options: [],
-    promptText: 'Type to search...',
-    searchText: 'Searching...',
-    useCache: true,
-  };
+  WrappedTypeahead.propTypes = propTypes;
+  WrappedTypeahead.defaultProps = defaultProps;
 
   return WrappedTypeahead;
 };

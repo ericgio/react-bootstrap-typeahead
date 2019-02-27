@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
-import Token from '../../src/Token.react';
+import Token from '../../src/components/Token.react';
 
 describe('<Token>', () => {
   let token;
