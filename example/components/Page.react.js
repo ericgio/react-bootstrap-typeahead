@@ -121,15 +121,8 @@ class Page extends React.Component {
     this._updateActiveHref(this._hrefs[index]);
   }
 
-  _updateActiveHref = (activeHref, callback) => {
-    if (this._updateActiveHrefHandle != null) {
-      return;
-    }
-
-    this._updateActiveHrefHandle = setTimeout(() => {
-      this._updateActiveHrefHandle = null;
-      this.setState({ activeHref });
-    });
+  _updateActiveHref = (activeHref) => {
+    this.setState({ activeHref });
   }
 }
 
