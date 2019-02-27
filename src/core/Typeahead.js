@@ -392,7 +392,7 @@ class Typeahead extends React.Component {
     }
 
     // This must come after checks for the custom option and pagination.
-    const isMenuShown = isShown(results, mergedPropsAndState);
+    const isMenuShown = isShown(mergedPropsAndState);
 
     const props = {
       ...mergedPropsAndState,
