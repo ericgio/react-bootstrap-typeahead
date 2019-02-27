@@ -42,6 +42,16 @@ function maybeWarnAboutControlledSelections(prevSelected, selected) {
   );
 }
 
+function skipDisabledOptions(results, activeIndex, keyCode) {
+  let newActiveIndex = activeIndex;
+
+  while (results[newActiveIndex] && results[newActiveIndex].disabled) {
+    newActiveIndex += keyCode === UP ? -1 : 1;
+  }
+
+  return newActiveIndex;
+}
+
 function getInitialState(props) {
   const {
     defaultInputValue,
@@ -79,15 +89,206 @@ function getInitialState(props) {
   };
 }
 
-function skipDisabledOptions(results, activeIndex, keyCode) {
-  let newActiveIndex = activeIndex;
+const propTypes = {
+  /**
+   * Specify menu alignment. The default value is `justify`, which makes the
+   * menu as wide as the input and truncates long values. Specifying `left`
+   * or `right` will align the menu to that side and the width will be
+   * determined by the length of menu item values.
+   */
+  align: PropTypes.oneOf(['justify', 'left', 'right']),
+  /**
+   * Allows the creation of new selections on the fly. Note that any new items
+   * will be added to the list of selections, but not the list of original
+   * options unless handled as such by `Typeahead`'s parent.
+   *
+   * If a function is specified, it will be used to determine whether a custom
+   * option should be included. The return value should be true or false.
+   */
+  allowNew: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.func,
+  ]),
+  /**
+   * Autofocus the input when the component initially mounts.
+   */
+  autoFocus: PropTypes.bool,
+  /**
+   * Whether or not filtering should be case-sensitive.
+   */
+  caseSensitive: checkPropType(PropTypes.bool, caseSensitiveType),
+  /**
+   * The initial value displayed in the text input.
+   */
+  defaultInputValue: checkPropType(PropTypes.string, defaultInputValueType),
+  /**
+   * Whether or not the menu is displayed upon initial render.
+   */
+  defaultOpen: PropTypes.bool,
+  /**
+   * Specify any pre-selected options. Use only if you want the component to
+   * be uncontrolled.
+   */
+  defaultSelected: optionType,
+  /**
+   * Whether to disable the component.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Specify whether the menu should appear above the input.
+   */
+  dropup: PropTypes.bool,
+  /**
+   * Either an array of fields in `option` to search, or a custom filtering
+   * callback.
+   */
+  filterBy: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string.isRequired),
+    PropTypes.func,
+  ]),
+  /**
+   * Whether or not to automatically adjust the position of the menu when it
+   * reaches the viewport boundaries.
+   */
+  flip: PropTypes.bool,
+  /**
+   * Highlights the menu item if there is only one result and allows selecting
+   * that item by hitting enter. Does not work with `allowNew`.
+   */
+  highlightOnlyResult: checkPropType(PropTypes.bool, highlightOnlyResultType),
+  /**
+   * An html id attribute, required for assistive technologies such as screen
+   * readers.
+   */
+  id: isRequiredForA11y(PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ])),
+  /**
+   * Whether the filter should ignore accents and other diacritical marks.
+   */
+  ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
+  /**
+   * Props to be applied directly to the input. `onBlur`, `onChange`,
+   * `onFocus`, and `onKeyDown` are ignored.
+   */
+  inputProps: checkPropType(PropTypes.object, inputPropsType),
+  /**
+   * Specify the option key to use for display or a function returning the
+   * display string. By default, the selector will use the `label` key.
+   */
+  labelKey: checkPropType(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    labelKeyType,
+  ),
+  /**
+   * Maximum number of results to display by default. Mostly done for
+   * performance reasons so as not to render too many DOM nodes in the case of
+   * large data sets.
+   */
+  maxResults: PropTypes.number,
+  /**
+   * Number of input characters that must be entered before showing results.
+   */
+  minLength: PropTypes.number,
+  /**
+   * Whether or not multiple selections are allowed.
+   */
+  multiple: PropTypes.bool,
+  /**
+   * Invoked when the input is blurred. Receives an event.
+   */
+  onBlur: PropTypes.func,
+  /**
+   * Invoked whenever items are added or removed. Receives an array of the
+   * selected options.
+   */
+  onChange: PropTypes.func,
+  /**
+   * Invoked when the input is focused. Receives an event.
+   */
+  onFocus: PropTypes.func,
+  /**
+   * Invoked when the input value changes. Receives the string value of the
+   * input.
+   */
+  onInputChange: PropTypes.func,
+  /**
+   * Invoked when a key is pressed. Receives an event.
+   */
+  onKeyDown: PropTypes.func,
+  /**
+   * Invoked when menu visibility changes.
+   */
+  onMenuToggle: PropTypes.func,
+  /**
+   * Invoked when the pagination menu item is clicked. Receives an event.
+   */
+  onPaginate: PropTypes.func,
+  /**
+   * Whether or not the menu should be displayed. `undefined` allows the
+   * component to control visibility, while `true` and `false` show and hide
+   * the menu, respectively.
+   */
+  open: PropTypes.bool,
+  /**
+   * Full set of options, including pre-selected options. Must either be an
+   * array of objects (recommended) or strings.
+   */
+  options: optionType.isRequired,
+  /**
+   * Give user the ability to display additional results if the number of
+   * results exceeds `maxResults`.
+   */
+  paginate: PropTypes.bool,
+  /**
+   * Prompt displayed when large data sets are paginated.
+   */
+  paginationText: PropTypes.string,
+  /**
+   * Placeholder text for the input.
+   */
+  placeholder: PropTypes.string,
+  /**
+   * The selected option(s) displayed in the input. Use this prop if you want
+   * to control the component via its parent.
+   */
+  selected: checkPropType(optionType, selectedType),
+  /**
+   * Allows selecting the hinted result by pressing enter.
+   */
+  selectHintOnEnter: PropTypes.bool,
+};
 
-  while (results[newActiveIndex] && results[newActiveIndex].disabled) {
-    newActiveIndex += keyCode === UP ? -1 : 1;
-  }
-
-  return newActiveIndex;
-}
+const defaultProps = {
+  align: 'justify',
+  allowNew: false,
+  autoFocus: false,
+  caseSensitive: false,
+  defaultInputValue: '',
+  defaultOpen: false,
+  defaultSelected: [],
+  disabled: false,
+  dropup: false,
+  filterBy: [],
+  flip: false,
+  highlightOnlyResult: false,
+  ignoreDiacritics: true,
+  inputProps: {},
+  labelKey: DEFAULT_LABELKEY,
+  maxResults: 100,
+  minLength: 0,
+  multiple: false,
+  onBlur: noop,
+  onFocus: noop,
+  onInputChange: noop,
+  onKeyDown: noop,
+  onPaginate: noop,
+  paginate: true,
+  paginationText: 'Display additional results...',
+  placeholder: '',
+  selectHintOnEnter: false,
+};
 
 class Typeahead extends React.Component {
   state = getInitialState(this.props);
@@ -467,206 +668,8 @@ class Typeahead extends React.Component {
   }
 }
 
-Typeahead.propTypes = {
-  /**
-   * Specify menu alignment. The default value is `justify`, which makes the
-   * menu as wide as the input and truncates long values. Specifying `left`
-   * or `right` will align the menu to that side and the width will be
-   * determined by the length of menu item values.
-   */
-  align: PropTypes.oneOf(['justify', 'left', 'right']),
-  /**
-   * Allows the creation of new selections on the fly. Note that any new items
-   * will be added to the list of selections, but not the list of original
-   * options unless handled as such by `Typeahead`'s parent.
-   *
-   * If a function is specified, it will be used to determine whether a custom
-   * option should be included. The return value should be true or false.
-   */
-  allowNew: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
-  /**
-   * Autofocus the input when the component initially mounts.
-   */
-  autoFocus: PropTypes.bool,
-  /**
-   * Whether or not filtering should be case-sensitive.
-   */
-  caseSensitive: checkPropType(PropTypes.bool, caseSensitiveType),
-  /**
-   * The initial value displayed in the text input.
-   */
-  defaultInputValue: checkPropType(PropTypes.string, defaultInputValueType),
-  /**
-   * Whether or not the menu is displayed upon initial render.
-   */
-  defaultOpen: PropTypes.bool,
-  /**
-   * Specify any pre-selected options. Use only if you want the component to
-   * be uncontrolled.
-   */
-  defaultSelected: optionType,
-  /**
-   * Whether to disable the component.
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Specify whether the menu should appear above the input.
-   */
-  dropup: PropTypes.bool,
-  /**
-   * Either an array of fields in `option` to search, or a custom filtering
-   * callback.
-   */
-  filterBy: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string.isRequired),
-    PropTypes.func,
-  ]),
-  /**
-   * Whether or not to automatically adjust the position of the menu when it
-   * reaches the viewport boundaries.
-   */
-  flip: PropTypes.bool,
-  /**
-   * Highlights the menu item if there is only one result and allows selecting
-   * that item by hitting enter. Does not work with `allowNew`.
-   */
-  highlightOnlyResult: checkPropType(PropTypes.bool, highlightOnlyResultType),
-  /**
-   * An html id attribute, required for assistive technologies such as screen
-   * readers.
-   */
-  id: isRequiredForA11y(PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ])),
-  /**
-   * Whether the filter should ignore accents and other diacritical marks.
-   */
-  ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
-  /**
-   * Props to be applied directly to the input. `onBlur`, `onChange`,
-   * `onFocus`, and `onKeyDown` are ignored.
-   */
-  inputProps: checkPropType(PropTypes.object, inputPropsType),
-  /**
-   * Specify the option key to use for display or a function returning the
-   * display string. By default, the selector will use the `label` key.
-   */
-  labelKey: checkPropType(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    labelKeyType,
-  ),
-  /**
-   * Maximum number of results to display by default. Mostly done for
-   * performance reasons so as not to render too many DOM nodes in the case of
-   * large data sets.
-   */
-  maxResults: PropTypes.number,
-  /**
-   * Number of input characters that must be entered before showing results.
-   */
-  minLength: PropTypes.number,
-  /**
-   * Whether or not multiple selections are allowed.
-   */
-  multiple: PropTypes.bool,
-  /**
-   * Invoked when the input is blurred. Receives an event.
-   */
-  onBlur: PropTypes.func,
-  /**
-   * Invoked whenever items are added or removed. Receives an array of the
-   * selected options.
-   */
-  onChange: PropTypes.func,
-  /**
-   * Invoked when the input is focused. Receives an event.
-   */
-  onFocus: PropTypes.func,
-  /**
-   * Invoked when the input value changes. Receives the string value of the
-   * input.
-   */
-  onInputChange: PropTypes.func,
-  /**
-   * Invoked when a key is pressed. Receives an event.
-   */
-  onKeyDown: PropTypes.func,
-  /**
-   * Invoked when menu visibility changes.
-   */
-  onMenuToggle: PropTypes.func,
-  /**
-   * Invoked when the pagination menu item is clicked. Receives an event.
-   */
-  onPaginate: PropTypes.func,
-  /**
-   * Whether or not the menu should be displayed. `undefined` allows the
-   * component to control visibility, while `true` and `false` show and hide
-   * the menu, respectively.
-   */
-  open: PropTypes.bool,
-  /**
-   * Full set of options, including pre-selected options. Must either be an
-   * array of objects (recommended) or strings.
-   */
-  options: optionType.isRequired,
-  /**
-   * Give user the ability to display additional results if the number of
-   * results exceeds `maxResults`.
-   */
-  paginate: PropTypes.bool,
-  /**
-   * Prompt displayed when large data sets are paginated.
-   */
-  paginationText: PropTypes.string,
-  /**
-   * Placeholder text for the input.
-   */
-  placeholder: PropTypes.string,
-  /**
-   * The selected option(s) displayed in the input. Use this prop if you want
-   * to control the component via its parent.
-   */
-  selected: checkPropType(optionType, selectedType),
-  /**
-   * Allows selecting the hinted result by pressing enter.
-   */
-  selectHintOnEnter: PropTypes.bool,
-};
-
-Typeahead.defaultProps = {
-  align: 'justify',
-  allowNew: false,
-  autoFocus: false,
-  caseSensitive: false,
-  defaultInputValue: '',
-  defaultOpen: false,
-  defaultSelected: [],
-  disabled: false,
-  dropup: false,
-  filterBy: [],
-  flip: false,
-  highlightOnlyResult: false,
-  ignoreDiacritics: true,
-  inputProps: {},
-  labelKey: DEFAULT_LABELKEY,
-  maxResults: 100,
-  minLength: 0,
-  multiple: false,
-  onBlur: noop,
-  onFocus: noop,
-  onInputChange: noop,
-  onKeyDown: noop,
-  onPaginate: noop,
-  paginate: true,
-  paginationText: 'Display additional results...',
-  placeholder: '',
-  selectHintOnEnter: false,
-};
+Typeahead.propTypes = propTypes;
+Typeahead.defaultProps = defaultProps;
 
 Typeahead.Input = TypeaheadInput;
 Typeahead.Menu = TypeaheadMenu;

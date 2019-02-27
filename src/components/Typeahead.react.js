@@ -2,7 +2,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Typeahead from './core/Typeahead';
+import Typeahead from '../core/Typeahead';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
@@ -10,7 +10,7 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import { preventInputBlur } from './utils';
+import { preventInputBlur } from '../utils';
 
 const propTypes = {
   /**

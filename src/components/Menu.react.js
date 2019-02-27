@@ -5,6 +5,24 @@ import React, { Children } from 'react';
 
 import { BaseMenuItem } from './MenuItem.react';
 
+const propTypes = {
+  /**
+   * Needed for accessibility.
+   */
+  id: isRequiredForA11y(PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ])),
+  /**
+   * Maximum height of the dropdown menu.
+   */
+  maxHeight: PropTypes.string,
+};
+
+const defaultProps = {
+  maxHeight: '300px',
+};
+
 /**
  * Menu component that handles empty state when passed a set of results.
  */
@@ -59,23 +77,8 @@ class Menu extends React.Component {
   }
 }
 
-Menu.propTypes = {
-  /**
-   * Needed for accessibility.
-   */
-  id: isRequiredForA11y(PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ])),
-  /**
-   * Maximum height of the dropdown menu.
-   */
-  maxHeight: PropTypes.string,
-};
-
-Menu.defaultProps = {
-  maxHeight: '300px',
-};
+Menu.propTypes = propTypes;
+Menu.defaultProps = defaultProps;
 
 Menu.Divider = (props) => (
   <li className="divider dropdown-divider" role="separator" />

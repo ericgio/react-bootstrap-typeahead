@@ -4,7 +4,7 @@ import { noop, pick } from 'lodash';
 import React from 'react';
 import sinon from 'sinon';
 
-import MenuItem, { BaseMenuItem } from '../../src/MenuItem.react';
+import MenuItem, { BaseMenuItem } from '../../src/components/MenuItem.react';
 import TypeaheadInner from '../../src/core/TypeaheadInner';
 import { context } from '../helpers';
 
