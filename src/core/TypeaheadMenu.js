@@ -1,9 +1,15 @@
+// @flow
+
 import React from 'react';
 
 import { MenuContext } from './Context';
 import Overlay from './Overlay';
 
-const TypeaheadMenu = ({ children }) => (
+type Props = {
+  children: Function,
+};
+
+const TypeaheadMenu = ({ children }: Props) => (
   <MenuContext.Consumer>
     {({ id, labelKey, results, text, ...context }) => (
       <Overlay {...context}>
