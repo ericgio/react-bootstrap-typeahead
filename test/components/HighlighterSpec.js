@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import Highlighter from '../../src/Highlighter.react';
+import Highlighter from '../../src/components/Highlighter.react';
 
 describe('<Highlighter>', () => {
   let highlighter, matches;

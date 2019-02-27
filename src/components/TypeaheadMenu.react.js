@@ -5,7 +5,28 @@ import Highlighter from './Highlighter.react';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
-import { getOptionLabel } from './utils';
+import { getOptionLabel } from '../utils';
+
+const propTypes = {
+  /**
+   * Provides the ability to specify a prefix before the user-entered text to
+   * indicate that the selection will be new. No-op unless `allowNew={true}`.
+   */
+  newSelectionPrefix: PropTypes.string,
+  /**
+   * Provides a hook for customized rendering of menu item contents.
+   */
+  renderMenuItemChildren: PropTypes.func,
+};
+
+const defaultProps = {
+  newSelectionPrefix: 'New selection: ',
+  renderMenuItemChildren: (option, props, idx) => (
+    <Highlighter search={props.text}>
+      {getOptionLabel(option, props.labelKey)}
+    </Highlighter>
+  ),
+};
 
 class TypeaheadMenu extends React.Component {
   render() {
@@ -76,26 +97,7 @@ class TypeaheadMenu extends React.Component {
   }
 }
 
-TypeaheadMenu.propTypes = {
-  /**
-   * Provides the ability to specify a prefix before the user-entered text to
-   * indicate that the selection will be new. No-op unless `allowNew={true}`.
-   */
-  newSelectionPrefix: PropTypes.string,
-  /**
-   * Provides a hook for customized rendering of menu item contents.
-   */
-  renderMenuItemChildren: PropTypes.func,
-};
-
-TypeaheadMenu.defaultProps = {
-  newSelectionPrefix: 'New selection: ',
-  renderMenuItemChildren: (option, props, idx) => (
-    <Highlighter search={props.text}>
-      {getOptionLabel(option, props.labelKey)}
-    </Highlighter>
-  ),
-};
-
+TypeaheadMenu.propTypes = propTypes;
+TypeaheadMenu.defaultProps = defaultProps;
 
 export default TypeaheadMenu;

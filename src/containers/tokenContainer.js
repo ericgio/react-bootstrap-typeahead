@@ -5,11 +5,12 @@ import { getDisplayName } from '../utils';
 import { BACKSPACE } from '../constants';
 
 /**
- * Higher-order component that encapsulates Token behaviors, allowing them to
- * be easily re-used.
+ * Higher-order component to encapsulate Token behaviors.
  */
 const tokenContainer = (Component) => {
   class WrappedComponent extends React.Component {
+    static displayName = `tokenContainer(${getDisplayName(Component)})`;
+
     state = {
       active: false,
     };
@@ -53,8 +54,6 @@ const tokenContainer = (Component) => {
       this.setState({ active: true });
     }
   }
-
-  WrappedComponent.displayName = `TokenContainer(${getDisplayName(Component)})`;
 
   return WrappedComponent;
 };

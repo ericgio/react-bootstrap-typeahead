@@ -40,6 +40,22 @@ const copyStyles = (styles, node) => {
   /* eslint-enable no-param-reassign */
 };
 
+const propTypes = {
+  /**
+   * ClassName for the input element.
+   */
+  inputClassName: PropTypes.string,
+  /**
+   * Ref callback for the input element.
+   */
+  inputRef: PropTypes.func,
+  /**
+   * CSS styles for the input element.
+   */
+  /* eslint-disable-next-line react/forbid-prop-types */
+  inputStyle: PropTypes.object,
+};
+
 class AutosizeInput extends React.Component {
   state = {
     inputWidth: MIN_WIDTH,
@@ -135,20 +151,6 @@ class AutosizeInput extends React.Component {
   }
 }
 
-AutosizeInput.propTypes = {
-  /**
-   * ClassName for the input element.
-   */
-  inputClassName: PropTypes.string,
-  /**
-   * Ref callback for the input element.
-   */
-  inputRef: PropTypes.func,
-  /**
-   * CSS styles for the input element.
-   */
-  /* eslint-disable-next-line react/forbid-prop-types */
-  inputStyle: PropTypes.object,
-};
+AutosizeInput.propTypes = propTypes;
 
 export default AutosizeInput;
