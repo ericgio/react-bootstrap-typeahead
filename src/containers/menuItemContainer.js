@@ -5,9 +5,17 @@ import { findDOMNode } from 'react-dom';
 import { withContext } from '../core/Context';
 import { getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded } from '../utils';
 
+const propTypes = {
+  option: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
+  position: PropTypes.number,
+};
+
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
-    static displayName = `MenuItemContainer(${getDisplayName(Component)})`;
+    static displayName = `menuItemContainer(${getDisplayName(Component)})`;
 
     componentDidMount() {
       this._maybeUpdateItem();
@@ -77,13 +85,7 @@ const menuItemContainer = (Component) => {
     }
   }
 
-  WrappedMenuItem.propTypes = {
-    option: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-    ]).isRequired,
-    position: PropTypes.number,
-  };
+  WrappedMenuItem.propTypes = propTypes;
 
   return withContext(WrappedMenuItem, [
     'activeIndex',

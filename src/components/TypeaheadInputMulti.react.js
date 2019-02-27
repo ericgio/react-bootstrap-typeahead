@@ -5,13 +5,33 @@ import React from 'react';
 import AutosizeInput from './AutosizeInput.react';
 import Token from './Token.react';
 
-import { getOptionLabel, isSelectable } from './utils';
-import hintContainer from './containers/hintContainer';
-import withClassNames from './containers/withClassNames';
+import { getOptionLabel, isSelectable } from '../utils';
+import hintContainer from '../containers/hintContainer';
+import withClassNames from '../containers/withClassNames';
 
-import { BACKSPACE } from './constants';
+import { BACKSPACE } from '../constants';
 
 const HintedAutosizeInput = hintContainer(AutosizeInput);
+
+const propTypes = {
+  /**
+   * Provides a hook for customized rendering of tokens when multiple
+   * selections are enabled.
+   */
+  renderToken: PropTypes.func,
+};
+
+const defaultProps = {
+  renderToken: (option, props, idx) => (
+    <Token
+      disabled={props.disabled}
+      key={idx}
+      onRemove={props.onRemove}
+      tabIndex={props.tabIndex}>
+      {getOptionLabel(option, props.labelKey)}
+    </Token>
+  ),
+};
 
 class TypeaheadInputMulti extends React.Component {
   render() {
@@ -114,24 +134,7 @@ class TypeaheadInputMulti extends React.Component {
   }
 }
 
-TypeaheadInputMulti.propTypes = {
-  /**
-   * Provides a hook for customized rendering of tokens when multiple
-   * selections are enabled.
-   */
-  renderToken: PropTypes.func,
-};
-
-TypeaheadInputMulti.defaultProps = {
-  renderToken: (option, props, idx) => (
-    <Token
-      disabled={props.disabled}
-      key={idx}
-      onRemove={props.onRemove}
-      tabIndex={props.tabIndex}>
-      {getOptionLabel(option, props.labelKey)}
-    </Token>
-  ),
-};
+TypeaheadInputMulti.propTypes = propTypes;
+TypeaheadInputMulti.defaultProps = defaultProps;
 
 export default withClassNames(TypeaheadInputMulti);

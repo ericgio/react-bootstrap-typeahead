@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { head, noop } from 'lodash';
 import React from 'react';
 
-import TypeaheadInputSingle from '../../src/TypeaheadInputSingle.react';
+import TypeaheadInputSingle from '../../src/components/TypeaheadInputSingle.react';
 
 import options from '../../example/exampleData';
 import { context, getFormControl, getHint, getInput, TestInputProvider } from '../helpers';

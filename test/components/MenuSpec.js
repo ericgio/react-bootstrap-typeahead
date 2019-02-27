@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import Menu from '../../src/Menu.react';
-import MenuItem, { BaseMenuItem } from '../../src/MenuItem.react';
+import Menu from '../../src/components/Menu.react';
+import MenuItem, { BaseMenuItem } from '../../src/components/MenuItem.react';
 
 describe('<Menu>', () => {
   let menu;
