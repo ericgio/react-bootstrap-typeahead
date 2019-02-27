@@ -4,7 +4,7 @@ import React from 'react';
 import { Checkbox, Radio } from 'react-bootstrap';
 import { FormGroup, Input, Label } from 'reactstrap';
 
-import withBSVersion from '../util/withBSVersion';
+import { withContext } from './Context.react';
 
 const Control = ({ children, isBS3, type, ...props }) => {
   const Component = type === 'radio' ? Radio : Checkbox;
@@ -22,4 +22,4 @@ const Control = ({ children, isBS3, type, ...props }) => {
     </FormGroup>;
 };
 
-export default withBSVersion(Control);
+export default withContext(Control, ['isBS3']);

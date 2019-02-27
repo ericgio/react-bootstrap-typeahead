@@ -6,6 +6,7 @@ import React, { Children } from 'react';
 import { Col, Jumbotron, NavItem, Row } from 'react-bootstrap';
 
 import Container from './Container.react';
+import Context from './Context.react';
 import PageFooter from './PageFooter.react';
 import PageHeader from './PageHeader.react';
 import PageMenu from './PageMenu.react';
@@ -18,14 +19,6 @@ class Page extends React.Component {
     activeHref: window.location.hash,
     bsVersion: BS4,
   };
-
-  getChildContext() {
-    return {
-      isBS3: this.state.bsVersion === BS3,
-      onAfter: this._onAfter,
-      onBefore: this._onBefore,
-    };
-  }
 
   componentWillMount() {
     this._hrefs = [];
@@ -42,33 +35,40 @@ class Page extends React.Component {
     const { bsVersion } = this.state;
 
     return (
-      <div
-        className={cx('bs-docs-page', {
-          bs4: bsVersion === BS4,
-        })}>
-        <PageHeader
-          onVersionChange={this._handleVersionChange}
-          selectedVersion={bsVersion}
-        />
-        <Jumbotron>
+      <Context.Provider
+        value={{
+          isBS3: bsVersion === BS3,
+          onAfter: this._onAfter,
+          onBefore: this._onBefore,
+        }}>
+        <div
+          className={cx('bs-docs-page', {
+            bs4: bsVersion === BS4,
+          })}>
+          <PageHeader
+            onVersionChange={this._handleVersionChange}
+            selectedVersion={bsVersion}
+          />
+          <Jumbotron>
+            <Container>
+              <h1>{title}</h1>
+            </Container>
+          </Jumbotron>
           <Container>
-            <h1>{title}</h1>
+            <Row>
+              <Col md={9}>
+                {children}
+              </Col>
+              <Col className="bs-docs-sidebar-holder" md={3}>
+                <PageMenu>
+                  {this._sections.map(this._renderMenuItem)}
+                </PageMenu>
+              </Col>
+            </Row>
           </Container>
-        </Jumbotron>
-        <Container>
-          <Row>
-            <Col md={9}>
-              {children}
-            </Col>
-            <Col className="bs-docs-sidebar-holder" md={3}>
-              <PageMenu>
-                {this._sections.map(this._renderMenuItem)}
-              </PageMenu>
-            </Col>
-          </Row>
-        </Container>
-        <PageFooter />
-      </div>
+          <PageFooter />
+        </div>
+      </Context.Provider>
     );
   }
 
@@ -125,12 +125,6 @@ class Page extends React.Component {
     this.setState({ activeHref });
   }
 }
-
-Page.childContextTypes = {
-  isBS3: PropTypes.bool.isRequired,
-  onAfter: PropTypes.func.isRequired,
-  onBefore: PropTypes.func.isRequired,
-};
 
 Page.propTypes = {
   title: PropTypes.node.isRequired,
