@@ -5,7 +5,7 @@ import React from 'react';
 import { MenuItem, NavDropdown } from 'react-bootstrap';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
-import withBSVersion from '../util/withBSVersion';
+import { withContext } from './Context.react';
 
 const VersionDropdown = (props) => {
   const { children, isBS3, isOpen, onSelect, onToggle, title } = props;
@@ -38,7 +38,7 @@ const VersionDropdownItem = ({ eventKey, isBS3, onClick, ...props }) => (
     <DropdownItem {...props} onClick={onClick} />
 );
 
-const VersionDropdownWithContext = withBSVersion(VersionDropdown);
-VersionDropdownWithContext.Item = withBSVersion(VersionDropdownItem);
+const VersionDropdownWithContext = withContext(VersionDropdown, ['isBS3']);
+VersionDropdownWithContext.Item = withContext(VersionDropdownItem, ['isBS3']);
 
 export default VersionDropdownWithContext;
