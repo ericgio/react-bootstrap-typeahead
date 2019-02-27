@@ -5,21 +5,29 @@ import sinon from 'sinon';
 
 import MenuItem, { BaseMenuItem } from '../../src/components/MenuItem.react';
 import TypeaheadMenu from '../../src/components/TypeaheadMenu.react';
+import TypeaheadInner from '../../src/core/TypeaheadInner';
 
 import options from '../../example/exampleData';
-import { getMenu, getPaginator } from '../helpers';
+import { context, getMenu, getPaginator } from '../helpers';
 
 describe('<TypeaheadMenu>', () => {
   let menu;
 
   beforeEach(() => {
     menu = mount(
-      <TypeaheadMenu
-        id="menu-id"
-        labelKey="name"
+      <TypeaheadInner
+        {...context}
         options={options}
-        text=""
-      />
+        selected={[]}>
+        {(props) => (
+          <TypeaheadMenu
+            {...props}
+            id="menu-id"
+            labelKey="name"
+            text=""
+          />
+        )}
+      </TypeaheadInner>
     );
   });
 
