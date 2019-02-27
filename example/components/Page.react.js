@@ -15,18 +15,20 @@ import getIdFromTitle from '../util/getIdFromTitle';
 import { BS3, BS4, HASHES } from '../util/bsVersions';
 
 class Page extends React.Component {
+  _hrefs = [];
+  _sections = [];
+
   state = {
     activeHref: window.location.hash,
     bsVersion: BS4,
   };
 
-  componentWillMount() {
-    this._hrefs = [];
-    this._sections = [];
+  constructor(props) {
+    super(props);
 
-    Children.forEach(this.props.children, ({ props }) => {
-      this._hrefs.push(`#${getIdFromTitle(props.title)}`);
-      this._sections.push(props.title);
+    Children.forEach(props.children, (child) => {
+      this._hrefs.push(`#${getIdFromTitle(child.props.title)}`);
+      this._sections.push(child.props.title);
     });
   }
 
