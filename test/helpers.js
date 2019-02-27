@@ -83,5 +83,8 @@ export function keyDown(wrapper, value) {
 export function change(wrapper, value) {
   // Calling `simulate` doesn't actually change the value, so call the
   // `onChange` prop directly: https://github.com/airbnb/enzyme/issues/1412
-  getInput(wrapper).prop('onChange')({ ...baseEvent, target: { value } });
+  getInput(wrapper).prop('onChange')({
+    ...baseEvent,
+    currentTarget: { value },
+  });
 }
