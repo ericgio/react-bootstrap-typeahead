@@ -107,7 +107,6 @@
     "reactstrap": "^7.0.2",
     "rimraf": "^2.6.3",
     "sass-loader": "^7.0.1",
-    "sinon": "^7.2.2",
     "style-loader": "^0.23.0",
     "uglifyjs-webpack-plugin": "^2.0.0",
     "webpack": "^4.6.0",
