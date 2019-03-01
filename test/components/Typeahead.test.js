@@ -2,7 +2,6 @@ import { mount } from 'enzyme';
 import { head, noop } from 'lodash';
 import React from 'react';
 import { Popper } from 'react-popper';
-import sinon from 'sinon';
 
 import { Menu, MenuItem, Typeahead } from '../../src';
 
@@ -296,7 +295,7 @@ describe('<Typeahead>', () => {
       maxResults = 10;
       shownResultsCount = maxResults;
 
-      onPaginate = sinon.spy((e, shownResults) => {
+      onPaginate = jest.fn((e, shownResults) => {
         shownResultsCount = shownResults;
       });
 
@@ -321,7 +320,7 @@ describe('<Typeahead>', () => {
         .hostNodes()
         .simulate('click');
 
-      expect(onPaginate.calledOnce).toBe(true);
+      expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
       expect(getMenuItems(typeahead).length).toBe(21);
     });
@@ -331,7 +330,7 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, UP);
       keyDown(typeahead, RETURN);
 
-      expect(onPaginate.calledOnce).toBe(true);
+      expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
       expect(getMenuItems(typeahead).length).toBe(21);
     });
@@ -343,7 +342,7 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, UP);
       keyDown(typeahead, RETURN);
 
-      expect(onPaginate.calledOnce).toBe(true);
+      expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
       expect(getMenuItems(typeahead).length).toBe(21);
     });
@@ -356,10 +355,10 @@ describe('<Typeahead>', () => {
         keyDown(typeahead, UP);
         keyDown(typeahead, RIGHT);
 
-        expect(onPaginate.notCalled).toBe(true);
+        expect(onPaginate).toHaveBeenCalledTimes(0);
 
         keyDown(typeahead, TAB);
-        expect(onPaginate.notCalled).toBe(true);
+        expect(onPaginate).toHaveBeenCalledTimes(0);
 
         // The menu should close when the tab key is pressed.
         expect(getMenuItems(typeahead).length).toBe(0);
@@ -390,7 +389,7 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, UP);
       keyDown(typeahead, RETURN);
 
-      expect(onPaginate.callCount).toBe(1);
+      expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
 
       change(typeahead, 'or');
@@ -398,7 +397,7 @@ describe('<Typeahead>', () => {
       keyDown(typeahead, UP);
       keyDown(typeahead, RETURN);
 
-      expect(onPaginate.callCount).toBe(2);
+      expect(onPaginate).toHaveBeenCalledTimes(2);
       expect(shownResultsCount).toBe(maxResults * 2);
     });
 
@@ -672,30 +671,30 @@ describe('<Typeahead>', () => {
   });
 
   test('triggers the `onKeyDown` callback', () => {
-    const onKeyDown = sinon.spy();
+    const onKeyDown = jest.fn();
 
     typeahead.setProps({ onKeyDown });
     keyDown(typeahead, RETURN);
 
-    expect(onKeyDown.calledOnce).toBe(true);
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
 
   test('calls `onMenuToggle`', () => {
-    const onMenuToggle = sinon.spy();
+    const onMenuToggle = jest.fn();
 
     typeahead.setProps({ onMenuToggle });
 
-    expect(onMenuToggle.notCalled).toBe(true);
+    expect(onMenuToggle).toHaveBeenCalledTimes(0);
 
     focus(typeahead);
-    expect(onMenuToggle.callCount).toBe(1);
+    expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
     // Shouldn't be called again if not hidden first.
     focus(typeahead);
-    expect(onMenuToggle.callCount).toBe(1);
+    expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
     keyDown(typeahead, ESC);
-    expect(onMenuToggle.callCount).toBe(2);
+    expect(onMenuToggle).toHaveBeenCalledTimes(2);
   });
 
   describe('hint behavior', () => {
@@ -929,7 +928,7 @@ describe('<Typeahead>', () => {
   });
 
   test('clears the typeahead after a selection', () => {
-    const onChange = sinon.spy((selected) => {
+    const onChange = jest.fn((selected) => {
       typeahead.instance().getInstance().clear();
     });
 
@@ -937,7 +936,7 @@ describe('<Typeahead>', () => {
 
     makeSelectionViaClick(typeahead);
 
-    expect(onChange.calledOnce).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(1);
     expect(getSelected(typeahead).length).toBe(0);
     expect(getText(typeahead)).toBe('');
   });
@@ -1136,8 +1135,8 @@ describe('<Typeahead> `change` events', () => {
   let onChange, onInputChange, selected, wrapper;
 
   beforeEach(() => {
-    onChange = sinon.spy();
-    onInputChange = sinon.spy();
+    onChange = jest.fn();
+    onInputChange = jest.fn();
     selected = states.slice(0, 1);
 
     wrapper = mountTypeahead({
@@ -1146,16 +1145,16 @@ describe('<Typeahead> `change` events', () => {
       selected: [],
     });
 
-    expect(onChange.notCalled).toBe(true);
-    expect(onInputChange.notCalled).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(0);
+    expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
   test('calls `onChange` when a menu item is clicked', () => {
     focus(wrapper);
     getMenuItems(wrapper).first().simulate('click');
 
-    expect(onChange.calledOnce).toBe(true);
-    expect(onInputChange.notCalled).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
   test('calls `onChange` when a menu item is selected via keyboard', () => {
@@ -1163,8 +1162,8 @@ describe('<Typeahead> `change` events', () => {
     keyDown(wrapper, DOWN);
     keyDown(wrapper, RETURN);
 
-    expect(onChange.calledOnce).toBe(true);
-    expect(onInputChange.notCalled).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
   test('calls `onChange` once when a menu item is selected via keyboard and ' +
@@ -1175,7 +1174,7 @@ describe('<Typeahead> `change` events', () => {
     keyDown(wrapper, DOWN);
     keyDown(wrapper, RETURN);
 
-    expect(onChange.calledOnce).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(1);
   });
 
   test('calls `onChange` when clicking the clear button', () => {
@@ -1188,14 +1187,14 @@ describe('<Typeahead> `change` events', () => {
 
     getClearButton(wrapper).simulate('click');
 
-    expect(onChange.calledOnce).toBe(true);
-    expect(onInputChange.notCalled).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
   test('calls `onInputChange` when text is entered in the input', () => {
     focus(wrapper);
     change(wrapper, 'z');
-    expect(onInputChange.calledOnce).toBe(true);
+    expect(onInputChange).toHaveBeenCalledTimes(1);
   });
 
   test('`onInputChange` receives an event as the second param', () => {
@@ -1219,8 +1218,8 @@ describe('<Typeahead> `change` events', () => {
     focus(wrapper);
     change(wrapper, 'z');
 
-    expect(onInputChange.calledOnce).toBe(true);
-    expect(onChange.calledOnce).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onInputChange).toHaveBeenCalledTimes(1);
     expect(getSelected(wrapper).length).toBe(0);
   });
 
@@ -1230,8 +1229,8 @@ describe('<Typeahead> `change` events', () => {
     wrapper.setProps({ selected });
 
     expect(getSelected(wrapper)).toEqual(selected);
-    expect(onChange.notCalled).toBe(true);
-    expect(onInputChange.notCalled).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(0);
+    expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
   test('does not call either when `clear()` is called externally', () => {
@@ -1246,8 +1245,8 @@ describe('<Typeahead> `change` events', () => {
 
     expect(getSelected(wrapper).length).toBe(0);
     expect(getText(wrapper)).toBe('');
-    expect(onChange.notCalled).toBe(true);
-    expect(onInputChange.notCalled).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(0);
+    expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 });
 

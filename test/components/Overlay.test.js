@@ -1,7 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import { Popper } from 'react-popper';
-import sinon from 'sinon';
 
 import Menu from '../../src/components/Menu.react';
 import Overlay from '../../src/core/Overlay';
@@ -48,20 +47,20 @@ describe('<Overlay>', () => {
   });
 
   test('calls `onMenuToggle`', () => {
-    const onMenuToggle = sinon.spy();
+    const onMenuToggle = jest.fn();
 
     wrapper.setProps({ onMenuToggle });
 
-    expect(onMenuToggle.notCalled).toBe(true);
+    expect(onMenuToggle).toHaveBeenCalledTimes(0);
 
     wrapper.setProps({ show: true });
-    expect(onMenuToggle.callCount).toBe(1);
+    expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
     // Shouldn't be called again if not hidden first.
     wrapper.setProps({ show: true });
-    expect(onMenuToggle.callCount).toBe(1);
+    expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
     wrapper.setProps({ show: false });
-    expect(onMenuToggle.callCount).toBe(2);
+    expect(onMenuToggle).toHaveBeenCalledTimes(2);
   });
 });
