@@ -2,18 +2,33 @@
 
 import React from 'react';
 
-import { MenuContext } from './Context';
+import { MenuContext, type MenuContextType } from './Context';
 import Overlay from './Overlay';
 
+import type { Id, LabelKey, Option, Style } from '../types';
+
+type MenuPropsFromOverlay = {
+  innerRef: (?HTMLElement) => void,
+  inputHeight: number,
+  scheduleUpdate: Function,
+  style: Style,
+};
+
+export type MenuProps = MenuPropsFromOverlay & {
+  id?: Id,
+  labelKey: LabelKey,
+  text: string,
+};
+
 type Props = {
-  children: Function,
+  children: (Option[], MenuProps) => void,
 };
 
 const TypeaheadMenu = ({ children }: Props) => (
   <MenuContext.Consumer>
-    {({ id, labelKey, results, text, ...context }) => (
+    {({ id, labelKey, results, text, ...context }: MenuContextType) => (
       <Overlay {...context}>
-        {(menuProps) => children(results, {
+        {(menuProps: MenuPropsFromOverlay) => children(results, {
           ...menuProps,
           id,
           labelKey,
