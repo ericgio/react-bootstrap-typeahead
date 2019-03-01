@@ -1,8 +1,16 @@
+// @flow
+
 import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Loader = ({ bsSize }) => (
+import type { BsSize } from '../types';
+
+type Props = {
+  bsSize?: BsSize,
+};
+
+const Loader = ({ bsSize }: Props) => (
   <div
     className={cx('rbt-loader', {
       'rbt-loader-lg': bsSize === 'large' || bsSize === 'lg',

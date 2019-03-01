@@ -1,11 +1,27 @@
+// @flow
+
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isRequiredForA11y } from 'prop-types-extra';
-import React, { Children } from 'react';
+import React, { Children, type Node } from 'react';
 
 import { BaseMenuItem } from './MenuItem.react';
 
+import type { MenuProps } from '../core/TypeaheadMenu';
+
+const MenuDivider = (props: any) => (
+  <li className="divider dropdown-divider" role="separator" />
+);
+
+const MenuHeader = (props: any) => (
+  <li {...props} className="dropdown-header" />
+);
+
 const propTypes = {
+  /**
+   * Message to display in the menu if there are no valid results.
+   */
+  emptyLabel: PropTypes.node,
   /**
    * Needed for accessibility.
    */
@@ -20,14 +36,29 @@ const propTypes = {
 };
 
 const defaultProps = {
+  emptyLabel: 'No matches found.',
   maxHeight: '300px',
 };
+
+export type MenuComponentProps = {
+  children?: Node,
+  className?: string,
+  emptyLabel: Node,
+  maxHeight: string,
+};
+
+type Props = MenuProps & MenuComponentProps;
 
 /**
  * Menu component that handles empty state when passed a set of results.
  */
-class Menu extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
+class Menu extends React.Component<Props> {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+  static Divider = MenuDivider;
+  static Header = MenuHeader;
+
+  componentDidUpdate(prevProps: Props) {
     const { inputHeight, scheduleUpdate } = this.props;
 
     // Update the menu position if the height of the input changes.
@@ -76,16 +107,5 @@ class Menu extends React.Component {
     );
   }
 }
-
-Menu.propTypes = propTypes;
-Menu.defaultProps = defaultProps;
-
-Menu.Divider = (props) => (
-  <li className="divider dropdown-divider" role="separator" />
-);
-
-Menu.Header = (props) => (
-  <li {...props} className="dropdown-header" />
-);
 
 export default Menu;
