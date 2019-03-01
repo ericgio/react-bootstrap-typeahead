@@ -1,13 +1,11 @@
-import sinon from 'sinon';
-
 import { preventInputBlur } from '../../src/utils';
 
 describe('preventInputBlur', () => {
   test('calls `preventDefault` on the event', () => {
     const e = {
-      preventDefault: sinon.spy(),
+      preventDefault: jest.fn(),
     };
     preventInputBlur(e);
-    expect(e.preventDefault.calledOnce).toBe(true);
+    expect(e.preventDefault).toHaveBeenCalled();
   });
 });
