@@ -1,6 +1,8 @@
+// @flow
+
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { type ElementRef } from 'react';
 
 import AutosizeInput from './AutosizeInput.react';
 import Token from './Token.react';
@@ -10,6 +12,15 @@ import hintContainer from '../containers/hintContainer';
 import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
+
+import type { InputMultiProps } from '../core/TypeaheadInput';
+import type { Option } from '../types';
+
+export type TypeaheadInputMultiComponentProps = {
+  renderToken: Function,
+};
+
+type Props = InputMultiProps & TypeaheadInputMultiComponentProps;
 
 const HintedAutosizeInput = hintContainer(AutosizeInput);
 
@@ -22,7 +33,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  renderToken: (option, props, idx) => (
+  renderToken: (option: Option, props: Props, idx: number) => (
     <Token
       disabled={props.disabled}
       key={idx}
@@ -33,7 +44,13 @@ const defaultProps = {
   ),
 };
 
-class TypeaheadInputMulti extends React.Component {
+class TypeaheadInputMulti extends React.Component<Props> {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+
+  _input: ElementRef<*> = null;
+  _wrapper: ElementRef<*> = null;
+
   render() {
     const {
       className,
@@ -84,7 +101,7 @@ class TypeaheadInputMulti extends React.Component {
     );
   }
 
-  _renderToken = (option, idx) => {
+  _renderToken = (option: Option, idx: number) => {
     const { onRemove, renderToken } = this.props;
     const props = {
       ...this.props,
@@ -97,10 +114,10 @@ class TypeaheadInputMulti extends React.Component {
   /**
    * Forward click or focus events on the container element to the input.
    */
-  _handleContainerClickOrFocus = (e) => {
+  _handleContainerClickOrFocus = (e: SyntheticEvent<HTMLElement>) => {
     // Don't focus the input if it's disabled.
     if (this.props.disabled) {
-      e.target.blur();
+      e.currentTarget.blur();
       return;
     }
 
@@ -113,12 +130,12 @@ class TypeaheadInputMulti extends React.Component {
     inputNode.focus();
   }
 
-  _handleKeyDown = (e) => {
+  _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
     const { onKeyDown, selected, value } = this.props;
 
     switch (e.keyCode) {
       case BACKSPACE:
-        if (e.target === this._input && selected.length && !value) {
+        if (e.currentTarget === this._input && selected.length && !value) {
           // If the input is selected and there is no text, focus the last
           // token when the user hits backspace.
           const { children } = this._wrapper;
@@ -133,8 +150,5 @@ class TypeaheadInputMulti extends React.Component {
     onKeyDown(e);
   }
 }
-
-TypeaheadInputMulti.propTypes = propTypes;
-TypeaheadInputMulti.defaultProps = defaultProps;
 
 export default withClassNames(TypeaheadInputMulti);

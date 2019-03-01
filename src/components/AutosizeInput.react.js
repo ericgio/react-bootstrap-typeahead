@@ -1,5 +1,9 @@
+// @flow
+
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { type ElementRef } from 'react';
+
+import type { Style } from '../types';
 
 const SIZER_STYLE = {
   height: 0,
@@ -19,7 +23,22 @@ const INPUT_PROPS_BLACKLIST = [
 
 const MIN_WIDTH = 1;
 
-const cleanInputProps = (inputProps) => {
+type Props = {
+  className?: string,
+  defaultValue?: string,
+  inputClassName: string,
+  inputRef: Function,
+  inputStyle: Style,
+  placeholder?: string,
+  style: Style,
+  value: string,
+};
+
+type State = {
+  inputWidth: number,
+};
+
+const cleanInputProps = (inputProps: Props) => {
   const cleanProps = {};
   Object.keys(inputProps).forEach((key) => {
     if (INPUT_PROPS_BLACKLIST.indexOf(key) === -1) {
@@ -29,7 +48,7 @@ const cleanInputProps = (inputProps) => {
   return cleanProps;
 };
 
-const copyStyles = (styles, node) => {
+const copyStyles = (styles: CSSStyleDeclaration, node: HTMLInputElement) => {
   /* eslint-disable no-param-reassign */
   node.style.fontSize = styles.fontSize;
   node.style.fontFamily = styles.fontFamily;
@@ -56,16 +75,22 @@ const propTypes = {
   inputStyle: PropTypes.object,
 };
 
-class AutosizeInput extends React.Component {
+class AutosizeInput extends React.Component<Props, State> {
+  static propTypes = propTypes;
+
   state = {
     inputWidth: MIN_WIDTH,
   };
+
+  _input: ElementRef<*> = null;
+  _sizer: ElementRef<*> = null;
+  _placeHolderSizer: ElementRef<*> = null;
 
   componentDidMount() {
     this._updateInputWidth();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     this._updateInputWidth();
   }
 
@@ -150,7 +175,5 @@ class AutosizeInput extends React.Component {
     }
   }
 }
-
-AutosizeInput.propTypes = propTypes;
 
 export default AutosizeInput;

@@ -2,7 +2,7 @@
 
 import { pick } from 'lodash';
 import createReactContext, { type Context } from 'create-react-context';
-import * as React from 'react';
+import React, { type ComponentType } from 'react';
 
 import type { TypeaheadInnerProps } from '../types';
 
@@ -90,12 +90,12 @@ export type MenuContextType =
 export const MenuContext: Context<MenuContextType> = createReactContext({});
 
 export const withContext = (
-  Component: React.ComponentType<{}>,
+  Component: ComponentType<*>,
   values: string[]
 ) => {
   // Note: Use a class instead of function component to support refs.
   /* eslint-disable-next-line react/prefer-stateless-function */
-  return class extends React.Component<{}> {
+  return class extends React.Component<*> {
     render() {
       return (
         <TypeaheadContext.Consumer>

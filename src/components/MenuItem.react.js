@@ -1,10 +1,35 @@
+// @flow
+
 import cx from 'classnames';
 import { noop } from 'lodash';
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { type Node } from 'react';
 
 import menuItemContainer from '../containers/menuItemContainer';
 
-class BaseMenuItem extends React.Component {
+import type { EventHandler } from '../types';
+
+const propTypes = {
+  onClick: PropTypes.func,
+};
+
+const defaultProps = {
+  onClick: noop,
+};
+
+type BaseProps = {
+  active?: boolean,
+  children?: Node,
+  className?: string,
+  disabled?: boolean,
+  onClick: EventHandler,
+  onMouseDown?: EventHandler,
+};
+
+export class BaseMenuItem extends React.Component<BaseProps> {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+
   render() {
     const {
       active,
@@ -38,7 +63,7 @@ class BaseMenuItem extends React.Component {
     );
   }
 
-  _handleClick = (e) => {
+  _handleClick = (e: SyntheticEvent<HTMLElement>) => {
     const { disabled, onClick } = this.props;
 
     e.preventDefault();
@@ -46,9 +71,4 @@ class BaseMenuItem extends React.Component {
   }
 }
 
-BaseMenuItem.defaultProps = {
-  onClick: noop,
-};
-
-export { BaseMenuItem };
 export default menuItemContainer(BaseMenuItem);
