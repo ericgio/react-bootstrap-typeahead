@@ -1,7 +1,6 @@
 import { mount } from 'enzyme';
 import { noop } from 'lodash';
 import React from 'react';
-import sinon from 'sinon';
 
 import { AsyncTypeahead } from '../../src';
 import { change, focus, getMenuItems, keyDown } from '../helpers';
@@ -21,7 +20,7 @@ describe('<AsyncTypeahead>', () => {
   let onSearch, wrapper;
 
   beforeEach(() => {
-    onSearch = sinon.spy();
+    onSearch = jest.fn();
     wrapper = mount(
       <AsyncTypeahead
         delay={0}
@@ -127,7 +126,7 @@ describe('<AsyncTypeahead>', () => {
   });
 
   test('does not call onSearch when a selection is made', () => {
-    const onChange = sinon.spy();
+    const onChange = jest.fn();
 
     wrapper.setProps({
       onChange,
@@ -138,8 +137,8 @@ describe('<AsyncTypeahead>', () => {
     keyDown(wrapper, DOWN);
     keyDown(wrapper, RETURN);
 
-    expect(onChange.callCount).toBe(1);
-    expect(onSearch.callCount).toBe(0);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
   test('uses cached results and does not perform a new search', (done) => {
@@ -203,11 +202,11 @@ describe('<AsyncTypeahead>', () => {
 
     // Initial search
     search(wrapper, 'search', () => {
-      expect(onSearch.callCount).toBe(1);
+      expect(onSearch).toHaveBeenCalledTimes(1);
 
       // Perform the search again.
       search(wrapper, 'search', () => {
-        expect(onSearch.callCount).toBe(2);
+        expect(onSearch).toHaveBeenCalledTimes(2);
         done();
       });
     });
@@ -220,10 +219,10 @@ describe('<AsyncTypeahead>', () => {
       selected: ['one'],
     });
 
-    expect(onSearch.callCount).toBe(0);
+    expect(onSearch).toHaveBeenCalledTimes(0);
 
     search(wrapper, 'two', () => {
-      expect(onSearch.callCount).toBe(1);
+      expect(onSearch).toHaveBeenCalledTimes(1);
       done();
     });
   });
