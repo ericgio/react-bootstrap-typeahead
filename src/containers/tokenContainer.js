@@ -17,7 +17,7 @@ type State = {
 /**
  * Higher-order component to encapsulate Token behaviors.
  */
-const tokenContainer = (Component: ComponentType<{}>) => {
+const tokenContainer = (Component: ComponentType<*>) => {
   class WrappedComponent extends React.Component<Props, State> {
     static displayName = `tokenContainer(${getDisplayName(Component)})`;
 

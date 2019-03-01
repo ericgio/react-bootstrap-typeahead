@@ -22,8 +22,8 @@ type Props = MenuContextType & {
   position: number,
 };
 
-const menuItemContainer = (Component: ComponentType<{}>) => {
-  class WrappedMenuItem extends React.Component<Props> {
+const menuItemContainer = (Component: ComponentType<*>) => {
+  class WrappedMenuItem extends React.Component<* & Props> {
     static displayName = `menuItemContainer(${getDisplayName(Component)})`;
 
     componentDidMount() {

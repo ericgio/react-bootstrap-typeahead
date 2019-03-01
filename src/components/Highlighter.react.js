@@ -1,3 +1,5 @@
+// @flow
+
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -13,13 +15,22 @@ const defaultProps = {
   highlightClassName: 'rbt-highlight-text',
 };
 
+type Props = {
+  children: string,
+  highlightClassName: string,
+  search: string,
+};
+
 /**
  * Stripped-down version of https://github.com/helior/react-highlighter
  *
  * Results are already filtered by the time the component is used internally so
  * we can safely ignore case and diacritical marks for the purposes of matching.
  */
-class Highlighter extends React.PureComponent {
+class Highlighter extends React.PureComponent<Props> {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+
   render() {
     const children = this.props.search ?
       this._renderHighlightedChildren() :
@@ -76,8 +87,5 @@ class Highlighter extends React.PureComponent {
     return children;
   }
 }
-
-Highlighter.propTypes = propTypes;
-Highlighter.defaultProps = defaultProps;
 
 export default Highlighter;

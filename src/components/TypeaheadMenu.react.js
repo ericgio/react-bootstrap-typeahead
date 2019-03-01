@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -5,7 +7,20 @@ import Highlighter from './Highlighter.react';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
-import { getOptionLabel } from '../utils';
+import { getOptionLabel, getOptionProperty } from '../utils';
+
+import type { MenuComponentProps } from './Menu.react';
+import type { MenuProps } from '../core/TypeaheadMenu';
+import type { Option } from '../types';
+
+export type TypeaheadMenuComponentProps = MenuComponentProps & {
+  newSelectionPrefix: string,
+  renderMenuItemChildren: Function,
+};
+
+type Props = MenuProps & TypeaheadMenuComponentProps & {
+  options: Option[],
+};
 
 const propTypes = {
   /**
@@ -21,14 +36,17 @@ const propTypes = {
 
 const defaultProps = {
   newSelectionPrefix: 'New selection: ',
-  renderMenuItemChildren: (option, props, idx) => (
+  renderMenuItemChildren: (option: Option, props: Props, idx: number) => (
     <Highlighter search={props.text}>
       {getOptionLabel(option, props.labelKey)}
     </Highlighter>
   ),
 };
 
-class TypeaheadMenu extends React.Component {
+class TypeaheadMenu extends React.Component<Props> {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+
   render() {
     const {
       labelKey,
@@ -39,13 +57,14 @@ class TypeaheadMenu extends React.Component {
     } = this.props;
 
     return (
-      <Menu {...menuProps}>
+      // TODO: Improve typing for spread props.
+      <Menu {...(menuProps: any)}>
         {options.map(this._renderMenuItem)}
       </Menu>
     );
   }
 
-  _renderMenuItem = (option, idx) => {
+  _renderMenuItem = (option: Option, idx: number) => {
     const {
       labelKey,
       newSelectionPrefix,
@@ -56,7 +75,7 @@ class TypeaheadMenu extends React.Component {
     const label = getOptionLabel(option, labelKey);
 
     const menuItemProps = {
-      disabled: option.disabled,
+      disabled: getOptionProperty(option, 'disabled'),
       key: idx,
       label,
       option,
@@ -96,8 +115,5 @@ class TypeaheadMenu extends React.Component {
     );
   }
 }
-
-TypeaheadMenu.propTypes = propTypes;
-TypeaheadMenu.defaultProps = defaultProps;
 
 export default TypeaheadMenu;
