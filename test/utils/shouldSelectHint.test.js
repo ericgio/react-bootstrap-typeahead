@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { range } from 'lodash';
 
 import shouldSelectHint from '../../src/utils/shouldSelectHint';
@@ -19,16 +18,16 @@ describe('shouldSelectHint', () => {
     };
   });
 
-  it('returns false when there is no hint', () => {
+  test('returns false when there is no hint', () => {
     props.hintText = '';
-    expect(shouldSelectHint(event, props)).to.equal(false);
+    expect(shouldSelectHint(event, props)).toBe(false);
   });
 
-  it('returns true when tab is pressed', () => {
-    expect(shouldSelectHint(event, props)).to.equal(true);
+  test('returns true when tab is pressed', () => {
+    expect(shouldSelectHint(event, props)).toBe(true);
   });
 
-  it('behavior when the right arrow key is pressed', () => {
+  test('behavior when the right arrow key is pressed', () => {
     event = {
       currentTarget: {
         selectionStart: 3,
@@ -36,27 +35,27 @@ describe('shouldSelectHint', () => {
       keyCode: RIGHT,
     };
 
-    expect(shouldSelectHint(event, props)).to.equal(false);
+    expect(shouldSelectHint(event, props)).toBe(false);
 
     event.currentTarget.selectionStart = 4;
-    expect(shouldSelectHint(event, props)).to.equal(true);
+    expect(shouldSelectHint(event, props)).toBe(true);
 
     event.currentTarget.selectionStart = null;
-    expect(shouldSelectHint(event, props)).to.equal(true);
+    expect(shouldSelectHint(event, props)).toBe(true);
   });
 
-  it('behavior when enter is pressed', () => {
+  test('behavior when enter is pressed', () => {
     event = {
       keyCode: RETURN,
     };
 
-    expect(shouldSelectHint(event, props)).to.equal(false);
+    expect(shouldSelectHint(event, props)).toBe(false);
 
     props.selectHintOnEnter = true;
-    expect(shouldSelectHint(event, props)).to.equal(true);
+    expect(shouldSelectHint(event, props)).toBe(true);
   });
 
-  it('returns false for other keycodes', () => {
+  test('returns false for other keycodes', () => {
     // Build up a set of valid keys.
     []
       .concat([37, 38, 39, 40]) // Arrow keys
@@ -73,7 +72,7 @@ describe('shouldSelectHint', () => {
       ))
       .forEach((keyCode) => {
         event.keyCode = keyCode;
-        expect(shouldSelectHint(event, props)).to.equal(false);
+        expect(shouldSelectHint(event, props)).toBe(false);
       });
   });
 });
