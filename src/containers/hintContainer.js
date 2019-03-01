@@ -1,13 +1,19 @@
-import React from 'react';
+// @flow
+
+import React, { type ComponentType, type ElementRef } from 'react';
 
 import AutosizeInput from '../components/AutosizeInput.react';
-import { withContext } from '../core/Context';
+import { type InputContextType, withContext } from '../core/Context';
 
 import { getDisplayName, shouldSelectHint } from '../utils';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
-function interpolateStyle(styles, attr, subattr = '') {
+function interpolateStyle(
+  styles: Object,
+  attr: string,
+  subattr: string = ''
+): string {
   // Title-case the sub-attribute.
   if (subattr) {
     /* eslint-disable-next-line no-param-reassign */
@@ -19,7 +25,7 @@ function interpolateStyle(styles, attr, subattr = '') {
     .join(' ');
 }
 
-function copyStyles(inputNode, hintNode) {
+function copyStyles(inputNode: HTMLInputElement, hintNode: HTMLInputElement) {
   const inputStyle = window.getComputedStyle(inputNode);
 
   /* eslint-disable no-param-reassign */
@@ -32,9 +38,17 @@ function copyStyles(inputNode, hintNode) {
   /* eslint-enable no-param-reassign */
 }
 
-function hintContainer(Input) {
-  class HintedInput extends React.Component {
+type Props = InputContextType & {
+  inputRef: Function,
+  onKeyDown: Function,
+};
+
+function hintContainer(Input: ComponentType<{}>) {
+  class HintedInput extends React.Component<Props> {
     static displayName = `hintContainer(${getDisplayName(Input)})`;
+
+    _hint: ElementRef<*> = undefined;
+    _input: ElementRef<*> = undefined;
 
     componentDidMount() {
       copyStyles(this._input, this._hint);
