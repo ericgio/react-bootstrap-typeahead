@@ -13,6 +13,7 @@
     "build:lib": "babel src --out-dir lib",
     "check": "npm run lint && npm run flow && npm test",
     "clean": "rimraf css && rimraf dist && rimraf lib",
+    "coveralls": "cat coverage/lcov.info | coveralls",
     "deploy-example": "node ./scripts/deployExample.js",
     "flow": "flow",
     "lint": "eslint .",
@@ -20,7 +21,8 @@
     "postpublish": "npm run deploy-example",
     "prepublishOnly": "npm run check && npm run build",
     "start": "webpack --mode development -w --progress --config example/webpack.config.js",
-    "test": "jest --silent"
+    "test": "jest --silent",
+    "test:coverage": "jest --coverage && npm run coveralls"
   },
   "keywords": [
     "auto complete",
@@ -80,6 +82,7 @@
     "babel-plugin-transform-imports": "^1.4.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
     "circular-dependency-plugin": "^5.0.2",
+    "coveralls": "^3.0.3",
     "css-loader": "^2.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.5.0",
@@ -113,8 +116,13 @@
     "webpack-cli": "^3.1.0"
   },
   "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/example",
+      "<rootDir>/src/propTypes"
+    ],
     "modulePathIgnorePatterns": [
-      "./node_modules"
+      "<rootDir>/node_modules/"
     ],
     "setupFiles": [
       "./jest.setup.js"
