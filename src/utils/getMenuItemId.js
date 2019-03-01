@@ -1,8 +1,7 @@
 // @flow
 
-export default function getMenuItemId(
-  id: number | string,
-  position: number
-): string {
+import type { Id } from '../types';
+
+export default function getMenuItemId(id: Id, position: number): string {
   return `${id}-item-${position}`;
 }

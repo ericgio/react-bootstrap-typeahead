@@ -2,18 +2,24 @@
 
 export type Align = 'justify' | 'left' | 'right';
 
+export type BsSize = 'large' | 'lg' | 'small' | 'sm';
+
+export type EventHandler = (SyntheticEvent<HTMLElement>) => void;
+
+export type Id = number | string;
+
 export type LabelKey = string | Function;
 
-export type Option = string | {
-  [string]: any,
-};
+export type Option = string | { [string]: any };
+
+export type Style = { [string]: any };
 
 export type ReferenceElement = null | Element | Text;
 
 export type TypeaheadProps = {
   align: Align,
   /* eslint-disable-next-line no-use-before-define */
-  allowNew: boolean | (Option[], TypeaheadMergedProps) => boolean,
+  allowNew: boolean | (Option[], TypeaheadPropsAndState) => boolean,
   autoFocus: boolean,
   caseSensitive: boolean,
   children: Function,
@@ -23,18 +29,18 @@ export type TypeaheadProps = {
   disabled: boolean,
   dropup: boolean,
   /* eslint-disable-next-line no-use-before-define */
-  filterBy: string[] | (Option, TypeaheadMergedProps) => void,
+  filterBy: string[] | (Option, TypeaheadPropsAndState) => void,
   flip: boolean,
   highlightOnlyResult: boolean,
-  id: number | string,
+  id?: Id,
   ignoreDiacritics: boolean,
   inputProps: Object,
   labelKey: LabelKey,
   maxResults: number,
   minLength: number,
   multiple: boolean,
-  onBlur: (SyntheticEvent<HTMLElement>) => void,
-  onFocus: (SyntheticEvent<HTMLElement>) => void,
+  onBlur: EventHandler,
+  onFocus: EventHandler,
   onInputChange: (string, SyntheticEvent<HTMLInputElement>) => void,
   onKeyDown: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
   onMenuToggle?: (boolean) => void,
@@ -59,9 +65,9 @@ export type TypeaheadState = {
   text: string,
 };
 
-export type TypeaheadMergedProps = TypeaheadProps & TypeaheadState;
+export type TypeaheadPropsAndState = TypeaheadProps & TypeaheadState;
 
-export type TypeaheadInnerProps = TypeaheadMergedProps & {
+export type TypeaheadInnerProps = TypeaheadPropsAndState & {
   children: Function,
   getReferenceElement: Function,
   inputRef: (HTMLInputElement) => void,

@@ -43,8 +43,8 @@ type Props = InputContextType & {
   onKeyDown: Function,
 };
 
-function hintContainer(Input: ComponentType<{}>) {
-  class HintedInput extends React.Component<Props> {
+function hintContainer(Input: ComponentType<*>) {
+  class HintedInput extends React.Component<* & Props> {
     static displayName = `hintContainer(${getDisplayName(Input)})`;
 
     _hint: ElementRef<*> = undefined;

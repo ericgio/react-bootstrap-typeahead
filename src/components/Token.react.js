@@ -1,5 +1,7 @@
+// @flow
+
 import cx from 'classnames';
-import React from 'react';
+import React, { type Node } from 'react';
 import PropTypes from 'prop-types';
 
 import ClearButton from './ClearButton.react';
@@ -22,13 +24,26 @@ const defaultProps = {
   tabIndex: 0,
 };
 
+type Props = {
+  active: boolean,
+  children?: Node,
+  className?: string,
+  disabled?: boolean,
+  href?: string,
+  onRemove?: Function,
+  tabIndex: number,
+};
+
 /**
  * Token
  *
  * Individual token component, generally displayed within the TokenizerInput
  * component, but can also be rendered on its own.
  */
-class Token extends React.Component {
+class Token extends React.Component<Props> {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+
   render() {
     return this.props.onRemove && !this.props.disabled ?
       this._renderRemoveableToken() :
@@ -77,18 +92,15 @@ class Token extends React.Component {
     );
   }
 
-  _handleRemoveButtonKeydown = (e) => {
+  _handleRemoveButtonKeydown = (e: SyntheticKeyboardEvent<HTMLElement>) => {
     switch (e.keyCode) {
       case RETURN:
-        this.props.onRemove();
+        this.props.onRemove && this.props.onRemove();
         break;
       default:
         break;
     }
   }
 }
-
-Token.propTypes = propTypes;
-Token.defaultProps = defaultProps;
 
 export default tokenContainer(Token);
