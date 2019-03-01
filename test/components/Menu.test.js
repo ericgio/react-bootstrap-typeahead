@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 
@@ -29,12 +28,12 @@ describe('<Menu>', () => {
     );
   });
 
-  it('renders a basic menu with menu items', () => {
-    expect(menu.hasClass('rbt-menu dropdown-menu')).to.equal(true);
-    expect(menu.children().length).to.equal(3);
+  test('renders a basic menu with menu items', () => {
+    expect(menu.hasClass('rbt-menu dropdown-menu')).toBe(true);
+    expect(menu.children().length).toBe(3);
   });
 
-  it('sets the maxHeight and other styles', () => {
+  test('sets the maxHeight and other styles', () => {
     let maxHeight = '100px';
 
     function getAttribute(wrapper, attribute) {
@@ -46,28 +45,28 @@ describe('<Menu>', () => {
       style: { backgroundColor: 'red' },
     });
 
-    expect(getAttribute(menu, 'backgroundColor')).to.equal('red');
-    expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight);
+    expect(getAttribute(menu, 'backgroundColor')).toBe('red');
+    expect(getAttribute(menu, 'maxHeight')).toBe(maxHeight);
 
     maxHeight = '75%';
     menu.setProps({ maxHeight });
-    expect(getAttribute(menu, 'maxHeight')).to.equal(maxHeight);
+    expect(getAttribute(menu, 'maxHeight')).toBe(maxHeight);
   });
 
-  it('renders an empty label when there are no children', () => {
+  test('renders an empty label when there are no children', () => {
     const emptyLabel = 'No matches.';
     menu.setProps({
       children: undefined,
       emptyLabel,
     });
 
-    expect(menu.children().length).to.equal(1);
+    expect(menu.children().length).toBe(1);
 
     const emptyLabelItem = menu.find(BaseMenuItem);
-    expect(emptyLabelItem.length).to.equal(1);
-    expect(emptyLabelItem.prop('disabled')).to.equal(true);
+    expect(emptyLabelItem.length).toBe(1);
+    expect(emptyLabelItem.prop('disabled')).toBe(true);
 
     // See: http://airbnb.io/enzyme/docs/api/ShallowWrapper/dive.html
-    expect(emptyLabelItem.dive().text()).to.equal(emptyLabel);
+    expect(emptyLabelItem.dive().text()).toBe(emptyLabel);
   });
 });
