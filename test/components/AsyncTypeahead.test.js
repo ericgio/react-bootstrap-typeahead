@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import { noop } from 'lodash';
 import React from 'react';
@@ -35,7 +34,7 @@ describe('<AsyncTypeahead>', () => {
     );
   });
 
-  it('displays a prompt', () => {
+  test('displays a prompt', () => {
     const promptText = 'Prompt text';
 
     wrapper.setProps({ promptText });
@@ -43,19 +42,19 @@ describe('<AsyncTypeahead>', () => {
     focus(wrapper);
     const menuItems = getMenuItems(wrapper);
 
-    expect(menuItems.length).to.equal(1);
-    expect(menuItems.text()).to.equal(promptText);
+    expect(menuItems.length).toBe(1);
+    expect(menuItems.text()).toBe(promptText);
   });
 
-  it('displays the search text while searching', (done) => {
+  test('displays the search text while searching', (done) => {
     const searchText = 'Search text';
 
     onSearch = () => {
       wrapper.setProps({ isLoading: true });
 
       const menuItems = getMenuItems(wrapper);
-      expect(menuItems.length).to.equal(1);
-      expect(menuItems.text()).to.equal(searchText);
+      expect(menuItems.length).toBe(1);
+      expect(menuItems.text()).toBe(searchText);
       done();
     };
 
@@ -67,7 +66,7 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'search');
   });
 
-  it('displays the empty label when there are no results', (done) => {
+  test('displays the empty label when there are no results', (done) => {
     const emptyLabel = 'empty label';
 
     wrapper.setProps({
@@ -77,13 +76,13 @@ describe('<AsyncTypeahead>', () => {
 
     search(wrapper, 'search', () => {
       const menuItems = getMenuItems(wrapper);
-      expect(menuItems.length).to.equal(1);
-      expect(menuItems.text()).to.equal(emptyLabel);
+      expect(menuItems.length).toBe(1);
+      expect(menuItems.text()).toBe(emptyLabel);
       done();
     });
   });
 
-  it('displays the empty label when the input has an initial value', () => {
+  test('displays the empty label when the input has an initial value', () => {
     const emptyLabel = 'empty label';
 
     wrapper = mount(
@@ -105,12 +104,12 @@ describe('<AsyncTypeahead>', () => {
     expect(menuItems.text()).to.equal(emptyLabel);
   });
 
-  it('delays the search by at least the specified amount', (done) => {
+  test('delays the search by at least the specified amount', (done) => {
     const delay = 100;
     const preSearch = Date.now();
 
     onSearch = () => {
-      expect(Date.now() - preSearch).to.be.at.least(delay);
+      expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
       done();
     };
 
@@ -127,7 +126,7 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'search');
   });
 
-  it('does not call onSearch when a selection is made', () => {
+  test('does not call onSearch when a selection is made', () => {
     const onChange = sinon.spy();
 
     wrapper.setProps({
@@ -139,11 +138,11 @@ describe('<AsyncTypeahead>', () => {
     keyDown(wrapper, DOWN);
     keyDown(wrapper, RETURN);
 
-    expect(onChange.callCount).to.equal(1);
-    expect(onSearch.callCount).to.equal(0);
+    expect(onChange.callCount).toBe(1);
+    expect(onSearch.callCount).toBe(0);
   });
 
-  it('uses cached results and does not perform a new search', (done) => {
+  test('uses cached results and does not perform a new search', (done) => {
     let menuItems;
     let callCount = 0;
 
@@ -165,24 +164,24 @@ describe('<AsyncTypeahead>', () => {
       onSearch: onSearch(['test-one', 'test-two', 'test-three'], () => {
         focus(wrapper);
         menuItems = getMenuItems(wrapper);
-        expect(menuItems.length).to.equal(3);
-        expect(callCount).to.equal(1);
+        expect(menuItems.length).toBe(3);
+        expect(callCount).toBe(1);
 
         wrapper.setProps({
           onSearch: onSearch([], () => {
             focus(wrapper);
             menuItems = getMenuItems(wrapper);
-            expect(menuItems.length).to.equal(1);
-            expect(menuItems.text()).to.equal('No matches found.');
-            expect(callCount).to.equal(2);
+            expect(menuItems.length).toBe(1);
+            expect(menuItems.text()).toBe('No matches found.');
+            expect(callCount).toBe(2);
 
             // Repeat first search
             change(wrapper, 'test');
             setTimeout(() => {
               focus(wrapper);
               menuItems = getMenuItems(wrapper);
-              expect(menuItems.length).to.equal(3);
-              expect(callCount).to.equal(2);
+              expect(menuItems.length).toBe(3);
+              expect(callCount).toBe(2);
               done();
             }, 0);
           }),
@@ -197,86 +196,89 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'test');
   });
 
-  it('does not use cached results', (done) => {
+  test('does not use cached results', (done) => {
     wrapper.setProps({
       useCache: false,
     });
 
     // Initial search
     search(wrapper, 'search', () => {
-      expect(onSearch.callCount).to.equal(1);
+      expect(onSearch.callCount).toBe(1);
 
       // Perform the search again.
       search(wrapper, 'search', () => {
-        expect(onSearch.callCount).to.equal(2);
+        expect(onSearch.callCount).toBe(2);
         done();
       });
     });
   });
 
-  it('performs a search when there is already a selection', (done) => {
+  test('performs a search when there is already a selection', (done) => {
     wrapper.setProps({
       multiple: true,
       options: ['one', 'two'],
       selected: ['one'],
     });
 
-    expect(onSearch.callCount).to.equal(0);
+    expect(onSearch.callCount).toBe(0);
 
     search(wrapper, 'two', () => {
-      expect(onSearch.callCount).to.equal(1);
+      expect(onSearch.callCount).toBe(1);
       done();
     });
   });
 
-  it('receives an event as the second argument of `onInputChange`', () => {
+  test('receives an event as the second argument of `onInputChange`', () => {
     wrapper.setProps({
       onInputChange: (text, e) => {
-        expect(text).to.equal('x');
-        expect(e).to.not.equal(undefined);
+        expect(text).toBe('x');
+        expect(e).toBeDefined();
       },
     });
 
     change(wrapper, 'x');
   });
 
-  it('adds a custom option when exact match is found ' +
-      'and `allowNew` returns true', (done) => {
-    const emptyLabel = 'No results...';
-    const newSelectionPrefix = 'New selection: ';
-    const text = 'zzz';
+  test(
+    'adds a custom option when exact match is found and `allowNew` ' +
+    'returns true',
+    (done) => {
+      const emptyLabel = 'No results...';
+      const newSelectionPrefix = 'New selection: ';
+      const text = 'zzz';
 
-    wrapper.setProps({
-      allowNew: (results, props) => true,
-      emptyLabel,
-      isLoading: true,
-      newSelectionPrefix,
-      useCache: false,
-    });
-
-    focus(wrapper);
-
-    search(wrapper, text, () => {
       wrapper.setProps({
-        options: [text],
+        allowNew: (results, props) => true,
+        emptyLabel,
+        isLoading: true,
+        newSelectionPrefix,
+        useCache: false,
       });
 
       focus(wrapper);
-      const menuItems = getMenuItems(wrapper);
 
-      expect(menuItems.length).to.equal(2);
-      expect(menuItems.at(0).text()).to.equal(text);
-      expect(menuItems.at(1).text()).to.equal(`${newSelectionPrefix}${text}`);
-      done();
-    });
-  });
+      search(wrapper, text, () => {
+        wrapper.setProps({
+          options: [text],
+        });
 
-  it('makes the typehead instance and public methods available', () => {
+        focus(wrapper);
+        const menuItems = getMenuItems(wrapper);
+
+        expect(menuItems.length).toBe(2);
+        expect(menuItems.at(0).text()).toBe(text);
+        expect(menuItems.at(1).text()).toBe(`${newSelectionPrefix}${text}`);
+        done();
+      });
+    }
+  );
+
+  test('makes the typehead instance and public methods available', () => {
     const instance = wrapper.instance().getInstance();
 
-    expect(typeof instance.clear).to.equal('function');
-    expect(typeof instance.blur).to.equal('function');
-    expect(typeof instance.focus).to.equal('function');
-    expect(typeof instance.getInput).to.equal('function');
+    expect(typeof instance.clear).toBe('function');
+    expect(typeof instance.blur).toBe('function');
+    expect(typeof instance.focus).toBe('function');
+    expect(typeof instance.getInput).toBe('function');
   });
 });
