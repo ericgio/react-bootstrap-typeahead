@@ -1,6 +1,5 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import sinon from 'sinon';
 
 import MenuItem, { BaseMenuItem } from '../../src/components/MenuItem.react';
 import TypeaheadMenu from '../../src/components/TypeaheadMenu.react';
@@ -62,14 +61,13 @@ describe('<TypeaheadMenu>', () => {
   });
 
   describe('pagination behaviors', () => {
-    let onPaginate, paginationLabel;
+    let paginationLabel;
 
     beforeEach(() => {
-      onPaginate = sinon.spy();
       paginationLabel = 'More results...';
       menu.setProps({
         maxResults: 10,
-        onPaginate,
+        onPaginate: () => {},
         options: options.concat({
           name: paginationLabel,
           paginationOption: true,

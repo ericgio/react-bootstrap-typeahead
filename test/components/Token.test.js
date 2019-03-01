@@ -1,6 +1,5 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import sinon from 'sinon';
 
 import Token from '../../src/components/Token.react';
 
@@ -17,7 +16,7 @@ describe('<Token>', () => {
   });
 
   test('renders a removeable token', () => {
-    const onRemove = sinon.spy();
+    const onRemove = jest.fn();
 
     token.setProps({ onRemove });
 
@@ -28,6 +27,6 @@ describe('<Token>', () => {
     closeButton.simulate('click');
 
     expect(closeButton.hasClass('rbt-token-remove-button')).toBe(true);
-    expect(onRemove.calledOnce).toBe(true);
+    expect(onRemove).toHaveBeenCalledTimes(1);
   });
 });
