@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import { head, noop } from 'lodash';
 import React from 'react';
@@ -35,23 +34,23 @@ describe('<TypeaheadInputSingle>', () => {
     );
   });
 
-  it('renders a single-select input', () => {
+  test('renders a single-select input', () => {
     const input = getFormControl(wrapper);
 
-    expect(input.length).to.equal(1);
-    expect(input.hasClass('rbt-input')).to.equal(true);
-    expect(input.hasClass('rbt-input-main')).to.equal(true);
+    expect(input.length).toBe(1);
+    expect(input.hasClass('rbt-input')).toBe(true);
+    expect(input.hasClass('rbt-input-main')).toBe(true);
   });
 
-  it('displays the selected text', () => {
+  test('displays the selected text', () => {
     const text = 'text';
 
     wrapper.setProps({ text });
 
-    expect(getInput(wrapper).prop('value')).to.equal(text);
+    expect(getInput(wrapper).prop('value')).toBe(text);
   });
 
-  it('displays a hint', () => {
+  test('displays a hint', () => {
     const initialItem = head(options);
 
     wrapper.setProps({
@@ -61,6 +60,6 @@ describe('<TypeaheadInputSingle>', () => {
       text: 'Al',
     });
 
-    expect(getHint(wrapper)).to.equal(initialItem.name);
+    expect(getHint(wrapper)).toBe(initialItem.name);
   });
 });

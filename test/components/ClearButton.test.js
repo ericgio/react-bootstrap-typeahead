@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
@@ -13,18 +12,18 @@ describe('<ClearButton>', () => {
     button = shallow(<ClearButton onClick={onClick} />);
   });
 
-  it('renders a default clear button', () => {
-    expect(button.type()).to.equal('button');
-    expect(button.hasClass('close rbt-close')).to.equal(true);
+  test('renders a default clear button', () => {
+    expect(button.type()).toBe('button');
+    expect(button.hasClass('close rbt-close')).toBe(true);
   });
 
-  it('renders a large clear button', () => {
+  test('renders a large clear button', () => {
     button.setProps({ bsSize: 'large' });
-    expect(button.hasClass('rbt-close-lg')).to.equal(true);
+    expect(button.hasClass('rbt-close-lg')).toBe(true);
   });
 
-  it('registers a click', () => {
+  test('registers a click', () => {
     button.simulate('click', { stopPropagation: () => {} });
-    expect(onClick.calledOnce).to.equal(true);
+    expect(onClick.calledOnce).toBe(true);
   });
 });

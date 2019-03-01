@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
 import { noop, pick } from 'lodash';
 import React from 'react';
@@ -24,27 +23,27 @@ describe('<BaseMenuItem>', () => {
     );
   });
 
-  it('renders a base menu item', () => {
-    expect(baseMenuItem).to.not.equal(undefined);
-    expect(baseMenuItem.type()).to.equal('li');
+  test('renders a base menu item', () => {
+    expect(baseMenuItem).toBeDefined();
+    expect(baseMenuItem.type()).toBe('li');
   });
 
-  it('renders an active base menu item', () => {
+  test('renders an active base menu item', () => {
     baseMenuItem.setProps({ active: true });
-    expect(baseMenuItem.hasClass('active')).to.equal(true);
+    expect(baseMenuItem.hasClass('active')).toBe(true);
   });
 
-  it('triggers an event when clicked', () => {
+  test('triggers an event when clicked', () => {
     baseMenuItem.find('a').simulate('click', event);
-    expect(onClick.calledOnce).to.equal(true);
+    expect(onClick.calledOnce).toBe(true);
   });
 
-  it('renders a disabled base menu item', () => {
+  test('renders a disabled base menu item', () => {
     baseMenuItem.setProps({ disabled: true });
     baseMenuItem.find('a').simulate('click', event);
 
-    expect(baseMenuItem.hasClass('disabled')).to.equal(true);
-    expect(onClick.notCalled).to.equal(true);
+    expect(baseMenuItem.hasClass('disabled')).toBe(true);
+    expect(onClick.notCalled).toBe(true);
   });
 });
 
@@ -79,30 +78,30 @@ describe('<MenuItem>', () => {
     );
   });
 
-  it('renders a menu item', () => {
-    expect(menuItem).to.not.equal(undefined);
-    expect(menuItem.find('a')).to.have.length(1);
+  test('renders a menu item', () => {
+    expect(menuItem).toBeDefined();
+    expect(menuItem.find('a')).toHaveLength(1);
   });
 
-  it('changes the active state of the menu item', () => {
-    expect(menuItem.hasClass('active')).to.equal(false);
+  test('changes the active state of the menu item', () => {
+    expect(menuItem.hasClass('active')).toBe(false);
 
     menuItem.setProps({ activeIndex: 0 });
-    expect(menuItem.find('a').hasClass('active')).to.equal(true);
+    expect(menuItem.find('a').hasClass('active')).toBe(true);
   });
 
-  it('sets the active state if it is the only result', () => {
-    expect(menuItem.hasClass('active')).to.equal(false);
+  test('sets the active state if it is the only result', () => {
+    expect(menuItem.hasClass('active')).toBe(false);
 
     menuItem.setProps({
       highlightOnlyResult: true,
       results: ['test'],
     });
-    expect(menuItem.find('a').hasClass('active')).to.equal(true);
+    expect(menuItem.find('a').hasClass('active')).toBe(true);
   });
 
-  it('triggers an event when clicked', () => {
+  test('triggers an event when clicked', () => {
     menuItem.find('a').simulate('click', event);
-    expect(onClick.calledOnce).to.equal(true);
+    expect(onClick.calledOnce).toBe(true);
   });
 });

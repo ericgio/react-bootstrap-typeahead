@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import { head, noop } from 'lodash';
 import React from 'react';
@@ -37,23 +36,23 @@ describe('<TypeaheadInputMulti>', () => {
     );
   });
 
-  it('renders a multi-select input', () => {
+  test('renders a multi-select input', () => {
     const input = getFormControl(wrapper);
 
-    expect(input.length).to.equal(1);
-    expect(input.hasClass('rbt-input')).to.equal(true);
-    expect(input.hasClass('rbt-input-multi')).to.equal(true);
+    expect(input.length).toBe(1);
+    expect(input.hasClass('rbt-input')).toBe(true);
+    expect(input.hasClass('rbt-input-multi')).toBe(true);
   });
 
-  it('displays the selected text', () => {
-    expect(getInput(wrapper).prop('value')).to.equal(text);
+  test('displays the selected text', () => {
+    expect(getInput(wrapper).prop('value')).toBe(text);
   });
 
-  it('renders a multi-select input with tokens', () => {
-    expect(getTokens(wrapper).length).to.equal(3);
+  test('renders a multi-select input with tokens', () => {
+    expect(getTokens(wrapper).length).toBe(3);
   });
 
-  it('displays a hint', () => {
+  test('displays a hint', () => {
     const initialItem = head(options);
 
     wrapper.setProps({
@@ -63,6 +62,6 @@ describe('<TypeaheadInputMulti>', () => {
       text: 'Al',
     });
 
-    expect(getHint(wrapper)).to.equal(initialItem.name);
+    expect(getHint(wrapper)).toBe(initialItem.name);
   });
 });
