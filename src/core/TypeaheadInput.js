@@ -3,16 +3,27 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { InputContext } from './Context';
+import { InputContext, type InputContextType } from './Context';
 import { getMenuItemId } from '../utils';
+
+import type { LabelKey, Option } from '../types';
 
 type Props = {
   children: Function,
 };
 
+export type InputProps = InputContextType;
+
+export type InputMultiProps = InputContextType & {
+  inputClassName?: string,
+  labelKey: LabelKey,
+  onRemove: (Option) => void,
+  selected: Option[],
+};
+
 const TypeaheadInput = ({ children }: Props) => (
   <InputContext.Consumer>
-    {(context) => {
+    {(context: InputContextType) => {
       const {
         activeIndex,
         id,

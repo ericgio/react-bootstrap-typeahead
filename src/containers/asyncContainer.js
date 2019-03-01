@@ -2,7 +2,7 @@
 
 import { debounce, isFunction } from 'lodash';
 import PropTypes from 'prop-types';
-import React, { type ComponentType, type ElementRef } from 'react';
+import React, { type ComponentType, type ElementRef, type Node } from 'react';
 
 import { optionType } from '../propTypes';
 import { getDisplayName } from '../utils';
@@ -60,8 +60,8 @@ type Props = TypeaheadProps & {
   emptyLabel: string,
   isLoading: boolean,
   onSearch: (string) => void,
-  promptText: any,
-  searchText: any,
+  promptText: Node,
+  searchText: Node,
   useCache: boolean,
 };
 
@@ -77,8 +77,8 @@ type Cache = {
  *  - Optional query caching
  *  - Search prompt and empty results behaviors
  */
-const asyncContainer = (Typeahead: ComponentType<{}>) => {
-  return class extends React.Component<Props> {
+const asyncContainer = (Typeahead: ComponentType<*>) => {
+  return class extends React.Component<* & Props> {
     static displayName = `asyncContainer(${getDisplayName(Typeahead)})`;
     static propTypes = propTypes;
     static defaultProps = defaultProps;

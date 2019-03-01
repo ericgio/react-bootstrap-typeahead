@@ -59,8 +59,8 @@ const defaultProps = {
 };
 
 class Overlay extends React.Component<Props> {
-  static propTypes: Object;
-  static defaultProps: Object;
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
   componentDidUpdate(prevProps: Props) {
     const { onMenuToggle, show } = this.props;
@@ -102,8 +102,5 @@ class Overlay extends React.Component<Props> {
     );
   }
 }
-
-Overlay.propTypes = propTypes;
-Overlay.defaultProps = defaultProps;
 
 export default Overlay;
