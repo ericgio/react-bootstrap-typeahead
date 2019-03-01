@@ -1,9 +1,13 @@
-import React from 'react';
+// @flow
+
+import React, { type ComponentType } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
-import { withContext } from '../core/Context';
+import { type MenuContextType, withContext } from '../core/Context';
 import { getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded } from '../utils';
+
+import type { Option } from '../types';
 
 const propTypes = {
   option: PropTypes.oneOfType([
@@ -13,8 +17,13 @@ const propTypes = {
   position: PropTypes.number,
 };
 
-const menuItemContainer = (Component) => {
-  class WrappedMenuItem extends React.Component {
+type Props = MenuContextType & {
+  option: Option,
+  position: number,
+};
+
+const menuItemContainer = (Component: ComponentType<{}>) => {
+  class WrappedMenuItem extends React.Component<Props> {
     static displayName = `menuItemContainer(${getDisplayName(Component)})`;
 
     componentDidMount() {

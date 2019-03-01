@@ -67,9 +67,9 @@
     }],
     "react/sort-comp": [2, {
       "order": [
+        "static-methods",
         "state",
         "instance-variables",
-        "static-methods",
         "lifecycle",
         "render",
         "everything-else"

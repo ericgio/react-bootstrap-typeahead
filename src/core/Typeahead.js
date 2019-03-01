@@ -4,7 +4,7 @@ import invariant from 'invariant';
 import { head, isEqual, noop, uniqueId } from 'lodash';
 import PropTypes from 'prop-types';
 import { isRequiredForA11y } from 'prop-types-extra';
-import * as React from 'react';
+import React, { type ElementRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
 
@@ -17,7 +17,7 @@ import { addCustomOption, areEqual, defaultFilterBy, getOptionLabel, getStringLa
 
 import { DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP } from '../constants';
 
-import type { Option, ReferenceElement, TypeaheadProps, TypeaheadState } from '../types';
+import type { Option, TypeaheadProps, TypeaheadState } from '../types';
 
 type Props = TypeaheadProps & {
   onChange?: (Option[]) => void,
@@ -308,15 +308,15 @@ const defaultProps = {
 };
 
 class Typeahead extends React.Component<Props, TypeaheadState> {
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
+  static Input = TypeaheadInput;
+  static Menu = TypeaheadMenu;
+
   state = getInitialState(this.props);
 
-  _input: ?HTMLInputElement = null;
-  _referenceElement: ?ReferenceElement = null;
-
-  static propTypes: Object;
-  static defaultProps: Object;
-  static Input: Function;
-  static Menu: Function;
+  _input: ElementRef<*> = undefined;
+  _referenceElement: ElementRef<*> = undefined;
 
   static getDerivedStateFromProps(
     props: Props,
@@ -433,7 +433,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         /* eslint-disable-next-line react/no-find-dom-node */
         this._referenceElement = findDOMNode(element);
       },
-      inputRef: (input: HTMLInputElement): void => {
+      inputRef: (input: HTMLInputElement) => {
         this._input = input;
       },
       isMenuShown,
@@ -708,11 +708,5 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     });
   }
 }
-
-Typeahead.propTypes = propTypes;
-Typeahead.defaultProps = defaultProps;
-
-Typeahead.Input = TypeaheadInput;
-Typeahead.Menu = TypeaheadMenu;
 
 export default Typeahead;

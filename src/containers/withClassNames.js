@@ -1,12 +1,21 @@
+// @flow
+
 import cx from 'classnames';
-import React from 'react';
+import React, { type ComponentType } from 'react';
 
 import { getDisplayName } from '../utils';
 
-function withClassNames(Component) {
+type Props = {
+  bsSize: 'large' | 'lg' | 'small' | 'sm',
+  className: string,
+  isInvalid: ?boolean,
+  isValid: ?boolean,
+};
+
+function withClassNames(Component: ComponentType<{}>) {
   // Use a class instead of function component to support refs.
   /* eslint-disable-next-line react/prefer-stateless-function */
-  class WrappedComponent extends React.Component {
+  class WrappedComponent extends React.Component<Props> {
     static displayName = `withClassNames(${getDisplayName(Component)})`;
 
     render() {
