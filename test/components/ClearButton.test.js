@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import sinon from 'sinon';
 
 import ClearButton from '../../src/components/ClearButton.react';
 
@@ -8,7 +7,7 @@ describe('<ClearButton>', () => {
   let button, onClick;
 
   beforeEach(() => {
-    onClick = sinon.spy();
+    onClick = jest.fn();
     button = shallow(<ClearButton onClick={onClick} />);
   });
 
@@ -24,6 +23,6 @@ describe('<ClearButton>', () => {
 
   test('registers a click', () => {
     button.simulate('click', { stopPropagation: () => {} });
-    expect(onClick.calledOnce).toBe(true);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

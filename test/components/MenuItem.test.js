@@ -1,7 +1,6 @@
 import { mount, shallow } from 'enzyme';
 import { noop, pick } from 'lodash';
 import React from 'react';
-import sinon from 'sinon';
 
 import MenuItem, { BaseMenuItem } from '../../src/components/MenuItem.react';
 import TypeaheadInner from '../../src/core/TypeaheadInner';
@@ -15,7 +14,7 @@ describe('<BaseMenuItem>', () => {
   let baseMenuItem, onClick;
 
   beforeEach(() => {
-    onClick = sinon.spy();
+    onClick = jest.fn();
     baseMenuItem = shallow(
       <BaseMenuItem onClick={onClick}>
         This is a base menu item.
@@ -35,7 +34,7 @@ describe('<BaseMenuItem>', () => {
 
   test('triggers an event when clicked', () => {
     baseMenuItem.find('a').simulate('click', event);
-    expect(onClick.calledOnce).toBe(true);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   test('renders a disabled base menu item', () => {
@@ -43,7 +42,7 @@ describe('<BaseMenuItem>', () => {
     baseMenuItem.find('a').simulate('click', event);
 
     expect(baseMenuItem.hasClass('disabled')).toBe(true);
-    expect(onClick.notCalled).toBe(true);
+    expect(onClick).toHaveBeenCalledTimes(0);
   });
 });
 
@@ -60,7 +59,7 @@ describe('<MenuItem>', () => {
       'results',
     ]);
 
-    onClick = sinon.spy();
+    onClick = jest.fn();
     menuItem = mount(
       <TypeaheadInner
         {...contextProps}
@@ -102,6 +101,6 @@ describe('<MenuItem>', () => {
 
   test('triggers an event when clicked', () => {
     menuItem.find('a').simulate('click', event);
-    expect(onClick.calledOnce).toBe(true);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
