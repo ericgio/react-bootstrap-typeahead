@@ -11,6 +11,10 @@ const toObject = (keys) => keys.reduce((object, key) => {
   return object;
 }, {});
 
+/**
+ * $Pick utility
+ * https://github.com/facebook/flow/issues/3367
+ */
 /* eslint-disable flowtype/generic-spacing */
 type $Pick<Origin: Object, Keys: $ReadOnlyArray<$Keys<Origin>>> = $ObjMapi<
   $Call<typeof toObject, Keys>,

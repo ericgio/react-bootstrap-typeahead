@@ -1,14 +1,24 @@
-import React from 'react';
+// @flow
+
+import React, { type ComponentType } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
 import { getDisplayName } from '../utils';
 import { BACKSPACE } from '../constants';
 
+type Props = {
+  onRemove: Function,
+};
+
+type State = {
+  active: boolean,
+};
+
 /**
  * Higher-order component to encapsulate Token behaviors.
  */
-const tokenContainer = (Component) => {
-  class WrappedComponent extends React.Component {
+const tokenContainer = (Component: ComponentType<{}>) => {
+  class WrappedComponent extends React.Component<Props, State> {
     static displayName = `tokenContainer(${getDisplayName(Component)})`;
 
     state = {
@@ -30,11 +40,11 @@ const tokenContainer = (Component) => {
       );
     }
 
-    _handleBlur = (e) => {
+    _handleBlur = (e: SyntheticEvent<HTMLElement>) => {
       this.setState({ active: false });
     }
 
-    _handleKeyDown = (e) => {
+    _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
       switch (e.keyCode) {
         case BACKSPACE:
           if (this.state.active) {
@@ -49,7 +59,7 @@ const tokenContainer = (Component) => {
       }
     }
 
-    _handleActive = (e) => {
+    _handleActive = (e: SyntheticEvent<HTMLElement>) => {
       e.stopPropagation();
       this.setState({ active: true });
     }
