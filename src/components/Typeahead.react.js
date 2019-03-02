@@ -1,6 +1,7 @@
 // @flow
 
 import cx from 'classnames';
+import { isFunction } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { type ElementRef } from 'react';
 
@@ -111,7 +112,7 @@ class TypeaheadComponent extends React.Component<Props> {
                 {this._renderMenu}
               </Typeahead.Menu>
               {auxContent}
-              {typeof children === 'function' ? children(props) : children}
+              {isFunction(children) ? children(props) : children}
             </div>
           );
         }}
@@ -133,7 +134,7 @@ class TypeaheadComponent extends React.Component<Props> {
       renderToken,
     } = this.props;
 
-    if (typeof renderInput === 'function') {
+    if (isFunction(renderInput)) {
       return renderInput(inputProps);
     }
 

@@ -1,13 +1,12 @@
 // @flow
 
-/**
- * This code is copied from: https://github.com/ReactTraining/react-router/blob/master/modules/routerWarning.js
- */
-
 import warning from 'warning';
 
 let warned = {};
 
+/**
+ * Copied from: https://github.com/ReactTraining/react-router/blob/master/modules/routerWarning.js
+ */
 export default function warn(
   falseToWarn: boolean,
   message: string,

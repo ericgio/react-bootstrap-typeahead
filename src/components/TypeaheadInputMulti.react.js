@@ -123,7 +123,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
 
     // Move cursor to the end if the user clicks outside the actual input.
     const inputNode = this._input;
-    if (e.target !== inputNode && isSelectable(inputNode)) {
+    if (e.currentTarget !== inputNode && isSelectable(inputNode)) {
       inputNode.selectionStart = inputNode.value.length;
     }
 

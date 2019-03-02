@@ -120,4 +120,17 @@ describe('defaultFilterBy', () => {
       expect(results.length).toBe(0);
     });
   });
+
+  test('gracefully handles invalid labels', () => {
+    const spy = jest.spyOn(console, 'error');
+
+    options = [{ name: 'foo' }];
+    props = { ...props, labelKey: 'label' };
+    const results = options.filter((o) => defaultFilterBy(o, props));
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(results.length).toBe(0);
+
+    spy.mockRestore();
+  });
 });
