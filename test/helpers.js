@@ -73,8 +73,10 @@ export function focus(wrapper) {
 }
 
 export function keyDown(wrapper, value) {
-  getInput(wrapper).simulate('keyDown', {
+  const input = getInput(wrapper);
+  input.simulate('keyDown', {
     ...baseEvent,
+    currentTarget: input,
     keyCode: value,
     which: value,
   });

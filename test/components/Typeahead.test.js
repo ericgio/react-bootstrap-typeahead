@@ -7,7 +7,7 @@ import { Menu, MenuItem, Typeahead } from '../../src';
 
 import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown } from '../helpers';
 import states from '../../example/exampleData';
-import { DOWN, ESC, RETURN, RIGHT, TAB, UP } from '../../src/constants';
+import { DOWN, ESC, LEFT, RETURN, RIGHT, TAB, UP } from '../../src/constants';
 
 const ID = 'rbt-id';
 
@@ -76,23 +76,37 @@ describe('<Typeahead>', () => {
     typeahead = mountTypeahead({ selected: [] });
   });
 
-  test('should have an input', () => {
+  test('has an input', () => {
     expect(typeahead.find('input.rbt-input-main')).toHaveLength(1);
   });
 
-  test('should render in multi-select mode when `multiple=true`', () => {
-    typeahead.setProps({ multiple: true });
-    expect(typeahead.find('.rbt-input-multi')).toHaveLength(1);
-  });
-
-  test('should display tokens when selections are passed in', () => {
-    typeahead.setProps({
-      multiple: true,
-      selected: states.slice(0, 3),
+  describe('multi-select', () => {
+    beforeEach(() => {
+      typeahead.setProps({
+        multiple: true,
+        selected: states.slice(0, 3),
+      });
+      typeahead.update();
     });
-    typeahead.update();
 
-    expect(getTokens(typeahead)).toHaveLength(3);
+    test('renders in multi-select mode when `multiple=true`', () => {
+      // typeahead.setProps({ multiple: true });
+      expect(typeahead.find('.rbt-input-multi')).toHaveLength(1);
+    });
+
+    test('displays, adds, and removes selections', () => {
+      expect(getTokens(typeahead)).toHaveLength(3);
+
+      // Make a new selection.
+      focus(typeahead);
+      keyDown(typeahead, DOWN);
+      keyDown(typeahead, RETURN);
+
+      expect(getTokens(typeahead)).toHaveLength(4);
+
+      getClearButton(typeahead).first().simulate('click');
+      expect(getTokens(typeahead)).toHaveLength(3);
+    });
   });
 
   test('sets and unsets the focus state on focus/blur', () => {
@@ -268,6 +282,11 @@ describe('<Typeahead>', () => {
     // Cycling back up should again skip the two disabled option.
     activeItem = cycleThroughMenuAndGetActiveItem(typeahead, UP);
     expect(activeItem.text()).toBe(options[0].name);
+
+    // Cycle back to the input
+    keyDown(typeahead, DOWN);
+    activeItem = cycleThroughMenuAndGetActiveItem(typeahead, DOWN);
+    expect(activeItem.length).toBe(0);
   });
 
   test(
@@ -793,26 +812,45 @@ describe('<Typeahead>', () => {
   });
 
   describe('behavior when selecting the active item', () => {
+    let onKeyDown;
+
     beforeEach(() => {
+      onKeyDown = jest.fn();
+
+      typeahead.setProps({
+        onKeyDown,
+      });
+
       // Focus and navigate to the first result.
       focus(typeahead);
       keyDown(typeahead, DOWN);
       expect(getSelected(typeahead).length).toBe(0);
+      expect(onKeyDown).toHaveBeenCalledTimes(1);
     });
 
     test('selects the active item when pressing return', () => {
       keyDown(typeahead, RETURN);
       expect(getSelected(typeahead).length).toBe(1);
+      expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
 
     test('selects the active item when pressing right', () => {
       keyDown(typeahead, RIGHT);
       expect(getSelected(typeahead).length).toBe(1);
+      expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
 
     test('selects the active item when pressing tab', () => {
       keyDown(typeahead, TAB);
       expect(getSelected(typeahead).length).toBe(1);
+      expect(onKeyDown).toHaveBeenCalledTimes(2);
+    });
+
+    test('does not select the active item when the menu is closed', () => {
+      typeahead.setProps({ open: false });
+      keyDown(typeahead, RIGHT);
+      expect(getSelected(typeahead).length).toBe(0);
+      expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -840,6 +878,19 @@ describe('<Typeahead>', () => {
 
       expect(event.defaultPrevented).toBeUndefined();
     });
+  });
+
+  test('keydown handler', () => {
+    const onKeyDown = jest.fn();
+
+    typeahead.setProps({
+      onKeyDown,
+    });
+
+    focus(typeahead);
+    keyDown(typeahead, LEFT);
+
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
 
   describe('accessibility attributes', () => {
@@ -913,6 +964,15 @@ describe('<Typeahead>', () => {
     });
   });
 
+  test('calls the public `blur` method', () => {
+    focus(typeahead);
+    expect(getState(typeahead).showMenu).toBe(true);
+
+    typeahead.instance().getInstance().blur();
+
+    expect(getState(typeahead).showMenu).toBe(false);
+  });
+
   test('calls the public `clear` method', () => {
     const wrapper = mountTypeahead({
       defaultSelected: states.slice(0, 1),
@@ -958,6 +1018,12 @@ describe('<Typeahead>', () => {
     expect(getState(typeahead).showMenu).toBe(true);
   });
 
+  test('renders a custom input', () => {
+    const renderInput = jest.fn();
+    typeahead.setProps({ renderInput });
+    expect(renderInput).toHaveBeenCalledTimes(1);
+  });
+
   test('renders custom content in the menu items', () => {
     typeahead.setProps({
       // Render the capital instead of the state name.
@@ -965,7 +1031,6 @@ describe('<Typeahead>', () => {
     });
 
     focus(typeahead);
-
     expect(getMenuItems(typeahead).first().text()).toBe('Montgomery');
   });
 
@@ -1175,6 +1240,18 @@ describe('<Typeahead> `change` events', () => {
     keyDown(wrapper, RETURN);
 
     expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  test('the clear button retains focus', () => {
+    const stopPropagation = jest.fn();
+
+    wrapper = mountTypeahead({
+      clearButton: true,
+      selected,
+    });
+
+    getClearButton(wrapper).simulate('focus', { stopPropagation });
+    expect(stopPropagation).toHaveBeenCalledTimes(1);
   });
 
   test('calls `onChange` when clicking the clear button', () => {
