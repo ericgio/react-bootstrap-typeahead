@@ -6,10 +6,10 @@ import React, { type ComponentType } from 'react';
 
 import type { TypeaheadInnerProps } from '../types';
 
-const toObject = (keys) => keys.reduce((object, key) => {
-  object[key] = undefined; /* eslint-disable-line no-param-reassign */
-  return object;
-}, {});
+/* istanbul ignore next */
+const arrToObj = (keys: string[]) => keys.reduce((obj: Object, k: string) => ({
+  ...obj, [k]: undefined,
+}), {});
 
 /**
  * $Pick utility
@@ -17,7 +17,7 @@ const toObject = (keys) => keys.reduce((object, key) => {
  */
 /* eslint-disable flowtype/generic-spacing */
 type $Pick<Origin: Object, Keys: $ReadOnlyArray<$Keys<Origin>>> = $ObjMapi<
-  $Call<typeof toObject, Keys>,
+  $Call<typeof arrToObj, Keys>,
   <Key>(k: Key) => $ElementType<Origin, Key>
 >;
 /* eslint-enable flowtype/generic-spacing */

@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import ClearButton from './ClearButton.react';
 
 import tokenContainer from '../containers/tokenContainer';
-import { RETURN } from '../constants';
 
 const propTypes = {
   active: PropTypes.bool,
@@ -64,7 +63,6 @@ class Token extends React.Component<Props> {
           className="rbt-token-remove-button"
           label="Remove"
           onClick={onRemove}
-          onKeyDown={this._handleRemoveButtonKeydown}
           tabIndex={-1}
         />
       </div>
@@ -90,16 +88,6 @@ class Token extends React.Component<Props> {
         {children}
       </div>
     );
-  }
-
-  _handleRemoveButtonKeydown = (e: SyntheticKeyboardEvent<HTMLElement>) => {
-    switch (e.keyCode) {
-      case RETURN:
-        this.props.onRemove && this.props.onRemove();
-        break;
-      default:
-        break;
-    }
   }
 }
 
