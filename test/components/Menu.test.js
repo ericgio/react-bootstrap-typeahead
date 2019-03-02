@@ -69,4 +69,37 @@ describe('<Menu>', () => {
     // See: http://airbnb.io/enzyme/docs/api/ShallowWrapper/dive.html
     expect(emptyLabelItem.dive().text()).toBe(emptyLabel);
   });
+
+  test('updates the menu position if the input height changes', () => {
+    const scheduleUpdate = jest.fn();
+
+    menu.setProps({
+      inputHeight: 1,
+      scheduleUpdate,
+    });
+
+    expect(scheduleUpdate).toHaveBeenCalledTimes(1);
+  });
+
+  test('<Menu.Divider>', () => {
+    const wrapper = shallow(<Menu.Divider />);
+
+    expect(wrapper.type()).toBe('li');
+    expect(wrapper.hasClass('divider dropdown-divider')).toBe(true);
+    expect(wrapper.prop('role')).toBe('separator');
+  });
+
+  test('<Menu.Header>', () => {
+    const children = 'This is a menu header';
+
+    const wrapper = shallow(
+      <Menu.Header>
+        {children}
+      </Menu.Header>
+    );
+
+    expect(wrapper.type()).toBe('li');
+    expect(wrapper.hasClass('dropdown-header')).toBe(true);
+    expect(wrapper.text()).toBe(children);
+  });
 });

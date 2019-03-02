@@ -24,6 +24,7 @@ describe('<AsyncTypeahead>', () => {
     wrapper = mount(
       <AsyncTypeahead
         delay={0}
+        id="async-example"
         isLoading={false}
         minLength={0}
         onChange={noop}
@@ -94,6 +95,7 @@ describe('<AsyncTypeahead>', () => {
     wrapper = mount(
       <AsyncTypeahead
         delay={delay}
+        id="async-example"
         isLoading={false}
         onSearch={onSearch}
       />
@@ -190,6 +192,35 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
+  test('does not call `onSearch` with an empty query', (done) => {
+    const onInputChange = jest.fn();
+
+    wrapper.setProps({
+      onInputChange,
+    });
+
+    search(wrapper, '', () => {
+      expect(onInputChange).toHaveBeenCalledTimes(1);
+      expect(onSearch).toHaveBeenCalledTimes(0);
+      done();
+    });
+  });
+
+  test('does not call `onSearch` if query is less than `minLength`', (done) => {
+    const onInputChange = jest.fn();
+
+    wrapper.setProps({
+      minLength: 2,
+      onInputChange,
+    });
+
+    search(wrapper, 'x', () => {
+      expect(onInputChange).toHaveBeenCalledTimes(1);
+      expect(onSearch).toHaveBeenCalledTimes(0);
+      done();
+    });
+  });
+
   test('performs a search when there is already a selection', (done) => {
     wrapper.setProps({
       multiple: true,
@@ -217,38 +248,47 @@ describe('<AsyncTypeahead>', () => {
   });
 
   test(
-    'adds a custom option when exact match is found and `allowNew` ' +
-    'returns true',
+    'displays a custom option when `allowNew` function returns true',
     (done) => {
-      const emptyLabel = 'No results...';
-      const newSelectionPrefix = 'New selection: ';
-      const text = 'zzz';
-
       wrapper.setProps({
         allowNew: (results, props) => true,
-        emptyLabel,
-        isLoading: true,
-        newSelectionPrefix,
-        useCache: false,
       });
 
-      focus(wrapper);
+      change(wrapper, 'zzz');
 
-      search(wrapper, text, () => {
-        wrapper.setProps({
-          options: [text],
-        });
+      setTimeout(() => {
+        wrapper.setProps({ isLoading: true });
 
         focus(wrapper);
         const menuItems = getMenuItems(wrapper);
 
-        expect(menuItems.length).toBe(2);
-        expect(menuItems.at(0).text()).toBe(text);
-        expect(menuItems.at(1).text()).toBe(`${newSelectionPrefix}${text}`);
+        expect(menuItems.length).toBe(1);
+        expect(menuItems.at(0).text()).toMatch(/zzz/);
         done();
-      });
+      }, 0);
     }
   );
+
+  test('disables `allowNew` while results are loading', (done) => {
+    wrapper.setProps({
+      allowNew: true,
+    });
+
+    change(wrapper, 'zzz');
+
+    setTimeout(() => {
+      wrapper.setProps({ isLoading: true });
+
+      focus(wrapper);
+      const menuItems = getMenuItems(wrapper);
+      expect(menuItems.length).toBe(1);
+      expect(menuItems.at(0).text()).toBe('Searching...');
+
+      wrapper.setProps({ isLoading: false });
+      expect(getMenuItems(wrapper).at(0).text()).toMatch(/zzz/);
+      done();
+    }, 0);
+  });
 
   test('makes the typehead instance and public methods available', () => {
     const instance = wrapper.instance().getInstance();
@@ -257,5 +297,23 @@ describe('<AsyncTypeahead>', () => {
     expect(typeof instance.blur).toBe('function');
     expect(typeof instance.focus).toBe('function');
     expect(typeof instance.getInput).toBe('function');
+  });
+
+  test('resets instance properties on unmount', () => {
+    /* eslint-disable no-underscore-dangle */
+    const instance = wrapper.instance();
+    const cancel = jest.fn();
+
+    // Modify values
+    instance._cache = null;
+    instance._query = 'test';
+    instance._handleSearchDebounced.cancel = cancel;
+
+    wrapper.unmount();
+
+    expect(instance._cache).toEqual({});
+    expect(instance._query).toBe('');
+    expect(cancel).toHaveBeenCalledTimes(1);
+    /* eslint-enable no-underscore-dangle */
   });
 });
