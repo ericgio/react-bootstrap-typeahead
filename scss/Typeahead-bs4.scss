@@ -44,6 +44,11 @@
       }
     }
   }
+  &-aux {
+    & .rbt-close {
+      margin-top: 0;
+    }
+  }
 }
 
 .input-group > .rbt {
