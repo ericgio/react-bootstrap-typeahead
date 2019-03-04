@@ -162,6 +162,7 @@ function typeaheadContainer(Component) {
           onRootClose={this._handleRootClose}>
           <Typeahead
             {...mergedPropsAndState}
+            bodyContainer={this.props.positionFixed || this.props.bodyContainer}
             inputRef={(input) => this._input = input}
             isMenuShown={isMenuShown}
             menuId={this.props.id || this.props.menuId || this._menuId}
@@ -471,7 +472,7 @@ function typeaheadContainer(Component) {
     /**
      * Whether to render the menu inline or attach to `document.body`.
      */
-    bodyContainer: PropTypes.bool,
+    bodyContainer: deprecated(PropTypes.bool, 'Use `positionFixed` instead'),
     /**
      * Whether or not filtering should be case-sensitive.
      */
