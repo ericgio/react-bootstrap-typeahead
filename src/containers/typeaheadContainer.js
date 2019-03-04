@@ -5,7 +5,7 @@ import React from 'react';
 import {RootCloseWrapper} from 'react-overlays';
 
 import contextContainer from './contextContainer';
-import {caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
+import {caseSensitiveType, checkPropType, defaultInputValueType, emptyLabelType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
 import {addCustomOption, areEqual, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils';
 
 import {DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants';
@@ -504,7 +504,7 @@ function typeaheadContainer(Component) {
     /**
      * Message to display in the menu if there are no valid results.
      */
-    emptyLabel: PropTypes.node,
+    emptyLabel: checkPropType(PropTypes.node, emptyLabelType),
     /**
      * Either an array of fields in `option` to search, or a custom filtering
      * callback.
