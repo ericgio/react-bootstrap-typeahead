@@ -670,7 +670,6 @@ function typeaheadContainer(Component) {
     align: 'justify',
     allowNew: false,
     autoFocus: false,
-    bodyContainer: false,
     caseSensitive: false,
     clearButton: false,
     defaultInputValue: '',
