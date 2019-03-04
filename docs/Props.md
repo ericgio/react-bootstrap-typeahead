@@ -21,6 +21,7 @@ emptyLabel | node | 'No matches found.' | Message displayed in the menu when the
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback.
 flip | boolean | false | Whether or not to automatically adjust the position of the menu when it reaches the viewport boundaries.
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
+id | string or number | {random} | An html id attribute, required for assistive technologies such as screen readers.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
 inputProps | object | {} | Props to be applied directly to the input. `onBlur`, `onChange`, `onFocus`, and `onKeyDown` are ignored.
 isInvalid | boolean | false | Adds the `is-invalid` classname to the `form-control`. Only affects Bootstrap 4.
@@ -29,7 +30,7 @@ isValid | boolean | false | Adds the `is-valid` classname to the `form-control`.
 labelKey | string or function | 'label' | Specify which option key to use for display or a render function. By default, the selector will use the `label` key.
 maxHeight | string | '300px' | Maximum height of the dropdown menu.
 maxResults | number | 100 | Maximum number of results to display by default. Mostly done for performance reasons so as not to render too many DOM nodes in the case of large data sets.
-menuId | string | {random} | Id applied to the top-level menu element. Required for accessibility.
+menuId | string | {random} | DEPRECATED. Id applied to the top-level menu element. Required for accessibility.
 minLength | number | 0 | Number of input characters that must be entered before showing results.
 multiple | boolean | false | Whether or not multiple selections are allowed.
 newSelectionPrefix | string | 'New selection:' | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.

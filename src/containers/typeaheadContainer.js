@@ -5,7 +5,7 @@ import React from 'react';
 import {RootCloseWrapper} from 'react-overlays';
 
 import contextContainer from './contextContainer';
-import {caseSensitiveType, checkPropType, defaultInputValueType, emptyLabelType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
+import {caseSensitiveType, checkPropType, defaultInputValueType, emptyLabelType, highlightOnlyResultType, idType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType} from '../propTypes';
 import {addCustomOption, areEqual, defaultFilterBy, getDisplayName, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, pluralize} from '../utils';
 
 import {DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../constants';
@@ -164,7 +164,7 @@ function typeaheadContainer(Component) {
             {...mergedPropsAndState}
             inputRef={(input) => this._input = input}
             isMenuShown={isMenuShown}
-            menuId={this.props.menuId || this._menuId}
+            menuId={this.props.id || this.props.menuId || this._menuId}
             onActiveItemChange={this._handleActiveItemChange}
             onAdd={this._handleSelectionAdd}
             onBlur={this._handleBlur}
@@ -524,6 +524,14 @@ function typeaheadContainer(Component) {
      */
     highlightOnlyResult: checkPropType(PropTypes.bool, highlightOnlyResultType),
     /**
+     * An html id attribute, required for assistive technologies such as screen
+     * readers.
+     */
+    id: checkPropType(
+      PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      idType,
+    ),
+    /**
      * Whether the filter should ignore accents and other diacritical marks.
      */
     ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
@@ -561,10 +569,10 @@ function typeaheadContainer(Component) {
     /**
      * Id applied to the top-level menu element. Required for accessibility.
      */
-    menuId: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    menuId: checkPropType(
+      PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      idType,
+    ),
     /**
      * Number of input characters that must be entered before showing results.
      */
