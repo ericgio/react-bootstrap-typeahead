@@ -109,6 +109,11 @@ describe('<Typeahead>', () => {
     });
   });
 
+  test('autoFocuses the component on mount', () => {
+    typeahead = mountTypeahead({ autoFocus: true });
+    expect(getInput(typeahead).getDOMNode()).toEqual(document.activeElement);
+  });
+
   test('sets and unsets the focus state on focus/blur', () => {
     const input = getInput(typeahead);
 
@@ -199,6 +204,22 @@ describe('<Typeahead>', () => {
       expect(getInput(typeahead).prop('value')).toBe(value);
       expect(getMenuItems(typeahead).length).toBe(1);
     });
+  });
+
+  test('Uses the `filterBy` prop as a callback to filter results', () => {
+    const filterBy = jest.fn((option, props) => (
+      option.name.indexOf(props.text) > -1
+    ));
+
+    typeahead.setProps({ filterBy });
+
+    change(typeahead, 'Cali');
+    focus(typeahead);
+    const menuItems = getMenuItems(typeahead);
+
+    expect(menuItems.length).toBe(1);
+    expect(menuItems.first().text()).toBe('California');
+    expect(filterBy).toHaveBeenCalled();
   });
 
   describe('menu visibility behavior', () => {
