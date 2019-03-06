@@ -2,7 +2,6 @@
 
 import React, { type ComponentType, type ElementRef } from 'react';
 
-import AutosizeInput from '../components/AutosizeInput.react';
 import { type InputContextType, withContext } from '../core/Context';
 
 import { getDisplayName, shouldSelectHint } from '../utils';
@@ -70,8 +69,12 @@ function hintContainer(Input: ComponentType<*>) {
 
       return (
         <div
-          className="rbt-input-hint-container"
-          style={{ position: 'relative' }}>
+          style={{
+            display: 'flex',
+            flex: 1,
+            height: '100%',
+            position: 'relative',
+          }}>
           <Input
             {...props}
             inputRef={(input) => {
@@ -80,22 +83,21 @@ function hintContainer(Input: ComponentType<*>) {
             }}
             onKeyDown={this._handleKeyDown}
           />
-          <AutosizeInput
+          <input
             aria-hidden
-            inputClassName="rbt-input-hint"
-            inputRef={(hint) => this._hint = hint}
-            inputStyle={{
+            className="rbt-input-hint"
+            ref={(hint) => this._hint = hint}
+            readOnly
+            style={{
               backgroundColor: 'transparent',
               borderColor: 'transparent',
               boxShadow: 'none',
               color: 'rgba(0, 0, 0, 0.35)',
-            }}
-            readOnly
-            style={{
               left: 0,
               pointerEvents: 'none',
               position: 'absolute',
               top: 0,
+              width: '100%',
             }}
             tabIndex={-1}
             value={hintText}

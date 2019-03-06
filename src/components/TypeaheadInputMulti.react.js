@@ -4,7 +4,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, { type ElementRef } from 'react';
 
-import AutosizeInput from './AutosizeInput.react';
+import Input from './Input.react';
 import Token from './Token.react';
 
 import { getOptionLabel, isSelectable } from '../utils';
@@ -22,7 +22,7 @@ export type TypeaheadInputMultiComponentProps = {
 
 type Props = InputMultiProps & TypeaheadInputMultiComponentProps;
 
-const HintedAutosizeInput = hintContainer(AutosizeInput);
+const HintedInput = hintContainer(Input);
 
 const propTypes = {
   /**
@@ -73,24 +73,22 @@ class TypeaheadInputMulti extends React.Component<Props> {
         tabIndex={-1}>
         <div className="rbt-input-wrapper" ref={(el) => this._wrapper = el}>
           {selected.map(this._renderToken)}
-          <HintedAutosizeInput
+          <HintedInput
             {...props}
-            inputClassName={cx('rbt-input-main', inputClassName)}
+            className={inputClassName}
             inputRef={(input) => {
               this._input = input;
               this.props.inputRef(input);
             }}
-            inputStyle={{
+            onKeyDown={this._handleKeyDown}
+            style={{
               backgroundColor: 'transparent',
               border: 0,
               boxShadow: 'none',
               cursor: 'inherit',
               outline: 'none',
               padding: 0,
-            }}
-            onKeyDown={this._handleKeyDown}
-            style={{
-              position: 'relative',
+              width: '100%',
               zIndex: 1,
             }}
           />
