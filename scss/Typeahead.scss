@@ -1,10 +1,10 @@
-@import '_mixins';
+$animation: loader-animation 600ms infinite linear;
+$inset: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+$placeholder-color: #999;
 
 .rbt {
-  outline: none;
-
   &-menu {
-    margin-bottom: 2px;
+    margin-bottom: 2px; // Spacing for dropup
 
     & > li a {
       overflow: hidden;
@@ -33,7 +33,7 @@
 
     // Apply Bootstrap focus styles
     &.focus {
-      @include box-shadow(0 0 8px rgba(102, 175, 233, 0.6), inset 0 1px 1px rgba(0, 0, 0, .075));
+      box-shadow: $inset, 0 0 8px rgba(102, 175, 233, 0.6);
       border-color: #66afe9;
       outline: 0;
     }
@@ -46,10 +46,27 @@
 
     // Apply Bootstrap placeholder styles
     input {
-      @include placeholder(#999);
+      // Firefox
+      &::-moz-placeholder {
+        color: $placeholder-color;
+        opacity: 1;
+      }
+
+      // Internet Explorer 10+
+      &:-ms-input-placeholder {
+        color: $placeholder-color;
+      }
+
+      // Safari and Chrome
+      &::-webkit-input-placeholder  {
+        color: $placeholder-color;
+      }
     }
 
     .rbt-input-wrapper {
+      align-items: flex-start;
+      display: flex;
+      flex-wrap: wrap;
       margin-bottom: -4px;
       margin-top: -1px;
       overflow: hidden;
@@ -59,10 +76,6 @@
       // Set input height for cross-browser consistency
       height: 20px;
       margin: 1px 0 4px;
-    }
-
-    .rbt-input-hint-container {
-      display: inline-block;
     }
 
     &.input,
@@ -134,7 +147,9 @@
   }
 
   &-loader {
-    @include animation(loader-animation 600ms infinite linear);
+    -moz-animation: $animation;
+    -webkit-animation: $animation;
+    animation: $animation;
     border: 1px solid #d5d5d5;
     border-radius: 50%;
     border-top-color: #1f8dd6;
@@ -149,8 +164,8 @@
   }
 
   &-aux {
-    @include display-flex();
     align-items: center;
+    display: flex;
     bottom: 0;
     justify-content: center;
     pointer-events: none; /* Don't block clicks on the input */
@@ -183,15 +198,11 @@
 
 /* Input Groups */
 .input-group > .rbt {
-  @include flex(1);
+  flex: 1;
 
-  & .rbt-input-hint-container {
-    @include display-flex();
-  }
-
-  & .rbt-aux,
-  & .rbt-input-hint {
-    // Form-controls within input-groups have a higher z-index.
+  // Form-controls within input-groups have a higher z-index.
+  & .rbt-input-hint,
+  & .rbt-aux {
     z-index: 5;
   }
 
@@ -209,28 +220,21 @@
 /* Validation States */
 .has-error .rbt-input-multi.focus {
   border-color: #843534;
-  @include box-shadow(0 0 6px #ce8483, inset 0 1px 1px rgba(0, 0, 0, 0.075));
+  box-shadow: $inset, 0 0 6px #ce8483;
 }
 
 .has-warning .rbt-input-multi.focus {
   border-color: #66512c;
-  @include box-shadow(0 0 6px #c0a16b, inset 0 1px 1px rgba(0, 0, 0, 0.075));
+  box-shadow: $inset, 0 0 6px #c0a16b;
 }
 
 .has-success .rbt-input-multi.focus {
   border-color: #2b542c;
-  @include box-shadow(0 0 6px #67b168, inset 0 1px 1px rgba(0, 0, 0, 0.075));
+  box-shadow: $inset, 0 0 6px #67b168;
 }
-
 
 @keyframes loader-animation {
   to {
     transform: rotate(1turn);
   }
 }
-@-webkit-keyframes loader-animation {
-  to {
-    -webkit-transform: rotate(1turn);
-  }
-}
-
