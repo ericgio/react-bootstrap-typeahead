@@ -8,6 +8,10 @@ describe('getMatchBounds', () => {
     expect(bounds.end).toBe(7);
   });
 
+  test('returns null when there is no match', () => {
+    expect(getMatchBounds('foo', 'bar')).toBe(null);
+  });
+
   test('is case-insensitive', () => {
     const bounds = getMatchBounds('This String Has Caps.', 'string has');
 

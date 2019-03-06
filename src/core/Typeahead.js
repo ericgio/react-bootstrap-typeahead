@@ -12,99 +12,41 @@ import TypeaheadInner from './TypeaheadInner';
 import TypeaheadInput from './TypeaheadInput';
 import TypeaheadMenu from './TypeaheadMenu';
 
-import { caseSensitiveType, checkPropType, defaultInputValueType, highlightOnlyResultType, ignoreDiacriticsType, inputPropsType, labelKeyType, optionType, selectedType } from '../propTypes';
-import { addCustomOption, areEqual, defaultFilterBy, getOptionLabel, getStringLabelKey, getTruncatedOptions, isShown, warn } from '../utils';
+import {
+  caseSensitiveType,
+  checkPropType,
+  defaultInputValueType,
+  highlightOnlyResultType,
+  ignoreDiacriticsType,
+  inputPropsType,
+  labelKeyType,
+  optionType,
+  selectedType,
+} from '../propTypes';
 
-import { DEFAULT_LABELKEY, DOWN, ESC, RETURN, RIGHT, TAB, UP } from '../constants';
+import {
+  addCustomOption,
+  areEqual,
+  defaultFilterBy,
+  getOptionLabel,
+  getStringLabelKey,
+  getUpdatedActiveIndex,
+  getTruncatedOptions,
+  isShown,
+  validateSelectedPropChange,
+} from '../utils';
+
+import {
+  DEFAULT_LABELKEY,
+  DOWN,
+  ESC,
+  RETURN,
+  RIGHT,
+  TAB,
+  UP,
+} from '../constants';
 
 import type { Option, TypeaheadProps, TypeaheadState } from '../types';
-
-type Props = TypeaheadProps & {
-  onChange?: (Option[]) => void,
-  selected?: Option[],
-};
-
-function maybeWarnAboutControlledSelections(
-  prevSelected?: Option[],
-  selected?: Option[]
-): void {
-  const uncontrolledToControlled = !prevSelected && selected;
-  const controlledToUncontrolled = prevSelected && !selected;
-
-  let from, to, precedent;
-
-  if (uncontrolledToControlled) {
-    from = 'uncontrolled';
-    to = 'controlled';
-    precedent = 'an';
-  } else {
-    from = 'controlled';
-    to = 'uncontrolled';
-    precedent = 'a';
-  }
-
-  const message =
-    `You are changing ${precedent} ${from} typeahead to be ${to}. ` +
-    `Input elements should not switch from ${from} to ${to} (or vice versa). ` +
-    'Decide between using a controlled or uncontrolled element for the ' +
-    'lifetime of the component.';
-
-  warn(
-    !(uncontrolledToControlled || controlledToUncontrolled),
-    message,
-  );
-}
-
-function skipDisabledOptions(
-  results: Option[],
-  activeIndex: number,
-  keyCode: number
-): number {
-  let newActiveIndex = activeIndex;
-
-  while (results[newActiveIndex] && results[newActiveIndex].disabled) {
-    newActiveIndex += keyCode === UP ? -1 : 1;
-  }
-
-  return newActiveIndex;
-}
-
-function getInitialState(props: Props): TypeaheadState {
-  const {
-    defaultInputValue,
-    defaultOpen,
-    defaultSelected,
-    maxResults,
-    multiple,
-  } = props;
-
-  let selected = props.selected ?
-    props.selected.slice() :
-    defaultSelected.slice();
-
-  let text = defaultInputValue;
-
-  if (!multiple && selected.length) {
-    // Set the text if an initial selection is passed in.
-    text = getOptionLabel(head(selected), props.labelKey);
-
-    if (selected.length > 1) {
-      // Limit to 1 selection in single-select mode.
-      selected = selected.slice(0, 1);
-    }
-  }
-
-  return {
-    activeIndex: -1,
-    activeItem: null,
-    initialItem: null,
-    isFocused: false,
-    selected,
-    showMenu: defaultOpen,
-    shownResults: maxResults,
-    text,
-  };
-}
 
 const propTypes = {
   /**
@@ -307,6 +249,48 @@ const defaultProps = {
   selectHintOnEnter: false,
 };
 
+type Props = TypeaheadProps & {
+  onChange?: (Option[]) => void,
+  selected?: Option[],
+};
+
+function getInitialState(props: Props): TypeaheadState {
+  const {
+    defaultInputValue,
+    defaultOpen,
+    defaultSelected,
+    maxResults,
+    multiple,
+  } = props;
+
+  let selected = props.selected ?
+    props.selected.slice() :
+    defaultSelected.slice();
+
+  let text = defaultInputValue;
+
+  if (!multiple && selected.length) {
+    // Set the text if an initial selection is passed in.
+    text = getOptionLabel(head(selected), props.labelKey);
+
+    if (selected.length > 1) {
+      // Limit to 1 selection in single-select mode.
+      selected = selected.slice(0, 1);
+    }
+  }
+
+  return {
+    activeIndex: -1,
+    activeItem: null,
+    initialItem: null,
+    isFocused: false,
+    selected,
+    showMenu: defaultOpen,
+    shownResults: maxResults,
+    text,
+  };
+}
+
 class Typeahead extends React.Component<Props, TypeaheadState> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
@@ -346,7 +330,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   componentDidUpdate(prevProps: Props, prevState: TypeaheadState) {
     const { labelKey, multiple, selected } = this.props;
 
-    maybeWarnAboutControlledSelections(prevProps.selected, selected);
+    validateSelectedPropChange(prevProps.selected, selected);
 
     // Keep `selected` state and props in sync. Use `componentDidUpdate`
     // rather than `getDerivedStateFromProps` to compare with previous
@@ -393,7 +377,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     let results = [];
 
     if (text.length >= minLength) {
-      const cb = Array.isArray(filterBy) ? defaultFilterBy : filterBy;
+      const cb = typeof filterBy === 'function' ? filterBy : defaultFilterBy;
       results = options.filter((option: Option) => (
         cb(option, mergedPropsAndState)
       ));
@@ -560,55 +544,38 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     isMenuShown: boolean
   ) => {
     const { activeItem } = this.state;
-    let { activeIndex } = this.state;
+
+    // Skip most actions when the menu is hidden.
+    if (!isMenuShown) {
+      if (e.keyCode === UP || e.keyCode === DOWN) {
+        this._showMenu();
+      }
+
+      this.props.onKeyDown(e);
+      return;
+    }
 
     switch (e.keyCode) {
       case UP:
       case DOWN:
-        if (!isMenuShown) {
-          this._showMenu();
-          break;
-        }
-
-        // Prevents input cursor from going to the beginning when pressing up.
+        // Prevent input cursor from going to the beginning when pressing up.
         e.preventDefault();
-
-        // Increment or decrement index based on user keystroke.
-        activeIndex += e.keyCode === UP ? -1 : 1;
-
-        // Skip over any disabled options.
-        activeIndex = skipDisabledOptions(results, activeIndex, e.keyCode);
-
-        // If we've reached the end, go back to the beginning or vice-versa.
-        if (activeIndex === results.length) {
-          activeIndex = -1;
-        } else if (activeIndex === -2) {
-          activeIndex = results.length - 1;
-
-          // Skip over any disabled options.
-          activeIndex = skipDisabledOptions(results, activeIndex, e.keyCode);
-        }
-
-        this._handleActiveIndexChange(activeIndex);
+        this._handleActiveIndexChange(getUpdatedActiveIndex(
+          this.state.activeIndex,
+          e.keyCode,
+          results
+        ));
         break;
       case ESC:
         isMenuShown && this._hideMenu();
         break;
       case RETURN:
-        if (!isMenuShown) {
-          break;
-        }
-
         // Prevent form submission while menu is open.
         e.preventDefault();
         activeItem && this._handleMenuItemSelect(activeItem, e);
         break;
       case RIGHT:
       case TAB:
-        if (!isMenuShown) {
-          break;
-        }
-
         if (activeItem && !activeItem.paginationOption) {
           // Prevent blurring when selecting the active item.
           e.keyCode === TAB && e.preventDefault();
