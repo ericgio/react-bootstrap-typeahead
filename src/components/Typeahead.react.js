@@ -100,10 +100,11 @@ class TypeaheadComponent extends React.Component<Props> {
 
           return (
             <div
-              className={cx('rbt', 'clearfix', 'open', {
-                'has-aux': !!auxContent,
-              }, className)}
-              style={{ position: 'relative' }}
+              className={cx('rbt', { 'has-aux': !!auxContent }, className)}
+              style={{
+                outline: 'none',
+                position: 'relative',
+              }}
               tabIndex={-1}>
               <Typeahead.Input>
                 {this._renderInput}
