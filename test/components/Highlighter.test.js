@@ -4,7 +4,7 @@ import React from 'react';
 import Highlighter from '../../src/components/Highlighter.react';
 
 describe('<Highlighter>', () => {
-  let highlighter, matches;
+  let highlighter;
 
   beforeEach(() => {
     highlighter = shallow(
@@ -14,19 +14,9 @@ describe('<Highlighter>', () => {
     );
   });
 
-  test('renders a span containing a string', () => {
-    expect(highlighter.type()).toBe('span');
+  test('does not highlight text when there is no search string', () => {
     expect(highlighter.text()).toBe('California');
     expect(highlighter.find('mark')).toHaveLength(0);
-  });
-
-  test('correctly highlights text', () => {
-    matches = highlighter
-      .setProps({ search: 'a' })
-      .find('mark');
-
-    expect(matches.length).toBe(2);
-    expect(matches.first().text()).toBe('a');
   });
 
   test('does not highlight text when there is no match', () => {
@@ -34,24 +24,34 @@ describe('<Highlighter>', () => {
     expect(highlighter.find('mark')).toHaveLength(0);
   });
 
-  test('is case-insensitive', () => {
-    matches = highlighter
-      .setProps({ search: 'cal' })
-      .find('mark');
+  test('handles an empty child string', () => {
+    highlighter.setProps({
+      children: '',
+      search: 'foo',
+    });
 
-    expect(matches.length).toBe(1);
-    expect(matches.first().text()).toBe('Cal');
+    expect(highlighter.text()).toBe('');
   });
 
-  test('ignores diacritical marks', () => {
-    matches = highlighter
-      .setProps({
-        children: 'Kraków',
-        search: 'krako',
-      })
-      .find('mark');
+  test('correctly highlights text', () => {
+    highlighter.setProps({ search: 'i' });
 
-    expect(matches.length).toBe(1);
-    expect(matches.first().text()).toBe('Krakó');
+    // Output: [Cal, <mark>i</mark>, forn, <mark>i</mark>, a]
+    expect(highlighter.length).toBe(5);
+    expect(highlighter.first().text()).toBe('Cal');
+
+    const matches = highlighter.find('mark');
+    expect(matches.length).toBe(2);
+    expect(matches.first().text()).toBe('i');
+    expect(matches.first().hasClass('rbt-highlight-text')).toBe(true);
+  });
+
+  test('adds custom classnames to the highlighted children', () => {
+    highlighter.setProps({
+      highlightClassName: 'foo',
+      search: 'i',
+    });
+
+    expect(highlighter.find('mark').first().hasClass('foo')).toBe(true);
   });
 });
