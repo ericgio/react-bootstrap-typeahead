@@ -15,11 +15,18 @@ const defaultProps = {
   highlightClassName: 'rbt-highlight-text',
 };
 
-type Props = {
+type HighlighterProps = {
   children: string,
   highlightClassName: string,
   search: string,
 };
+
+// React 16.0 added support for returning arrays and strings from components.
+// TODO: Get rid of this once support for React < 16 is dropped.
+function wrapChildren(children) {
+  /* istanbul ignore next */
+  return React.version >= '16' ? children : <span>{children}</span>;
+}
 
 /**
  * Stripped-down version of https://github.com/helior/react-highlighter
@@ -27,54 +34,43 @@ type Props = {
  * Results are already filtered by the time the component is used internally so
  * we can safely ignore case and diacritical marks for the purposes of matching.
  */
-class Highlighter extends React.PureComponent<Props> {
+class Highlighter extends React.PureComponent<HighlighterProps> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
   render() {
-    const children = this.props.search ?
-      this._renderHighlightedChildren() :
-      this.props.children;
+    const { children, highlightClassName, search } = this.props;
 
-    return <span>{children}</span>;
-  }
+    if (!search || !children) {
+      return wrapChildren(children);
+    }
 
-  _renderHighlightedChildren() {
-    const children = [];
+    let matchCount = 0;
+    let remaining = children;
 
-    let count = 0;
-    let remaining = this.props.children;
+    const highlighterChildren = [];
 
     while (remaining) {
-      const bounds = getMatchBounds(remaining, this.props.search);
+      const bounds = getMatchBounds(remaining, search);
 
+      // No match anywhere in the remaining string, stop.
       if (!bounds) {
-        count += 1;
-        children.push(
-          <span key={count}>
-            {remaining}
-          </span>
-        );
-        return children;
+        highlighterChildren.push(remaining);
+        break;
       }
 
-      // Capture the string that leads up to a match...
+      // Capture the string that leads up to a match.
       const nonMatch = remaining.slice(0, bounds.start);
       if (nonMatch) {
-        count += 1;
-        children.push(
-          <span key={count}>
-            {nonMatch}
-          </span>
-        );
+        highlighterChildren.push(nonMatch);
       }
 
-      // Now, capture the matching string...
+      // Capture the matching string.
       const match = remaining.slice(bounds.start, bounds.end);
       if (match) {
-        count += 1;
-        children.push(
-          <mark className={this.props.highlightClassName} key={count}>
+        matchCount += 1;
+        highlighterChildren.push(
+          <mark className={highlightClassName} key={matchCount}>
             {match}
           </mark>
         );
@@ -84,7 +80,7 @@ class Highlighter extends React.PureComponent<Props> {
       remaining = remaining.slice(bounds.end);
     }
 
-    return children;
+    return wrapChildren(highlighterChildren);
   }
 }
 
