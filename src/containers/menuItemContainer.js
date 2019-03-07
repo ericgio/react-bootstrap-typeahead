@@ -1,11 +1,12 @@
 // @flow
 
+import scrollIntoView from 'scroll-into-view-if-needed';
 import React, { type ComponentType } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
 import { type MenuContextType, withContext } from '../core/Context';
-import { getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded } from '../utils';
+import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
 
 import type { Option } from '../types';
 
@@ -85,11 +86,17 @@ const menuItemContainer = (Component: ComponentType<*>) => {
       }
 
       if (position === activeIndex) {
-        // Ensures that if the menu items exceed the bounds of the menu, the
-        // menu will scroll up or down as the user hits the arrow keys.
-        /* eslint-disable-next-line react/no-find-dom-node */
-        scrollIntoViewIfNeeded(findDOMNode(this));
         onActiveItemChange(option);
+
+        // Automatically scroll the menu as the user keys through it.
+        /* eslint-disable-next-line react/no-find-dom-node */
+        const node = findDOMNode(this);
+        node && scrollIntoView(node, {
+          block: 'nearest',
+          boundary: node.parentNode,
+          inline: 'nearest',
+          scrollMode: 'if-needed',
+        });
       }
     }
   }
