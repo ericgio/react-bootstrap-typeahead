@@ -15,7 +15,6 @@ export getUpdatedActiveIndex from './getUpdatedActiveIndex';
 export isSelectable from './isSelectable';
 export isShown from './isShown';
 export preventInputBlur from './preventInputBlur';
-export scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
 export shouldSelectHint from './shouldSelectHint';
 export stripDiacritics from './stripDiacritics';
 export validateSelectedPropChange from './validateSelectedPropChange';
