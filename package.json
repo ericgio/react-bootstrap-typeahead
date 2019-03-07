@@ -62,6 +62,7 @@
     "react-lifecycles-compat": "^3.0.4",
     "react-overlays": "^0.8.1",
     "react-popper": "^1.0.0",
+    "scroll-into-view-if-needed": "^2.2.20",
     "warning": "^4.0.1"
   },
   "peerDependencies": {
