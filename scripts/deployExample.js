@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-extraneous-dependencies,no-console */
 
 const ghpages = require('gh-pages');
-const {version} = require('../package.json');
+const { version } = require('../package.json');
 
 /**
  * Don't publish pre-release versions, as denoted by the presence of a hyphen

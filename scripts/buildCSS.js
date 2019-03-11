@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-extraneous-dependencies,no-console */
 
 const fs = require('fs');
 const path = require('path');
@@ -44,7 +45,7 @@ sassFiles.forEach((filename) => {
   const file = path.join(rootDir, 'scss', filename);
 
   // Output both expanded and minified versions.
-  ['compressed', 'expanded'].forEach(outputStyle => {
-    buildCSS({file, outputStyle}, outdir);
+  ['compressed', 'expanded'].forEach((outputStyle) => {
+    buildCSS({ file, outputStyle }, outdir);
   });
 });
