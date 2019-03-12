@@ -16,7 +16,7 @@
     "coveralls": "cat coverage/lcov.info | coveralls",
     "deploy-example": "node ./scripts/deployExample.js",
     "flow": "flow",
-    "lint": "eslint .",
+    "lint": "eslint . --report-unused-disable-directives",
     "lint:fix": "eslint . --fix",
     "postpublish": "npm run deploy-example",
     "prepublishOnly": "npm run check && npm run build",
