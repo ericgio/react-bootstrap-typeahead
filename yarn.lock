@@ -2762,7 +2762,7 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-airbnb-base@^13.2.0:
+eslint-config-airbnb-base@^13.1.0, eslint-config-airbnb-base@^13.2.0:
   version "13.2.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-13.2.0.tgz#f6ea81459ff4dec2dda200c35f1d8f7419d57943"
   integrity sha512-1mg/7eoB4AUeB0X1c/ho4vb2gYkNH8Trr/EgCT/aGmKhhG+F6vF5s8+iRBlWAzFIAphxIdp3YfEKgEl0f9Xg+w==
@@ -2779,6 +2779,23 @@ eslint-config-airbnb@^17.1.0:
     eslint-config-airbnb-base "^13.2.0"
     object.assign "^4.1.0"
     object.entries "^1.1.0"
+
+eslint-config-ericgio-base@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-ericgio-base/-/eslint-config-ericgio-base-1.0.2.tgz#46c97138bf375514bfef13b7f6760ce4210830f9"
+  integrity sha512-Bznj90VrZr9MaTX1wTqSIoQGDo3Y+YG0QbPW0bkn/kxtW4CnxnrZRuxTfuVtwhRW6nD5UNHCKdh9tiQ082MKeg==
+  dependencies:
+    eslint-config-airbnb-base "^13.1.0"
+
+eslint-config-ericgio@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-ericgio/-/eslint-config-ericgio-4.0.3.tgz#4bee7654d59e6e45d83487b94ca6e0811611cd19"
+  integrity sha512-JfP4tVdrsldpmFs4n26OPVwJoeoY0DZwFSGAPY7vxgD3y90VjExY4nLqmMRJhJMiLdUi+9oe3gBsO/3ldtgc8g==
+  dependencies:
+    eslint-config-airbnb "^17.1.0"
+    eslint-config-ericgio-base "^1.0.1"
+    eslint-plugin-jsx-a11y "^6.2.1"
+    eslint-plugin-react "^7.12.4"
 
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
@@ -2803,7 +2820,7 @@ eslint-plugin-flowtype@^3.4.2:
   dependencies:
     lodash "^4.17.11"
 
-eslint-plugin-import@^2.15.0:
+eslint-plugin-import@^2.16.0:
   version "2.18.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.18.2.tgz#02f1180b90b077b33d447a17a2326ceb400aceb6"
   integrity sha512-5ohpsHAiUBRNaBWAF08izwUGlbrJoJJ+W9/TBwsGoR1MnlgfwMIKrFeSjWbt6moabiXW9xNvtFz+97KHRfI4HQ==
@@ -2820,7 +2837,7 @@ eslint-plugin-import@^2.15.0:
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-jsx-a11y@^6.2.0:
+eslint-plugin-jsx-a11y@^6.2.1:
   version "6.2.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.2.3.tgz#b872a09d5de51af70a97db1eea7dc933043708aa"
   integrity sha512-CawzfGt9w83tyuVekn0GDPU9ytYtxyxyFZ3aSWROmnRRFQFT2BiPJd7jvRdzNDi6oLWaS2asMeYSNMjWTV4eNg==
@@ -2834,11 +2851,6 @@ eslint-plugin-jsx-a11y@^6.2.0:
     emoji-regex "^7.0.2"
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
-
-eslint-plugin-react-hooks@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.7.0.tgz#6210b6d5a37205f0b92858f895a4e827020a7d04"
-  integrity sha512-iXTCFcOmlWvw4+TOE8CLWj6yX1GwzT0Y6cUfHHZqWnSk144VmVIRcVGtUAzrLES7C798lmvnt02C7rxaOX1HNA==
 
 eslint-plugin-react@^7.12.4:
   version "7.14.3"
