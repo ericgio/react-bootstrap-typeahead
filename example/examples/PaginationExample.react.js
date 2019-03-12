@@ -41,6 +41,6 @@ class PaginationExample extends React.Component {
   }
 }
 /* example-end */
-/* eslint-disable no-console */
+/* eslint-enable no-console */
 
 export default PaginationExample;
