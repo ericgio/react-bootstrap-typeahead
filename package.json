@@ -115,25 +115,6 @@
     "webpack": "^4.6.0",
     "webpack-cli": "^3.1.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run check",
-      "pre-push": "npm run check"
-    }
-  },
-  "jest": {
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/example",
-      "<rootDir>/src/propTypes"
-    ],
-    "modulePathIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ],
-    "setupFiles": [
-      "./jest.setup.js"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ericgio/react-bootstrap-typeahead.git"
