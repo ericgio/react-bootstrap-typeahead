@@ -667,6 +667,13 @@ describe('<Typeahead>', () => {
     expect(getInput(typeahead).prop('value')).toBe('Alabama');
   });
 
+  test('applies custom styles to the top-level container', () => {
+    typeahead.setProps({ style: { display: 'inline-flex' } });
+
+    expect(typeahead.find('div').first().prop('style').display)
+      .toEqual('inline-flex');
+  });
+
   describe('applies attributes to the input', () => {
     let inputProps;
 
