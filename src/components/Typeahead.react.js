@@ -34,6 +34,7 @@ type Props =
     renderInput: Function,
     renderMenu: Function,
     renderToken: Function,
+    style?: Object,
   };
 
 const propTypes = {
@@ -89,7 +90,7 @@ class TypeaheadComponent extends React.Component<Props> {
   _instance: ElementRef<*> = null;
 
   render() {
-    const { children, className } = this.props;
+    const { children, className, style } = this.props;
 
     return (
       <Typeahead
@@ -104,6 +105,7 @@ class TypeaheadComponent extends React.Component<Props> {
               style={{
                 outline: 'none',
                 position: 'relative',
+                ...style,
               }}
               tabIndex={-1}>
               <Typeahead.Input>
