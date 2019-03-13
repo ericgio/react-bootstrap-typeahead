@@ -36,7 +36,7 @@ class RenderingExample extends React.Component {
 
     switch (selectedOption) {
       case 'renderInput':
-        props.align = 'left';
+        props.style = { display: 'inline-block' };
         props.renderInput = this._renderInput;
         break;
       case 'renderMenu':
