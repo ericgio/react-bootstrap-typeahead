@@ -1,21 +1,26 @@
 .babelrc
+.coveralls.yml
 .eslintignore
 .eslintrc
+.flowconfig
 .gitignore
+.huskyrc
 .npmignore
 .travis.yml
 
 CONTRIBUTING.md
-karma.conf.js
+jest.config.js
+jest.setup.js
 npm-debug.log
-tests.webpack.js
 webpack.config.base.js
 webpack.config.js
 yarn-error.log
 yarn.lock
 
 .github/
+coverage/
 example/
+flow-typed/
 scripts/
 scss/
 src/
