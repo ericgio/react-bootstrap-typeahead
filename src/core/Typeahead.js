@@ -50,13 +50,6 @@ import type { Option, TypeaheadProps, TypeaheadState } from '../types';
 
 const propTypes = {
   /**
-   * Specify menu alignment. The default value is `justify`, which makes the
-   * menu as wide as the input and truncates long values. Specifying `left`
-   * or `right` will align the menu to that side and the width will be
-   * determined by the length of menu item values.
-   */
-  align: PropTypes.oneOf(['justify', 'left', 'right']),
-  /**
    * Allows the creation of new selections on the fly. Note that any new items
    * will be added to the list of selections, but not the list of original
    * options unless handled as such by `Typeahead`'s parent.
@@ -94,10 +87,6 @@ const propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Specify whether the menu should appear above the input.
-   */
-  dropup: PropTypes.bool,
-  /**
    * Either an array of fields in `option` to search, or a custom filtering
    * callback.
    */
@@ -105,11 +94,6 @@ const propTypes = {
     PropTypes.arrayOf(PropTypes.string.isRequired),
     PropTypes.func,
   ]),
-  /**
-   * Whether or not to automatically adjust the position of the menu when it
-   * reaches the viewport boundaries.
-   */
-  flip: PropTypes.bool,
   /**
    * Highlights the menu item if there is only one result and allows selecting
    * that item by hitting enter. Does not work with `allowNew`.
@@ -177,10 +161,6 @@ const propTypes = {
    */
   onKeyDown: PropTypes.func,
   /**
-   * Invoked when menu visibility changes.
-   */
-  onMenuToggle: PropTypes.func,
-  /**
    * Invoked when the pagination menu item is clicked. Receives an event.
    */
   onPaginate: PropTypes.func,
@@ -220,7 +200,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-  align: 'justify',
   allowNew: false,
   autoFocus: false,
   caseSensitive: false,
@@ -228,9 +207,7 @@ const defaultProps = {
   defaultOpen: false,
   defaultSelected: [],
   disabled: false,
-  dropup: false,
   filterBy: [],
-  flip: false,
   highlightOnlyResult: false,
   ignoreDiacritics: true,
   inputProps: {},
