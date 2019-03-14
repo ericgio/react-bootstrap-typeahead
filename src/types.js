@@ -1,7 +1,5 @@
 // @flow
 
-export type Align = 'justify' | 'left' | 'right';
-
 export type BsSize = 'large' | 'lg' | 'small' | 'sm';
 
 export type EventHandler = (SyntheticEvent<HTMLElement>) => void;
@@ -14,10 +12,9 @@ export type Option = string | { [string]: any };
 
 export type Style = { [string]: any };
 
-export type ReferenceElement = null | Element | Text;
+export type ReferenceElement = HTMLElement;
 
 export type TypeaheadProps = {
-  align: Align,
   /* eslint-disable-next-line no-use-before-define */
   allowNew: boolean | (Option[], TypeaheadPropsAndState) => boolean,
   autoFocus: boolean,
@@ -27,10 +24,8 @@ export type TypeaheadProps = {
   defaultOpen: boolean,
   defaultSelected: Option[],
   disabled: boolean,
-  dropup: boolean,
   /* eslint-disable-next-line no-use-before-define */
   filterBy: string[] | (Option, TypeaheadPropsAndState) => void,
-  flip: boolean,
   highlightOnlyResult: boolean,
   id?: Id,
   ignoreDiacritics: boolean,
@@ -43,14 +38,12 @@ export type TypeaheadProps = {
   onFocus: EventHandler,
   onInputChange: (string, SyntheticEvent<HTMLInputElement>) => void,
   onKeyDown: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  onMenuToggle?: (boolean) => void,
   onPaginate: (SyntheticEvent<HTMLElement>, number) => void,
   open?: boolean,
   options: Option[],
   paginate: boolean,
   paginationText: string,
   placeholder: string,
-  positionFixed: boolean,
   selectHintOnEnter: boolean,
 };
 

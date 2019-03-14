@@ -6,20 +6,56 @@ import PropTypes from 'prop-types';
 import { componentOrElement } from 'prop-types-extra';
 import { Popper } from 'react-popper';
 
-import type { Align } from '../types';
+import type { ReferenceElement } from '../types';
 
-type Props = {
-  align: Align,
+export type OverlayProps = {
+  align: 'justify' | 'left' | 'right',
   children: Function,
   dropup: boolean,
-  flip: boolean, /* eslint-disable-line react/no-unused-prop-types */
+  flip: boolean,
   onMenuToggle: (boolean) => void,
   positionFixed: boolean,
-  referenceElement: ?HTMLElement,
+  referenceElement: ?ReferenceElement,
   show: boolean,
 };
 
-function getModifiers({ align, flip }: Props) {
+const propTypes = {
+  /**
+   * Specify menu alignment. The default value is `justify`, which makes the
+   * menu as wide as the input and truncates long values. Specifying `left`
+   * or `right` will align the menu to that side and the width will be
+   * determined by the length of menu item values.
+   */
+  align: PropTypes.oneOf(['justify', 'left', 'right']),
+  children: PropTypes.func.isRequired,
+  /**
+   * Specify whether the menu should appear above the input.
+   */
+  dropup: PropTypes.bool,
+  /**
+   * Whether or not to automatically adjust the position of the menu when it
+   * reaches the viewport boundaries.
+   */
+  flip: PropTypes.bool, /* eslint-disable-line react/no-unused-prop-types */
+  /**
+   * Invoked when menu visibility changes.
+   */
+  onMenuToggle: PropTypes.func,
+  positionFixed: PropTypes.bool,
+  referenceElement: componentOrElement,
+  show: PropTypes.bool,
+};
+
+const defaultProps = {
+  align: 'justify',
+  dropup: false,
+  flip: false,
+  onMenuToggle: noop,
+  positionFixed: false,
+  show: false,
+};
+
+function getModifiers({ align, flip }: OverlayProps) {
   return {
     computeStyles: {
       enabled: true,
@@ -44,25 +80,11 @@ function getModifiers({ align, flip }: Props) {
   };
 }
 
-const propTypes = {
-  children: PropTypes.func.isRequired,
-  onMenuToggle: PropTypes.func,
-  positionFixed: PropTypes.bool,
-  referenceElement: componentOrElement,
-  show: PropTypes.bool,
-};
-
-const defaultProps = {
-  onMenuToggle: noop,
-  positionFixed: false,
-  show: false,
-};
-
-class Overlay extends React.Component<Props> {
+class Overlay extends React.Component<OverlayProps> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: OverlayProps) {
     const { onMenuToggle, show } = this.props;
 
     if (show !== prevProps.show) {
