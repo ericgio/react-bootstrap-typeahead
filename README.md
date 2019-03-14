@@ -5,7 +5,7 @@ A [React](https://reactjs.org/)-based typeahead that relies on [Bootstrap](https
 [![npm downloads](https://img.shields.io/npm/dm/react-bootstrap-typeahead.svg?style=flat-square)](https://www.npmjs.com/package/react-bootstrap-typeahead)
 [![build status](https://img.shields.io/travis/ericgio/react-bootstrap-typeahead/master.svg?style=flat-square)](https://travis-ci.org/ericgio/react-bootstrap-typeahead)
 [![cdnjs](https://img.shields.io/cdnjs/v/react-bootstrap-typeahead.svg?style=flat-square)](https://cdnjs.com/libraries/react-bootstrap-typeahead)
-[![Coveralls github](https://img.shields.io/coveralls/github/ericgio/react-bootstrap-typeahead.svg?style=flat-square)](https://coveralls.io/github/ericgio/react-bootstrap-typeahead)
+[![Coveralls github](https://img.shields.io/coveralls/github/ericgio/react-bootstrap-typeahead/4.0.svg?style=flat-square)](https://coveralls.io/github/ericgio/react-bootstrap-typeahead)
 
 Please note that documentation and examples apply to the most recent release and may no longer be applicable if you're using an outdated version.
 
