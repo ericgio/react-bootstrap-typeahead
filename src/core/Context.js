@@ -4,7 +4,7 @@ import { pick } from 'lodash';
 import createReactContext, { type Context } from 'create-react-context';
 import React, { type ComponentType } from 'react';
 
-import type { TypeaheadInnerProps } from '../types';
+import type { Id, LabelKey, Option, ReferenceElement, TypeaheadInnerProps } from '../types';
 
 /* istanbul ignore next */
 const arrToObj = (keys: string[]) => keys.reduce((obj: Object, k: string) => ({
@@ -82,10 +82,13 @@ export const MenuContextKeys = [
   'text',
 ];
 
-export type MenuContextType =
-  $Pick<TypeaheadInnerProps, typeof MenuContextKeys> & {
-    show: boolean,
-  };
+export type MenuContextType = {
+  id: Id,
+  labelKey: LabelKey,
+  referenceElement: ?ReferenceElement,
+  results: Option[],
+  text: string
+};
 
 export const MenuContext: Context<MenuContextType> = createReactContext({});
 
