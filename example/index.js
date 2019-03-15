@@ -11,7 +11,7 @@ import FilteringSection from './sections/FilteringSection.react';
 import PublicMethodsSection from './sections/PublicMethodsSection.react';
 import RenderingSection from './sections/RenderingSection.react';
 
-import '../scss/Typeahead.scss';
+import '../styles/Typeahead.scss';
 
 render(
   <Page title="Examples">
