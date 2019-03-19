@@ -1,5 +1,6 @@
 css
 dist
+es
 example/package-example.js
 example/assets/prism.min.js
 flow-typed
