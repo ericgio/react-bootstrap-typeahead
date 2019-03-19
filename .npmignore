@@ -1,19 +1,8 @@
-.babelrc
-.coveralls.yml
-.eslintignore
-.eslintrc
-.flowconfig
-.gitignore
-.huskyrc
-.npmignore
-.travis.yml
-
+.*
+*.config.js
 CONTRIBUTING.md
-jest.config.js
 jest.setup.js
 npm-debug.log
-webpack.config.base.js
-webpack.config.js
 yarn-error.log
 yarn.lock
 
