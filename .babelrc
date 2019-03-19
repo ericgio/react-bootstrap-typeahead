@@ -33,6 +33,7 @@
         "@babel/transform-modules-commonjs"
       ],
       "ignore": [
+        "**/__tests__/*",
         "src/types.js",
       ],
     },
@@ -41,6 +42,7 @@
         "@babel/transform-runtime"
       ],
       "ignore": [
+        "**/__tests__/*",
         "src/types.js",
       ],
     },
