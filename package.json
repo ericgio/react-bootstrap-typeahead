@@ -2,10 +2,23 @@
   "name": "react-bootstrap-typeahead",
   "version": "4.0.0-alpha.6",
   "description": "React typeahead with Bootstrap styling",
+  "homepage": "http://ericgio.github.io/react-bootstrap-typeahead/",
   "author": "ericgio",
   "license": "MIT",
+  "files": [
+    "css/",
+    "dist/",
+    "docs/",
+    "es/",
+    "LICENSE.md"
+  ],
   "main": "lib/index.js",
   "module": "es/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericgio/react-bootstrap-typeahead.git"
+  },
+  "bugs": "https://github.com/ericgio/react-bootstrap-typeahead/issues",
   "scripts": {
     "build": "npm run clean && npm run build:css && npm run build:cjs && npm run build:es && npm run build:dist && npm run build:example",
     "build:css": "node ./scripts/buildCSS.js",
@@ -26,33 +39,6 @@
     "test": "jest --silent",
     "test:coverage": "jest --coverage && npm run coveralls"
   },
-  "keywords": [
-    "auto complete",
-    "auto suggest",
-    "auto-complete",
-    "auto-suggest",
-    "autocomplete",
-    "autosuggest",
-    "bootstrap",
-    "bootstrap tokenizer",
-    "bootstrap typeahead",
-    "bootstrap-tokenizer",
-    "bootstrap-typeahead",
-    "react",
-    "react autocomplete",
-    "react autosuggest",
-    "react tokenizer",
-    "react typeahead",
-    "react-autocomplete",
-    "react-autosuggest",
-    "react-bootstrap",
-    "react-bootstrap-tokenizer",
-    "react-bootstrap-typeahead",
-    "react-tokenizer",
-    "react-typeahead",
-    "tokenizer",
-    "typeahead"
-  ],
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "classnames": "^2.2.0",
@@ -137,9 +123,31 @@
   "lint-staged": {
     "*.js": "eslint --report-unused-disable-directives"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ericgio/react-bootstrap-typeahead.git"
-  },
-  "bugs": "https://github.com/ericgio/react-bootstrap-typeahead/issues"
+  "keywords": [
+    "auto complete",
+    "auto suggest",
+    "auto-complete",
+    "auto-suggest",
+    "autocomplete",
+    "autosuggest",
+    "bootstrap",
+    "bootstrap tokenizer",
+    "bootstrap typeahead",
+    "bootstrap-tokenizer",
+    "bootstrap-typeahead",
+    "react",
+    "react autocomplete",
+    "react autosuggest",
+    "react tokenizer",
+    "react typeahead",
+    "react-autocomplete",
+    "react-autosuggest",
+    "react-bootstrap",
+    "react-bootstrap-tokenizer",
+    "react-bootstrap-typeahead",
+    "react-tokenizer",
+    "react-typeahead",
+    "tokenizer",
+    "typeahead"
+  ]
 }
