@@ -13,7 +13,7 @@ const { version } = require('../package.json');
 if (version.split('-').length === 1) {
   ghpages.publish('example', {
     message: `v${version}`,
-    src: '{index.html,package-example.js,assets/*}',
+    src: '{index.html,package-example.js,public/*}',
   });
 } else {
   console.log(

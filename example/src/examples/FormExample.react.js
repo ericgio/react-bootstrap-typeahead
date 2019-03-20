@@ -1,11 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import { sortBy } from 'lodash';
 import React, { Fragment } from 'react';
 import { Button, FormGroup, InputGroup } from 'react-bootstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
-import { Typeahead } from '../../src';
-import options from '../exampleData';
+import options from '../data';
 
 /* example-start */
 const getInitialState = () => ({
