@@ -71,9 +71,7 @@ class RenderingExample extends React.Component {
   }
 
   _renderInput = (inputProps) => {
-    return (
-      <HintedFormControl {...inputProps} />
-    );
+    return <HintedFormControl {...inputProps} />;
   }
 
   _renderMenu = (results, menuProps) => {

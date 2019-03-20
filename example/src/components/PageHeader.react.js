@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Nav, NavItem, Navbar } from 'react-bootstrap';
 
+import GitHubLogo from './GitHubLogo.react';
 import VersionDropdown from './VersionDropdown.react';
 
 import { version as PACKAGE_VERSION } from '../../../package.json';
@@ -41,11 +42,6 @@ class PageHeader extends React.Component {
               target="_blank">
               v{PACKAGE_VERSION}
             </NavItem>
-            <NavItem
-              href={GITHUB_URL}
-              target="_blank">
-              GitHub
-            </NavItem>
             <VersionDropdown
               isOpen={isOpen}
               onSelect={onVersionChange}
@@ -60,6 +56,11 @@ class PageHeader extends React.Component {
                 </VersionDropdown.Item>
               ))}
             </VersionDropdown>
+            <NavItem
+              href={GITHUB_URL}
+              target="_blank">
+              <GitHubLogo style={{ marginBottom: '-8px' }} />
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

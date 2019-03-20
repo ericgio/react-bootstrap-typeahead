@@ -1,9 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React, { Children } from 'react';
-import { Col, Jumbotron, NavItem, Row } from 'react-bootstrap';
+import { Col, NavItem, Row } from 'react-bootstrap';
 
 import Container from './Container.react';
 import Context from './Context.react';
@@ -33,7 +32,6 @@ class Page extends React.Component {
   }
 
   render() {
-    const { children, title } = this.props;
     const { bsVersion } = this.state;
 
     return (
@@ -51,17 +49,12 @@ class Page extends React.Component {
             onVersionChange={this._handleVersionChange}
             selectedVersion={bsVersion}
           />
-          <Jumbotron>
-            <Container>
-              <h1>{title}</h1>
-            </Container>
-          </Jumbotron>
           <Container>
             <Row>
               <Col md={9}>
-                {children}
+                {this.props.children}
               </Col>
-              <Col className="bs-docs-sidebar-holder" md={3}>
+              <Col md={3}>
                 <PageMenu>
                   {this._sections.map(this._renderMenuItem)}
                 </PageMenu>
@@ -127,9 +120,5 @@ class Page extends React.Component {
     this.setState({ activeHref });
   }
 }
-
-Page.propTypes = {
-  title: PropTypes.node.isRequired,
-};
 
 export default Page;
