@@ -4,6 +4,7 @@ import {isRequiredForA11y} from 'prop-types-extra';
 import React, {Children} from 'react';
 
 import {BaseMenuItem} from './MenuItem.react';
+import {mapClassNamesToCssModules} from './utils';
 
 /**
  * Menu component that handles empty state when passed a set of results.
@@ -28,17 +29,19 @@ class Menu extends React.Component {
       maxHeight,
       style,
       text,
+      cssModules,
     } = this.props;
 
     const contents = Children.count(children) === 0 ?
-      <BaseMenuItem disabled>
+      <BaseMenuItem disabled cssModules={cssModules}>
         {emptyLabel}
       </BaseMenuItem> :
       children;
 
+    const classNames = cx('rbt-menu', 'dropdown-menu', 'show', className);
     return (
       <ul
-        className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
+        className={mapClassNamesToCssModules(classNames, cssModules)}
         id={id}
         key={
           // Force a re-render if the text changes to ensure that menu
@@ -78,11 +81,27 @@ Menu.defaultProps = {
 };
 
 Menu.Divider = (props) => (
-  <li className="divider dropdown-divider" role="separator" />
+  <li
+    className={
+      mapClassNamesToCssModules(
+        'divider dropdown-divider',
+        props.cssModules
+      )
+    }
+    role="separator"
+  />
 );
 
 Menu.Header = (props) => (
-  <li {...props} className="dropdown-header" />
+  <li
+    {...props}
+    className={
+      mapClassNamesToCssModules(
+        'dropdown-header',
+        props.cssModules
+      )
+    }
+  />
 );
 
 export default Menu;

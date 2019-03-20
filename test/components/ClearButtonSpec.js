@@ -4,6 +4,7 @@ import React from 'react';
 import sinon from 'sinon';
 
 import ClearButton from '../../src/ClearButton.react';
+import {cssModulesFixture} from '../helpers';
 
 describe('<ClearButton>', () => {
   let button, onClick;
@@ -26,5 +27,10 @@ describe('<ClearButton>', () => {
   it('registers a click', () => {
     button.simulate('click', {stopPropagation: () => {}});
     expect(onClick.calledOnce).to.equal(true);
+  });
+
+  it('renders with css modules', () => {
+    button.setProps({cssModules: cssModulesFixture});
+    expect(button.hasClass('close rbt-close')).to.equals(true);
   });
 });

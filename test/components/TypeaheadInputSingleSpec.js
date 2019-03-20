@@ -7,7 +7,7 @@ import TypeaheadInputSingle from '../../src/TypeaheadInputSingle.react';
 import contextContainer from '../../src/containers/contextContainer';
 
 import options from '../../example/exampleData';
-import {context, getHint, getInput} from '../helpers';
+import {context, cssModulesFixture, getHint, getInput} from '../helpers';
 
 const TypeaheadInputSingleWithContext = contextContainer(TypeaheadInputSingle);
 
@@ -72,5 +72,16 @@ describe('<TypeaheadInputSingle>', () => {
 
     expect(input.hasClass('is-invalid')).to.equal(true);
     expect(input.hasClass('is-valid')).to.equal(true);
+  });
+
+  it('renders with css modules', () => {
+    wrapper.setProps({
+      cssModules: cssModulesFixture,
+      isInvalid: true,
+      isValid: true,
+    });
+    const input = wrapper.find('.form-control___2KhJw');
+    expect(input.hasClass('is-invalid___35wm-')).to.equals(true);
+    expect(input.hasClass('is-valid___28iTl')).to.equals(true);
   });
 });

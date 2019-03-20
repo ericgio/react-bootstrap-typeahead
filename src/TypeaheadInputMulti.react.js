@@ -5,7 +5,7 @@ import React from 'react';
 import AutosizeInput from './AutosizeInput.react';
 import Token from './Token.react';
 
-import {getOptionLabel, isSelectable} from './utils';
+import {getOptionLabel, isSelectable, mapClassNamesToCssModules} from './utils';
 import hintContainer from './containers/hintContainer';
 import inputContainer from './containers/inputContainer';
 
@@ -22,6 +22,7 @@ class TypeaheadInputMulti extends React.Component {
       onRemove,
       renderToken,
       selected,
+      cssModules,
       ...props
     } = this.props;
 
@@ -29,16 +30,28 @@ class TypeaheadInputMulti extends React.Component {
       /* eslint-disable jsx-a11y/no-static-element-interactions */
       /* eslint-disable jsx-a11y/click-events-have-key-events */
       <div
-        className={cx('form-control', 'rbt-input-multi', className)}
+        className={
+          mapClassNamesToCssModules(
+            cx('form-control', 'rbt-input-multi', className),
+            cssModules
+          )
+        }
         disabled={props.disabled}
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
         tabIndex={-1}>
-        <div className="rbt-input-wrapper" ref={(el) => this._wrapper = el}>
+        <div
+          className={mapClassNamesToCssModules('rbt-input-wrapper', cssModules)}
+          ref={(el) => this._wrapper = el}>
           {selected.map(this._renderToken)}
           <HintedAutosizeInput
             {...props}
-            inputClassName={cx('rbt-input-main', inputClassName)}
+            inputClassName={
+              mapClassNamesToCssModules(
+                cx('rbt-input-main', inputClassName),
+                cssModules
+              )
+            }
             inputRef={(input) => {
               this._input = input;
               this.props.inputRef(input);
@@ -125,6 +138,7 @@ TypeaheadInputMulti.propTypes = {
 TypeaheadInputMulti.defaultProps = {
   renderToken: (option, props, idx) => (
     <Token
+      cssModules={props.cssModules}
       disabled={props.disabled}
       key={idx}
       onRemove={props.onRemove}

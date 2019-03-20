@@ -3,6 +3,7 @@ import {noop} from 'lodash';
 import React from 'react';
 
 import menuItemContainer from './containers/menuItemContainer';
+import {mapClassNamesToCssModules} from './utils';
 
 class BaseMenuItem extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class BaseMenuItem extends React.Component {
       disabled,
       onClick,
       onMouseDown,
+      cssModules,
       ...props
     } = this.props;
 
@@ -25,9 +27,19 @@ class BaseMenuItem extends React.Component {
       /* eslint-disable jsx-a11y/anchor-is-valid */
       <li
         {...props}
-        className={cx(conditionalClassNames, className)}>
+        className={
+          mapClassNamesToCssModules(
+            cx(conditionalClassNames, className),
+            cssModules
+          )
+        }>
         <a
-          className={cx('dropdown-item', conditionalClassNames)}
+          className={
+            mapClassNamesToCssModules(
+              cx('dropdown-item', conditionalClassNames),
+              cssModules
+            )
+          }
           href="#"
           onClick={this._handleClick}
           onMouseDown={onMouseDown}>

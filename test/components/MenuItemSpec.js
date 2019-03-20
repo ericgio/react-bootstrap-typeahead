@@ -6,7 +6,7 @@ import sinon from 'sinon';
 
 import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
 import contextContainer from '../../src/containers/contextContainer';
-import {context} from '../helpers';
+import {context, cssModulesFixture} from '../helpers';
 
 const MenuItemWithContext = contextContainer(MenuItem);
 
@@ -100,5 +100,12 @@ describe('<MenuItem>', () => {
   it('triggers an event when clicked', () => {
     menuItem.find('a').simulate('click', event);
     expect(onClick.calledOnce).to.equal(true);
+  });
+
+  it('renders a menu item with css modules', () => {
+    menuItem.setProps({activeIndex: 0, cssModules: cssModulesFixture});
+    expect(menuItem.find('li').hasClass('active___1QeAJ')).to.equals(true);
+    expect(menuItem.find('a').hasClass('dropdown-item___1vqsv active___1QeAJ'))
+      .to.equals(true);
   });
 });

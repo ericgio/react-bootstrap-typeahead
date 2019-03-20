@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {getMatchBounds} from './utils';
+import {getMatchBounds, mapClassNamesToCssModules} from './utils';
 
 /**
  * Stripped-down version of https://github.com/helior/react-highlighter
@@ -53,7 +53,14 @@ class Highlighter extends React.Component {
       if (match) {
         this._count += 1;
         children.push(
-          <mark className="rbt-highlight-text" key={this._count}>
+          <mark
+            className={
+              mapClassNamesToCssModules(
+                'rbt-highlight-text',
+                this.props.cssModules
+              )
+            }
+            key={this._count}>
             {match}
           </mark>
         );
@@ -69,6 +76,7 @@ class Highlighter extends React.Component {
 
 Highlighter.propTypes = {
   children: PropTypes.string.isRequired,
+  cssModules: PropTypes.object,
   search: PropTypes.string.isRequired,
 };
 

@@ -3,6 +3,7 @@ import {shallow} from 'enzyme';
 import React from 'react';
 
 import Highlighter from '../../src/Highlighter.react';
+import {cssModulesFixture} from '../helpers';
 
 describe('<Highlighter>', () => {
   let highlighter, matches;
@@ -54,5 +55,12 @@ describe('<Highlighter>', () => {
 
     expect(matches.length).to.equal(1);
     expect(matches.first().text()).to.equal('Krakó');
+  });
+
+  it('renders with css modules', () => {
+    highlighter.setProps({cssModules: cssModulesFixture, search: 'Cal'});
+    matches = highlighter.find('mark');
+    expect(matches.first().hasClass('rbt-highlight-text___aetTl'))
+      .to.equals(true);
   });
 });

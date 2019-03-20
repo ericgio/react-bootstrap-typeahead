@@ -6,6 +6,7 @@ import ClearButton from './ClearButton.react';
 
 import tokenContainer from './containers/tokenContainer';
 import {RETURN} from './constants';
+import {mapClassNamesToCssModules} from './utils';
 
 /**
  * Token
@@ -21,14 +22,22 @@ class Token extends React.Component {
   }
 
   _renderRemoveableToken = () => {
-    const {active, children, className, onRemove, ...props} = this.props;
+    const {
+      active,
+      children,
+      className,
+      cssModules,
+      onRemove,
+      ...props
+    } = this.props;
 
+    const classNames = cx('rbt-token', 'rbt-token-removeable', {
+      'rbt-token-active': active,
+    }, className);
     return (
       <div
         {...props}
-        className={cx('rbt-token', 'rbt-token-removeable', {
-          'rbt-token-active': active,
-        }, className)}>
+        className={mapClassNamesToCssModules(classNames, cssModules)}>
         {children}
         <ClearButton
           className="rbt-token-remove-button"
@@ -42,21 +51,23 @@ class Token extends React.Component {
   }
 
   _renderToken = () => {
-    const {children, className, disabled, href} = this.props;
-    const classnames = cx('rbt-token', {
+    const {children, className, cssModules, disabled, href} = this.props;
+    const classNames = cx('rbt-token', {
       'rbt-token-disabled': disabled,
     }, className);
 
     if (href) {
       return (
-        <a className={classnames} href={href}>
+        <a
+          className={mapClassNamesToCssModules(classNames, cssModules)}
+          href={href}>
           {children}
         </a>
       );
     }
 
     return (
-      <div className={classnames}>
+      <div className={mapClassNamesToCssModules(classNames, cssModules)}>
         {children}
       </div>
     );
@@ -75,6 +86,7 @@ class Token extends React.Component {
 
 Token.propTypes = {
   active: PropTypes.bool,
+  cssModules: PropTypes.object,
   /**
    * Handler for removing/deleting the token. If not defined, the token will
    * be rendered in a read-only state.

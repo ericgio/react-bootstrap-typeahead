@@ -4,6 +4,7 @@ import React from 'react';
 
 import Menu from '../../src/Menu.react';
 import MenuItem, {BaseMenuItem} from '../../src/MenuItem.react';
+import {cssModulesFixture} from '../helpers';
 
 describe('<Menu>', () => {
   let menu;
@@ -69,5 +70,10 @@ describe('<Menu>', () => {
 
     // See: http://airbnb.io/enzyme/docs/api/ShallowWrapper/dive.html
     expect(emptyLabelItem.dive().text()).to.equal(emptyLabel);
+  });
+
+  it('renders with css modules', () => {
+    menu.setProps({cssModules: cssModulesFixture});
+    expect(menu.hasClass('dropdown-menu___3kr8t show___RfU99')).to.equals(true);
   });
 });

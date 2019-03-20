@@ -3,6 +3,7 @@ import {shallow} from 'enzyme';
 import React from 'react';
 
 import Loader from '../../src/Loader.react';
+import {cssModulesFixture} from '../helpers';
 
 describe('<Loader>', () => {
   let loader;
@@ -24,5 +25,10 @@ describe('<Loader>', () => {
   it('renders a large loading indicator', () => {
     loader.setProps({bsSize: 'large'});
     expect(loader.hasClass('rbt-loader-lg')).to.equal(true);
+  });
+
+  it('renders with css modules', () => {
+    loader.setProps({cssModules: cssModulesFixture});
+    expect(loader.hasClass('rbt-loader___AduT5')).to.equals(true);
   });
 });

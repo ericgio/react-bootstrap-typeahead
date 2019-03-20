@@ -3,15 +3,19 @@ import React from 'react';
 
 import hintContainer from './containers/hintContainer';
 import inputContainer from './containers/inputContainer';
+import {mapClassNamesToCssModules} from './utils';
 
 class TypeaheadInputSingle extends React.Component {
   render() {
-    const {className, inputRef, ...props} = this.props;
-
+    const {className, inputRef, cssModules, ...props} = this.props;
     return (
       <input
         {...props}
-        className={cx('rbt-input-main', 'form-control', className)}
+        className={
+          mapClassNamesToCssModules(
+            cx('rbt-input-main', 'form-control', className), cssModules
+          )
+        }
         ref={inputRef}
       />
     );

@@ -7,7 +7,18 @@ import sinon from 'sinon';
 
 import {Menu, MenuItem, Typeahead} from '../../src';
 
-import {change, focus, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown} from '../helpers';
+import {
+  change,
+  cssModulesFixture,
+  focus,
+  getHint,
+  getInput,
+  getMenu,
+  getMenuItems,
+  getPaginator,
+  getTokens,
+  keyDown,
+} from '../helpers';
 import states from '../../example/exampleData';
 import {DOWN, ESC, RETURN, RIGHT, TAB, UP} from '../../src/constants';
 
@@ -96,6 +107,12 @@ describe('<Typeahead>', () => {
 
     input.simulate('blur');
     expect(hasFocus(typeahead)).to.equal(false);
+  });
+
+  it('renders with css modules', () => {
+    typeahead.setProps({cssModules: cssModulesFixture});
+    expect(typeahead.find('.rbt___359mb')).to.have.length(1);
+    expect(typeahead.find('.clearfix___3XuW4')).to.have.length(1);
   });
 
   describe('input focus', () => {

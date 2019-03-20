@@ -12,7 +12,11 @@ import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import typeaheadContainer from './containers/typeaheadContainer';
-import {getAccessibilityStatus, preventInputBlur} from './utils';
+import {
+  getAccessibilityStatus,
+  preventInputBlur,
+  mapClassNamesToCssModules,
+} from './utils';
 
 class Typeahead extends React.Component {
   render() {
@@ -24,6 +28,7 @@ class Typeahead extends React.Component {
       menuId,
       renderMenu,
       results,
+      cssModules,
     } = this.props;
 
     const inputProps = pick(this.props, [
@@ -49,6 +54,7 @@ class Typeahead extends React.Component {
       'renderToken',
       'selected',
       'text',
+      'cssModules',
     ]);
 
     const overlayProps = pick(this.props, [
@@ -59,6 +65,7 @@ class Typeahead extends React.Component {
       'onMenuHide',
       'onMenuShow',
       'onMenuToggle',
+      'cssModules',
     ]);
 
     const menuProps = pick(this.props, [
@@ -68,15 +75,17 @@ class Typeahead extends React.Component {
       'newSelectionPrefix',
       'renderMenuItemChildren',
       'text',
+      'cssModules',
     ]);
 
     const auxContent = this._renderAux();
 
+    const classes = cx('rbt', 'clearfix', 'open', {
+      'has-aux': !!auxContent,
+    }, className);
     return (
       <div
-        className={cx('rbt', 'clearfix', 'open', {
-          'has-aux': !!auxContent,
-        }, className)}
+        className={mapClassNamesToCssModules(classes, cssModules)}
         style={{position: 'relative'}}
         tabIndex={-1}>
         {this._renderInput({
@@ -99,7 +108,9 @@ class Typeahead extends React.Component {
         <div
           aria-atomic
           aria-live="polite"
-          className="sr-only rbt-sr-status"
+          className={
+            mapClassNamesToCssModules('sr-only rbt-sr-status', cssModules)
+          }
           role="status">
           {getAccessibilityStatus(this.props)}
         </div>
@@ -119,6 +130,7 @@ class Typeahead extends React.Component {
     const {
       bsSize,
       clearButton,
+      cssModules,
       disabled,
       isLoading,
       onClear,
@@ -128,7 +140,7 @@ class Typeahead extends React.Component {
     let content;
 
     if (isLoading) {
-      content = <Loader bsSize={bsSize} />;
+      content = <Loader bsSize={bsSize} cssModules={cssModules} />;
     } else if (clearButton && !disabled && selected.length) {
       content =
         <ClearButton
@@ -142,11 +154,12 @@ class Typeahead extends React.Component {
         />;
     }
 
+    const classNames = cx('rbt-aux', {
+      'rbt-aux-lg': bsSize === 'large' || bsSize === 'lg',
+    });
     return content ?
       <div
-        className={cx('rbt-aux', {
-          'rbt-aux-lg': bsSize === 'large' || bsSize === 'lg',
-        })}>
+        className={mapClassNamesToCssModules(classNames, cssModules)}>
         {content}
       </div> :
       null;

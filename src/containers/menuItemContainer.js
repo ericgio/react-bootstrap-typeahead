@@ -27,6 +27,7 @@ const menuItemContainer = (Component) => {
         onMenuItemClick,
         option,
         position,
+        cssModules,
         ...props
       } = this.props;
 
@@ -42,6 +43,7 @@ const menuItemContainer = (Component) => {
           onClick={this._handleClick}
           onMouseDown={preventInputBlur}
           role="option"
+          cssModules={cssModules}
         />
       );
     }

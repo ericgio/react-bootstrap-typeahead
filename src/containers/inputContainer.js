@@ -3,7 +3,7 @@
 import cx from 'classnames';
 import React from 'react';
 
-import {getDisplayName, getInputText, getMenuItemId} from '../utils';
+import {getDisplayName, getInputText, getMenuItemId, mapClassNamesToCssModules} from '../utils';
 
 function inputContainer(Input) {
   class WrappedInput extends React.Component {
@@ -30,6 +30,7 @@ function inputContainer(Input) {
         placeholder,
         renderToken,
         selected,
+        cssModules,
       } = this.props;
 
       const {autoComplete, type} = this.props.inputProps;
@@ -45,6 +46,7 @@ function inputContainer(Input) {
         'aria-haspopup': 'listbox',
         'aria-owns': isMenuShown ? menuId : '',
         autoComplete: autoComplete || 'nope',
+        cssModules,
         disabled,
         inputRef,
         onBlur,
@@ -76,17 +78,18 @@ function inputContainer(Input) {
         };
       }
 
+      const classNames = cx('rbt-input', {
+        [className]: !multiple,
+        focus: isFocused,
+        'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
+        'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
+        'is-invalid': isInvalid,
+        'is-valid': isValid,
+      });
       return (
         <Input
           {...inputProps}
-          className={cx('rbt-input', {
-            [className]: !multiple,
-            focus: isFocused,
-            'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
-            'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
-            'is-invalid': isInvalid,
-            'is-valid': isValid,
-          })}
+          className={mapClassNamesToCssModules(classNames, cssModules)}
         />
       );
     }
