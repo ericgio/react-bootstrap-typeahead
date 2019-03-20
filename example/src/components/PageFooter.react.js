@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { version } from '../../package.json';
+import { version } from '../../../package.json';
 
 import Container from './Container.react';
 import GithubStarsButton from './GithubStarsButton.react';

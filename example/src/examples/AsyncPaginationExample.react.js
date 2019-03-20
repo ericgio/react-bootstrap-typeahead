@@ -1,6 +1,8 @@
-import React from 'react';
+/* eslint-disable import/no-unresolved */
 
-import { AsyncTypeahead } from '../../src';
+import React from 'react';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+
 import GithubMenuItem from '../components/GithubMenuItem.react';
 import makeAndHandleRequest from '../util/makeAndHandleRequest';
 

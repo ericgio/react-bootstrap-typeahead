@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => {
   return {
-    entry: './example/index.js',
+    entry: path.join(__dirname, 'src/index.js'),
     module: {
       rules: [
         {
@@ -56,6 +56,11 @@ module.exports = (env, argv) => {
       }),
     ],
     resolve: {
+      alias: {
+        'react-bootstrap-typeahead$': path.resolve(
+          __dirname, '..', 'src/index.js'
+        ),
+      },
       extensions: ['.js'],
     },
     stats: {
