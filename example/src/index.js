@@ -14,7 +14,7 @@ import RenderingSection from './sections/RenderingSection.react';
 import '../../styles/Typeahead.scss';
 
 render(
-  <Page title="Examples">
+  <Page>
     <BasicSection />
     <BehaviorsSection />
     <RenderingSection />
