@@ -403,7 +403,19 @@ function typeaheadContainer(Component) {
     }
 
     _handleRootClose = (e) => {
-      this.state.showMenu && this._hideMenu();
+      // Don't register clicks on the menu when it is appended to
+      // `document.body`.
+      const isBodyMenuClick =
+        (this.props.bodyContainer || this.props.positionFixed) &&
+        e.path.some(({className}) => (
+          className && className.indexOf('rbt-menu') > -1
+        ));
+
+      if (isBodyMenuClick || !this.state.showMenu) {
+        return;
+      }
+
+      this._hideMenu();
     }
 
     _hideMenu = () => {
