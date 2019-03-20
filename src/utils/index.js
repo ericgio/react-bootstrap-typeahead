@@ -20,4 +20,5 @@ export scrollIntoViewIfNeeded from './scrollIntoViewIfNeeded';
 export shouldSelectHint from './shouldSelectHint';
 export stripDiacritics from './stripDiacritics';
 export warn from './warn';
+export mapClassNamesToCssModules from './mapClassNamesToCssModules';
 /* eslint-enable object-curly-spacing */
