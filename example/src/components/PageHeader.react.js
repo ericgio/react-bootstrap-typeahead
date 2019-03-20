@@ -7,7 +7,7 @@ import { Nav, NavItem, Navbar } from 'react-bootstrap';
 
 import VersionDropdown from './VersionDropdown.react';
 
-import { version as PACKAGE_VERSION } from '../../package.json';
+import { version as PACKAGE_VERSION } from '../../../package.json';
 import { BS3, BS4 } from '../util/bsVersions';
 
 const GITHUB_URL = 'https://github.com/ericgio/react-bootstrap-typeahead';
