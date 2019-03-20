@@ -1,11 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import { range } from 'lodash';
 import React, { Fragment } from 'react';
 import { FormGroup } from 'react-bootstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
 import Control from '../components/Control.react';
-import { Typeahead } from '../../src';
 
 /* eslint-disable no-console */
 /* example-start */

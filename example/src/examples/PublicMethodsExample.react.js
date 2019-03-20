@@ -1,10 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment } from 'react';
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
-import { Typeahead } from '../../src';
-import options from '../exampleData';
+import options from '../data';
 
 /* example-start */
 class PublicMethodsExample extends React.Component {

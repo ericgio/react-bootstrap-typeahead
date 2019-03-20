@@ -1,9 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment } from 'react';
 import { FormGroup } from 'react-bootstrap';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
-import { AsyncTypeahead } from '../../src';
 import Control from '../components/Control.react';
 import GithubMenuItem from '../components/GithubMenuItem.react';
 import makeAndHandleRequest from '../util/makeAndHandleRequest';

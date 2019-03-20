@@ -1,12 +1,12 @@
-/* eslint-disable import/no-extraneous-dependencies,react/no-multi-comp */
+/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import { groupBy, map } from 'lodash';
 import React, { Fragment } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { FormControl, FormGroup } from 'react-bootstrap';
+import { Highlighter, hintContainer, Menu, MenuItem, Token, Typeahead } from 'react-bootstrap-typeahead';
 
 import Control from '../components/Control.react';
-import { Highlighter, hintContainer, Menu, MenuItem, Token, Typeahead } from '../../src';
-import options from '../exampleData';
+import options from '../data';
 
 const RADIO_OPTIONS = [
   { label: 'Custom input', value: 'renderInput' },
@@ -16,14 +16,7 @@ const RADIO_OPTIONS = [
 ];
 
 /* example-start */
-class Input extends React.Component {
-  render() {
-    const { inputRef, ...props } = this.props;
-    return <input {...props} ref={inputRef} />;
-  }
-}
-
-const HintedInput = hintContainer(Input);
+const HintedFormControl = hintContainer(FormControl);
 
 class RenderingExample extends React.Component {
   state = {
@@ -36,7 +29,6 @@ class RenderingExample extends React.Component {
 
     switch (selectedOption) {
       case 'renderInput':
-        props.style = { display: 'inline-block' };
         props.renderInput = this._renderInput;
         break;
       case 'renderMenu':
@@ -80,7 +72,7 @@ class RenderingExample extends React.Component {
 
   _renderInput = (inputProps) => {
     return (
-      <HintedInput {...inputProps} />
+      <HintedFormControl {...inputProps} />
     );
   }
 

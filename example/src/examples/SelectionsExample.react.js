@@ -1,7 +1,9 @@
-import React from 'react';
+/* eslint-disable import/no-unresolved */
 
-import { Typeahead } from '../../src';
-import options from '../exampleData';
+import React from 'react';
+import { Typeahead } from 'react-bootstrap-typeahead';
+
+import options from '../data';
 
 /* example-start */
 const SelectionsExample = (props) => (

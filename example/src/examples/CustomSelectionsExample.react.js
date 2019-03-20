@@ -1,5 +1,7 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
-import { Typeahead } from '../../src';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
 /* example-start */
 const CustomSelectionsExample = (props) => (
