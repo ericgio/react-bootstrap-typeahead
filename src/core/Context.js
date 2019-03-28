@@ -1,8 +1,9 @@
 // @flow
 
-import { pick } from 'lodash';
 import createReactContext, { type Context } from 'create-react-context';
 import React, { type ComponentType } from 'react';
+
+import { pick } from '../utils';
 
 import type { Id, LabelKey, Option, ReferenceElement, TypeaheadInnerProps } from '../types';
 

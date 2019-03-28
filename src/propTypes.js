@@ -1,7 +1,6 @@
-import { isFunction, isPlainObject } from 'lodash';
 import PropTypes from 'prop-types';
 
-import warn from './utils/warn';
+import { isFunction, warn } from './utils';
 
 const INPUT_PROPS_BLACKLIST = [
   { alt: 'onBlur', prop: 'onBlur' },
@@ -70,7 +69,10 @@ export function ignoreDiacriticsType(props, propName, componentName) {
 
 export function inputPropsType(props, propName, componentName) {
   const { inputProps } = props;
-  if (!(inputProps && isPlainObject(inputProps))) {
+  if (!(
+    inputProps &&
+    Object.prototype.toString.call(inputProps) === '[object Object]'
+  )) {
     return;
   }
 

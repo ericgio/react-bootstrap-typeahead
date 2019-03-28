@@ -1,6 +1,6 @@
 // @flow
 
-import { isString } from 'lodash';
+import { isString } from './nodash';
 import type { Option } from '../types';
 
 export default function getOptionProperty(option: Option, key: string) {
