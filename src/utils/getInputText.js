@@ -1,7 +1,7 @@
 // @flow
 
-import { head } from 'lodash';
 import getOptionLabel from './getOptionLabel';
+import { head } from './nodash';
 
 import type { LabelKey, Option } from '../types';
 

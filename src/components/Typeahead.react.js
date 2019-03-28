@@ -1,7 +1,6 @@
 // @flow
 
 import cx from 'classnames';
-import { isFunction } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { type ElementRef } from 'react';
 
@@ -13,7 +12,7 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import { preventInputBlur } from '../utils';
+import { isFunction, preventInputBlur } from '../utils';
 
 import type { TypeaheadMenuComponentProps } from './TypeaheadMenu.react';
 import type { TypeaheadInputMultiComponentProps } from './TypeaheadInputMulti.react';
