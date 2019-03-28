@@ -1,10 +1,9 @@
 // @flow
 
-import { pick } from 'lodash';
 import React from 'react';
 
 import { InputContext, InputContextKeys, MenuContext, MenuContextKeys, TypeaheadContext, TypeaheadContextKeys } from './Context';
-import { getHintText, getInputText, getIsOnlyResult } from '../utils';
+import { getHintText, getInputText, getIsOnlyResult, pick } from '../utils';
 import { RETURN } from '../constants';
 
 import type { InputContextType, MenuContextType, TypeaheadContextType } from './Context';

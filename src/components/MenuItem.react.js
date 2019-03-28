@@ -1,11 +1,11 @@
 // @flow
 
 import cx from 'classnames';
-import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { type Node } from 'react';
 
 import menuItemContainer from '../containers/menuItemContainer';
+import { noop } from '../utils';
 
 import type { EventHandler } from '../types';
 

@@ -1,9 +1,9 @@
 // @flow
 
 import invariant from 'invariant';
-import { isFunction, isString } from 'lodash';
 
 import getStringLabelKey from './getStringLabelKey';
+import { isFunction, isString } from './nodash';
 
 import type { LabelKey, Option } from '../types';
 
@@ -14,7 +14,7 @@ import type { LabelKey, Option } from '../types';
  */
 function getOptionLabel(option: Option, labelKey: LabelKey): string {
   if (
-    typeof option === 'object' &&
+    !isString(option) &&
     (option.paginationOption || option.customOption)
   ) {
     return option[getStringLabelKey(labelKey)];

@@ -1,7 +1,7 @@
 // @flow
 
 import invariant from 'invariant';
-import { head, isEqual, noop, uniqueId } from 'lodash';
+import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import { isRequiredForA11y } from 'prop-types-extra';
 import React, { type ElementRef } from 'react';
@@ -32,7 +32,10 @@ import {
   getStringLabelKey,
   getUpdatedActiveIndex,
   getTruncatedOptions,
+  head,
   isShown,
+  noop,
+  uniqueId,
   validateSelectedPropChange,
 } from '../utils';
 

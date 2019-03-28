@@ -1,11 +1,11 @@
 // @flow
 
-import { noop } from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { componentOrElement } from 'prop-types-extra';
 import { Popper } from 'react-popper';
 
+import { noop } from '../utils';
 import type { ReferenceElement } from '../types';
 
 export type OverlayProps = {
