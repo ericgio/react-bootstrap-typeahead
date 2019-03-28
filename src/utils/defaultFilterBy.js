@@ -1,8 +1,9 @@
 // @flow
 
-import { isEqual, isFunction, isString, some } from 'lodash';
+import isEqual from 'lodash.isequal';
 
 import getOptionProperty from './getOptionProperty';
+import { isFunction, isString } from './nodash';
 import stripDiacritics from './stripDiacritics';
 import warn from './warn';
 
@@ -68,7 +69,7 @@ export default function defaultFilterBy(option: Option, props: Props) {
     return isMatch(text, option, props);
   }
 
-  return some(fields, (field: string) => {
+  return fields.some((field: string) => {
     let value = getOptionProperty(option, field);
 
     if (!isString(value)) {
@@ -78,8 +79,7 @@ export default function defaultFilterBy(option: Option, props: Props) {
         'be converted to a string; results may be unexpected.'
       );
 
-      // Coerce to string since `toString` isn't null-safe.
-      value = `${value}`;
+      value = String(value);
     }
 
     return isMatch(text, value, props);

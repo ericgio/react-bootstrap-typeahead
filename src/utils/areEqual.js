@@ -1,6 +1,8 @@
 // @flow
 
-import { isEqual, isString } from 'lodash';
+import isEqual from 'lodash.isequal';
+
+import { isString } from './nodash';
 import getStringLabelKey from './getStringLabelKey';
 
 import type { LabelKey, Option } from '../types';

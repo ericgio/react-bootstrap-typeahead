@@ -1,11 +1,11 @@
 // @flow
 
-import { debounce, isFunction } from 'lodash';
+import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import React, { type ComponentType, type ElementRef, type Node } from 'react';
 
 import { optionType } from '../propTypes';
-import { getDisplayName } from '../utils';
+import { getDisplayName, isFunction } from '../utils';
 
 import type { Option, TypeaheadProps } from '../types';
 

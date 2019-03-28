@@ -1,8 +1,7 @@
 // @flow
 
-import { head } from 'lodash';
-
 import getOptionProperty from './getOptionProperty';
+import { head } from './nodash';
 
 import type { Option, TypeaheadProps } from '../types';
 
