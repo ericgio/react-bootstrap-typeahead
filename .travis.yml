@@ -18,9 +18,13 @@ cache:
 
 before_script:
   - npm rebuild node-sass
+  - npm install -g coveralls
+  - npm install -g codecov
 
 script:
   - npm run lint
   - npm run flow
   - npm run test:coverage
+  - cat coverage/lcov.info | coveralls
+  - codecov
   - npm run build
