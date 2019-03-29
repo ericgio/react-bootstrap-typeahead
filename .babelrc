@@ -16,10 +16,6 @@
         "transform": "lodash/${member}",
         "preventFullImport": true
       },
-      "prop-types-extra": {
-        "transform": "prop-types-extra/lib/${member}",
-        "preventFullImport": true
-      },
       "react-overlays": {
         "transform": "react-overlays/lib/${member}",
         "preventFullImport": true

@@ -3,7 +3,6 @@
 import invariant from 'invariant';
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
-import { isRequiredForA11y } from 'prop-types-extra';
 import React, { type ElementRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
@@ -19,6 +18,7 @@ import {
   highlightOnlyResultType,
   ignoreDiacriticsType,
   inputPropsType,
+  isRequiredForA11y,
   labelKeyType,
   optionType,
   selectedType,
@@ -84,7 +84,7 @@ const propTypes = {
    * Specify any pre-selected options. Use only if you want the component to
    * be uncontrolled.
    */
-  defaultSelected: optionType,
+  defaultSelected: PropTypes.arrayOf(optionType),
   /**
    * Whether to disable the component.
    */
@@ -106,10 +106,10 @@ const propTypes = {
    * An html id attribute, required for assistive technologies such as screen
    * readers.
    */
-  id: isRequiredForA11y(PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ])),
+  id: checkPropType(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    isRequiredForA11y,
+  ),
   /**
    * Whether the filter should ignore accents and other diacritical marks.
    */
@@ -177,7 +177,7 @@ const propTypes = {
    * Full set of options, including pre-selected options. Must either be an
    * array of objects (recommended) or strings.
    */
-  options: optionType.isRequired,
+  options: PropTypes.arrayOf(optionType).isRequired,
   /**
    * Give user the ability to display additional results if the number of
    * results exceeds `maxResults`.
@@ -195,7 +195,7 @@ const propTypes = {
    * The selected option(s) displayed in the input. Use this prop if you want
    * to control the component via its parent.
    */
-  selected: checkPropType(optionType, selectedType),
+  selected: checkPropType(PropTypes.arrayOf(optionType), selectedType),
   /**
    * Allows selecting the hinted result by pressing enter.
    */
