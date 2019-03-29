@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { componentOrElement } from 'prop-types-extra';
 import { Popper } from 'react-popper';
 
 import { noop } from '../utils';
@@ -42,7 +41,8 @@ const propTypes = {
    */
   onMenuToggle: PropTypes.func,
   positionFixed: PropTypes.bool,
-  referenceElement: componentOrElement,
+  /* eslint-disable-next-line react/forbid-prop-types */
+  referenceElement: PropTypes.object,
   show: PropTypes.bool,
 };
 

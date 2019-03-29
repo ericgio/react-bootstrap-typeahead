@@ -31,7 +31,7 @@ const propTypes = {
    * Options to be passed to the typeahead. Will typically be the query
    * results, but can also be initial default options.
    */
-  options: optionType,
+  options: PropTypes.arrayOf(optionType),
   /**
    * Message displayed in the menu when there is no user input.
    */

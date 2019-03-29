@@ -86,6 +86,14 @@ export function inputPropsType(props, propName, componentName) {
   });
 }
 
+export function isRequiredForA11y(props, propName, componentName) {
+  warn(
+    props[propName] != null,
+    `The prop \`${propName}\` is required to make \`${componentName}\` ` +
+    'accessible for users of assistive technologies such as screen readers.'
+  );
+}
+
 export function labelKeyType(props, propName, componentName) {
   const { allowNew, labelKey } = props;
   warn(
@@ -95,9 +103,9 @@ export function labelKeyType(props, propName, componentName) {
 }
 
 export const optionType = PropTypes.oneOfType([
-  PropTypes.arrayOf(PropTypes.object.isRequired),
-  PropTypes.arrayOf(PropTypes.string.isRequired),
-]);
+  PropTypes.object,
+  PropTypes.string,
+]).isRequired;
 
 export function selectedType(props, propName, componentName) {
   const { onChange, selected } = props;
