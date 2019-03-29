@@ -28,7 +28,6 @@
     "build:example": "webpack --mode production --config example/webpack.config.js",
     "check": "npm run lint && npm run flow && npm test",
     "clean": "rimraf coverage && rimraf css && rimraf dist && rimraf lib && rimraf es",
-    "coveralls": "cat coverage/lcov.info | coveralls",
     "deploy-example": "node ./scripts/deployExample.js",
     "flow": "flow check",
     "lint": "eslint . --report-unused-disable-directives",
@@ -37,7 +36,7 @@
     "prepublishOnly": "npm run check && npm run build",
     "start": "webpack --mode development -w --progress --config example/webpack.config.js",
     "test": "jest --silent",
-    "test:coverage": "jest --coverage && npm run coveralls"
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
