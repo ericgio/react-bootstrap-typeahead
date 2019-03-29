@@ -2,11 +2,11 @@
 
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { isRequiredForA11y } from 'prop-types-extra';
 import React, { Children, type Node } from 'react';
 
 import { BaseMenuItem } from './MenuItem.react';
 
+import { checkPropType, isRequiredForA11y } from '../propTypes';
 import type { MenuProps } from '../core/TypeaheadMenu';
 
 const MenuDivider = (props: any) => (
@@ -25,10 +25,10 @@ const propTypes = {
   /**
    * Needed for accessibility.
    */
-  id: isRequiredForA11y(PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ])),
+  id: checkPropType(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    isRequiredForA11y,
+  ),
   /**
    * Maximum height of the dropdown menu.
    */
