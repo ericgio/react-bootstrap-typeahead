@@ -5,7 +5,7 @@ import { Popper } from 'react-popper';
 
 import { Menu, MenuItem, Typeahead } from '../..';
 
-import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, keyDown } from '../helpers';
+import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, isFocused, keyDown } from '../helpers';
 import states from '../data';
 import { DOWN, ESC, LEFT, RETURN, RIGHT, TAB, UP } from '../../constants';
 
@@ -111,7 +111,7 @@ describe('<Typeahead>', () => {
 
   test('autoFocuses the component on mount', () => {
     typeahead = mountTypeahead({ autoFocus: true });
-    expect(getInput(typeahead).getDOMNode()).toEqual(document.activeElement);
+    expect(isFocused(getInput(typeahead))).toBe(true);
   });
 
   test('sets and unsets the focus state on focus/blur', () => {

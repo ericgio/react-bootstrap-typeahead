@@ -1,36 +1,24 @@
 import { mount } from 'enzyme';
-import { head, noop } from 'lodash';
+import { head } from 'lodash';
 import React from 'react';
 
 import TypeaheadInputSingle from '../../components/TypeaheadInputSingle.react';
 
 import options from '../data';
-import { context, getFormControl, getHint, getInput, TestInputProvider } from '../helpers';
+import { getFormControl, getHint, getInput, TestProvider } from '../helpers';
 
 describe('<TypeaheadInputSingle>', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <TestInputProvider
-        {...context}
-        inputProps={{}}
-        labelKey="name"
+      <TestProvider
         options={options}
-        selected={[]}
-        selectHintOnEnter={false}
-        text="">
-        {(props) => (
-          <TypeaheadInputSingle
-            {...props}
-            inputRef={noop}
-            onAdd={noop}
-            onChange={noop}
-            onClear={noop}
-            onFocus={noop}
-          />
+        selected={[]}>
+        {({ getInputProps }) => (
+          <TypeaheadInputSingle {...getInputProps()} />
         )}
-      </TestInputProvider>
+      </TestProvider>
     );
   });
 

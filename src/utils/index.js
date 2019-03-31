@@ -3,6 +3,7 @@ export areEqual from './areEqual';
 export defaultFilterBy from './defaultFilterBy';
 export getDisplayName from './getDisplayName';
 export getHintText from './getHintText';
+export getInputProps from './getInputProps';
 export getInputText from './getInputText';
 export getIsOnlyResult from './getIsOnlyResult';
 export getMatchBounds from './getMatchBounds';

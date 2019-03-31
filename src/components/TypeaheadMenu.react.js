@@ -10,8 +10,7 @@ import MenuItem from './MenuItem.react';
 import { getOptionLabel, getOptionProperty } from '../utils';
 
 import type { MenuComponentProps } from './Menu.react';
-import type { MenuProps } from '../core/TypeaheadMenu';
-import type { Option } from '../types';
+import type { LabelKey, MenuProps, Option } from '../types';
 
 export type TypeaheadMenuComponentProps = MenuComponentProps & {
   newSelectionPrefix: string,
@@ -19,6 +18,7 @@ export type TypeaheadMenuComponentProps = MenuComponentProps & {
 };
 
 type Props = MenuProps & TypeaheadMenuComponentProps & {
+  labelKey: LabelKey,
   options: Option[],
 };
 
@@ -57,8 +57,8 @@ class TypeaheadMenu extends React.Component<Props> {
     } = this.props;
 
     return (
-      // TODO: Improve typing for spread props.
-      <Menu {...(menuProps: any)}>
+      // $FlowFixMe: Improve typing for spread props.
+      <Menu {...menuProps}>
         {options.map(this._renderMenuItem)}
       </Menu>
     );

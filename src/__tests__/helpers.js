@@ -1,10 +1,9 @@
 import { noop } from 'lodash';
 import React from 'react';
 
-import TypeaheadInput from '../core/TypeaheadInput';
 import TypeaheadInner from '../core/TypeaheadInner';
 
-export const context = {
+const context = {
   activeIndex: -1,
   hintText: '',
   initialItem: null,
@@ -17,13 +16,23 @@ export const context = {
   selectHintOnEnter: false,
 };
 
-export const TestInputProvider = ({ children, ...props }) => (
-  <TypeaheadInner {...props}>
-    {(providerProps) => (
-      <TypeaheadInput {...providerProps}>
-        {children}
-      </TypeaheadInput>
-    )}
+const defaultProps = {
+  inputRef: noop,
+  labelKey: 'name',
+  onAdd: noop,
+  onChange: noop,
+  onClear: noop,
+  onFocus: noop,
+  selectHintOnEnter: false,
+  text: '',
+};
+
+export const TestProvider = ({ children, ...props }) => (
+  <TypeaheadInner
+    {...context}
+    {...defaultProps}
+    {...props}>
+    {children}
   </TypeaheadInner>
 );
 
@@ -63,6 +72,10 @@ export function getPaginator(wrapper) {
 
 export function getTokens(wrapper) {
   return wrapper.find('.rbt-token');
+}
+
+export function isFocused(element) {
+  return element.getDOMNode() === document.activeElement;
 }
 
 /**
