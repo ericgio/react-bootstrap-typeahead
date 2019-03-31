@@ -7,7 +7,7 @@ import React, { Children, type Node } from 'react';
 import { BaseMenuItem } from './MenuItem.react';
 
 import { checkPropType, isRequiredForA11y } from '../propTypes';
-import type { MenuProps } from '../core/TypeaheadMenu';
+import type { Id, MenuProps } from '../types';
 
 const MenuDivider = (props: any) => (
   <li className="divider dropdown-divider" role="separator" />
@@ -44,7 +44,9 @@ export type MenuComponentProps = {
   children?: Node,
   className?: string,
   emptyLabel: Node,
+  id: Id,
   maxHeight: string,
+  text: string,
 };
 
 type Props = MenuProps & MenuComponentProps;

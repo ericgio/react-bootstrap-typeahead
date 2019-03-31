@@ -3,29 +3,27 @@ import React from 'react';
 
 import MenuItem, { BaseMenuItem } from '../../components/MenuItem.react';
 import TypeaheadMenu from '../../components/TypeaheadMenu.react';
-import TypeaheadInner from '../../core/TypeaheadInner';
 
 import options from '../data';
-import { context, getMenu, getPaginator } from '../helpers';
+import { getMenu, getPaginator, TestProvider } from '../helpers';
 
 describe('<TypeaheadMenu>', () => {
   let menu;
 
   beforeEach(() => {
     menu = mount(
-      <TypeaheadInner
-        {...context}
+      <TestProvider
         options={options}
         selected={[]}>
-        {(props) => (
+        {({ state }) => (
           <TypeaheadMenu
-            {...props}
+            {...state}
             id="menu-id"
             labelKey="name"
             text=""
           />
         )}
-      </TypeaheadInner>
+      </TestProvider>
     );
   });
 

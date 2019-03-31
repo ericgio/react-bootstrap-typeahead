@@ -9,10 +9,41 @@ export type Id = number | string;
 export type LabelKey = string | Function;
 
 export type Option = string | { [string]: any };
+export type OptionHandler = (Option) => void;
 
 export type Style = { [string]: any };
 
 export type ReferenceElement = HTMLElement;
+
+export type InputProps = {
+  autoComplete: string,
+  className?: string,
+  disabled?: boolean,
+  inputRef: (HTMLInputElement) => void,
+  onBlur: EventHandler,
+  onChange: EventHandler,
+  onClick: EventHandler,
+  onFocus: EventHandler,
+  onKeyDown: EventHandler,
+  placeholder?: string,
+  ref: Function,
+  type: string,
+  value: string,
+};
+
+export type InputMultiProps = InputProps & {
+  inputClassName?: string,
+  labelKey: LabelKey,
+  onRemove: OptionHandler,
+  selected: Option[],
+};
+
+export type MenuProps = {
+  innerRef: Function,
+  inputHeight: number,
+  scheduleUpdate: Function,
+  style: { [string]: any },
+};
 
 export type TypeaheadProps = {
   /* eslint-disable-next-line no-use-before-define */
@@ -23,13 +54,11 @@ export type TypeaheadProps = {
   defaultInputValue: string,
   defaultOpen: boolean,
   defaultSelected: Option[],
-  disabled: boolean,
   /* eslint-disable-next-line no-use-before-define */
   filterBy: string[] | (Option, TypeaheadPropsAndState) => void,
   highlightOnlyResult: boolean,
   id?: Id,
   ignoreDiacritics: boolean,
-  inputProps: Object,
   labelKey: LabelKey,
   maxResults: number,
   minLength: number,
@@ -43,7 +72,6 @@ export type TypeaheadProps = {
   options: Option[],
   paginate: boolean,
   paginationText: string,
-  placeholder: string,
   selectHintOnEnter: boolean,
 };
 
@@ -65,13 +93,14 @@ export type TypeaheadInnerProps = TypeaheadPropsAndState & {
   getReferenceElement: Function,
   inputRef: (HTMLInputElement) => void,
   isMenuShown: boolean,
-  onActiveItemChange: (Option) => void,
-  onAdd: (Option) => void,
+  onActiveItemChange: OptionHandler,
+  onAdd: OptionHandler,
   onChange: (SyntheticEvent<HTMLInputElement>) => void,
   onClear: () => void,
-  onInitialItemChange: Function,
+  onInitialItemChange: (?Option) => void,
   onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,
-  onRemove: (Option) => void,
+  onRemove: OptionHandler,
+  placeholder?: string,
   referenceElement: ReferenceElement,
   results: Option[],
 };

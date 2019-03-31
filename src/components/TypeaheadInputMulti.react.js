@@ -13,11 +13,11 @@ import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { InputMultiProps } from '../core/TypeaheadInput';
-import type { Option } from '../types';
+import type { InputMultiProps, Option } from '../types';
 
 export type TypeaheadInputMultiComponentProps = {
   renderToken: Function,
+  tabIndex: ?number,
 };
 
 type Props = InputMultiProps & TypeaheadInputMultiComponentProps;
@@ -57,6 +57,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
       inputClassName,
       labelKey,
       onRemove,
+      placeholder,
       renderToken,
       selected,
       ...props
@@ -81,6 +82,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
               this.props.inputRef(input);
             }}
             onKeyDown={this._handleKeyDown}
+            placeholder={selected.length ? '' : placeholder}
             style={{
               backgroundColor: 'transparent',
               border: 0,

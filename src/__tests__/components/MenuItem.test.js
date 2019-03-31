@@ -1,10 +1,9 @@
 import { mount, shallow } from 'enzyme';
-import { noop, pick } from 'lodash';
+import { noop } from 'lodash';
 import React from 'react';
 
 import MenuItem, { BaseMenuItem } from '../../components/MenuItem.react';
-import TypeaheadInner from '../../core/TypeaheadInner';
-import { context } from '../helpers';
+import { TestProvider } from '../helpers';
 
 const event = {
   preventDefault: noop,
@@ -50,30 +49,18 @@ describe('<MenuItem>', () => {
   let menuItem, onClick;
 
   beforeEach(() => {
-    const contextProps = pick(context, [
-      'activeIndex',
-      'isOnlyResult',
-      'onActiveItemChange',
-      'onInitialItemChange',
-      'onMenuItemClick',
-      'results',
-    ]);
-
     onClick = jest.fn();
     menuItem = mount(
-      <TypeaheadInner
-        {...contextProps}
-        selected={[]}>
-        {(props) => (
+      <TestProvider selected={[]}>
+        {() => (
           <MenuItem
-            {...props}
             onClick={onClick}
             option={{ label: 'test' }}
             position={0}>
             This is a menu item.
           </MenuItem>
         )}
-      </TypeaheadInner>
+      </TestProvider>
     );
   });
 
