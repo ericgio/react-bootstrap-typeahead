@@ -1,42 +1,29 @@
 import { mount } from 'enzyme';
-import { head, noop } from 'lodash';
+import { head } from 'lodash';
 import React from 'react';
 
 import TypeaheadInputMulti from '../../components/TypeaheadInputMulti.react';
 
 import options from '../data';
-import { context, focus, getFormControl, getHint, getInput, getTokens, keyDown, TestInputProvider } from '../helpers';
+import { focus, getFormControl, getHint, getInput, getTokens, isFocused, keyDown, TestProvider } from '../helpers';
 import { BACKSPACE, RETURN } from '../../constants';
-
-function isFocused(element) {
-  return element.getDOMNode() === document.activeElement;
-}
 
 describe('<TypeaheadInputMulti>', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <TestInputProvider
-        {...context}
-        inputProps={{}}
-        labelKey="name"
+      <TestProvider
         multiple
-        onFocus={noop}
-        onKeyDown={noop}
         options={options}
-        selected={options.slice(1, 4)}
-        selectHintOnEnter={false}
-        text="">
-        {(props) => (
+        selected={options.slice(1, 4)}>
+        {({ getInputProps, state }) => (
           <TypeaheadInputMulti
-            {...props}
-            inputRef={noop}
-            onAdd={noop}
-            onChange={noop}
+            {...getInputProps()}
+            labelKey={state.labelKey}
           />
         )}
-      </TestInputProvider>
+      </TestProvider>
     );
   });
 
@@ -104,7 +91,7 @@ describe('<TypeaheadInputMulti>', () => {
       const input = getInput(wrapper);
 
       focus(wrapper);
-      expect(input.getDOMNode()).toEqual(document.activeElement);
+      expect(isFocused(input)).toBe(true);
 
       keyDown(wrapper, BACKSPACE);
 

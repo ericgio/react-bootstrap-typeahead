@@ -2,8 +2,7 @@
 
 import React, { type ComponentType, type ElementRef } from 'react';
 
-import { type InputContextType, withContext } from '../core/Context';
-
+import { withContext } from '../core/Context';
 import { getDisplayName, shouldSelectHint } from '../utils';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
@@ -37,7 +36,7 @@ function copyStyles(inputNode: HTMLInputElement, hintNode: HTMLInputElement) {
   /* eslint-enable no-param-reassign */
 }
 
-type Props = InputContextType & {
+type Props = {
   inputRef: Function,
   onKeyDown: Function,
 };
