@@ -8,8 +8,6 @@ import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
 
 import TypeaheadInner from './TypeaheadInner';
-import TypeaheadInput from './TypeaheadInput';
-import TypeaheadMenu from './TypeaheadMenu';
 
 import {
   caseSensitiveType,
@@ -17,7 +15,6 @@ import {
   defaultInputValueType,
   highlightOnlyResultType,
   ignoreDiacriticsType,
-  inputPropsType,
   isRequiredForA11y,
   labelKeyType,
   optionType,
@@ -86,10 +83,6 @@ const propTypes = {
    */
   defaultSelected: PropTypes.arrayOf(optionType),
   /**
-   * Whether to disable the component.
-   */
-  disabled: PropTypes.bool,
-  /**
    * Either an array of fields in `option` to search, or a custom filtering
    * callback.
    */
@@ -114,11 +107,6 @@ const propTypes = {
    * Whether the filter should ignore accents and other diacritical marks.
    */
   ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
-  /**
-   * Props to be applied directly to the input. `onBlur`, `onChange`,
-   * `onFocus`, and `onKeyDown` are ignored.
-   */
-  inputProps: checkPropType(PropTypes.object, inputPropsType),
   /**
    * Specify the option key to use for display or a function returning the
    * display string. By default, the selector will use the `label` key.
@@ -188,10 +176,6 @@ const propTypes = {
    */
   paginationText: PropTypes.string,
   /**
-   * Placeholder text for the input.
-   */
-  placeholder: PropTypes.string,
-  /**
    * The selected option(s) displayed in the input. Use this prop if you want
    * to control the component via its parent.
    */
@@ -209,11 +193,9 @@ const defaultProps = {
   defaultInputValue: '',
   defaultOpen: false,
   defaultSelected: [],
-  disabled: false,
   filterBy: [],
   highlightOnlyResult: false,
   ignoreDiacritics: true,
-  inputProps: {},
   labelKey: DEFAULT_LABELKEY,
   maxResults: 100,
   minLength: 0,
@@ -225,7 +207,6 @@ const defaultProps = {
   onPaginate: noop,
   paginate: true,
   paginationText: 'Display additional results...',
-  placeholder: '',
   selectHintOnEnter: false,
 };
 
@@ -274,8 +255,6 @@ function getInitialState(props: Props): TypeaheadState {
 class Typeahead extends React.Component<Props, TypeaheadState> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
-  static Input = TypeaheadInput;
-  static Menu = TypeaheadMenu;
 
   state = getInitialState(this.props);
 
@@ -486,7 +465,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }, () => this.props.onFocus(e));
   }
 
-  _handleInitialItemChange = (initialItem: Option) => {
+  _handleInitialItemChange = (initialItem: ?Option) => {
     // Don't update the initial item if it hasn't changed.
     if (!areEqual(initialItem, this.state.initialItem, this.props.labelKey)) {
       this.setState({ initialItem });

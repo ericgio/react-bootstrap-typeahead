@@ -4,6 +4,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, { type ElementRef } from 'react';
 
+import Overlay from '../core/Overlay';
 import Typeahead from '../core/Typeahead';
 
 import ClearButton from './ClearButton.react';
@@ -13,12 +14,18 @@ import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import { isFunction, preventInputBlur } from '../utils';
+import { checkPropType, inputPropsType } from '../propTypes';
 
 import type { TypeaheadMenuComponentProps } from './TypeaheadMenu.react';
 import type { TypeaheadInputMultiComponentProps } from './TypeaheadInputMulti.react';
-import type { InputProps } from '../core/TypeaheadInput';
-import type { MenuProps } from '../core/TypeaheadMenu';
-import type { BsSize, Option, TypeaheadProps, TypeaheadInnerProps } from '../types';
+import type {
+  BsSize,
+  InputProps,
+  MenuProps,
+  Option,
+  TypeaheadProps,
+  TypeaheadInnerProps,
+} from '../types';
 
 type Props =
   TypeaheadProps &
@@ -27,6 +34,8 @@ type Props =
     bsSize?: BsSize,
     className?: string,
     clearButton: boolean,
+    disabled?: boolean,
+    inputProps: Object,
     isInvalid: boolean,
     isLoading: boolean,
     isValid: boolean,
@@ -45,6 +54,11 @@ const propTypes = {
    * Displays a button to clear the input when there are selections.
    */
   clearButton: PropTypes.bool,
+  /**
+   * Props to be applied directly to the input. `onBlur`, `onChange`,
+   * `onFocus`, and `onKeyDown` are ignored.
+   */
+  inputProps: checkPropType(PropTypes.object, inputPropsType),
   /**
    * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
    */
@@ -69,6 +83,7 @@ const propTypes = {
 
 const defaultProps = {
   clearButton: false,
+  inputProps: {},
   isInvalid: false,
   isLoading: false,
   isValid: false,
@@ -95,8 +110,8 @@ class TypeaheadComponent extends React.Component<Props> {
       <Typeahead
         {...this.props}
         ref={(instance) => this._instance = instance}>
-        {(props: Props & TypeaheadInnerProps) => {
-          const auxContent = this._renderAux(props);
+        {({ getInputProps, getOverlayProps, state }) => {
+          const auxContent = this._renderAux(state);
 
           return (
             <div
@@ -107,14 +122,16 @@ class TypeaheadComponent extends React.Component<Props> {
                 ...style,
               }}
               tabIndex={-1}>
-              <Typeahead.Input>
-                {this._renderInput}
-              </Typeahead.Input>
-              <Typeahead.Menu>
-                {this._renderMenu}
-              </Typeahead.Menu>
+              {this._renderInput(getInputProps(this.props.inputProps), state)}
+              <Overlay {...getOverlayProps(this.props)}>
+                {(menuProps: MenuProps) => this._renderMenu(state.results, {
+                  ...menuProps,
+                  labelKey: state.labelKey,
+                  text: state.text,
+                })}
+              </Overlay>
               {auxContent}
-              {isFunction(children) ? children(props) : children}
+              {isFunction(children) ? children(state) : children}
             </div>
           );
         }}
@@ -126,7 +143,7 @@ class TypeaheadComponent extends React.Component<Props> {
     return this._instance;
   }
 
-  _renderInput = (inputProps: InputProps) => {
+  _renderInput = (inputProps: InputProps, state: TypeaheadInnerProps) => {
     const {
       bsSize,
       isInvalid,
@@ -148,13 +165,19 @@ class TypeaheadComponent extends React.Component<Props> {
     };
 
     return multiple ?
-      <TypeaheadInputMulti {...props} renderToken={renderToken} /> :
+      <TypeaheadInputMulti
+        {...props}
+        labelKey={state.labelKey}
+        renderToken={renderToken}
+        selected={state.selected}
+      /> :
       <TypeaheadInputSingle {...props} />;
   }
 
   _renderMenu = (results: Option[], menuProps: MenuProps) => {
     const {
       emptyLabel,
+      id,
       maxHeight,
       newSelectionPrefix,
       renderMenu,
@@ -164,21 +187,16 @@ class TypeaheadComponent extends React.Component<Props> {
     return renderMenu(results, {
       ...menuProps,
       emptyLabel,
+      id,
       maxHeight,
       newSelectionPrefix,
       renderMenuItemChildren,
     });
   }
 
-  _renderAux = (props: Props & TypeaheadInnerProps) => {
-    const {
-      bsSize,
-      clearButton,
-      disabled,
-      isLoading,
-      onClear,
-      selected,
-    } = props;
+  _renderAux = (state: TypeaheadInnerProps) => {
+    const { bsSize, clearButton, disabled, isLoading } = this.props;
+    const { onClear, selected } = state;
 
     let content;
 

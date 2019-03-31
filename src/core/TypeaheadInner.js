@@ -2,35 +2,63 @@
 
 import React from 'react';
 
-import { InputContext, InputContextKeys, MenuContext, MenuContextKeys, TypeaheadContext, TypeaheadContextKeys } from './Context';
-import { getHintText, getInputText, getIsOnlyResult, pick } from '../utils';
+import { TypeaheadContext } from './Context';
+import { getHintText, getInputProps, getInputText, getIsOnlyResult, pick } from '../utils';
 import { RETURN } from '../constants';
 
-import type { InputContextType, MenuContextType, TypeaheadContextType } from './Context';
+import type { TypeaheadContextType } from './Context';
 import type { TypeaheadInnerProps } from '../types';
+
+const inputPropKeys = [
+  'activeIndex',
+  'disabled',
+  'id',
+  'inputRef',
+  'isFocused',
+  'isMenuShown',
+  'labelKey',
+  'multiple',
+  'onBlur',
+  'onChange',
+  'onFocus',
+  'onKeyDown',
+  'onRemove',
+  'placeholder',
+  'selected',
+];
+
+const overlayPropKeys = [
+  'align',
+  'dropup',
+  'flip',
+  'onMenuToggle',
+  'positionFixed',
+];
+
+const typeaheadContextKeys = [
+  'activeIndex',
+  'id',
+  'initialItem',
+  'onActiveItemChange',
+  'onAdd',
+  'onInitialItemChange',
+  'onMenuItemClick',
+  'selectHintOnEnter',
+];
+
+const getOverlayProps = ({ isMenuShown, referenceElement }) => (props) => ({
+  ...pick(props, overlayPropKeys),
+  referenceElement,
+  show: isMenuShown,
+});
 
 function getTypeaheadContextValue(
   props: TypeaheadInnerProps
 ): TypeaheadContextType {
   return {
-    ...pick(props, TypeaheadContextKeys),
+    ...pick(props, typeaheadContextKeys),
     hintText: getHintText(props),
     isOnlyResult: getIsOnlyResult(props),
-  };
-}
-
-function getInputContextValue(props: TypeaheadInnerProps): InputContextType {
-  return {
-    ...pick(props, InputContextKeys),
-    ref: props.getReferenceElement,
-    value: getInputText(props),
-  };
-}
-
-function getMenuContextValue(props: TypeaheadInnerProps): MenuContextType {
-  return {
-    ...pick(props, MenuContextKeys),
-    show: props.isMenuShown,
   };
 }
 
@@ -45,18 +73,20 @@ class TypeaheadInnerManager extends React.Component<TypeaheadInnerProps> {
   }
 
   render() {
-    const inputContext = {
-      ...getInputContextValue(this.props),
-      onKeyDown: this._handleKeyDown,
+    const childProps = {
+      getInputProps: getInputProps({
+        ...pick(this.props, inputPropKeys),
+        onKeyDown: this._handleKeyDown,
+        ref: this.props.getReferenceElement,
+        value: getInputText(this.props),
+      }),
+      getOverlayProps: getOverlayProps(this.props),
+      state: this.props,
     };
 
     return (
       <TypeaheadContext.Provider value={getTypeaheadContextValue(this.props)}>
-        <InputContext.Provider value={inputContext}>
-          <MenuContext.Provider value={getMenuContextValue(this.props)}>
-            {this.props.children(this.props)}
-          </MenuContext.Provider>
-        </InputContext.Provider>
+        {this.props.children(childProps)}
       </TypeaheadContext.Provider>
     );
   }

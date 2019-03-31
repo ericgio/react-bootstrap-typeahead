@@ -5,93 +5,23 @@ import React, { type ComponentType } from 'react';
 
 import { pick } from '../utils';
 
-import type { Id, LabelKey, Option, ReferenceElement, TypeaheadInnerProps } from '../types';
+import type { Id, Option, OptionHandler } from '../types';
 
-/* istanbul ignore next */
-const arrToObj = (keys: string[]) => keys.reduce((obj: Object, k: string) => ({
-  ...obj, [k]: undefined,
-}), {});
-
-/**
- * $Pick utility
- * https://github.com/facebook/flow/issues/3367
- */
-/* eslint-disable flowtype/generic-spacing */
-type $Pick<Origin: Object, Keys: $ReadOnlyArray<$Keys<Origin>>> = $ObjMapi<
-  $Call<typeof arrToObj, Keys>,
-  <Key>(k: Key) => $ElementType<Origin, Key>
->;
-/* eslint-enable flowtype/generic-spacing */
-
-export const TypeaheadContextKeys = [
-  'activeIndex',
-  'id',
-  'initialItem',
-  'onActiveItemChange',
-  'onAdd',
-  'onInitialItemChange',
-  'onMenuItemClick',
-  'selectHintOnEnter',
-];
-
-export type TypeaheadContextType =
-  $Pick<TypeaheadInnerProps, typeof TypeaheadContextKeys> & {
-    hintText: string,
-    isOnlyResult: boolean,
-  };
+export type TypeaheadContextType = {
+  activeIndex: number,
+  hintText: string,
+  isOnlyResult: boolean,
+  id: Id,
+  initialItem: ?Option,
+  onActiveItemChange: OptionHandler,
+  onAdd: OptionHandler,
+  onInitialItemChange: (?Option) => void,
+  onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,
+  selectHintOnEnter: boolean,
+};
 
 export const TypeaheadContext: Context<TypeaheadContextType> =
   createReactContext({});
-
-export const InputContextKeys = [
-  'activeIndex',
-  'disabled',
-  'id',
-  'inputProps',
-  'inputRef',
-  'isFocused',
-  'isMenuShown',
-  'labelKey',
-  'multiple',
-  'onBlur',
-  'onChange',
-  'onFocus',
-  'onKeyDown',
-  'onRemove',
-  'placeholder',
-  'selected',
-];
-
-export type InputContextType =
-  $Pick<TypeaheadInnerProps, typeof InputContextKeys> & {
-    ref: Function,
-    value: string,
-  };
-
-export const InputContext: Context<InputContextType> = createReactContext({});
-
-export const MenuContextKeys = [
-  'align',
-  'dropup',
-  'flip',
-  'id',
-  'labelKey',
-  'onMenuToggle',
-  'positionFixed',
-  'referenceElement',
-  'results',
-  'text',
-];
-
-export type MenuContextType = {
-  id: Id,
-  labelKey: LabelKey,
-  referenceElement: ?ReferenceElement,
-  results: Option[],
-  text: string
-};
-
-export const MenuContext: Context<MenuContextType> = createReactContext({});
 
 export const withContext = (
   Component: ComponentType<*>,

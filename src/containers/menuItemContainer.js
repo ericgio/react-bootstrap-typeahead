@@ -5,7 +5,7 @@ import React, { type ComponentType } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
-import { type MenuContextType, withContext } from '../core/Context';
+import { withContext } from '../core/Context';
 import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
 
 import type { Option } from '../types';
@@ -18,7 +18,7 @@ const propTypes = {
   position: PropTypes.number,
 };
 
-type Props = MenuContextType & {
+type Props = {
   option: Option,
   position: number,
 };
@@ -107,7 +107,6 @@ const menuItemContainer = (Component: ComponentType<*>) => {
     'activeIndex',
     'id',
     'isOnlyResult',
-    'menuId',
     'onActiveItemChange',
     'onInitialItemChange',
     'onMenuItemClick',
