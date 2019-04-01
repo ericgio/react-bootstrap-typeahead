@@ -206,7 +206,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('Uses the `filterBy` prop as a callback to filter results', () => {
+  test('uses the `filterBy` prop as a callback to filter results', () => {
     const filterBy = jest.fn((option, props) => (
       option.name.indexOf(props.text) > -1
     ));
@@ -220,6 +220,17 @@ describe('<Typeahead>', () => {
     expect(menuItems.length).toBe(1);
     expect(menuItems.first().text()).toBe('California');
     expect(filterBy).toHaveBeenCalled();
+  });
+
+  test('does not filter options when the menu is closed', () => {
+    const filterBy = jest.fn();
+    typeahead.setProps({
+      filterBy,
+      open: false,
+    });
+
+    change(typeahead, 'Cali');
+    expect(filterBy).not.toHaveBeenCalled();
   });
 
   describe('menu visibility behavior', () => {
