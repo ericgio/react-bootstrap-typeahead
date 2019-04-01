@@ -507,7 +507,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     // Skip most actions when the menu is hidden.
     if (!isMenuShown) {
       if (e.keyCode === UP || e.keyCode === DOWN) {
-        this._showMenu();
+        this.setState({ showMenu: true });
       }
 
       this.props.onKeyDown(e);
@@ -622,10 +622,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       showMenu: false,
       shownResults,
     });
-  }
-
-  _showMenu = () => {
-    this.setState({ showMenu: true });
   }
 
   _updateSelected = (selected: Option[]) => {
