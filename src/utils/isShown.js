@@ -1,10 +1,8 @@
 // @flow
 
-import type { TypeaheadProps, TypeaheadState } from '../types';
+import type { TypeaheadPropsAndState } from '../types';
 
-type Props = TypeaheadProps & TypeaheadState;
-
-export default function isShown(props: Props): boolean {
+export default function isShown(props: TypeaheadPropsAndState): boolean {
   const { open, minLength, showMenu, text } = props;
 
   // If menu visibility is controlled via props, that value takes precedence.

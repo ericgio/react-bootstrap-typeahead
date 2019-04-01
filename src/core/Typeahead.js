@@ -30,6 +30,7 @@ import {
   getUpdatedActiveIndex,
   getTruncatedOptions,
   head,
+  isFunction,
   isShown,
   noop,
   uniqueId,
@@ -325,7 +326,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     const {
       filterBy,
       labelKey,
-      minLength,
       options,
       paginate,
       paginationText,
@@ -333,10 +333,11 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       text,
     } = mergedPropsAndState;
 
-    let results = [];
+    const isMenuShown = isShown(mergedPropsAndState);
 
-    if (text.length >= minLength) {
-      const cb = typeof filterBy === 'function' ? filterBy : defaultFilterBy;
+    let results = [];
+    if (isMenuShown) {
+      const cb = isFunction(filterBy) ? filterBy : defaultFilterBy;
       results = options.filter((option: Option) => (
         cb(option, mergedPropsAndState)
       ));
@@ -364,9 +365,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         paginationOption: true,
       });
     }
-
-    // This must come after checks for the custom option and pagination.
-    const isMenuShown = isShown(mergedPropsAndState);
 
     const props = {
       ...mergedPropsAndState,
