@@ -12,10 +12,10 @@ export type OverlayProps = {
   children: Function,
   dropup: boolean,
   flip: boolean,
+  isMenuShown: boolean,
   onMenuToggle: (boolean) => void,
   positionFixed: boolean,
   referenceElement: ?ReferenceElement,
-  show: boolean,
 };
 
 const propTypes = {
@@ -36,6 +36,7 @@ const propTypes = {
    * reaches the viewport boundaries.
    */
   flip: PropTypes.bool, /* eslint-disable-line react/no-unused-prop-types */
+  isMenuShown: PropTypes.bool,
   /**
    * Invoked when menu visibility changes.
    */
@@ -43,16 +44,15 @@ const propTypes = {
   positionFixed: PropTypes.bool,
   /* eslint-disable-next-line react/forbid-prop-types */
   referenceElement: PropTypes.object,
-  show: PropTypes.bool,
 };
 
 const defaultProps = {
   align: 'justify',
   dropup: false,
   flip: false,
+  isMenuShown: false,
   onMenuToggle: noop,
   positionFixed: false,
-  show: false,
 };
 
 function getModifiers({ align, flip }: OverlayProps) {
@@ -85,10 +85,10 @@ class Overlay extends React.Component<OverlayProps> {
   static defaultProps = defaultProps;
 
   componentDidUpdate(prevProps: OverlayProps) {
-    const { onMenuToggle, show } = this.props;
+    const { isMenuShown, onMenuToggle } = this.props;
 
-    if (show !== prevProps.show) {
-      onMenuToggle(show);
+    if (isMenuShown !== prevProps.isMenuShown) {
+      onMenuToggle(isMenuShown);
     }
   }
 
@@ -97,12 +97,12 @@ class Overlay extends React.Component<OverlayProps> {
       align,
       children,
       dropup,
+      isMenuShown,
       positionFixed,
       referenceElement,
-      show,
     } = this.props;
 
-    if (!show) {
+    if (!isMenuShown) {
       return null;
     }
 
