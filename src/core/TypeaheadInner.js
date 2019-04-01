@@ -48,8 +48,8 @@ const typeaheadContextKeys = [
 
 const getOverlayProps = ({ isMenuShown, referenceElement }) => (props) => ({
   ...pick(props, overlayPropKeys),
+  isMenuShown,
   referenceElement,
-  show: isMenuShown,
 });
 
 function getTypeaheadContextValue(
