@@ -19,8 +19,8 @@ describe('<Overlay>', () => {
   beforeEach(() => {
     wrapper = mount(
       <Overlay
-        referenceElement={document.createElement('div')}
-        show={false}>
+        isMenuShown={false}
+        referenceElement={document.createElement('div')}>
         {(props) => <Menu {...props} id="menu-id">This is the menu</Menu>}
       </Overlay>
     );
@@ -32,12 +32,12 @@ describe('<Overlay>', () => {
   });
 
   test('renders children `show=true`', () => {
-    wrapper.setProps({ show: true });
+    wrapper.setProps({ isMenuShown: true });
     expect(getPopper(wrapper).length).toBe(1);
   });
 
   test('updates the positioning type', () => {
-    wrapper.setProps({ show: true });
+    wrapper.setProps({ isMenuShown: true });
 
     // Uses absolute positioning by default.
     expect(isPositionFixed(wrapper)).toBe(false);
@@ -53,14 +53,14 @@ describe('<Overlay>', () => {
 
     expect(onMenuToggle).toHaveBeenCalledTimes(0);
 
-    wrapper.setProps({ show: true });
+    wrapper.setProps({ isMenuShown: true });
     expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
     // Shouldn't be called again if not hidden first.
-    wrapper.setProps({ show: true });
+    wrapper.setProps({ isMenuShown: true });
     expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
-    wrapper.setProps({ show: false });
+    wrapper.setProps({ isMenuShown: false });
     expect(onMenuToggle).toHaveBeenCalledTimes(2);
   });
 });
