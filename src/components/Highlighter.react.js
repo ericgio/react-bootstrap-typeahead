@@ -67,14 +67,12 @@ class Highlighter extends React.PureComponent<HighlighterProps> {
 
       // Capture the matching string.
       const match = remaining.slice(bounds.start, bounds.end);
-      if (match) {
-        matchCount += 1;
-        highlighterChildren.push(
-          <mark className={highlightClassName} key={matchCount}>
-            {match}
-          </mark>
-        );
-      }
+      highlighterChildren.push(
+        <mark className={highlightClassName} key={matchCount}>
+          {match}
+        </mark>
+      );
+      matchCount += 1;
 
       // And if there's anything left over, continue the loop.
       remaining = remaining.slice(bounds.end);
