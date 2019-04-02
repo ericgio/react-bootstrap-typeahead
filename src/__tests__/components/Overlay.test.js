@@ -19,26 +19,35 @@ describe('<Overlay>', () => {
   beforeEach(() => {
     wrapper = mount(
       <Overlay
-        isMenuShown={false}
+        isMenuShown
         referenceElement={document.createElement('div')}>
         {(props) => <Menu {...props} id="menu-id">This is the menu</Menu>}
       </Overlay>
     );
   });
 
-  test('does not render children when `show=false`', () => {
+  test('renders children `isMenuShown=true`', () => {
+    expect(getPopper(wrapper).length).toBe(1);
+  });
+
+  test('does not render children when `isMenuShown=false`', () => {
+    wrapper.setProps({ isMenuShown: false });
     expect(wrapper.length).toBe(1);
     expect(getPopper(wrapper).length).toBe(0);
   });
 
-  test('renders children `show=true`', () => {
-    wrapper.setProps({ isMenuShown: true });
-    expect(getPopper(wrapper).length).toBe(1);
+  test('updates the placement', () => {
+    expect(getPopper(wrapper).prop('placement')).toBe('bottom-start');
+
+    wrapper.setProps({
+      align: 'right',
+      dropup: true,
+    });
+
+    expect(getPopper(wrapper).prop('placement')).toBe('top-end');
   });
 
   test('updates the positioning type', () => {
-    wrapper.setProps({ isMenuShown: true });
-
     // Uses absolute positioning by default.
     expect(isPositionFixed(wrapper)).toBe(false);
 
@@ -53,14 +62,22 @@ describe('<Overlay>', () => {
 
     expect(onMenuToggle).toHaveBeenCalledTimes(0);
 
-    wrapper.setProps({ isMenuShown: true });
+    wrapper.setProps({ isMenuShown: false });
     expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
     // Shouldn't be called again if not hidden first.
-    wrapper.setProps({ isMenuShown: true });
+    wrapper.setProps({ isMenuShown: false });
     expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
-    wrapper.setProps({ isMenuShown: false });
+    wrapper.setProps({ isMenuShown: true });
     expect(onMenuToggle).toHaveBeenCalledTimes(2);
   });
+
+  test(
+    'provides a fallback inputHeight when there is no reference element',
+    () => {
+      wrapper.setProps({ referenceElement: undefined });
+      expect(wrapper.find(Menu).prop('inputHeight')).toBe(0);
+    }
+  );
 });
