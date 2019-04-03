@@ -25,7 +25,7 @@ Pass in a function to create a custom string without modifying your data. Note: 
 />
 ```
 
-### `renderInput(inputProps: Object)`
+### `renderInput(inputProps: Object, state: Object)`
 Provides flexibility for rendering the typeahead's input. `inputProps` are any input-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `input`.
 
 ```jsx
@@ -41,7 +41,7 @@ Provides flexibility for rendering the typeahead's input. `inputProps` are any i
 - Your input component must correctly handle the `ref` and `inputRef` props included with `inputProps`. The former can simply be applied to your component, while the latter must be forwarded to the underlying `input` element.
 - To take advantage of hinting functionality, you need to wrap your input with the included `hintContainer` HOC.
 
-### `renderMenu(results: Array<Object|String>, menuProps: Object)`
+### `renderMenu(results: Array<Object|String>, menuProps: Object, state: Object)`
 Provides flexibility for rendering the typeahead's menu. `results` are the subset of options after they have been filtered and paginated. `menuProps` are any menu-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `Menu`.
 
 Along with stylistic customization, the `renderMenu` hook allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or wrap your own menu item components with [`menuItemContainer`](API.md#menuitemcontainer) to ensure proper behavior.
