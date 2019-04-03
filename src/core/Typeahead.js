@@ -42,7 +42,6 @@ import {
   DOWN,
   ESC,
   RETURN,
-  RIGHT,
   TAB,
   UP,
 } from '../constants';
@@ -524,25 +523,16 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         ));
         break;
       case ESC:
-        isMenuShown && this._hideMenu();
+        this._hideMenu();
         break;
       case RETURN:
         // Prevent form submission while menu is open.
         e.preventDefault();
         activeItem && this._handleMenuItemSelect(activeItem, e);
         break;
-      case RIGHT:
       case TAB:
-        if (activeItem && !activeItem.paginationOption) {
-          // Prevent blurring when selecting the active item.
-          e.keyCode === TAB && e.preventDefault();
-          this._handleSelectionAdd(activeItem);
-          break;
-        }
-
-        if (e.keyCode === TAB) {
-          this._hideMenu();
-        }
+        // Don't blur the input when the menu is open.
+        e.preventDefault();
         break;
       default:
         break;

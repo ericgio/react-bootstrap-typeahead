@@ -398,24 +398,6 @@ describe('<Typeahead>', () => {
       expect(getMenuItems(typeahead).length).toBe(21);
     });
 
-    test(
-      'does not call `onPaginate` when right arrow or tab keys are pressed',
-      () => {
-        focus(typeahead);
-
-        keyDown(typeahead, UP);
-        keyDown(typeahead, RIGHT);
-
-        expect(onPaginate).toHaveBeenCalledTimes(0);
-
-        keyDown(typeahead, TAB);
-        expect(onPaginate).toHaveBeenCalledTimes(0);
-
-        // The menu should close when the tab key is pressed.
-        expect(getMenuItems(typeahead).length).toBe(0);
-      }
-    );
-
     test('displays custom pagination text', () => {
       const paginationText = 'More Results...';
       typeahead.setProps({ paginationText });
@@ -850,7 +832,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  describe('behavior when selecting the active item', () => {
+  describe('keydown behaviors with active item', () => {
     let onKeyDown;
 
     beforeEach(() => {
@@ -869,18 +851,6 @@ describe('<Typeahead>', () => {
 
     test('selects the active item when pressing return', () => {
       keyDown(typeahead, RETURN);
-      expect(getSelected(typeahead).length).toBe(1);
-      expect(onKeyDown).toHaveBeenCalledTimes(2);
-    });
-
-    test('selects the active item when pressing right', () => {
-      keyDown(typeahead, RIGHT);
-      expect(getSelected(typeahead).length).toBe(1);
-      expect(onKeyDown).toHaveBeenCalledTimes(2);
-    });
-
-    test('selects the active item when pressing tab', () => {
-      keyDown(typeahead, TAB);
       expect(getSelected(typeahead).length).toBe(1);
       expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
