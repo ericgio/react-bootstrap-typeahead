@@ -7,23 +7,23 @@ import TypeaheadMenu from '../../components/TypeaheadMenu.react';
 import options from '../data';
 import { getMenu, getPaginator, TestProvider } from '../helpers';
 
+const MenuWithProvider = (props) => (
+  <TestProvider selected={[]}>
+    {({ state }) => <TypeaheadMenu {...state} {...props} />}
+  </TestProvider>
+);
+
 describe('<TypeaheadMenu>', () => {
   let menu;
 
   beforeEach(() => {
     menu = mount(
-      <TestProvider
+      <MenuWithProvider
+        id="menu-id"
+        labelKey="name"
         options={options}
-        selected={[]}>
-        {({ state }) => (
-          <TypeaheadMenu
-            {...state}
-            id="menu-id"
-            labelKey="name"
-            text=""
-          />
-        )}
-      </TestProvider>
+        text=""
+      />
     );
   });
 
