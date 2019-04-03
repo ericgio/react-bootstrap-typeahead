@@ -35,6 +35,16 @@ const overlayPropKeys = [
   'positionFixed',
 ];
 
+const stateKeys = [
+  'activeIndex',
+  'isMenuShown',
+  'labelKey',
+  'onClear',
+  'results',
+  'selected',
+  'text',
+];
+
 const typeaheadContextKeys = [
   'activeIndex',
   'id',
@@ -81,7 +91,7 @@ class TypeaheadInnerManager extends React.Component<TypeaheadInnerProps> {
         value: getInputText(this.props),
       }),
       getOverlayProps: getOverlayProps(this.props),
-      state: this.props,
+      state: pick(this.props, stateKeys),
     };
 
     return (

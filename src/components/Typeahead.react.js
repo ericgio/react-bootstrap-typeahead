@@ -89,11 +89,17 @@ const defaultProps = {
   isValid: false,
   renderMenu: (
     results: Option[],
-    menuProps: MenuProps & TypeaheadMenuComponentProps
+    menuProps: MenuProps & TypeaheadMenuComponentProps,
+    state: TypeaheadInnerProps
   ) => (
     // TODO: Merged props not registering correctly.
     // $FlowFixMe
-    <TypeaheadMenu {...menuProps} options={results} />
+    <TypeaheadMenu
+      {...menuProps}
+      labelKey={state.labelKey}
+      options={results}
+      text={state.text}
+    />
   ),
 };
 
@@ -124,11 +130,11 @@ class TypeaheadComponent extends React.Component<Props> {
               tabIndex={-1}>
               {this._renderInput(getInputProps(this.props.inputProps), state)}
               <Overlay {...getOverlayProps(this.props)}>
-                {(menuProps: MenuProps) => this._renderMenu(state.results, {
-                  ...menuProps,
-                  labelKey: state.labelKey,
-                  text: state.text,
-                })}
+                {(menuProps: MenuProps) => this._renderMenu(
+                  state.results,
+                  menuProps,
+                  state
+                )}
               </Overlay>
               {auxContent}
               {isFunction(children) ? children(state) : children}
@@ -154,7 +160,7 @@ class TypeaheadComponent extends React.Component<Props> {
     } = this.props;
 
     if (isFunction(renderInput)) {
-      return renderInput(inputProps);
+      return renderInput(inputProps, state);
     }
 
     const props = {
@@ -174,7 +180,11 @@ class TypeaheadComponent extends React.Component<Props> {
       <TypeaheadInputSingle {...props} />;
   }
 
-  _renderMenu = (results: Option[], menuProps: MenuProps) => {
+  _renderMenu = (
+    results: Option[],
+    menuProps: MenuProps,
+    state: TypeaheadInnerProps
+  ) => {
     const {
       emptyLabel,
       id,
@@ -191,7 +201,7 @@ class TypeaheadComponent extends React.Component<Props> {
       maxHeight,
       newSelectionPrefix,
       renderMenuItemChildren,
-    });
+    }, state);
   }
 
   _renderAux = (state: TypeaheadInnerProps) => {
