@@ -1121,6 +1121,7 @@ describe('<Typeahead>', () => {
       text = 'xxx';
 
       typeahead.setProps({
+        allowNew: true,
         emptyLabel,
         newSelectionPrefix,
       });
@@ -1141,10 +1142,6 @@ describe('<Typeahead>', () => {
     });
 
     test('adds the custom option when `allowNew` is set to `true`', () => {
-      typeahead.setProps({
-        allowNew: true,
-      });
-
       change(typeahead, text);
       focus(typeahead);
 
@@ -1152,14 +1149,16 @@ describe('<Typeahead>', () => {
 
       expect(menuItems.length).toBe(1);
       expect(menuItems.at(0).text()).toBe(`${newSelectionPrefix}${text}`);
+
+      // Highlight and select the custom option.
+      keyDown(typeahead, DOWN);
+      keyDown(typeahead, RETURN);
+
+      expect(getSelected(typeahead)[0].id).toMatch('new-id-');
     });
 
     test('omits the custom option when there is an exact text match', () => {
       text = 'North Carolina';
-
-      typeahead.setProps({
-        allowNew: true,
-      });
 
       change(typeahead, text);
       focus(typeahead);
@@ -1201,6 +1200,20 @@ describe('<Typeahead>', () => {
 
       expect(menuItems.length).toBe(1);
       expect(menuItems.at(0).text()).toBe(text);
+    });
+
+    test('handles custom options when `labelKey` is a function', () => {
+      typeahead.setProps({
+        labelKey: (o) => o.name,
+      });
+
+      change(typeahead, text);
+      focus(typeahead);
+
+      const menuItems = getMenuItems(typeahead);
+
+      expect(menuItems.length).toBe(1);
+      expect(menuItems.at(0).text()).toBe(`${newSelectionPrefix}${text}`);
     });
   });
 });
