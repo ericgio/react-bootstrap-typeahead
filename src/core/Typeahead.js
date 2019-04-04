@@ -23,7 +23,6 @@ import {
 
 import {
   addCustomOption,
-  areEqual,
   defaultFilterBy,
   getOptionLabel,
   getStringLabelKey,
@@ -32,6 +31,7 @@ import {
   head,
   isFunction,
   isShown,
+  isString,
   noop,
   uniqueId,
   validateSelectedPropChange,
@@ -352,7 +352,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     if (addCustomOption(results, mergedPropsAndState)) {
       results.push({
         customOption: true,
-        id: uniqueId('new-id-'),
         [getStringLabelKey(labelKey)]: text,
       });
     }
@@ -439,7 +438,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   _handleActiveItemChange = (activeItem: Option) => {
     // Don't update the active item if it hasn't changed.
-    if (!areEqual(activeItem, this.state.activeItem, this.props.labelKey)) {
+    if (!isEqual(activeItem, this.state.activeItem)) {
       this.setState({ activeItem });
     }
   }
@@ -464,7 +463,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   _handleInitialItemChange = (initialItem: ?Option) => {
     // Don't update the initial item if it hasn't changed.
-    if (!areEqual(initialItem, this.state.initialItem, this.props.labelKey)) {
+    if (!isEqual(initialItem, this.state.initialItem)) {
       this.setState({ initialItem });
     }
   }
@@ -557,11 +556,19 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }), () => this.props.onPaginate(e, this.state.shownResults));
   }
 
-  _handleSelectionAdd = (selection: Option) => {
+  _handleSelectionAdd = (option: Option) => {
     const { multiple, labelKey } = this.props;
 
     let selected;
+    let selection = option;
     let text;
+
+    // Add a unique id to the custom selection. Avoid doing this in `render` so
+    // the id doesn't increment every time.
+    if (!isString(selection) && selection.customOption) {
+      // $FlowFixMe: Option is an object here...
+      selection = { ...selection, id: uniqueId('new-id-') };
+    }
 
     if (multiple) {
       // If multiple selections are allowed, add the new selection to the
