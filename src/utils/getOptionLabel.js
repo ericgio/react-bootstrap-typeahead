@@ -13,6 +13,7 @@ import type { LabelKey, Option } from '../types';
  * an error.
  */
 function getOptionLabel(option: Option, labelKey: LabelKey): string {
+  // Handle internally created options first.
   if (
     !isString(option) &&
     (option.paginationOption || option.customOption)
