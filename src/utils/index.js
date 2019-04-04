@@ -1,5 +1,4 @@
 export addCustomOption from './addCustomOption';
-export areEqual from './areEqual';
 export defaultFilterBy from './defaultFilterBy';
 export getDisplayName from './getDisplayName';
 export getHintText from './getHintText';
