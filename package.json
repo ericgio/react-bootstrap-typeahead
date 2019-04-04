@@ -10,6 +10,7 @@
     "dist/",
     "docs/",
     "es/",
+    "lib",
     "LICENSE.md"
   ],
   "main": "lib/index.js",
