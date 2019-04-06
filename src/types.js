@@ -71,7 +71,6 @@ export type TypeaheadProps = {
   open?: boolean,
   options: Option[],
   paginate: boolean,
-  paginationText: string,
   selectHintOnEnter: boolean,
 };
 
