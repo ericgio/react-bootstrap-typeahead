@@ -172,10 +172,6 @@ const propTypes = {
    */
   paginate: PropTypes.bool,
   /**
-   * Prompt displayed when large data sets are paginated.
-   */
-  paginationText: PropTypes.string,
-  /**
    * The selected option(s) displayed in the input. Use this prop if you want
    * to control the component via its parent.
    */
@@ -206,7 +202,6 @@ const defaultProps = {
   onKeyDown: noop,
   onPaginate: noop,
   paginate: true,
-  paginationText: 'Display additional results...',
   selectHintOnEnter: false,
 };
 
@@ -330,7 +325,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       labelKey,
       options,
       paginate,
-      paginationText,
       shownResults,
       text,
     } = mergedPropsAndState;
@@ -361,7 +355,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     // Add the pagination item if necessary.
     if (shouldPaginate) {
       this.results.push({
-        [getStringLabelKey(labelKey)]: paginationText,
+        [getStringLabelKey(labelKey)]: '',
         paginationOption: true,
       });
     }

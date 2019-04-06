@@ -18,9 +18,7 @@ function getInputText(props: Props) {
 
   if (activeItem) {
     // Display the input value if the pagination item is active.
-    return activeItem.paginationOption ?
-      text :
-      getOptionLabel(activeItem, labelKey);
+    return getOptionLabel(activeItem, labelKey);
   }
 
   const selectedItem = !multiple && !!selected.length && head(selected);

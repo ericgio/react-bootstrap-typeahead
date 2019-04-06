@@ -190,6 +190,7 @@ class TypeaheadComponent extends React.Component<Props> {
       id,
       maxHeight,
       newSelectionPrefix,
+      paginationText,
       renderMenu,
       renderMenuItemChildren,
     } = this.props;
@@ -200,6 +201,7 @@ class TypeaheadComponent extends React.Component<Props> {
       id,
       maxHeight,
       newSelectionPrefix,
+      paginationText,
       renderMenuItemChildren,
     }, state);
   }

@@ -59,24 +59,25 @@ describe('<TypeaheadMenu>', () => {
   });
 
   describe('pagination behaviors', () => {
-    let paginationLabel;
+    let paginationText;
 
     beforeEach(() => {
-      paginationLabel = 'More results...';
+      paginationText = 'More results...';
       menu.setProps({
         maxResults: 10,
         onPaginate: () => {},
         options: options.concat({
-          name: paginationLabel,
+          name: '',
           paginationOption: true,
         }),
+        paginationText,
       });
     });
 
     test('displays a paginator', () => {
       const paginatorNode = getPaginator(menu);
       expect(paginatorNode.length).toBe(1);
-      expect(paginatorNode.text()).toBe(paginationLabel);
+      expect(paginatorNode.text()).toBe(paginationText);
     });
 
     test('does not show a paginator when there are no results', () => {
