@@ -14,6 +14,7 @@ import type { LabelKey, MenuProps, Option } from '../types';
 
 export type TypeaheadMenuComponentProps = MenuComponentProps & {
   newSelectionPrefix: string,
+  paginationText: string,
   renderMenuItemChildren: Function,
 };
 
@@ -29,6 +30,10 @@ const propTypes = {
    */
   newSelectionPrefix: PropTypes.string,
   /**
+   * Prompt displayed when large data sets are paginated.
+   */
+  paginationText: PropTypes.string,
+  /**
    * Provides a hook for customized rendering of menu item contents.
    */
   renderMenuItemChildren: PropTypes.func,
@@ -36,6 +41,7 @@ const propTypes = {
 
 const defaultProps = {
   newSelectionPrefix: 'New selection: ',
+  paginationText: 'Display additional results...',
   renderMenuItemChildren: (option: Option, props: Props, idx: number) => (
     <Highlighter search={props.text}>
       {getOptionLabel(option, props.labelKey)}
@@ -68,6 +74,7 @@ class TypeaheadMenu extends React.Component<Props> {
     const {
       labelKey,
       newSelectionPrefix,
+      paginationText,
       renderMenuItemChildren,
       text,
     } = this.props;
@@ -102,8 +109,9 @@ class TypeaheadMenu extends React.Component<Props> {
         <MenuItem
           {...menuItemProps}
           className="rbt-menu-pagination-option"
-          key="pagination-item">
-          {label}
+          key="pagination-item"
+          label={paginationText}>
+          {paginationText}
         </MenuItem>,
       ];
     }

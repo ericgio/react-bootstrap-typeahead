@@ -48,19 +48,6 @@ describe('getInputText', () => {
     expect(inputText).toBe(name);
   });
 
-  test('returns the input text if the pagination item is active', () => {
-    const args = {
-      ...baseArgs,
-      activeItem: {
-        [labelKey]: 'More Results...',
-        paginationOption: true,
-      },
-      text: 'foo',
-    };
-
-    expect(getInputText(args)).toBe('foo');
-  });
-
   test('returns the selected item label in single-select mode', () => {
     const selected = options.slice(0, 1);
     const inputText = getInputText({ ...baseArgs, selected });
