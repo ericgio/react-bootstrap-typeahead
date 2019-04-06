@@ -29,7 +29,7 @@ describe('getHintText', () => {
   });
 
   test('returns an empty string when a menu item is active', () => {
-    const hintText = getHintText({ ...props, activeItem: props.initialItem });
+    const hintText = getHintText({ ...props, activeIndex: 0 });
     expect(hintText).toBe('');
   });
 

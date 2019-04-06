@@ -6,7 +6,7 @@ import getOptionLabel from './getOptionLabel';
 import type { LabelKey, Option } from '../types';
 
 type Props = {
-  activeItem: ?Option,
+  activeIndex: number,
   initialItem: ?Option,
   isFocused: boolean,
   isMenuShown: boolean,
@@ -18,7 +18,7 @@ type Props = {
 
 function getHintText(props: Props) {
   const {
-    activeItem,
+    activeIndex,
     initialItem,
     isFocused,
     isMenuShown,
@@ -41,7 +41,7 @@ function getHintText(props: Props) {
     // The initial item is a custom option.
     initialItem.customOption ||
     // One of the menu items is active.
-    activeItem ||
+    activeIndex > -1 ||
     // There's already a selection in single-select mode.
     (!!selected.length && !multiple)
   ) {
