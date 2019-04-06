@@ -7,7 +7,7 @@ import React, { type ElementRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
 
-import TypeaheadInner from './TypeaheadInner';
+import TypeaheadManager from './TypeaheadManager';
 
 import {
   caseSensitiveType,
@@ -258,6 +258,9 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   state = getInitialState(this.props);
 
+  isMenuShown: boolean = false;
+  results: Option[] = [];
+
   _input: ElementRef<*> = undefined;
   _referenceElement: ElementRef<*> = undefined;
 
@@ -332,25 +335,24 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       text,
     } = mergedPropsAndState;
 
-    const isMenuShown = isShown(mergedPropsAndState);
+    this.isMenuShown = isShown(mergedPropsAndState);
 
-    let results = [];
-    if (isMenuShown) {
+    if (this.isMenuShown) {
       const cb = isFunction(filterBy) ? filterBy : defaultFilterBy;
-      results = options.filter((option: Option) => (
+      this.results = options.filter((option: Option) => (
         cb(option, mergedPropsAndState)
       ));
     }
 
     // This must come before results are truncated.
-    const shouldPaginate = paginate && results.length > shownResults;
+    const shouldPaginate = paginate && this.results.length > shownResults;
 
     // Truncate results if necessary.
-    results = getTruncatedOptions(results, shownResults);
+    this.results = getTruncatedOptions(this.results, shownResults);
 
     // Add the custom option if necessary.
-    if (addCustomOption(results, mergedPropsAndState)) {
-      results.push({
+    if (addCustomOption(this.results, mergedPropsAndState)) {
+      this.results.push({
         customOption: true,
         [getStringLabelKey(labelKey)]: text,
       });
@@ -358,45 +360,34 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
     // Add the pagination item if necessary.
     if (shouldPaginate) {
-      results.push({
+      this.results.push({
         [getStringLabelKey(labelKey)]: paginationText,
         paginationOption: true,
       });
     }
 
-    const props = {
-      ...mergedPropsAndState,
-      getReferenceElement: (element) => {
-        // Use `findDOMNode` here because it's easier and less fragile than
-        // forwarding refs to the input's container.
-        /* eslint-disable-next-line react/no-find-dom-node */
-        this._referenceElement = findDOMNode(element);
-      },
-      inputRef: (input: HTMLInputElement) => {
-        this._input = input;
-      },
-      isMenuShown,
-      onActiveItemChange: this._handleActiveItemChange,
-      onAdd: this._handleSelectionAdd,
-      onBlur: this._handleBlur,
-      onChange: this._handleInputChange,
-      onClear: this._handleClear,
-      onFocus: this._handleFocus,
-      onInitialItemChange: this._handleInitialItemChange,
-      onKeyDown: (e: SyntheticKeyboardEvent<HTMLInputElement>) => (
-        this._handleKeyDown(e, results, isMenuShown)
-      ),
-      onMenuItemClick: this._handleMenuItemSelect,
-      onRemove: this._handleSelectionRemove,
-      referenceElement: this._referenceElement,
-      results,
-    };
-
     return (
       <RootCloseWrapper
-        disabled={this.props.open || !isMenuShown}
+        disabled={this.props.open || !this.isMenuShown}
         onRootClose={this._hideMenu}>
-        <TypeaheadInner {...props} />
+        <TypeaheadManager
+          {...mergedPropsAndState}
+          getReferenceElement={this.getReferenceElement}
+          inputRef={this.getInputRef}
+          isMenuShown={this.isMenuShown}
+          onActiveItemChange={this._handleActiveItemChange}
+          onAdd={this._handleSelectionAdd}
+          onBlur={this._handleBlur}
+          onChange={this._handleInputChange}
+          onClear={this._handleClear}
+          onFocus={this._handleFocus}
+          onInitialItemChange={this._handleInitialItemChange}
+          onKeyDown={this._handleKeyDown}
+          onMenuItemClick={this._handleMenuItemSelect}
+          onRemove={this._handleSelectionRemove}
+          referenceElement={this._referenceElement}
+          results={this.results}
+        />
       </RootCloseWrapper>
     );
   }
@@ -427,6 +418,17 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     );
 
     return this._input;
+  }
+
+  getInputRef = (input: HTMLInputElement) => {
+    this._input = input;
+  }
+
+  getReferenceElement = (element: ?Element) => {
+    // Use `findDOMNode` here because it's easier and less fragile than
+    // forwarding refs to the input's container.
+    /* eslint-disable-next-line react/no-find-dom-node */
+    this._referenceElement = findDOMNode(element);
   }
 
   _handleActiveIndexChange = (activeIndex: number) => {
@@ -493,15 +495,11 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }
   }
 
-  _handleKeyDown = (
-    e: SyntheticKeyboardEvent<HTMLInputElement>,
-    results: Option[],
-    isMenuShown: boolean
-  ) => {
+  _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
     const { activeItem } = this.state;
 
     // Skip most actions when the menu is hidden.
-    if (!isMenuShown) {
+    if (!this.isMenuShown) {
       if (e.keyCode === UP || e.keyCode === DOWN) {
         this.setState({ showMenu: true });
       }
@@ -518,7 +516,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         this._handleActiveIndexChange(getUpdatedActiveIndex(
           this.state.activeIndex,
           e.keyCode,
-          results
+          this.results
         ));
         break;
       case ESC:

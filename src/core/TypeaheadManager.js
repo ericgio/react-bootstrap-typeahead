@@ -72,7 +72,7 @@ function getTypeaheadContextValue(
   };
 }
 
-class TypeaheadInnerManager extends React.Component<TypeaheadInnerProps> {
+class TypeaheadManager extends React.Component<TypeaheadInnerProps> {
   componentDidUpdate(prevProps: TypeaheadInnerProps) {
     const { allowNew, onInitialItemChange, results } = this.props;
 
@@ -118,4 +118,4 @@ class TypeaheadInnerManager extends React.Component<TypeaheadInnerProps> {
   }
 }
 
-export default TypeaheadInnerManager;
+export default TypeaheadManager;
