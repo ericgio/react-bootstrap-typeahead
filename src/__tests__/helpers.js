@@ -8,6 +8,7 @@ const context = {
   hintText: '',
   initialItem: null,
   isOnlyResult: false,
+  items: [],
   onActiveItemChange: noop,
   onAdd: noop,
   onInitialItemChange: noop,
