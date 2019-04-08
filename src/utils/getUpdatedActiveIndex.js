@@ -6,11 +6,11 @@ import type { Option } from '../types';
 function skipDisabledOptions(
   currentIndex: number,
   keyCode: DOWN | UP,
-  results: Option[]
+  items: Option[]
 ): number {
   let newIndex = currentIndex;
 
-  while (results[newIndex] && results[newIndex].disabled) {
+  while (items[newIndex] && items[newIndex].disabled) {
     newIndex += keyCode === UP ? -1 : 1;
   }
 
@@ -20,7 +20,7 @@ function skipDisabledOptions(
 export default function getUpdatedActiveIndex(
   currentIndex: number,
   keyCode: DOWN | UP,
-  results: Option[]
+  items: Option[]
 ): number {
   let newIndex = currentIndex;
 
@@ -28,16 +28,16 @@ export default function getUpdatedActiveIndex(
   newIndex += keyCode === UP ? -1 : 1;
 
   // Skip over any disabled options.
-  newIndex = skipDisabledOptions(newIndex, keyCode, results);
+  newIndex = skipDisabledOptions(newIndex, keyCode, items);
 
   // If we've reached the end, go back to the beginning or vice-versa.
-  if (newIndex === results.length) {
+  if (newIndex === items.length) {
     newIndex = -1;
   } else if (newIndex === -2) {
-    newIndex = results.length - 1;
+    newIndex = items.length - 1;
 
     // Skip over any disabled options.
-    newIndex = skipDisabledOptions(newIndex, keyCode, results);
+    newIndex = skipDisabledOptions(newIndex, keyCode, items);
   }
 
   return newIndex;

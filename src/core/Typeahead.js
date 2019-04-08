@@ -254,7 +254,9 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   state = getInitialState(this.props);
 
   isMenuShown: boolean = false;
-  results: Option[] = [];
+  // Keeps track of actual items displayed in the menu, after sorting,
+  // truncating, grouping, etc.
+  items: Option[] = [];
 
   _input: ElementRef<*> = undefined;
   _referenceElement: ElementRef<*> = undefined;
@@ -330,23 +332,25 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     } = mergedPropsAndState;
 
     this.isMenuShown = isShown(mergedPropsAndState);
+    this.items = []; // Reset items on re-render.
 
+    let results = [];
     if (this.isMenuShown) {
       const cb = isFunction(filterBy) ? filterBy : defaultFilterBy;
-      this.results = options.filter((option: Option) => (
+      results = options.filter((option: Option) => (
         cb(option, mergedPropsAndState)
       ));
     }
 
     // This must come before results are truncated.
-    const shouldPaginate = paginate && this.results.length > shownResults;
+    const shouldPaginate = paginate && results.length > shownResults;
 
     // Truncate results if necessary.
-    this.results = getTruncatedOptions(this.results, shownResults);
+    results = getTruncatedOptions(results, shownResults);
 
     // Add the custom option if necessary.
-    if (addCustomOption(this.results, mergedPropsAndState)) {
-      this.results.push({
+    if (addCustomOption(results, mergedPropsAndState)) {
+      results.push({
         customOption: true,
         [getStringLabelKey(labelKey)]: text,
       });
@@ -354,7 +358,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
     // Add the pagination item if necessary.
     if (shouldPaginate) {
-      this.results.push({
+      results.push({
         [getStringLabelKey(labelKey)]: '',
         paginationOption: true,
       });
@@ -369,6 +373,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
           getReferenceElement={this.getReferenceElement}
           inputRef={this.getInputRef}
           isMenuShown={this.isMenuShown}
+          items={this.items}
           onActiveItemChange={this._handleActiveItemChange}
           onAdd={this._handleSelectionAdd}
           onBlur={this._handleBlur}
@@ -380,7 +385,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
           onMenuItemClick={this._handleMenuItemSelect}
           onRemove={this._handleSelectionRemove}
           referenceElement={this._referenceElement}
-          results={this.results}
+          results={results}
         />
       </RootCloseWrapper>
     );
@@ -510,7 +515,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         this._handleActiveIndexChange(getUpdatedActiveIndex(
           this.state.activeIndex,
           e.keyCode,
-          this.results
+          this.items
         ));
         break;
       case ESC:

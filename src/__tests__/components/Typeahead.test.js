@@ -1418,9 +1418,9 @@ describe('<Typeahead> with custom menu', () => {
     wrapper = mountTypeahead({
       renderMenu: (results, menuProps) => (
         <Menu {...menuProps}>
-          {results.reverse().map((r, idx) => (
-            /* eslint-disable-next-line react/no-array-index-key */
-            <MenuItem key={idx} option={r} position={idx}>
+          {/* Use `slice` to avoid mutating the original array */}
+          {results.slice().reverse().map((r, index) => (
+            <MenuItem key={r.name} option={r} position={index}>
               {r.name}
             </MenuItem>
           ))}
@@ -1453,5 +1453,21 @@ describe('<Typeahead> with custom menu', () => {
 
     keyDown(wrapper, RETURN);
     expect(getSelected(wrapper)[0].name).toBe('Wyoming');
+  });
+
+  // Integration test to ensure that active index updating works correctly when
+  // reshuffling the result set.
+  test('correctly handles disabled options', () => {
+    // Disable the first option.
+    const options = states.map((state) => (
+      state.name === 'Wyoming' ? { ...state, disabled: true } : state
+    ));
+
+    wrapper.setProps({ options });
+
+    focus(wrapper);
+    keyDown(wrapper, DOWN);
+
+    expect(getState(wrapper).activeItem.name).toBe('Wisconsin');
   });
 });
