@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import { groupBy, map } from 'lodash';
+import { groupBy } from 'lodash';
 import React, { Fragment } from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 import { Highlighter, hintContainer, Menu, MenuItem, Token, Typeahead } from 'react-bootstrap-typeahead';
@@ -74,26 +74,26 @@ class RenderingExample extends React.Component {
     return <HintedFormControl {...inputProps} />;
   }
 
-  _renderMenu = (results, menuProps) => {
-    let idx = 0;
-    const grouped = groupBy(results, (r) => r.region);
-    const items = Object.keys(grouped).sort().map((region) => [
-      !!idx && <Menu.Divider key={`${region}-divider`} />,
-      <Menu.Header key={`${region}-header`}>
-        {region}
-      </Menu.Header>,
-      map(grouped[region], (state) => {
-        const item =
-          <MenuItem key={idx} option={state} position={idx}>
-            <Highlighter search={menuProps.text}>
-              {state.name}
-            </Highlighter>
-          </MenuItem>;
+  _renderMenu = (results, menuProps, state) => {
+    let index = 0;
+    const regions = groupBy(results, 'region');
+    const items = Object.keys(regions).sort().map((region) => (
+      <Fragment key={region}>
+        {index !== 0 && <Menu.Divider />}
+        <Menu.Header>{region}</Menu.Header>
+        {regions[region].map((i) => {
+          const item =
+            <MenuItem key={index} option={i} position={index}>
+              <Highlighter search={state.text}>
+                {i.name}
+              </Highlighter>
+            </MenuItem>;
 
-        idx++; /* eslint-disable-line no-plusplus */
-        return item;
-      }),
-    ]);
+          index += 1;
+          return item;
+        })}
+      </Fragment>
+    ));
 
     return <Menu {...menuProps}>{items}</Menu>;
   }
