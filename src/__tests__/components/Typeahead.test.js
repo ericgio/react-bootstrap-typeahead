@@ -4,6 +4,7 @@ import React from 'react';
 import { Popper } from 'react-popper';
 
 import { Menu, MenuItem, Typeahead } from '../..';
+import { clearTypeahead, getInitialState, hideMenu } from '../../core/Typeahead';
 
 import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, isFocused, keyDown } from '../helpers';
 import states from '../data';
@@ -1476,5 +1477,75 @@ describe('<Typeahead> with custom menu', () => {
     keyDown(wrapper, DOWN);
 
     expect(getState(wrapper).activeItem.name).toBe('Wisconsin');
+  });
+});
+
+describe('State modifiers', () => {
+  const defaultState = {
+    activeIndex: -1,
+    activeItem: null,
+    initialItem: null,
+    isFocused: false,
+    selected: [],
+    showMenu: false,
+    text: '',
+  };
+
+  test('clearTypeahead', () => {
+    const props = {
+      defaultOpen: false,
+      defaultSelected: [],
+      maxResults: 10,
+    };
+
+    const state = {
+      isFocused: true,
+    };
+
+    expect(clearTypeahead(state, props)).toEqual({
+      ...defaultState,
+      isFocused: true,
+      shownResults: 10,
+    });
+  });
+
+  test('getInitialState', () => {
+    expect(getInitialState({
+      defaultInputValue: 'foo',
+      defaultOpen: false,
+      defaultSelected: [],
+      maxResults: 10,
+    })).toEqual({
+      ...defaultState,
+      shownResults: 10,
+      text: 'foo',
+    });
+
+    expect(getInitialState({
+      defaultInputValue: 'foo',
+      defaultOpen: true,
+      defaultSelected: ['bar', 'foo'],
+      maxResults: 10,
+    })).toEqual({
+      ...defaultState,
+      selected: ['bar'],
+      showMenu: true,
+      shownResults: 10,
+      text: 'bar',
+    });
+  });
+
+  test('hideMenu', () => {
+    const props = {
+      defaultSelected: [],
+      maxResults: 10,
+    };
+
+    expect(hideMenu({}, props)).toEqual({
+      activeIndex: -1,
+      activeItem: null,
+      showMenu: false,
+      shownResults: props.maxResults,
+    });
   });
 });
