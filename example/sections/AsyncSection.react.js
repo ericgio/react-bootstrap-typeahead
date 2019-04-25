@@ -23,7 +23,7 @@ const AsyncSection = (props) => (
     <ExampleSection code={AsyncExampleCode}>
       <AsyncExample />
     </ExampleSection>
-    <Title>Pagination</Title>
+    <Title>Async Pagination</Title>
     <Markdown>
       A more advanced case involves paginating async results. Additional results
       are fetched using `onPaginate` while a custom query cache tracks the
