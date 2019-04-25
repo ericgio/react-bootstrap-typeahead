@@ -30,11 +30,11 @@ const getInputProps = ({
     ...rest,
     'aria-activedescendant': activeIndex >= 0 ?
       getMenuItemId(id, activeIndex) :
-      '',
+      undefined,
     'aria-autocomplete': 'both',
     'aria-expanded': isMenuShown,
     'aria-haspopup': 'listbox',
-    'aria-owns': isMenuShown ? id : '',
+    'aria-owns': isMenuShown ? id : undefined,
     className: cx({
       [className || '']: !multiple,
       focus: isFocused,
