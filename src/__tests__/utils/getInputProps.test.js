@@ -17,11 +17,11 @@ const baseMultiProps = {
 };
 
 const baseReceivedProps = {
-  'aria-activedescendant': '',
+  'aria-activedescendant': undefined,
   'aria-autocomplete': 'both',
   'aria-expanded': false,
   'aria-haspopup': 'listbox',
-  'aria-owns': '',
+  'aria-owns': undefined,
   autoComplete: 'off',
   className: '',
   onClick: undefined,
