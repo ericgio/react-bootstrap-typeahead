@@ -904,7 +904,7 @@ describe('<Typeahead>', () => {
 
   describe('accessibility attributes', () => {
     test('adds an id to the menu for accessibility', () => {
-      expect(getInput(typeahead).prop('aria-owns')).toBe('');
+      expect(getInput(typeahead).prop('aria-owns')).toBe(undefined);
 
       focus(typeahead);
 
@@ -950,7 +950,7 @@ describe('<Typeahead>', () => {
 
     test('sets the input `aria-activedescendant` description', () => {
       typeahead.setProps({ id: 'my-id' });
-      expect(getInput(typeahead).prop('aria-activedescendant')).toBe('');
+      expect(getInput(typeahead).prop('aria-activedescendant')).toBe(undefined);
 
       focus(typeahead);
       keyDown(typeahead, DOWN);
