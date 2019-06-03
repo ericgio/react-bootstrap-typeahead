@@ -14,6 +14,27 @@ function genId(prefix = '') {
   return prefix + Math.random().toString(36).substr(2, 12);
 }
 
+function isBodyMenuClick(e, props) {
+  if (!props.bodyContainer && !props.positionFixed) {
+    return false;
+  }
+
+  let {target} = e;
+
+  while (target && target !== document.body) {
+    if (
+      target.className &&
+      typeof target.className === 'string' &&
+      target.className.indexOf('rbt-menu') > -1
+    ) {
+      return true;
+    }
+    target = target.parentNode;
+  }
+
+  return false;
+}
+
 function getInitialState(props) {
   const {
     defaultInputValue,
@@ -403,26 +424,7 @@ function typeaheadContainer(Component) {
     }
 
     _handleRootClose = (e) => {
-      let {target} = e;
-      let isBodyMenuClick = false;
-
-      // Don't register clicks on the menu when it is appended to
-      // `document.body`.
-      if (this.props.bodyContainer || this.props.positionFixed) {
-        while (target && target !== document.body) {
-          if (
-            target.className &&
-            typeof target.className === 'string' &&
-            target.className.indexOf('rbt-menu') > -1
-          ) {
-            isBodyMenuClick = true;
-            break;
-          }
-          target = target.parentNode;
-        }
-      }
-
-      if (isBodyMenuClick || !this.state.showMenu) {
+      if (isBodyMenuClick(e, this.props) || !this.state.showMenu) {
         return;
       }
 
