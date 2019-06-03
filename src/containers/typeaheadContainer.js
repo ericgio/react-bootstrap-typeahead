@@ -412,6 +412,7 @@ function typeaheadContainer(Component) {
         while (target && target !== document.body) {
           if (
             target.className &&
+            typeof target.className === 'string' &&
             target.className.indexOf('rbt-menu') > -1
           ) {
             isBodyMenuClick = true;
