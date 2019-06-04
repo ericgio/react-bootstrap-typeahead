@@ -40,11 +40,11 @@ function inputContainer(Input) {
         ...this.props.inputProps,
         'aria-activedescendant': activeIndex >= 0 ?
           getMenuItemId(activeIndex) :
-          '',
+          undefined,
         'aria-autocomplete': multiple ? 'list' : 'both',
         'aria-expanded': isMenuShown,
         'aria-haspopup': 'listbox',
-        'aria-owns': isMenuShown ? menuId : '',
+        'aria-owns': isMenuShown ? menuId : undefined,
         autoComplete: autoComplete || 'nope',
         cssModules,
         disabled,
