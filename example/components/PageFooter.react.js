@@ -34,7 +34,7 @@ const licenseLink =
 const versionLink =
   <a
     href="https://www.npmjs.com/package/react-bootstrap-typeahead"
-    rel="version noreferrer noopener"
+    rel="noreferrer noopener"
     target="_blank">
     v{version}
   </a>;
