@@ -18,7 +18,7 @@ defaultSelected | array | `[]` | Specify any pre-selected options. Use only if y
 disabled | boolean | | Whether to disable the input. Will also disable selections when `multiple={true}`.
 dropup | boolean | false | Specify whether the menu should appear above the input.
 emptyLabel | node | 'No matches found.' | Message displayed in the menu when there are no valid results. Passing a falsy value will hide the menu if no matches are found [DEPRECATED].
-filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback. This callback takes two arguments: an option to filter and the component props. The callback should return a boolean indicating whether the option should be displayed.
+filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback. See the [Filtering](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/docs/Filtering.md#filterby) page for more info.
 flip | boolean | false | Whether or not to automatically adjust the position of the menu when it reaches the viewport boundaries.
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
 id | string or number | {random} | An html id attribute, required for assistive technologies such as screen readers.
