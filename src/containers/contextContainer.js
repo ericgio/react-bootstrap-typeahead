@@ -47,7 +47,7 @@ function contextContainer(Typeahead) {
 
       switch (e.keyCode) {
         case RETURN:
-          if (getIsOnlyResult(this.props)) {
+          if (getIsOnlyResult(this.props) && initialItem) {
             onAdd(initialItem);
           }
           break;
