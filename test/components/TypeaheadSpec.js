@@ -645,6 +645,15 @@ describe('<Typeahead>', () => {
       expect(selected.length).to.equal(1);
     });
 
+    it('is compatible with `open=false`', () => {
+      typeahead.setProps({highlightOnlyResult: true, open: false});
+
+      change(typeahead, 'Alab');
+      focus(typeahead);
+
+      keyDown(typeahead, RETURN);
+    });
+
     it('does not highlight the only result when `allowNew=true`', () => {
       typeahead.setProps({
         allowNew: true,
