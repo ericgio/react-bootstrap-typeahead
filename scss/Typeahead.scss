@@ -189,12 +189,8 @@
     @include display-flex();
   }
 
+  & .rbt-aux,
   & .rbt-input-hint {
-    // Form-controls within input-groups have a higher z-index.
-    z-index: 5;
-  }
-
-  & .rbt-aux {
     // Form-controls within input-groups have a higher z-index.
     z-index: 5;
   }

@@ -22,7 +22,7 @@ const baseEvent = {
  * Finding React Elements
  */
 export function getHint(wrapper) {
-  return wrapper.find('.rbt-input-hint').prop('value');
+  return wrapper.find('.rbt-input-hint input').prop('value');
 }
 
 export function getInput(wrapper) {

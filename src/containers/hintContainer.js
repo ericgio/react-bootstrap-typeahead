@@ -68,7 +68,7 @@ function hintContainer(Input) {
           />
           <AutosizeInput
             aria-hidden
-            inputClassName="rbt-input-hint"
+            className="rbt-input-hint"
             inputRef={(hint) => this._hint = hint}
             inputStyle={{
               backgroundColor: 'transparent',
