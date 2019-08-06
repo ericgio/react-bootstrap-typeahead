@@ -45,6 +45,7 @@ class Typeahead extends React.Component {
       'onFocus',
       'onKeyDown',
       'onRemove',
+      'onTokenFocus',
       'placeholder',
       'renderToken',
       'selected',

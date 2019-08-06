@@ -27,6 +27,7 @@ function inputContainer(Input) {
         onFocus,
         onKeyDown,
         onRemove,
+        onTokenFocus,
         placeholder,
         renderToken,
         selected,
@@ -53,6 +54,7 @@ function inputContainer(Input) {
         onClick: onFocus,
         onFocus,
         onKeyDown,
+        onTokenFocus,
         placeholder: selected.length ? null : placeholder,
         // Comboboxes are single-select by definition:
         // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox

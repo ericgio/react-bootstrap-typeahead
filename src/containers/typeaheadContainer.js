@@ -646,6 +646,10 @@ function typeaheadContainer(Component) {
      */
     onPaginate: PropTypes.func,
     /**
+     * Invoked when the focus on a token changes.
+     */
+    onTokenFocus: PropTypes.func,
+    /**
      * Whether or not the menu should be displayed. `undefined` allows the
      * component to control visibility, while `true` and `false` show and hide
      * the menu, respectively.
