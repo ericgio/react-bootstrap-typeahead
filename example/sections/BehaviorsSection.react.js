@@ -7,6 +7,7 @@ import InputSizeExample from '../examples/InputSizeExample.react';
 import MenuAlignExample from '../examples/MenuAlignExample.react';
 import PaginationExample from '../examples/PaginationExample.react';
 import SelectionsExample from '../examples/SelectionsExample.react';
+import TokenFocusExample from '../examples/TokenFocusExample.react';
 
 /* eslint-disable import/no-unresolved */
 import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample.react';
@@ -16,6 +17,7 @@ import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample.react
 import MenuAlignExampleCode from '!raw-loader!../examples/MenuAlignExample.react';
 import PaginationExampleCode from '!raw-loader!../examples/PaginationExample.react';
 import SelectionsExampleCode from '!raw-loader!../examples/SelectionsExample.react';
+import TokenFocusExampleCode from '!raw-loader!../examples/TokenFocusExample.react';
 /* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection.react';
@@ -44,6 +46,14 @@ const BehaviorsSection = (props) => (
     </Markdown>
     <ExampleSection code={SelectionsExampleCode}>
       <SelectionsExample />
+    </ExampleSection>
+    <Title>Token focus</Title>
+    <Markdown>
+      You can react on tokens being focused, by setting the ```onTokenFocus```
+       handler.
+    </Markdown>
+    <ExampleSection code={TokenFocusExampleCode}>
+      <TokenFocusExample />
     </ExampleSection>
     <Title>Input Size</Title>
     <Markdown>
