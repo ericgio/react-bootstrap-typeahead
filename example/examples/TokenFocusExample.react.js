@@ -23,14 +23,20 @@ class TokenFocusExample extends React.Component {
           placeholder="Choose a state..."
           onTokenFocus={this._onTokenFocus}
         />
-        {selected ? <span>{selected} selected.</span> : null}
+        {
+          selected ?
+            <span>
+              {`${selected.name} has a population of 
+              ${selected.population}. Its capital is ${selected.capital}.`}
+            </span> : null
+        }
       </Fragment>
     );
   }
 
   _onTokenFocus = (option, focused) => {
     this.setState({
-      selected: focused ? option.name : undefined,
+      selected: focused ? option : undefined,
     });
   }
 }
