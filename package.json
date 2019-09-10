@@ -8,8 +8,8 @@
   "scripts": {
     "build": "npm run clean && npm run build:css && npm run build:lib && npm run build:dist && npm run build:example",
     "build:css": "node ./scripts/buildCSS.js",
-    "build:dist": "webpack --mode development && webpack --mode production",
-    "build:example": "webpack --mode production --config example/webpack.config.js",
+    "build:dist": "webpack --mode development && NODE_ENV=production webpack --mode production",
+    "build:example": "NODE_ENV=production webpack --mode production --config example/webpack.config.js",
     "build:lib": "babel src --out-dir lib",
     "check": "npm run lint && npm test",
     "clean": "rimraf css && rimraf dist && rimraf lib",
