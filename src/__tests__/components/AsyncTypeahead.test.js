@@ -100,8 +100,8 @@ describe('<AsyncTypeahead>', () => {
     focus(wrapper);
     const menuItems = getMenuItems(wrapper);
 
-    expect(menuItems.length).to.equal(1);
-    expect(menuItems.text()).to.equal(emptyLabel);
+    expect(menuItems.length).toEqual(1);
+    expect(menuItems.text()).toEqual(emptyLabel);
   });
 
   test('delays the search by at least the specified amount', (done) => {
