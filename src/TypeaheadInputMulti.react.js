@@ -99,6 +99,9 @@ class TypeaheadInputMulti extends React.Component {
     switch (e.keyCode) {
       case BACKSPACE:
         if (e.target === this._input && selected.length && !value) {
+          // Prevent browser from going back.
+          e.preventDefault();
+
           // If the input is selected and there is no text, focus the last
           // token when the user hits backspace.
           const {children} = this._wrapper;
