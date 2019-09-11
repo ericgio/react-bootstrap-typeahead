@@ -80,6 +80,28 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
+  it('displays the empty label when the input has an initial value', () => {
+    const emptyLabel = 'empty label';
+
+    wrapper = mount(
+      <AsyncTypeahead
+        defaultInputValue="sometext"
+        delay={0}
+        emptyLabel={emptyLabel}
+        isLoading={false}
+        minLength={0}
+        onSearch={onSearch}
+        useCache={false}
+      />
+    );
+
+    focus(wrapper);
+    const menuItems = getMenuItems(wrapper);
+
+    expect(menuItems.length).to.equal(1);
+    expect(menuItems.text()).to.equal(emptyLabel);
+  });
+
   it('delays the search by at least the specified amount', (done) => {
     const delay = 100;
     const preSearch = Date.now();

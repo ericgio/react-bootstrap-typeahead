@@ -18,7 +18,7 @@ const DEFAULT_DELAY_MS = 200;
 const asyncContainer = (Typeahead) => {
   class WrappedTypeahead extends React.Component {
     _cache = {};
-    _query = '';
+    _query = this.props.defaultInputValue || '';
 
     componentDidMount() {
       this._handleSearchDebounced = debounce(

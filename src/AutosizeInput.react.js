@@ -87,13 +87,14 @@ class AutosizeInput extends React.Component {
           style={SIZER_STYLE}>
           {defaultValue || value || ''}
         </div>
-        {placeholder ?
-          <div
-            ref={(el) => this._placeHolderSizer = el}
-            style={SIZER_STYLE}>
-            {placeholder}
-          </div> :
-          null
+        {
+          placeholder ?
+            <div
+              ref={(el) => this._placeHolderSizer = el}
+              style={SIZER_STYLE}>
+              {placeholder}
+            </div> :
+            null
         }
       </div>
     );
