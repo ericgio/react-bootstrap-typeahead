@@ -19,7 +19,8 @@
     "postpublish": "npm run deploy-example",
     "prepublishOnly": "npm run check && npm run build",
     "start": "webpack --mode development -w --progress --config example/webpack.config.js",
-    "test": "karma start"
+    "test": "karma start",
+    "test:ci": "xvfb-run karma start"
   },
   "keywords": [
     "auto complete",

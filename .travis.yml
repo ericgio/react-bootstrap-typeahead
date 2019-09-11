@@ -23,5 +23,6 @@ before_script:
   - npm rebuild node-sass
 
 script:
-  - npm run check
+  - npm run lint
+  - npm run test:ci
   - npm run build
