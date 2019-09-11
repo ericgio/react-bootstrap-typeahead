@@ -12,7 +12,7 @@ module.exports = (config) => {
     customLaunchers: {
       Chrome_travis_ci: {
         base: 'Chrome',
-        flags: ['--no-sandbox', '--disable-setuid-sandbox'],
+        flags: ['--no-sandbox'],
       },
     },
     files: ['test/index.js'],

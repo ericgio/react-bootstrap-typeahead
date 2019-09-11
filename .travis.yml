@@ -16,13 +16,9 @@ node_js:
 cache:
   directories: node_modules
 
-before_install:
-  - export CHROME_BIN=chromium-browser
-
 before_script:
   - npm rebuild node-sass
 
 script:
-  - npm run lint
-  - npm run test:ci
+  - npm run check
   - npm run build
