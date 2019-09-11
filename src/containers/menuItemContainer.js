@@ -7,8 +7,6 @@ import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded}
 
 const menuItemContainer = (Component) => {
   class WrappedMenuItem extends React.Component {
-    static displayName = `MenuItemContainer(${getDisplayName(Component)})`;
-
     componentDidMount() {
       this._maybeUpdateItem();
     }
@@ -75,6 +73,9 @@ const menuItemContainer = (Component) => {
       }
     }
   }
+
+  WrappedMenuItem.displayName =
+    `MenuItemContainer(${getDisplayName(Component)})`;
 
   WrappedMenuItem.propTypes = {
     option: PropTypes.oneOfType([

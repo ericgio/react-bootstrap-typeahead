@@ -34,8 +34,6 @@ function copyStyles(inputNode, hintNode) {
 
 function hintContainer(Input) {
   class HintedInput extends React.Component {
-    static displayName = `HintContainer(${getDisplayName(Input)})`;
-
     componentDidMount() {
       copyStyles(this._input, this._hint);
     }
@@ -101,6 +99,8 @@ function hintContainer(Input) {
       onKeyDown(e);
     }
   }
+
+  HintedInput.displayName = `HintContainer(${getDisplayName(Input)})`;
 
   return withContext(HintedInput, [
     'hintText',

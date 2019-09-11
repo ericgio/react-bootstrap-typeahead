@@ -7,8 +7,6 @@ import {getDisplayName, getInputText, getMenuItemId} from '../utils';
 
 function inputContainer(Input) {
   class WrappedInput extends React.Component {
-    static displayName = `InputContainer(${getDisplayName(Input)})`;
-
     render() {
       const {
         activeIndex,
@@ -91,6 +89,8 @@ function inputContainer(Input) {
       );
     }
   }
+
+  WrappedInput.displayName = `InputContainer(${getDisplayName(Input)})`;
 
   return WrappedInput;
 }

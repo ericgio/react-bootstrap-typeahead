@@ -47,13 +47,14 @@
     "object-curly-spacing": [2, "never"],
     "operator-linebreak": [2, "after"],
     "react/destructuring-assignment": 0,
-    "react/jsx-filename-extension": [2, {
-      "extensions": [".js", ".jsx"]
-    }],
     "react/jsx-closing-bracket-location": [2, {
       "nonEmpty": "after-props",
       "selfClosing": "tag-aligned",
     }],
+    "react/jsx-filename-extension": [2, {
+      "extensions": [".js", ".jsx"]
+    }],
+    "react/jsx-fragments": [2, "element"],
     "react/jsx-wrap-multilines": [2, {
       "arrow": "parens-new-line",
       "return": "parens-new-line",
@@ -73,6 +74,7 @@
         "everything-else"
       ],
     }],
+    "react/state-in-constructor": [2, "never"],
     "sort-keys": [2, "asc", {
       "caseSensitive": false,
       "natural": true,
@@ -84,6 +86,7 @@
     "one-var": 0,
     "one-var-declaration-per-line": 0,
     "react/jsx-one-expression-per-line": 0,
+    "react/jsx-props-no-spreading": 0,
     "react/prop-types": 0,
     "react/require-default-props": 0,
   },
