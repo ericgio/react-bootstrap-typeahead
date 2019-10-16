@@ -784,7 +784,6 @@ describe('<Typeahead>', () => {
       keyCode = 0;
 
       typeahead.setProps({
-        /* eslint-disable-next-line prefer-destructuring */
         onKeyDown: (e) => keyCode = e.keyCode,
       });
 
