@@ -83,7 +83,7 @@
     "eslint": "^6.0.1",
     "eslint-config-ericgio": "^5.0.0",
     "eslint-plugin-flowtype": "^4.3.0",
-    "flow-bin": "^0.107.0",
+    "flow-bin": "^0.109.0",
     "gh-pages": "^2.0.1",
     "husky": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",

@@ -18,6 +18,18 @@ export type OverlayProps = {
   referenceElement: ?ReferenceElement,
 };
 
+// Flow expects a string literal value for `placement`.
+const PLACEMENT = {
+  bottom: {
+    end: 'bottom-end',
+    start: 'bottom-start',
+  },
+  top: {
+    end: 'top-end',
+    start: 'top-start',
+  },
+};
+
 const propTypes = {
   /**
    * Specify menu alignment. The default value is `justify`, which makes the
@@ -65,9 +77,13 @@ function getModifiers({ align, flip }: OverlayProps) {
         // even when `align` is undefined.
         if (align !== 'right' && align !== 'left') {
           // Set the popper width to match the target width.
-          /* eslint-disable-next-line no-param-reassign */
+          /* eslint-disable no-param-reassign */
+          // CSS style properties expect string but get number from Popper.js:
+          // $FlowFixMe
           data.styles.width = data.offsets.reference.width;
+          /* eslint-enable no-param-reassign */
         }
+
         return data;
       },
     },
@@ -112,7 +128,7 @@ class Overlay extends React.Component<OverlayProps> {
     return (
       <Popper
         modifiers={getModifiers(this.props)}
-        placement={`${yPlacement}-${xPlacement}`}
+        placement={PLACEMENT[yPlacement][xPlacement]}
         positionFixed={positionFixed}
         referenceElement={referenceElement}>
         {({ ref, ...props }) => children({
