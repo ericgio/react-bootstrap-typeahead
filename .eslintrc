@@ -17,7 +17,7 @@
       "onlyFilesWithFlowAnnotation": true
     },
     "react": {
-      "flowVersion": "0.107"
+      "flowVersion": "0.109"
     }
   },
   "rules": {
