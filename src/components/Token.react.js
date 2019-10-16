@@ -7,19 +7,26 @@ import PropTypes from 'prop-types';
 import ClearButton from './ClearButton.react';
 
 import tokenContainer from '../containers/tokenContainer';
+import { isFunction } from '../utils';
 
 const propTypes = {
   active: PropTypes.bool,
+  disabled: PropTypes.bool,
   /**
    * Handler for removing/deleting the token. If not defined, the token will
    * be rendered in a read-only state.
    */
   onRemove: PropTypes.func,
+  /**
+   * Explicitly force a read-only state on the token.
+   */
+  readOnly: PropTypes.bool,
   tabIndex: PropTypes.number,
 };
 
 const defaultProps = {
   active: false,
+  disabled: false,
   tabIndex: 0,
 };
 
@@ -30,6 +37,7 @@ type Props = {
   disabled?: boolean,
   href?: string,
   onRemove?: Function,
+  readOnly?: boolean,
   tabIndex: number,
 };
 
@@ -44,7 +52,9 @@ class Token extends React.Component<Props> {
   static defaultProps = defaultProps;
 
   render() {
-    return this.props.onRemove && !this.props.disabled ?
+    const { disabled, onRemove, readOnly } = this.props;
+
+    return !disabled && !readOnly && isFunction(onRemove) ?
       this._renderRemoveableToken() :
       this._renderToken();
   }
