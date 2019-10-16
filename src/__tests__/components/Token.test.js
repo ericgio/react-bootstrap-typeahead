@@ -16,6 +16,24 @@ describe('<Token>', () => {
     expect(token.text()).toBe('This is a token');
   });
 
+  describe('renders a read-only token', () => {
+    afterEach(() => {
+      expect(token.find('div').hasClass('rbt-token-removeable')).toBe(false);
+    });
+
+    test('when the token is disabled', () => {
+      token.setProps({ disabled: true });
+      expect(token.find('div').hasClass('rbt-token-disabled')).toBe(true);
+    });
+
+    test('when the token is read-only', () => {
+      token.setProps({
+        onRemove: () => {},
+        readOnly: true,
+      });
+    });
+  });
+
   test('renders a removeable token', () => {
     const onRemove = jest.fn();
 
