@@ -14,6 +14,11 @@ import { BS3, BS4 } from '../util/bsVersions';
 const GITHUB_URL = 'https://github.com/ericgio/react-bootstrap-typeahead';
 
 class PageHeader extends React.Component {
+  static propTypes = {
+    onVersionChange: PropTypes.func.isRequired,
+    selectedVersion: PropTypes.string.isRequired,
+  };
+
   state = {
     isOpen: false,
     show: false,
@@ -86,10 +91,5 @@ class PageHeader extends React.Component {
       contents;
   }
 }
-
-PageHeader.propTypes = {
-  onVersionChange: PropTypes.func.isRequired,
-  selectedVersion: PropTypes.string.isRequired,
-};
 
 export default PageHeader;

@@ -26,6 +26,7 @@ type Props = {
 const menuItemContainer = (Component: ComponentType<*>) => {
   class WrappedMenuItem extends React.Component<* & Props> {
     static displayName = `menuItemContainer(${getDisplayName(Component)})`;
+    static propTypes = propTypes;
 
     componentDidMount() {
       this._maybeUpdateItem();
@@ -104,8 +105,6 @@ const menuItemContainer = (Component: ComponentType<*>) => {
       }
     }
   }
-
-  WrappedMenuItem.propTypes = propTypes;
 
   return withContext(WrappedMenuItem, [
     'activeIndex',

@@ -15,6 +15,12 @@
   "settings": {
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
+    },
+    "react": {
+      "flowVersion": "0.107"
     }
-  }
+  },
+  "rules": {
+    "react/static-property-placement": [2, "static public field"],
+  },
 }
