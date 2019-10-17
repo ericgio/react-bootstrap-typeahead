@@ -888,6 +888,14 @@ describe('<Typeahead>', () => {
     });
   });
 
+  test('behavior when tabbing', () => {
+    focus(typeahead);
+    expect(getState(typeahead).showMenu).toBe(true);
+
+    keyDown(typeahead, TAB);
+    expect(getState(typeahead).showMenu).toBe(false);
+  });
+
   test('keydown handler', () => {
     const onKeyDown = jest.fn();
 

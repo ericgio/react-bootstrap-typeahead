@@ -518,17 +518,16 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
           this.items
         ));
         break;
-      case ESC:
-        this._hideMenu();
-        break;
       case RETURN:
         // Prevent form submission while menu is open.
         e.preventDefault();
         activeItem && this._handleMenuItemSelect(activeItem, e);
         break;
+      case ESC:
       case TAB:
-        // Don't blur the input when the menu is open.
-        e.preventDefault();
+        // ESC simply hides the menu. TAB will blur the input and move focus to
+        // the next item; hide the menu so it doesn't gain focus.
+        this._hideMenu();
         break;
       default:
         break;
