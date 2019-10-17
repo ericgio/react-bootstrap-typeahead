@@ -5,7 +5,7 @@ const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const replace = require('rollup-plugin-replace');
 const { sizeSnapshot } = require('rollup-plugin-size-snapshot');
-const { uglify } = require('rollup-plugin-uglify');
+const { terser } = require('rollup-plugin-terser');
 
 const { name } = require('./package.json');
 
@@ -37,7 +37,7 @@ const getUmdConfig = (isProd) => ({
       ),
     }),
     sizeSnapshot(),
-    isProd ? uglify() : null,
+    isProd ? terser() : null,
   ],
 });
 
