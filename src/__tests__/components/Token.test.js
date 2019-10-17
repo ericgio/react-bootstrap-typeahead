@@ -60,7 +60,12 @@ describe('<Token>', () => {
   });
 
   describe('event handlers', () => {
+    let mockEvent, stopPropagation;
+
     beforeEach(() => {
+      stopPropagation = jest.fn();
+      mockEvent = { stopPropagation };
+
       // Must set `onRemove` to make it a removeable token.
       token.setProps({ onRemove: () => {} });
       expect(token.state('active')).toBe(false);
@@ -71,24 +76,35 @@ describe('<Token>', () => {
     });
 
     test('handles click events', () => {
-      const stopPropagation = jest.fn();
+      const onClick = jest.fn();
 
-      token.simulate('click', { stopPropagation });
+      token.setProps({ onClick });
+      token.simulate('click', mockEvent);
+
+      expect(onClick).toHaveBeenCalledTimes(1);
       expect(stopPropagation).toHaveBeenCalledTimes(1);
       expect(token.state('active')).toBe(true);
     });
 
     test('handles focus events', () => {
-      const stopPropagation = jest.fn();
+      const onFocus = jest.fn();
 
-      token.simulate('focus', { stopPropagation });
+      token.setProps({ onFocus });
+      token.simulate('focus', mockEvent);
+
+      expect(onFocus).toHaveBeenCalledTimes(1);
       expect(stopPropagation).toHaveBeenCalledTimes(1);
       expect(token.state('active')).toBe(true);
     });
 
     test('handles blur events', () => {
+      const onBlur = jest.fn();
+
+      token.setProps({ onBlur });
       token.setState({ active: true });
       token.simulate('blur');
+
+      expect(onBlur).toHaveBeenCalledTimes(1);
       expect(token.state('active')).toBe(false);
     });
 
