@@ -1,25 +1,20 @@
 // @flow
 
 export type BsSize = 'large' | 'lg' | 'small' | 'sm';
-
 export type EventHandler = (SyntheticEvent<HTMLElement>) => void;
-
 export type Id = number | string;
-
-export type LabelKey = string | Function;
-
+export type InputRef = (HTMLInputElement) => void;
 export type Option = string | { [string]: any };
 export type OptionHandler = (Option) => void;
-
+export type LabelKey = string | (Option) => string;
 export type Style = { [string]: any };
-
 export type ReferenceElement = HTMLElement;
 
 export type InputProps = {
   autoComplete: string,
   className?: string,
   disabled?: boolean,
-  inputRef: (HTMLInputElement) => void,
+  inputRef: InputRef,
   onBlur: EventHandler,
   onChange: EventHandler,
   onClick: EventHandler,
@@ -33,9 +28,8 @@ export type InputProps = {
 
 export type InputMultiProps = InputProps & {
   inputClassName?: string,
-  labelKey: LabelKey,
   onRemove: OptionHandler,
-  selected: Option[],
+  tabIndex: ?number,
 };
 
 export type MenuProps = {
@@ -66,7 +60,7 @@ export type TypeaheadProps = {
   onBlur: EventHandler,
   onFocus: EventHandler,
   onInputChange: (string, SyntheticEvent<HTMLInputElement>) => void,
-  onKeyDown: (SyntheticKeyboardEvent<HTMLInputElement>) => void,
+  onKeyDown: EventHandler,
   onPaginate: (SyntheticEvent<HTMLElement>, number) => void,
   open?: boolean,
   options: Option[],
@@ -87,14 +81,14 @@ export type TypeaheadState = {
 
 export type TypeaheadPropsAndState = TypeaheadProps & TypeaheadState;
 
-export type TypeaheadInnerProps = TypeaheadPropsAndState & {
+export type TypeaheadManagerProps = TypeaheadPropsAndState & {
   children: Function,
   getReferenceElement: Function,
-  inputRef: (HTMLInputElement) => void,
+  inputRef: InputRef,
   isMenuShown: boolean,
   onActiveItemChange: OptionHandler,
   onAdd: OptionHandler,
-  onChange: (SyntheticEvent<HTMLInputElement>) => void,
+  onChange: EventHandler,
   onClear: () => void,
   onInitialItemChange: (?Option) => void,
   onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,

@@ -16,34 +16,30 @@ import TypeaheadMenu from './TypeaheadMenu.react';
 import { isFunction, preventInputBlur } from '../utils';
 import { checkPropType, inputPropsType } from '../propTypes';
 
-import type { TypeaheadMenuComponentProps } from './TypeaheadMenu.react';
-import type { TypeaheadInputMultiComponentProps } from './TypeaheadInputMulti.react';
+import type { TypeaheadMenuProps } from './TypeaheadMenu.react';
 import type {
   BsSize,
   InputProps,
   MenuProps,
   Option,
   TypeaheadProps,
-  TypeaheadInnerProps,
+  TypeaheadManagerProps,
 } from '../types';
 
-type Props =
-  TypeaheadProps &
-  TypeaheadInputMultiComponentProps &
-  TypeaheadMenuComponentProps & {
-    bsSize?: BsSize,
-    className?: string,
-    clearButton: boolean,
-    disabled?: boolean,
-    inputProps: Object,
-    isInvalid: boolean,
-    isLoading: boolean,
-    isValid: boolean,
-    renderInput: Function,
-    renderMenu: Function,
-    renderToken: Function,
-    style?: Object,
-  };
+type Props = TypeaheadProps & TypeaheadMenuProps & {
+  bsSize?: BsSize,
+  className?: string,
+  clearButton: boolean,
+  disabled?: boolean,
+  inputProps: Object,
+  isInvalid: boolean,
+  isLoading: boolean,
+  isValid: boolean,
+  renderInput: Function,
+  renderMenu: Function,
+  renderToken: Function,
+  style?: Object,
+};
 
 const propTypes = {
   /**
@@ -89,11 +85,9 @@ const defaultProps = {
   isValid: false,
   renderMenu: (
     results: Option[],
-    menuProps: MenuProps & TypeaheadMenuComponentProps,
-    state: TypeaheadInnerProps
+    menuProps: TypeaheadMenuProps,
+    state: TypeaheadManagerProps
   ) => (
-    // TODO: Merged props not registering correctly.
-    // $FlowFixMe
     <TypeaheadMenu
       {...menuProps}
       labelKey={state.labelKey}
@@ -149,7 +143,7 @@ class TypeaheadComponent extends React.Component<Props> {
     return this._instance;
   }
 
-  _renderInput = (inputProps: InputProps, state: TypeaheadInnerProps) => {
+  _renderInput = (inputProps: InputProps, state: TypeaheadManagerProps) => {
     const {
       bsSize,
       isInvalid,
@@ -183,7 +177,7 @@ class TypeaheadComponent extends React.Component<Props> {
   _renderMenu = (
     results: Option[],
     menuProps: MenuProps,
-    state: TypeaheadInnerProps
+    state: TypeaheadManagerProps
   ) => {
     const {
       emptyLabel,
@@ -206,7 +200,7 @@ class TypeaheadComponent extends React.Component<Props> {
     }, state);
   }
 
-  _renderAux = (state: TypeaheadInnerProps) => {
+  _renderAux = (state: TypeaheadManagerProps) => {
     const { bsSize, clearButton, disabled, isLoading } = this.props;
     const { onClear, selected } = state;
 

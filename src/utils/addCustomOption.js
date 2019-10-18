@@ -2,11 +2,11 @@
 
 import getOptionLabel from './getOptionLabel';
 
-import type { Option, TypeaheadInnerProps } from '../types';
+import type { Option, TypeaheadManagerProps } from '../types';
 
 function addCustomOption(
   results: Option[],
-  props: TypeaheadInnerProps
+  props: TypeaheadManagerProps
 ): boolean {
   const { allowNew, labelKey, text } = props;
 

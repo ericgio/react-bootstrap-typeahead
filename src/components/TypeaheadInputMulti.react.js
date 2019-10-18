@@ -13,14 +13,13 @@ import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { InputMultiProps, Option } from '../types';
+import type { InputMultiProps, LabelKey, Option } from '../types';
 
-export type TypeaheadInputMultiComponentProps = {
+type Props = InputMultiProps & {
+  labelKey: LabelKey,
   renderToken: Function,
-  tabIndex: ?number,
+  selected: Option[],
 };
-
-type Props = InputMultiProps & TypeaheadInputMultiComponentProps;
 
 const HintedInput = hintContainer(Input);
 
@@ -33,7 +32,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-  renderToken: (option: Option, props: Props, idx: number) => (
+  renderToken: (
+    option: Option,
+    props: Props,
+    idx: number
+  ) => (
     <Token
       disabled={props.disabled}
       key={idx}

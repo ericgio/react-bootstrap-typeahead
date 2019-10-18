@@ -40,7 +40,7 @@ const defaultProps = {
   maxHeight: '300px',
 };
 
-export type MenuComponentProps = {
+export type MenuComponentProps = MenuProps & {
   children?: Node,
   className?: string,
   emptyLabel: Node,
@@ -49,18 +49,16 @@ export type MenuComponentProps = {
   text: string,
 };
 
-type Props = MenuProps & MenuComponentProps;
-
 /**
  * Menu component that handles empty state when passed a set of results.
  */
-class Menu extends React.Component<Props> {
+class Menu extends React.Component<MenuComponentProps> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
   static Divider = MenuDivider;
   static Header = MenuHeader;
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: MenuComponentProps) {
     const { inputHeight, scheduleUpdate } = this.props;
 
     // Update the menu position if the height of the input changes.

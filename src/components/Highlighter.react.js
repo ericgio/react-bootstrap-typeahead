@@ -15,7 +15,7 @@ const defaultProps = {
   highlightClassName: 'rbt-highlight-text',
 };
 
-type HighlighterProps = {
+export type HighlighterProps = {
   children: string,
   highlightClassName: string,
   search: string,

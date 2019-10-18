@@ -7,7 +7,7 @@ import { getHintText, getInputProps, getInputText, getIsOnlyResult, pick } from 
 import { RETURN } from '../constants';
 
 import type { TypeaheadContextType } from './Context';
-import type { TypeaheadInnerProps } from '../types';
+import type { TypeaheadManagerProps } from '../types';
 
 const inputPropKeys = [
   'activeIndex',
@@ -64,7 +64,7 @@ const getOverlayProps = ({ isMenuShown, referenceElement }) => (props) => ({
 });
 
 function getTypeaheadContextValue(
-  props: TypeaheadInnerProps
+  props: TypeaheadManagerProps
 ): TypeaheadContextType {
   return {
     ...pick(props, typeaheadContextKeys),
@@ -73,8 +73,8 @@ function getTypeaheadContextValue(
   };
 }
 
-class TypeaheadManager extends React.Component<TypeaheadInnerProps> {
-  componentDidUpdate(prevProps: TypeaheadInnerProps) {
+class TypeaheadManager extends React.Component<TypeaheadManagerProps> {
+  componentDidUpdate(prevProps: TypeaheadManagerProps) {
     const { allowNew, onInitialItemChange, results } = this.props;
 
     // Clear the initial item when there are no results.
