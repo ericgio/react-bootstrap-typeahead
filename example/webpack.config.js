@@ -1,7 +1,7 @@
 const path = require('path');
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, argv) => {
   return {
@@ -34,8 +34,9 @@ module.exports = (env, argv) => {
     },
     optimization: {
       minimizer: [
-        new UglifyJsPlugin({
-          uglifyOptions: {
+        new TerserPlugin({
+          extractComments: false,
+          terserOptions: {
             output: {
               comments: false,
             },
