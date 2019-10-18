@@ -1,74 +1,43 @@
 // @flow
 
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import cx from 'classnames';
-import PropTypes from 'prop-types';
-import React, { type ElementRef } from 'react';
+import React, { type ElementRef, type Node } from 'react';
 
 import Input from './Input.react';
-import Token from './Token.react';
 
-import { getOptionLabel, isSelectable } from '../utils';
+import { isSelectable } from '../utils';
 import hintContainer from '../containers/hintContainer';
 import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { InputMultiProps, LabelKey, Option } from '../types';
+import type { InputProps, Option } from '../types';
 
-type Props = InputMultiProps & {
-  labelKey: LabelKey,
-  renderToken: Function,
+type Props = InputProps & {
+  children: Node,
   selected: Option[],
 };
 
 const HintedInput = hintContainer(Input);
 
-const propTypes = {
-  /**
-   * Provides a hook for customized rendering of tokens when multiple
-   * selections are enabled.
-   */
-  renderToken: PropTypes.func,
-};
-
-const defaultProps = {
-  renderToken: (
-    option: Option,
-    props: Props,
-    idx: number
-  ) => (
-    <Token
-      disabled={props.disabled}
-      key={idx}
-      onRemove={props.onRemove}
-      tabIndex={props.tabIndex}>
-      {getOptionLabel(option, props.labelKey)}
-    </Token>
-  ),
-};
-
 class TypeaheadInputMulti extends React.Component<Props> {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
-
   _input: ElementRef<*> = null;
   _wrapper: ElementRef<*> = null;
 
   render() {
     const {
+      children,
       className,
       inputClassName,
-      labelKey,
-      onRemove,
       placeholder,
-      renderToken,
       selected,
       ...props
     } = this.props;
 
     return (
-      /* eslint-disable jsx-a11y/no-static-element-interactions */
-      /* eslint-disable jsx-a11y/click-events-have-key-events */
       <div
         className={cx('rbt-input-multi', className)}
         disabled={props.disabled}
@@ -76,7 +45,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
         onFocus={this._handleContainerClickOrFocus}
         tabIndex={-1}>
         <div className="rbt-input-wrapper" ref={(el) => this._wrapper = el}>
-          {selected.map(this._renderToken)}
+          {children}
           <HintedInput
             {...props}
             className={inputClassName}
@@ -99,19 +68,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
           />
         </div>
       </div>
-      /* eslint-enable jsx-a11y/no-static-element-interactions */
-      /* eslint-enable jsx-a11y/click-events-have-key-events */
     );
-  }
-
-  _renderToken = (option: Option, idx: number) => {
-    const { onRemove, renderToken } = this.props;
-    const props = {
-      ...this.props,
-      onRemove: () => onRemove(option),
-    };
-
-    return renderToken(option, props, idx);
   }
 
   /**

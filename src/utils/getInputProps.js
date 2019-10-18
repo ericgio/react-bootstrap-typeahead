@@ -12,10 +12,8 @@ const getInputProps = ({
   id,
   isFocused,
   isMenuShown,
-  labelKey,
   multiple,
   onFocus,
-  onRemove,
   placeholder,
   ...rest
 }: TypeaheadManagerProps) => ({ className, ...inputProps }: Object = {}) => {
@@ -57,7 +55,6 @@ const getInputProps = ({
     'aria-autocomplete': 'list',
     'aria-expanded': undefined,
     inputClassName: className,
-    onRemove,
     role: undefined,
   };
 };

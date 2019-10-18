@@ -14,6 +14,7 @@ export type InputProps = {
   autoComplete: string,
   className?: string,
   disabled?: boolean,
+  inputClassName?: string,
   inputRef: InputRef,
   onBlur: EventHandler,
   onChange: EventHandler,
@@ -22,14 +23,9 @@ export type InputProps = {
   onKeyDown: EventHandler,
   placeholder?: string,
   ref: Function,
+  tabIndex: ?number,
   type: string,
   value: string,
-};
-
-export type InputMultiProps = InputProps & {
-  inputClassName?: string,
-  onRemove: OptionHandler,
-  tabIndex: ?number,
 };
 
 export type MenuProps = {

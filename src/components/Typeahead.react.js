@@ -9,11 +9,12 @@ import Typeahead from '../core/Typeahead';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
+import Token from './Token.react';
 import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import { isFunction, preventInputBlur } from '../utils';
+import { getOptionLabel, isFunction, preventInputBlur } from '../utils';
 import { checkPropType, inputPropsType } from '../propTypes';
 
 import type { TypeaheadMenuProps } from './TypeaheadMenu.react';
@@ -75,6 +76,10 @@ const propTypes = {
    * Callback for custom menu rendering.
    */
   renderMenu: PropTypes.func,
+  /**
+   * Callback for custom menu rendering.
+   */
+  renderToken: PropTypes.func,
 };
 
 const defaultProps = {
@@ -86,14 +91,27 @@ const defaultProps = {
   renderMenu: (
     results: Option[],
     menuProps: TypeaheadMenuProps,
-    state: TypeaheadManagerProps
+    props: TypeaheadManagerProps
   ) => (
     <TypeaheadMenu
       {...menuProps}
-      labelKey={state.labelKey}
+      labelKey={props.labelKey}
       options={results}
-      text={state.text}
+      text={props.text}
     />
+  ),
+  renderToken: (
+    option: Option,
+    props: TypeaheadManagerProps & InputProps,
+    idx: number
+  ) => (
+    <Token
+      disabled={props.disabled}
+      key={idx}
+      onRemove={props.onRemove}
+      tabIndex={props.tabIndex}>
+      {getOptionLabel(option, props.labelKey)}
+    </Token>
   ),
 };
 
@@ -164,14 +182,25 @@ class TypeaheadComponent extends React.Component<Props> {
       isValid,
     };
 
-    return multiple ?
+    if (!multiple) {
+      return <TypeaheadInputSingle {...props} />;
+    }
+
+    const { labelKey, onRemove, selected } = state;
+
+    return (
       <TypeaheadInputMulti
         {...props}
-        labelKey={state.labelKey}
-        renderToken={renderToken}
-        selected={state.selected}
-      /> :
-      <TypeaheadInputSingle {...props} />;
+        selected={selected}>
+        {selected.map((option, idx) => (
+          renderToken(option, {
+            ...props,
+            labelKey,
+            onRemove: () => onRemove(option),
+          }, idx)
+        ))}
+      </TypeaheadInputMulti>
+    );
   }
 
   _renderMenu = (

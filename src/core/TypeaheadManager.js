@@ -16,15 +16,12 @@ const inputPropKeys = [
   'inputRef',
   'isFocused',
   'isMenuShown',
-  'labelKey',
   'multiple',
   'onBlur',
   'onChange',
   'onFocus',
   'onKeyDown',
-  'onRemove',
   'placeholder',
-  'selected',
 ];
 
 const overlayPropKeys = [
@@ -40,6 +37,7 @@ const stateKeys = [
   'isMenuShown',
   'labelKey',
   'onClear',
+  'onRemove',
   'results',
   'selected',
   'text',
