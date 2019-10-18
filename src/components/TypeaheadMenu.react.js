@@ -10,17 +10,14 @@ import MenuItem from './MenuItem.react';
 import { getOptionLabel, getOptionProperty } from '../utils';
 
 import type { MenuComponentProps } from './Menu.react';
-import type { LabelKey, MenuProps, Option } from '../types';
+import type { LabelKey, Option } from '../types';
 
-export type TypeaheadMenuComponentProps = MenuComponentProps & {
+export type TypeaheadMenuProps = MenuComponentProps & {
+  labelKey: LabelKey,
   newSelectionPrefix: string,
+  options: Option[],
   paginationText: string,
   renderMenuItemChildren: Function,
-};
-
-type Props = MenuProps & TypeaheadMenuComponentProps & {
-  labelKey: LabelKey,
-  options: Option[],
 };
 
 const propTypes = {
@@ -42,14 +39,18 @@ const propTypes = {
 const defaultProps = {
   newSelectionPrefix: 'New selection: ',
   paginationText: 'Display additional results...',
-  renderMenuItemChildren: (option: Option, props: Props, idx: number) => (
+  renderMenuItemChildren: (
+    option: Option,
+    props: TypeaheadMenuProps,
+    idx: number
+  ) => (
     <Highlighter search={props.text}>
       {getOptionLabel(option, props.labelKey)}
     </Highlighter>
   ),
 };
 
-class TypeaheadMenu extends React.Component<Props> {
+class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 

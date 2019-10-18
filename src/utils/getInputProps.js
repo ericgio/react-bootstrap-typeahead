@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import getMenuItemId from './getMenuItemId';
 
-import type { TypeaheadInnerProps } from '../types';
+import type { TypeaheadManagerProps } from '../types';
 
 const getInputProps = ({
   activeIndex,
@@ -18,7 +18,7 @@ const getInputProps = ({
   onRemove,
   placeholder,
   ...rest
-}: TypeaheadInnerProps) => ({ className, ...inputProps }: Object = {}) => {
+}: TypeaheadManagerProps) => ({ className, ...inputProps }: Object = {}) => {
   const props = {
     /* eslint-disable sort-keys */
     // These props can be overridden by values in `inputProps`.
