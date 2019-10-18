@@ -2,6 +2,7 @@ import { mount } from 'enzyme';
 import { head } from 'lodash';
 import React from 'react';
 
+import Token from '../../components/Token.react';
 import TypeaheadInputMulti from '../../components/TypeaheadInputMulti.react';
 
 import options from '../data';
@@ -9,19 +10,24 @@ import { focus, getFormControl, getHint, getInput, getTokens, isFocused, keyDown
 import { BACKSPACE, RETURN } from '../../constants';
 
 describe('<TypeaheadInputMulti>', () => {
-  let wrapper;
+  let selected, wrapper;
 
   beforeEach(() => {
+    selected = options.slice(1, 4);
     wrapper = mount(
       <TestProvider
         multiple
-        options={options}
-        selected={options.slice(1, 4)}>
+        selected={selected}>
         {({ getInputProps, state }) => (
           <TypeaheadInputMulti
             {...getInputProps()}
-            labelKey={state.labelKey}
-          />
+            selected={selected}>
+            {selected.map(({ name }) => (
+              <Token key={name} onRemove={() => {}}>
+                {name}
+              </Token>
+            ))}
+          </TypeaheadInputMulti>
         )}
       </TestProvider>
     );
