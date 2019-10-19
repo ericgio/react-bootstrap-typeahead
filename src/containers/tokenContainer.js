@@ -4,16 +4,18 @@ import PropTypes from 'prop-types';
 import React, { type ComponentType } from 'react';
 import { RootCloseWrapper } from 'react-overlays';
 
-import { getDisplayName, noop } from '../utils';
+import { getDisplayName, isFunction, noop } from '../utils';
 import { BACKSPACE } from '../constants';
 
-import type { EventHandler } from '../types';
+import { optionType } from '../propTypes';
+import type { EventHandler, Option, OptionHandler } from '../types';
 
 type Props = {
   onBlur: EventHandler,
   onClick: EventHandler,
   onFocus: EventHandler,
-  onRemove: Function,
+  onRemove?: OptionHandler,
+  option: Option,
 };
 
 type State = {
@@ -24,6 +26,8 @@ const propTypes = {
   onBlur: PropTypes.func,
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
+  onRemove: PropTypes.func,
+  option: optionType.isRequired,
 };
 
 const defaultProps = {
@@ -46,6 +50,8 @@ const tokenContainer = (Component: ComponentType<*>) => {
     };
 
     render() {
+      const { onRemove } = this.props;
+
       return (
         <RootCloseWrapper onRootClose={this._handleBlur}>
           <Component
@@ -55,9 +61,21 @@ const tokenContainer = (Component: ComponentType<*>) => {
             onClick={this._handleClick}
             onFocus={this._handleFocus}
             onKeyDown={this._handleKeyDown}
+            onRemove={isFunction(onRemove) ? this._handleRemove : undefined}
           />
         </RootCloseWrapper>
       );
+    }
+
+    _handleActiveChange = (
+      e: SyntheticEvent<HTMLElement>,
+      active: boolean,
+      callback: EventHandler,
+    ) => {
+      // e.persist() isn't always present.
+      e.persist && e.persist();
+      e.stopPropagation();
+      this.setState({ active }, () => callback(e));
     }
 
     _handleBlur = (e: SyntheticEvent<HTMLElement>) => {
@@ -79,7 +97,7 @@ const tokenContainer = (Component: ComponentType<*>) => {
             // Prevent backspace keypress from triggering the browser "back"
             // action.
             e.preventDefault();
-            this.props.onRemove();
+            this._handleRemove();
           }
           break;
         default:
@@ -87,15 +105,11 @@ const tokenContainer = (Component: ComponentType<*>) => {
       }
     }
 
-    _handleActiveChange = (
-      e: SyntheticEvent<HTMLElement>,
-      active: boolean,
-      callback: EventHandler,
-    ) => {
-      // e.persist() isn't always present.
-      e.persist && e.persist();
-      e.stopPropagation();
-      this.setState({ active }, () => callback(e));
+    _handleRemove = () => {
+      const { onRemove, option } = this.props;
+
+      // $FlowFixMe: Flow is barfing on this for some reason.
+      isFunction(onRemove) && onRemove(option);
     }
   }
 

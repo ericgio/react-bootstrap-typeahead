@@ -5,13 +5,31 @@
 - [Version 2.0](Upgrading.md#v20)
 - [Version 1.0](Upgrading.md#v10)
 
-## v4.0
+## v4.0 Breaking Changes
 
 ### Drop support for older versions of React
 React and ReactDOM >=15.3 are now required as peer dependencies.
 
 ### Props
 - `onMenuHide` and `onMenuShow` were removed. Use `onMenuToggle` instead.
+
+### `option` is now required for a `Token` to be removeable
+Pass `option` as a prop to `Token` (or `tokenContainer` if using your own token markup) so the container can correctly handle the `onRemove` callback.
+
+```jsx
+<Typeahead
+  ...
+  renderToken={(option, props, idx) => (
+    <Token
+      ...
+      onRemove={props.onRemove}
+      option={option}>
+      {option.label}
+    </Token>
+  )}
+/>
+```
+
 
 ### Falsy `emptyLabel` no longer hides the menu when there are no results
 This behavior was a legacy workaround introduced before `renderMenu` could return `null`. That is no longer the case and `renderMenu` should now be used to achieve the behavior:
@@ -54,7 +72,7 @@ This lifecycle is deprecated and was removed. There should most likely be no imp
 
 - If you were passing an empty array to the `selected` prop to "clear" the component, this will not work as expected. Use the `clear()` method instead.
 
-## v3.0
+## v3.0 Breaking Changes
 
 ### Props
 - The `name` prop was deprecated in v2.0 and is now gone.

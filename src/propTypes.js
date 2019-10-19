@@ -105,7 +105,7 @@ export function labelKeyType(props, propName, componentName) {
 export const optionType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string,
-]).isRequired;
+]);
 
 export function selectedType(props, propName, componentName) {
   const { onChange, selected } = props;
