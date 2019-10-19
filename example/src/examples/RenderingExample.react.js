@@ -115,7 +115,8 @@ class RenderingExample extends React.Component {
     return (
       <Token
         key={index}
-        onRemove={props.onRemove}>
+        onRemove={props.onRemove}
+        option={option}>
         {`${option.name} (Pop: ${option.population.toLocaleString()})`}
       </Token>
     );

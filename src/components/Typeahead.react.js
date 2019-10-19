@@ -109,6 +109,7 @@ const defaultProps = {
       disabled={props.disabled}
       key={idx}
       onRemove={props.onRemove}
+      option={option}
       tabIndex={props.tabIndex}>
       {getOptionLabel(option, props.labelKey)}
     </Token>
@@ -193,11 +194,7 @@ class TypeaheadComponent extends React.Component<Props> {
         {...props}
         selected={selected}>
         {selected.map((option, idx) => (
-          renderToken(option, {
-            ...props,
-            labelKey,
-            onRemove: () => onRemove(option),
-          }, idx)
+          renderToken(option, { ...props, labelKey, onRemove }, idx)
         ))}
       </TypeaheadInputMulti>
     );

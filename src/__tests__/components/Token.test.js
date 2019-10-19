@@ -16,7 +16,7 @@ describe('<Token>', () => {
     expect(token.text()).toBe('This is a token');
   });
 
-  describe('renders a read-only token', () => {
+  describe('renders a non-removeable token', () => {
     afterEach(() => {
       expect(token.find('div').hasClass('rbt-token-removeable')).toBe(false);
     });
