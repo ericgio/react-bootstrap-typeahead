@@ -2,21 +2,11 @@
 
 /* eslint-disable react/no-unused-prop-types */
 
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Popper } from 'react-popper';
+import { Popper, type PopperChildrenProps } from 'react-popper';
 
-import type { ReferenceElement } from '../types';
-
-export type OverlayProps = {
-  align: 'justify' | 'left' | 'right',
-  children: Function,
-  dropup: boolean,
-  flip: boolean,
-  isMenuShown: boolean,
-  positionFixed: boolean,
-  referenceElement: ?ReferenceElement,
-};
+import type { OverlayProps } from '../types';
 
 const propTypes = {
   /**
@@ -109,7 +99,7 @@ const Overlay = (props: OverlayProps) => {
       placement={getPlacement(props)}
       positionFixed={positionFixed}
       referenceElement={referenceElement}>
-      {({ ref, ...popperProps }) => children({
+      {({ ref, ...popperProps }: PopperChildrenProps) => children({
         ...popperProps,
         innerRef: ref,
         inputHeight: referenceElement ? referenceElement.offsetHeight : 0,

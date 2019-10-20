@@ -3,9 +3,11 @@
 import cx from 'classnames';
 import React from 'react';
 
+import type { InputRefHandler } from '../types';
+
 type Props = {
   className?: string,
-  inputRef: Function,
+  inputRef?: InputRefHandler,
 };
 
 class Input extends React.Component<Props> {

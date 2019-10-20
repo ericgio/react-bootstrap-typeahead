@@ -5,6 +5,8 @@ import React, { type ComponentType, type ElementRef } from 'react';
 import { withContext } from '../core/Context';
 import { getDisplayName, shouldSelectHint } from '../utils';
 
+import type { InputRefHandler, KeyDownHandler } from '../types';
+
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
 function interpolateStyle(
@@ -37,8 +39,8 @@ function copyStyles(inputNode: HTMLInputElement, hintNode: HTMLInputElement) {
 }
 
 type Props = {
-  inputRef: Function,
-  onKeyDown: Function,
+  inputRef: InputRefHandler,
+  onKeyDown: KeyDownHandler,
 };
 
 function hintContainer(Input: ComponentType<*>) {
@@ -105,7 +107,7 @@ function hintContainer(Input: ComponentType<*>) {
       );
     }
 
-    _handleKeyDown = (e) => {
+    _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
       const { initialItem, onAdd, onKeyDown } = this.props;
 
       if (shouldSelectHint(e, this.props)) {

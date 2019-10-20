@@ -2,7 +2,7 @@
 
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React, { type ElementRef } from 'react';
+import * as React from 'react';
 
 import Overlay from '../core/Overlay';
 import Typeahead from '../core/Typeahead';
@@ -36,9 +36,9 @@ type Props = TypeaheadProps & TypeaheadMenuProps & {
   isInvalid: boolean,
   isLoading: boolean,
   isValid: boolean,
-  renderInput: Function,
-  renderMenu: Function,
-  renderToken: Function,
+  renderInput: (InputProps, TypeaheadManagerProps) => React.Node,
+  renderMenu: (Option[], Object, TypeaheadProps) => React.Node,
+  renderToken: (Option, Object & InputProps, number) => React.Node,
   style?: Object,
 };
 
@@ -120,7 +120,7 @@ class TypeaheadComponent extends React.Component<Props> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  _instance: ElementRef<*> = null;
+  _instance: React.ElementRef<*> = null;
 
   render() {
     const { children, className, style } = this.props;

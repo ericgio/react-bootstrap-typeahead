@@ -4,23 +4,26 @@ import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import type { BsSize } from '../types';
+import { noop } from '../utils';
+
+import type { BsSize, EventHandler } from '../types';
 
 const propTypes = {
   bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
   label: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 const defaultProps = {
   label: 'Clear',
+  onClick: noop,
 };
 
 type Props = {
   bsSize?: BsSize,
   className?: string,
   label: string,
-  onClick: Function,
+  onClick: EventHandler,
 };
 
 /**

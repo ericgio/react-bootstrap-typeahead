@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import Highlighter from './Highlighter.react';
@@ -17,7 +17,7 @@ export type TypeaheadMenuProps = MenuComponentProps & {
   newSelectionPrefix: string,
   options: Option[],
   paginationText: string,
-  renderMenuItemChildren: Function,
+  renderMenuItemChildren: (Option, TypeaheadMenuProps, number) => React.Node,
 };
 
 const propTypes = {
