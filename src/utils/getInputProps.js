@@ -8,7 +8,6 @@ import type { TypeaheadManagerProps } from '../types';
 
 const getInputProps = ({
   activeIndex,
-  getReferenceElement,
   id,
   isFocused,
   isMenuShown,

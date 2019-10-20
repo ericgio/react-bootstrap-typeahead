@@ -1,9 +1,14 @@
 // @flow
 
+/* eslint-disable no-use-before-define */
+
+import * as React from 'react';
+
 export type BsSize = 'large' | 'lg' | 'small' | 'sm';
 export type EventHandler = (SyntheticEvent<HTMLElement>) => void;
 export type Id = number | string;
-export type InputRef = (HTMLInputElement) => void;
+export type InputRefHandler = (HTMLInputElement | null) => void;
+export type KeyDownHandler = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
 export type Option = string | { [string]: any };
 export type OptionHandler = (Option) => void;
 export type LabelKey = string | (Option) => string;
@@ -15,28 +20,36 @@ export type InputProps = {
   className?: string,
   disabled?: boolean,
   inputClassName?: string,
-  inputRef: InputRef,
+  inputRef: InputRefHandler,
   onBlur: EventHandler,
   onChange: EventHandler,
   onClick: EventHandler,
   onFocus: EventHandler,
   onKeyDown: EventHandler,
   placeholder?: string,
-  ref: Function,
   tabIndex: ?number,
   type: string,
   value: string,
 };
 
+export type OverlayProps = {
+  align: 'justify' | 'left' | 'right',
+  children: (MenuProps) => React.Node,
+  dropup: boolean,
+  flip: boolean,
+  isMenuShown: boolean,
+  positionFixed: boolean,
+  referenceElement: ?ReferenceElement,
+};
+
 export type MenuProps = {
-  innerRef: Function,
+  innerRef: (HTMLElement | null) => void,
   inputHeight: number,
-  scheduleUpdate: Function,
+  scheduleUpdate: () => void,
   style: { [string]: any },
 };
 
 export type TypeaheadProps = {
-  /* eslint-disable-next-line no-use-before-define */
   allowNew: boolean | (Option[], TypeaheadPropsAndState) => boolean,
   autoFocus: boolean,
   caseSensitive: boolean,
@@ -44,7 +57,6 @@ export type TypeaheadProps = {
   defaultInputValue: string,
   defaultOpen: boolean,
   defaultSelected: Option[],
-  /* eslint-disable-next-line no-use-before-define */
   filterBy: string[] | (Option, TypeaheadPropsAndState) => void,
   highlightOnlyResult: boolean,
   id?: Id,
@@ -78,10 +90,16 @@ export type TypeaheadState = {
 
 export type TypeaheadPropsAndState = TypeaheadProps & TypeaheadState;
 
+export type TypeaheadManagerChildrenProps = {
+  getInputProps: (TypeaheadProps) => InputProps,
+  getOverlayProps: (TypeaheadProps) => OverlayProps,
+  state: TypeaheadManagerProps,
+};
+
 export type TypeaheadManagerProps = TypeaheadPropsAndState & {
-  children: Function,
-  getReferenceElement: Function,
-  inputRef: InputRef,
+  children: (TypeaheadManagerChildrenProps) => React.Node,
+  getReferenceElement: (Element | null) => void,
+  inputRef: InputRefHandler,
   isMenuShown: boolean,
   onActiveItemChange: OptionHandler,
   onAdd: OptionHandler,

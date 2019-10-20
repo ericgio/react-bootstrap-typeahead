@@ -9,6 +9,8 @@ import ClearButton from './ClearButton.react';
 import tokenContainer from '../containers/tokenContainer';
 import { isFunction } from '../utils';
 
+import type { OptionHandler } from '../utils';
+
 const propTypes = {
   active: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -36,7 +38,7 @@ type Props = {
   className?: string,
   disabled?: boolean,
   href?: string,
-  onRemove?: Function,
+  onRemove?: OptionHandler,
   readOnly?: boolean,
   tabIndex: number,
 };
