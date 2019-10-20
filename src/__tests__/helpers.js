@@ -13,6 +13,7 @@ const context = {
   onAdd: noop,
   onInitialItemChange: noop,
   onMenuItemClick: noop,
+  onMenuToggle: noop,
   results: [],
   selectHintOnEnter: false,
 };

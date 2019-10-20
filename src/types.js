@@ -57,6 +57,7 @@ export type TypeaheadProps = {
   onFocus: EventHandler,
   onInputChange: (string, SyntheticEvent<HTMLInputElement>) => void,
   onKeyDown: EventHandler,
+  onMenuToggle: (boolean) => void,
   onPaginate: (SyntheticEvent<HTMLElement>, number) => void,
   open?: boolean,
   options: Option[],
