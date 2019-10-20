@@ -1,10 +1,11 @@
 // @flow
 
+/* eslint-disable react/no-unused-prop-types */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Popper } from 'react-popper';
 
-import { noop } from '../utils';
 import type { ReferenceElement } from '../types';
 
 export type OverlayProps = {
@@ -13,21 +14,8 @@ export type OverlayProps = {
   dropup: boolean,
   flip: boolean,
   isMenuShown: boolean,
-  onMenuToggle: (boolean) => void,
   positionFixed: boolean,
   referenceElement: ?ReferenceElement,
-};
-
-// Flow expects a string literal value for `placement`.
-const PLACEMENT = {
-  bottom: {
-    end: 'bottom-end',
-    start: 'bottom-start',
-  },
-  top: {
-    end: 'top-end',
-    start: 'top-start',
-  },
 };
 
 const propTypes = {
@@ -47,15 +35,10 @@ const propTypes = {
    * Whether or not to automatically adjust the position of the menu when it
    * reaches the viewport boundaries.
    */
-  flip: PropTypes.bool, /* eslint-disable-line react/no-unused-prop-types */
+  flip: PropTypes.bool,
   isMenuShown: PropTypes.bool,
-  /**
-   * Invoked when menu visibility changes.
-   */
-  onMenuToggle: PropTypes.func,
   positionFixed: PropTypes.bool,
-  /* eslint-disable-next-line react/forbid-prop-types */
-  referenceElement: PropTypes.object,
+  referenceElement: PropTypes.instanceOf(Element),
 };
 
 const defaultProps = {
@@ -63,7 +46,6 @@ const defaultProps = {
   dropup: false,
   flip: false,
   isMenuShown: false,
-  onMenuToggle: noop,
   positionFixed: false,
 };
 
@@ -78,8 +60,7 @@ function getModifiers({ align, flip }: OverlayProps) {
         if (align !== 'right' && align !== 'left') {
           // Set the popper width to match the target width.
           /* eslint-disable no-param-reassign */
-          // CSS style properties expect string but get number from Popper.js:
-          // $FlowFixMe
+          // $FlowFixMe: Flow expects string but gets number from Popper.js
           data.styles.width = data.offsets.reference.width;
           /* eslint-enable no-param-reassign */
         }
@@ -96,49 +77,48 @@ function getModifiers({ align, flip }: OverlayProps) {
   };
 }
 
-class Overlay extends React.Component<OverlayProps> {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
+// Flow expects a string literal value for `placement`.
+const PLACEMENT = {
+  bottom: {
+    end: 'bottom-end',
+    start: 'bottom-start',
+  },
+  top: {
+    end: 'top-end',
+    start: 'top-start',
+  },
+};
 
-  componentDidUpdate(prevProps: OverlayProps) {
-    const { isMenuShown, onMenuToggle } = this.props;
+export function getPlacement({ align, dropup }: OverlayProps) {
+  const x = align === 'right' ? 'end' : 'start';
+  const y = dropup ? 'top' : 'bottom';
 
-    if (isMenuShown !== prevProps.isMenuShown) {
-      onMenuToggle(isMenuShown);
-    }
-  }
-
-  render() {
-    const {
-      align,
-      children,
-      dropup,
-      isMenuShown,
-      positionFixed,
-      referenceElement,
-    } = this.props;
-
-    if (!isMenuShown) {
-      return null;
-    }
-
-    const xPlacement = align === 'right' ? 'end' : 'start';
-    const yPlacement = dropup ? 'top' : 'bottom';
-
-    return (
-      <Popper
-        modifiers={getModifiers(this.props)}
-        placement={PLACEMENT[yPlacement][xPlacement]}
-        positionFixed={positionFixed}
-        referenceElement={referenceElement}>
-        {({ ref, ...props }) => children({
-          ...props,
-          innerRef: ref,
-          inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
-        })}
-      </Popper>
-    );
-  }
+  return PLACEMENT[y][x];
 }
+
+const Overlay = (props: OverlayProps) => {
+  const { children, isMenuShown, positionFixed, referenceElement } = props;
+
+  if (!isMenuShown) {
+    return null;
+  }
+
+  return (
+    <Popper
+      modifiers={getModifiers(props)}
+      placement={getPlacement(props)}
+      positionFixed={positionFixed}
+      referenceElement={referenceElement}>
+      {({ ref, ...popperProps }) => children({
+        ...popperProps,
+        innerRef: ref,
+        inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
+      })}
+    </Popper>
+  );
+};
+
+Overlay.propTypes = propTypes;
+Overlay.defaultProps = defaultProps;
 
 export default Overlay;

@@ -152,6 +152,10 @@ const propTypes = {
    */
   onKeyDown: PropTypes.func,
   /**
+   * Invoked when menu visibility changes.
+   */
+  onMenuToggle: PropTypes.func,
+  /**
    * Invoked when the pagination menu item is clicked. Receives an event.
    */
   onPaginate: PropTypes.func,
@@ -200,6 +204,7 @@ const defaultProps = {
   onFocus: noop,
   onInputChange: noop,
   onKeyDown: noop,
+  onMenuToggle: noop,
   onPaginate: noop,
   paginate: true,
   selectHintOnEnter: false,

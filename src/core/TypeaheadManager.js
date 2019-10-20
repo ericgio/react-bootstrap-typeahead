@@ -28,7 +28,6 @@ const overlayPropKeys = [
   'align',
   'dropup',
   'flip',
-  'onMenuToggle',
   'positionFixed',
 ];
 
@@ -73,11 +72,21 @@ function getTypeaheadContextValue(
 
 class TypeaheadManager extends React.Component<TypeaheadManagerProps> {
   componentDidUpdate(prevProps: TypeaheadManagerProps) {
-    const { allowNew, onInitialItemChange, results } = this.props;
+    const {
+      allowNew,
+      isMenuShown,
+      onInitialItemChange,
+      onMenuToggle,
+      results,
+    } = this.props;
 
     // Clear the initial item when there are no results.
     if (!(allowNew || results.length)) {
       onInitialItemChange(null);
+    }
+
+    if (isMenuShown !== prevProps.isMenuShown) {
+      onMenuToggle(isMenuShown);
     }
   }
 
