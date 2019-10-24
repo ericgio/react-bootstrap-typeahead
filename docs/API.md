@@ -5,8 +5,10 @@ The components and higher-order components (HOCs) described below are publicly e
 - [`<Typeahead>`](#typeahead)
 - [`<AsyncTypeahead>`](#asynctypeahead)
 - [`<Highlighter>`](#highlighter)
+- [`<Input>`](#input)
 - [`<Menu>`](#menu)
 - [`<MenuItem>`](#menuitem)
+- [`<TypeaheadInputSingle>` & `<TypeaheadInputMulti>`](#typeaheadinputsingle--typeaheadinputmulti)
 - [`<TypeaheadMenu>`](#typeaheadmenu)
 - [`<Token>`](#token)
 
@@ -91,8 +93,17 @@ Name | Type | Default | Description
 `search` (required) | `string` | | The substring to look for. This value should correspond to the input text of the typeahead and can be obtained via the `onInputChange` prop or from the `text` property of props being passed down via `renderMenu` or `renderMenuItemChildren`.
 `highlightClassName` | `string` | `'rbt-highlight-text'` | Classname applied to the highlighted text.
 
+### `<Input>`
+Abstract `<input>` component that handles an `inputRef` prop and is used as the basis for both single- and multi-select input components.
+
 ### `<Menu>`
 Provides the markup for a Bootstrap menu, along with some extra functionality for specifying a label when there are no results.
+
+Name | Type | Default | Description
+-----|------|---------|------------
+`emptyLabel` | `string\|element` | `'No matches found.'` | Message to display in the menu if there are no valid results.
+`maxHeight` | `string` | `'300px'` | Maximum height of the dropdown menu.
+
 
 ### `<MenuItem>`
 Provides the markup for a Bootstrap menu item, but is wrapped with the `menuItemContainer` HOC to ensure proper behavior within the typeahead context. Provided for use if a more customized `Menu` is desired.
@@ -100,14 +111,38 @@ Provides the markup for a Bootstrap menu item, but is wrapped with the `menuItem
 #### Props
 Name | Type | Default | Description
 -----|------|---------|------------
-`option` (required) | `Object` | | The data item to be displayed.
+`option` (required) | `Object\|string` | | The data item to be displayed.
 `position` | `number` | | The position of the item as rendered in the menu. Allows the top-level `Typeahead` component to be be aware of the item's position despite any custom ordering or grouping in `renderMenu`. **Note:** The value must be a unique, zero-based, sequential integer for proper behavior when keying through the menu.
+
+### `<TypeaheadInputSingle>` & `<TypeaheadInputMulti>`
+Input components that handles single- and multi-selections, respectively. In the multi-select component, selections are rendered as children.
+
+#### Props
+Name | Type | Default | Description
+-----|------|---------|------------
+`disabled` | `boolean` | `false` | Whether or not the input component is disabled.
 
 ### `<TypeaheadMenu>`
 The default menu which is rendered by the `Typeahead` component. Can be used in a custom `renderMenu` function for wrapping or modifying the props passed to it without having to re-implement the default functionality.
 
+#### Props
+Name | Type | Default | Description
+-----|------|---------|------------
+`newSelectionPrefix` | `string` | | Provides the ability to specify a prefix before the user-entered text to indicate that the selection will be new. No-op unless `allowNew={true}`.
+`paginationText` | `string` | | Prompt displayed when large data sets are paginated.
+`renderMenuItemChildren` | `function` | | Provides a hook for customized rendering of menu item contents.
+
 ### `<Token>`
 Individual token component, most commonly for use within `renderToken` to customize the `Token` contents.
+
+#### Props
+Name | Type | Default | Description
+-----|------|---------|------------
+`option` (required) | `Object\|string` | | The data item to be displayed.
+`disabled` | `boolean` | `false` | Whether the token is in a disabled state. If `true` it will not be interactive or removeable.
+`href` | `string` | | If provided, the token will be rendered with an `<a>` tag and `href` attribute.
+`readOnly` | `boolean` | `false` | Whether the token is in a read-only state. If `true` it will not be removeable, but it will be interactive if provided an `href`.
+`tabIndex` | `number` | `0` | Allows the tabindex to be set if something other than the default is desired.
 
 ## Higher-Order Components
 
