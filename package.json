@@ -49,7 +49,6 @@
     "prop-types": "^15.5.8",
     "react-overlays": "^0.8.1",
     "react-popper": "^1.0.0",
-    "reactstrap": "^8.0.1",
     "scroll-into-view-if-needed": "^2.2.20",
     "warning": "^4.0.1"
   },
@@ -98,6 +97,7 @@
     "react-prism": "^4.3.2",
     "react-test-renderer": "^16.5.0",
     "react-waypoint": "^9.0.0",
+    "reactstrap": "^8.1.1",
     "rimraf": "^3.0.0",
     "rollup": "^1.6.0",
     "rollup-plugin-babel": "^4.3.2",
