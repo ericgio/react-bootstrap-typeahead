@@ -48,7 +48,6 @@
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.5.8",
-    "react-lifecycles-compat": "^3.0.4",
     "react-overlays": "^0.8.1",
     "react-popper": "^1.0.0",
     "reactstrap": "^8.0.1",
