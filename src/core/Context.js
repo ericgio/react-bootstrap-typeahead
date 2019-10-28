@@ -1,7 +1,7 @@
 // @flow
 
-import createReactContext, { type Context } from 'create-react-context';
-import React, { type ComponentType } from 'react';
+import React, { createContext } from 'react';
+import type { ComponentType, Context } from 'react';
 
 import { pick } from '../utils';
 
@@ -21,7 +21,7 @@ export type TypeaheadContextType = {
 };
 
 export const TypeaheadContext: Context<TypeaheadContextType> =
-  createReactContext({});
+  createContext({});
 
 export const withContext = (
   Component: ComponentType<*>,

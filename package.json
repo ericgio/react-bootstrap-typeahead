@@ -42,7 +42,6 @@
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "classnames": "^2.2.0",
-    "create-react-context": "^0.3.0",
     "escape-string-regexp": "^2.0.0",
     "invariant": "^2.2.1",
     "lodash.debounce": "^4.0.8",
