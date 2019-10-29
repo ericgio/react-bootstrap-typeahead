@@ -14,7 +14,7 @@ import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { InputProps, Option } from '../types';
+import type { CreateRef, InputProps, Option } from '../types';
 
 type Props = InputProps & {
   children: Node,
@@ -24,8 +24,8 @@ type Props = InputProps & {
 const HintedInput = hintContainer(Input);
 
 class TypeaheadInputMulti extends React.Component<Props> {
+  wrapperRef: CreateRef<HTMLDivElement> = React.createRef();
   _input: ElementRef<*> = null;
-  _wrapper: ElementRef<*> = null;
 
   render() {
     const {
@@ -44,15 +44,12 @@ class TypeaheadInputMulti extends React.Component<Props> {
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
         tabIndex={-1}>
-        <div className="rbt-input-wrapper" ref={(el) => this._wrapper = el}>
+        <div className="rbt-input-wrapper" ref={this.wrapperRef}>
           {children}
           <HintedInput
             {...props}
             className={inputClassName}
-            inputRef={(input) => {
-              this._input = input;
-              this.props.inputRef(input);
-            }}
+            inputRef={this.getInputRef}
             onKeyDown={this._handleKeyDown}
             placeholder={selected.length ? '' : placeholder}
             style={{
@@ -69,6 +66,11 @@ class TypeaheadInputMulti extends React.Component<Props> {
         </div>
       </div>
     );
+  }
+
+  getInputRef = (input: HTMLInputElement): void => {
+    this._input = input;
+    this.props.inputRef(input);
   }
 
   /**
@@ -101,9 +103,11 @@ class TypeaheadInputMulti extends React.Component<Props> {
 
           // If the input is selected and there is no text, focus the last
           // token when the user hits backspace.
-          const { children } = this._wrapper;
-          const lastToken = children[children.length - 2];
-          lastToken && lastToken.focus();
+          if (this.wrapperRef.current) {
+            const { children } = this.wrapperRef.current;
+            const lastToken = children[children.length - 2];
+            lastToken && lastToken.focus();
+          }
         }
         break;
       default:

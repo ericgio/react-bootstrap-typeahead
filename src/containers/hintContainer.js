@@ -5,7 +5,7 @@ import React, { type ComponentType, type ElementRef } from 'react';
 import { withContext } from '../core/Context';
 import { getDisplayName, shouldSelectHint } from '../utils';
 
-import type { InputRefHandler, KeyDownHandler } from '../types';
+import type { CreateRef, InputRefHandler, KeyDownHandler } from '../types';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
@@ -25,7 +25,11 @@ function interpolateStyle(
     .join(' ');
 }
 
-function copyStyles(inputNode: HTMLInputElement, hintNode: HTMLInputElement) {
+function copyStyles(inputNode: ?HTMLInputElement, hintNode: ?HTMLInputElement) {
+  if (!inputNode || !hintNode) {
+    return;
+  }
+
   const inputStyle = window.getComputedStyle(inputNode);
 
   /* eslint-disable no-param-reassign */
@@ -47,15 +51,15 @@ function hintContainer(Input: ComponentType<*>) {
   class HintedInput extends React.Component<* & Props> {
     static displayName = `hintContainer(${getDisplayName(Input)})`;
 
-    _hint: ElementRef<*> = undefined;
+    hintRef: CreateRef<HTMLInputElement> = React.createRef();
     _input: ElementRef<*> = undefined;
 
     componentDidMount() {
-      copyStyles(this._input, this._hint);
+      copyStyles(this._input, this.hintRef.current);
     }
 
     componentDidUpdate() {
-      copyStyles(this._input, this._hint);
+      copyStyles(this._input, this.hintRef.current);
     }
 
     render() {
@@ -78,16 +82,13 @@ function hintContainer(Input: ComponentType<*>) {
           }}>
           <Input
             {...props}
-            inputRef={(input) => {
-              this._input = input;
-              inputRef(input);
-            }}
+            inputRef={this.getInputRef}
             onKeyDown={this._handleKeyDown}
           />
           <input
             aria-hidden
             className="rbt-input-hint"
-            ref={(hint) => this._hint = hint}
+            ref={this.hintRef}
             readOnly
             style={{
               backgroundColor: 'transparent',
@@ -105,6 +106,11 @@ function hintContainer(Input: ComponentType<*>) {
           />
         </div>
       );
+    }
+
+    getInputRef = (input: ?HTMLInputElement) => {
+      this._input = input;
+      this.props.inputRef(input);
     }
 
     _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
