@@ -15,6 +15,8 @@ export type LabelKey = string | (Option) => string;
 export type Style = { [string]: any };
 export type ReferenceElement = HTMLElement;
 
+export type CreateRef<T> = { current: null | T };
+
 export type InputProps = {
   autoComplete: string,
   className?: string,
