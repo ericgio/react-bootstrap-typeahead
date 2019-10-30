@@ -16,7 +16,10 @@ const RADIO_OPTIONS = [
 ];
 
 /* example-start */
-const HintedFormControl = hintContainer(FormControl);
+const HintedFormControl = hintContainer(React.forwardRef((props, ref) => (
+  // React-Bootstrap < 1.0.0 takes an `inputRef` rather than forwarding the ref.
+  <FormControl {...props} inputRef={ref} />
+)));
 
 class RenderingExample extends React.Component {
   state = {
