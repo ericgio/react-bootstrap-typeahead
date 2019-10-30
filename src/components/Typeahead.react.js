@@ -23,6 +23,7 @@ import type {
   InputProps,
   MenuProps,
   Option,
+  Ref,
   TypeaheadProps,
   TypeaheadManagerProps,
 } from '../types';
@@ -120,7 +121,7 @@ class TypeaheadComponent extends React.Component<Props> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  _instance: React.ElementRef<*> = null;
+  _instance: Ref<Typeahead> = null;
 
   render() {
     const { children, className, style } = this.props;

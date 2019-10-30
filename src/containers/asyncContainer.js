@@ -2,12 +2,12 @@
 
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-import React, { type ComponentType, type ElementRef, type Node } from 'react';
+import React, { type ComponentType, type Node } from 'react';
 
 import { optionType } from '../propTypes';
 import { getDisplayName, isFunction } from '../utils';
 
-import type { Option, TypeaheadProps } from '../types';
+import type { Option, Ref, TypeaheadProps } from '../types';
 
 const propTypes = {
   /**
@@ -69,6 +69,14 @@ type Cache = {
   [string]: Option[],
 };
 
+type DebouncedFunction = Function & {
+  cancel: () => void,
+};
+
+type TypeaheadComponent = {
+  getInstance: () => void;
+};
+
 /**
  * HoC that encapsulates common behavior and functionality for doing
  * asynchronous searches, including:
@@ -84,8 +92,8 @@ const asyncContainer = (Typeahead: ComponentType<*>) => {
     static defaultProps = defaultProps;
 
     _cache: Cache = {};
-    _handleSearchDebounced: Function = undefined;
-    _instance: ElementRef<*> = undefined;
+    _handleSearchDebounced: DebouncedFunction;
+    _instance: Ref<TypeaheadComponent> = null;
     _query: string = this.props.defaultInputValue || '';
 
     componentDidMount() {
@@ -132,7 +140,7 @@ const asyncContainer = (Typeahead: ComponentType<*>) => {
      * Make the component instance available.
      */
     getInstance() {
-      return this._instance.getInstance();
+      return this._instance && this._instance.getInstance();
     }
 
     _getEmptyLabel = () => {

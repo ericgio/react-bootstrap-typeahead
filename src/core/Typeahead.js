@@ -3,7 +3,7 @@
 import invariant from 'invariant';
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
-import React, { type ElementRef } from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
 
@@ -46,7 +46,13 @@ import {
   UP,
 } from '../constants';
 
-import type { Option, TypeaheadProps, TypeaheadState } from '../types';
+import type {
+  Option,
+  Ref,
+  ReferenceElement,
+  TypeaheadProps,
+  TypeaheadState,
+} from '../types';
 
 const propTypes = {
   /**
@@ -283,8 +289,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   // truncating, grouping, etc.
   items: Option[] = [];
 
-  _input: ElementRef<*> = undefined;
-  _referenceElement: ElementRef<*> = undefined;
+  _input: Ref<HTMLInputElement> = null;
+  _referenceElement: Ref<ReferenceElement> = null;
 
   static getDerivedStateFromProps(
     props: Props,
@@ -439,15 +445,17 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     return this._input;
   }
 
-  getInputRef = (input: HTMLInputElement) => {
+  getInputRef = (input: Ref<HTMLInputElement>) => {
     this._input = input;
   }
 
-  getReferenceElement = (element: ?Element) => {
+  getReferenceElement = (element: Ref<ReferenceElement>) => {
     // Use `findDOMNode` here because it's easier and less fragile than
     // forwarding refs to the input's container.
-    /* eslint-disable-next-line react/no-find-dom-node */
+    /* eslint-disable react/no-find-dom-node */
+    // $FlowFixMe: `findDOMNode` could return Text or an Element.
     this._referenceElement = findDOMNode(element);
+    /* eslint-enable react/no-find-dom-node */
   }
 
   _handleActiveIndexChange = (activeIndex: number) => {

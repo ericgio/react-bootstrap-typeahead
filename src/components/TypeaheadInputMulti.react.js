@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import cx from 'classnames';
-import React, { type ElementRef, type Node } from 'react';
+import React, { type Node } from 'react';
 
 import Input from './Input.react';
 
@@ -26,7 +26,7 @@ const HintedInput = hintContainer(Input);
 
 class TypeaheadInputMulti extends React.Component<Props> {
   wrapperRef: CreateRef<HTMLDivElement> = React.createRef();
-  _input: ElementRef<*> = null;
+  _input: Ref<HTMLInputElement> = null;
 
   render() {
     const {
@@ -87,6 +87,10 @@ class TypeaheadInputMulti extends React.Component<Props> {
 
     // Move cursor to the end if the user clicks outside the actual input.
     const inputNode = this._input;
+    if (!inputNode) {
+      return;
+    }
+
     if (e.currentTarget !== inputNode && isSelectable(inputNode)) {
       inputNode.selectionStart = inputNode.value.length;
     }
