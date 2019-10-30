@@ -5,7 +5,7 @@ import React, { type ComponentType, type ElementRef } from 'react';
 import { withContext } from '../core/Context';
 import { getDisplayName, shouldSelectHint } from '../utils';
 
-import type { CreateRef, InputRefHandler, KeyDownHandler } from '../types';
+import type { CreateRef, InputRefHandler, KeyDownHandler, Ref } from '../types';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
@@ -43,7 +43,7 @@ function copyStyles(inputNode: ?HTMLInputElement, hintNode: ?HTMLInputElement) {
 }
 
 type Props = {
-  inputRef: InputRefHandler,
+  forwardedRef: InputRefHandler,
   onKeyDown: KeyDownHandler,
 };
 
@@ -64,9 +64,9 @@ function hintContainer(Input: ComponentType<*>) {
 
     render() {
       const {
+        forwardedRef,
         hintText,
         initialItem,
-        inputRef,
         onAdd,
         selectHintOnEnter,
         ...props
@@ -82,8 +82,8 @@ function hintContainer(Input: ComponentType<*>) {
           }}>
           <Input
             {...props}
-            inputRef={this.getInputRef}
             onKeyDown={this._handleKeyDown}
+            ref={this.getInputRef}
           />
           <input
             aria-hidden
@@ -110,7 +110,7 @@ function hintContainer(Input: ComponentType<*>) {
 
     getInputRef = (input: ?HTMLInputElement) => {
       this._input = input;
-      this.props.inputRef(input);
+      this.props.forwardedRef(input);
     }
 
     _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
@@ -125,12 +125,16 @@ function hintContainer(Input: ComponentType<*>) {
     }
   }
 
-  return withContext(HintedInput, [
+  const HintedInputWithContext = withContext(HintedInput, [
     'hintText',
     'initialItem',
     'onAdd',
     'selectHintOnEnter',
   ]);
+
+  return React.forwardRef<{}, Ref<HTMLInputElement>>((props, ref) => (
+    <HintedInputWithContext {...props} forwardedRef={ref} />
+  ));
 }
 
 export default hintContainer;

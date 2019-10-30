@@ -14,9 +14,10 @@ import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { CreateRef, InputProps, Option } from '../types';
+import type { CreateRef, InputProps, Option, Ref } from '../types';
 
-type Props = InputProps & {
+type Props = {
+  ...InputProps,
   children: Node,
   selected: Option[],
 };
@@ -32,6 +33,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
       children,
       className,
       inputClassName,
+      inputRef,
       placeholder,
       selected,
       ...props
@@ -49,9 +51,9 @@ class TypeaheadInputMulti extends React.Component<Props> {
           <HintedInput
             {...props}
             className={inputClassName}
-            inputRef={this.getInputRef}
             onKeyDown={this._handleKeyDown}
             placeholder={selected.length ? '' : placeholder}
+            ref={this.getInputRef}
             style={{
               backgroundColor: 'transparent',
               border: 0,
@@ -68,7 +70,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
     );
   }
 
-  getInputRef = (input: HTMLInputElement): void => {
+  getInputRef = (input: Ref<HTMLInputElement>) => {
     this._input = input;
     this.props.inputRef(input);
   }

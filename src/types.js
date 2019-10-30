@@ -14,8 +14,9 @@ export type LabelKey = string | (Option) => string;
 export type Style = { [string]: any };
 export type ReferenceElement = HTMLElement;
 
-export type CreateRef<T> = { current: null | T };
-export type RefHandler<T> = (null | T) => mixed;
+export type Ref<T> = null | T;
+export type CreateRef<T> = { current: Ref<T> };
+export type RefHandler<T> = (Ref<T>) => mixed;
 export type InputRefHandler = RefHandler<HTMLInputElement>;
 
 export type InputProps = {
@@ -101,7 +102,7 @@ export type TypeaheadManagerChildrenProps = {
 
 export type TypeaheadManagerProps = TypeaheadPropsAndState & {
   children: (TypeaheadManagerChildrenProps) => Node,
-  getReferenceElement: (Element | null) => void,
+  getReferenceElement: RefHandler<ReferenceElement>,
   inputRef: InputRefHandler,
   isMenuShown: boolean,
   onActiveItemChange: OptionHandler,
