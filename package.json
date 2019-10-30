@@ -47,7 +47,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.5.8",
-    "react-overlays": "^0.8.1",
+    "react-overlays": "^1.0.0",
     "react-popper": "^1.0.0",
     "scroll-into-view-if-needed": "^2.2.20",
     "warning": "^4.0.1"
@@ -80,7 +80,7 @@
     "eslint": "^6.0.1",
     "eslint-config-ericgio": "^5.0.0",
     "eslint-plugin-flowtype": "^4.3.0",
-    "flow-bin": "^0.109.0",
+    "flow-bin": "^0.110.1",
     "gh-pages": "^2.0.1",
     "husky": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",

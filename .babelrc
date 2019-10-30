@@ -17,7 +17,7 @@
         "preventFullImport": true
       },
       "react-overlays": {
-        "transform": "react-overlays/lib/${member}",
+        "transform": "react-overlays/${member}",
         "preventFullImport": true
       },
     }]
