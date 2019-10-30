@@ -2,12 +2,11 @@
 
 /* eslint-disable no-use-before-define */
 
-import * as React from 'react';
+import type { Node } from 'react';
 
 export type BsSize = 'large' | 'lg' | 'small' | 'sm';
 export type EventHandler = (SyntheticEvent<HTMLElement>) => void;
 export type Id = number | string;
-export type InputRefHandler = (HTMLInputElement | null) => void;
 export type KeyDownHandler = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
 export type Option = string | { [string]: any };
 export type OptionHandler = (Option) => void;
@@ -16,6 +15,8 @@ export type Style = { [string]: any };
 export type ReferenceElement = HTMLElement;
 
 export type CreateRef<T> = { current: null | T };
+export type RefHandler<T> = (null | T) => mixed;
+export type InputRefHandler = RefHandler<HTMLInputElement>;
 
 export type InputProps = {
   autoComplete: string,
@@ -36,7 +37,7 @@ export type InputProps = {
 
 export type OverlayProps = {
   align: 'justify' | 'left' | 'right',
-  children: (MenuProps) => React.Node,
+  children: (MenuProps) => Node,
   dropup: boolean,
   flip: boolean,
   isMenuShown: boolean,
@@ -45,7 +46,7 @@ export type OverlayProps = {
 };
 
 export type MenuProps = {
-  innerRef: (HTMLElement | null) => void,
+  innerRef: RefHandler<HTMLElement>,
   inputHeight: number,
   scheduleUpdate: () => void,
   style: { [string]: any },
@@ -99,7 +100,7 @@ export type TypeaheadManagerChildrenProps = {
 };
 
 export type TypeaheadManagerProps = TypeaheadPropsAndState & {
-  children: (TypeaheadManagerChildrenProps) => React.Node,
+  children: (TypeaheadManagerChildrenProps) => Node,
   getReferenceElement: (Element | null) => void,
   inputRef: InputRefHandler,
   isMenuShown: boolean,

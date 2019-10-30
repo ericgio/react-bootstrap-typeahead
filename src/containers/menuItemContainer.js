@@ -3,12 +3,11 @@
 import scrollIntoView from 'scroll-into-view-if-needed';
 import React, { type ComponentType } from 'react';
 import PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
 
 import { withContext } from '../core/Context';
 import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
 
-import type { Option } from '../types';
+import type { CreateRef, Option } from '../types';
 
 const propTypes = {
   option: PropTypes.oneOfType([
@@ -27,6 +26,8 @@ const menuItemContainer = (Component: ComponentType<*>) => {
   class WrappedMenuItem extends React.Component<* & Props> {
     static displayName = `menuItemContainer(${getDisplayName(Component)})`;
     static propTypes = propTypes;
+
+    innerRef: CreateRef<HTMLElement> = React.createRef();
 
     componentDidMount() {
       this._maybeUpdateItem();
@@ -63,6 +64,7 @@ const menuItemContainer = (Component: ComponentType<*>) => {
           aria-label={label}
           aria-selected={active}
           id={getMenuItemId(id, position)}
+          innerRef={this.innerRef}
           onClick={this._handleClick}
           onMouseDown={preventInputBlur}
           role="option"
@@ -94,8 +96,8 @@ const menuItemContainer = (Component: ComponentType<*>) => {
         onActiveItemChange(option);
 
         // Automatically scroll the menu as the user keys through it.
-        /* eslint-disable-next-line react/no-find-dom-node */
-        const node = findDOMNode(this);
+        const node = this.innerRef.current;
+
         node && scrollIntoView(node, {
           block: 'nearest',
           boundary: node.parentNode,
