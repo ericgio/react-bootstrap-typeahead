@@ -4,6 +4,10 @@ import React from 'react';
 import Token from '../../components/Token.react';
 import { BACKSPACE, RETURN } from '../../constants';
 
+function isDisabled(wrapper) {
+  return wrapper.find('div').hasClass('rbt-token-disabled');
+}
+
 describe('<Token>', () => {
   let token;
 
@@ -23,7 +27,7 @@ describe('<Token>', () => {
 
     test('when the token is disabled', () => {
       token.setProps({ disabled: true });
-      expect(token.find('div').hasClass('rbt-token-disabled')).toBe(true);
+      expect(isDisabled(token)).toBe(true);
     });
 
     test('when the token is read-only', () => {
@@ -54,9 +58,20 @@ describe('<Token>', () => {
     token.setProps({ href });
 
     const anchor = token.find('a');
-    expect(anchor).toBeDefined();
+    expect(anchor).toHaveLength(1);
     expect(anchor.hasClass('rbt-token')).toBe(true);
     expect(anchor.prop('href')).toBe(href);
+  });
+
+  test('disabled tokens are not interactive', () => {
+    token.setProps({
+      disabled: true,
+      href: '#somehref',
+    });
+
+    expect(token.find('div')).toHaveLength(1);
+    expect(token.find('a')).toHaveLength(0);
+    expect(isDisabled(token)).toBe(true);
   });
 
   describe('event handlers', () => {
