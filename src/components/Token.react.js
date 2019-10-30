@@ -87,7 +87,7 @@ class Token extends React.Component<Props> {
       'rbt-token-disabled': disabled,
     }, className);
 
-    if (href) {
+    if (href && !disabled) {
       return (
         <a className={classnames} href={href}>
           {children}
