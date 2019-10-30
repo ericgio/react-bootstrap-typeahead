@@ -1,6 +1,6 @@
 // @flow
 
-import React, { type ComponentType, type ElementRef } from 'react';
+import React, { type ComponentType } from 'react';
 
 import { withContext } from '../core/Context';
 import { getDisplayName, shouldSelectHint } from '../utils';
@@ -52,7 +52,7 @@ function hintContainer(Input: ComponentType<*>) {
     static displayName = `hintContainer(${getDisplayName(Input)})`;
 
     hintRef: CreateRef<HTMLInputElement> = React.createRef();
-    _input: ElementRef<*> = undefined;
+    _input: Ref<HTMLInputElement> = null;
 
     componentDidMount() {
       copyStyles(this._input, this.hintRef.current);
@@ -108,7 +108,7 @@ function hintContainer(Input: ComponentType<*>) {
       );
     }
 
-    getInputRef = (input: ?HTMLInputElement) => {
+    getInputRef = (input: Ref<HTMLInputElement>) => {
       this._input = input;
       this.props.forwardedRef(input);
     }
