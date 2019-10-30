@@ -7,7 +7,7 @@ import React, { type Node } from 'react';
 import menuItemContainer from '../containers/menuItemContainer';
 import { noop } from '../utils';
 
-import type { EventHandler } from '../types';
+import type { EventHandler, RefHandler } from '../types';
 
 const propTypes = {
   onClick: PropTypes.func,
@@ -22,6 +22,7 @@ type BaseProps = {
   children?: Node,
   className?: string,
   disabled?: boolean,
+  innerRef?: RefHandler<HTMLElement>,
   onClick: EventHandler,
   onMouseDown?: EventHandler,
 };
@@ -36,6 +37,7 @@ export class BaseMenuItem extends React.Component<BaseProps> {
       children,
       className,
       disabled,
+      innerRef,
       onClick,
       onMouseDown,
       ...props
@@ -50,7 +52,8 @@ export class BaseMenuItem extends React.Component<BaseProps> {
       /* eslint-disable jsx-a11y/anchor-is-valid */
       <li
         {...props}
-        className={cx(conditionalClassNames, className)}>
+        className={cx(conditionalClassNames, className)}
+        ref={innerRef}>
         <a
           className={cx('dropdown-item', conditionalClassNames)}
           href="#"
