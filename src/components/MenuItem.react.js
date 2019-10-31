@@ -1,77 +1,50 @@
 // @flow
 
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React, { type Node } from 'react';
 
 import menuItemContainer from '../containers/menuItemContainer';
-import { noop } from '../utils';
 
-import type { EventHandler, RefHandler } from '../types';
+import type { EventHandler, Ref } from '../types';
 
-const propTypes = {
-  onClick: PropTypes.func,
-};
-
-const defaultProps = {
-  onClick: noop,
-};
-
-type BaseProps = {
+type MenuItemProps = {
   active?: boolean,
   children?: Node,
   className?: string,
   disabled?: boolean,
-  innerRef?: RefHandler<HTMLElement>,
-  onClick: EventHandler,
+  onClick?: EventHandler,
   onMouseDown?: EventHandler,
 };
 
-export class BaseMenuItem extends React.Component<BaseProps> {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
+const BaseMenuItem = React.forwardRef<MenuItemProps, Ref<HTMLElement>>((
+  { active, children, className, disabled, onClick, onMouseDown, ...props },
+  ref
+) => {
+  const conditionalClassNames = {
+    active,
+    disabled,
+  };
 
-  render() {
-    const {
-      active,
-      children,
-      className,
-      disabled,
-      innerRef,
-      onClick,
-      onMouseDown,
-      ...props
-    } = this.props;
+  return (
+    /* eslint-disable jsx-a11y/anchor-is-valid */
+    <li
+      {...props}
+      className={cx(conditionalClassNames, className)}
+      ref={ref}>
+      <a
+        className={cx('dropdown-item', conditionalClassNames)}
+        href="#"
+        onClick={(e: SyntheticEvent<HTMLElement>) => {
+          e.preventDefault();
+          !disabled && onClick && onClick(e);
+        }}
+        onMouseDown={onMouseDown}>
+        {children}
+      </a>
+    </li>
+    /* eslint-enable jsx-a11y/anchor-is-valid */
+  );
+});
 
-    const conditionalClassNames = {
-      active,
-      disabled,
-    };
-
-    return (
-      /* eslint-disable jsx-a11y/anchor-is-valid */
-      <li
-        {...props}
-        className={cx(conditionalClassNames, className)}
-        ref={innerRef}>
-        <a
-          className={cx('dropdown-item', conditionalClassNames)}
-          href="#"
-          onClick={this._handleClick}
-          onMouseDown={onMouseDown}>
-          {children}
-        </a>
-      </li>
-      /* eslint-enable jsx-a11y/anchor-is-valid */
-    );
-  }
-
-  _handleClick = (e: SyntheticEvent<HTMLElement>) => {
-    const { disabled, onClick } = this.props;
-
-    e.preventDefault();
-    !disabled && onClick(e);
-  }
-}
-
+export { BaseMenuItem };
 export default menuItemContainer(BaseMenuItem);
