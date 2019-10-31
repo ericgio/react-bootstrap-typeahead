@@ -14,7 +14,7 @@ React and ReactDOM >=16.3 are now required as peer dependencies.
 - `onMenuHide` and `onMenuShow` were removed. Use `onMenuToggle` instead.
 
 ### When using custom menu items, you must manually pass a ref to the underlying DOM node.
-`tokenContainer` no longer uses `findDOMNode`, and instead passes an `innerRef` prop to the wrapped component. If you are using your own menu item component to render the menu, you must correctly pass this prop the the underlying DOM node.
+`tokenContainer` no longer uses `findDOMNode`, and instead passes a `ref` to the wrapped component. If you are using your own menu item component to render the menu, you must forward that ref to the the underlying DOM node.
 
 ### `option` is now required for a `Token` to be removeable
 Pass `option` as a prop to `Token` (or `tokenContainer` if using your own token markup) so the container can correctly handle the `onRemove` callback.
