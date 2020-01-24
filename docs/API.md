@@ -74,6 +74,7 @@ An enhanced version of the normal `Typeahead` component for use when performing 
       }));
   }}
   options={this.state.options}
+  labelKey={option => `${option.login}`}
 />
 ```
 
