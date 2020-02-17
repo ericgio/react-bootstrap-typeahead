@@ -49,6 +49,7 @@ class Typeahead extends React.Component {
       'renderToken',
       'selected',
       'text',
+      'id',
     ]);
 
     const overlayProps = pick(this.props, [

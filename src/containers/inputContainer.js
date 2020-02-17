@@ -28,6 +28,7 @@ function inputContainer(Input) {
         placeholder,
         renderToken,
         selected,
+        id,
       } = this.props;
 
       const {autoComplete, type} = this.props.inputProps;
@@ -44,6 +45,7 @@ function inputContainer(Input) {
         'aria-owns': isMenuShown ? menuId : undefined,
         autoComplete: autoComplete || 'nope',
         disabled,
+        id,
         inputRef,
         onBlur,
         onChange,
