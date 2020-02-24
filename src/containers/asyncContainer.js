@@ -28,7 +28,7 @@ const asyncContainer = (Typeahead) => {
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevProps.isLoading && this.props.useCache) {
+      if (!this.props.isLoading && prevProps.isLoading && this.props.useCache) {
         this._cache[this._query] = this.props.options;
       }
     }
