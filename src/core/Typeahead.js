@@ -292,59 +292,41 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   _input: Ref<HTMLInputElement> = null;
   _referenceElement: Ref<ReferenceElement> = null;
 
-  static getDerivedStateFromProps(
-    props: Props,
-    state: TypeaheadState
-  ) {
-    const { labelKey, multiple } = props;
-
-    // Truncate selections when in single-select mode.
-    let selected: Option[] = props.selected || state.selected;
-
-    if (!multiple && selected.length > 1) {
-      selected = (selected.slice(0, 1): Option[]);
-
-      return {
-        selected,
-        text: getOptionLabel(head(selected), labelKey),
-      };
-    }
-
-    return null;
-  }
-
   componentDidMount() {
     this.props.autoFocus && this.focus();
   }
 
-  componentDidUpdate(prevProps: Props, prevState: TypeaheadState) {
-    const { labelKey, multiple, selected } = this.props;
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    const { labelKey, multiple, selected } = nextProps;
 
-    validateSelectedPropChange(prevProps.selected, selected);
+    validateSelectedPropChange(selected, this.props.selected);
 
-    // Keep `selected` state and props in sync. Use `componentDidUpdate`
-    // rather than `getDerivedStateFromProps` to compare with previous
-    // props and differentiate between externally changed selections and
-    // internally changed ones that trigger `onChange` in a controlled
-    // component, eg. passing an empty array vs. clearing a selection by
-    // deleting part of the input value.
-    if (
-      isEqual(prevProps.selected, this.state.selected) &&
-      !isEqual(prevProps.selected, selected)
-    ) {
-      // Selections were changed externally, update state accordingly.
-      const text = selected && selected.length && !multiple ?
-        getOptionLabel(head(selected), labelKey) :
-        '';
+    if (multiple !== this.props.multiple) {
+      this.setState({ text: '' });
+    }
+
+    // If new selections are passed via props, treat as a controlled input.
+    if (selected && !isEqual(selected, this.state.selected)) {
+      this.setState({ selected });
+
+      if (multiple) {
+        return;
+      }
 
       this.setState({
-        selected,
-        text,
+        text: selected.length ? getOptionLabel(head(selected), labelKey) : '',
       });
     }
 
-    if (prevProps.multiple !== multiple) {
-      this.setState({ text: '' });
+    // Truncate selections when in single-select mode.
+    let newSelected = selected || this.state.selected;
+    if (!multiple && newSelected.length > 1) {
+      newSelected = newSelected.slice(0, 1);
+      this.setState({
+        selected: newSelected,
+        text: getOptionLabel(head(newSelected), labelKey),
+      });
     }
   }
 
