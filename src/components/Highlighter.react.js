@@ -21,13 +21,6 @@ export type HighlighterProps = {
   search: string,
 };
 
-// React 16.0 added support for returning arrays and strings from components.
-// TODO: Get rid of this once support for React < 16 is dropped.
-function wrapChildren(children) {
-  /* istanbul ignore next */
-  return React.version >= '16' ? children : <span>{children}</span>;
-}
-
 /**
  * Stripped-down version of https://github.com/helior/react-highlighter
  *
@@ -42,7 +35,7 @@ class Highlighter extends React.PureComponent<HighlighterProps> {
     const { children, highlightClassName, search } = this.props;
 
     if (!search || !children) {
-      return wrapChildren(children);
+      return children;
     }
 
     let matchCount = 0;
@@ -78,7 +71,7 @@ class Highlighter extends React.PureComponent<HighlighterProps> {
       remaining = remaining.slice(bounds.end);
     }
 
-    return wrapChildren(highlighterChildren);
+    return highlighterChildren;
   }
 }
 
