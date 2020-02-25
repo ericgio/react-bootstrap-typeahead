@@ -11,7 +11,6 @@ marked.setOptions({
   gfm: true,
   highlight: (code) => Prism.highlight(code, Prism.languages.markdown),
   pedantic: false,
-  sanitize: true,
   smartLists: true,
   smartypants: false,
   tables: true,
