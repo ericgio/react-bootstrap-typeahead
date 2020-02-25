@@ -3,11 +3,7 @@ dist: xenial
 services:
   - xvfb
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 language: node_js
 node_js:
