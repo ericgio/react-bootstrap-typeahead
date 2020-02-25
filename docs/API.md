@@ -46,6 +46,7 @@ An enhanced version of the normal `Typeahead` component for use when performing 
 ```jsx
 <AsyncTypeahead
   isLoading={this.state.isLoading}
+  labelKey={option => `${option.login}`}
   onSearch={(query) => {
     this.setState({isLoading: true});
     fetch(`https://api.github.com/search/users?q=${query}`)
