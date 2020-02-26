@@ -18,7 +18,9 @@ class ExampleSection extends React.Component {
       <div className="example-section">
         <div className="example">
           <div className="clearfix">
-            <h6>Example</h6>
+            <div className="example-section-title">
+              Example
+            </div>
             <Button
               bsSize="xsmall"
               bsStyle="link"

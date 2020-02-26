@@ -123,7 +123,8 @@ body {
   padding-bottom: 9px;
 }
 
-.bs-docs-page h3 {
+.bs-docs-page h2 {
+  font-size: 1.75rem;
   margin-bottom: 10px;
   margin-top: 20px;
 }
@@ -233,7 +234,7 @@ body {
   border-radius: 4px;
 }
 
-.example-section h6 {
+.example-section-title {
   color: #959595;
   float: left;
   font-size: 12px;

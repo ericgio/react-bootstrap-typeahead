@@ -4,7 +4,6 @@ import cx from 'classnames';
 import React, { Children } from 'react';
 import { Col, NavItem, Row } from 'react-bootstrap';
 
-import Container from './Container.react';
 import Context from './Context.react';
 import PageFooter from './PageFooter.react';
 import PageHeader from './PageHeader.react';
@@ -49,7 +48,7 @@ class Page extends React.Component {
             onVersionChange={this._handleVersionChange}
             selectedVersion={bsVersion}
           />
-          <Container>
+          <main className="container">
             <Row>
               <Col md={9}>
                 {this.props.children}
@@ -60,7 +59,7 @@ class Page extends React.Component {
                 </PageMenu>
               </Col>
             </Row>
-          </Container>
+          </main>
           <PageFooter />
         </div>
       </Context.Provider>

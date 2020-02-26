@@ -6,11 +6,11 @@ import Anchor from './Anchor.react';
 import getIdFromTitle from '../util/getIdFromTitle';
 
 const Title = ({ children }) => (
-  <h3>
+  <h2>
     <Anchor id={getIdFromTitle(children)}>
       {children}
     </Anchor>
-  </h3>
+  </h2>
 );
 
 Title.propTypes = {

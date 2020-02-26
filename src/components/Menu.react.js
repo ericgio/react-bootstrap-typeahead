@@ -18,6 +18,7 @@ const MenuHeader = (props: any) => (
 );
 
 const propTypes = {
+  'aria-label': PropTypes.string,
   /**
    * Message to display in the menu if there are no valid results.
    */
@@ -36,11 +37,13 @@ const propTypes = {
 };
 
 const defaultProps = {
+  'aria-label': 'menu-options',
   emptyLabel: 'No matches found.',
   maxHeight: '300px',
 };
 
 export type MenuComponentProps = MenuProps & {
+  'aria-label': string,
   children?: Node,
   className?: string,
   emptyLabel: Node,
@@ -80,13 +83,14 @@ class Menu extends React.Component<MenuComponentProps> {
     } = this.props;
 
     const contents = Children.count(children) === 0 ?
-      <BaseMenuItem disabled>
+      <BaseMenuItem disabled role="option">
         {emptyLabel}
       </BaseMenuItem> :
       children;
 
     return (
       <ul
+        aria-label={this.props['aria-label']}
         className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
         id={id}
         key={

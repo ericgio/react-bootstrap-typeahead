@@ -55,6 +55,7 @@ describe('<Menu>', () => {
 
   test('renders an empty label when there are no children', () => {
     const emptyLabel = 'No matches.';
+
     menu.setProps({
       children: undefined,
       emptyLabel,
@@ -65,9 +66,18 @@ describe('<Menu>', () => {
     const emptyLabelItem = menu.find(BaseMenuItem);
     expect(emptyLabelItem.length).toBe(1);
     expect(emptyLabelItem.prop('disabled')).toBe(true);
+    expect(emptyLabelItem.prop('role')).toBe('option');
 
     // See: http://airbnb.io/enzyme/docs/api/ShallowWrapper/dive.html
     expect(emptyLabelItem.dive().text()).toBe(emptyLabel);
+  });
+
+  test('adds an aria-label attribute to the menu', () => {
+    expect(menu.prop('aria-label')).toBe('menu-options');
+
+    menu.setProps({ 'aria-label': 'custom-label' });
+
+    expect(menu.prop('aria-label')).toBe('custom-label');
   });
 
   test('updates the menu position if the input height changes', () => {

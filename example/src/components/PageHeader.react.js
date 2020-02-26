@@ -62,9 +62,13 @@ class PageHeader extends React.Component {
               ))}
             </VersionDropdown>
             <NavItem
+              aria-label="Github"
               href={GITHUB_URL}
               target="_blank">
-              <GitHubLogo style={{ marginBottom: '-8px' }} />
+              <GitHubLogo style={{ margin: '-4px 0' }} />
+              <span className="sr-only">
+                Github
+              </span>
             </NavItem>
           </Nav>
         </Navbar.Collapse>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 
 import Page from './components/Page.react';
 
@@ -13,7 +13,7 @@ import RenderingSection from './sections/RenderingSection.react';
 
 import '../../styles/Typeahead.scss';
 
-render(
+ReactDOM.render(
   <Page>
     <BasicSection />
     <BehaviorsSection />
