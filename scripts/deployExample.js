@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+/* eslint-disable import/no-extraneous-dependencies,no-console */
 
 const ghpages = require('gh-pages');
-const {version} = require('../package.json');
+const { version } = require('../package.json');
 
 /**
  * Don't publish pre-release versions, as denoted by the presence of a hyphen
@@ -12,7 +13,7 @@ const {version} = require('../package.json');
 if (version.split('-').length === 1) {
   ghpages.publish('example', {
     message: `v${version}`,
-    src: '{index.html,package-example.js,assets/*}',
+    src: '{index.html,package-example.js,public/*}',
   });
 } else {
   console.log(

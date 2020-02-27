@@ -1,4 +1,12 @@
 {
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": false,
+      "loose": true,
+    }],
+    "@babel/preset-flow",
+    "@babel/preset-react",
+  ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-export-default-from",
@@ -8,37 +16,42 @@
         "transform": "lodash/${member}",
         "preventFullImport": true
       },
-      "prop-types-extra": {
-        "transform": "prop-types-extra/lib/${member}",
-        "preventFullImport": true
-      },
-      "react-bootstrap": {
-        "transform": "react-bootstrap/lib/${member}",
-        "preventFullImport": true
-      },
       "react-overlays": {
-        "transform": "react-overlays/lib/${member}",
+        "transform": "react-overlays/${member}",
         "preventFullImport": true
       },
-      "react-popper": {
-        "transform": "react-popper/lib/cjs/${member}",
-        "preventFullImport": true
-      },
-      "reactstrap": {
-        "transform": "reactstrap/lib/${member}",
-        "preventFullImport": true
-      }
     }]
   ],
   "env": {
+    "cjs": {
+      "plugins": [
+        "@babel/transform-runtime",
+        "@babel/transform-modules-commonjs"
+      ],
+      "ignore": [
+        "**/__tests__/*",
+        "src/types.js",
+      ],
+    },
+    "es": {
+      "plugins": [
+        "@babel/transform-runtime"
+      ],
+      "ignore": [
+        "**/__tests__/*",
+        "src/types.js",
+      ],
+    },
     "production": {
       "plugins": [
         "transform-react-remove-prop-types",
       ],
-    }
+    },
+    "test": {
+      "plugins": [
+        "@babel/transform-runtime",
+        "@babel/transform-modules-commonjs"
+      ],
+    },
   },
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ],
 }

@@ -1,12 +1,34 @@
-import React from 'react';
+// @flow
+
+import scrollIntoView from 'scroll-into-view-if-needed';
+import React, { type ComponentType } from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
-import {withContext} from '../TypeaheadContext';
-import {getDisplayName, getMenuItemId, preventInputBlur, scrollIntoViewIfNeeded} from '../utils';
+import { withContext } from '../core/Context';
+import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
 
-const menuItemContainer = (Component) => {
-  class WrappedMenuItem extends React.Component {
+import type { CreateRef, Option } from '../types';
+
+const propTypes = {
+  option: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
+  position: PropTypes.number,
+};
+
+type Props = {
+  option: Option,
+  position: number,
+};
+
+const menuItemContainer = (Component: ComponentType<*>) => {
+  class WrappedMenuItem extends React.Component<* & Props> {
+    static displayName = `menuItemContainer(${getDisplayName(Component)})`;
+    static propTypes = propTypes;
+
+    itemRef: CreateRef<HTMLElement> = React.createRef();
+
     componentDidMount() {
       this._maybeUpdateItem();
     }
@@ -18,7 +40,9 @@ const menuItemContainer = (Component) => {
     render() {
       const {
         activeIndex,
+        id,
         isOnlyResult,
+        items,
         label,
         onActiveItemChange,
         onInitialItemChange,
@@ -30,22 +54,26 @@ const menuItemContainer = (Component) => {
 
       const active = isOnlyResult || activeIndex === position;
 
+      // Update the item's position in the item stack on each render.
+      items[position] = option;
+
       return (
         <Component
           {...props}
           active={active}
           aria-label={label}
           aria-selected={active}
-          id={getMenuItemId(position)}
+          id={getMenuItemId(id, position)}
           onClick={this._handleClick}
           onMouseDown={preventInputBlur}
+          ref={this.itemRef}
           role="option"
         />
       );
     }
 
     _handleClick = (e) => {
-      const {onMenuItemClick, option, onClick} = this.props;
+      const { onMenuItemClick, option, onClick } = this.props;
 
       onMenuItemClick(option, e);
       onClick && onClick(e);
@@ -65,29 +93,26 @@ const menuItemContainer = (Component) => {
       }
 
       if (position === activeIndex) {
-        // Ensures that if the menu items exceed the bounds of the menu, the
-        // menu will scroll up or down as the user hits the arrow keys.
-        /* eslint-disable-next-line react/no-find-dom-node */
-        scrollIntoViewIfNeeded(findDOMNode(this));
         onActiveItemChange(option);
+
+        // Automatically scroll the menu as the user keys through it.
+        const node = this.itemRef.current;
+
+        node && scrollIntoView(node, {
+          block: 'nearest',
+          boundary: node.parentNode,
+          inline: 'nearest',
+          scrollMode: 'if-needed',
+        });
       }
     }
   }
 
-  WrappedMenuItem.displayName =
-    `MenuItemContainer(${getDisplayName(Component)})`;
-
-  WrappedMenuItem.propTypes = {
-    option: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-    ]).isRequired,
-    position: PropTypes.number,
-  };
-
   return withContext(WrappedMenuItem, [
     'activeIndex',
+    'id',
     'isOnlyResult',
+    'items',
     'onActiveItemChange',
     'onInitialItemChange',
     'onMenuItemClick',

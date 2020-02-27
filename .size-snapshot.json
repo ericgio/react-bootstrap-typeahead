@@ -1,0 +1,12 @@
+{
+  "dist/react-bootstrap-typeahead.js": {
+    "bundled": 346155,
+    "minified": 100177,
+    "gzipped": 33829
+  },
+  "dist/react-bootstrap-typeahead.min.js": {
+    "bundled": 311117,
+    "minified": 89474,
+    "gzipped": 30717
+  }
+}

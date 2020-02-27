@@ -1,3 +1,7 @@
-export default function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+// @flow
+
+import { type ComponentType } from 'react';
+
+export default function getDisplayName(Component: ComponentType<*>) {
+  return Component.displayName || Component.name || 'Component';
 }

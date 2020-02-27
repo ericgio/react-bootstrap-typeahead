@@ -1,16 +1,33 @@
+// @flow
+
 import getMatchBounds from './getMatchBounds';
 import getOptionLabel from './getOptionLabel';
 
-function getHintText({
-  activeItem,
-  initialItem,
-  isFocused,
-  isMenuShown,
-  labelKey,
-  multiple,
-  selected,
-  text,
-}) {
+import type { LabelKey, Option } from '../types';
+
+type Props = {
+  activeIndex: number,
+  initialItem: ?Option,
+  isFocused: boolean,
+  isMenuShown: boolean,
+  labelKey: LabelKey,
+  multiple: boolean,
+  selected: Option[],
+  text: string,
+};
+
+function getHintText(props: Props) {
+  const {
+    activeIndex,
+    initialItem,
+    isFocused,
+    isMenuShown,
+    labelKey,
+    multiple,
+    selected,
+    text,
+  } = props;
+
   // Don't display a hint under the following conditions:
   if (
     // No text entered.
@@ -24,7 +41,7 @@ function getHintText({
     // The initial item is a custom option.
     initialItem.customOption ||
     // One of the menu items is active.
-    activeItem ||
+    activeIndex > -1 ||
     // There's already a selection in single-select mode.
     (!!selected.length && !multiple)
   ) {

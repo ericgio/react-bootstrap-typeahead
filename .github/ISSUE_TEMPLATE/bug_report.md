@@ -26,7 +26,11 @@ Unless you believe you've encountered a bug or want to request a feature, the is
 
 ### Steps to reproduce
 
-<!-- Please provide DETAILED steps or better yet, a minimal repro case. If I can't reproduce the problem based on the information you provide, your issue will be closed. -->
+<!--
+Please provide DETAILED steps or better yet, a minimal repro case. If I can't reproduce the problem based on the information you provide, your issue will be closed.
+
+Starter sandbox: https://codesandbox.io/s/9jq9jyzmry
+-->
 
 ### Expected Behavior
 

@@ -1,13 +1,19 @@
-import React from 'react';
+// @flow
 
-import AutosizeInput from '../AutosizeInput.react';
-import {withContext} from '../TypeaheadContext';
+import React, { type ComponentType } from 'react';
 
-import {getDisplayName, shouldSelectHint} from '../utils';
+import { withContext } from '../core/Context';
+import { getDisplayName, shouldSelectHint } from '../utils';
+
+import type { CreateRef, InputRefHandler, KeyDownHandler, Ref } from '../types';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
-function interpolateStyle(styles, attr, subattr = '') {
+function interpolateStyle(
+  styles: Object,
+  attr: string,
+  subattr: string = ''
+): string {
   // Title-case the sub-attribute.
   if (subattr) {
     /* eslint-disable-next-line no-param-reassign */
@@ -19,34 +25,49 @@ function interpolateStyle(styles, attr, subattr = '') {
     .join(' ');
 }
 
-function copyStyles(inputNode, hintNode) {
+function copyStyles(inputNode: ?HTMLInputElement, hintNode: ?HTMLInputElement) {
+  if (!inputNode || !hintNode) {
+    return;
+  }
+
   const inputStyle = window.getComputedStyle(inputNode);
 
   /* eslint-disable no-param-reassign */
   hintNode.style.borderStyle = interpolateStyle(inputStyle, 'border', 'style');
   hintNode.style.borderWidth = interpolateStyle(inputStyle, 'border', 'width');
   hintNode.style.fontSize = inputStyle.fontSize;
+  hintNode.style.height = inputStyle.height;
   hintNode.style.lineHeight = inputStyle.lineHeight;
   hintNode.style.margin = interpolateStyle(inputStyle, 'margin');
   hintNode.style.padding = interpolateStyle(inputStyle, 'padding');
   /* eslint-enable no-param-reassign */
 }
 
-function hintContainer(Input) {
-  class HintedInput extends React.Component {
+type Props = {
+  forwardedRef: InputRefHandler,
+  onKeyDown: KeyDownHandler,
+};
+
+function hintContainer(Input: ComponentType<*>) {
+  class HintedInput extends React.Component<* & Props> {
+    static displayName = `hintContainer(${getDisplayName(Input)})`;
+
+    hintRef: CreateRef<HTMLInputElement> = React.createRef();
+    _input: Ref<HTMLInputElement> = null;
+
     componentDidMount() {
-      copyStyles(this._input, this._hint);
+      copyStyles(this._input, this.hintRef.current);
     }
 
     componentDidUpdate() {
-      copyStyles(this._input, this._hint);
+      copyStyles(this._input, this.hintRef.current);
     }
 
     render() {
       const {
+        forwardedRef,
         hintText,
         initialItem,
-        inputRef,
         onAdd,
         selectHintOnEnter,
         ...props
@@ -54,32 +75,32 @@ function hintContainer(Input) {
 
       return (
         <div
-          className="rbt-input-hint-container"
-          style={{position: 'relative'}}>
+          style={{
+            display: 'flex',
+            flex: 1,
+            height: '100%',
+            position: 'relative',
+          }}>
           <Input
             {...props}
-            inputRef={(input) => {
-              this._input = input;
-              inputRef(input);
-            }}
             onKeyDown={this._handleKeyDown}
+            ref={this.getInputRef}
           />
-          <AutosizeInput
+          <input
             aria-hidden
             className="rbt-input-hint"
-            inputRef={(hint) => this._hint = hint}
-            inputStyle={{
+            ref={this.hintRef}
+            readOnly
+            style={{
               backgroundColor: 'transparent',
               borderColor: 'transparent',
               boxShadow: 'none',
               color: 'rgba(0, 0, 0, 0.35)',
-            }}
-            readOnly
-            style={{
               left: 0,
               pointerEvents: 'none',
               position: 'absolute',
               top: 0,
+              width: '100%',
             }}
             tabIndex={-1}
             value={hintText}
@@ -88,8 +109,13 @@ function hintContainer(Input) {
       );
     }
 
-    _handleKeyDown = (e) => {
-      const {initialItem, onAdd, onKeyDown} = this.props;
+    getInputRef = (input: Ref<HTMLInputElement>) => {
+      this._input = input;
+      this.props.forwardedRef(input);
+    }
+
+    _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
+      const { initialItem, onAdd, onKeyDown } = this.props;
 
       if (shouldSelectHint(e, this.props)) {
         e.preventDefault(); // Prevent input from blurring on TAB.
@@ -100,14 +126,16 @@ function hintContainer(Input) {
     }
   }
 
-  HintedInput.displayName = `HintContainer(${getDisplayName(Input)})`;
-
-  return withContext(HintedInput, [
+  const HintedInputWithContext = withContext(HintedInput, [
     'hintText',
     'initialItem',
     'onAdd',
     'selectHintOnEnter',
   ]);
+
+  return React.forwardRef<{}, Ref<HTMLInputElement>>((props, ref) => (
+    <HintedInputWithContext {...props} forwardedRef={ref} />
+  ));
 }
 
 export default hintContainer;

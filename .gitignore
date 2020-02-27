@@ -1,8 +1,12 @@
+coverage/
+css/
+dist/
+es/
+lib/
+node_modules/
+
 .DS_Store
-css
-dist
+.coveralls.yml
 example/package-example.js
-lib
-node_modules
 npm-debug.log
 yarn-error.log

@@ -1,7 +1,14 @@
+// @flow
+
 import getOptionLabel from './getOptionLabel';
 
-function addCustomOption(results, props) {
-  const {allowNew, labelKey, text} = props;
+import type { Option, TypeaheadManagerProps } from '../types';
+
+function addCustomOption(
+  results: Option[],
+  props: TypeaheadManagerProps
+): boolean {
+  const { allowNew, labelKey, text } = props;
 
   if (!allowNew || !text.trim()) {
     return false;

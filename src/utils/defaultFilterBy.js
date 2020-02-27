@@ -1,9 +1,25 @@
-import {isEqual, isFunction, isString, some} from 'lodash';
+// @flow
 
+import isEqual from 'lodash.isequal';
+
+import getOptionProperty from './getOptionProperty';
+import { isFunction, isString } from './nodash';
 import stripDiacritics from './stripDiacritics';
 import warn from './warn';
 
-function isMatch(input, string, props) {
+import type { LabelKey, Option } from '../types';
+
+type Props = {
+  caseSensitive: boolean,
+  filterBy: string[],
+  ignoreDiacritics: boolean,
+  labelKey: LabelKey,
+  multiple: boolean,
+  selected: Option[],
+  text: string,
+};
+
+function isMatch(input: string, string: string, props: Props): boolean {
   let searchStr = input;
   let str = string;
 
@@ -23,19 +39,19 @@ function isMatch(input, string, props) {
 /**
  * Default algorithm for filtering results.
  */
-export default function defaultFilterBy(option, props) {
-  const {filterBy, labelKey, multiple, selected, text} = props;
+export default function defaultFilterBy(option: Option, props: Props) {
+  const { filterBy, labelKey, multiple, selected, text } = props;
 
   // Don't show selected options in the menu for the multi-select case.
   if (multiple && selected.some((o) => isEqual(o, option))) {
     return false;
   }
 
-  const fields = filterBy.slice();
-
   if (isFunction(labelKey) && isMatch(text, labelKey(option), props)) {
     return true;
   }
+
+  const fields: string[] = filterBy.slice();
 
   if (isString(labelKey)) {
     // Add the `labelKey` field to the list of fields if it isn't already there.
@@ -53,8 +69,8 @@ export default function defaultFilterBy(option, props) {
     return isMatch(text, option, props);
   }
 
-  return some(fields, (field) => {
-    let value = option[field];
+  return fields.some((field: string) => {
+    let value = getOptionProperty(option, field);
 
     if (!isString(value)) {
       warn(
@@ -63,8 +79,7 @@ export default function defaultFilterBy(option, props) {
         'be converted to a string; results may be unexpected.'
       );
 
-      // Coerce to string since `toString` isn't null-safe.
-      value = `${value}`;
+      value = String(value);
     }
 
     return isMatch(text, value, props);

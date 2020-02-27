@@ -1,8 +1,8 @@
 css
 dist
+es
 example/package-example.js
-example/assets/prism.min.js
+example/public/prism.min.js
+flow-typed
 lib
 **/node_modules
-scripts
-**/webpack*.config.js
