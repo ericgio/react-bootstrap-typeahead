@@ -38,10 +38,15 @@ if (!fs.existsSync(OUT_DIR)) {
 }
 
 fs.readdirSync(STYLES_DIR).forEach((filename) => {
+  const file = path.join(STYLES_DIR, filename);
+
+  // Include the .scss files in the package by simply copying them over.
+  fs.copyFileSync(file, path.join(OUT_DIR, filename));
+
   // Output both expanded and minified versions.
   ['compressed', 'expanded'].forEach((outputStyle) => {
     buildCSS({
-      file: path.join(STYLES_DIR, filename),
+      file,
       outputStyle,
     });
   });
