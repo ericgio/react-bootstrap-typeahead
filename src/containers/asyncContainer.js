@@ -104,8 +104,13 @@ const asyncContainer = (Typeahead: ComponentType<*>) => {
     }
 
     componentDidUpdate(prevProps: Props) {
-      if (!this.props.isLoading && prevProps.isLoading && this.props.useCache) {
-        this._cache[this._query] = this.props.options;
+      const { isLoading, options, useCache } = this.props;
+
+      // Ensure that we've gone from a loading to a completed state. Otherwise
+      // an empty response could get cached if the component updates during the
+      // request (eg: if the parent re-renders for some reason).
+      if (!isLoading && prevProps.isLoading && useCache) {
+        this._cache[this._query] = options;
       }
     }
 
