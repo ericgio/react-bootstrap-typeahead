@@ -8,6 +8,9 @@ import { Popper, type PopperChildrenProps } from 'react-popper';
 
 import type { OverlayProps } from '../types';
 
+// `Element` is not defined during server-side rendering, so shim it here.
+const SafeElement = typeof Element === 'undefined' ? () => {} : Element;
+
 const propTypes = {
   /**
    * Specify menu alignment. The default value is `justify`, which makes the
@@ -28,7 +31,7 @@ const propTypes = {
   flip: PropTypes.bool,
   isMenuShown: PropTypes.bool,
   positionFixed: PropTypes.bool,
-  referenceElement: PropTypes.instanceOf(Element),
+  referenceElement: PropTypes.instanceOf(SafeElement),
 };
 
 const defaultProps = {
