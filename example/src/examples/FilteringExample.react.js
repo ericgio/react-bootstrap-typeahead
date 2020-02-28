@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { FormGroup } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -35,43 +35,36 @@ const options = [
   'Rybnik',
 ];
 
-class FilteringExample extends React.Component {
-  state = {
-    caseSensitive: false,
-    ignoreDiacritics: true,
-  };
+const FilteringExample = () => {
+  const [caseSensitive, setCaseSensitive] = useState(false);
+  const [ignoreDiacritics, setIgnoreDiacritics] = useState(true);
 
-  render() {
-    const { caseSensitive, ignoreDiacritics } = this.state;
-
-    return (
-      <Fragment>
-        <Typeahead
-          {...this.state}
-          id="filtering-example"
-          options={options}
-          placeholder="Cities in Poland..."
-        />
-        <FormGroup>
-          <Control
-            checked={caseSensitive}
-            onChange={(e) => this.setState({ caseSensitive: e.target.checked })}
-            type="checkbox">
-            Case-sensitive filtering
-          </Control>
-          <Control
-            checked={!ignoreDiacritics}
-            onChange={(e) => {
-              this.setState({ ignoreDiacritics: !e.target.checked });
-            }}
-            type="checkbox">
-            Account for diacritical marks
-          </Control>
-        </FormGroup>
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <Typeahead
+        caseSensitive={caseSensitive}
+        id="filtering-example"
+        ignoreDiacritics={ignoreDiacritics}
+        options={options}
+        placeholder="Cities in Poland..."
+      />
+      <FormGroup>
+        <Control
+          checked={caseSensitive}
+          onChange={(e) => setCaseSensitive(e.target.checked)}
+          type="checkbox">
+          Case-sensitive filtering
+        </Control>
+        <Control
+          checked={!ignoreDiacritics}
+          onChange={(e) => setIgnoreDiacritics(!e.target.checked)}
+          type="checkbox">
+          Account for diacritical marks
+        </Control>
+      </FormGroup>
+    </Fragment>
+  );
+};
 /* example-end */
 
 export default FilteringExample;

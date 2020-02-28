@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { FormGroup } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -8,35 +8,32 @@ import Control from '../components/Control.react';
 import options from '../data';
 
 /* example-start */
-class BasicExample extends React.Component {
-  state = {
-    multiple: false,
-    selected: [],
-  };
+const BasicExample = () => {
+  const [multiple, setMultiple] = useState(false);
+  const [selected, setSelected] = useState([]);
 
-  render() {
-    return (
-      <Fragment>
-        <Typeahead
-          {...this.state}
-          id="basic-typeahead-example"
-          labelKey="name"
-          onChange={(selected) => this.setState({ selected })}
-          options={options}
-          placeholder="Choose a state..."
-        />
-        <FormGroup>
-          <Control
-            checked={this.state.multiple}
-            onChange={(e) => this.setState({ multiple: e.target.checked })}
-            type="checkbox">
-            Multi-Select
-          </Control>
-        </FormGroup>
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <Typeahead
+        id="basic-typeahead-example"
+        labelKey="name"
+        multiple={multiple}
+        onChange={setSelected}
+        options={options}
+        placeholder="Choose a state..."
+        selected={selected}
+      />
+      <FormGroup>
+        <Control
+          checked={multiple}
+          onChange={(e) => setMultiple(e.target.checked)}
+          type="checkbox">
+          Multi-Select
+        </Control>
+      </FormGroup>
+    </Fragment>
+  );
+};
 /* example-end */
 
 export default BasicExample;
