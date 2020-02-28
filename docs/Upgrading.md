@@ -70,11 +70,6 @@ This piece of functionality is not part of the WAI-ARIA authoring guidelines and
 - `a11yNumResults` & `a11yNumSelected` are now no-ops
 - If you need this functionality, you can add it yourself as a child (or child function) of the component.
 
-### Removed `componentWillReceiveProps`
-This lifecycle is deprecated and was removed. There should most likely be no impact, but it's possible some subtle behaviors changed in the process.
-
-- If you were passing an empty array to the `selected` prop to "clear" the component, this will not work as expected. Use the `clear()` method instead.
-
 ## v3.0 Breaking Changes
 
 ### Props
