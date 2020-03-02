@@ -10,11 +10,11 @@ import { checkPropType, isRequiredForA11y } from '../propTypes';
 import type { Id, MenuProps } from '../types';
 
 const MenuDivider = (props: any) => (
-  <li className="divider dropdown-divider" role="separator" />
+  <div className="dropdown-divider" role="separator" />
 );
 
 const MenuHeader = (props: any) => (
-  <li {...props} className="dropdown-header" />
+  <div {...props} className="dropdown-header" role="heading" />
 );
 
 const propTypes = {
@@ -89,7 +89,7 @@ class Menu extends React.Component<MenuComponentProps> {
       children;
 
     return (
-      <ul
+      <div
         aria-label={this.props['aria-label']}
         className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
         id={id}
@@ -107,7 +107,7 @@ class Menu extends React.Component<MenuComponentProps> {
           overflow: 'auto',
         }}>
         {contents}
-      </ul>
+      </div>
     );
   }
 }

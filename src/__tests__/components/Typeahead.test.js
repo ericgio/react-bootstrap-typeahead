@@ -496,14 +496,14 @@ describe('<Typeahead>', () => {
     typeahead.setProps({ bsSize: 'large' });
     const input = getFormControl(typeahead);
 
-    expect(input.hasClass('input-lg form-control-lg')).toBe(true);
+    expect(input.hasClass('form-control-lg')).toBe(true);
   });
 
   test('renders a small input', () => {
     typeahead.setProps({ bsSize: 'small' });
     const input = getFormControl(typeahead);
 
-    expect(input.hasClass('input-sm form-control-sm')).toBe(true);
+    expect(input.hasClass('form-control-sm')).toBe(true);
   });
 
   test('renders a loading indicator', () => {
@@ -973,13 +973,13 @@ describe('<Typeahead>', () => {
     test('sets menu item attributes', () => {
       focus(typeahead);
 
-      const menuItem = typeahead.find('.rbt-menu li').first();
+      const menuItem = typeahead.find('.dropdown-item').first();
       expect(menuItem.prop('aria-label')).toBe('Alabama');
       expect(menuItem.prop('aria-selected')).toBe(false);
       expect(menuItem.prop('role')).toBe('option');
 
       keyDown(typeahead, DOWN);
-      expect(typeahead.find('.rbt-menu li').first().prop('aria-selected'))
+      expect(typeahead.find('.dropdown-item').first().prop('aria-selected'))
         .toBe(true);
     });
   });

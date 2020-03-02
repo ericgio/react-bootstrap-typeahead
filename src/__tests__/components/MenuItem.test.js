@@ -23,7 +23,8 @@ describe('<BaseMenuItem>', () => {
 
   test('renders a base menu item', () => {
     expect(baseMenuItem).toBeDefined();
-    expect(baseMenuItem.type()).toBe('li');
+    expect(baseMenuItem.type()).toBe('a');
+    expect(baseMenuItem.hasClass('dropdown-item')).toBe(true);
   });
 
   test('renders an active base menu item', () => {
@@ -32,13 +33,13 @@ describe('<BaseMenuItem>', () => {
   });
 
   test('triggers an event when clicked', () => {
-    baseMenuItem.find('a').simulate('click', event);
+    baseMenuItem.simulate('click', event);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   test('renders a disabled base menu item', () => {
     baseMenuItem.setProps({ disabled: true });
-    baseMenuItem.find('a').simulate('click', event);
+    baseMenuItem.simulate('click', event);
 
     expect(baseMenuItem.hasClass('disabled')).toBe(true);
     expect(onClick).toHaveBeenCalledTimes(0);
