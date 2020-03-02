@@ -53,8 +53,8 @@
     "warning": "^4.0.1"
   },
   "peerDependencies": {
-    "react": ">=16.3.0",
-    "react-dom": ">=16.3.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -94,10 +94,10 @@
     "marked": "^0.8.0",
     "node-sass": "^4.5.3",
     "raw-loader": "^4.0.0",
-    "react": "^16.5.0",
+    "react": "^16.8.0",
     "react-axe": "^3.4.1",
     "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.5.0",
+    "react-dom": "^16.8.0",
     "react-prism": "^4.3.2",
     "react-test-renderer": "^16.5.0",
     "react-waypoint": "^9.0.0",
