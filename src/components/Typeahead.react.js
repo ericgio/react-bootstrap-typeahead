@@ -19,7 +19,7 @@ import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import { getOptionLabel, isFunction, isSizeLarge, pick, preventInputBlur } from '../utils';
-import { checkPropType, deprecated, inputPropsType, sizeType } from '../propTypes';
+import { checkPropType, inputPropsType, sizeType } from '../propTypes';
 
 import type { TypeaheadMenuProps } from './TypeaheadMenu.react';
 import type {
@@ -35,7 +35,7 @@ import type {
 } from '../types';
 
 type Props = TypeaheadProps & TypeaheadMenuProps & {
-  bsSize?: Size,
+  size?: Size,
   className?: string,
   clearButton: boolean,
   disabled?: boolean,
@@ -52,10 +52,6 @@ type Props = TypeaheadProps & TypeaheadMenuProps & {
 };
 
 const propTypes = {
-  /**
-   * Specifies the size of the input.
-   */
-  bsSize: deprecated(sizeType, 'Use the `size` prop instead.'),
   /**
    * Displays a button to clear the input when there are selections.
    */
@@ -207,7 +203,6 @@ class TypeaheadComponent extends React.Component<Props> {
 
   _renderInput = (inputProps: InputProps, props: TypeaheadManagerProps) => {
     const {
-      bsSize,
       isInvalid,
       isValid,
       multiple,
@@ -224,7 +219,7 @@ class TypeaheadComponent extends React.Component<Props> {
       ...inputProps,
       isInvalid,
       isValid,
-      size: bsSize || size,
+      size,
     };
 
     if (!multiple) {
@@ -272,30 +267,28 @@ class TypeaheadComponent extends React.Component<Props> {
   }
 
   _renderAux = ({ onClear, selected }: TypeaheadManagerProps) => {
-    const { bsSize, clearButton, disabled, isLoading, size } = this.props;
+    const { clearButton, disabled, isLoading, size } = this.props;
 
     let content;
 
     if (isLoading) {
-      content = <Loader size={bsSize || size} />;
+      content = <Loader />;
     } else if (clearButton && !disabled && selected.length) {
       content =
         <ClearButton
-          size={bsSize || size}
           onClick={onClear}
           onFocus={(e) => {
             // Prevent the main input from auto-focusing again.
             e.stopPropagation();
           }}
           onMouseDown={preventInputBlur}
+          size={size}
         />;
     }
 
     return content ?
       <div
-        className={cx('rbt-aux', {
-          'rbt-aux-lg': isSizeLarge(bsSize),
-        })}>
+        className={cx('rbt-aux', { 'rbt-aux-lg': isSizeLarge(size) })}>
         {content}
       </div> :
       null;
