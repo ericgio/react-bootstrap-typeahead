@@ -47,7 +47,7 @@ const BehaviorsSection = (props) => (
     <Title>Input Size</Title>
     <Markdown>
       Besides the default input size, you can specify either a `small` or
-      `large` size using the `bsSize` prop.
+      `large` size using the `size` prop.
     </Markdown>
     <ExampleSection code={InputSizeExampleCode}>
       <InputSizeExample />

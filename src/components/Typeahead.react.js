@@ -32,7 +32,7 @@ import type {
 } from '../types';
 
 type Props = TypeaheadProps & TypeaheadMenuProps & {
-  bsSize?: Size,
+  size?: Size,
   className?: string,
   clearButton: boolean,
   disabled?: boolean,
@@ -47,10 +47,6 @@ type Props = TypeaheadProps & TypeaheadMenuProps & {
 };
 
 const propTypes = {
-  /**
-   * Specifies the size of the input.
-   */
-  bsSize: sizeType,
   /**
    * Displays a button to clear the input when there are selections.
    */
@@ -84,6 +80,10 @@ const propTypes = {
    * Callback for custom menu rendering.
    */
   renderToken: PropTypes.func,
+  /**
+   * Specifies the size of the input.
+   */
+  size: sizeType,
 };
 
 const defaultProps = {
@@ -200,12 +200,12 @@ class TypeaheadComponent extends React.Component<Props> {
 
   _renderInput = (inputProps: InputProps, props: TypeaheadManagerProps) => {
     const {
-      bsSize,
       isInvalid,
       isValid,
       multiple,
       renderInput,
       renderToken,
+      size,
     } = this.props;
 
     if (isFunction(renderInput)) {
@@ -214,9 +214,9 @@ class TypeaheadComponent extends React.Component<Props> {
 
     const commonProps = {
       ...inputProps,
-      bsSize,
       isInvalid,
       isValid,
+      size,
     };
 
     if (!multiple) {
@@ -264,30 +264,28 @@ class TypeaheadComponent extends React.Component<Props> {
   }
 
   _renderAux = ({ onClear, selected }: TypeaheadManagerProps) => {
-    const { bsSize, clearButton, disabled, isLoading } = this.props;
+    const { clearButton, disabled, isLoading, size } = this.props;
 
     let content;
 
     if (isLoading) {
-      content = <Loader bsSize={bsSize} />;
+      content = <Loader />;
     } else if (clearButton && !disabled && selected.length) {
       content =
         <ClearButton
-          bsSize={bsSize}
           onClick={onClear}
           onFocus={(e) => {
             // Prevent the main input from auto-focusing again.
             e.stopPropagation();
           }}
           onMouseDown={preventInputBlur}
+          size={size}
         />;
     }
 
     return content ?
       <div
-        className={cx('rbt-aux', {
-          'rbt-aux-lg': isSizeLarge(bsSize),
-        })}>
+        className={cx('rbt-aux', { 'rbt-aux-lg': isSizeLarge(size) })}>
         {content}
       </div> :
       null;

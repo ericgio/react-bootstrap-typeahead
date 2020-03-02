@@ -490,14 +490,14 @@ describe('<Typeahead>', () => {
   });
 
   test('renders a large input', () => {
-    typeahead.setProps({ bsSize: 'large' });
+    typeahead.setProps({ size: 'large' });
     const input = getFormControl(typeahead);
 
     expect(input.hasClass('form-control-lg')).toBe(true);
   });
 
   test('renders a small input', () => {
-    typeahead.setProps({ bsSize: 'small' });
+    typeahead.setProps({ size: 'small' });
     const input = getFormControl(typeahead);
 
     expect(input.hasClass('form-control-sm')).toBe(true);
