@@ -5,7 +5,6 @@ import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { RootCloseWrapper } from 'react-overlays';
 
 import TypeaheadManager from './TypeaheadManager';
 
@@ -376,29 +375,26 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }
 
     return (
-      <RootCloseWrapper
-        disabled={this.props.open || !this.isMenuShown}
-        onRootClose={this._hideMenu}>
-        <TypeaheadManager
-          {...mergedPropsAndState}
-          getReferenceElement={this.getReferenceElement}
-          inputRef={this.getInputRef}
-          isMenuShown={this.isMenuShown}
-          items={this.items}
-          onActiveItemChange={this._handleActiveItemChange}
-          onAdd={this._handleSelectionAdd}
-          onBlur={this._handleBlur}
-          onChange={this._handleInputChange}
-          onClear={this._handleClear}
-          onFocus={this._handleFocus}
-          onInitialItemChange={this._handleInitialItemChange}
-          onKeyDown={this._handleKeyDown}
-          onMenuItemClick={this._handleMenuItemSelect}
-          onRemove={this._handleSelectionRemove}
-          referenceElement={this._referenceElement}
-          results={results}
-        />
-      </RootCloseWrapper>
+      <TypeaheadManager
+        {...mergedPropsAndState}
+        getReferenceElement={this.getReferenceElement}
+        inputRef={this.getInputRef}
+        isMenuShown={this.isMenuShown}
+        items={this.items}
+        onActiveItemChange={this._handleActiveItemChange}
+        onAdd={this._handleSelectionAdd}
+        onBlur={this._handleBlur}
+        onChange={this._handleInputChange}
+        onClear={this._handleClear}
+        onFocus={this._handleFocus}
+        onHide={this._hideMenu}
+        onInitialItemChange={this._handleInitialItemChange}
+        onKeyDown={this._handleKeyDown}
+        onMenuItemClick={this._handleMenuItemSelect}
+        onRemove={this._handleSelectionRemove}
+        referenceElement={this._referenceElement}
+        results={results}
+      />
     );
   }
 

@@ -3,6 +3,7 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { RootCloseWrapper } from 'react-overlays';
 
 import Overlay from '../core/Overlay';
 import Typeahead from '../core/Typeahead';
@@ -125,7 +126,7 @@ class TypeaheadComponent extends React.Component<Props> {
 
   render() {
     // Explicitly pass `options` so Flow doesn't complain...
-    const { children, className, options, style } = this.props;
+    const { children, className, open, options, style } = this.props;
 
     return (
       <Typeahead
@@ -136,25 +137,29 @@ class TypeaheadComponent extends React.Component<Props> {
           const auxContent = this._renderAux(state);
 
           return (
-            <div
-              className={cx('rbt', { 'has-aux': !!auxContent }, className)}
-              style={{
-                ...style,
-                outline: 'none',
-                position: 'relative',
-              }}
-              tabIndex={-1}>
-              {this._renderInput(getInputProps(this.props.inputProps), state)}
-              <Overlay {...getOverlayProps(this.props)}>
-                {(menuProps: MenuProps) => this._renderMenu(
-                  state.results,
-                  menuProps,
-                  state
-                )}
-              </Overlay>
-              {auxContent}
-              {isFunction(children) ? children(state) : children}
-            </div>
+            <RootCloseWrapper
+              disabled={open || !state.isMenuShown}
+              onRootClose={state.onHide}>
+              <div
+                className={cx('rbt', { 'has-aux': !!auxContent }, className)}
+                style={{
+                  ...style,
+                  outline: 'none',
+                  position: 'relative',
+                }}
+                tabIndex={-1}>
+                {this._renderInput(getInputProps(this.props.inputProps), state)}
+                <Overlay {...getOverlayProps(this.props)}>
+                  {(menuProps: MenuProps) => this._renderMenu(
+                    state.results,
+                    menuProps,
+                    state
+                  )}
+                </Overlay>
+                {auxContent}
+                {isFunction(children) ? children(state) : children}
+              </div>
+            </RootCloseWrapper>
           );
         }}
       </Typeahead>

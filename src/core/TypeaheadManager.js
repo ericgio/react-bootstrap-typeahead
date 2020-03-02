@@ -36,6 +36,7 @@ const stateKeys = [
   'isMenuShown',
   'labelKey',
   'onClear',
+  'onHide',
   'onRemove',
   'results',
   'selected',
