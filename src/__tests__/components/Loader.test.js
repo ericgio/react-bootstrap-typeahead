@@ -10,18 +10,17 @@ describe('<Loader>', () => {
     loader = shallow(<Loader />);
   });
 
-  test('renders a default loading indicator', () => {
+  test('renders a loading indicator', () => {
     expect(loader.type()).toBe('div');
-    expect(loader.hasClass('rbt-loader')).toBe(true);
+    expect(loader.hasClass('rbt-loader spinner-border spinner-border-sm'))
+      .toBe(true);
   });
 
-  test('renders a small loading indicator', () => {
-    loader.setProps({ bsSize: 'small' });
-    expect(loader.hasClass('rbt-loader-sm')).toBe(true);
-  });
+  test('renders a label for accessibility', () => {
+    expect(loader.find('.sr-only').text()).toBe('Loading...');
 
-  test('renders a large loading indicator', () => {
-    loader.setProps({ bsSize: 'large' });
-    expect(loader.hasClass('rbt-loader-lg')).toBe(true);
+    const label = 'Waiting...';
+    loader.setProps({ label });
+    expect(loader.find('.sr-only').text()).toBe(label);
   });
 });

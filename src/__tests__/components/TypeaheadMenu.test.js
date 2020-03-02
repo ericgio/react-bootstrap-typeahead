@@ -28,7 +28,7 @@ describe('<TypeaheadMenu>', () => {
   });
 
   test('renders a basic typeahead menu', () => {
-    expect(menu.find('ul').hasClass('rbt-menu')).toBe(true);
+    expect(menu.find('div').hasClass('rbt-menu dropdown-menu')).toBe(true);
     expect(menu.find(MenuItem).length).toBe(options.length);
   });
 
