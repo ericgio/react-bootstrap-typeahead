@@ -51,12 +51,15 @@ const tokenContainer = (Component: ComponentType<*>) => {
 
     render() {
       const { onRemove } = this.props;
+      const { active } = this.state;
 
       return (
-        <RootCloseWrapper onRootClose={this._handleBlur}>
+        <RootCloseWrapper
+          disabled={!active}
+          onRootClose={this._handleBlur}>
           <Component
             {...this.props}
-            {...this.state}
+            active={active}
             onBlur={this._handleBlur}
             onClick={this._handleClick}
             onFocus={this._handleFocus}
