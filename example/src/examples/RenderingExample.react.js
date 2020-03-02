@@ -2,10 +2,9 @@
 
 import { groupBy } from 'lodash';
 import React, { Fragment } from 'react';
-import { FormControl, FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Highlighter, hintContainer, Menu, MenuItem, Token, Typeahead } from 'react-bootstrap-typeahead';
 
-import Control from '../components/Control.react';
 import options from '../data';
 
 const RADIO_OPTIONS = [
@@ -16,9 +15,17 @@ const RADIO_OPTIONS = [
 ];
 
 /* example-start */
-const HintedFormControl = hintContainer(React.forwardRef((props, ref) => (
-  // React-Bootstrap < 1.0.0 takes an `inputRef` rather than forwarding the ref.
-  <FormControl {...props} inputRef={ref} />
+const HintedFormControl = hintContainer(React.forwardRef((
+  { inputRef, ...props },
+  ref
+) => (
+  <Form.Control
+    {...props}
+    ref={(node) => {
+      inputRef(node);
+      ref(node);
+    }}
+  />
 )));
 
 class RenderingExample extends React.Component {
@@ -57,18 +64,19 @@ class RenderingExample extends React.Component {
           options={options}
           placeholder="Choose a state..."
         />
-        <FormGroup>
+        <Form.Group>
           {RADIO_OPTIONS.map(({ label, value }) => (
-            <Control
+            <Form.Check
               checked={selectedOption === value}
+              id={`rendering-${value}`}
               key={value}
+              label={label}
               onChange={(e) => this.setState({ selectedOption: value })}
               type="radio"
-              value={value}>
-              {label}
-            </Control>
+              value={value}
+            />
           ))}
-        </FormGroup>
+        </Form.Group>
       </Fragment>
     );
   }

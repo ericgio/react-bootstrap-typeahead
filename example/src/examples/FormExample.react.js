@@ -2,7 +2,7 @@
 
 import { sortBy } from 'lodash';
 import React, { Fragment } from 'react';
-import { Button, FormGroup, InputGroup } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 import options from '../data';
@@ -22,7 +22,6 @@ class FormExample extends React.Component {
 
     let isInvalid;
     let isValid;
-    let validationState;
 
     if (selected.length) {
       const isMatch = selected[0].name === state.name;
@@ -30,20 +29,17 @@ class FormExample extends React.Component {
       // BS4 validation
       isInvalid = !isMatch;
       isValid = isMatch;
-
-      // BS3 validation
-      validationState = isMatch ? 'success' : 'error';
     }
 
     return (
       <Fragment>
-        <FormGroup validationState={validationState}>
+        <Form.Group>
           <InputGroup>
-            <InputGroup.Addon className="input-group-prepend">
-              <span className="input-group-text">
+            <InputGroup.Prepend>
+              <InputGroup.Text>
                 The capital of {state.name} is
-              </span>
-            </InputGroup.Addon>
+              </InputGroup.Text>
+            </InputGroup.Prepend>
             <Typeahead
               id="form-example"
               isInvalid={isInvalid}
@@ -54,15 +50,15 @@ class FormExample extends React.Component {
               placeholder="Select a capital..."
               selected={selected}
             />
-            <InputGroup.Button className="input-group-append">
+            <InputGroup.Append>
               <Button
-                className="btn-outline-secondary"
-                onClick={() => this.setState(getInitialState())}>
+                onClick={() => this.setState(getInitialState())}
+                variant="outline-secondary">
                 Play Again
               </Button>
-            </InputGroup.Button>
+            </InputGroup.Append>
           </InputGroup>
-        </FormGroup>
+        </Form.Group>
       </Fragment>
     );
   }
