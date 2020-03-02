@@ -1,10 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment, useState } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-
-import Control from '../components/Control.react';
 
 /* example-start */
 const options = [
@@ -48,20 +46,22 @@ const FilteringExample = () => {
         options={options}
         placeholder="Cities in Poland..."
       />
-      <FormGroup>
-        <Control
+      <Form.Group>
+        <Form.Check
           checked={caseSensitive}
+          id="case-sensitive-filtering"
+          label="Case-sensitive filtering"
           onChange={(e) => setCaseSensitive(e.target.checked)}
-          type="checkbox">
-          Case-sensitive filtering
-        </Control>
-        <Control
+          type="checkbox"
+        />
+        <Form.Check
           checked={!ignoreDiacritics}
+          id="diacritical-marks"
+          label="Account for diacritical marks"
           onChange={(e) => setIgnoreDiacritics(!e.target.checked)}
-          type="checkbox">
-          Account for diacritical marks
-        </Control>
-      </FormGroup>
+          type="checkbox"
+        />
+      </Form.Group>
     </Fragment>
   );
 };

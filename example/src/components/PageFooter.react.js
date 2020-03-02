@@ -1,12 +1,15 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React from 'react';
+import { Container } from 'react-bootstrap';
+
+import GithubStarsButton from './GithubStarsButton.react';
 
 import { version } from '../../../package.json';
 
-import Container from './Container.react';
-import GithubStarsButton from './GithubStarsButton.react';
-
 const AUTHOR_GITHUB_URL = 'https://github.com/ericgio';
 const BASE_GITHUB_URL = `${AUTHOR_GITHUB_URL}/react-bootstrap-typeahead`;
+const BOOTSTRAP_VERSION = '4.4.1';
 
 const authorLink =
   <a
@@ -33,15 +36,23 @@ const licenseLink =
 
 const versionLink =
   <a
-    href="https://www.npmjs.com/package/react-bootstrap-typeahead"
+    href={`${BASE_GITHUB_URL}/releases`}
     rel="noreferrer noopener"
     target="_blank">
     v{version}
   </a>;
 
+const bsLink =
+  <a
+    href="https://getbootstrap.com/docs/4.4"
+    rel="noreferrer noopener"
+    target="_blank">
+    v{BOOTSTRAP_VERSION}
+  </a>;
+
 const PageFooter = () => (
   <footer className="bs-docs-footer">
-    <Container>
+    <Container fluid="md">
       <ul className="bs-docs-footer-links">
         {footerLinks.map(({ href, label }) => (
           <li key={label}>
@@ -53,8 +64,9 @@ const PageFooter = () => (
       </ul>
       <ul className="bs-docs-footer-links">
         <li>Copyright © {currentYear} {authorLink}</li>
-        <li>Licensed under {licenseLink}</li>
-        <li>Current version: {versionLink}</li>
+        <li>License: {licenseLink}</li>
+        <li>Version: {versionLink}</li>
+        <li>Bootstrap Version: {bsLink}</li>
       </ul>
       <GithubStarsButton />
     </Container>

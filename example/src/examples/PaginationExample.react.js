@@ -2,10 +2,8 @@
 
 import { range } from 'lodash';
 import React, { Fragment, useState } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-
-import Control from '../components/Control.react';
 
 /* eslint-disable no-console */
 /* example-start */
@@ -23,14 +21,15 @@ const PaginationExample = () => {
         paginate={paginate}
         placeholder="Pick a number..."
       />
-      <FormGroup>
-        <Control
+      <Form.Group>
+        <Form.Check
           checked={paginate}
+          id="paginate-results"
+          label="Paginate results"
           onChange={(e) => setPaginate(!!e.target.checked)}
-          type="checkbox">
-          Paginate results
-        </Control>
-      </FormGroup>
+          type="checkbox"
+        />
+      </Form.Group>
     </Fragment>
   );
 };

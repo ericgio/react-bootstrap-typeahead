@@ -1,8 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import cx from 'classnames';
 import React, { Children } from 'react';
-import { Col, NavItem, Row } from 'react-bootstrap';
+import { Col, Container, Nav, Row } from 'react-bootstrap';
 
 import Context from './Context.react';
 import PageFooter from './PageFooter.react';
@@ -10,7 +9,6 @@ import PageHeader from './PageHeader.react';
 import PageMenu from './PageMenu.react';
 
 import getIdFromTitle from '../util/getIdFromTitle';
-import { BS3, BS4, HASHES } from '../util/bsVersions';
 
 class Page extends React.Component {
   _hrefs = [];
@@ -18,7 +16,6 @@ class Page extends React.Component {
 
   state = {
     activeHref: window.location.hash,
-    bsVersion: BS4,
   };
 
   constructor(props) {
@@ -31,24 +28,15 @@ class Page extends React.Component {
   }
 
   render() {
-    const { bsVersion } = this.state;
-
     return (
       <Context.Provider
         value={{
-          isBS3: bsVersion === BS3,
           onAfter: this._onAfter,
           onBefore: this._onBefore,
         }}>
-        <div
-          className={cx('bs-docs-page', {
-            bs4: bsVersion === BS4,
-          })}>
-          <PageHeader
-            onVersionChange={this._handleVersionChange}
-            selectedVersion={bsVersion}
-          />
-          <main className="container">
+        <div className="bs-docs-page bs4">
+          <PageHeader />
+          <Container as="main" fluid="md">
             <Row>
               <Col md={9}>
                 {this.props.children}
@@ -59,7 +47,7 @@ class Page extends React.Component {
                 </PageMenu>
               </Col>
             </Row>
-          </main>
+          </Container>
           <PageFooter />
         </div>
       </Context.Provider>
@@ -69,36 +57,14 @@ class Page extends React.Component {
   _renderMenuItem = (title, idx) => {
     const href = `#${getIdFromTitle(title)}`;
     return (
-      <NavItem
-        active={href === this.state.activeHref}
-        key={idx}
-        onClick={() => this._handleMenuItemClick(href)}>
-        {title}
-      </NavItem>
+      <Nav.Item key={idx}>
+        <Nav.Link
+          active={href === this.state.activeHref}
+          onClick={() => this._handleMenuItemClick(href)}>
+          {title}
+        </Nav.Link>
+      </Nav.Item>
     );
-  }
-
-  _handleVersionChange = (bsVersion) => {
-    if (bsVersion === this.state.bsVersion) {
-      return;
-    }
-
-    const items = document.head.children;
-
-    for (let ii = 0; ii < items.length; ii++) {
-      const item = items[ii];
-      if (item.href && item.href.indexOf('bootstrap.min.css') !== -1) {
-        // `integrity` must be set before `href`.
-        item.setAttribute('integrity', `sha384-${HASHES[bsVersion]}`);
-        item.setAttribute(
-          'href',
-          `https://maxcdn.bootstrapcdn.com/bootstrap/${bsVersion}/css/bootstrap.min.css`
-        );
-        break;
-      }
-    }
-
-    this.setState({ bsVersion });
   }
 
   _handleMenuItemClick = (activeHref) => {
