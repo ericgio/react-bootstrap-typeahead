@@ -16,10 +16,10 @@ const ExampleSection = ({ children, code }) => {
             Example
           </div>
           <Button
-            bsSize="xsmall"
-            bsStyle="link"
             className="example-toggle-code"
-            onClick={() => setIsOpen(!isOpen)}>
+            onClick={() => setIsOpen(!isOpen)}
+            size="sm"
+            variant="link">
             {`${isOpen ? 'Hide' : 'Show'} Code`}
           </Button>
         </div>

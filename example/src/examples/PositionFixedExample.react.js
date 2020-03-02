@@ -1,10 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment, useState } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
-import Control from '../components/Control.react';
 import options from '../data';
 
 /* example-start */
@@ -30,14 +29,15 @@ const PositionFixedExample = () => {
           />
         </div>
       </div>
-      <FormGroup>
-        <Control
+      <Form.Group>
+        <Form.Check
           checked={positionFixed}
+          id="position-fixed"
+          label="Use fixed positioning"
           onChange={(e) => setPositionFixed(e.target.checked)}
-          type="checkbox">
-          Use fixed positioning
-        </Control>
-      </FormGroup>
+          type="checkbox"
+        />
+      </Form.Group>
     </Fragment>
   );
 };

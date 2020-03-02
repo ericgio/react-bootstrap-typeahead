@@ -1,10 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment, useState } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
-import Control from '../components/Control.react';
 import options from '../data';
 
 /* example-start */
@@ -40,18 +39,19 @@ const CustomFilteringExample = () => {
           </div>
         )}
       />
-      <FormGroup>
+      <Form.Group>
         {radios.map(({ label, value }) => (
-          <Control
+          <Form.Check
             checked={filterBy === value}
+            id={value}
             key={value}
+            label={label}
             onChange={(e) => setFilterBy(value)}
             type="radio"
-            value={value}>
-            {label}
-          </Control>
+            value={value}
+          />
         ))}
-      </FormGroup>
+      </Form.Group>
     </Fragment>
   );
 };

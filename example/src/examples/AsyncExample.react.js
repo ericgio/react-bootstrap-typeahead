@@ -1,10 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
-import Control from '../components/Control.react';
 import GithubMenuItem from '../components/GithubMenuItem.react';
 import makeAndHandleRequest from '../util/makeAndHandleRequest';
 
@@ -18,6 +17,11 @@ class AsyncExample extends React.Component {
   };
 
   render() {
+    const checkboxes = [
+      { label: 'Multi-Select', name: 'multiple' },
+      { label: 'Allow custom selections', name: 'allowNew' },
+    ];
+
     return (
       <Fragment>
         <AsyncTypeahead
@@ -31,29 +35,21 @@ class AsyncExample extends React.Component {
             <GithubMenuItem key={option.id} user={option} />
           )}
         />
-        <FormGroup>
-          {this._renderCheckboxes()}
-        </FormGroup>
+        <Form.Group>
+          {checkboxes.map(({ label, name }) => (
+            <Form.Check
+              checked={this.state[name]}
+              id={name}
+              key={name}
+              label={label}
+              name={name}
+              onChange={this._handleChange}
+              type="checkbox"
+            />
+          ))}
+        </Form.Group>
       </Fragment>
     );
-  }
-
-  _renderCheckboxes() {
-    const checkboxes = [
-      { label: 'Multi-Select', name: 'multiple' },
-      { label: 'Allow custom selections', name: 'allowNew' },
-    ];
-
-    return checkboxes.map(({ label, name }) => (
-      <Control
-        checked={this.state[name]}
-        key={name}
-        name={name}
-        onChange={this._handleChange}
-        type="checkbox">
-        {label}
-      </Control>
-    ));
   }
 
   _handleChange = (e) => {
