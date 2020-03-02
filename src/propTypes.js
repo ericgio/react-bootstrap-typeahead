@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
-import { isFunction, warn } from './utils';
+import { isFunction, values, warn } from './utils';
+import { SIZE } from './constants';
 
 const INPUT_PROPS_BLACKLIST = [
   { alt: 'onBlur', prop: 'onBlur' },
@@ -8,6 +9,8 @@ const INPUT_PROPS_BLACKLIST = [
   { alt: 'onFocus', prop: 'onFocus' },
   { alt: 'onKeyDown', prop: 'onKeyDown' },
 ];
+
+export const sizeType = PropTypes.oneOf(values(SIZE));
 
 /**
  * Allows additional warnings or messaging related to prop validation.

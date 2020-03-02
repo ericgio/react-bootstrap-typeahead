@@ -1,4 +1,4 @@
-import { head, isFunction, isString, noop, pick, uniqueId } from '../../utils/nodash';
+import { head, isFunction, isString, noop, pick, uniqueId, values } from '../../utils/nodash';
 
 const arr = [];
 const fn = noop;
@@ -40,5 +40,17 @@ describe('nodash', () => {
   test('uniqueId', () => {
     expect(uniqueId()).toBe('1');
     expect(uniqueId('foo-')).toBe('foo-2');
+  });
+
+  test('values', () => {
+    const object = {
+      bar: null,
+      baz: 3,
+      foo: 'foo',
+    };
+
+    const vals = [null, 3, 'foo'];
+
+    expect(values(object)).toStrictEqual(vals);
   });
 });

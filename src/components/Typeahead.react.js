@@ -14,22 +14,23 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import { getOptionLabel, isFunction, preventInputBlur } from '../utils';
-import { checkPropType, inputPropsType } from '../propTypes';
+import { getOptionLabel, isFunction, isSizeLarge, preventInputBlur } from '../utils';
+import { checkPropType, inputPropsType, sizeType } from '../propTypes';
 
 import type { TypeaheadMenuProps } from './TypeaheadMenu.react';
 import type {
-  BsSize,
   InputProps,
   MenuProps,
   Option,
   Ref,
+  Size,
+  Style,
   TypeaheadProps,
   TypeaheadManagerProps,
 } from '../types';
 
 type Props = TypeaheadProps & TypeaheadMenuProps & {
-  bsSize?: BsSize,
+  bsSize?: Size,
   className?: string,
   clearButton: boolean,
   disabled?: boolean,
@@ -40,14 +41,14 @@ type Props = TypeaheadProps & TypeaheadMenuProps & {
   renderInput: (InputProps, TypeaheadManagerProps) => React.Node,
   renderMenu: (Option[], Object, TypeaheadProps) => React.Node,
   renderToken: (Option, Object & InputProps, number) => React.Node,
-  style?: Object,
+  style?: Style,
 };
 
 const propTypes = {
   /**
    * Specifies the size of the input.
    */
-  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+  bsSize: sizeType,
   /**
    * Displays a button to clear the input when there are selections.
    */
@@ -251,7 +252,7 @@ class TypeaheadComponent extends React.Component<Props> {
     return content ?
       <div
         className={cx('rbt-aux', {
-          'rbt-aux-lg': bsSize === 'large' || bsSize === 'lg',
+          'rbt-aux-lg': isSizeLarge(bsSize),
         })}>
         {content}
       </div> :

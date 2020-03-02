@@ -4,13 +4,15 @@
 
 import type { Node } from 'react';
 
-export type BsSize = 'large' | 'lg' | 'small' | 'sm';
+import { ALIGN, SIZE } from './constants';
+
 export type EventHandler = (SyntheticEvent<HTMLElement>) => void;
 export type Id = number | string;
 export type KeyDownHandler = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
 export type Option = string | { [string]: any };
 export type OptionHandler = (Option) => void;
 export type LabelKey = string | (Option) => string;
+export type Size = $Values<typeof SIZE>;
 export type Style = { [string]: any };
 export type ReferenceElement = HTMLElement;
 
@@ -37,7 +39,7 @@ export type InputProps = {
 };
 
 export type OverlayProps = {
-  align: 'justify' | 'left' | 'right',
+  align: $Values<typeof ALIGN>,
   children: (MenuProps) => Node,
   dropup: boolean,
   flip: boolean,
@@ -50,7 +52,7 @@ export type MenuProps = {
   innerRef: RefHandler<HTMLElement>,
   inputHeight: number,
   scheduleUpdate: () => void,
-  style: { [string]: any },
+  style: Style,
 };
 
 export type TypeaheadProps = {

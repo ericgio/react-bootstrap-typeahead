@@ -17,6 +17,7 @@ export isShown from './isShown';
 export * from './nodash';
 export preventInputBlur from './preventInputBlur';
 export shouldSelectHint from './shouldSelectHint';
+export * from './size';
 export stripDiacritics from './stripDiacritics';
 export validateSelectedPropChange from './validateSelectedPropChange';
 export warn from './warn';

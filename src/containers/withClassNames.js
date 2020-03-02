@@ -3,11 +3,11 @@
 import cx from 'classnames';
 import React, { type ComponentType } from 'react';
 
-import { getDisplayName } from '../utils';
-import type { BsSize } from '../types';
+import { getDisplayName, isSizeLarge, isSizeSmall } from '../utils';
+import type { Size } from '../types';
 
 type Props = {
-  bsSize: BsSize,
+  bsSize: Size,
   className?: string,
   isInvalid?: boolean,
   isValid?: boolean,
@@ -26,8 +26,8 @@ function withClassNames(Component: ComponentType<*>) {
         <Component
           {...props}
           className={cx('form-control', 'rbt-input', {
-            'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
-            'input-sm form-control-sm': bsSize === 'small' || bsSize === 'sm',
+            'input-lg form-control-lg': isSizeLarge(bsSize),
+            'input-sm form-control-sm': isSizeSmall(bsSize),
             'is-invalid': isInvalid,
             'is-valid': isValid,
           }, className)}

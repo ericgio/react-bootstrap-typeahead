@@ -4,12 +4,13 @@ import cx from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { noop } from '../utils';
+import { isSizeLarge, noop } from '../utils';
 
-import type { BsSize, EventHandler } from '../types';
+import { sizeType } from '../propTypes';
+import type { EventHandler, Size } from '../types';
 
 const propTypes = {
-  bsSize: PropTypes.oneOf(['large', 'lg', 'small', 'sm']),
+  bsSize: sizeType,
   label: PropTypes.string,
   onClick: PropTypes.func,
 };
@@ -20,7 +21,7 @@ const defaultProps = {
 };
 
 type Props = {
-  bsSize?: BsSize,
+  bsSize?: Size,
   className?: string,
   label: string,
   onClick: EventHandler,
@@ -42,7 +43,7 @@ const ClearButton = ({
     {...props}
     aria-label={label}
     className={cx('close', 'rbt-close', {
-      'rbt-close-lg': bsSize === 'large' || bsSize === 'lg',
+      'rbt-close-lg': isSizeLarge(bsSize),
     }, className)}
     onClick={(e: SyntheticEvent<HTMLButtonElement>) => {
       e.stopPropagation();

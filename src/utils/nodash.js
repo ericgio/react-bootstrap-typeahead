@@ -30,3 +30,16 @@ export function uniqueId(prefix: ?string): string {
   idCounter += 1;
   return (prefix == null ? '' : String(prefix)) + idCounter;
 }
+
+export function values(obj: Object) {
+  if (isFunction(Object.values)) {
+    return Object.values(obj);
+  }
+
+  return Object.keys(obj).reduce((accum: any[], key: string) => {
+    if (Object.prototype.propertyIsEnumerable.call(obj, key)) {
+      accum.push(obj[key]);
+    }
+    return accum;
+  }, []);
+}
