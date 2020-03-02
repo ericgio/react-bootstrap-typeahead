@@ -1,10 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-
-import Control from '../components/Control.react';
 
 import options from '../data';
 
@@ -33,13 +31,13 @@ class BasicBehaviorsExample extends React.Component {
 
     const checkboxes = [
       /* eslint-disable max-len */
-      { checked: disabled, children: 'Disable the input', name: 'disabled' },
-      { checked: dropup, children: 'Dropup menu', name: 'dropup' },
-      { checked: flip, children: 'Flip the menu position when it reaches the viewport bounds', name: 'flip' },
-      { checked: !!minLength, children: 'Require minimum input before showing results (2 chars)', name: 'minLength' },
-      { checked: selectHintOnEnter, children: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter' },
-      { checked: highlightOnlyResult, children: 'Highlight the only result', name: 'highlightOnlyResult' },
-      { checked: !!open, children: 'Force the menu to stay open', name: 'open' },
+      { checked: disabled, label: 'Disable the input', name: 'disabled' },
+      { checked: dropup, label: 'Dropup menu', name: 'dropup' },
+      { checked: flip, label: 'Flip the menu position when it reaches the viewport bounds', name: 'flip' },
+      { checked: !!minLength, label: 'Require minimum input before showing results (2 chars)', name: 'minLength' },
+      { checked: selectHintOnEnter, label: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter' },
+      { checked: highlightOnlyResult, label: 'Highlight the only result', name: 'highlightOnlyResult' },
+      { checked: !!open, label: 'Force the menu to stay open', name: 'open' },
       /* eslint-enable max-len */
     ];
 
@@ -52,16 +50,17 @@ class BasicBehaviorsExample extends React.Component {
           options={options}
           placeholder="Choose a state..."
         />
-        <FormGroup>
+        <Form.Group>
           {checkboxes.map((props) => (
-            <Control
+            <Form.Check
               {...props}
+              id={props.name}
               key={props.name}
               onChange={this._handleChange}
               type="checkbox"
             />
           ))}
-        </FormGroup>
+        </Form.Group>
       </Fragment>
     );
   }

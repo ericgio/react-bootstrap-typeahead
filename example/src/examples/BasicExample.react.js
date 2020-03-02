@@ -1,10 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment, useState } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
-import Control from '../components/Control.react';
 import options from '../data';
 
 /* example-start */
@@ -23,14 +22,15 @@ const BasicExample = () => {
         placeholder="Choose a state..."
         selected={selected}
       />
-      <FormGroup>
-        <Control
+      <Form.Group>
+        <Form.Check
           checked={multiple}
+          id="multi-select-check"
+          label="Multi-Select"
           onChange={(e) => setMultiple(e.target.checked)}
-          type="checkbox">
-          Multi-Select
-        </Control>
-      </FormGroup>
+          type="checkbox"
+        />
+      </Form.Group>
     </Fragment>
   );
 };
