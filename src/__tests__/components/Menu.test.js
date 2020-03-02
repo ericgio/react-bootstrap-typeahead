@@ -94,8 +94,8 @@ describe('<Menu>', () => {
   test('<Menu.Divider>', () => {
     const wrapper = shallow(<Menu.Divider />);
 
-    expect(wrapper.type()).toBe('li');
-    expect(wrapper.hasClass('divider dropdown-divider')).toBe(true);
+    expect(wrapper.type()).toBe('div');
+    expect(wrapper.hasClass('dropdown-divider')).toBe(true);
     expect(wrapper.prop('role')).toBe('separator');
   });
 
@@ -108,8 +108,9 @@ describe('<Menu>', () => {
       </Menu.Header>
     );
 
-    expect(wrapper.type()).toBe('li');
+    expect(wrapper.type()).toBe('div');
     expect(wrapper.hasClass('dropdown-header')).toBe(true);
+    expect(wrapper.prop('role')).toBe('heading');
     expect(wrapper.text()).toBe(children);
   });
 });
