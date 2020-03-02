@@ -26,8 +26,8 @@ function withClassNames(Component: ComponentType<*>) {
         <Component
           {...props}
           className={cx('form-control', 'rbt-input', {
-            'input-lg form-control-lg': isSizeLarge(size),
-            'input-sm form-control-sm': isSizeSmall(size),
+            'form-control-lg': isSizeLarge(size),
+            'form-control-sm': isSizeSmall(size),
             'is-invalid': isInvalid,
             'is-valid': isValid,
           }, className)}

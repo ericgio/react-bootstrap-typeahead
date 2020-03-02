@@ -1,28 +1,29 @@
 // @flow
 
-import cx from 'classnames';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import { isSizeLarge, isSizeSmall } from '../utils';
+const propTypes = {
+  label: PropTypes.string,
+};
 
-import { sizeType } from '../propTypes';
-import type { Size } from '../types';
+const defaultProps = {
+  label: 'Loading...',
+};
 
 type Props = {
-  size?: Size,
+  label: string,
 };
 
-const Loader = ({ size }: Props) => (
+const Loader = ({ label }: Props) => (
   <div
-    className={cx('rbt-loader', {
-      'rbt-loader-lg': isSizeLarge(size),
-      'rbt-loader-sm': isSizeSmall(size),
-    })}
-  />
+    className="rbt-loader spinner-border spinner-border-sm"
+    role="status">
+    <span className="sr-only">{label}</span>
+  </div>
 );
 
-Loader.propTypes = {
-  size: sizeType,
-};
+Loader.propTypes = propTypes;
+Loader.defaultProps = defaultProps;
 
 export default Loader;

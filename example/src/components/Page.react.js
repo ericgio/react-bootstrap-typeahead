@@ -34,7 +34,7 @@ class Page extends React.Component {
           onAfter: this._onAfter,
           onBefore: this._onBefore,
         }}>
-        <div className="bs-docs-page bs4">
+        <div className="bs-docs-page">
           <PageHeader />
           <Container as="main" fluid="md">
             <Row>
