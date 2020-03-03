@@ -11,9 +11,9 @@ import { optionType } from '../propTypes';
 import type { EventHandler, Option, OptionHandler } from '../types';
 
 type Props = {
-  onBlur: EventHandler,
-  onClick: EventHandler,
-  onFocus: EventHandler,
+  onBlur: EventHandler<HTMLElement>,
+  onClick: EventHandler<HTMLElement>,
+  onFocus: EventHandler<HTMLElement>,
   onRemove?: OptionHandler,
   option: Option,
 };
@@ -73,7 +73,7 @@ const tokenContainer = (Component: ComponentType<*>) => {
     _handleActiveChange = (
       e: SyntheticEvent<HTMLElement>,
       active: boolean,
-      callback: EventHandler,
+      callback: EventHandler<HTMLElement>,
     ) => {
       // e.persist() isn't always present.
       e.persist && e.persist();
@@ -111,8 +111,10 @@ const tokenContainer = (Component: ComponentType<*>) => {
     _handleRemove = () => {
       const { onRemove, option } = this.props;
 
-      // $FlowFixMe: Flow is barfing on this for some reason.
-      isFunction(onRemove) && onRemove(option);
+      // Flow having trouble with `isFunction` here for some reason...
+      if (typeof onRemove === 'function') {
+        onRemove(option);
+      }
     }
   }
 

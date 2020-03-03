@@ -39,7 +39,7 @@ type Props = TypeaheadProps & TypeaheadMenuProps & {
   isLoading: boolean,
   isValid: boolean,
   renderInput: (InputProps, TypeaheadManagerProps) => React.Node,
-  renderMenu: (Option[], Object, TypeaheadProps) => React.Node,
+  renderMenu: (Option[], TypeaheadMenuProps, TypeaheadProps) => React.Node,
   renderToken: (Option, Object & InputProps, number) => React.Node,
   style?: Style,
 };
@@ -125,11 +125,13 @@ class TypeaheadComponent extends React.Component<Props> {
   _instance: Ref<Typeahead> = null;
 
   render() {
-    const { children, className, style } = this.props;
+    // Explicitly pass `options` so Flow doesn't complain...
+    const { children, className, options, style } = this.props;
 
     return (
       <Typeahead
         {...this.props}
+        options={options}
         ref={(instance) => this._instance = instance}>
         {({ getInputProps, getOverlayProps, state }) => {
           const auxContent = this._renderAux(state);
@@ -138,9 +140,9 @@ class TypeaheadComponent extends React.Component<Props> {
             <div
               className={cx('rbt', { 'has-aux': !!auxContent }, className)}
               style={{
+                ...style,
                 outline: 'none',
                 position: 'relative',
-                ...style,
               }}
               tabIndex={-1}>
               {this._renderInput(getInputProps(this.props.inputProps), state)}
@@ -213,6 +215,7 @@ class TypeaheadComponent extends React.Component<Props> {
       maxHeight,
       newSelectionPrefix,
       paginationText,
+      // $FlowFixMe: Flow can't seem to find `renderMenu`
       renderMenu,
       renderMenuItemChildren,
     } = this.props;

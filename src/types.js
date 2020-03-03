@@ -6,9 +6,9 @@ import type { Node } from 'react';
 
 import { ALIGN, SIZE } from './constants';
 
-export type EventHandler = (SyntheticEvent<HTMLElement>) => void;
+export type EventHandler<T> = (SyntheticEvent<T>) => void;
 export type Id = number | string;
-export type KeyDownHandler = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
+export type KeyboardEventHandler<T> = (SyntheticKeyboardEvent<T>) => void;
 export type Option = string | { [string]: any };
 export type OptionHandler = (Option) => void;
 export type LabelKey = string | (Option) => string;
@@ -27,11 +27,11 @@ export type InputProps = {
   disabled?: boolean,
   inputClassName?: string,
   inputRef: InputRefHandler,
-  onBlur: EventHandler,
-  onChange: EventHandler,
-  onClick: EventHandler,
-  onFocus: EventHandler,
-  onKeyDown: EventHandler,
+  onBlur: EventHandler<HTMLInputElement>,
+  onChange: EventHandler<HTMLInputElement>,
+  onClick: EventHandler<HTMLInputElement>,
+  onFocus: EventHandler<HTMLInputElement>,
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>,
   placeholder?: string,
   tabIndex: ?number,
   type: string,
@@ -71,10 +71,10 @@ export type TypeaheadProps = {
   maxResults: number,
   minLength: number,
   multiple: boolean,
-  onBlur: EventHandler,
-  onFocus: EventHandler,
+  onBlur: EventHandler<HTMLInputElement>,
+  onFocus: EventHandler<HTMLInputElement>,
   onInputChange: (string, SyntheticEvent<HTMLInputElement>) => void,
-  onKeyDown: EventHandler,
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>,
   onMenuToggle: (boolean) => void,
   onPaginate: (SyntheticEvent<HTMLElement>, number) => void,
   open?: boolean,
@@ -83,7 +83,7 @@ export type TypeaheadProps = {
   selectHintOnEnter: boolean,
 };
 
-export type TypeaheadState = {
+export type TypeaheadState = {|
   activeIndex: number,
   activeItem: ?Option,
   initialItem: ?Option,
@@ -92,9 +92,12 @@ export type TypeaheadState = {
   showMenu: boolean,
   shownResults: number,
   text: string,
-};
+|};
 
-export type TypeaheadPropsAndState = TypeaheadProps & TypeaheadState;
+export type TypeaheadPropsAndState = {
+  ...TypeaheadProps,
+  ...TypeaheadState,
+};
 
 export type TypeaheadManagerChildrenProps = {
   getInputProps: (TypeaheadProps) => InputProps,
@@ -109,12 +112,12 @@ export type TypeaheadManagerProps = TypeaheadPropsAndState & {
   isMenuShown: boolean,
   onActiveItemChange: OptionHandler,
   onAdd: OptionHandler,
-  onChange: EventHandler,
+  onChange: EventHandler<HTMLInputElement>,
   onClear: () => void,
   onInitialItemChange: (?Option) => void,
   onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,
   onRemove: OptionHandler,
   placeholder?: string,
-  referenceElement: ReferenceElement,
+  referenceElement: ?ReferenceElement,
   results: Option[],
 };

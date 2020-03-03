@@ -3,6 +3,9 @@
 [include]
 
 [libs]
-./flow-typed/
+<PROJECT_ROOT>/flow-typed/
+
+[untyped]
+<PROJECT_ROOT>/node_modules/react-popper/*
 
 [options]

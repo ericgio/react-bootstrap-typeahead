@@ -5,7 +5,7 @@ import React, { type ComponentType } from 'react';
 import { withContext } from '../core/Context';
 import { getDisplayName, shouldSelectHint } from '../utils';
 
-import type { CreateRef, InputRefHandler, KeyDownHandler, Ref } from '../types';
+import type { CreateRef, InputRefHandler, KeyboardEventHandler, Ref } from '../types';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
@@ -45,7 +45,7 @@ function copyStyles(inputNode: ?HTMLInputElement, hintNode: ?HTMLInputElement) {
 
 type Props = {
   forwardedRef: InputRefHandler,
-  onKeyDown: KeyDownHandler,
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>,
 };
 
 function hintContainer(Input: ComponentType<*>) {

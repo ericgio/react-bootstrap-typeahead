@@ -56,16 +56,18 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
 
   render() {
     const {
+      id,
       labelKey,
       newSelectionPrefix,
       options,
       renderMenuItemChildren,
+      text,
       ...menuProps
     } = this.props;
 
     return (
-      // $FlowFixMe: Improve typing for spread props.
-      <Menu {...menuProps}>
+      // Explictly pass some props so Flow doesn't complain...
+      <Menu {...menuProps} id={id} text={text}>
         {options.map(this._renderMenuItem)}
       </Menu>
     );

@@ -29,7 +29,6 @@ import {
   getUpdatedActiveIndex,
   getTruncatedOptions,
   head,
-  isFunction,
   isShown,
   isString,
   noop,
@@ -349,7 +348,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
     let results = [];
     if (this.isMenuShown) {
-      const cb = isFunction(filterBy) ? filterBy : defaultFilterBy;
+      const cb = typeof filterBy === 'function' ? filterBy : defaultFilterBy;
       results = options.filter((option: Option) => (
         cb(option, mergedPropsAndState)
       ));
@@ -454,7 +453,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }
   }
 
-  _handleBlur = (e: SyntheticEvent<HTMLElement>) => {
+  _handleBlur = (e: SyntheticEvent<HTMLInputElement>) => {
     e.persist();
     this.setState({ isFocused: false }, () => this.props.onBlur(e));
   }
@@ -467,7 +466,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     this.setState(clearTypeahead, () => this._handleChange([]));
   }
 
-  _handleFocus = (e: SyntheticEvent<HTMLElement>) => {
+  _handleFocus = (e: SyntheticEvent<HTMLInputElement>) => {
     e.persist();
     this.setState({
       isFocused: true,
@@ -575,7 +574,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     // Add a unique id to the custom selection. Avoid doing this in `render` so
     // the id doesn't increment every time.
     if (!isString(selection) && selection.customOption) {
-      // $FlowFixMe: Option is an object here...
       selection = { ...selection, id: uniqueId('new-id-') };
     }
 

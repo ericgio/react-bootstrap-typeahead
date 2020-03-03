@@ -12,8 +12,8 @@ type MenuItemProps = {
   children?: Node,
   className?: string,
   disabled?: boolean,
-  onClick?: EventHandler,
-  onMouseDown?: EventHandler,
+  onClick?: EventHandler<HTMLElement>,
+  onMouseDown?: EventHandler<HTMLElement>,
 };
 
 const BaseMenuItem = React.forwardRef<MenuItemProps, Ref<HTMLElement>>((

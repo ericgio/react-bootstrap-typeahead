@@ -24,7 +24,7 @@ type Props = {
   bsSize?: Size,
   className?: string,
   label: string,
-  onClick: EventHandler,
+  onClick: EventHandler<HTMLButtonElement>,
 };
 
 /**

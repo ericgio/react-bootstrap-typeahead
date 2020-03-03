@@ -53,7 +53,6 @@ function getModifiers({ align, flip }: OverlayProps) {
         if (align !== 'right' && align !== 'left') {
           // Set the popper width to match the target width.
           /* eslint-disable no-param-reassign */
-          // $FlowFixMe: Flow expects string but gets number from Popper.js
           data.styles.width = data.offsets.reference.width;
           /* eslint-enable no-param-reassign */
         }
