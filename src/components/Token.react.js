@@ -9,7 +9,7 @@ import ClearButton from './ClearButton.react';
 import tokenContainer from '../containers/tokenContainer';
 import { isFunction } from '../utils';
 
-import type { OptionHandler } from '../types';
+import type { OptionHandler, RefCallback } from '../types';
 
 const propTypes = {
   active: PropTypes.bool,
@@ -38,6 +38,7 @@ type Props = {
   className?: string,
   disabled?: boolean,
   href?: string,
+  innerRef: RefCallback<HTMLElement>,
   onRemove?: OptionHandler,
   readOnly?: boolean,
   tabIndex: number,
@@ -62,14 +63,22 @@ class Token extends React.Component<Props> {
   }
 
   _renderRemoveableToken = () => {
-    const { active, children, className, onRemove, ...props } = this.props;
+    const {
+      active,
+      children,
+      className,
+      innerRef,
+      onRemove,
+      ...props
+    } = this.props;
 
     return (
       <div
         {...props}
         className={cx('rbt-token', 'rbt-token-removeable', {
           'rbt-token-active': active,
-        }, className)}>
+        }, className)}
+        ref={innerRef}>
         {children}
         <ClearButton
           className="rbt-token-remove-button"
