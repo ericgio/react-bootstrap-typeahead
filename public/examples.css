@@ -1,0 +1,269 @@
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #fafafa;
+}
+
+.bs-docs-page {
+  padding-top: 50px;
+}
+
+/* Override */
+.bs-docs-nav {
+  background-color: #222;
+  padding: 0;
+}
+
+.bs-docs-nav .navbar-brand,
+.bs-docs-nav .navbar-nav > li > a {
+  line-height: 20px;
+  padding: 15px;
+}
+
+.bs-docs-nav .navbar-nav > li > a {
+  color: #999;
+  display: block;
+  font-size: 13px;
+}
+.bs-docs-nav .navbar-nav > li > a:focus,
+.bs-docs-nav .navbar-nav > li > a:hover,
+.bs-docs-nav .navbar-nav > .active > a,
+.bs-docs-nav .navbar-nav > .active > a:hover {
+  background-color: inherit;
+  color: #ddd;
+  text-decoration: none;
+}
+.bs-docs-nav .navbar-nav > li > a:active {
+  background-color: #111;
+}
+
+.bs-docs-nav .navbar-brand {
+  color: #00d8ff;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.bs-docs-nav .navbar-header .navbar-toggle {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 18px 18px;
+  margin: 0;
+}
+.bs-docs-nav .navbar-header .navbar-toggle:focus,
+.bs-docs-nav .navbar-header .navbar-toggle:hover {
+  background-color: #111;
+}
+.bs-docs-nav .navbar-toggle .icon-bar {
+  background-color: #ddd;
+  border-radius: 0;
+  display: block;
+  height: 2px;
+  width: 22px;
+}
+.bs-docs-nav .icon-bar + .icon-bar {
+  margin-top: 4px;
+}
+.bs-docs-nav .navbar-toggle:hover .icon-bar {
+  background-color: #fff;
+}
+
+.bs-docs-sidenav {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.bs-docs-sidebar {
+  position: fixed;
+}
+
+.bs-docs-sidebar .nav > li > a {
+  color: #767676;
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 20px;
+}
+
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus,
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+  background-color: transparent;
+  color: #000;
+  text-decoration: none;
+}
+
+.bs-docs-sidebar .nav > .active:focus > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active > a {
+  font-weight: 700;
+}
+
+.back-to-top {
+  color: #999;
+  font-size: 12px;
+  margin-left: 10px;
+  padding: 4px 10px;
+}
+
+.back-to-top:focus,
+.back-to-top:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.bs-docs-page .page-header {
+  border-bottom: 1px solid #eee;
+  margin: 40px 0 20px;
+  padding-bottom: 9px;
+}
+
+.bs-docs-page h2 {
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.bs-docs-page .btn + .btn {
+  margin-left: 5px;
+}
+
+.bs-docs-page code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+
+.bs-docs-footer {
+  background-color: #f0f0f0;
+  color: #99979c;
+  font-size: 13px;
+  margin-top: 100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+.bs-docs-footer a {
+  color: #666;
+}
+
+.bs-docs-footer-links {
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+.bs-docs-footer-links li {
+  display: inline-block;
+}
+.bs-docs-footer-links li+li {
+  margin-left: 15px;
+}
+
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: -15px;
+  }
+
+  .bs-docs-page .jumbotron h1 {
+    font-size: 63px;
+  }
+
+  .bs-docs-header h1 {
+    font-size: 60px;
+  }
+
+  .bs-docs-sidebar {
+    padding-left: 20px;
+  }
+
+  .bs-docs-footer {
+    text-align: center;
+  }
+}
+
+/* Add "space" above in-page anchors to account for fixed nav. */
+.page-anchor {
+  content: " ";
+  display: block;
+  height: 60px;
+  margin-top: -60px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Anchors */
+.anchor,
+.anchor:active,
+.anchor:focus,
+.anchor:hover {
+  color: #000;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+}
+.anchor-icon {
+  font-size: 90%;
+  padding-top: .1em;
+  position: absolute;
+  left: -.8em;
+  opacity: 0;
+}
+
+.anchor:focus .anchor-icon,
+.anchor:hover .anchor-icon {
+  opacity: .5;
+}
+
+.checkbox:last-child,
+.radio:last-child {
+  margin-bottom: 0;
+}
+
+/* Example Sections */
+.example-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.example-section-title {
+  color: #959595;
+  float: left;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+.example-section .example {
+  padding: 15px;
+}
+
+.example-toggle-code {
+  border: 0;
+  float: right;
+  font-size: 12px;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.example-section pre {
+  border-color: #ddd;
+  border-radius: 0 0 4px 4px;
+  border-style: solid;
+  border-width: 1px 0 0 0;
+}
+
+.example-section .form-group {
+  margin: 10px 0 0;
+}
