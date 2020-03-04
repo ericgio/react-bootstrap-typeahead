@@ -4,13 +4,13 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
-import { RootCloseWrapper } from 'react-overlays';
 
 import Overlay from '../core/Overlay';
 import Typeahead from '../core/Typeahead';
 
 import ClearButton from './ClearButton.react';
 import Loader from './Loader.react';
+import RootClose from './RootClose.react';
 import Token from './Token.react';
 import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
@@ -150,35 +150,38 @@ class TypeaheadComponent extends React.Component<Props> {
           const auxContent = this._renderAux(props);
 
           return (
-            <RootCloseWrapper
+            <RootClose
               disabled={open || !isMenuShown}
               onRootClose={onHide}>
-              <div
-                className={cx('rbt', { 'has-aux': !!auxContent }, className)}
-                style={{
-                  ...style,
-                  outline: 'none',
-                  position: 'relative',
-                }}
-                tabIndex={-1}>
-                {this._renderInput({
-                  ...getInputProps(this.props.inputProps),
-                  ref: this.referenceElementRef,
-                }, props)}
-                <Overlay
-                  {...getOverlayProps(this.props)}
-                  isMenuShown={isMenuShown}
-                  referenceElement={this._referenceElement}>
-                  {(menuProps: MenuProps) => this._renderMenu(
-                    results,
-                    menuProps,
-                    props
-                  )}
-                </Overlay>
-                {auxContent}
-                {isFunction(children) ? children(props) : children}
-              </div>
-            </RootCloseWrapper>
+              {(ref) => (
+                <div
+                  className={cx('rbt', { 'has-aux': !!auxContent }, className)}
+                  ref={ref}
+                  style={{
+                    ...style,
+                    outline: 'none',
+                    position: 'relative',
+                  }}
+                  tabIndex={-1}>
+                  {this._renderInput({
+                    ...getInputProps(this.props.inputProps),
+                    ref: this.referenceElementRef,
+                  }, props)}
+                  <Overlay
+                    {...getOverlayProps(this.props)}
+                    isMenuShown={isMenuShown}
+                    referenceElement={this._referenceElement}>
+                    {(menuProps: MenuProps) => this._renderMenu(
+                      results,
+                      menuProps,
+                      props
+                    )}
+                  </Overlay>
+                  {auxContent}
+                  {isFunction(children) ? children(props) : children}
+                </div>
+              )}
+            </RootClose>
           );
         }}
       </Typeahead>
