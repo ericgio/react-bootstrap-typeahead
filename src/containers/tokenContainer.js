@@ -2,7 +2,8 @@
 
 import PropTypes from 'prop-types';
 import React, { type ComponentType } from 'react';
-import { RootCloseWrapper } from 'react-overlays';
+
+import RootClose from '../components/RootClose.react';
 
 import { getDisplayName, isFunction, noop } from '../utils';
 import { BACKSPACE } from '../constants';
@@ -54,19 +55,22 @@ const tokenContainer = (Component: ComponentType<*>) => {
       const { active } = this.state;
 
       return (
-        <RootCloseWrapper
+        <RootClose
           disabled={!active}
           onRootClose={this._handleBlur}>
-          <Component
-            {...this.props}
-            active={active}
-            onBlur={this._handleBlur}
-            onClick={this._handleClick}
-            onFocus={this._handleFocus}
-            onKeyDown={this._handleKeyDown}
-            onRemove={isFunction(onRemove) ? this._handleRemove : undefined}
-          />
-        </RootCloseWrapper>
+          {(ref) => (
+            <Component
+              {...this.props}
+              active={active}
+              onBlur={this._handleBlur}
+              onClick={this._handleClick}
+              onFocus={this._handleFocus}
+              onKeyDown={this._handleKeyDown}
+              onRemove={isFunction(onRemove) ? this._handleRemove : undefined}
+              innerRef={ref}
+            />
+          )}
+        </RootClose>
       );
     }
 
