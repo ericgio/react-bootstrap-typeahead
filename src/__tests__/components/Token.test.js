@@ -4,15 +4,34 @@ import React from 'react';
 import Token from '../../components/Token.react';
 import { BACKSPACE, RETURN } from '../../constants';
 
+const option = {
+  label: 'test option',
+};
+
+function getCloseButton(wrapper) {
+  return wrapper.find('.rbt-token-remove-button').hostNodes();
+}
+
 function isDisabled(wrapper) {
   return wrapper.find('div').hasClass('rbt-token-disabled');
+}
+
+function isRemoveable(wrapper) {
+  return (
+    wrapper.find('.rbt-token').hasClass('rbt-token-removeable') &&
+    getCloseButton(wrapper).length === 1
+  );
 }
 
 describe('<Token>', () => {
   let token;
 
   beforeEach(() => {
-    token = mount(<Token>This is a token</Token>);
+    token = mount(
+      <Token option={option}>
+        This is a token
+      </Token>
+    );
   });
 
   test('renders a basic token', () => {
@@ -22,7 +41,11 @@ describe('<Token>', () => {
 
   describe('renders a non-removeable token', () => {
     afterEach(() => {
-      expect(token.find('div').hasClass('rbt-token-removeable')).toBe(false);
+      expect(isRemoveable(token)).toBe(false);
+    });
+
+    test('when no `onRemove` function is passed in', () => {
+      token.setProps({ onRemove: undefined });
     });
 
     test('when the token is disabled', () => {
@@ -31,10 +54,7 @@ describe('<Token>', () => {
     });
 
     test('when the token is read-only', () => {
-      token.setProps({
-        onRemove: () => {},
-        readOnly: true,
-      });
+      token.setProps({ readOnly: true });
     });
   });
 
@@ -43,13 +63,10 @@ describe('<Token>', () => {
 
     token.setProps({ onRemove });
 
-    const rootNode = token.find('.rbt-token');
-    expect(rootNode.hasClass('rbt-token-removeable')).toBe(true);
+    expect(isRemoveable(token)).toBe(true);
 
-    const closeButton = token.find('button');
+    const closeButton = getCloseButton(token);
     closeButton.simulate('click');
-
-    expect(closeButton.hasClass('rbt-token-remove-button')).toBe(true);
     expect(onRemove).toHaveBeenCalledTimes(1);
   });
 
@@ -126,8 +143,8 @@ describe('<Token>', () => {
     test('handles keydown events', () => {
       const onRemove = jest.fn();
       const preventDefault = jest.fn();
-      token.setProps({ onRemove });
 
+      token.setProps({ onRemove });
       token.simulate('keyDown', {
         keyCode: BACKSPACE,
         preventDefault,

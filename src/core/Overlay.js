@@ -12,6 +12,7 @@ import { ALIGN } from '../constants';
 import type { OverlayProps } from '../types';
 
 // `Element` is not defined during server-side rendering, so shim it here.
+/* istanbul ignore next */
 const SafeElement = typeof Element === 'undefined' ? () => {} : Element;
 
 const propTypes = {

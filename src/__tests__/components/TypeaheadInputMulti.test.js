@@ -22,9 +22,12 @@ describe('<TypeaheadInputMulti>', () => {
           <TypeaheadInputMulti
             {...getInputProps()}
             selected={selected}>
-            {selected.map(({ name }) => (
-              <Token key={name} onRemove={() => {}}>
-                {name}
+            {selected.map((option, idx) => (
+              <Token
+                key={option.name}
+                option={option}
+                onRemove={() => {}}>
+                {option.name}
               </Token>
             ))}
           </TypeaheadInputMulti>

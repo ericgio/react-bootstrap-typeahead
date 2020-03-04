@@ -24,7 +24,7 @@ describe('<AsyncTypeahead>', () => {
     wrapper = mount(
       <AsyncTypeahead
         delay={0}
-        id="async-example"
+        id="async-test"
         isLoading={false}
         minLength={0}
         onChange={noop}
@@ -90,6 +90,7 @@ describe('<AsyncTypeahead>', () => {
         defaultInputValue="sometext"
         delay={0}
         emptyLabel={emptyLabel}
+        id="async-empty-label-test"
         isLoading={false}
         minLength={0}
         onSearch={onSearch}
@@ -117,7 +118,7 @@ describe('<AsyncTypeahead>', () => {
     wrapper = mount(
       <AsyncTypeahead
         delay={delay}
-        id="async-example"
+        id="async-delay-test"
         isLoading={false}
         onSearch={onSearch}
       />

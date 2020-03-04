@@ -31,15 +31,16 @@ export function uniqueId(prefix: ?string): string {
   return (prefix == null ? '' : String(prefix)) + idCounter;
 }
 
-export function values(obj: Object) {
-  if (isFunction(Object.values)) {
-    return Object.values(obj);
-  }
-
+// Export for testing purposes.
+export function valuesPolyfill(obj: Object) {
   return Object.keys(obj).reduce((accum: any[], key: string) => {
     if (Object.prototype.propertyIsEnumerable.call(obj, key)) {
       accum.push(obj[key]);
     }
     return accum;
   }, []);
+}
+
+export function values(obj: Object) {
+  return isFunction(Object.values) ? Object.values(obj) : valuesPolyfill(obj);
 }

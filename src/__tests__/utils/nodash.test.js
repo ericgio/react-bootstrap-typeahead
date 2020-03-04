@@ -1,4 +1,13 @@
-import { head, isFunction, isString, noop, pick, uniqueId, values } from '../../utils/nodash';
+import {
+  head,
+  isFunction,
+  isString,
+  noop,
+  pick,
+  uniqueId,
+  values,
+  valuesPolyfill,
+} from '../../utils/nodash';
 
 const arr = [];
 const fn = noop;
@@ -52,5 +61,6 @@ describe('nodash', () => {
     const vals = [null, 3, 'foo'];
 
     expect(values(object)).toStrictEqual(vals);
+    expect(valuesPolyfill(object)).toStrictEqual(vals);
   });
 });
