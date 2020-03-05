@@ -12,21 +12,19 @@ export type KeyboardEventHandler<T> = (SyntheticKeyboardEvent<T>) => void;
 export type Option = string | { [string]: any };
 export type OptionHandler = (Option) => void;
 export type LabelKey = string | (Option) => string;
+export type ReferenceElement = HTMLElement;
 export type Size = $Values<typeof SIZE>;
 export type Style = { [string]: any };
-export type ReferenceElement = HTMLElement;
 
-export type Ref<T> = null | T;
-export type CreateRef<T> = { current: Ref<T> };
-export type RefHandler<T> = (Ref<T>) => mixed;
-export type InputRefHandler = RefHandler<HTMLInputElement>;
+export type Ref<T> = { current: ?T };
+export type RefCallback<T> = (?T) => mixed;
 
 export type InputProps = {
   autoComplete: string,
   className?: string,
   disabled?: boolean,
   inputClassName?: string,
-  inputRef: InputRefHandler,
+  inputRef: RefCallback<HTMLInputElement>,
   onBlur: EventHandler<HTMLInputElement>,
   onChange: EventHandler<HTMLInputElement>,
   onClick: EventHandler<HTMLInputElement>,
@@ -49,7 +47,7 @@ export type OverlayProps = {
 };
 
 export type MenuProps = {
-  innerRef: RefHandler<HTMLElement>,
+  innerRef: RefCallback<HTMLElement>,
   inputHeight: number,
   scheduleUpdate: () => void,
   style: Style,
@@ -107,8 +105,8 @@ export type TypeaheadManagerChildrenProps = {
 
 export type TypeaheadManagerProps = TypeaheadPropsAndState & {
   children: (TypeaheadManagerChildrenProps) => Node,
-  getReferenceElement: RefHandler<ReferenceElement>,
-  inputRef: InputRefHandler,
+  getReferenceElement: RefCallback<ReferenceElement>,
+  inputRef: RefCallback<HTMLInputElement>,
   isMenuShown: boolean,
   onActiveItemChange: OptionHandler,
   onAdd: OptionHandler,

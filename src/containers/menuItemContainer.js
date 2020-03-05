@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { withContext } from '../core/Context';
 import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
 
-import type { CreateRef, Option } from '../types';
+import type { Option } from '../types';
 
 const propTypes = {
   option: PropTypes.oneOfType([
@@ -27,7 +27,7 @@ const menuItemContainer = (Component: ComponentType<*>) => {
     static displayName = `menuItemContainer(${getDisplayName(Component)})`;
     static propTypes = propTypes;
 
-    itemRef: CreateRef<HTMLElement> = React.createRef();
+    itemRef = React.createRef<HTMLElement>();
 
     componentDidMount() {
       this._maybeUpdateItem();

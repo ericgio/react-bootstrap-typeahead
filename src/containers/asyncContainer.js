@@ -7,7 +7,7 @@ import React, { type ComponentType, type Node } from 'react';
 import { optionType } from '../propTypes';
 import { getDisplayName, isFunction } from '../utils';
 
-import type { Option, Ref, TypeaheadProps } from '../types';
+import type { Option, TypeaheadProps } from '../types';
 
 const propTypes = {
   /**
@@ -93,7 +93,7 @@ const asyncContainer = (Typeahead: ComponentType<*>) => {
 
     _cache: Cache = {};
     _handleSearchDebounced: DebouncedFunction;
-    _instance: Ref<TypeaheadComponent> = null;
+    _instance: ?TypeaheadComponent;
     _query: string = this.props.defaultInputValue || '';
 
     componentDidMount() {

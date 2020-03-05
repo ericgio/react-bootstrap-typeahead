@@ -22,7 +22,6 @@ import type {
   InputProps,
   MenuProps,
   Option,
-  Ref,
   Size,
   Style,
   TypeaheadProps,
@@ -122,7 +121,7 @@ class TypeaheadComponent extends React.Component<Props> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  _instance: Ref<Typeahead> = null;
+  _instance: ?Typeahead;
 
   render() {
     // Explicitly pass `options` so Flow doesn't complain...

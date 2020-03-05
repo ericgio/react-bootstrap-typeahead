@@ -7,10 +7,11 @@ import Input from './Input.react';
 import hintContainer from '../containers/hintContainer';
 import withClassNames from '../containers/withClassNames';
 
-import type { InputRefHandler } from '../types';
+import type { KeyboardEventHandler, RefCallback } from '../types';
 
 type Props = {
-  inputRef: InputRefHandler,
+  inputRef: RefCallback<HTMLInputElement>,
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>,
 };
 
 const HintedInput = hintContainer(Input);

@@ -7,7 +7,7 @@ type Props = {
   className?: string,
 };
 
-const Input = React.forwardRef<Props, mixed>((props, ref) => (
+const Input = React.forwardRef<Props, ?HTMLInputElement>((props, ref) => (
   <input
     {...props}
     className={cx('rbt-input-main', props.className)}

@@ -47,7 +47,6 @@ import {
 
 import type {
   Option,
-  Ref,
   ReferenceElement,
   TypeaheadProps,
   TypeaheadState,
@@ -288,8 +287,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   // truncating, grouping, etc.
   items: Option[] = [];
 
-  _input: Ref<HTMLInputElement> = null;
-  _referenceElement: Ref<ReferenceElement> = null;
+  _input: ?HTMLInputElement;
+  _referenceElement: ?ReferenceElement;
 
   componentDidMount() {
     this.props.autoFocus && this.focus();
@@ -426,11 +425,11 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     return this._input;
   }
 
-  getInputRef = (input: Ref<HTMLInputElement>) => {
+  getInputRef = (input: ?HTMLInputElement) => {
     this._input = input;
   }
 
-  getReferenceElement = (element: Ref<ReferenceElement>) => {
+  getReferenceElement = (element: ?ReferenceElement) => {
     // Use `findDOMNode` here because it's easier and less fragile than
     // forwarding refs to the input's container.
     /* eslint-disable react/no-find-dom-node */

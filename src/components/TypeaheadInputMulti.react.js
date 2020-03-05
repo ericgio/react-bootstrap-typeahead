@@ -14,7 +14,7 @@ import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { CreateRef, InputProps, Option, Ref } from '../types';
+import type { InputProps, Option } from '../types';
 
 type Props = {
   ...InputProps,
@@ -25,8 +25,8 @@ type Props = {
 const HintedInput = hintContainer(Input);
 
 class TypeaheadInputMulti extends React.Component<Props> {
-  wrapperRef: CreateRef<HTMLDivElement> = React.createRef();
-  _input: Ref<HTMLInputElement> = null;
+  wrapperRef = React.createRef<HTMLDivElement>();
+  _input: ?HTMLInputElement;
 
   render() {
     const {
@@ -70,7 +70,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
     );
   }
 
-  getInputRef = (input: Ref<HTMLInputElement>) => {
+  getInputRef = (input: ?HTMLInputElement) => {
     this._input = input;
     this.props.inputRef(input);
   }

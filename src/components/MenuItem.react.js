@@ -5,7 +5,7 @@ import React, { type Node } from 'react';
 
 import menuItemContainer from '../containers/menuItemContainer';
 
-import type { EventHandler, Ref } from '../types';
+import type { EventHandler } from '../types';
 
 type MenuItemProps = {
   active?: boolean,
@@ -16,7 +16,7 @@ type MenuItemProps = {
   onMouseDown?: EventHandler<HTMLElement>,
 };
 
-const BaseMenuItem = React.forwardRef<MenuItemProps, Ref<HTMLElement>>((
+const BaseMenuItem = React.forwardRef<MenuItemProps, ?HTMLElement>((
   { active, children, className, disabled, onClick, onMouseDown, ...props },
   ref
 ) => {
