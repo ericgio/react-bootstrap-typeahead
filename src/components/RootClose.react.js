@@ -1,12 +1,13 @@
 // @flow
 
-import { useState, type Node } from 'react';
+import { useState } from 'react';
 import { useRootClose } from 'react-overlays';
 
+import type { Node } from 'react';
 import type { RefCallback } from '../types';
 
 type Props = {
-  children: (RefCallback<HTMLElement>) => Node,
+  children: (RefCallback<mixed>) => Node,
   onRootClose: (SyntheticEvent<HTMLElement>) => void,
 };
 
