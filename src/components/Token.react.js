@@ -1,36 +1,16 @@
 // @flow
 
 import cx from 'classnames';
-import React, { type Node } from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react';
+
+import type { Node } from 'react';
 
 import ClearButton from './ClearButton.react';
 
 import tokenContainer from '../containers/tokenContainer';
 import { isFunction } from '../utils';
 
-import type { OptionHandler, RefCallback } from '../types';
-
-const propTypes = {
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  /**
-   * Handler for removing/deleting the token. If not defined, the token will
-   * be rendered in a read-only state.
-   */
-  onRemove: PropTypes.func,
-  /**
-   * Explicitly force a read-only state on the token.
-   */
-  readOnly: PropTypes.bool,
-  tabIndex: PropTypes.number,
-};
-
-const defaultProps = {
-  active: false,
-  disabled: false,
-  tabIndex: 0,
-};
+import type { OptionHandler } from '../types';
 
 type Props = {
   active: boolean,
@@ -38,10 +18,50 @@ type Props = {
   className?: string,
   disabled?: boolean,
   href?: string,
-  innerRef: RefCallback<HTMLElement>,
   onRemove?: OptionHandler,
   readOnly?: boolean,
-  tabIndex: number,
+  tabIndex?: number,
+};
+
+const InteractiveToken = forwardRef<Props, ?HTMLElement>((
+  { active, children, className, onRemove, tabIndex, ...props },
+  ref
+) => (
+  <div
+    {...props}
+    className={cx('rbt-token', 'rbt-token-removeable', {
+      'rbt-token-active': !!active,
+    }, className)}
+    ref={ref}
+    tabIndex={tabIndex || 0}>
+    {children}
+    <ClearButton
+      className="rbt-token-remove-button"
+      label="Remove"
+      onClick={onRemove}
+      tabIndex={-1}
+    />
+  </div>
+));
+
+const StaticToken = ({ children, className, disabled, href }) => {
+  const classnames = cx('rbt-token', {
+    'rbt-token-disabled': disabled,
+  }, className);
+
+  if (href && !disabled) {
+    return (
+      <a className={classnames} href={href}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <div className={classnames}>
+      {children}
+    </div>
+  );
 };
 
 /**
@@ -50,66 +70,12 @@ type Props = {
  * Individual token component, generally displayed within the TokenizerInput
  * component, but can also be rendered on its own.
  */
-class Token extends React.Component<Props> {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
+const Token = forwardRef<Props, ?HTMLElement>((props, ref) => {
+  const { disabled, onRemove, readOnly } = props;
 
-  render() {
-    const { disabled, onRemove, readOnly } = this.props;
-
-    return !disabled && !readOnly && isFunction(onRemove) ?
-      this._renderRemoveableToken() :
-      this._renderToken();
-  }
-
-  _renderRemoveableToken = () => {
-    const {
-      active,
-      children,
-      className,
-      innerRef,
-      onRemove,
-      ...props
-    } = this.props;
-
-    return (
-      <div
-        {...props}
-        className={cx('rbt-token', 'rbt-token-removeable', {
-          'rbt-token-active': active,
-        }, className)}
-        ref={innerRef}>
-        {children}
-        <ClearButton
-          className="rbt-token-remove-button"
-          label="Remove"
-          onClick={onRemove}
-          tabIndex={-1}
-        />
-      </div>
-    );
-  }
-
-  _renderToken = () => {
-    const { children, className, disabled, href } = this.props;
-    const classnames = cx('rbt-token', {
-      'rbt-token-disabled': disabled,
-    }, className);
-
-    if (href && !disabled) {
-      return (
-        <a className={classnames} href={href}>
-          {children}
-        </a>
-      );
-    }
-
-    return (
-      <div className={classnames}>
-        {children}
-      </div>
-    );
-  }
-}
+  return !disabled && !readOnly && isFunction(onRemove) ?
+    <InteractiveToken {...props} ref={ref} /> :
+    <StaticToken {...props} />;
+});
 
 export default tokenContainer(Token);

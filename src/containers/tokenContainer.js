@@ -67,7 +67,7 @@ const tokenContainer = (Component: ComponentType<*>) => {
               onFocus={this._handleFocus}
               onKeyDown={this._handleKeyDown}
               onRemove={isFunction(onRemove) ? this._handleRemove : undefined}
-              innerRef={ref}
+              ref={ref}
             />
           )}
         </RootClose>
