@@ -4,7 +4,6 @@ import invariant from 'invariant';
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 
 import TypeaheadManager from './TypeaheadManager';
 
@@ -46,7 +45,6 @@ import {
 
 import type {
   Option,
-  ReferenceElement,
   TypeaheadProps,
   TypeaheadState,
 } from '../types';
@@ -287,7 +285,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   items: Option[] = [];
 
   _input: ?HTMLInputElement;
-  _referenceElement: ?ReferenceElement;
 
   componentDidMount() {
     this.props.autoFocus && this.focus();
@@ -377,7 +374,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     return (
       <TypeaheadManager
         {...mergedPropsAndState}
-        getReferenceElement={this.getReferenceElement}
         inputRef={this.getInputRef}
         isMenuShown={this.isMenuShown}
         items={this.items}
@@ -392,7 +388,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         onKeyDown={this._handleKeyDown}
         onMenuItemClick={this._handleMenuItemSelect}
         onRemove={this._handleSelectionRemove}
-        referenceElement={this._referenceElement}
         results={results}
       />
     );
@@ -423,15 +418,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   getInputRef = (input: ?HTMLInputElement) => {
     this._input = input;
-  }
-
-  getReferenceElement = (element: ?ReferenceElement) => {
-    // Use `findDOMNode` here because it's easier and less fragile than
-    // forwarding refs to the input's container.
-    /* eslint-disable react/no-find-dom-node */
-    // $FlowFixMe: `findDOMNode` could return Text or an Element.
-    this._referenceElement = findDOMNode(element);
-    /* eslint-enable react/no-find-dom-node */
   }
 
   _handleActiveIndexChange = (activeIndex: number) => {

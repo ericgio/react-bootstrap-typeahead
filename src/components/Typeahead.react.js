@@ -3,6 +3,7 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
 
 import Overlay from '../core/Overlay';
@@ -15,7 +16,7 @@ import TypeaheadInputMulti from './TypeaheadInputMulti.react';
 import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
-import { getOptionLabel, isFunction, isSizeLarge, preventInputBlur } from '../utils';
+import { getOptionLabel, isFunction, isSizeLarge, pick, preventInputBlur } from '../utils';
 import { checkPropType, inputPropsType, sizeType } from '../propTypes';
 
 import type { TypeaheadMenuProps } from './TypeaheadMenu.react';
@@ -23,6 +24,7 @@ import type {
   InputProps,
   MenuProps,
   Option,
+  ReferenceElement,
   Size,
   Style,
   TypeaheadProps,
@@ -118,11 +120,21 @@ const defaultProps = {
   ),
 };
 
+function getOverlayProps(props: Props) {
+  return pick(props, [
+    'align',
+    'dropup',
+    'flip',
+    'positionFixed',
+  ]);
+}
+
 class TypeaheadComponent extends React.Component<Props> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
   _instance: ?Typeahead;
+  _referenceElement: ?ReferenceElement;
 
   render() {
     // Explicitly pass `options` so Flow doesn't complain...
@@ -133,7 +145,7 @@ class TypeaheadComponent extends React.Component<Props> {
         {...this.props}
         options={options}
         ref={(instance) => this._instance = instance}>
-        {({ getInputProps, getOverlayProps, state }) => {
+        {({ getInputProps, state }) => {
           const auxContent = this._renderAux(state);
 
           return (
@@ -148,8 +160,14 @@ class TypeaheadComponent extends React.Component<Props> {
                   position: 'relative',
                 }}
                 tabIndex={-1}>
-                {this._renderInput(getInputProps(this.props.inputProps), state)}
-                <Overlay {...getOverlayProps(this.props)}>
+                {this._renderInput({
+                  ...getInputProps(this.props.inputProps),
+                  ref: this.referenceElementRef,
+                }, state)}
+                <Overlay
+                  {...getOverlayProps(this.props)}
+                  isMenuShown={state.isMenuShown}
+                  referenceElement={this._referenceElement}>
                   {(menuProps: MenuProps) => this._renderMenu(
                     state.results,
                     menuProps,
@@ -168,6 +186,15 @@ class TypeaheadComponent extends React.Component<Props> {
 
   getInstance = () => {
     return this._instance;
+  }
+
+  referenceElementRef = (element: ?ReferenceElement) => {
+    // Use `findDOMNode` here because it's easier and less fragile than
+    // forwarding refs to the input's container.
+    /* eslint-disable react/no-find-dom-node */
+    // $FlowFixMe: `findDOMNode` could return Text or an Element.
+    this._referenceElement = findDOMNode(element);
+    /* eslint-enable react/no-find-dom-node */
   }
 
   _renderInput = (inputProps: InputProps, state: TypeaheadManagerProps) => {

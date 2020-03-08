@@ -24,13 +24,6 @@ const inputPropKeys = [
   'placeholder',
 ];
 
-const overlayPropKeys = [
-  'align',
-  'dropup',
-  'flip',
-  'positionFixed',
-];
-
 const stateKeys = [
   'activeIndex',
   'isMenuShown',
@@ -54,12 +47,6 @@ const typeaheadContextKeys = [
   'onMenuItemClick',
   'selectHintOnEnter',
 ];
-
-const getOverlayProps = ({ isMenuShown, referenceElement }) => (props) => ({
-  ...pick(props, overlayPropKeys),
-  isMenuShown,
-  referenceElement,
-});
 
 function getTypeaheadContextValue(
   props: TypeaheadManagerProps
@@ -96,10 +83,8 @@ class TypeaheadManager extends React.Component<TypeaheadManagerProps> {
       getInputProps: getInputProps({
         ...pick(this.props, inputPropKeys),
         onKeyDown: this._handleKeyDown,
-        ref: this.props.getReferenceElement,
         value: getInputText(this.props),
       }),
-      getOverlayProps: getOverlayProps(this.props),
       state: pick(this.props, stateKeys),
     };
 

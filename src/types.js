@@ -104,14 +104,11 @@ export type TypeaheadPropsAndState = {
 
 export type TypeaheadManagerChildrenProps = {
   getInputProps: (TypeaheadProps) => InputProps,
-  getOverlayProps: (TypeaheadProps) => OverlayProps,
-  getRootCloseProps: (TypeaheadProps) => RootCloseProps,
   state: TypeaheadManagerProps,
 };
 
 export type TypeaheadManagerProps = TypeaheadPropsAndState & {
   children: (TypeaheadManagerChildrenProps) => Node,
-  getReferenceElement: RefCallback<ReferenceElement>,
   inputRef: RefCallback<HTMLInputElement>,
   isMenuShown: boolean,
   onActiveItemChange: OptionHandler,
@@ -123,6 +120,5 @@ export type TypeaheadManagerProps = TypeaheadPropsAndState & {
   onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,
   onRemove: OptionHandler,
   placeholder?: string,
-  referenceElement: ?ReferenceElement,
   results: Option[],
 };
