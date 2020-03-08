@@ -6,10 +6,10 @@
 import cx from 'classnames';
 import React, { type Node } from 'react';
 
+import Hint from './Hint.react';
 import Input from './Input.react';
 
 import { isSelectable } from '../utils';
-import hintContainer from '../containers/hintContainer';
 import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
@@ -21,8 +21,6 @@ type Props = {
   children: Node,
   selected: Option[],
 };
-
-const HintedInput = hintContainer(Input);
 
 class TypeaheadInputMulti extends React.Component<Props> {
   wrapperRef = React.createRef<HTMLDivElement>();
@@ -48,23 +46,25 @@ class TypeaheadInputMulti extends React.Component<Props> {
         tabIndex={-1}>
         <div className="rbt-input-wrapper" ref={this.wrapperRef}>
           {children}
-          <HintedInput
-            {...props}
-            className={inputClassName}
-            onKeyDown={this._handleKeyDown}
-            placeholder={selected.length ? '' : placeholder}
-            ref={this.getInputRef}
-            style={{
-              backgroundColor: 'transparent',
-              border: 0,
-              boxShadow: 'none',
-              cursor: 'inherit',
-              outline: 'none',
-              padding: 0,
-              width: '100%',
-              zIndex: 1,
-            }}
-          />
+          <Hint>
+            <Input
+              {...props}
+              className={inputClassName}
+              onKeyDown={this._handleKeyDown}
+              placeholder={selected.length ? '' : placeholder}
+              ref={this.getInputRef}
+              style={{
+                backgroundColor: 'transparent',
+                border: 0,
+                boxShadow: 'none',
+                cursor: 'inherit',
+                outline: 'none',
+                padding: 0,
+                width: '100%',
+                zIndex: 1,
+              }}
+            />
+          </Hint>
         </div>
       </div>
     );
