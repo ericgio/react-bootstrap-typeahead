@@ -19,6 +19,7 @@ export type TypeaheadContextType = {
   onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,
   selectHintOnEnter: boolean,
   setItem: (Option, number) => void,
+  value: string,
 };
 
 export const TypeaheadContext: Context<TypeaheadContextType> =
@@ -35,6 +36,7 @@ export const TypeaheadContext: Context<TypeaheadContextType> =
     onMenuItemClick: noop,
     selectHintOnEnter: false,
     setItem: noop,
+    value: '',
   });
 
 export const useTypeaheadContext = () => useContext(TypeaheadContext);

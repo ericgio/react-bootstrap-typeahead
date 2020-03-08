@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { TypeaheadContext } from './Context';
 import { getHintText, getInputProps, getInputText, getIsOnlyResult, pick } from '../utils';
@@ -38,7 +38,7 @@ const propKeys = [
   'toggleMenu',
 ];
 
-const typeaheadContextKeys = [
+const contextKeys = [
   'activeIndex',
   'id',
   'initialItem',
@@ -51,68 +51,80 @@ const typeaheadContextKeys = [
   'setItem',
 ];
 
-function getTypeaheadContextValue(
-  props: TypeaheadManagerProps
-): TypeaheadContextType {
-  return {
-    ...pick(props, typeaheadContextKeys),
-    hintText: getHintText(props),
-    isOnlyResult: getIsOnlyResult(props),
-  };
+function usePrevious(value) {
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 }
 
-class TypeaheadManager extends React.Component<TypeaheadManagerProps> {
-  componentDidUpdate(prevProps: TypeaheadManagerProps) {
-    const {
-      allowNew,
-      isMenuShown,
-      onInitialItemChange,
-      onMenuToggle,
-      results,
-    } = this.props;
+const TypeaheadManager = (props: TypeaheadManagerProps) => {
+  const {
+    allowNew,
+    children,
+    initialItem,
+    isMenuShown,
+    onAdd,
+    onInitialItemChange,
+    onKeyDown,
+    onMenuToggle,
+    results,
+  } = props;
 
+  const prevProps = usePrevious(props);
+
+  useEffect(() => {
     // Clear the initial item when there are no results.
     if (!(allowNew || results.length)) {
       onInitialItemChange(null);
     }
+  });
 
-    if (isMenuShown !== prevProps.isMenuShown) {
+  useEffect(() => {
+    if (prevProps && prevProps.isMenuShown !== isMenuShown) {
       onMenuToggle(isMenuShown);
     }
-  }
+  });
 
-  render() {
-    const childProps = {
-      ...pick(this.props, propKeys),
-      getInputProps: getInputProps({
-        ...pick(this.props, inputPropKeys),
-        onKeyDown: this._handleKeyDown,
-        value: getInputText(this.props),
-      }),
-    };
-
-    return (
-      <TypeaheadContext.Provider value={getTypeaheadContextValue(this.props)}>
-        {this.props.children(childProps)}
-      </TypeaheadContext.Provider>
-    );
-  }
-
-  _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-    const { initialItem, onKeyDown, onAdd } = this.props;
-
-    switch (e.keyCode) {
-      case RETURN:
-        if (initialItem && getIsOnlyResult(this.props)) {
-          onAdd(initialItem);
-        }
-        break;
-      default:
-        break;
+  const handleKeyDown = useCallback(
+    (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
+      switch (e.keyCode) {
+        case RETURN:
+          if (initialItem && getIsOnlyResult(props)) {
+            onAdd(initialItem);
+          }
+          break;
+        default:
+          break;
+      }
+      onKeyDown(e);
     }
+  );
 
-    onKeyDown(e);
-  }
-}
+  const value = getInputText(props);
+
+  const childProps = {
+    ...pick(props, propKeys),
+    getInputProps: getInputProps({
+      ...pick(props, inputPropKeys),
+      onKeyDown: handleKeyDown,
+      value,
+    }),
+  };
+
+  const contextValue: TypeaheadContextType = {
+    ...pick(props, contextKeys),
+    hintText: getHintText(props),
+    isOnlyResult: getIsOnlyResult(props),
+    value,
+  };
+
+  return (
+    <TypeaheadContext.Provider value={contextValue}>
+      {children(childProps)}
+    </TypeaheadContext.Provider>
+  );
+};
 
 export default TypeaheadManager;

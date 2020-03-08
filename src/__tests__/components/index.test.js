@@ -2,6 +2,7 @@ import {
   AsyncTypeahead,
   ClearButton,
   Highlighter,
+  Hint,
   Input,
   Loader,
   Menu,
@@ -12,7 +13,6 @@ import {
   TypeaheadInputSingle,
   TypeaheadMenu,
   asyncContainer,
-  hintContainer,
   menuItemContainer,
   tokenContainer,
 } from '../..';
@@ -20,6 +20,7 @@ import {
 import _AsyncTypeahead from '../../components/AsyncTypeahead.react';
 import _ClearButton from '../../components/ClearButton.react';
 import _Highlighter from '../../components/Highlighter.react';
+import _Hint from '../../components/Hint.react';
 import _Input from '../../components/Input.react';
 import _Loader from '../../components/Loader.react';
 import _Menu from '../../components/Menu.react';
@@ -31,7 +32,6 @@ import _TypeaheadInputSingle from '../../components/TypeaheadInputSingle.react';
 import _TypeaheadMenu from '../../components/TypeaheadMenu.react';
 
 import _asyncContainer from '../../containers/asyncContainer';
-import _hintContainer from '../../containers/hintContainer';
 import _menuItemContainer from '../../containers/menuItemContainer';
 import _tokenContainer from '../../containers/tokenContainer';
 
@@ -46,6 +46,10 @@ describe('index.js', () => {
 
   test('Highlighter is exported', () => {
     expect(Highlighter).toBe(_Highlighter);
+  });
+
+  test('Hint is exported', () => {
+    expect(Hint).toBe(_Hint);
   });
 
   test('Input is exported', () => {
@@ -86,10 +90,6 @@ describe('index.js', () => {
 
   test('asyncContainer is exported', () => {
     expect(asyncContainer).toBe(_asyncContainer);
-  });
-
-  test('hintContainer is exported', () => {
-    expect(hintContainer).toBe(_hintContainer);
   });
 
   test('menuItemContainer is exported', () => {
