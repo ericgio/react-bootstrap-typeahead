@@ -1,46 +1,40 @@
 // @flow
 
-import React, { createContext, useContext } from 'react';
-import type { ComponentType, Context } from 'react';
+import { type Context, createContext, useContext } from 'react';
 
-import { pick } from '../utils';
+import { noop } from '../utils';
 
 import type { Id, Option, OptionHandler } from '../types';
 
 export type TypeaheadContextType = {
   activeIndex: number,
   hintText: string,
-  isOnlyResult: boolean,
   id: Id,
   initialItem: ?Option,
   inputNode: ?HTMLInputElement,
+  isOnlyResult: boolean,
   onActiveItemChange: OptionHandler,
   onAdd: OptionHandler,
   onInitialItemChange: (?Option) => void,
   onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,
   selectHintOnEnter: boolean,
+  setItem: (Option, number) => void,
 };
 
 export const TypeaheadContext: Context<TypeaheadContextType> =
-  createContext({});
+  createContext({
+    activeIndex: -1,
+    hintText: '',
+    id: '',
+    initialItem: null,
+    inputNode: null,
+    isOnlyResult: false,
+    onActiveItemChange: noop,
+    onAdd: noop,
+    onInitialItemChange: noop,
+    onMenuItemClick: noop,
+    selectHintOnEnter: false,
+    setItem: noop,
+  });
 
 export const useTypeaheadContext = () => useContext(TypeaheadContext);
-
-export const withContext = (
-  Component: ComponentType<*>,
-  values: string[]
-) => {
-  // Note: Use a class instead of function component to support refs.
-  /* eslint-disable-next-line react/prefer-stateless-function */
-  return class extends React.Component<*> {
-    render() {
-      return (
-        <TypeaheadContext.Consumer>
-          {(context: TypeaheadContextType) => (
-            <Component {...this.props} {...pick(context, values)} />
-          )}
-        </TypeaheadContext.Consumer>
-      );
-    }
-  };
-};
