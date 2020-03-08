@@ -13,6 +13,7 @@ export type TypeaheadContextType = {
   isOnlyResult: boolean,
   id: Id,
   initialItem: ?Option,
+  inputNode: ?HTMLInputElement,
   onActiveItemChange: OptionHandler,
   onAdd: OptionHandler,
   onInitialItemChange: (?Option) => void,

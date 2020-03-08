@@ -53,14 +53,13 @@ function hintContainer(Input: ComponentType<*>) {
     static displayName = `hintContainer(${getDisplayName(Input)})`;
 
     hintRef: Ref<HTMLInputElement> = React.createRef();
-    _input: ?HTMLInputElement = null;
 
     componentDidMount() {
-      copyStyles(this._input, this.hintRef.current);
+      copyStyles(this.props.inputNode, this.hintRef.current);
     }
 
     componentDidUpdate() {
-      copyStyles(this._input, this.hintRef.current);
+      copyStyles(this.props.inputNode, this.hintRef.current);
     }
 
     render() {
@@ -68,6 +67,7 @@ function hintContainer(Input: ComponentType<*>) {
         forwardedRef,
         hintText,
         initialItem,
+        inputNode,
         onAdd,
         selectHintOnEnter,
         ...props
@@ -84,7 +84,7 @@ function hintContainer(Input: ComponentType<*>) {
           <Input
             {...props}
             onKeyDown={this._handleKeyDown}
-            ref={this.getInputRef}
+            ref={forwardedRef}
           />
           <input
             aria-hidden
@@ -109,11 +109,6 @@ function hintContainer(Input: ComponentType<*>) {
       );
     }
 
-    getInputRef = (input: ?HTMLInputElement) => {
-      this._input = input;
-      this.props.forwardedRef(input);
-    }
-
     _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
       const { initialItem, onAdd, onKeyDown } = this.props;
 
@@ -129,6 +124,7 @@ function hintContainer(Input: ComponentType<*>) {
   const HintedInputWithContext = withContext(HintedInput, [
     'hintText',
     'initialItem',
+    'inputNode',
     'onAdd',
     'selectHintOnEnter',
   ]);

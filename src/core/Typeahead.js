@@ -1,6 +1,5 @@
 // @flow
 
-import invariant from 'invariant';
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -279,12 +278,11 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   state = getInitialState(this.props);
 
+  inputNode: ?HTMLInputElement;
   isMenuShown: boolean = false;
   // Keeps track of actual items displayed in the menu, after sorting,
   // truncating, grouping, etc.
   items: Option[] = [];
-
-  _input: ?HTMLInputElement;
 
   componentDidMount() {
     this.props.autoFocus && this.focus();
@@ -374,7 +372,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     return (
       <TypeaheadManager
         {...mergedPropsAndState}
-        inputRef={this.getInputRef}
+        inputNode={this.inputNode}
+        inputRef={this.inputRef}
         isMenuShown={this.isMenuShown}
         items={this.items}
         onActiveItemChange={this._handleActiveItemChange}
@@ -394,7 +393,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   }
 
   blur = () => {
-    this.getInput().blur();
+    this.inputNode && this.inputNode.blur();
     this._hideMenu();
   }
 
@@ -403,21 +402,15 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   }
 
   focus = () => {
-    this.getInput().focus();
+    this.inputNode && this.inputNode.focus();
   }
 
-  getInput = (): HTMLInputElement => {
-    invariant(
-      this._input instanceof HTMLInputElement,
-      '`this._input` is not an input element. Be sure to correctly pass the ' +
-      '`inputRef` prop to your input node.'
-    );
-
-    return this._input;
+  getInput = () => {
+    return this.inputNode;
   }
 
-  getInputRef = (input: ?HTMLInputElement) => {
-    this._input = input;
+  inputRef = (inputNode: ?HTMLInputElement) => {
+    this.inputNode = inputNode;
   }
 
   _handleActiveIndexChange = (activeIndex: number) => {

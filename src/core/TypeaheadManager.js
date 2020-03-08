@@ -40,6 +40,7 @@ const typeaheadContextKeys = [
   'activeIndex',
   'id',
   'initialItem',
+  'inputNode',
   'items',
   'onActiveItemChange',
   'onAdd',
