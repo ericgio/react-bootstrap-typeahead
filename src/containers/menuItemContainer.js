@@ -1,102 +1,55 @@
 // @flow
 
 import scrollIntoView from 'scroll-into-view-if-needed';
-import React, { type ComponentType } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { withContext } from '../core/Context';
+import type { ComponentType } from 'react';
+
+import { useTypeaheadContext } from '../core/Context';
 import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
 
+import { optionType } from '../propTypes';
 import type { Option } from '../types';
 
 const propTypes = {
-  option: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]).isRequired,
+  option: optionType.isRequired,
   position: PropTypes.number,
 };
 
-type Props = {
+type Props = * & {
   option: Option,
   position: number,
 };
 
 const menuItemContainer = (Component: ComponentType<*>) => {
-  class WrappedMenuItem extends React.Component<* & Props> {
-    static displayName = `menuItemContainer(${getDisplayName(Component)})`;
-    static propTypes = propTypes;
+  const displayName = `menuItemContainer(${getDisplayName(Component)})`;
 
-    itemRef = React.createRef<HTMLElement>();
+  const WrappedMenuItem = ({ label, option, position, ...props }: Props) => {
+    const {
+      activeIndex,
+      id,
+      isOnlyResult,
+      onActiveItemChange,
+      onInitialItemChange,
+      onMenuItemClick,
+      setItem,
+    } = useTypeaheadContext();
 
-    componentDidMount() {
-      this._maybeUpdateItem();
-    }
+    const itemRef = useRef<?HTMLElement>(null);
 
-    componentDidUpdate(prevProps, prevState) {
-      this._maybeUpdateItem();
-    }
-
-    render() {
-      const {
-        activeIndex,
-        id,
-        isOnlyResult,
-        label,
-        onActiveItemChange,
-        onInitialItemChange,
-        onMenuItemClick,
-        option,
-        position,
-        setItem,
-        ...props
-      } = this.props;
-
-      const active = isOnlyResult || activeIndex === position;
-
-      // Update the item's position in the item stack.
-      setItem(option, position);
-
-      return (
-        <Component
-          {...props}
-          active={active}
-          aria-label={label}
-          aria-selected={active}
-          id={getMenuItemId(id, position)}
-          onClick={this._handleClick}
-          onMouseDown={preventInputBlur}
-          ref={this.itemRef}
-          role="option"
-        />
-      );
-    }
-
-    _handleClick = (e) => {
-      const { onMenuItemClick, option, onClick } = this.props;
-
-      onMenuItemClick(option, e);
-      onClick && onClick(e);
-    }
-
-    _maybeUpdateItem = () => {
-      const {
-        activeIndex,
-        onActiveItemChange,
-        onInitialItemChange,
-        option,
-        position,
-      } = this.props;
-
+    useEffect(() => {
       if (position === 0) {
         onInitialItemChange(option);
       }
+    }, [position]);
 
+    useEffect(() => {
       if (position === activeIndex) {
         onActiveItemChange(option);
 
         // Automatically scroll the menu as the user keys through it.
-        const node = this.itemRef.current;
+        const node = itemRef.current;
 
         node && scrollIntoView(node, {
           block: 'nearest',
@@ -105,19 +58,37 @@ const menuItemContainer = (Component: ComponentType<*>) => {
           scrollMode: 'if-needed',
         });
       }
-    }
-  }
+    }, [activeIndex, position]);
 
-  return withContext(WrappedMenuItem, [
-    'activeIndex',
-    'id',
-    'isOnlyResult',
-    'items',
-    'onActiveItemChange',
-    'onInitialItemChange',
-    'onMenuItemClick',
-    'setItem',
-  ]);
+    const active = isOnlyResult || activeIndex === position;
+
+    // Update the item's position in the item stack.
+    setItem(option, position);
+
+    const handleClick = useCallback((e: SyntheticEvent<HTMLElement>) => {
+      onMenuItemClick(option, e);
+      props.onClick && props.onClick(e);
+    });
+
+    return (
+      <Component
+        {...props}
+        active={active}
+        aria-label={label}
+        aria-selected={active}
+        id={getMenuItemId(id, position)}
+        onClick={handleClick}
+        onMouseDown={preventInputBlur}
+        ref={itemRef}
+        role="option"
+      />
+    );
+  };
+
+  WrappedMenuItem.displayName = displayName;
+  WrappedMenuItem.propTypes = propTypes;
+
+  return WrappedMenuItem;
 };
 
 export default menuItemContainer;
