@@ -145,13 +145,14 @@ class TypeaheadComponent extends React.Component<Props> {
         {...this.props}
         options={options}
         ref={(instance) => this._instance = instance}>
-        {({ getInputProps, state }) => {
-          const auxContent = this._renderAux(state);
+        {({ getInputProps, ...props }) => {
+          const { isMenuShown, onHide, results } = props;
+          const auxContent = this._renderAux(props);
 
           return (
             <RootCloseWrapper
-              disabled={open || !state.isMenuShown}
-              onRootClose={state.onHide}>
+              disabled={open || !isMenuShown}
+              onRootClose={onHide}>
               <div
                 className={cx('rbt', { 'has-aux': !!auxContent }, className)}
                 style={{
@@ -163,19 +164,19 @@ class TypeaheadComponent extends React.Component<Props> {
                 {this._renderInput({
                   ...getInputProps(this.props.inputProps),
                   ref: this.referenceElementRef,
-                }, state)}
+                }, props)}
                 <Overlay
                   {...getOverlayProps(this.props)}
-                  isMenuShown={state.isMenuShown}
+                  isMenuShown={isMenuShown}
                   referenceElement={this._referenceElement}>
                   {(menuProps: MenuProps) => this._renderMenu(
-                    state.results,
+                    results,
                     menuProps,
-                    state
+                    props
                   )}
                 </Overlay>
                 {auxContent}
-                {isFunction(children) ? children(state) : children}
+                {isFunction(children) ? children(props) : children}
               </div>
             </RootCloseWrapper>
           );
@@ -197,7 +198,7 @@ class TypeaheadComponent extends React.Component<Props> {
     /* eslint-enable react/no-find-dom-node */
   }
 
-  _renderInput = (inputProps: InputProps, state: TypeaheadManagerProps) => {
+  _renderInput = (inputProps: InputProps, props: TypeaheadManagerProps) => {
     const {
       bsSize,
       isInvalid,
@@ -208,10 +209,10 @@ class TypeaheadComponent extends React.Component<Props> {
     } = this.props;
 
     if (isFunction(renderInput)) {
-      return renderInput(inputProps, state);
+      return renderInput(inputProps, props);
     }
 
-    const props = {
+    const commonProps = {
       ...inputProps,
       bsSize,
       isInvalid,
@@ -219,17 +220,17 @@ class TypeaheadComponent extends React.Component<Props> {
     };
 
     if (!multiple) {
-      return <TypeaheadInputSingle {...props} />;
+      return <TypeaheadInputSingle {...commonProps} />;
     }
 
-    const { labelKey, onRemove, selected } = state;
+    const { labelKey, onRemove, selected } = props;
 
     return (
       <TypeaheadInputMulti
-        {...props}
+        {...commonProps}
         selected={selected}>
         {selected.map((option, idx) => (
-          renderToken(option, { ...props, labelKey, onRemove }, idx)
+          renderToken(option, { ...commonProps, labelKey, onRemove }, idx)
         ))}
       </TypeaheadInputMulti>
     );
@@ -238,7 +239,7 @@ class TypeaheadComponent extends React.Component<Props> {
   _renderMenu = (
     results: Option[],
     menuProps: MenuProps,
-    state: TypeaheadManagerProps
+    props: TypeaheadManagerProps
   ) => {
     const {
       emptyLabel,
@@ -259,12 +260,11 @@ class TypeaheadComponent extends React.Component<Props> {
       newSelectionPrefix,
       paginationText,
       renderMenuItemChildren,
-    }, state);
+    }, props);
   }
 
-  _renderAux = (state: TypeaheadManagerProps) => {
+  _renderAux = ({ onClear, selected }: TypeaheadManagerProps) => {
     const { bsSize, clearButton, disabled, isLoading } = this.props;
-    const { onClear, selected } = state;
 
     let content;
 

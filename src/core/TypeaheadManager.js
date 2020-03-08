@@ -24,7 +24,7 @@ const inputPropKeys = [
   'placeholder',
 ];
 
-const stateKeys = [
+const propKeys = [
   'activeIndex',
   'isMenuShown',
   'labelKey',
@@ -80,12 +80,12 @@ class TypeaheadManager extends React.Component<TypeaheadManagerProps> {
 
   render() {
     const childProps = {
+      ...pick(this.props, propKeys),
       getInputProps: getInputProps({
         ...pick(this.props, inputPropKeys),
         onKeyDown: this._handleKeyDown,
         value: getInputText(this.props),
       }),
-      state: pick(this.props, stateKeys),
     };
 
     return (
