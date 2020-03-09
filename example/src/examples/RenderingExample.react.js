@@ -23,13 +23,17 @@ const RenderingExample = () => {
 
   switch (selectedOption) {
     case 0:
-      props.renderInput = ({ inputRef, ref, ...inputProps }) => (
+      props.renderInput = ({
+        inputRef,
+        referenceElementRef,
+        ...inputProps
+      }) => (
         <Hint>
           <Form.Control
             {...inputProps}
             ref={(node) => {
               inputRef(node);
-              ref(node);
+              referenceElementRef(node);
             }}
           />
         </Hint>

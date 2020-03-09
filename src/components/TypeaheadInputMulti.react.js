@@ -14,11 +14,12 @@ import withClassNames from '../containers/withClassNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { InputProps, Option } from '../types';
+import type { InputProps, Option, RefCallback, ReferenceElement } from '../types';
 
 type Props = {
   ...InputProps,
   children: Node,
+  referenceElementRef: RefCallback<ReferenceElement>,
   selected: Option[],
 };
 
@@ -33,6 +34,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
       inputClassName,
       inputRef,
       placeholder,
+      referenceElementRef,
       selected,
       ...props
     } = this.props;
@@ -43,6 +45,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
         disabled={props.disabled}
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
+        ref={referenceElementRef}
         tabIndex={-1}>
         <div className="rbt-input-wrapper" ref={this.wrapperRef}>
           {children}
