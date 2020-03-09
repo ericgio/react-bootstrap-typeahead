@@ -1,5 +1,5 @@
 import { mount } from 'enzyme';
-import { head } from 'lodash';
+import { head, noop } from 'lodash';
 import React from 'react';
 
 import TypeaheadInputSingle from '../../components/TypeaheadInputSingle.react';
@@ -16,7 +16,10 @@ describe('<TypeaheadInputSingle>', () => {
         options={options}
         selected={[]}>
         {({ getInputProps }) => (
-          <TypeaheadInputSingle {...getInputProps()} />
+          <TypeaheadInputSingle
+            {...getInputProps()}
+            referenceElementRef={noop}
+          />
         )}
       </TestProvider>
     );
