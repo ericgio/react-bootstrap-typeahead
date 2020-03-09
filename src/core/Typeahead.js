@@ -1,6 +1,6 @@
 // @flow
 
-import isEqual from 'lodash.isequal';
+import isEqual from 'fast-deep-equal';
 import PropTypes from 'prop-types';
 import React from 'react';
 
