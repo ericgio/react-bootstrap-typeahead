@@ -3,7 +3,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 
 import Overlay from '../core/Overlay';
 import Typeahead from '../core/Typeahead';
@@ -165,7 +164,7 @@ class TypeaheadComponent extends React.Component<Props> {
                   tabIndex={-1}>
                   {this._renderInput({
                     ...getInputProps(this.props.inputProps),
-                    ref: this.referenceElementRef,
+                    referenceElementRef: this.referenceElementRef,
                   }, props)}
                   <Overlay
                     {...getOverlayProps(this.props)}
@@ -192,13 +191,8 @@ class TypeaheadComponent extends React.Component<Props> {
     return this._instance;
   }
 
-  referenceElementRef = (element: ?ReferenceElement) => {
-    // Use `findDOMNode` here because it's easier and less fragile than
-    // forwarding refs to the input's container.
-    /* eslint-disable react/no-find-dom-node */
-    // $FlowFixMe: `findDOMNode` could return Text or an Element.
-    this._referenceElement = findDOMNode(element);
-    /* eslint-enable react/no-find-dom-node */
+  referenceElementRef = (referenceElement: ?ReferenceElement) => {
+    this._referenceElement = referenceElement;
   }
 
   _renderInput = (inputProps: InputProps, props: TypeaheadManagerProps) => {
