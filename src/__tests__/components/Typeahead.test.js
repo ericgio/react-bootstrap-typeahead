@@ -1544,6 +1544,7 @@ describe('State modifiers', () => {
     expect(hideMenu({}, props)).toEqual({
       activeIndex: -1,
       activeItem: null,
+      initialItem: null,
       showMenu: false,
       shownResults: props.maxResults,
     });

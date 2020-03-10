@@ -262,11 +262,17 @@ export function clearTypeahead(state: TypeaheadState, props: Props) {
 }
 
 export function hideMenu(state: TypeaheadState, props: Props) {
-  const { activeIndex, activeItem, shownResults } = getInitialState(props);
+  const {
+    activeIndex,
+    activeItem,
+    initialItem,
+    shownResults,
+  } = getInitialState(props);
 
   return {
     activeIndex,
     activeItem,
+    initialItem,
     showMenu: false,
     shownResults,
   };
