@@ -6,7 +6,18 @@ import Token from '../../components/Token.react';
 import TypeaheadInputMulti from '../../components/TypeaheadInputMulti.react';
 
 import options from '../data';
-import { focus, getFormControl, getHint, getInput, getTokens, isFocused, keyDown, TestProvider } from '../helpers';
+
+import {
+  focus,
+  getFormControl,
+  getHint,
+  getInput,
+  getTokens,
+  isFocused,
+  simulateKeyDown,
+  TestProvider,
+} from '../helpers';
+
 import { BACKSPACE, RETURN } from '../../constants';
 
 describe('<TypeaheadInputMulti>', () => {
@@ -92,7 +103,7 @@ describe('<TypeaheadInputMulti>', () => {
     });
 
     test('calls the keydown handler', () => {
-      keyDown(wrapper, RETURN);
+      simulateKeyDown(wrapper, RETURN);
       expect(onKeyDown).toHaveBeenCalledTimes(1);
     });
 
@@ -102,7 +113,7 @@ describe('<TypeaheadInputMulti>', () => {
       focus(wrapper);
       expect(isFocused(input)).toBe(true);
 
-      keyDown(wrapper, BACKSPACE);
+      simulateKeyDown(wrapper, BACKSPACE);
 
       expect(isFocused(getTokens(wrapper).last())).toBe(true);
       expect(onKeyDown).toHaveBeenCalledTimes(1);
@@ -114,7 +125,7 @@ describe('<TypeaheadInputMulti>', () => {
       });
 
       focus(wrapper);
-      keyDown(wrapper, BACKSPACE);
+      simulateKeyDown(wrapper, BACKSPACE);
 
       expect(isFocused(getInput(wrapper))).toBe(true);
       expect(onKeyDown).toHaveBeenCalledTimes(1);

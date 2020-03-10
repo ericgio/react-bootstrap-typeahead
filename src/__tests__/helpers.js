@@ -38,11 +38,6 @@ export const TestProvider = ({ children, ...props }) => (
   </TypeaheadManager>
 );
 
-// Make sure e.persist() is present in events.
-const baseEvent = {
-  persist: noop,
-};
-
 /**
  * Finding React Elements
  */
@@ -83,25 +78,46 @@ export function isFocused(element) {
 /**
  * Events
  */
-export function focus(wrapper) {
-  getInput(wrapper).simulate('focus', baseEvent);
+
+// Make sure certain event properties are present.
+function getBaseEvent(properties = {}) {
+  return {
+    defaultPrevented: false,
+    persist: noop,
+    preventDefault: noop,
+    ...properties,
+  };
 }
 
-export function keyDown(wrapper, value) {
+export function focus(wrapper, eventProperties) {
+  getInput(wrapper).simulate('focus', getBaseEvent(eventProperties));
+}
+
+// Calls Enzyme's `simulate` method instead of the `onKeyDown` prop.
+// Not recommended: https://github.com/airbnb/enzyme/issues/1412
+export function simulateKeyDown(wrapper, value, eventProperties) {
   const input = getInput(wrapper);
   input.simulate('keyDown', {
-    ...baseEvent,
+    ...getBaseEvent(eventProperties),
     currentTarget: input,
     keyCode: value,
     which: value,
   });
 }
 
-export function change(wrapper, value) {
-  // Calling `simulate` doesn't actually change the value, so call the
-  // `onChange` prop directly: https://github.com/airbnb/enzyme/issues/1412
+export function keyDown(wrapper, value, eventProperties) {
+  const input = getInput(wrapper);
+  input.prop('onKeyDown')({
+    ...getBaseEvent(eventProperties),
+    currentTarget: input,
+    keyCode: value,
+    which: value,
+  });
+}
+
+export function change(wrapper, value, eventProperties) {
   getInput(wrapper).prop('onChange')({
-    ...baseEvent,
+    ...getBaseEvent(eventProperties),
     currentTarget: { value },
   });
 }
