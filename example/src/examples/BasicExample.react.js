@@ -8,27 +8,32 @@ import options from '../data';
 
 /* example-start */
 const BasicExample = () => {
-  const [multiple, setMultiple] = useState(false);
-  const [selected, setSelected] = useState([]);
+  const [singleSelections, setSingleSelections] = useState([]);
+  const [multiSelections, setMultiSelections] = useState([]);
 
   return (
     <Fragment>
-      <Typeahead
-        id="basic-typeahead-example"
-        labelKey="name"
-        multiple={multiple}
-        onChange={setSelected}
-        options={options}
-        placeholder="Choose a state..."
-        selected={selected}
-      />
       <Form.Group>
-        <Form.Check
-          checked={multiple}
-          id="multi-select-check"
-          label="Multi-Select"
-          onChange={(e) => setMultiple(e.target.checked)}
-          type="checkbox"
+        <Form.Label>Single Selection</Form.Label>
+        <Typeahead
+          id="basic-typeahead-single"
+          labelKey="name"
+          onChange={setSingleSelections}
+          options={options}
+          placeholder="Choose a state..."
+          selected={singleSelections}
+        />
+      </Form.Group>
+      <Form.Group style={{ marginTop: '20px' }}>
+        <Form.Label>Multiple Selections</Form.Label>
+        <Typeahead
+          id="basic-typeahead-multiple"
+          labelKey="name"
+          multiple
+          onChange={setMultiSelections}
+          options={options}
+          placeholder="Choose several states..."
+          selected={multiSelections}
         />
       </Form.Group>
     </Fragment>

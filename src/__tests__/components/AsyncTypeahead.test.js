@@ -3,7 +3,7 @@ import { noop } from 'lodash';
 import React, { createRef } from 'react';
 
 import { AsyncTypeahead } from '../..';
-import { change, focus, getMenuItems, keyDown } from '../helpers';
+import { change, focus, getMenuItems, simulateKeyDown } from '../helpers';
 import { DOWN, RETURN } from '../../constants';
 
 function search(wrapper, query, callback) {
@@ -137,8 +137,8 @@ describe('<AsyncTypeahead>', () => {
     });
 
     focus(wrapper);
-    keyDown(wrapper, DOWN);
-    keyDown(wrapper, RETURN);
+    simulateKeyDown(wrapper, DOWN);
+    simulateKeyDown(wrapper, RETURN);
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(0);
