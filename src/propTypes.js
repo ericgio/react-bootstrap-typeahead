@@ -50,6 +50,17 @@ export function defaultInputValueType(props, propName, componentName) {
   );
 }
 
+export function defaultSelectedType(props, propName, componentName) {
+  const { defaultSelected, multiple } = props;
+
+  warn(
+    multiple || defaultSelected.length <= 1,
+    'You are passing multiple options to the `defaultSelected` prop of a ' +
+    'Typeahead in single-select mode. The selections will be truncated to a ' +
+    'single selection.'
+  );
+}
+
 export function highlightOnlyResultType(
   props,
   propName,
@@ -111,7 +122,14 @@ export const optionType = PropTypes.oneOfType([
 ]);
 
 export function selectedType(props, propName, componentName) {
-  const { onChange, selected } = props;
+  const { multiple, onChange, selected } = props;
+
+  warn(
+    multiple || !selected || selected.length <= 1,
+    'You are passing multiple options to the `selected` prop of a Typeahead ' +
+    'in single-select mode. This may lead to unexpected behaviors or errors.'
+  );
+
   warn(
     !selected || (selected && isFunction(onChange)),
     'You provided a `selected` prop without an `onChange` handler. If you ' +

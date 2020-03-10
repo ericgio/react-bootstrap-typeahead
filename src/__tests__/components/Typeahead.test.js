@@ -6,14 +6,28 @@ import { Popper } from 'react-popper';
 import { Menu, MenuItem, Typeahead } from '../..';
 import { clearTypeahead, getInitialState, hideMenu } from '../../core/Typeahead';
 
-import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, isFocused, keyDown } from '../helpers';
+import {
+  change,
+  focus,
+  getFormControl,
+  getHint,
+  getInput,
+  getMenu,
+  getMenuItems,
+  getPaginator,
+  getTokens,
+  isFocused,
+  keyDown,
+  simulateKeyDown,
+} from '../helpers';
+
 import states from '../data';
 import { DOWN, ESC, LEFT, RETURN, RIGHT, TAB, UP } from '../../constants';
 
 const ID = 'rbt-id';
 
 function cycleThroughMenuAndGetActiveItem(wrapper, dir) {
-  keyDown(wrapper, dir);
+  simulateKeyDown(wrapper, dir);
   return wrapper.find('a.active');
 }
 
@@ -91,22 +105,13 @@ describe('<Typeahead>', () => {
     });
 
     test('renders in multi-select mode when `multiple=true`', () => {
-      // typeahead.setProps({ multiple: true });
       expect(typeahead.find('.rbt-input-multi')).toHaveLength(1);
     });
 
-    test('displays, adds, and removes selections', () => {
+    test('displays and removes selections', () => {
       expect(getTokens(typeahead)).toHaveLength(3);
-
-      // Make a new selection.
-      focus(typeahead);
-      keyDown(typeahead, DOWN);
-      keyDown(typeahead, RETURN);
-
-      expect(getTokens(typeahead)).toHaveLength(4);
-
       getClearButton(typeahead).first().simulate('click');
-      expect(getTokens(typeahead)).toHaveLength(3);
+      expect(getTokens(typeahead)).toHaveLength(2);
     });
   });
 
@@ -162,26 +167,6 @@ describe('<Typeahead>', () => {
       });
 
       expect(getSelected(wrapper).length).toBe(1);
-    });
-
-    test('truncates selections when using `selected`', () => {
-      typeahead.setProps({ selected: multiSelections });
-
-      expect(getSelected(typeahead).length).toBe(1);
-    });
-
-    test('truncates selections when going from multi- to single-select', () => {
-      typeahead.setProps({
-        multiple: true,
-        selected: multiSelections,
-      });
-
-      expect(getSelected(typeahead).length).toBe(multiSelections.length);
-
-      typeahead.setProps({ multiple: false });
-
-      expect(getSelected(typeahead).length).toBe(1);
-      expect(getSelected(typeahead)).toEqual(states.slice(0, 1));
     });
 
     test('filters menu options based on `selected` values', () => {
@@ -317,7 +302,7 @@ describe('<Typeahead>', () => {
     expect(activeItem.text()).toBe(options[0].name);
 
     // Cycle back to the input
-    keyDown(typeahead, DOWN);
+    simulateKeyDown(typeahead, DOWN);
     activeItem = cycleThroughMenuAndGetActiveItem(typeahead, DOWN);
     expect(activeItem.length).toBe(0);
   });
@@ -379,8 +364,8 @@ describe('<Typeahead>', () => {
 
     test('calls `onPaginate` when the return key is pressed', () => {
       focus(typeahead);
-      keyDown(typeahead, UP);
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, UP);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
@@ -391,8 +376,8 @@ describe('<Typeahead>', () => {
       typeahead.setProps({ labelKey: (o) => o.name });
 
       focus(typeahead);
-      keyDown(typeahead, UP);
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, UP);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
@@ -420,16 +405,16 @@ describe('<Typeahead>', () => {
 
       change(typeahead, 'ar');
       focus(typeahead);
-      keyDown(typeahead, UP);
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, UP);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
 
       change(typeahead, 'or');
       focus(typeahead);
-      keyDown(typeahead, UP);
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, UP);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(onPaginate).toHaveBeenCalledTimes(2);
       expect(shownResultsCount).toBe(maxResults * 2);
@@ -437,12 +422,12 @@ describe('<Typeahead>', () => {
 
     test('updates the active item after pagination', () => {
       focus(typeahead);
-      keyDown(typeahead, UP);
+      simulateKeyDown(typeahead, UP);
 
       const { activeItem } = getState(typeahead);
       expect(activeItem.paginationOption).toBe(true);
 
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, RETURN);
       expect(getState(typeahead).activeItem).toEqual(states[maxResults]);
     });
   });
@@ -589,7 +574,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.length).toBe(1);
       expect(menuItems.hasClass('active')).toBe(false);
 
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(selected.length).toBe(0);
     });
@@ -605,7 +590,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.length).toBe(1);
       expect(menuItems.hasClass('active')).toBe(true);
 
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(selected.length).toBe(1);
     });
@@ -624,7 +609,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.length).toBe(1);
       expect(menuItems.hasClass('active')).toBe(false);
 
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(selected.length).toBe(0);
     });
@@ -648,7 +633,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.length).toBe(1);
       expect(menuItems.hasClass('active')).toBe(false);
 
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(selected.length).toBe(0);
     });
@@ -656,7 +641,7 @@ describe('<Typeahead>', () => {
 
   test('displays the active item value in the input', () => {
     focus(typeahead);
-    keyDown(typeahead, DOWN);
+    simulateKeyDown(typeahead, DOWN);
 
     expect(getInput(typeahead).prop('value')).toBe('Alabama');
   });
@@ -682,7 +667,6 @@ describe('<Typeahead>', () => {
       };
 
       typeahead.setProps({ inputProps });
-      typeahead.update();
     });
 
     afterEach(() => {
@@ -715,7 +699,7 @@ describe('<Typeahead>', () => {
     const onKeyDown = jest.fn();
 
     typeahead.setProps({ onKeyDown });
-    keyDown(typeahead, RETURN);
+    simulateKeyDown(typeahead, RETURN);
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
@@ -734,7 +718,7 @@ describe('<Typeahead>', () => {
     focus(typeahead);
     expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
-    keyDown(typeahead, ESC);
+    simulateKeyDown(typeahead, ESC);
     expect(onMenuToggle).toHaveBeenCalledTimes(2);
   });
 
@@ -769,7 +753,7 @@ describe('<Typeahead>', () => {
       expect(getMenu(typeahead).length).toBe(1);
       expect(getHint(typeahead)).toBe('Alabama');
 
-      keyDown(typeahead, ESC);
+      simulateKeyDown(typeahead, ESC);
 
       // Expect the input to remain focused, but the menu and hint to be hidden.
       expect(hasFocus(typeahead)).toBe(true);
@@ -810,14 +794,14 @@ describe('<Typeahead>', () => {
     test('should not select the hinted result on right arrow keydown unless ' +
     'the cursor is at the end of the input value', () => {
       setCursorPosition(typeahead, 1);
-      keyDown(typeahead, RIGHT);
+      simulateKeyDown(typeahead, RIGHT);
 
       expect(keyCode).toBe(RIGHT);
       expect(getSelected(typeahead).length).toBe(0);
     });
 
     test('should not select the hinted result on enter keydown', () => {
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(keyCode).toBe(RETURN);
       expect(getSelected(typeahead).length).toBe(0);
@@ -844,7 +828,7 @@ describe('<Typeahead>', () => {
 
       // Focus and navigate to the first result.
       focus(typeahead);
-      keyDown(typeahead, DOWN);
+      simulateKeyDown(typeahead, DOWN);
       expect(getSelected(typeahead).length).toBe(0);
       expect(onKeyDown).toHaveBeenCalledTimes(1);
     });
@@ -857,35 +841,32 @@ describe('<Typeahead>', () => {
 
     test('does not select the active item when the menu is closed', () => {
       typeahead.setProps({ open: false });
-      keyDown(typeahead, RIGHT);
+      simulateKeyDown(typeahead, RIGHT);
       expect(getSelected(typeahead).length).toBe(0);
       expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('form submission', () => {
-    let event;
-
-    const onKeyDown = (e) => event = e;
+    let preventDefault;
 
     beforeEach(() => {
-      event = null;
-      typeahead.setProps({ onKeyDown });
+      preventDefault = jest.fn();
     });
 
     test('prevents form submission when the menu is open', () => {
       focus(typeahead);
-      keyDown(typeahead, RETURN);
+      keyDown(typeahead, RETURN, { preventDefault });
 
-      expect(event.defaultPrevented).toBe(true);
+      expect(preventDefault).toHaveBeenCalledTimes(1);
     });
 
     test('allows form submission when the menu is closed', () => {
       focus(typeahead);
       keyDown(typeahead, ESC); // Close the menu
-      keyDown(typeahead, RETURN);
+      keyDown(typeahead, RETURN, { preventDefault });
 
-      expect(event.defaultPrevented).toBeUndefined();
+      expect(preventDefault).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -893,7 +874,7 @@ describe('<Typeahead>', () => {
     focus(typeahead);
     expect(getState(typeahead).showMenu).toBe(true);
 
-    keyDown(typeahead, TAB);
+    simulateKeyDown(typeahead, TAB);
     expect(getState(typeahead).showMenu).toBe(false);
   });
 
@@ -905,7 +886,7 @@ describe('<Typeahead>', () => {
     });
 
     focus(typeahead);
-    keyDown(typeahead, LEFT);
+    simulateKeyDown(typeahead, LEFT);
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
@@ -961,7 +942,7 @@ describe('<Typeahead>', () => {
       expect(getInput(typeahead).prop('aria-activedescendant')).toBe(undefined);
 
       focus(typeahead);
-      keyDown(typeahead, DOWN);
+      simulateKeyDown(typeahead, DOWN);
 
       expect(getInput(typeahead).prop('aria-activedescendant'))
         .toBe('my-id-item-0');
@@ -975,7 +956,7 @@ describe('<Typeahead>', () => {
       expect(menuItem.prop('aria-selected')).toBe(false);
       expect(menuItem.prop('role')).toBe('option');
 
-      keyDown(typeahead, DOWN);
+      simulateKeyDown(typeahead, DOWN);
       expect(typeahead.find('.dropdown-item').first().prop('aria-selected'))
         .toBe(true);
     });
@@ -1022,16 +1003,16 @@ describe('<Typeahead>', () => {
     focus(typeahead);
     expect(getState(typeahead).showMenu).toBe(true);
 
-    keyDown(typeahead, ESC);
+    simulateKeyDown(typeahead, ESC);
     expect(getState(typeahead).showMenu).toBe(false);
 
-    keyDown(typeahead, DOWN);
+    simulateKeyDown(typeahead, DOWN);
     expect(getState(typeahead).showMenu).toBe(true);
 
-    keyDown(typeahead, ESC);
+    simulateKeyDown(typeahead, ESC);
     expect(getState(typeahead).showMenu).toBe(false);
 
-    keyDown(typeahead, UP);
+    simulateKeyDown(typeahead, UP);
     expect(getState(typeahead).showMenu).toBe(true);
   });
 
@@ -1159,8 +1140,8 @@ describe('<Typeahead>', () => {
       expect(menuItems.at(0).text()).toBe(`${newSelectionPrefix}${text}`);
 
       // Highlight and select the custom option.
-      keyDown(typeahead, DOWN);
-      keyDown(typeahead, RETURN);
+      simulateKeyDown(typeahead, DOWN);
+      simulateKeyDown(typeahead, RETURN);
 
       expect(getSelected(typeahead)[0].id).toMatch('new-id-');
     });
@@ -1254,8 +1235,8 @@ describe('<Typeahead> `change` events', () => {
 
   test('calls `onChange` when a menu item is selected via keyboard', () => {
     focus(wrapper);
-    keyDown(wrapper, DOWN);
-    keyDown(wrapper, RETURN);
+    simulateKeyDown(wrapper, DOWN);
+    simulateKeyDown(wrapper, RETURN);
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(0);
@@ -1266,8 +1247,8 @@ describe('<Typeahead> `change` events', () => {
     wrapper.setProps({ selectHintOnEnter: true });
 
     focus(wrapper);
-    keyDown(wrapper, DOWN);
-    keyDown(wrapper, RETURN);
+    simulateKeyDown(wrapper, DOWN);
+    simulateKeyDown(wrapper, RETURN);
 
     expect(onChange).toHaveBeenCalledTimes(1);
   });
@@ -1455,11 +1436,11 @@ describe('<Typeahead> with custom menu', () => {
 
   test('selects the correct option', () => {
     focus(wrapper);
-    keyDown(wrapper, DOWN);
+    simulateKeyDown(wrapper, DOWN);
 
     expect(getState(wrapper).activeItem.name).toBe('Wyoming');
 
-    keyDown(wrapper, RETURN);
+    simulateKeyDown(wrapper, RETURN);
     expect(getSelected(wrapper)[0].name).toBe('Wyoming');
   });
 
@@ -1474,7 +1455,7 @@ describe('<Typeahead> with custom menu', () => {
     wrapper.setProps({ options });
 
     focus(wrapper);
-    keyDown(wrapper, DOWN);
+    simulateKeyDown(wrapper, DOWN);
 
     expect(getState(wrapper).activeItem.name).toBe('Wisconsin');
   });

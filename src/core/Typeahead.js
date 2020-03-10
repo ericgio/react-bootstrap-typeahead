@@ -10,6 +10,7 @@ import {
   caseSensitiveType,
   checkPropType,
   defaultInputValueType,
+  defaultSelectedType,
   highlightOnlyResultType,
   ignoreDiacriticsType,
   isRequiredForA11y,
@@ -81,7 +82,10 @@ const propTypes = {
    * Specify any pre-selected options. Use only if you want the component to
    * be uncontrolled.
    */
-  defaultSelected: PropTypes.arrayOf(optionType),
+  defaultSelected: checkPropType(
+    PropTypes.arrayOf(optionType),
+    defaultSelectedType
+  ),
   /**
    * Either an array of fields in `option` to search, or a custom filtering
    * callback.
@@ -294,37 +298,20 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     this.props.autoFocus && this.focus();
   }
 
-  /* eslint-disable-next-line camelcase */
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    const { labelKey, multiple, selected } = nextProps;
+  componentDidUpdate(prevProps: Props, prevState: TypeaheadState) {
+    const { labelKey, multiple, selected } = this.props;
 
-    validateSelectedPropChange(selected, this.props.selected);
+    validateSelectedPropChange(selected, prevProps.selected);
 
-    if (multiple !== this.props.multiple) {
-      this.setState({ text: '' });
-    }
-
-    // If new selections are passed via props, treat as a controlled input.
-    if (selected && !isEqual(selected, this.state.selected)) {
+    // Sync selections in state with those in props.
+    if (selected && !isEqual(selected, prevState.selected)) {
       this.setState({ selected });
 
-      if (multiple) {
-        return;
+      if (!multiple) {
+        this.setState({
+          text: selected.length ? getOptionLabel(head(selected), labelKey) : '',
+        });
       }
-
-      this.setState({
-        text: selected.length ? getOptionLabel(head(selected), labelKey) : '',
-      });
-    }
-
-    // Truncate selections when in single-select mode.
-    let newSelected = selected || this.state.selected;
-    if (!multiple && newSelected.length > 1) {
-      newSelected = newSelected.slice(0, 1);
-      this.setState({
-        selected: newSelected,
-        text: getOptionLabel(head(newSelected), labelKey),
-      });
     }
   }
 
