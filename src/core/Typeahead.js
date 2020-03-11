@@ -346,33 +346,34 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     this.items = []; // Reset items on re-render.
 
     let results = [];
+
     if (this.isMenuShown) {
       const cb = typeof filterBy === 'function' ? filterBy : defaultFilterBy;
       results = options.filter((option: Option) => (
         cb(option, mergedPropsAndState)
       ));
-    }
 
-    // This must come before results are truncated.
-    const shouldPaginate = paginate && results.length > shownResults;
+      // This must come before results are truncated.
+      const shouldPaginate = paginate && results.length > shownResults;
 
-    // Truncate results if necessary.
-    results = getTruncatedOptions(results, shownResults);
+      // Truncate results if necessary.
+      results = getTruncatedOptions(results, shownResults);
 
-    // Add the custom option if necessary.
-    if (addCustomOption(results, mergedPropsAndState)) {
-      results.push({
-        customOption: true,
-        [getStringLabelKey(labelKey)]: text,
-      });
-    }
+      // Add the custom option if necessary.
+      if (addCustomOption(results, mergedPropsAndState)) {
+        results.push({
+          customOption: true,
+          [getStringLabelKey(labelKey)]: text,
+        });
+      }
 
-    // Add the pagination item if necessary.
-    if (shouldPaginate) {
-      results.push({
-        [getStringLabelKey(labelKey)]: '',
-        paginationOption: true,
-      });
+      // Add the pagination item if necessary.
+      if (shouldPaginate) {
+        results.push({
+          [getStringLabelKey(labelKey)]: '',
+          paginationOption: true,
+        });
+      }
     }
 
     return (
