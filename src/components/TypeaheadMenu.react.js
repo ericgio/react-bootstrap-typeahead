@@ -1,7 +1,9 @@
 // @flow
 
-import * as React from 'react';
+import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
+
+import type { Node } from 'react';
 
 import Highlighter from './Highlighter.react';
 import Menu from './Menu.react';
@@ -17,7 +19,7 @@ export type TypeaheadMenuProps = MenuComponentProps & {
   newSelectionPrefix: string,
   options: Option[],
   paginationText: string,
-  renderMenuItemChildren: (Option, TypeaheadMenuProps, number) => React.Node,
+  renderMenuItemChildren: (Option, TypeaheadMenuProps, number) => Node,
 };
 
 const propTypes = {
@@ -50,38 +52,18 @@ const defaultProps = {
   ),
 };
 
-class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
-  static propTypes = propTypes;
-  static defaultProps = defaultProps;
+const TypeaheadMenu = (props: TypeaheadMenuProps) => {
+  const {
+    labelKey,
+    newSelectionPrefix,
+    options,
+    paginationText,
+    renderMenuItemChildren,
+    text,
+    ...menuProps
+  } = props;
 
-  render() {
-    const {
-      id,
-      labelKey,
-      newSelectionPrefix,
-      options,
-      renderMenuItemChildren,
-      text,
-      ...menuProps
-    } = this.props;
-
-    return (
-      // Explictly pass some props so Flow doesn't complain...
-      <Menu {...menuProps} id={id} text={text}>
-        {options.map(this._renderMenuItem)}
-      </Menu>
-    );
-  }
-
-  _renderMenuItem = (option: Option, position: number) => {
-    const {
-      labelKey,
-      newSelectionPrefix,
-      paginationText,
-      renderMenuItemChildren,
-      text,
-    } = this.props;
-
+  const renderMenuItem = useCallback((option: Option, position: number) => {
     const label = getOptionLabel(option, labelKey);
 
     const menuItemProps = {
@@ -108,7 +90,7 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
 
     if (option.paginationOption) {
       return (
-        <React.Fragment key="pagination-item">
+        <Fragment key="pagination-item">
           <Menu.Divider />
           <MenuItem
             {...menuItemProps}
@@ -116,16 +98,26 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
             label={paginationText}>
             {paginationText}
           </MenuItem>
-        </React.Fragment>
+        </Fragment>
       );
     }
 
     return (
       <MenuItem {...menuItemProps} key={position}>
-        {renderMenuItemChildren(option, this.props, position)}
+        {renderMenuItemChildren(option, props, position)}
       </MenuItem>
     );
-  }
-}
+  });
+
+  return (
+    // Explictly pass `text` so Flow doesn't complain...
+    <Menu {...menuProps} text={text}>
+      {options.map(renderMenuItem)}
+    </Menu>
+  );
+};
+
+TypeaheadMenu.propTypes = propTypes;
+TypeaheadMenu.defaultProps = defaultProps;
 
 export default TypeaheadMenu;
