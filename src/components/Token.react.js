@@ -9,7 +9,7 @@ import ClearButton from './ClearButton.react';
 import tokenContainer from '../containers/tokenContainer';
 import { isFunction } from '../utils';
 
-import type { OptionHandler } from '../utils';
+import type { OptionHandler } from '../types';
 
 const propTypes = {
   active: PropTypes.bool,
