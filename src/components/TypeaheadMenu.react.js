@@ -73,7 +73,7 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
     );
   }
 
-  _renderMenuItem = (option: Option, idx: number) => {
+  _renderMenuItem = (option: Option, position: number) => {
     const {
       labelKey,
       newSelectionPrefix,
@@ -86,10 +86,9 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
 
     const menuItemProps = {
       disabled: getOptionProperty(option, 'disabled'),
-      key: idx,
       label,
       option,
-      position: idx,
+      position,
     };
 
     if (option.customOption) {
@@ -97,6 +96,7 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
         <MenuItem
           {...menuItemProps}
           className="rbt-menu-custom-option"
+          key={position}
           label={newSelectionPrefix + label}>
           {newSelectionPrefix}
           <Highlighter search={text}>
@@ -107,21 +107,22 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
     }
 
     if (option.paginationOption) {
-      return [
-        <Menu.Divider key="pagination-item-divider" />,
-        <MenuItem
-          {...menuItemProps}
-          className="rbt-menu-pagination-option"
-          key="pagination-item"
-          label={paginationText}>
-          {paginationText}
-        </MenuItem>,
-      ];
+      return (
+        <React.Fragment key="pagination-item">
+          <Menu.Divider />
+          <MenuItem
+            {...menuItemProps}
+            className="rbt-menu-pagination-option"
+            label={paginationText}>
+            {paginationText}
+          </MenuItem>
+        </React.Fragment>
+      );
     }
 
     return (
-      <MenuItem {...menuItemProps}>
-        {renderMenuItemChildren(option, this.props, idx)}
+      <MenuItem {...menuItemProps} key={position}>
+        {renderMenuItemChildren(option, this.props, position)}
       </MenuItem>
     );
   }
