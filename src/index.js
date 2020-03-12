@@ -14,6 +14,6 @@ export TypeaheadInputSingle from './components/TypeaheadInputSingle.react';
 export TypeaheadMenu from './components/TypeaheadMenu.react';
 
 // HOCs + Hooks
-export asyncContainer from './containers/asyncContainer';
+export asyncContainer, { useAsync } from './containers/asyncContainer';
 export menuItemContainer, { useItem } from './containers/menuItemContainer';
 export tokenContainer, { useToken } from './containers/tokenContainer';

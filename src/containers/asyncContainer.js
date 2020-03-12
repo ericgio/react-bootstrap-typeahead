@@ -2,7 +2,9 @@
 
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
+import useForceUpdate from '@restart/hooks/useForceUpdate';
+import usePrevious from '@restart/hooks/usePrevious';
 
 import type { ComponentType, ElementRef, Node } from 'react';
 
@@ -11,7 +13,7 @@ import Typeahead from '../core/Typeahead';
 import { optionType } from '../propTypes';
 import { getDisplayName, isFunction } from '../utils';
 
-import type { Option, TypeaheadProps } from '../types';
+import type { Option, Ref, TypeaheadProps } from '../types';
 
 const propTypes = {
   /**
@@ -78,127 +80,114 @@ type DebouncedFunction = Function & {
 };
 
 /**
- * HoC that encapsulates common behavior and functionality for doing
+ * Logic that encapsulates common behavior and functionality around
  * asynchronous searches, including:
  *
  *  - Debouncing user input
  *  - Optional query caching
  *  - Search prompt and empty results behaviors
  */
-const asyncContainer = (TypeaheadComponent: ComponentType<*>) => {
-  class AsyncTypeahead extends React.Component<* & Props> {
-    static displayName = `asyncContainer(${getDisplayName(Typeahead)})`;
-    static propTypes = propTypes;
-    static defaultProps = defaultProps;
+export function useAsync(props: * & Props) {
+  const {
+    allowNew,
+    emptyLabel,
+    isLoading,
+    onSearch,
+    options,
+    promptText,
+    searchText,
+    useCache,
+    ...otherProps
+  } = props;
 
-    _cache: Cache = {};
-    _handleSearchDebounced: DebouncedFunction;
-    _query: string = this.props.defaultInputValue || '';
+  const cacheRef: { current: Cache } = useRef({});
+  const handleSearchDebouncedRef: Ref<DebouncedFunction> = useRef();
+  const queryRef: { current: string } = useRef(props.defaultInputValue || '');
 
-    componentDidMount() {
-      this._handleSearchDebounced = debounce(
-        this._handleSearch,
-        this.props.delay
-      );
+  const forceUpdate = useForceUpdate();
+  const prevProps = usePrevious(props);
+
+  const handleSearch = (query: string) => {
+    queryRef.current = query;
+
+    if (!query || (props.minLength && query.length < props.minLength)) {
+      return;
     }
 
-    componentDidUpdate(prevProps: Props) {
-      const { isLoading, options, useCache } = this.props;
-
-      // Ensure that we've gone from a loading to a completed state. Otherwise
-      // an empty response could get cached if the component updates during the
-      // request (eg: if the parent re-renders for some reason).
-      if (!isLoading && prevProps.isLoading && useCache) {
-        this._cache[this._query] = options;
-      }
+    // Use cached results, if applicable.
+    if (useCache && cacheRef.current[query]) {
+      // Re-render the component with the cached results.
+      forceUpdate();
+      return;
     }
 
-    componentWillUnmount() {
-      this._cache = {};
-      this._query = '';
-      this._handleSearchDebounced && this._handleSearchDebounced.cancel();
+    // Perform the search.
+    onSearch(query);
+  };
+
+  // Set the debounced search function.
+  useEffect(() => {
+    handleSearchDebouncedRef.current = debounce(handleSearch, props.delay);
+    return () => {
+      handleSearchDebouncedRef.current &&
+      handleSearchDebouncedRef.current.cancel();
+    };
+  });
+
+  useEffect(() => {
+    // Ensure that we've gone from a loading to a completed state. Otherwise
+    // an empty response could get cached if the component updates during the
+    // request (eg: if the parent re-renders for some reason).
+    if (!isLoading && prevProps && prevProps.isLoading && useCache) {
+      cacheRef.current[queryRef.current] = options;
+    }
+  });
+
+  const getEmptyLabel = () => {
+    if (!queryRef.current.length) {
+      return promptText;
     }
 
-    render() {
-      const {
-        allowNew,
-        instanceRef,
-        isLoading,
-        options,
-        useCache,
-        ...props
-      } = this.props;
-
-      const cachedQuery = this._cache[this._query];
-
-      return (
-        <TypeaheadComponent
-          {...props}
-          allowNew={
-            // Disable custom selections during a search unless
-            // `allowNew` is a function.
-            isFunction(allowNew) ? allowNew : allowNew && !isLoading
-          }
-          emptyLabel={this._getEmptyLabel()}
-          isLoading={isLoading}
-          onInputChange={this._handleInputChange}
-          options={useCache && cachedQuery ? cachedQuery : options}
-          ref={instanceRef}
-        />
-      );
+    if (isLoading) {
+      return searchText;
     }
 
-    _getEmptyLabel = () => {
-      const {
-        emptyLabel,
-        isLoading,
-        promptText,
-        searchText,
-      } = this.props;
+    return emptyLabel;
+  };
 
-      if (!this._query.length) {
-        return promptText;
-      }
+  const handleInputChange = (
+    query: string,
+    e: SyntheticEvent<HTMLInputElement>
+  ) => {
+    props.onInputChange && props.onInputChange(query, e);
 
-      if (isLoading) {
-        return searchText;
-      }
+    handleSearchDebouncedRef.current &&
+    handleSearchDebouncedRef.current(query);
+  };
 
-      return emptyLabel;
-    }
+  const cachedQuery = cacheRef.current[queryRef.current];
 
-    _handleInputChange = (
-      query: string,
-      e: SyntheticEvent<HTMLInputElement>
-    ) => {
-      this.props.onInputChange && this.props.onInputChange(query, e);
-      this._handleSearchDebounced(query);
-    }
+  return {
+    ...otherProps,
+    // Disable custom selections during a search if `allowNew` isn't a function.
+    allowNew: isFunction(allowNew) ? allowNew : allowNew && !isLoading,
+    emptyLabel: getEmptyLabel(),
+    isLoading,
+    onInputChange: handleInputChange,
+    options: useCache && cachedQuery ? cachedQuery : options,
+  };
+}
 
-    _handleSearch = (query: string) => {
-      this._query = query;
-
-      const { minLength, onSearch, useCache } = this.props;
-
-      if (!query || (minLength && query.length < minLength)) {
-        return;
-      }
-
-      // Use cached results, if applicable.
-      if (useCache && this._cache[query]) {
-        // Re-render the component with the cached results.
-        this.forceUpdate();
-        return;
-      }
-
-      // Perform the search.
-      onSearch(query);
-    }
-  }
-
-  return forwardRef<* & Props, ElementRef<typeof Typeahead>>(
-    (props, ref) => <AsyncTypeahead {...props} instanceRef={ref} />
+export default function asyncContainer(Component: ComponentType<*>) {
+  const AsyncTypeahead = forwardRef<* & Props, ElementRef<typeof Typeahead>>(
+    (props, ref) => <Component {...useAsync(props)} ref={ref} />
   );
-};
 
-export default asyncContainer;
+  AsyncTypeahead.displayName = `asyncContainer(${getDisplayName(Component)})`;
+  // $FlowFixMe
+  AsyncTypeahead.propTypes = propTypes;
+  // $FlowFixMe
+  AsyncTypeahead.defaultProps = defaultProps;
+
+  return AsyncTypeahead;
+}
