@@ -1,6 +1,7 @@
 // @flow
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import usePrevious from '@restart/hooks/usePrevious';
 
 import { TypeaheadContext } from './Context';
 import { getHintText, getInputProps, getInputText, getIsOnlyResult, pick } from '../utils';
@@ -50,14 +51,6 @@ const contextKeys = [
   'selectHintOnEnter',
   'setItem',
 ];
-
-function usePrevious(value) {
-  const ref = useRef(null);
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
 
 const TypeaheadManager = (props: TypeaheadManagerProps) => {
   const {

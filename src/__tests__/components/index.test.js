@@ -15,6 +15,7 @@ import {
   asyncContainer,
   menuItemContainer,
   tokenContainer,
+  useAsync,
   useHint,
   useItem,
   useToken,
@@ -34,7 +35,7 @@ import _TypeaheadInputMulti from '../../components/TypeaheadInputMulti.react';
 import _TypeaheadInputSingle from '../../components/TypeaheadInputSingle.react';
 import _TypeaheadMenu from '../../components/TypeaheadMenu.react';
 
-import _asyncContainer from '../../containers/asyncContainer';
+import _asyncContainer, { useAsync as _useAsync } from '../../containers/asyncContainer';
 import _menuItemContainer, { useItem as _useItem } from '../../containers/menuItemContainer';
 import _tokenContainer, { useToken as _useToken } from '../../containers/tokenContainer';
 
@@ -101,6 +102,10 @@ describe('index.js', () => {
 
   test('tokenContainer is exported', () => {
     expect(tokenContainer).toBe(_tokenContainer);
+  });
+
+  test('useAsync is exported', () => {
+    expect(useAsync).toBe(_useAsync);
   });
 
   test('useHint is exported', () => {

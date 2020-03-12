@@ -7,11 +7,15 @@ import { change, focus, getMenuItems, simulateKeyDown } from '../helpers';
 import { DOWN, RETURN } from '../../constants';
 
 function search(wrapper, query, callback) {
-  change(wrapper, query);
+  // `setProps` needs to come before `change` or several tests fail...
   wrapper.setProps({ isLoading: true });
+  change(wrapper, query);
 
   setTimeout(() => {
-    wrapper.setProps({ isLoading: false });
+    wrapper.setProps({
+      isLoading: false,
+      options: [],
+    });
     callback();
   }, 0);
 }
@@ -69,12 +73,9 @@ describe('<AsyncTypeahead>', () => {
   test('displays the empty label when there are no results', (done) => {
     const emptyLabel = 'empty label';
 
-    wrapper.setProps({
-      emptyLabel,
-      useCache: false,
-    });
+    wrapper.setProps({ emptyLabel });
 
-    search(wrapper, 'search', () => {
+    search(wrapper, 'foo', () => {
       const menuItems = getMenuItems(wrapper);
       expect(menuItems.length).toBe(1);
       expect(menuItems.text()).toBe(emptyLabel);
@@ -145,57 +146,19 @@ describe('<AsyncTypeahead>', () => {
   });
 
   test('uses cached results and does not perform a new search', (done) => {
-    let menuItems;
-    let callCount = 0;
+    search(wrapper, 'foo', () => {
+      expect(onSearch).toHaveBeenCalledTimes(1);
 
-    onSearch = (options, callback) => (query) => {
-      callCount += 1;
+      search(wrapper, 'bar', () => {
+        expect(onSearch).toHaveBeenCalledTimes(2);
 
-      wrapper.setProps({ isLoading: true });
-
-      setTimeout(() => {
-        wrapper.setProps({
-          isLoading: false,
-          options,
+        // `onSearch` shouldn't be called when performing first search again.
+        search(wrapper, 'foo', () => {
+          expect(onSearch).toHaveBeenCalledTimes(2);
+          done();
         });
-        callback();
-      }, 0);
-    };
-
-    wrapper.setProps({
-      onSearch: onSearch(['test-one', 'test-two', 'test-three'], () => {
-        focus(wrapper);
-        menuItems = getMenuItems(wrapper);
-        expect(menuItems.length).toBe(3);
-        expect(callCount).toBe(1);
-
-        wrapper.setProps({
-          onSearch: onSearch([], () => {
-            focus(wrapper);
-            menuItems = getMenuItems(wrapper);
-            expect(menuItems.length).toBe(1);
-            expect(menuItems.text()).toBe('No matches found.');
-            expect(callCount).toBe(2);
-
-            // Repeat first search
-            change(wrapper, 'test');
-            setTimeout(() => {
-              focus(wrapper);
-              menuItems = getMenuItems(wrapper);
-              expect(menuItems.length).toBe(3);
-              expect(callCount).toBe(2);
-              done();
-            }, 0);
-          }),
-        });
-
-        // Second search
-        change(wrapper, 'test!');
-      }),
+      });
     });
-
-    // First search
-    change(wrapper, 'test');
   });
 
   test('does not use cached results', (done) => {
@@ -203,11 +166,9 @@ describe('<AsyncTypeahead>', () => {
       useCache: false,
     });
 
-    // Initial search
     search(wrapper, 'search', () => {
       expect(onSearch).toHaveBeenCalledTimes(1);
 
-      // Perform the search again.
       search(wrapper, 'search', () => {
         expect(onSearch).toHaveBeenCalledTimes(2);
         done();
@@ -328,23 +289,5 @@ describe('<AsyncTypeahead>', () => {
     ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
       expect(typeof ref.current[method]).toBe('function');
     });
-  });
-
-  test('resets instance properties on unmount', () => {
-    /* eslint-disable no-underscore-dangle */
-    const instance = wrapper.find('asyncContainer(Typeahead)').instance();
-    const cancel = jest.fn();
-
-    // Modify values
-    instance._cache = null;
-    instance._query = 'test';
-    instance._handleSearchDebounced.cancel = cancel;
-
-    wrapper.unmount();
-
-    expect(instance._cache).toEqual({});
-    expect(instance._query).toBe('');
-    expect(cancel).toHaveBeenCalledTimes(1);
-    /* eslint-enable no-underscore-dangle */
   });
 });
