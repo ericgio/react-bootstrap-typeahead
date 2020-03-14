@@ -10,9 +10,9 @@ import { sizeType } from '../propTypes';
 import type { EventHandler, Size } from '../types';
 
 const propTypes = {
-  bsSize: sizeType,
   label: PropTypes.string,
   onClick: PropTypes.func,
+  size: sizeType,
 };
 
 const defaultProps = {
@@ -21,10 +21,10 @@ const defaultProps = {
 };
 
 type Props = {
-  bsSize?: Size,
   className?: string,
   label: string,
   onClick: EventHandler<HTMLButtonElement>,
+  size?: Size,
 };
 
 /**
@@ -33,17 +33,17 @@ type Props = {
  * http://getbootstrap.com/css/#helper-classes-close
  */
 const ClearButton = ({
-  bsSize,
   className,
   label,
   onClick,
+  size,
   ...props
 }: Props) => (
   <button
     {...props}
     aria-label={label}
     className={cx('close', 'rbt-close', {
-      'rbt-close-lg': isSizeLarge(bsSize),
+      'rbt-close-lg': isSizeLarge(size),
     }, className)}
     onClick={(e: SyntheticEvent<HTMLButtonElement>) => {
       e.stopPropagation();

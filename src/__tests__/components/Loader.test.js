@@ -16,12 +16,12 @@ describe('<Loader>', () => {
   });
 
   test('renders a small loading indicator', () => {
-    loader.setProps({ bsSize: 'small' });
+    loader.setProps({ size: 'small' });
     expect(loader.hasClass('rbt-loader-sm')).toBe(true);
   });
 
   test('renders a large loading indicator', () => {
-    loader.setProps({ bsSize: 'large' });
+    loader.setProps({ size: 'large' });
     expect(loader.hasClass('rbt-loader-lg')).toBe(true);
   });
 });

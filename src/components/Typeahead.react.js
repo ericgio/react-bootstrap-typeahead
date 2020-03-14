@@ -17,7 +17,7 @@ import TypeaheadInputSingle from './TypeaheadInputSingle.react';
 import TypeaheadMenu from './TypeaheadMenu.react';
 
 import { getOptionLabel, isFunction, isSizeLarge, pick, preventInputBlur } from '../utils';
-import { checkPropType, inputPropsType, sizeType } from '../propTypes';
+import { checkPropType, deprecated, inputPropsType, sizeType } from '../propTypes';
 
 import type { TypeaheadMenuProps } from './TypeaheadMenu.react';
 import type {
@@ -43,6 +43,7 @@ type Props = TypeaheadProps & TypeaheadMenuProps & {
   renderInput: (InputProps, TypeaheadManagerProps) => React.Node,
   renderMenu: (Option[], TypeaheadMenuProps, TypeaheadProps) => React.Node,
   renderToken: (Option, Object & InputProps, number) => React.Node,
+  size?: Size,
   style?: Style,
 };
 
@@ -50,7 +51,7 @@ const propTypes = {
   /**
    * Specifies the size of the input.
    */
-  bsSize: sizeType,
+  bsSize: deprecated(sizeType, 'Use the `size` prop instead.'),
   /**
    * Displays a button to clear the input when there are selections.
    */
@@ -84,6 +85,10 @@ const propTypes = {
    * Callback for custom menu rendering.
    */
   renderToken: PropTypes.func,
+  /**
+   * Specifies the size of the input.
+   */
+  size: sizeType,
 };
 
 const defaultProps = {
@@ -206,6 +211,7 @@ class TypeaheadComponent extends React.Component<Props> {
       multiple,
       renderInput,
       renderToken,
+      size,
     } = this.props;
 
     if (isFunction(renderInput)) {
@@ -214,9 +220,9 @@ class TypeaheadComponent extends React.Component<Props> {
 
     const commonProps = {
       ...inputProps,
-      bsSize,
       isInvalid,
       isValid,
+      size: bsSize || size,
     };
 
     if (!multiple) {
@@ -264,16 +270,16 @@ class TypeaheadComponent extends React.Component<Props> {
   }
 
   _renderAux = ({ onClear, selected }: TypeaheadManagerProps) => {
-    const { bsSize, clearButton, disabled, isLoading } = this.props;
+    const { bsSize, clearButton, disabled, isLoading, size } = this.props;
 
     let content;
 
     if (isLoading) {
-      content = <Loader bsSize={bsSize} />;
+      content = <Loader size={bsSize || size} />;
     } else if (clearButton && !disabled && selected.length) {
       content =
         <ClearButton
-          bsSize={bsSize}
+          size={bsSize || size}
           onClick={onClear}
           onFocus={(e) => {
             // Prevent the main input from auto-focusing again.

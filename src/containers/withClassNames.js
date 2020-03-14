@@ -7,10 +7,10 @@ import { getDisplayName, isSizeLarge, isSizeSmall } from '../utils';
 import type { Size } from '../types';
 
 type Props = {
-  bsSize: Size,
   className?: string,
   isInvalid?: boolean,
   isValid?: boolean,
+  size: Size,
 };
 
 function withClassNames(Component: ComponentType<*>) {
@@ -20,14 +20,14 @@ function withClassNames(Component: ComponentType<*>) {
     static displayName = `withClassNames(${getDisplayName(Component)})`;
 
     render() {
-      const { bsSize, className, isInvalid, isValid, ...props } = this.props;
+      const { className, isInvalid, isValid, size, ...props } = this.props;
 
       return (
         <Component
           {...props}
           className={cx('form-control', 'rbt-input', {
-            'input-lg form-control-lg': isSizeLarge(bsSize),
-            'input-sm form-control-sm': isSizeSmall(bsSize),
+            'input-lg form-control-lg': isSizeLarge(size),
+            'input-sm form-control-sm': isSizeSmall(size),
             'is-invalid': isInvalid,
             'is-valid': isValid,
           }, className)}

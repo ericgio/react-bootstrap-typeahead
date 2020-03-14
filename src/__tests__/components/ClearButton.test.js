@@ -17,7 +17,7 @@ describe('<ClearButton>', () => {
   });
 
   test('renders a large clear button', () => {
-    button.setProps({ bsSize: 'large' });
+    button.setProps({ size: 'large' });
     expect(button.hasClass('rbt-close-lg')).toBe(true);
   });
 

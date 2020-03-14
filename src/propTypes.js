@@ -36,6 +36,24 @@ export function caseSensitiveType(props, propName, componentName) {
   );
 }
 
+export function deprecated(validator, reason) {
+  return function validate(props, propName, componentName) {
+    if (props[propName] != null) {
+      warn(
+        false,
+        `The prop \`${propName}\` is deprecated. ${reason}`
+      );
+    }
+
+    return PropTypes.checkPropTypes(
+      { [propName]: validator },
+      props,
+      'prop',
+      componentName
+    );
+  };
+}
+
 export function defaultInputValueType(props, propName, componentName) {
   const { defaultInputValue, defaultSelected, multiple, selected } = props;
   const name = defaultSelected.length ? 'defaultSelected' : 'selected';

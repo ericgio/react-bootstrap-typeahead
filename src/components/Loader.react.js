@@ -9,20 +9,20 @@ import { sizeType } from '../propTypes';
 import type { Size } from '../types';
 
 type Props = {
-  bsSize?: Size,
+  size?: Size,
 };
 
-const Loader = ({ bsSize }: Props) => (
+const Loader = ({ size }: Props) => (
   <div
     className={cx('rbt-loader', {
-      'rbt-loader-lg': isSizeLarge(bsSize),
-      'rbt-loader-sm': isSizeSmall(bsSize),
+      'rbt-loader-lg': isSizeLarge(size),
+      'rbt-loader-sm': isSizeSmall(size),
     })}
   />
 );
 
 Loader.propTypes = {
-  bsSize: sizeType,
+  size: sizeType,
 };
 
 export default Loader;

@@ -9,7 +9,7 @@ import options from '../data';
 
 /* example-start */
 const InputSizeExample = () => {
-  const [bsSize, setBsSize] = useState(undefined);
+  const [size, setSize] = useState(undefined);
 
   const radios = [
     { label: 'Small', value: 'small' },
@@ -20,18 +20,18 @@ const InputSizeExample = () => {
   return (
     <Fragment>
       <Typeahead
-        bsSize={bsSize}
         id="input-size-example"
         labelKey="name"
         options={options}
         placeholder="Choose a state..."
+        size={size}
       />
       <FormGroup>
         {radios.map(({ label, value }) => (
           <Control
-            checked={bsSize === value}
+            checked={size === value}
             key={value || 'default'}
-            onChange={() => setBsSize(value)}
+            onChange={() => setSize(value)}
             type="radio"
             value={value}>
             {label}
