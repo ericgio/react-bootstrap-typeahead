@@ -1,9 +1,84 @@
 # Upgrade Guide
 
+- [Version 5.0](Upgrading.md#v50-breaking-changes)
 - [Version 4.0](Upgrading.md#v40-breaking-changes)
 - [Version 3.0](Upgrading.md#v30-breaking-changes)
 - [Version 2.0](Upgrading.md#v20)
 - [Version 1.0](Upgrading.md#v10)
+
+## v5.0 Breaking Changes
+
+### Drop support for React < 16.8
+This library now relies on [hooks](https://reactjs.org/docs/hooks-intro.html), both in the package itself as well as underlying dependencies. You must upgrade your version of React and ReactDOM to be at least 16.8
+
+### Drop official support for Bootstrap 3
+Among other things, this consists of updating the HTML structure and class names of included components like MenuItem in a backwards-incompatible way. Note that if you are using BS3, things should still work, but you may need to render your own menu, menu item, and input components.
+
+### Remove deprecated use of `findDOMNode`
+`findDOMNode` was deprecated in React 16.3 and all uses of it (including dependencies) are now gone. In some cases, this now requires explicitly passing refs to underlying DOM nodes.
+
+When using `renderInput`, you will need to pass the `inputRef` and `referenceElementRef` prop to a DOM node. This will usually be the input itself, but may be a container node:
+```jsx
+<Typeahead
+  ...
+  renderInput={({ inputRef, referenceElementRef, ...inputProps }) => (
+    <Form.Control
+      {...inputProps}
+      ref={(inputNode) => {
+        inputRef(inputNode);
+        referenceElementRef(inputNode);
+      }}
+    />
+  )}
+/>
+```
+
+When using custom tokens, you will need to pass the ref from `tokenContainer` to the token's DOM node:
+```jsx
+const MyToken = tokenContainer(forwardRef((props, ref) => (
+  <div
+    className="my-token"
+    ref={ref}>
+    {props.children}
+  </div>
+)));
+```
+
+### `hintContainer` HOC is now `Hint` component
+Rewriting the HOC as a component makes it a little easier to use and better reflects its relationship with the input.
+
+#### v4.x
+```jsx
+import { Form } from 'react-bootstrap';
+import { Typeahead, hintContainer } from 'react-bootstrap-typeahead';
+
+const FormControlWithHint = hintContainer(Form.Control);
+
+<Typeahead
+  ...
+  renderInput={(...) => (
+    <FormControlWithHint {...} />
+  )}
+/>
+```
+
+#### v5.0
+```jsx
+import { Form } from 'react-bootstrap';
+import { Typeahead, Hint } from 'react-bootstrap-typeahead';
+
+<Typeahead
+  ...
+  renderInput={(...) => (
+    <Hint>
+      <Form.Control {...} />
+    </Hint>
+  )}
+/>
+```
+
+### Rename `bsSize` prop to `size`
+The `bsSize` prop mirrored the API in `react-bootstrap@^0.x`. It was deprecated in favor of the `size` prop in v4.2 of this library.
 
 ## v4.0 Breaking Changes
 
