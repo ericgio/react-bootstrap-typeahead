@@ -57,6 +57,12 @@ In an effort to fully support Bootstrap 4, this package also contains a CSS file
 ## Examples
 Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), which also include code samples. If you'd like to modify the examples, clone the repository and run `npm install` and `npm start` to build the example file. You can then open the HTML file locally in your browser.
 
+You can also try out the following sandbox examples:
+- [Windowing with large result sets](https://codesandbox.io/s/react-bootstrap-typeahead-windowing-example-4q1yjrzrn0)
+- [Asynchronous Pagination](https://codesandbox.io/s/react-bootstrap-typeahead-async-pagination-example-qg895)
+
+If you have an example use case that would be useful to others, please create a sandbox and submit a pull request to add it to the list!
+
 ## Browser Support
 Recent versions of the following browsers are supported:
 - Chrome

@@ -1,77 +1,64 @@
-/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-shadow */
 
-import React, { Fragment } from 'react';
-import { FormGroup } from 'react-bootstrap';
+import fetch from 'isomorphic-fetch';
+import React, { useCallback, useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
-import Control from '../components/Control.react';
-import GithubMenuItem from '../components/GithubMenuItem.react';
-import makeAndHandleRequest from '../util/makeAndHandleRequest';
+// Polyfill Promises for IE and older browsers.
+require('es6-promise').polyfill();
 
 /* example-start */
-class AsyncExample extends React.Component {
-  state = {
-    allowNew: false,
-    isLoading: false,
-    multiple: false,
-    options: [],
-  };
+const SEARCH_URI = 'https://api.github.com/search/users';
 
-  render() {
-    return (
-      <Fragment>
-        <AsyncTypeahead
-          {...this.state}
-          id="async-example"
-          labelKey="login"
-          minLength={3}
-          onSearch={this._handleSearch}
-          placeholder="Search for a Github user..."
-          renderMenuItemChildren={(option, props) => (
-            <GithubMenuItem key={option.id} user={option} />
-          )}
-        />
-        <FormGroup>
-          {this._renderCheckboxes()}
-        </FormGroup>
-      </Fragment>
-    );
-  }
+const AsyncExample = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [options, setOptions] = useState([]);
 
-  _renderCheckboxes() {
-    const checkboxes = [
-      { label: 'Multi-Select', name: 'multiple' },
-      { label: 'Allow custom selections', name: 'allowNew' },
-    ];
+  const handleSearch = useCallback((query) => {
+    setIsLoading(true);
 
-    return checkboxes.map(({ label, name }) => (
-      <Control
-        checked={this.state[name]}
-        key={name}
-        name={name}
-        onChange={this._handleChange}
-        type="checkbox">
-        {label}
-      </Control>
-    ));
-  }
+    fetch(`${SEARCH_URI}?q=${query}+in:login&page=1&per_page=50`)
+      .then((resp) => resp.json())
+      .then(({ items }) => {
+        const options = items.map((i) => ({
+          avatar_url: i.avatar_url,
+          id: i.id,
+          login: i.login,
+        }));
 
-  _handleChange = (e) => {
-    const { checked, name } = e.target;
-    this.setState({ [name]: checked });
-  }
-
-  _handleSearch = (query) => {
-    this.setState({ isLoading: true });
-    makeAndHandleRequest(query)
-      .then(({ options }) => {
-        this.setState({
-          isLoading: false,
-          options,
-        });
+        setOptions(options);
+        setIsLoading(false);
       });
-  }
-}
+  });
+
+  return (
+    <AsyncTypeahead
+      id="async-example"
+      isLoading={isLoading}
+      labelKey="login"
+      minLength={3}
+      onSearch={handleSearch}
+      options={options}
+      placeholder="Search for a Github user..."
+      renderMenuItemChildren={(option, props) => (
+        <div>
+          <img
+            alt={option.login}
+            src={option.avatar_url}
+            style={{
+              height: '24px',
+              marginRight: '10px',
+              width: '24px',
+            }}
+          />
+          <span>{option.login}</span>
+        </div>
+      )}
+    />
+  );
+};
 /* example-end */
 
 export default AsyncExample;
