@@ -1,7 +1,7 @@
 # Upgrade Guide
 
-- [Version 4.0](Upgrading.md#v40)
-- [Version 3.0](Upgrading.md#v30)
+- [Version 4.0](Upgrading.md#v40-breaking-changes)
+- [Version 3.0](Upgrading.md#v30-breaking-changes)
 - [Version 2.0](Upgrading.md#v20)
 - [Version 1.0](Upgrading.md#v10)
 
