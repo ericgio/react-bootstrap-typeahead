@@ -4,55 +4,46 @@ import shouldSelectHint from '../../utils/shouldSelectHint';
 import { RETURN, RIGHT, TAB } from '../../constants';
 
 describe('shouldSelectHint', () => {
-  let event, props;
+  let event, hintText;
 
   beforeEach(() => {
-    event = {
-      keyCode: TAB,
-    };
+    hintText = 'California';
 
-    props = {
-      hintText: 'California',
-      selectHintOnEnter: false,
-      value: 'Cali',
+    event = {
+      currentTarget: {
+        value: 'Cali',
+      },
+      keyCode: TAB,
     };
   });
 
   test('returns false when there is no hint', () => {
-    props.hintText = '';
-    expect(shouldSelectHint(event, props)).toBe(false);
+    expect(shouldSelectHint(event, '', false)).toBe(false);
   });
 
   test('returns true when tab is pressed', () => {
-    expect(shouldSelectHint(event, props)).toBe(true);
+    expect(shouldSelectHint(event, hintText, false)).toBe(true);
   });
 
   test('behavior when the right arrow key is pressed', () => {
-    event = {
-      currentTarget: {
-        selectionStart: 3,
-      },
-      keyCode: RIGHT,
-    };
+    event = { ...event, keyCode: RIGHT };
 
-    expect(shouldSelectHint(event, props)).toBe(false);
+    event.currentTarget.selectionStart = 3;
+    expect(shouldSelectHint(event, hintText)).toBe(false);
 
     event.currentTarget.selectionStart = 4;
-    expect(shouldSelectHint(event, props)).toBe(true);
+    expect(shouldSelectHint(event, hintText)).toBe(true);
 
     event.currentTarget.selectionStart = null;
-    expect(shouldSelectHint(event, props)).toBe(true);
+    expect(shouldSelectHint(event, hintText)).toBe(true);
   });
 
   test('behavior when enter is pressed', () => {
-    event = {
-      keyCode: RETURN,
-    };
+    event = { ...event, keyCode: RETURN };
 
-    expect(shouldSelectHint(event, props)).toBe(false);
+    expect(shouldSelectHint(event, hintText, false)).toBe(false);
 
-    props.selectHintOnEnter = true;
-    expect(shouldSelectHint(event, props)).toBe(true);
+    expect(shouldSelectHint(event, hintText, true)).toBe(true);
   });
 
   test('returns false for other keycodes', () => {
@@ -72,7 +63,7 @@ describe('shouldSelectHint', () => {
       ))
       .forEach((keyCode) => {
         event.keyCode = keyCode;
-        expect(shouldSelectHint(event, props)).toBe(false);
+        expect(shouldSelectHint(event, hintText, false)).toBe(false);
       });
   });
 });
