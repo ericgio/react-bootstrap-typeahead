@@ -102,14 +102,12 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     }
   );
 
-  const value = getInputText(props);
-
   const childProps = {
     ...pick(props, propKeys),
     getInputProps: getInputProps({
       ...pick(props, inputPropKeys),
       onKeyDown: handleKeyDown,
-      value,
+      value: getInputText(props),
     }),
   };
 
@@ -117,7 +115,6 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     ...pick(props, contextKeys),
     hintText: getHintText(props),
     isOnlyResult: getIsOnlyResult(props),
-    value,
   };
 
   return (
