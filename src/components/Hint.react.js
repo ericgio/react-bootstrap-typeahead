@@ -48,8 +48,13 @@ type Props = {
 };
 
 const Hint = ({ children, className }: Props) => {
-  const context = useTypeaheadContext();
-  const { hintText, initialItem, inputNode, onAdd } = context;
+  const {
+    hintText,
+    initialItem,
+    inputNode,
+    onAdd,
+    selectHintOnEnter,
+  } = useTypeaheadContext();
 
   const hintRef = useRef<?HTMLInputElement>(null);
 
@@ -60,7 +65,7 @@ const Hint = ({ children, className }: Props) => {
 
   const onKeyDown = useCallback(
     (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-      if (shouldSelectHint(e, context)) {
+      if (shouldSelectHint(e, hintText, selectHintOnEnter)) {
         e.preventDefault(); // Prevent input from blurring on TAB.
         initialItem && onAdd(initialItem);
       }
