@@ -977,10 +977,7 @@ describe('<Typeahead>', () => {
 
     test('exposes the typeahead instance and public methods', () => {
       ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
-        // Test both the bare ref and `getInstance` to ensure the latter is
-        // still available.
         expect(typeof ref.current[method]).toBe('function');
-        expect(typeof ref.current.getInstance()[method]).toBe('function');
       });
     });
 
