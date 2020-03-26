@@ -984,10 +984,7 @@ describe('<Typeahead>', () => {
         'hideMenu',
         'toggleMenu',
       ].forEach((method) => {
-        // Test both the bare ref and `getInstance` to ensure the latter is
-        // still available.
         expect(typeof instance[method]).toBe('function');
-        expect(typeof instance.getInstance()[method]).toBe('function');
       });
     });
 
