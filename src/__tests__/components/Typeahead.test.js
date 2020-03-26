@@ -1,10 +1,10 @@
 import { mount } from 'enzyme';
 import { head, noop } from 'lodash';
-import React from 'react';
+import React, { createRef } from 'react';
 import { Popper } from 'react-popper';
 
 import { Menu, MenuItem, Typeahead } from '../..';
-import { clearTypeahead, getInitialState, hideMenu } from '../../core/Typeahead';
+import TypeaheadCore, { clearTypeahead, getInitialState, hideMenu } from '../../core/Typeahead';
 
 import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, isFocused, keyDown } from '../helpers';
 import states from '../data';
@@ -33,12 +33,18 @@ function getClearButton(wrapper) {
   return wrapper.find('.rbt-close');
 }
 
+function getInstance(wrapper) {
+  // A cleaner way to do this would be to find the core `Typeahead` component.
+  // Use the `getInstance` method here as a way to test that it exists.
+  return wrapper.find(Typeahead).instance().getInstance();
+}
+
 function getPlacement(wrapper) {
   return wrapper.find(Popper).prop('placement');
 }
 
 function getState(wrapper) {
-  return wrapper.instance().getInstance().state;
+  return wrapper.find(TypeaheadCore).state();
 }
 
 function getSelected(wrapper) {
@@ -981,41 +987,55 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('calls the public `blur` method', () => {
-    focus(typeahead);
-    expect(getState(typeahead).showMenu).toBe(true);
+  describe('Public Methods', () => {
+    let instance, ref;
 
-    typeahead.instance().getInstance().blur();
-
-    expect(getState(typeahead).showMenu).toBe(false);
-  });
-
-  test('calls the public `clear` method', () => {
-    const wrapper = mountTypeahead({
-      defaultSelected: states.slice(0, 1),
+    beforeEach(() => {
+      ref = createRef();
+      typeahead = mountTypeahead({ ref });
+      instance = ref.current.getInstance();
     });
 
-    expect(getSelected(wrapper).length).toBe(1);
-    expect(getText(wrapper)).toBe('Alabama');
-
-    wrapper.instance().getInstance().clear();
-
-    expect(getSelected(wrapper).length).toBe(0);
-    expect(getText(wrapper)).toBe('');
-  });
-
-  test('clears the typeahead after a selection', () => {
-    const onChange = jest.fn((selected) => {
-      typeahead.instance().getInstance().clear();
+    test('exposes the typeahead instance and public methods', () => {
+      ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
+        expect(typeof instance[method]).toBe('function');
+      });
     });
 
-    typeahead.setProps({ onChange });
+    test('calls the public `blur` method', () => {
+      focus(typeahead);
+      expect(getState(typeahead).showMenu).toBe(true);
 
-    makeSelectionViaClick(typeahead);
+      instance.blur();
 
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(getSelected(typeahead).length).toBe(0);
-    expect(getText(typeahead)).toBe('');
+      expect(getState(typeahead).showMenu).toBe(false);
+    });
+
+    test('calls the public `clear` method', () => {
+      typeahead.setProps({ selected: states.slice(0, 1) });
+
+      expect(getSelected(typeahead).length).toBe(1);
+      expect(getText(typeahead)).toBe('Alabama');
+
+      instance.clear();
+
+      expect(getSelected(typeahead).length).toBe(0);
+      expect(getText(typeahead)).toBe('');
+    });
+
+    test('clears the typeahead after a selection', () => {
+      const onChange = jest.fn((selected) => {
+        instance.clear();
+      });
+
+      typeahead.setProps({ onChange });
+
+      makeSelectionViaClick(typeahead);
+
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(getSelected(typeahead).length).toBe(0);
+      expect(getText(typeahead)).toBe('');
+    });
   });
 
   test('opens the menu when the up or down arrow keys are pressed', () => {
@@ -1348,7 +1368,7 @@ describe('<Typeahead> `change` events', () => {
     expect(getSelected(wrapper).length).toBe(1);
     expect(getText(wrapper)).toBe(head(selected).name);
 
-    wrapper.instance().getInstance().clear();
+    getInstance(wrapper).clear();
 
     expect(getSelected(wrapper).length).toBe(0);
     expect(getText(wrapper)).toBe('');

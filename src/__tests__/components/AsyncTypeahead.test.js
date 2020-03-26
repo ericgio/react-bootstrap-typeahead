@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import { noop } from 'lodash';
-import React from 'react';
+import React, { createRef } from 'react';
 
 import { AsyncTypeahead } from '../..';
 import { change, focus, getMenuItems, keyDown } from '../helpers';
@@ -313,13 +313,23 @@ describe('<AsyncTypeahead>', () => {
     }, 0);
   });
 
-  test('makes the typehead instance and public methods available', () => {
-    const instance = wrapper.instance().getInstance();
+  test('exposes the typeahead instance and public methods', () => {
+    const ref = createRef();
 
-    expect(typeof instance.clear).toBe('function');
-    expect(typeof instance.blur).toBe('function');
-    expect(typeof instance.focus).toBe('function');
-    expect(typeof instance.getInput).toBe('function');
+    wrapper = mount(
+      <AsyncTypeahead
+        id="async-instance-test"
+        isLoading={false}
+        onSearch={noop}
+        ref={ref}
+      />
+    );
+
+    const instance = ref.current.getInstance();
+
+    ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
+      expect(typeof instance[method]).toBe('function');
+    });
   });
 
   test('resets instance properties on unmount', () => {
