@@ -34,7 +34,6 @@ import type {
 } from '../types';
 
 type Props = TypeaheadProps & TypeaheadMenuProps & {
-  size?: Size,
   className?: string,
   clearButton: boolean,
   disabled?: boolean,
