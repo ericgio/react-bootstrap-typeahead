@@ -31,6 +31,7 @@ import {
   noop,
   uniqueId,
   validateSelectedPropChange,
+  warn,
 } from '../utils';
 
 import {
@@ -414,6 +415,19 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   getInput = () => {
     return this.inputNode;
+  }
+
+  /**
+   * For backwards compatibility...
+   */
+  getInstance = () => {
+    warn(
+      false,
+      'The `getInstance` method is deprecated. You can now access instance ' +
+      'methods directly on the ref.'
+    );
+
+    return this;
   }
 
   inputRef = (inputNode: ?HTMLInputElement) => {

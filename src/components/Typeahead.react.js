@@ -2,9 +2,11 @@
 
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import React, { forwardRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import { RootCloseWrapper } from 'react-overlays';
+
+import type { ElementRef, Node } from 'react';
 
 import Overlay from '../core/Overlay';
 import Typeahead from '../core/Typeahead';
@@ -24,6 +26,7 @@ import type {
   InputProps,
   MenuProps,
   Option,
+  RefCallback,
   ReferenceElement,
   Size,
   Style,
@@ -36,13 +39,14 @@ type Props = TypeaheadProps & TypeaheadMenuProps & {
   className?: string,
   clearButton: boolean,
   disabled?: boolean,
+  instanceRef: RefCallback<any>,
   inputProps: Object,
   isInvalid: boolean,
   isLoading: boolean,
   isValid: boolean,
-  renderInput: (InputProps, TypeaheadManagerProps) => React.Node,
-  renderMenu: (Option[], TypeaheadMenuProps, TypeaheadProps) => React.Node,
-  renderToken: (Option, Object & InputProps, number) => React.Node,
+  renderInput: (InputProps, TypeaheadManagerProps) => Node,
+  renderMenu: (Option[], TypeaheadMenuProps, TypeaheadProps) => Node,
+  renderToken: (Option, Object & InputProps, number) => Node,
   size?: Size,
   style?: Style,
 };
@@ -138,18 +142,20 @@ class TypeaheadComponent extends React.Component<Props> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  _instance: ?Typeahead;
   _referenceElement: ?ReferenceElement;
 
   render() {
-    // Explicitly pass `options` so Flow doesn't complain...
-    const { children, className, open, options, style } = this.props;
+    const {
+      children,
+      className,
+      instanceRef,
+      open,
+      options,
+      style,
+    } = this.props;
 
     return (
-      <Typeahead
-        {...this.props}
-        options={options}
-        ref={(instance) => this._instance = instance}>
+      <Typeahead {...this.props} options={options} ref={instanceRef}>
         {({ getInputProps, ...props }) => {
           const { isMenuShown, onHide, results } = props;
           const auxContent = this._renderAux(props);
@@ -188,10 +194,6 @@ class TypeaheadComponent extends React.Component<Props> {
         }}
       </Typeahead>
     );
-  }
-
-  getInstance = () => {
-    return this._instance;
   }
 
   referenceElementRef = (element: ?ReferenceElement) => {
@@ -300,4 +302,6 @@ class TypeaheadComponent extends React.Component<Props> {
   }
 }
 
-export default TypeaheadComponent;
+export default forwardRef<* & Props, ElementRef<typeof Typeahead>>(
+  (props, ref) => <TypeaheadComponent {...props} instanceRef={ref} />
+);

@@ -325,16 +325,17 @@ describe('<AsyncTypeahead>', () => {
       />
     );
 
-    const instance = ref.current.getInstance();
-
     ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
-      expect(typeof instance[method]).toBe('function');
+      // Test both the bare ref and `getInstance` to ensure the latter is
+      // still available.
+      expect(typeof ref.current[method]).toBe('function');
+      expect(typeof ref.current.getInstance()[method]).toBe('function');
     });
   });
 
   test('resets instance properties on unmount', () => {
     /* eslint-disable no-underscore-dangle */
-    const instance = wrapper.instance();
+    const instance = wrapper.find('asyncContainer(Typeahead)').instance();
     const cancel = jest.fn();
 
     // Modify values

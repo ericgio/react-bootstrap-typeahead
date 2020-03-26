@@ -1,27 +1,27 @@
 # Public Methods
-To access the component's public methods, add a ref to your typeahead instance and access the ref from a given handler:
+To access the component's public methods, pass a ref to your typeahead then access the ref in your code:
 ```jsx
-<div>
+const ref = React.createRef();
+
+<>
   <Typeahead
     ...
-    ref={(typeahead) => this.typeahead = typeahead}
+    ref={ref}
   />
-  <button onClick={() => this.typeahead.getInstance().clear()}>
+  <button onClick={() => ref.current.clear()}>
     Clear Typeahead
   </button>
-</div>
+</>
 ```
 
-Note that you must use `getInstance` to get the typeahead instance.
-
 ### `blur()`
-Provides a programmatic way to blur the input.
+Provides a imperative way to blur the input.
 
 ### `clear()`
-Provides a programmatic way to reset the component. Calling the method will clear both text and selection(s).
+Provides a imperative way to reset the component. Calling the method will clear both text and selection(s).
 
 ### `focus()`
-Provides a programmatic way to focus the input.
+Provides a imperative way to focus the input.
 
 ### `getInput()`
 Provides access to the component's input node.

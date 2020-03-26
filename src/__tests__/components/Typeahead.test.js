@@ -34,9 +34,7 @@ function getClearButton(wrapper) {
 }
 
 function getInstance(wrapper) {
-  // A cleaner way to do this would be to find the core `Typeahead` component.
-  // Use the `getInstance` method here as a way to test that it exists.
-  return wrapper.find(Typeahead).instance().getInstance();
+  return wrapper.find(TypeaheadCore).instance();
 }
 
 function getPlacement(wrapper) {
@@ -97,7 +95,6 @@ describe('<Typeahead>', () => {
     });
 
     test('renders in multi-select mode when `multiple=true`', () => {
-      // typeahead.setProps({ multiple: true });
       expect(typeahead.find('.rbt-input-multi')).toHaveLength(1);
     });
 
@@ -993,12 +990,15 @@ describe('<Typeahead>', () => {
     beforeEach(() => {
       ref = createRef();
       typeahead = mountTypeahead({ ref });
-      instance = ref.current.getInstance();
+      instance = ref.current;
     });
 
     test('exposes the typeahead instance and public methods', () => {
       ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
-        expect(typeof instance[method]).toBe('function');
+        // Test both the bare ref and `getInstance` to ensure the latter is
+        // still available.
+        expect(typeof ref.current[method]).toBe('function');
+        expect(typeof ref.current.getInstance()[method]).toBe('function');
       });
     });
 

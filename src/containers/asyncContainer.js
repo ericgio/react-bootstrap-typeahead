@@ -2,7 +2,11 @@
 
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-import React, { type ComponentType, type Node } from 'react';
+import React, { forwardRef } from 'react';
+
+import type { ComponentType, ElementRef, Node } from 'react';
+
+import Typeahead from '../core/Typeahead';
 
 import { optionType } from '../propTypes';
 import { getDisplayName, isFunction } from '../utils';
@@ -73,10 +77,6 @@ type DebouncedFunction = Function & {
   cancel: () => void,
 };
 
-type TypeaheadComponent = {
-  getInstance: () => void;
-};
-
 /**
  * HoC that encapsulates common behavior and functionality for doing
  * asynchronous searches, including:
@@ -85,15 +85,14 @@ type TypeaheadComponent = {
  *  - Optional query caching
  *  - Search prompt and empty results behaviors
  */
-const asyncContainer = (Typeahead: ComponentType<*>) => {
-  return class extends React.Component<* & Props> {
+const asyncContainer = (TypeaheadComponent: ComponentType<*>) => {
+  class AsyncTypeahead extends React.Component<* & Props> {
     static displayName = `asyncContainer(${getDisplayName(Typeahead)})`;
     static propTypes = propTypes;
     static defaultProps = defaultProps;
 
     _cache: Cache = {};
     _handleSearchDebounced: DebouncedFunction;
-    _instance: ?TypeaheadComponent;
     _query: string = this.props.defaultInputValue || '';
 
     componentDidMount() {
@@ -121,11 +120,19 @@ const asyncContainer = (Typeahead: ComponentType<*>) => {
     }
 
     render() {
-      const { allowNew, isLoading, options, useCache, ...props } = this.props;
+      const {
+        allowNew,
+        instanceRef,
+        isLoading,
+        options,
+        useCache,
+        ...props
+      } = this.props;
+
       const cachedQuery = this._cache[this._query];
 
       return (
-        <Typeahead
+        <TypeaheadComponent
           {...props}
           allowNew={
             // Disable custom selections during a search unless
@@ -136,16 +143,9 @@ const asyncContainer = (Typeahead: ComponentType<*>) => {
           isLoading={isLoading}
           onInputChange={this._handleInputChange}
           options={useCache && cachedQuery ? cachedQuery : options}
-          ref={(instance) => this._instance = instance}
+          ref={instanceRef}
         />
       );
-    }
-
-    /**
-     * Make the component instance available.
-     */
-    getInstance() {
-      return this._instance && this._instance.getInstance();
     }
 
     _getEmptyLabel = () => {
@@ -194,7 +194,11 @@ const asyncContainer = (Typeahead: ComponentType<*>) => {
       // Perform the search.
       onSearch(query);
     }
-  };
+  }
+
+  return forwardRef<* & Props, ElementRef<typeof Typeahead>>(
+    (props, ref) => <AsyncTypeahead {...props} instanceRef={ref} />
+  );
 };
 
 export default asyncContainer;

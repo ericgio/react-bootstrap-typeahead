@@ -24,20 +24,19 @@ const PublicMethodsExample = () => {
       <ButtonToolbar style={{ marginTop: '10px' }}>
         <Button
           className="btn-outline-secondary"
-          onClick={() => ref.current.getInstance().clear()}>
+          onClick={() => ref.current.clear()}>
           Clear
         </Button>
         <Button
           className="btn-outline-secondary"
-          onClick={() => ref.current.getInstance().focus()}>
+          onClick={() => ref.current.focus()}>
           Focus
         </Button>
         <Button
           className="btn-outline-secondary"
           onClick={() => {
-            const instance = ref.current.getInstance();
-            instance.focus();
-            setTimeout(() => instance.blur(), 1000);
+            ref.current.focus();
+            setTimeout(() => ref.current.blur(), 1000);
           }}>
           Focus, then blur after 1 second
         </Button>
