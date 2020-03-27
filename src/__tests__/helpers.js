@@ -14,7 +14,6 @@ const context = {
   onMenuItemClick: noop,
   onMenuToggle: noop,
   results: [],
-  selectHintOnEnter: false,
   setItem: noop,
 };
 
@@ -25,7 +24,6 @@ const defaultProps = {
   onChange: noop,
   onClear: noop,
   onFocus: noop,
-  selectHintOnEnter: false,
   text: '',
 };
 

@@ -37,11 +37,11 @@ export function caseSensitiveType(props, propName, componentName) {
 }
 
 export function deprecated(validator, reason) {
-  return function validate(props, propName, componentName) {
+  return (props, propName, componentName) => {
     if (props[propName] != null) {
       warn(
         false,
-        `The prop \`${propName}\` is deprecated. ${reason}`
+        `The \`${propName}\` prop is deprecated. ${reason}`
       );
     }
 

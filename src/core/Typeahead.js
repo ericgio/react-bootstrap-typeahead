@@ -11,6 +11,7 @@ import {
   checkPropType,
   defaultInputValueType,
   defaultSelectedType,
+  deprecated,
   highlightOnlyResultType,
   ignoreDiacriticsType,
   isRequiredForA11y,
@@ -187,7 +188,11 @@ const propTypes = {
   /**
    * Allows selecting the hinted result by pressing enter.
    */
-  selectHintOnEnter: PropTypes.bool,
+  selectHintOnEnter: deprecated(
+    PropTypes.bool,
+    'Use the `shouldSelect` prop on the `Hint` component to define which ' +
+    'keystrokes can select the hint.'
+  ),
 };
 
 const defaultProps = {
@@ -211,7 +216,6 @@ const defaultProps = {
   onMenuToggle: noop,
   onPaginate: noop,
   paginate: true,
-  selectHintOnEnter: false,
 };
 
 type Props = TypeaheadProps & {
