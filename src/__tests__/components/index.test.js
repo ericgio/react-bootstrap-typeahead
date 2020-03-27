@@ -15,12 +15,13 @@ import {
   asyncContainer,
   menuItemContainer,
   tokenContainer,
+  useHint,
 } from '../..';
 
 import _AsyncTypeahead from '../../components/AsyncTypeahead.react';
 import _ClearButton from '../../components/ClearButton.react';
 import _Highlighter from '../../components/Highlighter.react';
-import _Hint from '../../components/Hint.react';
+import _Hint, { useHint as _useHint } from '../../components/Hint.react';
 import _Input from '../../components/Input.react';
 import _Loader from '../../components/Loader.react';
 import _Menu from '../../components/Menu.react';
@@ -98,5 +99,9 @@ describe('index.js', () => {
 
   test('tokenContainer is exported', () => {
     expect(tokenContainer).toBe(_tokenContainer);
+  });
+
+  test('useHint is exported', () => {
+    expect(useHint).toBe(_useHint);
   });
 });

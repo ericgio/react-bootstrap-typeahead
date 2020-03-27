@@ -1,10 +1,18 @@
 // @flow
 
 import invariant from 'invariant';
-import React, { type Element, cloneElement, useCallback, useEffect, useRef } from 'react';
+import React, { cloneElement, useCallback, useEffect, useRef } from 'react';
+
+import type { Element } from 'react';
 
 import { useTypeaheadContext } from '../core/Context';
-import { shouldSelectHint } from '../utils';
+import { isSelectable } from '../utils';
+import { RETURN, RIGHT, TAB } from '../constants';
+
+type ShouldSelect = (
+  boolean,
+  SyntheticKeyboardEvent<HTMLInputElement>
+) => boolean;
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
@@ -42,12 +50,52 @@ function copyStyles(inputNode: ?HTMLInputElement, hintNode: ?HTMLInputElement) {
   /* eslint-enable no-param-reassign */
 }
 
-type Props = {
+export function defaultShouldSelect(
+  e: SyntheticKeyboardEvent<HTMLInputElement>,
+  state: {
+    selectHintOnEnter: boolean,
+    shouldSelect?: ShouldSelect,
+  },
+): boolean {
+  let shouldSelectHint = false;
+
+  const { currentTarget, keyCode } = e;
+
+  if (keyCode === RIGHT) {
+    // For selectable input types ("text", "search"), only select the hint if
+    // it's at the end of the input value. For non-selectable types ("email",
+    // "number"), always select the hint.
+    shouldSelectHint = isSelectable(currentTarget) ?
+      currentTarget.selectionStart === currentTarget.value.length :
+      true;
+  }
+
+  if (keyCode === TAB) {
+    // Prevent input from blurring on TAB.
+    e.preventDefault();
+    shouldSelectHint = true;
+  }
+
+  if (keyCode === RETURN) {
+    shouldSelectHint = state.selectHintOnEnter;
+  }
+
+  return typeof state.shouldSelect === 'function' ?
+    state.shouldSelect(shouldSelectHint, e) :
+    shouldSelectHint;
+}
+
+type Config = {
   children: Element<any>,
-  className?: string,
+  shouldSelect?: ShouldSelect,
 };
 
-const Hint = ({ children, className }: Props) => {
+export const useHint = ({ children, shouldSelect }: Config) => {
+  invariant(
+    React.Children.count(children) === 1,
+    '`useHint` expects one child.'
+  );
+
   const {
     hintText,
     initialItem,
@@ -58,25 +106,37 @@ const Hint = ({ children, className }: Props) => {
 
   const hintRef = useRef<?HTMLInputElement>(null);
 
-  invariant(
-    React.Children.count(children) === 1,
-    'The `Hint` component expects one child.'
-  );
-
   const onKeyDown = useCallback(
     (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-      if (shouldSelectHint(e, hintText, selectHintOnEnter)) {
-        e.preventDefault(); // Prevent input from blurring on TAB.
-        initialItem && onAdd(initialItem);
+      if (
+        hintText &&
+        initialItem &&
+        defaultShouldSelect(e, { selectHintOnEnter, shouldSelect })
+      ) {
+        onAdd(initialItem);
       }
 
-      children.props.onKeyDown(e);
+      children.props.onKeyDown && children.props.onKeyDown(e);
     },
   );
 
   useEffect(() => {
     copyStyles(inputNode, hintRef.current);
   });
+
+  return {
+    child: cloneElement(children, { ...children.props, onKeyDown }),
+    hintRef,
+    hintText,
+  };
+};
+
+type Props = Config & {
+  className?: string,
+};
+
+const Hint = ({ className, ...props }: Props) => {
+  const { child, hintRef, hintText } = useHint(props);
 
   return (
     <div
@@ -87,7 +147,7 @@ const Hint = ({ children, className }: Props) => {
         height: '100%',
         position: 'relative',
       }}>
-      {cloneElement(children, { ...children.props, onKeyDown })}
+      {child}
       <input
         aria-hidden
         className="rbt-input-hint"
