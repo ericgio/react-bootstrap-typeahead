@@ -53,7 +53,7 @@ function copyStyles(inputNode: ?HTMLInputElement, hintNode: ?HTMLInputElement) {
 export function defaultShouldSelect(
   e: SyntheticKeyboardEvent<HTMLInputElement>,
   state: {
-    selectHintOnEnter: boolean,
+    selectHintOnEnter?: boolean,
     shouldSelect?: ShouldSelect,
   },
 ): boolean {
@@ -77,7 +77,7 @@ export function defaultShouldSelect(
   }
 
   if (keyCode === RETURN) {
-    shouldSelectHint = state.selectHintOnEnter;
+    shouldSelectHint = !!state.selectHintOnEnter;
   }
 
   return typeof state.shouldSelect === 'function' ?
