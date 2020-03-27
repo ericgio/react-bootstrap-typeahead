@@ -1,49 +1,56 @@
 import { range } from 'lodash';
 
-import shouldSelectHint from '../../utils/shouldSelectHint';
+import { defaultShouldSelect } from '../../components/Hint.react';
 import { RETURN, RIGHT, TAB } from '../../constants';
 
-describe('shouldSelectHint', () => {
-  let event, hintText;
+describe('<Hint>', () => {
+  // TODO...
+});
+
+describe('defaultShouldSelect', () => {
+  let event, preventDefault, state;
 
   beforeEach(() => {
-    hintText = 'California';
+    preventDefault = jest.fn();
 
     event = {
       currentTarget: {
         value: 'Cali',
       },
       keyCode: TAB,
+      preventDefault,
+    };
+
+    state = {
+      selectHintOnEnter: false,
     };
   });
 
-  test('returns false when there is no hint', () => {
-    expect(shouldSelectHint(event, '', false)).toBe(false);
-  });
-
   test('returns true when tab is pressed', () => {
-    expect(shouldSelectHint(event, hintText, false)).toBe(true);
+    expect(defaultShouldSelect(event, state)).toBe(true);
+    expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 
   test('behavior when the right arrow key is pressed', () => {
     event = { ...event, keyCode: RIGHT };
 
     event.currentTarget.selectionStart = 3;
-    expect(shouldSelectHint(event, hintText)).toBe(false);
+    expect(defaultShouldSelect(event, state)).toBe(false);
 
     event.currentTarget.selectionStart = 4;
-    expect(shouldSelectHint(event, hintText)).toBe(true);
+    expect(defaultShouldSelect(event, state)).toBe(true);
 
     event.currentTarget.selectionStart = null;
-    expect(shouldSelectHint(event, hintText)).toBe(true);
+    expect(defaultShouldSelect(event, state)).toBe(true);
   });
 
   test('behavior when enter is pressed', () => {
     event = { ...event, keyCode: RETURN };
 
-    expect(shouldSelectHint(event, hintText, false)).toBe(false);
+    expect(defaultShouldSelect(event, state)).toBe(false);
 
-    expect(shouldSelectHint(event, hintText, true)).toBe(true);
+    state.selectHintOnEnter = true;
+    expect(defaultShouldSelect(event, state)).toBe(true);
   });
 
   test('returns false for other keycodes', () => {
@@ -63,7 +70,20 @@ describe('shouldSelectHint', () => {
       ))
       .forEach((keyCode) => {
         event.keyCode = keyCode;
-        expect(shouldSelectHint(event, hintText, false)).toBe(false);
+        expect(defaultShouldSelect(event, state)).toBe(false);
       });
+  });
+
+  test('accepts a callback for custom behaviors', () => {
+    event = { ...event, keyCode: RETURN };
+    state.shouldSelect = (shouldSelectHint, e) => {
+      // Selects the hint even though `selectHintOnEnter` is false.
+      if (e.keyCode === RETURN) {
+        return true;
+      }
+      return shouldSelectHint;
+    };
+
+    expect(defaultShouldSelect(event, state)).toBe(true);
   });
 });
