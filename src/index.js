@@ -2,7 +2,7 @@
 export AsyncTypeahead from './components/AsyncTypeahead.react';
 export ClearButton from './components/ClearButton.react';
 export Highlighter from './components/Highlighter.react';
-export Hint from './components/Hint.react';
+export Hint, { useHint } from './components/Hint.react';
 export Input from './components/Input.react';
 export Loader from './components/Loader.react';
 export Menu from './components/Menu.react';
