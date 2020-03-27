@@ -15,7 +15,6 @@ class BasicBehaviorsExample extends React.Component {
     highlightOnlyResult: false,
     minLength: 0,
     open: undefined,
-    selectHintOnEnter: false,
   };
 
   render() {
@@ -26,7 +25,6 @@ class BasicBehaviorsExample extends React.Component {
       highlightOnlyResult,
       minLength,
       open,
-      selectHintOnEnter,
     } = this.state;
 
     const checkboxes = [
@@ -35,7 +33,6 @@ class BasicBehaviorsExample extends React.Component {
       { checked: dropup, label: 'Dropup menu', name: 'dropup' },
       { checked: flip, label: 'Flip the menu position when it reaches the viewport bounds', name: 'flip' },
       { checked: !!minLength, label: 'Require minimum input before showing results (2 chars)', name: 'minLength' },
-      { checked: selectHintOnEnter, label: 'Select the hinted result by pressing enter', name: 'selectHintOnEnter' },
       { checked: highlightOnlyResult, label: 'Highlight the only result', name: 'highlightOnlyResult' },
       { checked: !!open, label: 'Force the menu to stay open', name: 'open' },
       /* eslint-enable max-len */
