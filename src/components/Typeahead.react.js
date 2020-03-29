@@ -157,13 +157,13 @@ class TypeaheadComponent extends React.Component<Props> {
     return (
       <Typeahead {...this.props} options={options} ref={instanceRef}>
         {({ getInputProps, ...props }) => {
-          const { isMenuShown, onHide, results } = props;
+          const { hideMenu, isMenuShown, results } = props;
           const auxContent = this._renderAux(props);
 
           return (
             <RootCloseWrapper
               disabled={open || !isMenuShown}
-              onRootClose={onHide}>
+              onRootClose={hideMenu}>
               <div
                 className={cx('rbt', { 'has-aux': !!auxContent }, className)}
                 style={{

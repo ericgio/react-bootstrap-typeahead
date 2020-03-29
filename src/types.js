@@ -105,6 +105,7 @@ export type TypeaheadPropsAndState = {
 export type TypeaheadManagerChildProps = {
   activeIndex: number,
   getInputProps: (TypeaheadProps) => InputProps,
+  hideMenu: () => void,
   isMenuShown: boolean,
   labelKey: LabelKey,
   onClear: () => void,
@@ -113,6 +114,7 @@ export type TypeaheadManagerChildProps = {
   results: Option[],
   selected: Option[],
   text: string,
+  toggleMenu: () => void,
 };
 
 export type TypeaheadManagerProps = TypeaheadPropsAndState & {

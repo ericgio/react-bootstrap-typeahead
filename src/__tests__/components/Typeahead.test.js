@@ -4,7 +4,7 @@ import React, { createRef } from 'react';
 import { Popper } from 'react-popper';
 
 import { Menu, MenuItem, Typeahead } from '../..';
-import TypeaheadCore, { clearTypeahead, getInitialState, hideMenu } from '../../core/Typeahead';
+import TypeaheadCore, { clearTypeahead, getInitialState, hideMenu, toggleMenu } from '../../core/Typeahead';
 
 import { change, focus, getFormControl, getHint, getInput, getMenu, getMenuItems, getPaginator, getTokens, isFocused, keyDown } from '../helpers';
 import states from '../data';
@@ -1562,6 +1562,25 @@ describe('State modifiers', () => {
     };
 
     expect(hideMenu({}, props)).toEqual({
+      activeIndex: -1,
+      activeItem: null,
+      initialItem: null,
+      showMenu: false,
+      shownResults: props.maxResults,
+    });
+  });
+
+  test('toggleMenu', () => {
+    const props = {
+      defaultSelected: [],
+      maxResults: 10,
+    };
+
+    expect(toggleMenu({ showMenu: false })).toEqual({
+      showMenu: true,
+    });
+
+    expect(toggleMenu({ showMenu: true }, props)).toEqual({
       activeIndex: -1,
       activeItem: null,
       initialItem: null,

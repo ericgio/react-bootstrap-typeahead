@@ -26,6 +26,7 @@ const inputPropKeys = [
 
 const propKeys = [
   'activeIndex',
+  'hideMenu',
   'isMenuShown',
   'labelKey',
   'onClear',
@@ -34,6 +35,7 @@ const propKeys = [
   'results',
   'selected',
   'text',
+  'toggleMenu',
 ];
 
 const typeaheadContextKeys = [

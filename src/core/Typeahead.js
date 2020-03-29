@@ -279,6 +279,10 @@ export function hideMenu(state: TypeaheadState, props: Props) {
   };
 }
 
+export function toggleMenu(state: TypeaheadState, props: Props) {
+  return state.showMenu ? hideMenu(state, props) : { showMenu: true };
+}
+
 class Typeahead extends React.Component<Props, TypeaheadState> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
@@ -380,6 +384,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     return (
       <TypeaheadManager
         {...mergedPropsAndState}
+        hideMenu={this.hideMenu}
         inputNode={this.inputNode}
         inputRef={this.inputRef}
         isMenuShown={this.isMenuShown}
@@ -389,20 +394,21 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         onChange={this._handleInputChange}
         onClear={this._handleClear}
         onFocus={this._handleFocus}
-        onHide={this._hideMenu}
+        onHide={this.hideMenu}
         onInitialItemChange={this._handleInitialItemChange}
         onKeyDown={this._handleKeyDown}
         onMenuItemClick={this._handleMenuItemSelect}
         onRemove={this._handleSelectionRemove}
         results={results}
         setItem={this.setItem}
+        toggleMenu={this.toggleMenu}
       />
     );
   }
 
   blur = () => {
     this.inputNode && this.inputNode.blur();
-    this._hideMenu();
+    this.hideMenu();
   }
 
   clear = () => {
@@ -436,6 +442,14 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   setItem = (item: Option) => {
     this.items.push(item);
+  }
+
+  hideMenu = () => {
+    this.setState(hideMenu);
+  }
+
+  toggleMenu = () => {
+    this.setState(toggleMenu);
   }
 
   _handleActiveIndexChange = (activeIndex: number) => {
@@ -538,7 +552,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       case TAB:
         // ESC simply hides the menu. TAB will blur the input and move focus to
         // the next item; hide the menu so it doesn't gain focus.
-        this._hideMenu();
+        this.hideMenu();
         break;
       default:
         break;
@@ -607,10 +621,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       ...hideMenu(state, props),
       selected,
     }), () => this._handleChange(selected));
-  }
-
-  _hideMenu = () => {
-    this.setState(hideMenu);
   }
 }
 
