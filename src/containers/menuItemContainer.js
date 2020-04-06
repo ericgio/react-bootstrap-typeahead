@@ -42,20 +42,20 @@ const menuItemContainer = (Component: ComponentType<*>) => {
         activeIndex,
         id,
         isOnlyResult,
-        items,
         label,
         onActiveItemChange,
         onInitialItemChange,
         onMenuItemClick,
         option,
         position,
+        setItem,
         ...props
       } = this.props;
 
       const active = isOnlyResult || activeIndex === position;
 
-      // Update the item's position in the item stack on each render.
-      items[position] = option;
+      // Update the item's position in the item stack.
+      setItem(option);
 
       return (
         <Component
@@ -116,6 +116,7 @@ const menuItemContainer = (Component: ComponentType<*>) => {
     'onActiveItemChange',
     'onInitialItemChange',
     'onMenuItemClick',
+    'setItem',
   ]);
 };
 

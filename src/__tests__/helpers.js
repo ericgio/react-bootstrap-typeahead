@@ -8,7 +8,6 @@ const context = {
   hintText: '',
   initialItem: null,
   isOnlyResult: false,
-  items: [],
   onActiveItemChange: noop,
   onAdd: noop,
   onInitialItemChange: noop,
@@ -16,6 +15,7 @@ const context = {
   onMenuToggle: noop,
   results: [],
   selectHintOnEnter: false,
+  setItem: noop,
 };
 
 const defaultProps = {

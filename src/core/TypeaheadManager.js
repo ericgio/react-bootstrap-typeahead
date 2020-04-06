@@ -41,12 +41,12 @@ const typeaheadContextKeys = [
   'id',
   'initialItem',
   'inputNode',
-  'items',
   'onActiveItemChange',
   'onAdd',
   'onInitialItemChange',
   'onMenuItemClick',
   'selectHintOnEnter',
+  'setItem',
 ];
 
 function getTypeaheadContextValue(

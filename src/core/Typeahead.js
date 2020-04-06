@@ -383,7 +383,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         inputNode={this.inputNode}
         inputRef={this.inputRef}
         isMenuShown={this.isMenuShown}
-        items={this.items}
         onActiveItemChange={this._handleActiveItemChange}
         onAdd={this._handleSelectionAdd}
         onBlur={this._handleBlur}
@@ -396,6 +395,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         onMenuItemClick={this._handleMenuItemSelect}
         onRemove={this._handleSelectionRemove}
         results={results}
+        setItem={this.setItem}
       />
     );
   }
@@ -432,6 +432,10 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   inputRef = (inputNode: ?HTMLInputElement) => {
     this.inputNode = inputNode;
+  }
+
+  setItem = (item: Option) => {
+    this.items.push(item);
   }
 
   _handleActiveIndexChange = (activeIndex: number) => {

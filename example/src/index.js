@@ -14,14 +14,16 @@ import RenderingSection from './sections/RenderingSection.react';
 import '../../styles/Typeahead.scss';
 
 ReactDOM.render(
-  <Page>
-    <BasicSection />
-    <BehaviorsSection />
-    <RenderingSection />
-    <FilteringSection />
-    <CustomSelectionsSection />
-    <AsyncSection />
-    <PublicMethodsSection />
-  </Page>,
+  <React.StrictMode>
+    <Page>
+      <BasicSection />
+      <BehaviorsSection />
+      <RenderingSection />
+      <FilteringSection />
+      <CustomSelectionsSection />
+      <AsyncSection />
+      <PublicMethodsSection />
+    </Page>
+  </React.StrictMode>,
   document.getElementById('root')
 );
