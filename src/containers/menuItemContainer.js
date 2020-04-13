@@ -22,68 +22,68 @@ type Props = * & {
   position: number,
 };
 
+export const useItem = ({ label, option, position, ...props }: Props) => {
+  const {
+    activeIndex,
+    id,
+    isOnlyResult,
+    onActiveItemChange,
+    onInitialItemChange,
+    onMenuItemClick,
+    setItem,
+  } = useTypeaheadContext();
+
+  const itemRef = useRef<?HTMLElement>(null);
+
+  useEffect(() => {
+    if (position === 0) {
+      onInitialItemChange(option);
+    }
+  }, [position]);
+
+  useEffect(() => {
+    if (position === activeIndex) {
+      onActiveItemChange(option);
+
+      // Automatically scroll the menu as the user keys through it.
+      const node = itemRef.current;
+
+      node && scrollIntoView(node, {
+        block: 'nearest',
+        boundary: node.parentNode,
+        inline: 'nearest',
+        scrollMode: 'if-needed',
+      });
+    }
+  }, [activeIndex, position]);
+
+  const onClick = useCallback((e: SyntheticEvent<HTMLElement>) => {
+    onMenuItemClick(option, e);
+    props.onClick && props.onClick(e);
+  });
+
+  const active = isOnlyResult || activeIndex === position;
+
+  // Update the item's position in the item stack.
+  setItem(option, position);
+
+  return {
+    ...props,
+    active,
+    'aria-label': label,
+    'aria-selected': active,
+    id: getMenuItemId(id, position),
+    onClick,
+    onMouseDown: preventInputBlur,
+    ref: itemRef,
+    role: 'option',
+  };
+};
+
 const menuItemContainer = (Component: ComponentType<*>) => {
   const displayName = `menuItemContainer(${getDisplayName(Component)})`;
 
-  const WrappedMenuItem = ({ label, option, position, ...props }: Props) => {
-    const {
-      activeIndex,
-      id,
-      isOnlyResult,
-      onActiveItemChange,
-      onInitialItemChange,
-      onMenuItemClick,
-      setItem,
-    } = useTypeaheadContext();
-
-    const itemRef = useRef<?HTMLElement>(null);
-
-    useEffect(() => {
-      if (position === 0) {
-        onInitialItemChange(option);
-      }
-    }, [position]);
-
-    useEffect(() => {
-      if (position === activeIndex) {
-        onActiveItemChange(option);
-
-        // Automatically scroll the menu as the user keys through it.
-        const node = itemRef.current;
-
-        node && scrollIntoView(node, {
-          block: 'nearest',
-          boundary: node.parentNode,
-          inline: 'nearest',
-          scrollMode: 'if-needed',
-        });
-      }
-    }, [activeIndex, position]);
-
-    const active = isOnlyResult || activeIndex === position;
-
-    // Update the item's position in the item stack.
-    setItem(option, position);
-
-    const handleClick = useCallback((e: SyntheticEvent<HTMLElement>) => {
-      onMenuItemClick(option, e);
-      props.onClick && props.onClick(e);
-    });
-
-    return (
-      <Component
-        {...props}
-        active={active}
-        aria-label={label}
-        aria-selected={active}
-        id={getMenuItemId(id, position)}
-        onClick={handleClick}
-        onMouseDown={preventInputBlur}
-        ref={itemRef}
-        role="option"
-      />
-    );
-  };
+  const WrappedMenuItem = (props: Props) => <Component {...useItem(props)} />;
 
   WrappedMenuItem.displayName = displayName;
   WrappedMenuItem.propTypes = propTypes;

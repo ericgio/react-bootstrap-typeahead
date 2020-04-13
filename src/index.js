@@ -15,5 +15,5 @@ export TypeaheadMenu from './components/TypeaheadMenu.react';
 
 // HOCs
 export asyncContainer from './containers/asyncContainer';
-export menuItemContainer from './containers/menuItemContainer';
+export menuItemContainer, { useItem } from './containers/menuItemContainer';
 export tokenContainer from './containers/tokenContainer';
