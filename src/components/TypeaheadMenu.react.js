@@ -14,9 +14,9 @@ import type { LabelKey, Option } from '../types';
 
 export type TypeaheadMenuProps = MenuComponentProps & {
   labelKey: LabelKey,
-  newSelectionPrefix: string,
+  newSelectionPrefix: React.Node,
   options: Option[],
-  paginationText: string,
+  paginationText: React.Node,
   renderMenuItemChildren: (Option, TypeaheadMenuProps, number) => React.Node,
 };
 
@@ -25,11 +25,11 @@ const propTypes = {
    * Provides the ability to specify a prefix before the user-entered text to
    * indicate that the selection will be new. No-op unless `allowNew={true}`.
    */
-  newSelectionPrefix: PropTypes.string,
+  newSelectionPrefix: PropTypes.node,
   /**
    * Prompt displayed when large data sets are paginated.
    */
-  paginationText: PropTypes.string,
+  paginationText: PropTypes.node,
   /**
    * Provides a hook for customized rendering of menu item contents.
    */
