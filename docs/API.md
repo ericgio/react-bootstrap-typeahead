@@ -5,6 +5,7 @@ The components and higher-order components (HOCs) described below are publicly e
 - [`<Typeahead>`](#typeahead)
 - [`<AsyncTypeahead>`](#asynctypeahead)
 - [`<Highlighter>`](#highlighter)
+- [`<Hint>`](#hint)
 - [`<Input>`](#input)
 - [`<Menu>`](#menu)
 - [`<MenuItem>`](#menuitem)
@@ -110,6 +111,26 @@ Name | Type | Default | Description
 -----|------|---------|------------
 `search` (required) | `string` | | The substring to look for. This value should correspond to the input text of the typeahead and can be obtained via the `onInputChange` prop or from the `text` property of props being passed down via `renderMenu` or `renderMenuItemChildren`.
 `highlightClassName` | `string` | `'rbt-highlight-text'` | Classname applied to the highlighted text.
+
+### `<Hint>`
+The `Hint` component can be used to wrap custom inputs.
+
+```jsx
+<Typeahead
+  ...
+  renderInput={({ inputRef, ...inputProps }) => (
+    <Hint>
+      <MyInput {...inputProps} ref={inputRef} />
+    </Hint>
+  )}
+/>
+```
+
+#### Props
+Name | Type | Default | Description
+-----|------|---------|------------
+`children` (required) | `React.Node` | | `Hint` expects a single child: your input component.
+`shouldSelect` | `function` | | Callback function that determines whether the hint should be selected.<br><br><pre>`(shouldSelect: boolean, SyntheticKeyboardEvent<HTMLInputElement>) => boolean`</pre>
 
 ### `<Input>`
 Abstract `<input>` component that handles an `inputRef` prop and is used as the basis for both single- and multi-select input components.
@@ -223,4 +244,11 @@ const MyCustomToken = tokenContainer(props => (
     <MyCustomToken onRemove={props.onRemove} option={option} />
   )}
 />
+```
+
+### `useHint`
+Hook for adding a hint to a custom input. Mainly useful if you'd like to customize the hint's markup. Accepts an object with required `children` and an optional `shouldSelect` callback.
+
+```jsx
+const { child, hintRef, hintText } = useHint(config);
 ```
