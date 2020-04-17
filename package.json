@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-typeahead",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "React typeahead with Bootstrap styling",
   "homepage": "http://ericgio.github.io/react-bootstrap-typeahead/",
   "author": "ericgio",
@@ -83,7 +83,7 @@
     "eslint": "^6.0.1",
     "eslint-config-ericgio": "^5.0.0",
     "eslint-plugin-flowtype": "^4.3.0",
-    "flow-bin": "^0.122.0",
+    "flow-bin": "^0.123.0",
     "gh-pages": "^2.0.1",
     "husky": "^4.2.3",
     "isomorphic-fetch": "^2.2.1",
