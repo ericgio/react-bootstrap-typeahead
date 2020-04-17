@@ -40,6 +40,24 @@ Name | Type | Default | Description
 `onMenuToggle` | `function` | | Invoked when menu visibility changes. <br><br><pre>`(isOpen: boolean) => void`</pre>
 `onPaginate` | `function` | | Invoked when the pagination menu item is clicked. Receives an event as the first argument and the number of shown results as the second. <br><br><pre>`(event: Event, shownResults: number) => void`</pre>
 
+#### Children
+In addition to the props listed above, `Typeahead` also accepts either children or a child render function.
+
+```jsx
+<Typeahead ... >
+  <div>Render me!</div>
+</Typeahead>
+```
+The render function receives partial internal state from the component:
+```jsx
+<Typeahead ... >
+  {(state) => (
+    <div>Render me!</div>
+  )}
+</Typeahead>
+```
+This may be useful for things like customizing the loading indicator or clear button, or including an announcer for accessibility purposes.
+
 ### `<AsyncTypeahead>`
 An enhanced version of the normal `Typeahead` component for use when performing asynchronous searches. Provides debouncing of user input, optional query caching, and search prompt, empty results, and pending request behaviors.
 
