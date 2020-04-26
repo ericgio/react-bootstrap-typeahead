@@ -29,6 +29,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 `allowNew` | `boolean\|function` | `false` | Specifies whether or not arbitrary, user-defined options may be added to the result set. New entries will be included when the trimmed input is truthy and there is no exact match in the result set.<br><br>If a function is specified, allows for a callback to decide whether the new entry menu item should be included in the results list. The callback should return a boolean value:<br><br><pre>`(results: Array<Object\|string>, props: Object) => boolean`</pre>
 `filterBy` | `Array<string>\|function` | | See full documentation in the [Filtering section](Filtering.md#filterby-arraystring--function).
+`groupBy` | `string\|function` | | See full documentation in the [Grouping section](Grouping.md).
 `labelKey` | `string\|function` | | See full documentation in the [Rendering section](Rendering.md#labelkey-string--function).
 `renderInput` | `function` | | See full documentation in the [Rendering section](Rendering.md#renderinputinputprops-object-state-object).
 `renderMenu` | `function` | | See full documentation in the [Rendering section](Rendering.md#rendermenuresults-arrayobjectstring-menuprops-object-state-object).

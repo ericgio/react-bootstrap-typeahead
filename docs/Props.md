@@ -18,6 +18,7 @@ emptyLabel | node | 'No matches found.' | Message displayed in the menu when the
 filterBy | function or array | `[]` | Either an array of fields in `option` to search, or a custom filtering callback. See the [Filtering](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/docs/Filtering.md#filterby) page for more info.
 flip | boolean | false | Whether or not to automatically adjust the position of the menu when it reaches the viewport boundaries.
 highlightOnlyResult | boolean | false | Highlights the menu item if there is only one result and allows selecting that item by hitting enter. Does not work with `allowNew`.
+groupBy | function or string | |Specify which option key to use for grouping, or a custom callback function. See the [Grouping](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/docs/Grouping.md#filterby) page for more info.
 id `required` | string or number | | An html id attribute, required for assistive technologies such as screen readers.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
 inputProps | object | {} | Props to be applied directly to the input. `onBlur`, `onChange`, `onFocus`, and `onKeyDown` are ignored.
