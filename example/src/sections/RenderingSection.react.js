@@ -1,10 +1,12 @@
 import React from 'react';
 
 import LabelKeyExample from '../examples/LabelKeyExample.react';
+import GroupByExample from '../examples/GroupByExample.react';
 import RenderingExample from '../examples/RenderingExample.react';
 
 /* eslint-disable import/no-unresolved */
 import LabelKeyExampleCode from '!raw-loader!../examples/LabelKeyExample.react';
+import GroupByExampleCode from '!raw-loader!../examples/GroupByExample.react';
 import RenderingExampleCode from '!raw-loader!../examples/RenderingExample.react';
 /* eslint-enable import/no-unresolved */
 
@@ -29,6 +31,14 @@ const RenderingSection = (props) => (
     </Markdown>
     <ExampleSection code={LabelKeyExampleCode}>
       <LabelKeyExample />
+    </ExampleSection>
+    <Title>GroupBy</Title>
+    <Markdown>
+      The `groupBy` prop accepts a callback allowing you to transform your data
+      and return a grouped object where the object keys are the groups label.
+    </Markdown>
+    <ExampleSection code={GroupByExampleCode}>
+      <GroupByExample />
     </ExampleSection>
   </Section>
 );
