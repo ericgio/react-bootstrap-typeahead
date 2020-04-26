@@ -2,6 +2,7 @@ export addCustomOption from './addCustomOption';
 export defaultFilterBy from './defaultFilterBy';
 export getDisplayName from './getDisplayName';
 export getHintText from './getHintText';
+export getGroupByFunction from './getGroupByFunction';
 export getInputProps from './getInputProps';
 export getInputText from './getInputText';
 export getIsOnlyResult from './getIsOnlyResult';

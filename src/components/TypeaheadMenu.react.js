@@ -7,13 +7,18 @@ import Highlighter from './Highlighter.react';
 import Menu from './Menu.react';
 import MenuItem from './MenuItem.react';
 
-import { getOptionLabel, getOptionProperty } from '../utils';
+import {
+  getGroupByFunction,
+  getOptionLabel,
+  getOptionProperty,
+} from '../utils';
 
 import type { MenuComponentProps } from './Menu.react';
-import type { LabelKey, Option } from '../types';
+import type { LabelKey, GroupBy, GroupByFunction, Option } from '../types';
 
 export type TypeaheadMenuProps = MenuComponentProps & {
   labelKey: LabelKey,
+  groupBy: GroupBy,
   newSelectionPrefix: React.Node,
   options: Option[],
   paginationText: React.Node,
@@ -42,7 +47,7 @@ const defaultProps = {
   renderMenuItemChildren: (
     option: Option,
     props: TypeaheadMenuProps,
-    idx: number
+    idx: number,
   ) => (
     <Highlighter search={props.text}>
       {getOptionLabel(option, props.labelKey)}
@@ -58,12 +63,19 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
     const {
       id,
       labelKey,
+      groupBy,
       newSelectionPrefix,
       options,
       renderMenuItemChildren,
       text,
       ...menuProps
     } = this.props;
+
+    const groupByFn = getGroupByFunction(groupBy);
+
+    if (groupByFn) {
+      return this._renderGrouped(groupByFn, menuProps);
+    }
 
     return (
       // Explictly pass some props so Flow doesn't complain...
@@ -72,6 +84,29 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
       </Menu>
     );
   }
+
+  _renderGrouped = (
+    groupByFn: GroupByFunction,
+    menuProps: MenuComponentProps,
+  ) => {
+    const { options, id, text } = this.props;
+    let i = 0;
+
+    const grouped = groupByFn(options);
+    const items = Object.keys(grouped).map((group, index) => (
+      <React.Fragment key={group}>
+        {index !== 0 && <Menu.Divider />}
+        <Menu.Header>{group}</Menu.Header>
+        {grouped[group].map((option) => this._renderMenuItem(option, i++))}
+      </React.Fragment>
+    ));
+
+    return (
+      <Menu {...menuProps} id={id} text={text}>
+        {items}
+      </Menu>
+    );
+  };
 
   _renderMenuItem = (option: Option, position: number) => {
     const {
@@ -97,11 +132,10 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
           {...menuItemProps}
           className="rbt-menu-custom-option"
           key={position}
-          label={newSelectionPrefix + label}>
+          label={newSelectionPrefix + label}
+        >
           {newSelectionPrefix}
-          <Highlighter search={text}>
-            {label}
-          </Highlighter>
+          <Highlighter search={text}>{label}</Highlighter>
         </MenuItem>
       );
     }
@@ -113,7 +147,8 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
           <MenuItem
             {...menuItemProps}
             className="rbt-menu-pagination-option"
-            label={paginationText}>
+            label={paginationText}
+          >
             {paginationText}
           </MenuItem>
         </React.Fragment>
@@ -125,7 +160,7 @@ class TypeaheadMenu extends React.Component<TypeaheadMenuProps> {
         {renderMenuItemChildren(option, this.props, position)}
       </MenuItem>
     );
-  }
+  };
 }
 
 export default TypeaheadMenu;

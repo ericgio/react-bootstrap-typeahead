@@ -11,7 +11,10 @@ export type Id = number | string;
 export type KeyboardEventHandler<T> = (SyntheticKeyboardEvent<T>) => void;
 export type Option = string | { [string]: any };
 export type OptionHandler = (Option) => void;
-export type LabelKey = string | (Option) => string;
+export type GroupedOptions = { [key: string]: Option[] };
+export type GroupByFunction = (options: Option[]) => GroupedOptions;
+export type GroupBy = string | GroupByFunction;
+export type LabelKey = string | ((Option) => string);
 export type ReferenceElement = HTMLElement;
 export type Size = $Values<typeof SIZE>;
 export type Style = { [string]: any };
@@ -59,14 +62,15 @@ export type MenuProps = {
 };
 
 export type TypeaheadProps = {
-  allowNew: boolean | (Option[], TypeaheadPropsAndState) => boolean,
+  allowNew: boolean | ((Option[], TypeaheadPropsAndState) => boolean),
   autoFocus: boolean,
   caseSensitive: boolean,
   children: Function,
   defaultInputValue: string,
   defaultOpen: boolean,
   defaultSelected: Option[],
-  filterBy: string[] | (Option, TypeaheadPropsAndState) => void,
+  filterBy: string[] | ((Option, TypeaheadPropsAndState) => void),
+  groupBy: GroupBy<T>,
   highlightOnlyResult: boolean,
   id?: Id,
   ignoreDiacritics: boolean,
