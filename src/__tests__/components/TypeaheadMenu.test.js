@@ -2,6 +2,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 
 import MenuItem, { BaseMenuItem } from '../../components/MenuItem.react';
+import Menu from '../../components/Menu.react';
 import TypeaheadMenu from '../../components/TypeaheadMenu.react';
 
 import options from '../data';
@@ -23,7 +24,7 @@ describe('<TypeaheadMenu>', () => {
         labelKey="name"
         options={options}
         text=""
-      />
+      />,
     );
   });
 
@@ -44,7 +45,12 @@ describe('<TypeaheadMenu>', () => {
 
   test('renders disabled menu items', () => {
     menu.setProps({ options: options.map((o) => ({ ...o, disabled: true })) });
-    expect(menu.find(MenuItem).first().prop('disabled')).toBe(true);
+    expect(
+      menu
+        .find(MenuItem)
+        .first()
+        .prop('disabled'),
+    ).toBe(true);
   });
 
   test('renders an empty state when there are no results', () => {
@@ -83,6 +89,23 @@ describe('<TypeaheadMenu>', () => {
     test('does not show a paginator when there are no results', () => {
       menu.setProps({ options: [] });
       expect(getPaginator(menu).length).toBe(0);
+    });
+  });
+
+  describe('groupBy property', () => {
+    test('renders grouped by option key', () => {
+      const headers = menu.setProps({ groupBy: 'region' }).find(Menu.Header);
+      expect(headers.length).toBe(4);
+    });
+
+    test('renders grouped by function', () => {
+      const fn = ([option1, ...rest]) => ({
+        group1: [option1],
+        otherGroup: rest,
+      });
+
+      const headers = menu.setProps({ groupBy: fn }).find(Menu.Header);
+      expect(headers.length).toBe(2);
     });
   });
 });
