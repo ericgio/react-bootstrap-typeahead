@@ -48,7 +48,6 @@ $placeholder-color: #6c757d;
   cursor: text;
   overflow: hidden;
   position: relative;
-  height: auto;
 
   // Apply Bootstrap focus styles
   &.focus {
@@ -56,6 +55,10 @@ $placeholder-color: #6c757d;
     box-shadow: $box-shadow-dimensions $box-shadow-color;
     color: $color-focus;
     outline: 0;
+  }
+
+  &.form-control {
+    height: auto;
   }
 
   // BS4 uses the :disabled pseudo-class, which doesn't work with non-inputs.
