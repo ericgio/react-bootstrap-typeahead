@@ -35,7 +35,7 @@ $placeholder-color: #6c757d;
       }
 
       // Safari and Chrome
-      &::-webkit-input-placeholder  {
+      &::-webkit-input-placeholder {
         color: $placeholder-color;
       }
     }
@@ -43,7 +43,8 @@ $placeholder-color: #6c757d;
     // Override height in main CSS file :/
     & .rbt-input-main,
     &.form-control-lg .rbt-input-main,
-    &.form-control-sm .rbt-input-main {
+    &.form-control-sm .rbt-input-main,
+    &.form-control {
       height: auto;
     }
   }
