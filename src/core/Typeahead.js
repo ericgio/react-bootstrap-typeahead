@@ -440,8 +440,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     this.inputNode = inputNode;
   }
 
-  setItem = (item: Option) => {
-    this.items.push(item);
+  setItem = (item: Option, position: number) => {
+    this.items[position] = item;
   }
 
   hideMenu = () => {

@@ -55,7 +55,7 @@ const menuItemContainer = (Component: ComponentType<*>) => {
       const active = isOnlyResult || activeIndex === position;
 
       // Update the item's position in the item stack.
-      setItem(option);
+      setItem(option, position);
 
       return (
         <Component
