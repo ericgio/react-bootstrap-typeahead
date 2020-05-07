@@ -1,4 +1,4 @@
-import { getMatchBounds } from '../../utils';
+import { escapeStringRegexp, getMatchBounds } from '../../utils';
 
 describe('getMatchBounds', () => {
   test('handles a normal string', () => {
@@ -41,5 +41,16 @@ describe('getMatchBounds', () => {
 
     expect(bounds.start).toBe(12);
     expect(bounds.end).toBe(22);
+  });
+});
+
+describe('escapeStringRegexp', () => {
+  test('main', () => {
+    expect(escapeStringRegexp('\\ ^ $ * + ? . ( ) | { } [ ]'))
+      .toBe('\\\\ \\^ \\$ \\* \\+ \\? \\. \\( \\) \\| \\{ \\} \\[ \\]');
+  });
+
+  test('escapes `-` in a way compatible with PCRE', () => {
+    expect(escapeStringRegexp('foo - bar')).toBe('foo \\x2d bar');
   });
 });

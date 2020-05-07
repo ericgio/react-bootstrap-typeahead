@@ -5,7 +5,7 @@ export getHintText from './getHintText';
 export getInputProps from './getInputProps';
 export getInputText from './getInputText';
 export getIsOnlyResult from './getIsOnlyResult';
-export getMatchBounds from './getMatchBounds';
+export getMatchBounds, { escapeStringRegexp } from './getMatchBounds';
 export getMenuItemId from './getMenuItemId';
 export getOptionLabel from './getOptionLabel';
 export getOptionProperty from './getOptionProperty';
