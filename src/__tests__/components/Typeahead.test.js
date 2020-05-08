@@ -117,6 +117,11 @@ describe('<Typeahead>', () => {
       getClearButton(typeahead).first().simulate('click');
       expect(getTokens(typeahead)).toHaveLength(2);
     });
+
+    test('adds selections', () => {
+      makeSelectionViaClick(typeahead);
+      expect(getState(typeahead).text).toBe('');
+    });
   });
 
   test('autoFocuses the component on mount', () => {
@@ -977,7 +982,7 @@ describe('<Typeahead>', () => {
 
     test('exposes the typeahead instance and public methods', () => {
       ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
-        expect(typeof ref.current[method]).toBe('function');
+        expect(typeof instance[method]).toBe('function');
       });
     });
 
@@ -1000,6 +1005,31 @@ describe('<Typeahead>', () => {
 
       expect(getSelected(typeahead).length).toBe(0);
       expect(getText(typeahead)).toBe('');
+    });
+
+    test('calls the public `getInput` method', () => {
+      const inputNode = instance.getInput();
+
+      expect(inputNode).toBe(getInput(typeahead).getDOMNode());
+    });
+
+    test('calls the public `hideMenu` method', () => {
+      focus(typeahead);
+      expect(getState(typeahead).showMenu).toBe(true);
+
+      instance.hideMenu();
+
+      expect(getState(typeahead).showMenu).toBe(false);
+    });
+
+    test('calls the public `hideMenu` method', () => {
+      expect(getState(typeahead).showMenu).toBe(false);
+
+      instance.toggleMenu();
+      expect(getState(typeahead).showMenu).toBe(true);
+
+      instance.toggleMenu();
+      expect(getState(typeahead).showMenu).toBe(false);
     });
 
     test('clears the typeahead after a selection', () => {
