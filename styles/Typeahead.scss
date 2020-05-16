@@ -48,7 +48,10 @@ $placeholder-color: #6c757d;
   cursor: text;
   overflow: hidden;
   position: relative;
-  height: auto;
+
+  &.form-control {
+    height: auto;
+  }
 
   // Apply Bootstrap focus styles
   &.focus {
@@ -88,7 +91,7 @@ $placeholder-color: #6c757d;
     }
 
     // Safari and Chrome
-    &::-webkit-input-placeholder  {
+    &::-webkit-input-placeholder {
       color: $placeholder-color;
     }
   }
@@ -201,7 +204,6 @@ $token-active-color: $color-white;
 .has-aux .rbt-input {
   padding-right: 34px;
 }
-
 
 // Default highlight style
 .rbt-highlight-text {
