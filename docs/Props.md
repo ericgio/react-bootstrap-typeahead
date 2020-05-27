@@ -6,7 +6,7 @@ Name | Type | Default | Description
 align | One of: `justify`, `left`, `right` | 'justify' | Specify menu alignment. The default value is `justify`, which makes the menu as wide as the input and truncates long values. Specifying `left` or `right` will align the menu to that side and the width will be determined by the length of menu item values.
 allowNew | boolean or function | false | Allows the creation of new selections on the fly. Any new items will be added to the list of selections, but not the list of original options unless handled as such by `Typeahead`'s parent. The newly added item will *always* be returned as an object even if the other options are simply strings, so be sure your `onChange` callback can handle this. If a function is specified, it will be used to determine whether a custom option should be included. The return value should be `true` or `false`.
 autoFocus | boolean | false | Autofocus the input when the component initially mounts.
-bsSize | one of: `'large'`, `'lg'`, `'small'`, `'sm'` | | Specify the size of the input.
+bsSize `DEPRECATED` | one of: `'large'`, `'lg'`, `'small'`, `'sm'` | | DEPRECATED: Use the `size` prop instead. Specify the size of the input.
 caseSensitive | boolean | false | Whether or not filtering should be case-sensitive.
 clearButton | boolean | false | Displays a button to clear the input when there are selections.
 defaultInputValue | string | '' | The initial value displayed in the text input.
@@ -49,6 +49,7 @@ renderMenuItemChildren | function | | Provides a hook for customized rendering o
 renderToken | function | | Provides a hook for customized rendering of tokens when multiple selections are enabled.
 selected | array | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
 selectHintOnEnter | boolean | false | Allows selecting the hinted result by pressing enter.
+size | one of: `'large'`, `'lg'`, `'small'`, `'sm'` | | Specify the size of the input.
 
 ### `<AsyncTypeahead>`
 Name | Type | Default | Description
