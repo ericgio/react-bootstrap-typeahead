@@ -985,20 +985,27 @@ describe('<Typeahead>', () => {
   });
 
   describe('Public Methods', () => {
-    let instance, ref;
+    let instance;
 
     beforeEach(() => {
-      ref = createRef();
+      const ref = createRef();
       typeahead = mountTypeahead({ ref });
       instance = ref.current;
     });
 
     test('exposes the typeahead instance and public methods', () => {
-      ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
+      [
+        'clear',
+        'blur',
+        'focus',
+        'getInput',
+        'hideMenu',
+        'toggleMenu',
+      ].forEach((method) => {
         // Test both the bare ref and `getInstance` to ensure the latter is
         // still available.
-        expect(typeof ref.current[method]).toBe('function');
-        expect(typeof ref.current.getInstance()[method]).toBe('function');
+        expect(typeof instance[method]).toBe('function');
+        expect(typeof instance.getInstance()[method]).toBe('function');
       });
     });
 
