@@ -964,6 +964,26 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@ericgio/eslint-config-react@^6.0.0":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@ericgio/eslint-config-react/-/eslint-config-react-6.0.1.tgz#dfc9700884ea17f81d5f3e8f261402c5474f85f0"
+  integrity sha512-kjzo1JAB7SuXru4En2HEF8C87vR4n0zAMljJHVkHW7Ye9PmNrdvX2IEd0LpbS3J1nZIgNVNABDLWDq6cdnNoiw==
+  dependencies:
+    "@ericgio/eslint-config" "^3.1.0"
+    eslint-config-airbnb "^18.1.0"
+    eslint-plugin-import "^2.20.2"
+    eslint-plugin-jsx-a11y "^6.2.3"
+    eslint-plugin-react "^7.20.0"
+    eslint-plugin-react-hooks "^4.0.4"
+
+"@ericgio/eslint-config@^3.1.0":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@ericgio/eslint-config/-/eslint-config-3.1.1.tgz#e6cd7e991b30293d6ba2ad9d6af6862ef609812a"
+  integrity sha512-B6sKBH5Pq1qh5sAFV7mADlftwl9sIB8DE/estqSOsmJoBR8Dz0eiXpk5aTOzZnUtSgrHfm1BXN8lUOq5jpvQoA==
+  dependencies:
+    eslint-config-airbnb-base "^14.1.0"
+    eslint-plugin-import "^2.20.2"
+
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -3264,7 +3284,7 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-airbnb-base@^14.0.0, eslint-config-airbnb-base@^14.1.0:
+eslint-config-airbnb-base@^14.1.0:
   version "14.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-14.1.0.tgz#2ba4592dd6843258221d9bff2b6831bd77c874e4"
   integrity sha512-+XCcfGyCnbzOnktDVhwsCAx+9DmrzEmuwxyHUJpw+kqBVT744OUBrB09khgFKlK1lshVww6qXGsYPZpavoNjJw==
@@ -3273,7 +3293,7 @@ eslint-config-airbnb-base@^14.0.0, eslint-config-airbnb-base@^14.1.0:
     object.assign "^4.1.0"
     object.entries "^1.1.1"
 
-eslint-config-airbnb@^18.0.1:
+eslint-config-airbnb@^18.1.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-18.1.0.tgz#724d7e93dadd2169492ff5363c5aaa779e01257d"
   integrity sha512-kZFuQC/MPnH7KJp6v95xsLBf63G/w7YqdPfQ0MUanxQ7zcKUNG8j+sSY860g3NwCBOa62apw16J6pRN+AOgXzw==
@@ -3281,26 +3301,6 @@ eslint-config-airbnb@^18.0.1:
     eslint-config-airbnb-base "^14.1.0"
     object.assign "^4.1.0"
     object.entries "^1.1.1"
-
-eslint-config-ericgio-base@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-ericgio-base/-/eslint-config-ericgio-base-2.0.0.tgz#25875e8371470cc30c6e22db0308ff499001087a"
-  integrity sha512-fV6W9GcQQ6FGdpQlCqeEMQwujRsOMrkZn65BMgq+kfkRiKfZs+VWz10SV5sjYK2UsalDBBY08l83Qp/n2v8qbw==
-  dependencies:
-    eslint-config-airbnb-base "^14.0.0"
-    eslint-plugin-import "^2.18.2"
-
-eslint-config-ericgio@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-ericgio/-/eslint-config-ericgio-5.0.1.tgz#b05666e0cd6011a67c9ec54cf82e3892bb9af309"
-  integrity sha512-XGMPOKSRYziTsmUp/0LTlA4WQLfkuAbiI48xF5NF4edPZvFR+m33u7gB2IM+s5IiEBrs6Z5qxUMXAVBkcilifg==
-  dependencies:
-    eslint-config-airbnb "^18.0.1"
-    eslint-config-ericgio-base "^2.0.0"
-    eslint-plugin-import "^2.18.2"
-    eslint-plugin-jsx-a11y "^6.2.1"
-    eslint-plugin-react "^7.12.4"
-    eslint-plugin-react-hooks "^1.7.0"
 
 eslint-import-resolver-node@^0.3.2:
   version "0.3.3"
@@ -3325,7 +3325,7 @@ eslint-plugin-flowtype@^4.3.0:
   dependencies:
     lodash "^4.17.15"
 
-eslint-plugin-import@^2.18.2:
+eslint-plugin-import@^2.20.2:
   version "2.20.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.2.tgz#91fc3807ce08be4837141272c8b99073906e588d"
   integrity sha512-FObidqpXrR8OnCh4iNsxy+WACztJLXAHBO5hK79T1Hc77PgQZkyDGA5Ag9xAvRpglvLNxhH/zSmZ70/pZ31dHg==
@@ -3343,7 +3343,7 @@ eslint-plugin-import@^2.18.2:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jsx-a11y@^6.2.1:
+eslint-plugin-jsx-a11y@^6.2.3:
   version "6.2.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.2.3.tgz#b872a09d5de51af70a97db1eea7dc933043708aa"
   integrity sha512-CawzfGt9w83tyuVekn0GDPU9ytYtxyxyFZ3aSWROmnRRFQFT2BiPJd7jvRdzNDi6oLWaS2asMeYSNMjWTV4eNg==
@@ -3358,12 +3358,12 @@ eslint-plugin-jsx-a11y@^6.2.1:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-react-hooks@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.7.0.tgz#6210b6d5a37205f0b92858f895a4e827020a7d04"
-  integrity sha512-iXTCFcOmlWvw4+TOE8CLWj6yX1GwzT0Y6cUfHHZqWnSk144VmVIRcVGtUAzrLES7C798lmvnt02C7rxaOX1HNA==
+eslint-plugin-react-hooks@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.0.4.tgz#aed33b4254a41b045818cacb047b81e6df27fa58"
+  integrity sha512-equAdEIsUETLFNCmmCkiCGq6rkSK5MoJhXFPFYeUebcjKgBmWWcgVOqZyQC8Bv1BwVCnTq9tBxgJFgAJTWoJtA==
 
-eslint-plugin-react@^7.12.4:
+eslint-plugin-react@^7.20.0:
   version "7.20.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.20.0.tgz#f98712f0a5e57dfd3e5542ef0604b8739cd47be3"
   integrity sha512-rqe1abd0vxMjmbPngo4NaYxTcR3Y4Hrmc/jg4T+sYz63yqlmJRknpEQfmWY+eDWPuMmix6iUIK+mv0zExjeLgA==

@@ -4,7 +4,7 @@
     "jest": true,
   },
   "extends": [
-    "eslint-config-ericgio",
+    "@ericgio/eslint-config-react",
     "plugin:flowtype/recommended"
   ],
   "globals": {},
