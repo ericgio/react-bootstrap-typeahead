@@ -37,7 +37,7 @@ const BehaviorsSection = (props) => (
     </ExampleSection>
     <Title>Controlling Selections</Title>
     <Markdown>
-      You can pre-populate the the typeahead by passing in an array of
+      You can pre-populate the typeahead by passing in an array of
       selections. Setting the `clearButton` prop displays a button allowing
       users to clear the input.
     </Markdown>
