@@ -14,16 +14,13 @@ const ref = React.createRef();
 </>
 ```
 
-### `blur()`
-Provides a imperative way to blur the input.
-
-### `clear()`
-Provides a imperative way to reset the component. Calling the method will clear both text and selection(s).
-
-### `focus()`
-Provides a imperative way to focus the input.
-
-### `getInput()`
-Provides access to the component's input node.
+Name | Description
+---- | -----------
+`blur()` | Blurs the input.
+`clear()` | Resets the typeahead component. Clears both text and selection(s).
+`focus()` | Focuses the input.
+`getInput()` | Provides access to the component's input node.
+`hideMenu()` | Hides the menu.
+`toggleMenu()` | Shows the menu if it is currently hidden; hides the menu if it is currently shown.
 
 [Next: Props](Props.md)
