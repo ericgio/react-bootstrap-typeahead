@@ -13,11 +13,12 @@ The components and higher-order components (HOCs) described below are publicly e
 - [`<TypeaheadMenu>`](#typeaheadmenu)
 - [`<Token>`](#token)
 
-#### [Higher-Order Components](#higher-order-components)
+#### [Higher-Order Components & Hooks](#higher-order-components--hooks)
 - [`asyncContainer`](#asynccontainer)
-- [`hintContainer`](#hintcontainer)
 - [`menuItemContainer`](#menuitemcontainer)
 - [`tokenContainer`](#tokencontainer)
+- [`useHint`](#useHint)
+- [`useItem`](#useItem)
 
 ## Components
 A subset of props are documented below, primarily those expecting functions. See the [props documentation](Props.md) for the full list of options.
@@ -183,27 +184,10 @@ Name | Type | Default | Description
 `readOnly` | `boolean` | `false` | Whether the token is in a read-only state. If `true` it will not be removeable, but it will be interactive if provided an `href`.
 `tabIndex` | `number` | `0` | Allows the tabindex to be set if something other than the default is desired.
 
-## Higher-Order Components
+## Higher-Order Components & Hooks
 
 ### `asyncContainer`
 The HOC used in [`AsyncTypeahead`](#asynctypeahead).
-
-### `hintContainer`
-Provides hinting functionality when using a custom input (via `renderInput`).
-
-```jsx
-import { FormControl } from 'react-bootstrap';
-import { hintContainer, Typeahead } from 'react-bootstrap-typeahead';
-
-const HintedFormControl = hintContainer(FormControl);
-
-<Typeahead
-  renderInput={(inputProps) => (
-    <HintedFormControl {...inputProps} />
-  )}
-/>
-```
-
 
 ### `menuItemContainer`
 Connects individual menu items with the main typeahead component via context and abstracts a lot of complex functionality required for behaviors like keying through the menu and input hinting. Also provides `onClick` behavior and active state.
@@ -251,4 +235,23 @@ Hook for adding a hint to a custom input. Mainly useful if you'd like to customi
 
 ```jsx
 const { child, hintRef, hintText } = useHint(config);
+```
+
+### `useItem`
+Hook equivalent of `menuItemContainer` for incorporating item functionality into custom menu items. `option` and `position` are required in `props`.
+
+```jsx
+const MenuItem = (props) => {
+  const { active, children, disabled, ref, ...itemProps } = useItem(props);
+
+  return (
+    <a
+      {...itemProps}
+      className={cx('dropdown-item', { active, disabled }, className)}
+      href="#"
+      ref={ref}>
+      {children}
+    </a>
+  );
+};
 ```
