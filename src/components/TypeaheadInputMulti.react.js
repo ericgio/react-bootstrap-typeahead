@@ -6,7 +6,7 @@
 import cx from 'classnames';
 import React, { type Node } from 'react';
 
-import Hint from './Hint.react';
+import Hint, { type ShouldSelect } from './Hint.react';
 import Input from './Input.react';
 
 import { isSelectable } from '../utils';
@@ -21,6 +21,7 @@ type Props = {
   children: Node,
   referenceElementRef: RefCallback<ReferenceElement>,
   selected: Option[],
+  shouldSelectHint?: ShouldSelect,
 };
 
 class TypeaheadInputMulti extends React.Component<Props> {
@@ -36,6 +37,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
       placeholder,
       referenceElementRef,
       selected,
+      shouldSelectHint,
       ...props
     } = this.props;
 
@@ -49,7 +51,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
         tabIndex={-1}>
         <div className="rbt-input-wrapper" ref={this.wrapperRef}>
           {children}
-          <Hint>
+          <Hint shouldSelect={shouldSelectHint}>
             <Input
               {...props}
               className={inputClassName}
