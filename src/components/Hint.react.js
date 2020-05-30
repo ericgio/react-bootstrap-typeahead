@@ -9,7 +9,7 @@ import { useTypeaheadContext } from '../core/Context';
 import { isSelectable } from '../utils';
 import { RETURN, RIGHT, TAB } from '../constants';
 
-type ShouldSelect = (
+export type ShouldSelect = (
   boolean,
   SyntheticKeyboardEvent<HTMLInputElement>
 ) => boolean;

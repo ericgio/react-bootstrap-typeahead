@@ -1,5 +1,5 @@
 import { mount } from 'enzyme';
-import { head } from 'lodash';
+import { head, noop } from 'lodash';
 import React from 'react';
 
 import Token from '../../components/Token.react';
@@ -14,30 +14,34 @@ import {
   getInput,
   getTokens,
   isFocused,
+  keyDown,
   simulateKeyDown,
   TestProvider,
 } from '../helpers';
 
-import { BACKSPACE, RETURN } from '../../constants';
+import { BACKSPACE, RETURN, TAB } from '../../constants';
 
 describe('<TypeaheadInputMulti>', () => {
-  let selected, wrapper;
+  let selected, shouldSelectHint, wrapper;
 
   beforeEach(() => {
     selected = options.slice(1, 4);
+    shouldSelectHint = jest.fn();
     wrapper = mount(
       <TestProvider
         multiple
+        onKeyDown={noop}
         selected={selected}>
         {({ getInputProps, state }) => (
           <TypeaheadInputMulti
             {...getInputProps()}
-            selected={selected}>
+            selected={selected}
+            shouldSelectHint={shouldSelectHint}>
             {selected.map((option, idx) => (
               <Token
                 key={option.name}
                 option={option}
-                onRemove={() => {}}>
+                onRemove={noop}>
                 {option.name}
               </Token>
             ))}
@@ -65,7 +69,7 @@ describe('<TypeaheadInputMulti>', () => {
     expect(getTokens(wrapper).length).toBe(3);
   });
 
-  test('displays a hint', () => {
+  test('displays a hint and calls `shouldSelectHint`', () => {
     const initialItem = head(options);
 
     wrapper.setProps({
@@ -76,6 +80,11 @@ describe('<TypeaheadInputMulti>', () => {
     });
 
     expect(getHint(wrapper)).toBe(initialItem.name);
+
+    // No need to test the logic for `shouldSelectHint` here; just make sure
+    // it's passed through to the `Hint` component and called.
+    keyDown(wrapper, TAB);
+    expect(shouldSelectHint).toHaveBeenCalledTimes(1);
   });
 
   test('does not focus a disabled input', () => {

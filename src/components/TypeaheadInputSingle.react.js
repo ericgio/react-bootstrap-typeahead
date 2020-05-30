@@ -2,25 +2,26 @@
 
 import React from 'react';
 
-import Hint from './Hint.react';
+import Hint, { type ShouldSelect } from './Hint.react';
 import Input from './Input.react';
 
 import withClassNames from '../containers/withClassNames';
 
-import type { KeyboardEventHandler, RefCallback, ReferenceElement } from '../types';
+import type { RefCallback, ReferenceElement } from '../types';
 
 type Props = {
   inputRef: RefCallback<HTMLInputElement>,
-  onKeyDown: KeyboardEventHandler<HTMLInputElement>,
   referenceElementRef: RefCallback<ReferenceElement>,
+  shouldSelectHint?: ShouldSelect,
 };
 
 export default withClassNames(({
   inputRef,
   referenceElementRef,
+  shouldSelectHint,
   ...props
 }: Props) => (
-  <Hint>
+  <Hint shouldSelect={shouldSelectHint}>
     <Input
       {...props}
       ref={(node) => {
