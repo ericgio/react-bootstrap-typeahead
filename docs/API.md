@@ -1,7 +1,7 @@
 # API Reference
 The components and higher-order components (HOCs) described below are publicly exposed in the top-level module. Other components should be considered private and subject to change without notice.
 
-#### [Components](#components)
+#### [Components](#components-1)
 - [`<Typeahead>`](#typeahead)
 - [`<AsyncTypeahead>`](#asynctypeahead)
 - [`<Highlighter>`](#highlighter)
@@ -13,7 +13,7 @@ The components and higher-order components (HOCs) described below are publicly e
 - [`<TypeaheadMenu>`](#typeaheadmenu)
 - [`<Token>`](#token)
 
-#### [Higher-Order Components & Hooks](#higher-order-components--hooks)
+#### [Higher-Order Components & Hooks](#higher-order-components--hooks-1)
 - [`asyncContainer`](#asynccontainer)
 - [`menuItemContainer`](#menuitemcontainer)
 - [`tokenContainer`](#tokencontainer)
@@ -114,13 +114,17 @@ Name | Type | Default | Description
 `highlightClassName` | `string` | `'rbt-highlight-text'` | Classname applied to the highlighted text.
 
 ### `<Hint>`
-The `Hint` component can be used to wrap custom inputs.
+The `Hint` component can be used to wrap custom inputs. The `shouldSelect` prop allows you to define the conditions under which the hint should be selected.
 
 ```jsx
 <Typeahead
   ...
   renderInput={({ inputRef, ...inputProps }) => (
-    <Hint>
+    <Hint
+      shouldSelect={(shouldSelect, e) => {
+        // Selects the hint when the user hits the 'enter' key.
+        return e.keyCode === 13 || shouldSelect;
+      }}>
       <MyInput {...inputProps} ref={inputRef} />
     </Hint>
   )}
@@ -161,6 +165,7 @@ Input components that handles single- and multi-selections, respectively. In the
 Name | Type | Default | Description
 -----|------|---------|------------
 `disabled` | `boolean` | `false` | Whether or not the input component is disabled.
+`shouldSelectHint` | `function` | | Callback function passed down to `Hint` component to define whether or not the hint should be selected under certain conditions. See the `shouldSelect` prop of `Hint`.
 
 ### `<TypeaheadMenu>`
 The default menu which is rendered by the `Typeahead` component. Can be used in a custom `renderMenu` function for wrapping or modifying the props passed to it without having to re-implement the default functionality.
