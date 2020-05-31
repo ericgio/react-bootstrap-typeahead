@@ -31,15 +31,24 @@ Provides flexibility for rendering the typeahead's input. `inputProps` are any i
 ```jsx
 <Typeahead
   options={options}
-  renderInput={(inputProps) => (
-    <CustomInput {...inputProps} />
+  renderInput={({ inputRef, referenceElementRef, ...inputProps }) => (
+    <CustomInput
+      {...inputProps}
+      ref={(input) => {
+        // Be sure to correctly handle these refs. In many cases, both can simply receive
+        // the underlying input node, but `referenceElementRef can receive a wrapper node if
+        // your custom input is more complex (See TypeaheadInputMulti for an example).
+        inputRef(input);
+        referenceElementRef(input);
+      }}
+    />
   )}
 />
 ```
 
 #### `renderInput` gotchas
-- Your input component must correctly handle the `ref` and `inputRef` props included with `inputProps`. The former can simply be applied to your component, while the latter must be forwarded to the underlying `input` element.
-- To take advantage of hinting functionality, you need to wrap your input with the included `hintContainer` HOC.
+- Your input component must correctly apply the `inputRef` and `referenceElementRef` properties passed to `renderInput` (see example code above). Both are callback refs that expect DOM elements. `inputRef` is used internally to control aspects of the component like blur and focus states, and must receive the `input` node from your component. `referenceElementRef` is used by popper.js to position the menu and in many cases is also simply the input node itself. In case of a more complex input (eg: multi-select/tokenizer), the reference element may be a container element, hence the need for separate refs.
+- To take advantage of hinting functionality, use the `Hint` component. Alternatively, you can use the `useHint` hook and apply your own hint markup.
 
 ### `renderMenu(results: Array<Object|String>, menuProps: Object, state: Object)`
 Provides flexibility for rendering the typeahead's menu. `results` are the subset of options after they have been filtered and paginated. `menuProps` are any menu-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `Menu`.
