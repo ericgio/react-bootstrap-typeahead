@@ -12,6 +12,10 @@ function getCloseButton(wrapper) {
   return wrapper.find('.rbt-token-remove-button').hostNodes();
 }
 
+function isActive(wrapper) {
+  return wrapper.find('.rbt-token').hasClass('rbt-token-active');
+}
+
 function isDisabled(wrapper) {
   return wrapper.find('div').hasClass('rbt-token-disabled');
 }
@@ -92,59 +96,58 @@ describe('<Token>', () => {
   });
 
   describe('event handlers', () => {
-    let mockEvent, stopPropagation;
+    let mockEvent, onBlur, onClick, onFocus, onRemove, stopPropagation;
 
     beforeEach(() => {
+      onBlur = jest.fn();
+      onClick = jest.fn();
+      onFocus = jest.fn();
+      onRemove = jest.fn();
       stopPropagation = jest.fn();
       mockEvent = { stopPropagation };
 
-      // Must set `onRemove` to make it a removeable token.
-      token.setProps({ onRemove: () => {} });
-      expect(token.state('active')).toBe(false);
-    });
+      token = mount(
+        <Token
+          onBlur={onBlur}
+          onClick={onClick}
+          onFocus={onFocus}
+          onRemove={onRemove}
+          option={option}>
+          This is a token
+        </Token>
+      );
 
-    afterEach(() => {
-      token.setState({ active: false });
+      expect(isActive(token)).toBe(false);
     });
 
     test('handles click events', () => {
-      const onClick = jest.fn();
-
-      token.setProps({ onClick });
       token.simulate('click', mockEvent);
 
       expect(onClick).toHaveBeenCalledTimes(1);
       expect(stopPropagation).toHaveBeenCalledTimes(1);
-      expect(token.state('active')).toBe(true);
+      expect(isActive(token)).toBe(true);
     });
 
     test('handles focus events', () => {
-      const onFocus = jest.fn();
-
-      token.setProps({ onFocus });
       token.simulate('focus', mockEvent);
 
       expect(onFocus).toHaveBeenCalledTimes(1);
       expect(stopPropagation).toHaveBeenCalledTimes(1);
-      expect(token.state('active')).toBe(true);
+      expect(isActive(token)).toBe(true);
     });
 
     test('handles blur events', () => {
-      const onBlur = jest.fn();
+      token.simulate('focus', mockEvent);
+      expect(isActive(token)).toBe(true);
 
-      token.setProps({ onBlur });
-      token.setState({ active: true });
-      token.simulate('blur');
-
+      token.simulate('blur', mockEvent);
       expect(onBlur).toHaveBeenCalledTimes(1);
-      expect(token.state('active')).toBe(false);
+      expect(isActive(token)).toBe(false);
     });
 
     test('handles keydown events', () => {
-      const onRemove = jest.fn();
       const preventDefault = jest.fn();
 
-      token.setProps({ onRemove });
       token.simulate('keyDown', {
         keyCode: BACKSPACE,
         preventDefault,
@@ -154,7 +157,7 @@ describe('<Token>', () => {
       expect(onRemove).toHaveBeenCalledTimes(0);
       expect(preventDefault).toHaveBeenCalledTimes(0);
 
-      token.setState({ active: true });
+      token.simulate('focus', mockEvent);
       token.simulate('keyDown', {
         keyCode: BACKSPACE,
         preventDefault,

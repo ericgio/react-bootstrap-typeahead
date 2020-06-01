@@ -13,7 +13,7 @@ export TypeaheadInputMulti from './components/TypeaheadInputMulti.react';
 export TypeaheadInputSingle from './components/TypeaheadInputSingle.react';
 export TypeaheadMenu from './components/TypeaheadMenu.react';
 
-// HOCs
+// HOCs + Hooks
 export asyncContainer from './containers/asyncContainer';
 export menuItemContainer, { useItem } from './containers/menuItemContainer';
-export tokenContainer from './containers/tokenContainer';
+export tokenContainer, { useToken } from './containers/tokenContainer';

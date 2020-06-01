@@ -17,6 +17,7 @@ import {
   tokenContainer,
   useHint,
   useItem,
+  useToken,
 } from '../..';
 
 import _AsyncTypeahead from '../../components/AsyncTypeahead.react';
@@ -35,7 +36,7 @@ import _TypeaheadMenu from '../../components/TypeaheadMenu.react';
 
 import _asyncContainer from '../../containers/asyncContainer';
 import _menuItemContainer, { useItem as _useItem } from '../../containers/menuItemContainer';
-import _tokenContainer from '../../containers/tokenContainer';
+import _tokenContainer, { useToken as _useToken } from '../../containers/tokenContainer';
 
 describe('index.js', () => {
   test('AsyncTypeahead is exported', () => {
@@ -108,5 +109,9 @@ describe('index.js', () => {
 
   test('useItem is exported', () => {
     expect(useItem).toBe(_useItem);
+  });
+
+  test('useToken is exported', () => {
+    expect(useToken).toBe(_useToken);
   });
 });
