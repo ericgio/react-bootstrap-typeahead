@@ -3,7 +3,7 @@
 import cx from 'classnames';
 import React, { type Node } from 'react';
 
-import menuItemContainer from '../containers/menuItemContainer';
+import { withItem } from '../behaviors/item';
 
 import type { EventHandler } from '../types';
 
@@ -39,4 +39,4 @@ const BaseMenuItem = React.forwardRef<MenuItemProps, ?HTMLElement>((
 });
 
 export { BaseMenuItem };
-export default menuItemContainer(BaseMenuItem);
+export default withItem(BaseMenuItem);
