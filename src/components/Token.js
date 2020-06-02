@@ -7,7 +7,7 @@ import type { Node } from 'react';
 
 import ClearButton from './ClearButton';
 
-import tokenContainer from '../containers/tokenContainer';
+import { withToken } from '../behaviors/token';
 import { isFunction } from '../utils';
 
 import type { OptionHandler } from '../types';
@@ -78,4 +78,4 @@ const Token = forwardRef<Props, ?HTMLElement>((props, ref) => {
     <StaticToken {...props} />;
 });
 
-export default tokenContainer(Token);
+export default withToken(Token);

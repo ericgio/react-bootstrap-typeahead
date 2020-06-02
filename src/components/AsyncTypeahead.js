@@ -1,6 +1,6 @@
 // @flow
 
-import asyncContainer from '../containers/asyncContainer';
+import { withAsync } from '../behaviors/async';
 import Typeahead from './Typeahead';
 
-export default asyncContainer(Typeahead);
+export default withAsync(Typeahead);

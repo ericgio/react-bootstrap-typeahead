@@ -5,7 +5,7 @@ import React from 'react';
 import Hint, { type ShouldSelect } from './Hint';
 import Input from './Input';
 
-import withClassNames from '../containers/withClassNames';
+import withClassNames from '../behaviors/classNames';
 
 import type { RefCallback, ReferenceElement } from '../types';
 

@@ -19,6 +19,9 @@ import {
   useHint,
   useItem,
   useToken,
+  withAsync,
+  withItem,
+  withToken,
 } from '../..';
 
 import _AsyncTypeahead from '../../components/AsyncTypeahead';
@@ -35,9 +38,9 @@ import _TypeaheadInputMulti from '../../components/TypeaheadInputMulti';
 import _TypeaheadInputSingle from '../../components/TypeaheadInputSingle';
 import _TypeaheadMenu from '../../components/TypeaheadMenu';
 
-import _asyncContainer, { useAsync as _useAsync } from '../../containers/asyncContainer';
-import _menuItemContainer, { useItem as _useItem } from '../../containers/menuItemContainer';
-import _tokenContainer, { useToken as _useToken } from '../../containers/tokenContainer';
+import _asyncContainer, { useAsync as _useAsync, withAsync as _withAsync } from '../../behaviors/async';
+import _menuItemContainer, { useItem as _useItem, withItem as _withItem } from '../../behaviors/item';
+import _tokenContainer, { useToken as _useToken, withToken as _withToken } from '../../behaviors/token';
 
 describe('index.js', () => {
   test('AsyncTypeahead is exported', () => {
@@ -54,6 +57,7 @@ describe('index.js', () => {
 
   test('Hint is exported', () => {
     expect(Hint).toBe(_Hint);
+    expect(useHint).toBe(_useHint);
   });
 
   test('Input is exported', () => {
@@ -92,31 +96,21 @@ describe('index.js', () => {
     expect(TypeaheadMenu).toBe(_TypeaheadMenu);
   });
 
-  test('asyncContainer is exported', () => {
+  test('async exports', () => {
     expect(asyncContainer).toBe(_asyncContainer);
-  });
-
-  test('menuItemContainer is exported', () => {
-    expect(menuItemContainer).toBe(_menuItemContainer);
-  });
-
-  test('tokenContainer is exported', () => {
-    expect(tokenContainer).toBe(_tokenContainer);
-  });
-
-  test('useAsync is exported', () => {
     expect(useAsync).toBe(_useAsync);
+    expect(withAsync).toBe(_withAsync);
   });
 
-  test('useHint is exported', () => {
-    expect(useHint).toBe(_useHint);
-  });
-
-  test('useItem is exported', () => {
+  test('item exports', () => {
+    expect(menuItemContainer).toBe(_menuItemContainer);
     expect(useItem).toBe(_useItem);
+    expect(withItem).toBe(_withItem);
   });
 
-  test('useToken is exported', () => {
+  test('token exports', () => {
+    expect(tokenContainer).toBe(_tokenContainer);
     expect(useToken).toBe(_useToken);
+    expect(withToken).toBe(_withToken);
   });
 });

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { type ComponentType, useState } from 'react';
 import { useRootClose } from 'react-overlays';
 
-import { getDisplayName, isFunction } from '../utils';
+import { getDisplayName, isFunction, warn } from '../utils';
 import { BACKSPACE } from '../constants';
 
 import { optionType } from '../propTypes';
@@ -98,7 +98,7 @@ export const useToken = ({
   };
 };
 
-const tokenContainer = (Component: ComponentType<*>) => {
+export const withToken = (Component: ComponentType<*>) => {
   const displayName = `tokenContainer(${getDisplayName(Component)})`;
 
   const WrappedToken = (props: Props) => <Component {...useToken(props)} />;
@@ -109,4 +109,10 @@ const tokenContainer = (Component: ComponentType<*>) => {
   return WrappedToken;
 };
 
-export default tokenContainer;
+export default function tokenContainer(Component: ComponentType<*>) {
+  warn(
+    false,
+    'The `tokenContainer` export is deprecated; use `withToken` instead.'
+  );
+  return withToken(Component);
+}

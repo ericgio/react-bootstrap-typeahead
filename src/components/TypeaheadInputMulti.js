@@ -10,7 +10,7 @@ import Hint, { type ShouldSelect } from './Hint';
 import Input from './Input';
 
 import { isSelectable } from '../utils';
-import withClassNames from '../containers/withClassNames';
+import withClassNames from '../behaviors/classNames';
 
 import { BACKSPACE } from '../constants';
 
