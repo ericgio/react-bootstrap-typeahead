@@ -183,7 +183,7 @@ export function withAsync(Component: ComponentType<*>) {
     (props, ref) => <Component {...useAsync(props)} ref={ref} />
   );
 
-  AsyncTypeahead.displayName = `asyncContainer(${getDisplayName(Component)})`;
+  AsyncTypeahead.displayName = `withAsync(${getDisplayName(Component)})`;
   // $FlowFixMe
   AsyncTypeahead.propTypes = propTypes;
   // $FlowFixMe
