@@ -53,7 +53,7 @@ Provides flexibility for rendering the typeahead's input. `inputProps` are any i
 ### `renderMenu(results: Array<Object|String>, menuProps: Object, state: Object)`
 Provides flexibility for rendering the typeahead's menu. `results` are the subset of options after they have been filtered and paginated. `menuProps` are any menu-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `Menu`.
 
-Along with stylistic customization, the `renderMenu` hook allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or wrap your own menu item components with [`menuItemContainer`](API.md#menuitemcontainer) to ensure proper behavior.
+Along with stylistic customization, the `renderMenu` hook allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or the [appropriate hook or HOC](API.md#useitem--withitem) to ensure proper behavior.
 
 ```jsx
 <Typeahead
@@ -99,6 +99,6 @@ Provides the ability to customize rendering of tokens when multiple selections a
 />
 ```
 
-Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `props.onRemove`) yourself. It is highly recommended that you use the provided `Token` component. If you want to use a completely custom token, wrap it with the [`tokenContainer`](API.md#tokencontainer) HOC to retain keystroke behaviors.
+Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `props.onRemove`) yourself. It is highly recommended that you use the provided `Token` component. If you want to use a completely custom token, use either the provided [hook or HOC](API.md#usetoken--withtoken) to retain keystroke behaviors.
 
 [Next: Public Methods](Methods.md)
