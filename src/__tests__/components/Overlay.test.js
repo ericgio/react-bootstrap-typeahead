@@ -2,8 +2,8 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { Popper } from 'react-popper';
 
-import Menu from '../../components/Menu.react';
-import Overlay, { getPlacement } from '../../components/Overlay.react';
+import Menu from '../../components/Menu';
+import Overlay, { getPlacement } from '../../components/Overlay';
 
 function getPopper(wrapper) {
   return wrapper.find(Popper);

@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme';
 import { noop } from 'lodash';
 import React from 'react';
 
-import MenuItem, { BaseMenuItem } from '../../components/MenuItem.react';
+import MenuItem, { BaseMenuItem } from '../../components/MenuItem';
 import { TestProvider } from '../helpers';
 
 const event = {

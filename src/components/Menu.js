@@ -4,7 +4,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Children, type Node } from 'react';
 
-import { BaseMenuItem } from './MenuItem.react';
+import { BaseMenuItem } from './MenuItem';
 
 import { checkPropType, isRequiredForA11y } from '../propTypes';
 import type { Id, MenuProps } from '../types';

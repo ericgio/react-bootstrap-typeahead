@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import React from 'react';
 
-import Token from '../../components/Token.react';
+import Token from '../../components/Token';
 import { BACKSPACE, RETURN } from '../../constants';
 
 const option = {

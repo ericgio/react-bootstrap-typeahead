@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import ClearButton from '../../components/ClearButton.react';
+import ClearButton from '../../components/ClearButton';
 
 describe('<ClearButton>', () => {
   let button, onClick;

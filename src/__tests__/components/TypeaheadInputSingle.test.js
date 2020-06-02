@@ -2,7 +2,7 @@ import { mount } from 'enzyme';
 import { head, noop } from 'lodash';
 import React from 'react';
 
-import TypeaheadInputSingle from '../../components/TypeaheadInputSingle.react';
+import TypeaheadInputSingle from '../../components/TypeaheadInputSingle';
 
 import options from '../data';
 import { getFormControl, getHint, getInput, keyDown, TestProvider } from '../helpers';

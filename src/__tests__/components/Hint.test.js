@@ -1,6 +1,6 @@
 import { range } from 'lodash';
 
-import { defaultShouldSelect } from '../../components/Hint.react';
+import { defaultShouldSelect } from '../../components/Hint';
 import { RETURN, RIGHT, TAB } from '../../constants';
 
 describe('<Hint>', () => {

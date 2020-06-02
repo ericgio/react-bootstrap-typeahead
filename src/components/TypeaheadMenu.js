@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 
 import type { Node } from 'react';
 
-import Highlighter from './Highlighter.react';
-import Menu from './Menu.react';
-import MenuItem from './MenuItem.react';
+import Highlighter from './Highlighter';
+import Menu from './Menu';
+import MenuItem from './MenuItem';
 
 import { getOptionLabel, getOptionProperty } from '../utils';
 
-import type { MenuComponentProps } from './Menu.react';
+import type { MenuComponentProps } from './Menu';
 import type { LabelKey, Option } from '../types';
 
 export type TypeaheadMenuProps = MenuComponentProps & {

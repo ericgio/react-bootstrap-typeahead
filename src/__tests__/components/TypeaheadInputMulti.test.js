@@ -2,8 +2,8 @@ import { mount } from 'enzyme';
 import { head, noop } from 'lodash';
 import React from 'react';
 
-import Token from '../../components/Token.react';
-import TypeaheadInputMulti from '../../components/TypeaheadInputMulti.react';
+import Token from '../../components/Token';
+import TypeaheadInputMulti from '../../components/TypeaheadInputMulti';
 
 import options from '../data';
 

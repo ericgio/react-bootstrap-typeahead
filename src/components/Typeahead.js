@@ -8,19 +8,19 @@ import type { ElementRef, Node } from 'react';
 
 import Typeahead from '../core/Typeahead';
 
-import ClearButton from './ClearButton.react';
-import Loader from './Loader.react';
-import Overlay from './Overlay.react';
-import RootClose from './RootClose.react';
-import Token from './Token.react';
-import TypeaheadInputMulti from './TypeaheadInputMulti.react';
-import TypeaheadInputSingle from './TypeaheadInputSingle.react';
-import TypeaheadMenu from './TypeaheadMenu.react';
+import ClearButton from './ClearButton';
+import Loader from './Loader';
+import Overlay from './Overlay';
+import RootClose from './RootClose';
+import Token from './Token';
+import TypeaheadInputMulti from './TypeaheadInputMulti';
+import TypeaheadInputSingle from './TypeaheadInputSingle';
+import TypeaheadMenu from './TypeaheadMenu';
 
 import { getOptionLabel, isFunction, isSizeLarge, pick, preventInputBlur } from '../utils';
 import { checkPropType, inputPropsType, sizeType } from '../propTypes';
 
-import type { TypeaheadMenuProps } from './TypeaheadMenu.react';
+import type { TypeaheadMenuProps } from './TypeaheadMenu';
 import type {
   InputProps,
   MenuProps,
