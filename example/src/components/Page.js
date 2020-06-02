@@ -3,10 +3,10 @@
 import React, { Children } from 'react';
 import { Col, Container, Nav, Row } from 'react-bootstrap';
 
-import Context from './Context.react';
-import PageFooter from './PageFooter.react';
-import PageHeader from './PageHeader.react';
-import PageMenu from './PageMenu.react';
+import Context from './Context';
+import PageFooter from './PageFooter';
+import PageHeader from './PageHeader';
+import PageMenu from './PageMenu';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 

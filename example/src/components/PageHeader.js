@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
-import GitHubLogo from './GitHubLogo.react';
+import GitHubLogo from './GitHubLogo';
 
 import { version as PACKAGE_VERSION } from '../../../package.json';
 

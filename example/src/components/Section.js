@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Anchor from './Anchor.react';
-import { withContext } from './Context.react';
-import ScrollSpy from './ScrollSpy.react';
+import Anchor from './Anchor';
+import { withContext } from './Context';
+import ScrollSpy from './ScrollSpy';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 

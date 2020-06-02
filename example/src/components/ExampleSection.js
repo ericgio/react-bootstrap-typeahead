@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 
-import CodeSample from './CodeSample.react';
+import CodeSample from './CodeSample';
 
 const ExampleSection = ({ children, code }) => {
   const [isOpen, setIsOpen] = useState(false);

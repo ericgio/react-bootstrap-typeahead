@@ -1,27 +1,27 @@
 import React from 'react';
 
-import BasicBehaviorsExample from '../examples/BasicBehaviorsExample.react';
-import FormExample from '../examples/FormExample.react';
-import InputSizeExample from '../examples/InputSizeExample.react';
-import MenuAlignExample from '../examples/MenuAlignExample.react';
-import PaginationExample from '../examples/PaginationExample.react';
-import PositionFixedExample from '../examples/PositionFixedExample.react';
-import SelectionsExample from '../examples/SelectionsExample.react';
+import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
+import FormExample from '../examples/FormExample';
+import InputSizeExample from '../examples/InputSizeExample';
+import MenuAlignExample from '../examples/MenuAlignExample';
+import PaginationExample from '../examples/PaginationExample';
+import PositionFixedExample from '../examples/PositionFixedExample';
+import SelectionsExample from '../examples/SelectionsExample';
 
-/* eslint-disable import/no-unresolved */
-import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample.react';
-import FormExampleCode from '!raw-loader!../examples/FormExample.react';
-import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample.react';
-import MenuAlignExampleCode from '!raw-loader!../examples/MenuAlignExample.react';
-import PaginationExampleCode from '!raw-loader!../examples/PaginationExample.react';
-import PositionFixedExampleCode from '!raw-loader!../examples/PositionFixedExample.react';
-import SelectionsExampleCode from '!raw-loader!../examples/SelectionsExample.react';
-/* eslint-enable import/no-unresolved */
+/* eslint-disable import/no-unresolved,import/extensions */
+import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample';
+import FormExampleCode from '!raw-loader!../examples/FormExample';
+import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample';
+import MenuAlignExampleCode from '!raw-loader!../examples/MenuAlignExample';
+import PaginationExampleCode from '!raw-loader!../examples/PaginationExample';
+import PositionFixedExampleCode from '!raw-loader!../examples/PositionFixedExample';
+import SelectionsExampleCode from '!raw-loader!../examples/SelectionsExample';
+/* eslint-enable import/no-unresolved,import/extensions */
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
-import Title from '../components/Title.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
+import Title from '../components/Title';
 
 const BehaviorsSection = (props) => (
   <Section title={props.title}>
