@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import Hint, { type ShouldSelect } from './Hint.react';
-import Input from './Input.react';
+import Hint, { type ShouldSelect } from './Hint';
+import Input from './Input';
 
 import withClassNames from '../containers/withClassNames';
 

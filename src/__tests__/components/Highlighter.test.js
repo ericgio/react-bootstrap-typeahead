@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import Highlighter from '../../components/Highlighter.react';
+import Highlighter from '../../components/Highlighter';
 
 function getMatches(wrapper) {
   return wrapper.find('mark');

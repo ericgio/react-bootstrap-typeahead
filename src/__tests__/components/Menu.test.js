@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import Menu from '../../components/Menu.react';
-import MenuItem, { BaseMenuItem } from '../../components/MenuItem.react';
+import Menu from '../../components/Menu';
+import MenuItem, { BaseMenuItem } from '../../components/MenuItem';
 
 describe('<Menu>', () => {
   let menu;

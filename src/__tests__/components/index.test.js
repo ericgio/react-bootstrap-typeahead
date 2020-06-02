@@ -21,19 +21,19 @@ import {
   useToken,
 } from '../..';
 
-import _AsyncTypeahead from '../../components/AsyncTypeahead.react';
-import _ClearButton from '../../components/ClearButton.react';
-import _Highlighter from '../../components/Highlighter.react';
-import _Hint, { useHint as _useHint } from '../../components/Hint.react';
-import _Input from '../../components/Input.react';
-import _Loader from '../../components/Loader.react';
-import _Menu from '../../components/Menu.react';
-import _MenuItem from '../../components/MenuItem.react';
-import _Token from '../../components/Token.react';
-import _Typeahead from '../../components/Typeahead.react';
-import _TypeaheadInputMulti from '../../components/TypeaheadInputMulti.react';
-import _TypeaheadInputSingle from '../../components/TypeaheadInputSingle.react';
-import _TypeaheadMenu from '../../components/TypeaheadMenu.react';
+import _AsyncTypeahead from '../../components/AsyncTypeahead';
+import _ClearButton from '../../components/ClearButton';
+import _Highlighter from '../../components/Highlighter';
+import _Hint, { useHint as _useHint } from '../../components/Hint';
+import _Input from '../../components/Input';
+import _Loader from '../../components/Loader';
+import _Menu from '../../components/Menu';
+import _MenuItem from '../../components/MenuItem';
+import _Token from '../../components/Token';
+import _Typeahead from '../../components/Typeahead';
+import _TypeaheadInputMulti from '../../components/TypeaheadInputMulti';
+import _TypeaheadInputSingle from '../../components/TypeaheadInputSingle';
+import _TypeaheadMenu from '../../components/TypeaheadMenu';
 
 import _asyncContainer, { useAsync as _useAsync } from '../../containers/asyncContainer';
 import _menuItemContainer, { useItem as _useItem } from '../../containers/menuItemContainer';

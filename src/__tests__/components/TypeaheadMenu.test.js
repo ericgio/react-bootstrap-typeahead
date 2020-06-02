@@ -1,8 +1,8 @@
 import { mount } from 'enzyme';
 import React from 'react';
 
-import MenuItem, { BaseMenuItem } from '../../components/MenuItem.react';
-import TypeaheadMenu from '../../components/TypeaheadMenu.react';
+import MenuItem, { BaseMenuItem } from '../../components/MenuItem';
+import TypeaheadMenu from '../../components/TypeaheadMenu';
 
 import options from '../data';
 import { getMenu, getPaginator, TestProvider } from '../helpers';

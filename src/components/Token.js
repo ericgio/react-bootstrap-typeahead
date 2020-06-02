@@ -5,7 +5,7 @@ import React, { forwardRef } from 'react';
 
 import type { Node } from 'react';
 
-import ClearButton from './ClearButton.react';
+import ClearButton from './ClearButton';
 
 import tokenContainer from '../containers/tokenContainer';
 import { isFunction } from '../utils';
