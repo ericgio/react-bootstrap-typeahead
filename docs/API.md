@@ -149,7 +149,7 @@ Name | Type | Default | Description
 
 
 ### `<MenuItem>`
-Provides the markup for a Bootstrap menu item, but is wrapped with the `menuItemContainer` HOC to ensure proper behavior within the typeahead context. Provided for use if a more customized `Menu` is desired.
+Provides the markup for a Bootstrap menu item, but is wrapped by the [`withItem` HOC](#useitem--withitem) to ensure proper behavior within the typeahead context. Provided for use if a more customized `Menu` is desired.
 
 #### Props
 Name | Type | Default | Description
