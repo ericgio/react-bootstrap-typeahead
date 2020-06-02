@@ -1,9 +1,9 @@
 import React from 'react';
 
 import CustomSelectionsExample from '../examples/CustomSelectionsExample';
-/* eslint-disable import/no-unresolved,import/extensions */
+/* eslint-disable import/no-unresolved, import/extensions */
 import CustomSelectionsExampleCode from '!raw-loader!../examples/CustomSelectionsExample';
-/* eslint-enable import/no-unresolved,import/extensions */
+/* eslint-enable import/no-unresolved, import/extensions */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
