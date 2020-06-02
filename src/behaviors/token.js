@@ -60,10 +60,7 @@ export const useToken = ({
   };
 
   const handleRemove = () => {
-    // Flow having trouble with `isFunction` here for some reason...
-    if (typeof onRemove === 'function') {
-      onRemove(option);
-    }
+    onRemove && onRemove(option);
   };
 
   const handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
@@ -110,9 +107,11 @@ export const withToken = (Component: ComponentType<*>) => {
 };
 
 export default function tokenContainer(Component: ComponentType<*>) {
+  /* istanbul ignore next */
   warn(
     false,
     'The `tokenContainer` export is deprecated; use `withToken` instead.'
   );
+  /* istanbul ignore next */
   return withToken(Component);
 }

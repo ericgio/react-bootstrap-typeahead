@@ -193,9 +193,11 @@ export function withAsync(Component: ComponentType<*>) {
 }
 
 export default function asyncContainer(Component: ComponentType<*>) {
+  /* istanbul ignore next */
   warn(
     false,
     'The `asyncContainer` export is deprecated; use `withAsync` instead.'
   );
+  /* istanbul ignore next */
   return withAsync(Component);
 }

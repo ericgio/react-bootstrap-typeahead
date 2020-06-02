@@ -92,9 +92,11 @@ export const withItem = (Component: ComponentType<*>) => {
 };
 
 export default function menuItemContainer(Component: ComponentType<*>) {
+  /* istanbul ignore next */
   warn(
     false,
     'The `menuItemContainer` export is deprecated; use `withItem` instead.'
   );
+  /* istanbul ignore next */
   return withItem(Component);
 }
