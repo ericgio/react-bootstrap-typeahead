@@ -14,11 +14,10 @@ The components and higher-order components (HOCs) described below are publicly e
 - [`<Token>`](#token)
 
 #### [Higher-Order Components & Hooks](#higher-order-components--hooks-1)
-- [`asyncContainer`](#asynccontainer)
-- [`menuItemContainer`](#menuitemcontainer)
-- [`tokenContainer`](#tokencontainer)
+- [`useAsync` & `withAsync`](#useasync--withasync)
+- [`useItem` & `withItem`](#useitem--withitem)
+- [`useToken` & `withToken`](#usetoken--withtoken)
 - [`useHint`](#useHint)
-- [`useItem`](#useItem)
 
 ## Components
 A subset of props are documented below, primarily those expecting functions. See the [props documentation](Props.md) for the full list of options.
@@ -82,9 +81,9 @@ An enhanced version of the normal `Typeahead` component for use when performing 
 
 Note that this component is the same as:
 ```jsx
-import {asyncContainer, Typeahead} from 'react-bootstrap-typeahead';
+import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
 
-const AsyncTypeahead = asyncContainer(Typeahead);
+const AsyncTypeahead = withAsync(Typeahead);
 ```
 
 #### Props
@@ -191,48 +190,48 @@ Name | Type | Default | Description
 
 ## Higher-Order Components & Hooks
 
-### `asyncContainer`
+### `useAsync` & `withAsync`
 The HOC used in [`AsyncTypeahead`](#asynctypeahead).
 
-### `menuItemContainer`
+### `useItem` & `withItem`
 Connects individual menu items with the main typeahead component via context and abstracts a lot of complex functionality required for behaviors like keying through the menu and input hinting. Also provides `onClick` behavior and active state.
 
-If you use your own menu item components (in `renderMenu` for example), you are strongly advised to wrap them with this HOC:
+If you use your own menu item components (in `renderMenu` for example), you are strongly advised to use either the hook or the HOC:
 
 ```jsx
 import { MenuItem } from 'react-bootstrap';
-import { Menu, menuItemContainer, Typeahead } from 'react-bootstrap-typeahead';
+import { Menu, Typeahead, useItem, withItem } from 'react-bootstrap-typeahead';
 
-const TypeaheadMenuItem = menuItemContainer(MenuItem);
+const Item = withItem(MenuItem);
+
+// OR
+
+const Item = (props) => <MenuItem {...useItem(props)} />;
 
 <Typeahead
   renderMenu={(results, menuProps) => (
     <Menu {...menuProps}>
-      {results.map((result, props) => (
-        <TypeaheadMenuItem>
-          {result.label}
-        </TypeaheadMenuItem>
+      {results.map((option, position) => (
+        <Item option={option} position={position}>
+          {option.label}
+        </Item>
       ))}
     </Menu>
   )}
 />
 ```
 
-### `tokenContainer`
+### `useToken` & `withToken`
 Encapsulates keystroke and outside click behaviors used in `Token`. Useful if you want completely custom markup for the token.
 
 ```jsx
-const MyCustomToken = tokenContainer(props => (
-  // Your token code...
-));
+const CustomToken = withToken(MyToken);
 
-<Typeahead
-  multiple
-  options={options}
-  renderToken={(option, props, index) => (
-    <MyCustomToken onRemove={props.onRemove} option={option} />
-  )}
-/>
+// OR
+
+const CustomToken = (props) => (
+  <MyToken {...useToken(props)} />
+);
 ```
 
 ### `useHint`
@@ -240,23 +239,4 @@ Hook for adding a hint to a custom input. Mainly useful if you'd like to customi
 
 ```jsx
 const { child, hintRef, hintText } = useHint(config);
-```
-
-### `useItem`
-Hook equivalent of `menuItemContainer` for incorporating item functionality into custom menu items. `option` and `position` are required in `props`.
-
-```jsx
-const MenuItem = (props) => {
-  const { active, children, disabled, ref, ...itemProps } = useItem(props);
-
-  return (
-    <a
-      {...itemProps}
-      className={cx('dropdown-item', { active, disabled }, className)}
-      href="#"
-      ref={ref}>
-      {children}
-    </a>
-  );
-};
 ```
