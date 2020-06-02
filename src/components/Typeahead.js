@@ -2,7 +2,8 @@
 
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
+import { useRootClose } from 'react-overlays';
 
 import type { ElementRef, Node } from 'react';
 
@@ -11,7 +12,6 @@ import Typeahead from '../core/Typeahead';
 import ClearButton from './ClearButton';
 import Loader from './Loader';
 import Overlay from './Overlay';
-import RootClose from './RootClose';
 import Token from './Token';
 import TypeaheadInputMulti from './TypeaheadInputMulti';
 import TypeaheadInputSingle from './TypeaheadInputSingle';
@@ -131,6 +131,17 @@ function getOverlayProps(props: Props) {
     'positionFixed',
   ]);
 }
+
+type RootCloseProps = {
+  children: (RefCallback<mixed>) => Node,
+  onRootClose: (SyntheticEvent<HTMLElement>) => void,
+};
+
+const RootClose = ({ children, onRootClose, ...props }: RootCloseProps) => {
+  const [rootElement, attachRef] = useState(null);
+  useRootClose(rootElement, onRootClose, props);
+  return children(attachRef);
+};
 
 class TypeaheadComponent extends React.Component<Props> {
   static propTypes = propTypes;
