@@ -81,7 +81,7 @@ export const useItem = ({ label, option, position, ...props }: Props) => {
 };
 
 export const withItem = (Component: ComponentType<*>) => {
-  const displayName = `menuItemContainer(${getDisplayName(Component)})`;
+  const displayName = `withItem(${getDisplayName(Component)})`;
 
   const WrappedMenuItem = (props: Props) => <Component {...useItem(props)} />;
 

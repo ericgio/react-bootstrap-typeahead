@@ -96,7 +96,7 @@ export const useToken = ({
 };
 
 export const withToken = (Component: ComponentType<*>) => {
-  const displayName = `tokenContainer(${getDisplayName(Component)})`;
+  const displayName = `withToken(${getDisplayName(Component)})`;
 
   const WrappedToken = (props: Props) => <Component {...useToken(props)} />;
 
