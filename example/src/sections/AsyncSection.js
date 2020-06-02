@@ -1,14 +1,14 @@
 import React from 'react';
 
-import AsyncExample from '../examples/AsyncExample.react';
+import AsyncExample from '../examples/AsyncExample';
 
-/* eslint-disable import/no-unresolved */
-import AsyncExampleCode from '!raw-loader!../examples/AsyncExample.react';
-/* eslint-enable import/no-unresolved */
+/* eslint-disable import/no-unresolved,import/extensions */
+import AsyncExampleCode from '!raw-loader!../examples/AsyncExample';
+/* eslint-enable import/no-unresolved,import/extensions */
 
-import ExampleSection from '../components/ExampleSection.react';
-import Markdown from '../components/Markdown.react';
-import Section from '../components/Section.react';
+import ExampleSection from '../components/ExampleSection';
+import Markdown from '../components/Markdown';
+import Section from '../components/Section';
 
 const AsyncSection = (props) => (
   <Section title={props.title}>

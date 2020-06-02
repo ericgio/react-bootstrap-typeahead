@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
-import GithubStarsButton from './GithubStarsButton.react';
+import GithubStarsButton from './GithubStarsButton';
 
 import { version } from '../../../package.json';
 
