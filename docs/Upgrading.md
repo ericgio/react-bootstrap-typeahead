@@ -84,7 +84,7 @@ import { Typeahead, Hint } from 'react-bootstrap-typeahead';
 ### Rename `bsSize` prop to `size`
 The `bsSize` prop was deprecated in v4.2.0 and has been removed. Use `size` instead.
 
-### Increase specificity of multi-input style
+### Increase specificity of multi-select component style
 This change is only relevant if you are overriding the `.rbt-input-multi` CSS class. It increases the CSS specificity for the input's height to make the styling less dependent on stylesheet ordering and thus less likely to break.
 
 ## v4.0 Breaking Changes
