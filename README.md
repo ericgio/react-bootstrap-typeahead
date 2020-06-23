@@ -57,8 +57,9 @@ Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), wh
 You can also try out the following sandbox examples:
 - [Windowing with large data sets](https://codesandbox.io/s/react-bootstrap-typeahead-windowing-example-4q1yjrzrn0)
 - [Asynchronous Pagination](https://codesandbox.io/s/react-bootstrap-typeahead-async-pagination-example-qg895)
-- [Combobox Example](https://codesandbox.io/s/rbt-combobox-example-kkmyd)
+- [Combobox](https://codesandbox.io/s/rbt-combobox-example-kkmyd)
 - [Validation and Feedback](https://codesandbox.io/s/rbt-validation-feedback-example-4w01px4z6x)
+- [Custom Loader & Clear Button)](https://codesandbox.io/s/rbt-custom-aux-components-gn3kn)
 
 If you have an example use case that would be useful to others, please create a sandbox and submit a pull request to add it to the list!
 
