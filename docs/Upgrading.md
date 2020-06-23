@@ -12,12 +12,16 @@
 This library now relies on [hooks](https://reactjs.org/docs/hooks-intro.html), both in the package itself as well as underlying dependencies. You must upgrade your version of React and ReactDOM to be at least 16.8
 
 ### Drop official support for Bootstrap 3
-Among other things, this consists of updating the HTML structure and class names of included components like MenuItem in a backwards-incompatible way. Note that if you are using BS3, things should still work, but you may need to render your own menu, menu item, and input components.
+Among other things, this consists of updating the HTML structure and class names of included components like `MenuItem` in a backwards-incompatible way. Note that if you are using BS3, things should still work, but you may need to render your own menu, menu item, and input components.
 
-### Remove deprecated use of `findDOMNode`
+### Remove `getInstance` method
+The `getInstance` method was deprecated in v4.2.0 and has been removed. You can access instance methods on the `ref` itself.
+
+### Remove `findDOMNode`
 `findDOMNode` was deprecated in React 16.3 and all uses of it (including dependencies) are now gone. In some cases, this now requires explicitly passing refs to underlying DOM nodes.
 
-When using `renderInput`, you will need to pass the `inputRef` and `referenceElementRef` prop to a DOM node. This will usually be the input itself, but may be a container node:
+When using `renderInput`, you will need to pass both the `inputRef` and `referenceElementRef` prop to a DOM node. This will usually be the input itself, but may be a container node:
+
 ```jsx
 <Typeahead
   ...
@@ -33,9 +37,9 @@ When using `renderInput`, you will need to pass the `inputRef` and `referenceEle
 />
 ```
 
-When using custom tokens, you will need to pass the ref from `tokenContainer` to the token's DOM node:
+When using custom tokens, you will need to pass the ref from `withToken` to the token's DOM node:
 ```jsx
-const MyToken = tokenContainer(forwardRef((props, ref) => (
+const MyToken = withToken(forwardRef((props, ref) => (
   <div
     className="my-token"
     ref={ref}>
@@ -78,7 +82,10 @@ import { Typeahead, Hint } from 'react-bootstrap-typeahead';
 ```
 
 ### Rename `bsSize` prop to `size`
-The `bsSize` prop mirrored the API in `react-bootstrap@^0.x`. It was deprecated in favor of the `size` prop in v4.2 of this library.
+The `bsSize` prop was deprecated in v4.2.0 and has been removed. Use `size` instead.
+
+### Increase specificity of multi-input style
+This change is only relevant if you are overriding the `.rbt-input-multi` CSS class. It increases the CSS specificity for the input's height to make the styling less dependent on stylesheet ordering and thus less likely to break.
 
 ## v4.0 Breaking Changes
 
