@@ -3,7 +3,7 @@
 /* eslint-disable no-shadow */
 
 import fetch from 'isomorphic-fetch';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 // Polyfill Promises for IE and older browsers.
@@ -43,7 +43,7 @@ const AsyncExample = () => {
       options={options}
       placeholder="Search for a Github user..."
       renderMenuItemChildren={(option, props) => (
-        <div>
+        <Fragment>
           <img
             alt={option.login}
             src={option.avatar_url}
@@ -54,7 +54,7 @@ const AsyncExample = () => {
             }}
           />
           <span>{option.login}</span>
-        </div>
+        </Fragment>
       )}
     />
   );
