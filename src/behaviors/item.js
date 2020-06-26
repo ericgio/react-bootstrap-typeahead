@@ -22,7 +22,13 @@ type Props = * & {
   position: number,
 };
 
-export const useItem = ({ label, option, position, ...props }: Props) => {
+export const useItem = ({
+  label,
+  onClick,
+  option,
+  position,
+  ...props
+}: Props) => {
   const {
     activeIndex,
     id,
@@ -39,7 +45,7 @@ export const useItem = ({ label, option, position, ...props }: Props) => {
     if (position === 0) {
       onInitialItemChange(option);
     }
-  }, [position]);
+  });
 
   useEffect(() => {
     if (position === activeIndex) {
@@ -55,12 +61,12 @@ export const useItem = ({ label, option, position, ...props }: Props) => {
         scrollMode: 'if-needed',
       });
     }
-  }, [activeIndex, position]);
-
-  const onClick = useCallback((e: SyntheticEvent<HTMLElement>) => {
-    onMenuItemClick(option, e);
-    props.onClick && props.onClick(e);
   });
+
+  const handleClick = useCallback((e: SyntheticEvent<HTMLElement>) => {
+    onMenuItemClick(option, e);
+    onClick && onClick(e);
+  }, [onClick, onMenuItemClick, option]);
 
   const active = isOnlyResult || activeIndex === position;
 
@@ -73,7 +79,7 @@ export const useItem = ({ label, option, position, ...props }: Props) => {
     'aria-label': label,
     'aria-selected': active,
     id: getMenuItemId(id, position),
-    onClick,
+    onClick: handleClick,
     onMouseDown: preventInputBlur,
     ref: itemRef,
     role: 'option',

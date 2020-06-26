@@ -1,7 +1,7 @@
 // @flow
 
 import invariant from 'invariant';
-import React, { cloneElement, useCallback, useEffect, useRef } from 'react';
+import React, { cloneElement, useEffect, useRef } from 'react';
 
 import type { Element } from 'react';
 
@@ -106,19 +106,17 @@ export const useHint = ({ children, shouldSelect }: Config) => {
 
   const hintRef = useRef<?HTMLInputElement>(null);
 
-  const onKeyDown = useCallback(
-    (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-      if (
-        hintText &&
-        initialItem &&
-        defaultShouldSelect(e, { selectHintOnEnter, shouldSelect })
-      ) {
-        onAdd(initialItem);
-      }
+  const onKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
+    if (
+      hintText &&
+      initialItem &&
+      defaultShouldSelect(e, { selectHintOnEnter, shouldSelect })
+    ) {
+      onAdd(initialItem);
+    }
 
-      children.props.onKeyDown && children.props.onKeyDown(e);
-    },
-  );
+    children.props.onKeyDown && children.props.onKeyDown(e);
+  };
 
   useEffect(() => {
     copyStyles(inputNode, hintRef.current);

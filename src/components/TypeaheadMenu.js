@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import type { Node } from 'react';
@@ -63,7 +63,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
     ...menuProps
   } = props;
 
-  const renderMenuItem = useCallback((option: Option, position: number) => {
+  const renderMenuItem = (option: Option, position: number) => {
     const label = getOptionLabel(option, labelKey);
 
     const menuItemProps = {
@@ -107,7 +107,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
         {renderMenuItemChildren(option, props, position)}
       </MenuItem>
     );
-  });
+  };
 
   return (
     // Explictly pass `text` so Flow doesn't complain...

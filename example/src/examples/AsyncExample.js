@@ -3,7 +3,7 @@
 /* eslint-disable no-shadow */
 
 import fetch from 'isomorphic-fetch';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 // Polyfill Promises for IE and older browsers.
@@ -16,7 +16,7 @@ const AsyncExample = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
 
-  const handleSearch = useCallback((query) => {
+  const handleSearch = (query) => {
     setIsLoading(true);
 
     fetch(`${SEARCH_URI}?q=${query}+in:login&page=1&per_page=50`)
@@ -31,7 +31,7 @@ const AsyncExample = () => {
         setOptions(options);
         setIsLoading(false);
       });
-  });
+  };
 
   return (
     <AsyncTypeahead

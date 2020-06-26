@@ -5,7 +5,8 @@
   },
   "extends": [
     "@ericgio/eslint-config-react",
-    "plugin:flowtype/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:flowtype/recommended",
   ],
   "globals": {},
   "parser": "babel-eslint",

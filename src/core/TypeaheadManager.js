@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import usePrevious from '@restart/hooks/usePrevious';
 
 import { TypeaheadContext } from './Context';
@@ -80,20 +80,18 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     }
   });
 
-  const handleKeyDown = useCallback(
-    (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-      switch (e.keyCode) {
-        case RETURN:
-          if (initialItem && getIsOnlyResult(props)) {
-            onAdd(initialItem);
-          }
-          break;
-        default:
-          break;
-      }
-      onKeyDown(e);
+  const handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
+    switch (e.keyCode) {
+      case RETURN:
+        if (initialItem && getIsOnlyResult(props)) {
+          onAdd(initialItem);
+        }
+        break;
+      default:
+        break;
     }
-  );
+    onKeyDown(e);
+  };
 
   const childProps = {
     ...pick(props, propKeys),
