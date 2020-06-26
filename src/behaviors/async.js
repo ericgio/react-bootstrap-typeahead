@@ -2,7 +2,7 @@
 
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-import React, { forwardRef, useEffect, useRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
 import useForceUpdate from '@restart/hooks/useForceUpdate';
 import usePrevious from '@restart/hooks/usePrevious';
 
@@ -90,8 +90,11 @@ type DebouncedFunction = Function & {
 export function useAsync(props: * & Props) {
   const {
     allowNew,
+    delay,
     emptyLabel,
     isLoading,
+    minLength,
+    onInputChange,
     onSearch,
     options,
     promptText,
@@ -107,10 +110,10 @@ export function useAsync(props: * & Props) {
   const forceUpdate = useForceUpdate();
   const prevProps = usePrevious(props);
 
-  const handleSearch = (query: string) => {
+  const handleSearch = useCallback((query: string) => {
     queryRef.current = query;
 
-    if (!query || (props.minLength && query.length < props.minLength)) {
+    if (!query || (minLength && query.length < minLength)) {
       return;
     }
 
@@ -123,16 +126,16 @@ export function useAsync(props: * & Props) {
 
     // Perform the search.
     onSearch(query);
-  };
+  }, [forceUpdate, minLength, onSearch, useCache]);
 
   // Set the debounced search function.
   useEffect(() => {
-    handleSearchDebouncedRef.current = debounce(handleSearch, props.delay);
+    handleSearchDebouncedRef.current = debounce(handleSearch, delay);
     return () => {
       handleSearchDebouncedRef.current &&
       handleSearchDebouncedRef.current.cancel();
     };
-  });
+  }, [delay, handleSearch]);
 
   useEffect(() => {
     // Ensure that we've gone from a loading to a completed state. Otherwise
@@ -155,15 +158,15 @@ export function useAsync(props: * & Props) {
     return emptyLabel;
   };
 
-  const handleInputChange = (
+  const handleInputChange = useCallback((
     query: string,
     e: SyntheticEvent<HTMLInputElement>
   ) => {
-    props.onInputChange && props.onInputChange(query, e);
+    onInputChange && onInputChange(query, e);
 
     handleSearchDebouncedRef.current &&
     handleSearchDebouncedRef.current(query);
-  };
+  }, [onInputChange]);
 
   const cachedQuery = cacheRef.current[queryRef.current];
 
@@ -173,6 +176,7 @@ export function useAsync(props: * & Props) {
     allowNew: isFunction(allowNew) ? allowNew : allowNew && !isLoading,
     emptyLabel: getEmptyLabel(),
     isLoading,
+    minLength,
     onInputChange: handleInputChange,
     options: useCache && cachedQuery ? cachedQuery : options,
   };

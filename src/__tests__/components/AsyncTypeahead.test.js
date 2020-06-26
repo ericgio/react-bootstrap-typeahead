@@ -7,9 +7,8 @@ import { change, focus, getMenuItems, simulateKeyDown } from '../helpers';
 import { DOWN, RETURN } from '../../constants';
 
 function search(wrapper, query, callback) {
-  // `setProps` needs to come before `change` or several tests fail...
-  wrapper.setProps({ isLoading: true });
   change(wrapper, query);
+  wrapper.setProps({ isLoading: true });
 
   setTimeout(() => {
     wrapper.setProps({
@@ -53,17 +52,15 @@ describe('<AsyncTypeahead>', () => {
   test('displays the search text while searching', (done) => {
     const searchText = 'Search text';
 
-    onSearch = () => {
-      wrapper.setProps({ isLoading: true });
-
-      const menuItems = getMenuItems(wrapper);
-      expect(menuItems.length).toBe(1);
-      expect(menuItems.text()).toBe(searchText);
-      done();
-    };
-
     wrapper.setProps({
-      onSearch,
+      onSearch: () => {
+        wrapper.setProps({ isLoading: true });
+
+        const menuItems = getMenuItems(wrapper);
+        expect(menuItems.length).toBe(1);
+        expect(menuItems.text()).toBe(searchText);
+        done();
+      },
       searchText,
     });
 
@@ -110,22 +107,14 @@ describe('<AsyncTypeahead>', () => {
     const delay = 100;
     const preSearch = Date.now();
 
-    onSearch = () => {
-      expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
-      done();
-    };
+    wrapper.setProps({
+      delay,
+      onSearch: () => {
+        expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
+        done();
+      },
+    });
 
-    // Re-mount since delay is applied in `componentDidMount`.
-    wrapper = mount(
-      <AsyncTypeahead
-        delay={delay}
-        id="async-delay-test"
-        isLoading={false}
-        onSearch={onSearch}
-      />
-    );
-
-    // Perform search.
     change(wrapper, 'search');
   });
 
