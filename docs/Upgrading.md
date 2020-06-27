@@ -17,6 +17,50 @@ Among other things, this consists of updating the HTML structure and class names
 ### Remove `getInstance` method
 The `getInstance` method was deprecated in v4.2.0 and has been removed. You can access instance methods on the `ref` itself.
 
+### `AsyncTypeahead` rewritten with hooks
+This should generally be a transparent change. There is at least one instance where it could break existing code, however: if your `onSearch` handler is re-instantiated on each render, this will cancel the debounced function and potentially prevent `onSearch` from being called. To avoid this, either [bind the handler in the constructor or use class properties](https://reactjs.org/docs/faq-functions.html#how-do-i-bind-a-function-to-a-component-instance) (if using a class component) or [use `useCallback` with a dependency array](https://reactjs.org/docs/hooks-reference.html#usecallback) (if using a functional component):
+
+```jsx
+// This may cause problems:
+<AsyncTypeahead
+  ...
+  onSearch={(query) => {
+    // Do stuff...
+  }}
+/>
+
+// Instead, do one of the following:
+class MyComponent extends React.Component {
+  render () {  
+    <AsyncTypeahead
+      ...
+      onSearch={this.handleSearch}
+    />
+  }
+
+  handleSearch = (query) => {
+    // Do stuff...
+  }
+}
+
+const MyComponent = () => {
+  const handleSearch = useCallback((query) => {
+    // Do stuff...
+  }, []);
+  
+  return (
+    <AsyncTypeahead
+      ...
+      onSearch={handleSearch}
+    />
+  );
+};
+```
+
+
+
+For more, [see issue #561](https://github.com/ericgio/react-bootstrap-typeahead/issues/561).
+
 ### Remove `findDOMNode`
 `findDOMNode` was deprecated in React 16.3 and all uses of it (including dependencies) are now gone. In some cases, this now requires explicitly passing refs to underlying DOM nodes.
 
