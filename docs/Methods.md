@@ -23,4 +23,4 @@ Name | Description
 `hideMenu()` | Hides the menu.
 `toggleMenu()` | Shows the menu if it is currently hidden; hides the menu if it is currently shown.
 
-[Next: Props](Props.md)
+[Next: API](API.md)

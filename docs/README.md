@@ -5,5 +5,4 @@
 - [Filtering](Filtering.md)
 - [Rendering](Rendering.md)
 - [Public Methods](Methods.md)
-- [Props](Props.md)
 - [API](API.md)
