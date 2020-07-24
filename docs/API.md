@@ -65,8 +65,7 @@ renderMenu | function | | Callback for custom menu rendering. See full documenta
 renderMenuItemChildren | function | | Callback for customized rendering of menu item contents. See full documentation in the [Rendering section](Rendering.md#rendermenuitemchildrenoption-objectstring-props-object-index-number).
 renderToken | function | | Callback for custom token rendering. See full documentation in the [Rendering section](Rendering.md#rendertokenoption-objectstring-props-object-index-number).
 selected | Array\<Object\|string\> | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
-selectHintOnEnter | boolean | `false` | `DEPRECATED`: Use use `shouldSelect` prop on `Hint` component or `shouldSelectHint` prop on `TypeaheadInputSingle` & `TypeaheadInputMulti`.
-Allows selecting the hinted result by pressing enter.
+selectHintOnEnter | boolean | `false` | `DEPRECATED`: Use `shouldSelect` prop on `Hint` component or `shouldSelectHint` prop on `TypeaheadInputSingle` & `TypeaheadInputMulti`. Allows selecting the hinted result by pressing enter.
 size | `'large'` \| `'lg'` \| `'small'` \| `'sm'` | | Specify the size of the input.
 
 #### Children
@@ -178,7 +177,7 @@ Provides the markup for a Bootstrap menu, along with some extra functionality fo
 
 Name | Type | Default | Description
 -----|------|---------|------------
-emptyLabel | string \| element | `'No matches found.'` | Message to display in the menu if there are no valid results.
+emptyLabel | node | `'No matches found.'` | Message to display in the menu if there are no valid results.
 id `required` | string \| number | | Id value required for accessibility.
 maxHeight | string | `'300px'` | Maximum height of the dropdown menu.
 
