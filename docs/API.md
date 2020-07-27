@@ -20,7 +20,6 @@ The components and higher-order components (HOCs) described below are publicly e
 - [`useHint`](#useHint)
 
 ## Components
-A subset of props are documented below, primarily those expecting functions. See the [props documentation](Props.md) for the full list of options.
 
 ### `<Typeahead>`
 The primary component provided by the module.
