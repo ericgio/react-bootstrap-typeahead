@@ -34,8 +34,7 @@ Development and production builds are included in the NPM package. Alternatively
 - [Filtering](docs/Filtering.md)
 - [Rendering](docs/Rendering.md)
 - [Public Methods](docs/Methods.md)
-- [Props](docs/Props.md)
-- [API](docs/API.md)
+- [API & Props](docs/API.md)
 - [Upgrade Guide](docs/Upgrading.md)
 
 ## CSS
