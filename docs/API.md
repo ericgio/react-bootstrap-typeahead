@@ -256,21 +256,72 @@ const Item = (props) => <MenuItem {...useItem(props)} />;
 ```
 
 ### `useToken` & `withToken`
-Encapsulates keystroke and outside click behaviors used in `Token`. Useful if you want completely custom markup for the token.
+Encapsulates keystroke and outside click behaviors used in `Token`. Useful if you want completely custom markup for the token. The hook and the HOC provide the following props to be consumed by the token component:
+
+Name | Type | Description
+-----|------|------------
+active | boolean | Whether the token is active or not. Useful for adding an "active" classname to the component for styling.
+onBlur | function | Callback invoked when the token loses focus. Should be applied to the top-level element.
+onClick | function | Callback invoked when the token is clicked. Should be applied to the top-level element.
+onFocus | function | Callback invoked when the token is focused. Should be applied to the top-level element.
+onKeyDown | function | Callback invoked when the token is focused and a key is pressed. Should be applied to the top-level element.
+onRemove | function | Callback used to handle token removal. This typically would be applied to the `onClick` handler of a "remove" or "x" button in the token.
+ref | Used for detecting clicks outside the token and updating internal state accordingly. Should be applied to the top-level DOM node.
 
 ```jsx
+// Important: use `forwardRef` to pass the ref on to the underlying DOM nodes.
+const MyToken = forwardRef(({ active, onRemove, ...props }, ref) => (
+  <div
+    {...props}
+    className={active ? 'active' : ''}
+    ref={ref}>
+    <button onClick={onRemove}>
+      x
+    </button>
+  </div>
+));
+
+// HOC
 const CustomToken = withToken(MyToken);
 
-// OR
-
-const CustomToken = (props) => (
-  <MyToken {...useToken(props)} />
-);
+// Hook
+const CustomToken = (props) => <MyToken {...useToken(props)} />;
+```
+If using the hook, you can also apply it directly within your token component:
+```jsx
+const MyToken = (props) => {
+  const { active, onRemove, ref, ...otherProps } = useToken(props);
+  
+  return (
+    <div
+      {...otherProps}
+      className={active ? 'active' : ''}
+      ref={ref}>
+      <button onClick={onRemove}>
+        x
+      </button>
+    </div>
+  );
+};
 ```
 
 ### `useHint`
 Hook for adding a hint to a custom input. Mainly useful if you'd like to customize the hint's markup. Accepts an object with required `children` and an optional `shouldSelect` callback.
 
 ```jsx
-const { child, hintRef, hintText } = useHint(config);
+const CustomHint = (props) => {
+  const { child, hintRef, hintText } = useHint(props);
+
+  return (
+    <div ... >
+      {child}
+      <input
+        ...
+        ref={hintRef}
+        value={hintText}
+      />
+    </div>
+  );
+};
 ```
+See the [`Hint` component](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/src/components/Hint.js#L136) for an example of how to apply `useHint`.
