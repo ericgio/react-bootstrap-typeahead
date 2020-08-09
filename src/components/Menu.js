@@ -14,6 +14,7 @@ const MenuDivider = (props: any) => (
 );
 
 const MenuHeader = (props: any) => (
+  // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
   <div {...props} className="dropdown-header" role="heading" />
 );
 
