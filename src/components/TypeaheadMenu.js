@@ -79,7 +79,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
           {...menuItemProps}
           className="rbt-menu-custom-option"
           key={position}
-          label={newSelectionPrefix + label}>
+          label={label}>
           {newSelectionPrefix}
           <Highlighter search={text}>
             {label}
