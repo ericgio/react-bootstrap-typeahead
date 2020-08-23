@@ -91,26 +91,32 @@ describe('<Menu>', () => {
     expect(scheduleUpdate).toHaveBeenCalledTimes(1);
   });
 
-  test('<Menu.Divider>', () => {
-    const wrapper = shallow(<Menu.Divider />);
-
-    expect(wrapper.type()).toBe('div');
-    expect(wrapper.hasClass('dropdown-divider')).toBe(true);
-    expect(wrapper.prop('role')).toBe('separator');
+  test('prevents the input from blurring on mousedown', () => {
+    const e = { preventDefault: jest.fn() };
+    menu.simulate('mousedown', e);
+    expect(e.preventDefault).toHaveBeenCalledTimes(1);
   });
+});
 
-  test('<Menu.Header>', () => {
-    const children = 'This is a menu header';
+test('<Menu.Divider>', () => {
+  const wrapper = shallow(<Menu.Divider />);
 
-    const wrapper = shallow(
-      <Menu.Header>
-        {children}
-      </Menu.Header>
-    );
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.hasClass('dropdown-divider')).toBe(true);
+  expect(wrapper.prop('role')).toBe('separator');
+});
 
-    expect(wrapper.type()).toBe('div');
-    expect(wrapper.hasClass('dropdown-header')).toBe(true);
-    expect(wrapper.prop('role')).toBe('heading');
-    expect(wrapper.text()).toBe(children);
-  });
+test('<Menu.Header>', () => {
+  const children = 'This is a menu header';
+
+  const wrapper = shallow(
+    <Menu.Header>
+      {children}
+    </Menu.Header>
+  );
+
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.hasClass('dropdown-header')).toBe(true);
+  expect(wrapper.prop('role')).toBe('heading');
+  expect(wrapper.text()).toBe(children);
 });

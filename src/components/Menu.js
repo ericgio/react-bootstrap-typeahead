@@ -6,6 +6,7 @@ import React, { Children, type Node } from 'react';
 
 import { BaseMenuItem } from './MenuItem';
 
+import { preventInputBlur } from '../utils';
 import { checkPropType, isRequiredForA11y } from '../propTypes';
 import type { Id, MenuProps } from '../types';
 
@@ -90,6 +91,7 @@ class Menu extends React.Component<MenuComponentProps> {
       children;
 
     return (
+      /* eslint-disable jsx-a11y/interactive-supports-focus */
       <div
         aria-label={this.props['aria-label']}
         className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
@@ -98,6 +100,10 @@ class Menu extends React.Component<MenuComponentProps> {
           // Force a re-render if the text changes to ensure that menu
           // positioning updates correctly.
           text
+        }
+        onMouseDown={
+          // Prevent input from blurring when clicking on the menu scrollbar.
+          preventInputBlur
         }
         ref={innerRef}
         role="listbox"
@@ -109,6 +115,7 @@ class Menu extends React.Component<MenuComponentProps> {
         }}>
         {contents}
       </div>
+      /* eslint-enable jsx-a11y/interactive-supports-focus */
     );
   }
 }
