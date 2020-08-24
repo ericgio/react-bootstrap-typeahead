@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Popper, type PopperChildrenProps } from 'react-popper';
+import { Popper } from 'react-popper';
 
 import { values } from '../utils';
 import { ALIGN } from '../constants';
@@ -105,7 +105,7 @@ const Overlay = (props: OverlayProps) => {
       placement={getPlacement(props)}
       positionFixed={positionFixed}
       referenceElement={referenceElement}>
-      {({ ref, ...popperProps }: PopperChildrenProps) => children({
+      {({ ref, ...popperProps }) => children({
         ...popperProps,
         innerRef: ref,
         inputHeight: referenceElement ? referenceElement.offsetHeight : 0,

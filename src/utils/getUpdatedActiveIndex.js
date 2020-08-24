@@ -3,9 +3,11 @@
 import { DOWN, UP } from '../constants';
 import type { Option } from '../types';
 
+type KeyCode = typeof DOWN | typeof UP;
+
 function skipDisabledOptions(
   currentIndex: number,
-  keyCode: DOWN | UP,
+  keyCode: KeyCode,
   items: Option[]
 ): number {
   let newIndex = currentIndex;
@@ -19,7 +21,7 @@ function skipDisabledOptions(
 
 export default function getUpdatedActiveIndex(
   currentIndex: number,
-  keyCode: DOWN | UP,
+  keyCode: KeyCode,
   items: Option[]
 ): number {
   let newIndex = currentIndex;
