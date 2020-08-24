@@ -33,9 +33,13 @@ const AsyncExample = () => {
       });
   };
 
+  // Bypass client-side filtering by returning `true`. Results are already
+  // filtered by the search endpoint, so no need to do it again.
+  const filterBy = () => true;
+
   return (
     <AsyncTypeahead
-      filterBy={() => true}
+      filterBy={filterBy}
       id="async-example"
       isLoading={isLoading}
       labelKey="login"
