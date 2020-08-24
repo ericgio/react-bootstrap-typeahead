@@ -35,6 +35,7 @@ const AsyncExample = () => {
 
   return (
     <AsyncTypeahead
+      filterBy={() => true}
       id="async-example"
       isLoading={isLoading}
       labelKey="login"
