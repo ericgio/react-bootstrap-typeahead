@@ -72,7 +72,7 @@ Along with stylistic customization, the `renderMenu` hook allows you to do thing
 
 #### `renderMenu` gotchas
 - It is highly recommended that you use the `Menu` component included with the package. If you choose to use your own component, you will need to properly consume the `innerRef` prop passed down as part of `menuProps` or your menu will not be properly positioned.
-- If you want to allow custom options or pagination, you will need to render these menu items yourself. If present, they should be the last two items in the `results` array. See the [TypeaheadMenu](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/src/components/TypeaheadMenu.react.js) component for an example of how to handle rendering.
+- If you want to allow custom options or pagination, you will need to render these menu items yourself. If present, they should be the last two items in the `results` array. See the [TypeaheadMenu](https://github.com/ericgio/react-bootstrap-typeahead/blob/master/src/components/TypeaheadMenu.js) component for an example of how to handle rendering.
 
 ### `renderMenuItemChildren(option: Object|String, props: Object, index: Number)`
 Allows you to control the contents of a menu item. Your function will be passed an item from your `options` array, the `TypeaheadMenu` props, and the item's index within the array:
