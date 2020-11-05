@@ -6,7 +6,7 @@
 import cx from 'classnames';
 import React, { type Node } from 'react';
 
-import Hint, { type ShouldSelect } from './Hint';
+import Hint from './Hint';
 import Input from './Input';
 
 import { isSelectable } from '../utils';
@@ -14,7 +14,7 @@ import withClassNames from '../behaviors/classNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { InputProps, Option, RefCallback, ReferenceElement } from '../types';
+import type { InputProps, Option, RefCallback, ReferenceElement, ShouldSelect } from '../types';
 
 type Props = {
   ...InputProps,

@@ -8,11 +8,9 @@ import type { Element } from 'react';
 import { useTypeaheadContext } from '../core/Context';
 import { isSelectable } from '../utils';
 import { RETURN, RIGHT, TAB } from '../constants';
-
-export type ShouldSelect = (
-  boolean,
-  SyntheticKeyboardEvent<HTMLInputElement>
-) => boolean;
+import type {
+  ShouldSelect,
+} from '../types';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.

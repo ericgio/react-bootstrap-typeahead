@@ -58,6 +58,11 @@ export type MenuProps = {
   style: Style,
 };
 
+export type ShouldSelect = (
+  boolean,
+  SyntheticKeyboardEvent<HTMLInputElement>
+) => boolean;
+
 export type TypeaheadProps = {
   allowNew: boolean | (Option[], TypeaheadPropsAndState) => boolean,
   autoFocus: boolean,
@@ -84,6 +89,7 @@ export type TypeaheadProps = {
   options: Option[],
   paginate: boolean,
   selectHintOnEnter?: boolean,
+  shouldSelectHint?: ShouldSelect,
 };
 
 export type TypeaheadState = {|

@@ -2,12 +2,12 @@
 
 import React from 'react';
 
-import Hint, { type ShouldSelect } from './Hint';
+import Hint from './Hint';
 import Input from './Input';
 
 import withClassNames from '../behaviors/classNames';
 
-import type { RefCallback, ReferenceElement } from '../types';
+import type { RefCallback, ReferenceElement, ShouldSelect } from '../types';
 
 type Props = {
   inputRef: RefCallback<HTMLInputElement>,

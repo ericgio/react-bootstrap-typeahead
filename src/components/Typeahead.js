@@ -216,6 +216,7 @@ class TypeaheadComponent extends React.Component<Props> {
       renderInput,
       renderToken,
       size,
+      shouldSelectHint,
     } = this.props;
 
     if (isFunction(renderInput)) {
@@ -230,7 +231,12 @@ class TypeaheadComponent extends React.Component<Props> {
     };
 
     if (!multiple) {
-      return <TypeaheadInputSingle {...commonProps} />;
+      return (
+        <TypeaheadInputSingle
+          {...commonProps}
+          shouldSelectHint={shouldSelectHint}
+        />
+      );
     }
 
     const { labelKey, onRemove, selected } = props;
@@ -238,7 +244,8 @@ class TypeaheadComponent extends React.Component<Props> {
     return (
       <TypeaheadInputMulti
         {...commonProps}
-        selected={selected}>
+        selected={selected}
+        shouldSelectHint={shouldSelectHint}>
         {selected.map((option, idx) => (
           renderToken(option, { ...commonProps, labelKey, onRemove }, idx)
         ))}
