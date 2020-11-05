@@ -3,7 +3,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const sass = require('node-sass');
+const sass = require('sass');
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'css');
@@ -12,7 +12,7 @@ const STYLES_DIR = path.join(ROOT, 'styles');
 function buildCSS(options) {
   // Get the base filename.
   let filename = options.file
-    .split('/')
+    .split(/\/|\\/)
     .pop()
     .replace('.scss', '');
 
