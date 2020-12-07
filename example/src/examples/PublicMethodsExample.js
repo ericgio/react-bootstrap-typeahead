@@ -1,10 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import React, { Fragment, useRef } from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button as RBButton, ButtonToolbar } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 import options from '../data';
+
+const Button = (props) => (
+  <RBButton {...props} size="sm" variant="outline-secondary" />
+);
 
 /* example-start */
 const PublicMethodsExample = () => {
@@ -22,23 +26,21 @@ const PublicMethodsExample = () => {
         ref={ref}
       />
       <ButtonToolbar style={{ marginTop: '10px' }}>
-        <Button
-          onClick={() => ref.current.clear()}
-          variant="outline-secondary">
+        <Button onClick={() => ref.current.clear()}>
           Clear
         </Button>
-        <Button
-          onClick={() => ref.current.focus()}
-          variant="outline-secondary">
+        <Button onClick={() => ref.current.focus()}>
           Focus
         </Button>
         <Button
           onClick={() => {
             ref.current.focus();
             setTimeout(() => ref.current.blur(), 1000);
-          }}
-          variant="outline-secondary">
+          }}>
           Focus, then blur after 1 second
+        </Button>
+        <Button onClick={() => ref.current.toggleMenu()}>
+          Toggle Menu
         </Button>
       </ButtonToolbar>
     </Fragment>

@@ -9,10 +9,10 @@ import options from '../data';
 const SelectionsExample = (props) => (
   <Typeahead
     clearButton
-    defaultSelected={options.slice(0, 5)}
+    defaultSelected={options.slice(0, 1)}
     id="selections-example"
     labelKey="name"
-    multiple
+    onInputChange={(text, e) => { console.log(text, e); }}
     options={options}
     placeholder="Choose a state..."
   />
