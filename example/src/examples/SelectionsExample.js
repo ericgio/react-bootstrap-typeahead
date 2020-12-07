@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-unresolved,no-console */
 
 import React from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
