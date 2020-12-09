@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 
 import GithubStarsButton from './GithubStarsButton';
 
-import { version } from '../../../package.json';
+import pkg from '../../../package.json';
 
 const AUTHOR_GITHUB_URL = 'https://github.com/ericgio';
 const BASE_GITHUB_URL = `${AUTHOR_GITHUB_URL}/react-bootstrap-typeahead`;
@@ -39,7 +39,7 @@ const versionLink =
     href={`${BASE_GITHUB_URL}/releases`}
     rel="noreferrer noopener"
     target="_blank">
-    v{version}
+    v{pkg.version}
   </a>;
 
 const bsLink =

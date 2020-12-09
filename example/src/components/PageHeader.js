@@ -5,7 +5,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 
 import GitHubLogo from './GitHubLogo';
 
-import { version as PACKAGE_VERSION } from '../../../package.json';
+import pkg from '../../../package.json';
 
 const GITHUB_URL = 'https://github.com/ericgio/react-bootstrap-typeahead';
 
@@ -28,7 +28,7 @@ const PageHeader = () => (
             <Nav.Link
               href={`${GITHUB_URL}/releases`}
               target="_blank">
-              v{PACKAGE_VERSION}
+              v{pkg.version}
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
