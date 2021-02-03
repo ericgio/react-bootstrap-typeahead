@@ -6,6 +6,7 @@ import TypeaheadInputMulti from '../../components/TypeaheadInputMulti';
 import options from '../data';
 
 import {
+  fireEvent,
   getHint,
   getInput,
   getTokens,
@@ -78,7 +79,7 @@ describe('<TypeaheadInputMulti>', () => {
 
     // No need to test the logic for `shouldSelectHint` here; just make sure
     // it's passed through to the `Hint` component and called.
-    screen.getByRole('textbox').focus();
+    getInput(screen).focus();
     userEvent.tab();
     expect(shouldSelectHint).toHaveBeenCalledTimes(1);
   });
@@ -104,6 +105,20 @@ describe('<TypeaheadInputMulti>', () => {
 
     userEvent.click(disabledInput);
     expect(disabledInput).not.toHaveFocus();
+  });
+
+  it('prevents clicks on the input from bubbling', () => {
+    const onClick = jest.fn();
+    render(<TestComponent context={{ text: 'calif' }} props={{ onClick }} />);
+
+    const input = getInput(screen);
+    input.selectionStart = 2;
+    // userEvent.click triggers the wrong behavior for some reason.
+    fireEvent.click(input);
+
+    // Cursor shouldn't move when the input is clicked once.
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(input.selectionStart).toBe(2);
   });
 
   it('calls the keydown handler', () => {
