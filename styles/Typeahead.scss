@@ -1,6 +1,6 @@
-$color-primary: #007bff;
-$color-disabled: #495057;
-$color-white: #fff;
+$rbt-color-primary: #007bff !default;
+$rbt-color-disabled: #495057 !default;
+$rbt-color-white: #fff !default;
 
 // Hide IE's native "clear" button
 .rbt .rbt-input-main::-ms-clear {
@@ -30,19 +30,19 @@ $color-white: #fff;
 /**
  * Multi-select Input
  */
-$background-color-disabled: #e9ecef;
+$rbt-background-color-disabled: #e9ecef !default;
 
-$border-color-focus: #80bdff;
-$border-color-focus-invalid: #dc3545;
-$border-color-focus-valid: #28a745;
+$rbt-border-color-focus: #80bdff !default;
+$rbt-border-color-focus-invalid: #dc3545 !default;
+$rbt-border-color-focus-valid: #28a745 !default;
 
-$box-shadow-dimensions: 0 0 0 0.2rem;
-$box-shadow-color: rgba(0, 123, 255, 0.25);
-$box-shadow-color-invalid: rgba(220, 53, 69, 0.25);
-$box-shadow-color-valid: rgba(40, 167, 69, 0.25);
+$rbt-box-shadow-dimensions: 0 0 0 0.2rem;
+$rbt-box-shadow-color: rgba(0, 123, 255, 0.25) !default;
+$rbt-box-shadow-color-invalid: rgba(220, 53, 69, 0.25) !default;
+$rbt-box-shadow-color-valid: rgba(40, 167, 69, 0.25) !default;
 
-$color-focus: #495057;
-$placeholder-color: #6c757d;
+$rbt-color-focus: #495057 !default;
+$rbt-placeholder-color: #6c757d !default;
 
 .rbt-input-multi {
   cursor: text;
@@ -51,9 +51,9 @@ $placeholder-color: #6c757d;
 
   // Apply Bootstrap focus styles
   &.focus {
-    border-color: $border-color-focus;
-    box-shadow: $box-shadow-dimensions $box-shadow-color;
-    color: $color-focus;
+    border-color: $rbt-border-color-focus;
+    box-shadow: $rbt-box-shadow-dimensions $rbt-box-shadow-color;
+    color: $rbt-color-focus;
     outline: 0;
   }
 
@@ -63,36 +63,36 @@ $placeholder-color: #6c757d;
 
   // BS4 uses the :disabled pseudo-class, which doesn't work with non-inputs.
   &.form-control[disabled] {
-    background-color: $background-color-disabled;
+    background-color: $rbt-background-color-disabled;
     opacity: 1;
   }
 
   &.is-invalid.focus {
-    border-color: $border-color-focus-invalid;
-    box-shadow: $box-shadow-dimensions $box-shadow-color-invalid;
+    border-color: $rbt-border-color-focus-invalid;
+    box-shadow: $rbt-box-shadow-dimensions $rbt-box-shadow-color-invalid;
   }
 
   &.is-valid.focus {
-    border-color: $border-color-focus-valid;
-    box-shadow: $box-shadow-dimensions $box-shadow-color-valid;
+    border-color: $rbt-border-color-focus-valid;
+    box-shadow: $rbt-box-shadow-dimensions $rbt-box-shadow-color-valid;
   }
 
   // Apply Bootstrap placeholder styles
   input {
     // Firefox
     &::-moz-placeholder {
-      color: $placeholder-color;
+      color: $rbt-placeholder-color;
       opacity: 1;
     }
 
     // Internet Explorer 10+
     &:-ms-input-placeholder {
-      color: $placeholder-color;
+      color: $rbt-placeholder-color;
     }
 
     // Safari and Chrome
     &::-webkit-input-placeholder  {
-      color: $placeholder-color;
+      color: $rbt-placeholder-color;
     }
   }
 
@@ -124,20 +124,20 @@ $placeholder-color: #6c757d;
 /**
  * Token
  */
-$token-background-color: #e7f4ff;
-$token-color: $color-primary;
+$rbt-token-background-color: #e7f4ff !default;
+$rbt-token-color: $rbt-color-primary !default;
 
-$token-disabled-background-color: rgba(0, 0, 0, 0.1);
-$token-disabled-color: $color-disabled;
+$rbt-token-disabled-background-color: rgba(0, 0, 0, 0.1) !default;
+$rbt-token-disabled-color: $rbt-color-disabled !default;
 
-$token-active-background-color: $color-primary;
-$token-active-color: $color-white;
+$rbt-token-active-background-color: $rbt-color-primary !default;
+$rbt-token-active-color: $rbt-color-white !default;
 
 .rbt-token {
-  background-color: $token-background-color;
+  background-color: $rbt-token-background-color;
   border: 0;
   border-radius: .25rem;
-  color: $token-color;
+  color: $rbt-token-color;
   display: inline-block;
   line-height: 1em;
   margin: 1px 3px 2px 0;
@@ -145,8 +145,8 @@ $token-active-color: $color-white;
   position: relative;
 
   &-disabled {
-    background-color: $token-disabled-background-color;
-    color: $token-disabled-color;
+    background-color: $rbt-token-disabled-background-color;
+    color: $rbt-token-disabled-color;
     pointer-events: none;
   }
 
@@ -156,8 +156,8 @@ $token-active-color: $color-white;
   }
 
   &-active {
-    background-color: $token-active-background-color;
-    color: $token-active-color;
+    background-color: $rbt-token-active-background-color;
+    color: $rbt-token-active-color;
     outline: none;
     text-decoration: none;
   }
