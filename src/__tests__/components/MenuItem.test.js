@@ -1,89 +1,95 @@
-import { mount, shallow } from 'enzyme';
-import { noop } from 'lodash';
 import React from 'react';
 
 import MenuItem, { BaseMenuItem } from '../../components/MenuItem';
-import { TestProvider } from '../helpers';
-
-const event = {
-  preventDefault: noop,
-};
+import {
+  prepareSnapshot,
+  screen,
+  render,
+  TestProvider,
+  userEvent,
+} from '../helpers';
 
 describe('<BaseMenuItem>', () => {
-  let baseMenuItem, onClick;
+  const TestComponent = (props) => (
+    <BaseMenuItem {...props}>This is a base menu item.</BaseMenuItem>
+  );
 
-  beforeEach(() => {
-    onClick = jest.fn();
-    baseMenuItem = shallow(
-      <BaseMenuItem onClick={onClick}>This is a base menu item.</BaseMenuItem>
-    );
-  });
-
-  it('renders a base menu item', () => {
-    expect(baseMenuItem).toBeDefined();
-    expect(baseMenuItem.type()).toBe('a');
-    expect(baseMenuItem.hasClass('dropdown-item')).toBe(true);
+  it('renders a snapshot', () => {
+    expect(prepareSnapshot(<TestComponent />)).toMatchSnapshot();
   });
 
   it('renders an active base menu item', () => {
-    baseMenuItem.setProps({ active: true });
-    expect(baseMenuItem.hasClass('active')).toBe(true);
+    render(<TestComponent active />);
+    expect(screen.getByRole('link')).toHaveClass('active');
   });
 
   it('triggers an event when clicked', () => {
-    baseMenuItem.simulate('click', event);
+    const onClick = jest.fn();
+    render(<TestComponent onClick={onClick} />);
+
+    const item = screen.getByRole('link');
+    userEvent.click(item);
+
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('renders a disabled base menu item', () => {
-    baseMenuItem.setProps({ disabled: true });
-    baseMenuItem.simulate('click', event);
+    const onClick = jest.fn();
+    render(<TestComponent disabled onClick={onClick} />);
 
-    expect(baseMenuItem.hasClass('disabled')).toBe(true);
+    const item = screen.getByRole('link');
+    userEvent.click(item);
+
+    expect(item).toHaveClass('disabled');
     expect(onClick).toHaveBeenCalledTimes(0);
   });
 });
 
 describe('<MenuItem>', () => {
-  let menuItem, onClick;
+  const TestComponent = ({ context, props }) => (
+    <TestProvider {...context} selected={[]}>
+      {() => (
+        <MenuItem {...props} option={{ label: 'test' }} position={0}>
+          This is a menu item.
+        </MenuItem>
+      )}
+    </TestProvider>
+  );
 
-  beforeEach(() => {
-    onClick = jest.fn();
-    menuItem = mount(
-      <TestProvider selected={[]}>
-        {() => (
-          <MenuItem onClick={onClick} option={{ label: 'test' }} position={0}>
-            This is a menu item.
-          </MenuItem>
-        )}
-      </TestProvider>
-    );
-  });
-
-  it('renders a menu item', () => {
-    expect(menuItem).toBeDefined();
-    expect(menuItem.find('a')).toHaveLength(1);
+  it('renders a snapshot', () => {
+    expect(prepareSnapshot(<TestComponent />)).toMatchSnapshot();
   });
 
   it('changes the active state of the menu item', () => {
-    expect(menuItem.hasClass('active')).toBe(false);
-
-    menuItem.setProps({ activeIndex: 0 });
-    expect(menuItem.find('a').hasClass('active')).toBe(true);
+    render(<TestComponent context={{ activeIndex: 0 }} />);
+    expect(screen.getByRole('option')).toHaveClass('active');
   });
 
   it('sets the active state if it is the only result', () => {
-    expect(menuItem.hasClass('active')).toBe(false);
-
-    menuItem.setProps({
-      highlightOnlyResult: true,
-      results: ['test'],
-    });
-    expect(menuItem.find('a').hasClass('active')).toBe(true);
+    render(
+      <TestComponent
+        context={{ highlightOnlyResult: true, results: ['test'] }}
+      />
+    );
+    expect(screen.getByRole('option')).toHaveClass('active');
   });
 
   it('triggers an event when clicked', () => {
-    menuItem.find('a').simulate('click', event);
+    const onClick = jest.fn();
+    render(<TestComponent props={{ onClick }} />);
+
+    userEvent.click(screen.getByRole('option'));
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders a disabled menu item', () => {
+    const onClick = jest.fn();
+    render(<TestComponent props={{ disabled: true, onClick }} />);
+
+    const item = screen.getByRole('option');
+    userEvent.click(item);
+
+    expect(item).toHaveClass('disabled');
+    expect(onClick).toHaveBeenCalledTimes(0);
   });
 });

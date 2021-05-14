@@ -5,7 +5,7 @@ module.exports = {
     '<rootDir>/src/propTypes',
   ],
   modulePathIgnorePatterns: ['<rootDir>/node_modules/'],
-  setupFiles: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   testEnvironment: 'jsdom',
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
 };

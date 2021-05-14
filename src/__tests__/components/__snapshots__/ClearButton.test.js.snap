@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ClearButton> renders a snapshot 1`] = `
+<button
+  aria-label="Clear"
+  className="close rbt-close"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
+>
+  <span
+    aria-hidden="true"
+  >
+    ×
+  </span>
+  <span
+    className="sr-only visually-hidden"
+  >
+    Clear
+  </span>
+</button>
+`;

@@ -1,68 +1,68 @@
-import { mount } from 'enzyme';
-import { head, noop } from 'lodash';
 import React from 'react';
 
 import TypeaheadInputSingle from '../../components/TypeaheadInputSingle';
 
 import options from '../data';
 import {
-  getFormControl,
   getHint,
   getInput,
-  keyDown,
+  noop,
+  prepareSnapshot,
+  render,
+  screen,
   TestProvider,
+  userEvent,
 } from '../helpers';
-import { TAB } from '../../constants';
+
+const TestComponent = ({ context, props }) => {
+  return (
+    <TestProvider {...context} onKeyDown={noop} options={options} selected={[]}>
+      {({ getInputProps }) => (
+        <TypeaheadInputSingle
+          {...getInputProps()}
+          {...props}
+          referenceElementRef={noop}
+        />
+      )}
+    </TestProvider>
+  );
+};
 
 describe('<TypeaheadInputSingle>', () => {
-  let shouldSelectHint, wrapper;
-
-  beforeEach(() => {
-    shouldSelectHint = jest.fn();
-    wrapper = mount(
-      <TestProvider onKeyDown={noop} options={options} selected={[]}>
-        {({ getInputProps }) => (
-          <TypeaheadInputSingle
-            {...getInputProps()}
-            referenceElementRef={noop}
-            shouldSelectHint={shouldSelectHint}
-          />
-        )}
-      </TestProvider>
-    );
-  });
-
-  it('renders a single-select input', () => {
-    const input = getFormControl(wrapper);
-
-    expect(input.length).toBe(1);
-    expect(input.hasClass('rbt-input')).toBe(true);
-    expect(input.hasClass('rbt-input-main')).toBe(true);
+  it('renders a snapshot', () => {
+    expect(prepareSnapshot(<TestComponent />)).toMatchSnapshot();
   });
 
   it('displays the selected text', () => {
-    const text = 'text';
-
-    wrapper.setProps({ text });
-
-    expect(getInput(wrapper).prop('value')).toBe(text);
+    const text = 'foo';
+    render(<TestComponent context={{ text }} />);
+    expect(getInput(screen)).toHaveValue(text);
   });
 
   it('displays a hint and calls `shouldSelectHint`', () => {
-    const initialItem = head(options);
+    const initialItem = options[0];
+    const shouldSelectHint = jest.fn();
 
-    wrapper.setProps({
-      initialItem,
-      isFocused: true,
-      isMenuShown: true,
-      text: 'Al',
-    });
+    const { container } = render(
+      <TestComponent
+        context={{
+          initialItem,
+          isFocused: true,
+          isMenuShown: true,
+          text: 'Al',
+        }}
+        props={{
+          shouldSelectHint,
+        }}
+      />
+    );
 
-    expect(getHint(wrapper)).toBe(initialItem.name);
+    expect(getHint(container)).toHaveValue(initialItem.name);
 
     // No need to test the logic for `shouldSelectHint` here; just make sure
     // it's passed through to the `Hint` component and called.
-    keyDown(wrapper, TAB);
+    screen.getByRole('combobox').focus();
+    userEvent.tab();
     expect(shouldSelectHint).toHaveBeenCalledTimes(1);
   });
 });

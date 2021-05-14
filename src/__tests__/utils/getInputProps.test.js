@@ -1,6 +1,5 @@
-import { noop } from 'lodash';
-
 import getInputProps from '../../utils/getInputProps';
+import { noop } from '../helpers';
 
 const baseProps = {
   activeIndex: -1,

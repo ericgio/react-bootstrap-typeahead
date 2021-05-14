@@ -1,69 +1,63 @@
-import { mount } from 'enzyme';
 import React from 'react';
 
-import MenuItem, { BaseMenuItem } from '../../components/MenuItem';
 import TypeaheadMenu from '../../components/TypeaheadMenu';
 
 import options from '../data';
-import { getMenu, getPaginator, TestProvider } from '../helpers';
+import {
+  getItems,
+  getMenu,
+  prepareSnapshot,
+  render,
+  screen,
+  TestProvider,
+} from '../helpers';
 
-const MenuWithProvider = (props) => (
+const TestComponent = (props) => (
   <TestProvider selected={[]}>
-    {({ state }) => <TypeaheadMenu {...state} {...props} />}
-  </TestProvider>
-);
-
-describe('<TypeaheadMenu>', () => {
-  let menu;
-
-  beforeEach(() => {
-    menu = mount(
-      <MenuWithProvider
+    {({ state }) => (
+      <TypeaheadMenu
+        {...state}
         id="menu-id"
         labelKey="name"
         options={options}
         text=""
+        {...props}
       />
-    );
-  });
+    )}
+  </TestProvider>
+);
 
-  it('renders a basic typeahead menu', () => {
-    expect(menu.find('div').hasClass('rbt-menu dropdown-menu')).toBe(true);
-    expect(menu.find(MenuItem).length).toBe(options.length);
+describe('<TypeaheadMenu>', () => {
+  it('renders a snapshot', () => {
+    expect(prepareSnapshot(<TestComponent />)).toMatchSnapshot();
   });
 
   it('renders a menu with the specified max-height', () => {
-    const getMaxHeight = (wrapper) => getMenu(wrapper).prop('style').maxHeight;
+    const { rerender } = render(<TestComponent maxHeight="200px" />);
+    expect(getMenu(screen).getAttribute('style')).toContain(
+      'max-height: 200px;'
+    );
 
-    menu.setProps({ maxHeight: '200px' });
-    expect(getMaxHeight(menu)).toBe('200px');
-
-    menu.setProps({ maxHeight: '50%' });
-    expect(getMaxHeight(menu)).toBe('50%');
-  });
-
-  it('renders disabled menu items', () => {
-    menu.setProps({ options: options.map((o) => ({ ...o, disabled: true })) });
-    expect(menu.find(MenuItem).first().prop('disabled')).toBe(true);
+    rerender(<TestComponent maxHeight="50%" />);
+    expect(getMenu(screen).getAttribute('style')).toContain('max-height: 50%;');
   });
 
   it('renders an empty state when there are no results', () => {
     const emptyLabel = 'No matches found.';
 
-    const menuItems = menu
-      .setProps({ emptyLabel, options: [] })
-      .find(BaseMenuItem);
+    render(<TestComponent emptyLabel={emptyLabel} options={[]} />);
+    const menuItems = getItems(screen);
 
-    expect(menuItems.length).toBe(1);
-    expect(menuItems.first().text()).toBe(emptyLabel);
+    expect(menuItems).toHaveLength(1);
+    expect(menuItems[0]).toHaveTextContent(emptyLabel);
   });
 
   describe('pagination behaviors', () => {
-    let paginationText;
+    let paginationProps, paginationText;
 
     beforeEach(() => {
       paginationText = 'More results...';
-      menu.setProps({
+      paginationProps = {
         maxResults: 10,
         onPaginate: () => {},
         options: options.concat({
@@ -71,18 +65,17 @@ describe('<TypeaheadMenu>', () => {
           paginationOption: true,
         }),
         paginationText,
-      });
+      };
     });
 
     it('displays a paginator', () => {
-      const paginatorNode = getPaginator(menu);
-      expect(paginatorNode.length).toBe(1);
-      expect(paginatorNode.text()).toBe(paginationText);
+      render(<TestComponent {...paginationProps} />);
+      expect(screen.queryByText(paginationText)).toBeInTheDocument();
     });
 
     it('does not show a paginator when there are no results', () => {
-      menu.setProps({ options: [] });
-      expect(getPaginator(menu).length).toBe(0);
+      render(<TestComponent {...paginationProps} options={[]} />);
+      expect(screen.queryByText(paginationText)).not.toBeInTheDocument();
     });
   });
 });

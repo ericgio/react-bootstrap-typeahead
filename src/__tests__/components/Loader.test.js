@@ -1,27 +1,25 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 
 import Loader from '../../components/Loader';
+import { prepareSnapshot } from '../helpers';
 
 describe('<Loader>', () => {
-  let loader;
-
-  beforeEach(() => {
-    loader = shallow(<Loader />);
+  it('renders a snapshot', () => {
+    expect(prepareSnapshot(<Loader />)).toMatchSnapshot();
   });
 
   it('renders a loading indicator', () => {
-    expect(loader.type()).toBe('div');
-    expect(loader.hasClass('rbt-loader spinner-border spinner-border-sm')).toBe(
-      true
+    render(<Loader />);
+
+    expect(screen.getByRole('status')).toHaveClass(
+      'rbt-loader spinner-border spinner-border-sm'
     );
+    expect(screen.getByText('Loading...')).toBeTruthy();
   });
 
-  it('renders a label for accessibility', () => {
-    expect(loader.find('.sr-only').text()).toBe('Loading...');
-
-    const label = 'Waiting...';
-    loader.setProps({ label });
-    expect(loader.find('.sr-only').text()).toBe(label);
+  it('renders a custom label for accessibility', () => {
+    render(<Loader label="Waiting..." />);
+    expect(screen.getByText('Waiting...')).toBeTruthy();
   });
 });

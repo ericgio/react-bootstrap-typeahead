@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Menu> renders a snapshot 1`] = `
+<div
+  aria-label="menu-options"
+  className="rbt-menu dropdown-menu show"
+  id="menu-id"
+  onMouseDown={[Function]}
+  role="listbox"
+  style={
+    Object {
+      "display": "block",
+      "maxHeight": "300px",
+      "overflow": "auto",
+    }
+  }
+>
+  <a
+    aria-selected={false}
+    className="dropdown-item"
+    href="#"
+    id="-item-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    role="option"
+  >
+    Item 1
+  </a>
+  <a
+    aria-selected={false}
+    className="dropdown-item"
+    href="#"
+    id="-item-1"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    role="option"
+  >
+    Item 2
+  </a>
+  <a
+    aria-selected={false}
+    className="dropdown-item"
+    href="#"
+    id="-item-2"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    role="option"
+  >
+    Item 3
+  </a>
+</div>
+`;

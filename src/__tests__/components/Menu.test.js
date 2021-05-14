@@ -1,115 +1,102 @@
-import { shallow } from 'enzyme';
 import React from 'react';
 
 import Menu from '../../components/Menu';
-import MenuItem, { BaseMenuItem } from '../../components/MenuItem';
+import MenuItem from '../../components/MenuItem';
+
+import {
+  fireEvent,
+  getItems,
+  getMenu,
+  prepareSnapshot,
+  render,
+  screen,
+} from '../helpers';
+
+const options = [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }];
+
+const TestComponent = (props) => (
+  <Menu id="menu-id" paginate={false} {...props}>
+    {options.map((o, idx) => (
+      <MenuItem key={o.label} option={o} position={idx}>
+        {o.label}
+      </MenuItem>
+    ))}
+  </Menu>
+);
 
 describe('<Menu>', () => {
-  let menu;
-
-  beforeEach(() => {
-    const options = [
-      { label: 'Item 1' },
-      { label: 'Item 2' },
-      { label: 'Item 3' },
-    ];
-
-    menu = shallow(
-      <Menu id="menu-id" paginate={false}>
-        {options.map((o, idx) => (
-          <MenuItem key={o.label} option={o} position={idx}>
-            {o.label}
-          </MenuItem>
-        ))}
-      </Menu>
-    );
+  it('renders a snapshot', () => {
+    expect(prepareSnapshot(<TestComponent />)).toMatchSnapshot();
   });
 
   it('renders a basic menu with menu items', () => {
-    expect(menu.hasClass('rbt-menu dropdown-menu')).toBe(true);
-    expect(menu.children().length).toBe(3);
+    render(<TestComponent />);
+
+    expect(getMenu(screen)).toHaveClass('rbt-menu dropdown-menu');
+    expect(getItems(screen)).toHaveLength(3);
   });
 
   it('sets the maxHeight and other styles', () => {
-    let maxHeight = '100px';
+    render(
+      <TestComponent maxHeight="100px" style={{ backgroundColor: 'red' }} />
+    );
 
-    function getAttribute(wrapper, attribute) {
-      return wrapper.prop('style')[attribute];
-    }
-
-    menu.setProps({
-      maxHeight,
-      style: { backgroundColor: 'red' },
-    });
-
-    expect(getAttribute(menu, 'backgroundColor')).toBe('red');
-    expect(getAttribute(menu, 'maxHeight')).toBe(maxHeight);
-
-    maxHeight = '75%';
-    menu.setProps({ maxHeight });
-    expect(getAttribute(menu, 'maxHeight')).toBe(maxHeight);
+    const menu = getMenu(screen);
+    expect(menu).toHaveStyle('background-color: red');
+    expect(menu).toHaveStyle('max-height: 100px');
   });
 
   it('renders an empty label when there are no children', () => {
     const emptyLabel = 'No matches.';
+    render(<Menu emptyLabel={emptyLabel} id="menu-id" paginate={false} />);
 
-    menu.setProps({
-      children: undefined,
-      emptyLabel,
-    });
-
-    expect(menu.children().length).toBe(1);
-
-    const emptyLabelItem = menu.find(BaseMenuItem);
-    expect(emptyLabelItem.length).toBe(1);
-    expect(emptyLabelItem.prop('disabled')).toBe(true);
-    expect(emptyLabelItem.prop('role')).toBe('option');
-
-    // See: http://airbnb.io/enzyme/docs/api/ShallowWrapper/dive.html
-    expect(emptyLabelItem.dive().text()).toBe(emptyLabel);
+    const items = getItems(screen);
+    expect(items).toHaveLength(1);
+    expect(items[0]).toHaveClass('disabled');
+    expect(items[0]).toHaveTextContent(emptyLabel);
   });
 
   it('adds an aria-label attribute to the menu', () => {
-    expect(menu.prop('aria-label')).toBe('menu-options');
-
-    menu.setProps({ 'aria-label': 'custom-label' });
-
-    expect(menu.prop('aria-label')).toBe('custom-label');
+    render(<TestComponent aria-label="custom-label" />);
+    expect(getMenu(screen)).toHaveAttribute('aria-label', 'custom-label');
   });
 
   it('updates the menu position if the input height changes', () => {
     const scheduleUpdate = jest.fn();
+    const { rerender } = render(
+      <TestComponent scheduleUpdate={scheduleUpdate} />
+    );
 
-    menu.setProps({
-      inputHeight: 1,
-      scheduleUpdate,
-    });
+    expect(scheduleUpdate).toHaveBeenCalledTimes(0);
 
+    rerender(<TestComponent inputHeight={1} scheduleUpdate={scheduleUpdate} />);
     expect(scheduleUpdate).toHaveBeenCalledTimes(1);
   });
 
   it('prevents the input from blurring on mousedown', () => {
-    const e = { preventDefault: jest.fn() };
-    menu.simulate('mousedown', e);
-    expect(e.preventDefault).toHaveBeenCalledTimes(1);
+    render(<TestComponent />);
+
+    const menu = getMenu(screen);
+
+    // `false` means e.preventDefault was called.
+    expect(fireEvent.mouseDown(menu)).toBe(false);
   });
 });
 
 it('<Menu.Divider>', () => {
-  const wrapper = shallow(<Menu.Divider />);
+  render(<Menu.Divider />);
 
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.hasClass('dropdown-divider')).toBe(true);
-  expect(wrapper.prop('role')).toBe('separator');
+  const divider = screen.getByRole('separator');
+  expect(divider.tagName).toBe('DIV');
+  expect(divider).toHaveClass('dropdown-divider');
 });
 
 it('<Menu.Header>', () => {
   const children = 'This is a menu header';
+  render(<Menu.Header>{children}</Menu.Header>);
 
-  const wrapper = shallow(<Menu.Header>{children}</Menu.Header>);
-
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.hasClass('dropdown-header')).toBe(true);
-  expect(wrapper.prop('role')).toBe('heading');
-  expect(wrapper.text()).toBe(children);
+  const header = screen.getByRole('heading');
+  expect(header.tagName).toBe('DIV');
+  expect(header).toHaveClass('dropdown-header');
+  expect(header).toHaveTextContent(children);
 });

@@ -1,54 +1,44 @@
-import { mount } from 'enzyme';
 import React from 'react';
-import { Popper } from 'react-popper';
 
 import Menu from '../../components/Menu';
 import Overlay, { getPlacement } from '../../components/Overlay';
 
-function getPopper(wrapper) {
-  return wrapper.find(Popper);
-}
+import { getMenu, render, screen, waitFor } from '../helpers';
 
-function isPositionFixed(wrapper) {
-  return getPopper(wrapper).prop('positionFixed');
-}
+const TestComponent = (props) => (
+  <Overlay referenceElement={document.createElement('div')} {...props}>
+    {(menuProps) => (
+      <Menu {...menuProps} id="menu-id">
+        This is the menu
+      </Menu>
+    )}
+  </Overlay>
+);
 
 describe('<Overlay>', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = mount(
-      <Overlay isMenuShown referenceElement={document.createElement('div')}>
-        {(props) => (
-          <Menu {...props} id="menu-id">
-            This is the menu
-          </Menu>
-        )}
-      </Overlay>
-    );
-  });
-
-  it('renders children `isMenuShown=true`', () => {
-    expect(getPopper(wrapper).length).toBe(1);
+  it('renders children when `isMenuShown=true`', () => {
+    render(<TestComponent isMenuShown />);
+    expect(getMenu(screen)).toBeInTheDocument();
   });
 
   it('does not render children when `isMenuShown=false`', () => {
-    wrapper.setProps({ isMenuShown: false });
-    expect(wrapper.length).toBe(1);
-    expect(getPopper(wrapper).length).toBe(0);
+    render(<TestComponent isMenuShown={false} />);
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
-  it('updates the positioning type', () => {
+  it('updates the positioning type', async () => {
     // Uses absolute positioning by default.
-    expect(isPositionFixed(wrapper)).toBe(false);
+    const { rerender } = render(<TestComponent isMenuShown />);
 
-    wrapper.setProps({ positionFixed: true });
-    expect(isPositionFixed(wrapper)).toBe(true);
-  });
+    // Wait for component to finish multiple renders.
+    await waitFor(() => {
+      expect(getMenu(screen)).toHaveStyle('position: absolute');
+    });
 
-  it('provides a fallback inputHeight when there is no reference element', () => {
-    wrapper.setProps({ referenceElement: undefined });
-    expect(wrapper.find(Menu).prop('inputHeight')).toBe(0);
+    rerender(<TestComponent isMenuShown positionFixed />);
+    await waitFor(() => {
+      expect(getMenu(screen)).toHaveStyle('position: fixed');
+    });
   });
 });
 

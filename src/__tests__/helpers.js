@@ -1,7 +1,12 @@
-import { noop } from 'lodash';
 import React from 'react';
+import renderer from 'react-test-renderer';
 
 import TypeaheadManager from '../core/TypeaheadManager';
+
+export * from '@testing-library/react';
+export { default as userEvent } from '@testing-library/user-event';
+
+export function noop() {}
 
 const context = {
   activeIndex: -1,
@@ -28,94 +33,40 @@ const defaultProps = {
 };
 
 export const TestProvider = ({ children, ...props }) => (
-  <TypeaheadManager
-    {...context}
-    {...defaultProps}
-    {...props}>
+  <TypeaheadManager {...context} {...defaultProps} {...props}>
     {children}
   </TypeaheadManager>
 );
 
-/**
- * Finding React Elements
- */
-export function getHint(wrapper) {
-  return wrapper.find('.rbt-input-hint').prop('value');
-}
-
-export function getInput(wrapper) {
-  return wrapper.find('.rbt-input-main');
-}
-
-export function getFormControl(wrapper) {
-  return wrapper.find('.form-control').hostNodes();
-}
-
-export function getMenu(wrapper) {
-  return wrapper.find('.rbt-menu').hostNodes();
-}
-
-export function getMenuItems(wrapper) {
-  // Rather than finding the <li> node, find the <a> so we can simulate clicks
-  // if needed. This also skips over things like menu item dividers.
-  return wrapper.find('a.dropdown-item');
-}
-
-export function getPaginator(wrapper) {
-  return wrapper.find('.rbt-menu-pagination-option').hostNodes();
-}
-
-export function getTokens(wrapper) {
-  return wrapper.find('.rbt-token');
-}
-
-export function isFocused(element) {
-  return element.getDOMNode() === document.activeElement;
+export function prepareSnapshot(element) {
+  return renderer.create(element).toJSON();
 }
 
 /**
- * Events
+ * Finding elements
  */
-
-// Make sure certain event properties are present.
-function getBaseEvent(properties = {}) {
-  return {
-    defaultPrevented: false,
-    persist: noop,
-    preventDefault: noop,
-    ...properties,
-  };
+export function getHint(container) {
+  return container.getElementsByClassName('rbt-input-hint')[0];
 }
 
-export function focus(wrapper, eventProperties) {
-  getInput(wrapper).simulate('focus', getBaseEvent(eventProperties));
+export function getInput(screen) {
+  // Look for either the single- or multi-select case.
+  return screen.queryByRole('combobox') || screen.queryByRole('textbox');
 }
 
-// Calls Enzyme's `simulate` method instead of the `onKeyDown` prop.
-// Not recommended: https://github.com/airbnb/enzyme/issues/1412
-export function simulateKeyDown(wrapper, value, eventProperties) {
-  const input = getInput(wrapper);
-  input.simulate('keyDown', {
-    ...getBaseEvent(eventProperties),
-    currentTarget: input,
-    keyCode: value,
-    which: value,
-  });
+export function getItems(screen) {
+  return screen.getAllByRole('option');
 }
 
-export function keyDown(wrapper, value, eventProperties) {
-  const input = getInput(wrapper);
-  input.prop('onKeyDown')({
-    ...getBaseEvent(eventProperties),
-    currentTarget: input,
-    keyCode: value,
-    which: value,
-  });
+export function getMenu(screen) {
+  return screen.queryByRole('listbox');
 }
 
-export function change(wrapper, value, eventProperties) {
-  getInput(wrapper).prop('onChange')({
-    ...getBaseEvent(eventProperties),
-    currentTarget: { value },
-  });
+export function getPaginator(screen) {
+  const items = getItems(screen);
+  return items[items.length - 1];
+}
+
+export function getTokens(container) {
+  return container.getElementsByClassName('rbt-token');
 }

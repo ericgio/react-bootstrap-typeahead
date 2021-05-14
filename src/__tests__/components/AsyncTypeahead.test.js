@@ -1,89 +1,89 @@
-import { mount } from 'enzyme';
-import { noop } from 'lodash';
-import React, { createRef } from 'react';
+import React, { createRef, useState } from 'react';
 
 import { AsyncTypeahead } from '../..';
-import { change, focus, getMenuItems, simulateKeyDown } from '../helpers';
-import { DOWN, RETURN } from '../../constants';
+import {
+  act,
+  getInput,
+  getItems,
+  noop,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from '../helpers';
 
-function search(wrapper, query, callback) {
-  change(wrapper, query);
-  wrapper.setProps({ isLoading: true });
+const TestComponent = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  setTimeout(() => {
-    wrapper.setProps({
-      isLoading: false,
-      options: [],
-    });
-    callback();
-  }, 0);
-}
+  return (
+    <AsyncTypeahead
+      delay={0}
+      id="async-test"
+      minLength={0}
+      onChange={noop}
+      selected={[]}
+      {...props}
+      isLoading={isLoading}
+      onSearch={(query) => {
+        act(() => {
+          setIsLoading(true);
+        });
+        props.onSearch && props.onSearch(query);
+        act(() => {
+          setIsLoading(false);
+        });
+      }}
+    />
+  );
+};
 
 describe('<AsyncTypeahead>', () => {
-  let onSearch, wrapper;
-
-  beforeEach(() => {
-    onSearch = jest.fn();
-    wrapper = mount(
-      <AsyncTypeahead
-        delay={0}
-        id="async-test"
-        isLoading={false}
-        minLength={0}
-        onChange={noop}
-        onSearch={onSearch}
-        selected={[]}
-      />
-    );
-  });
-
-  it('displays a prompt', () => {
+  it('displays a search prompt', () => {
     const promptText = 'Prompt text';
+    render(<TestComponent promptText={promptText} />);
+    getInput(screen).focus();
 
-    wrapper.setProps({ promptText });
-
-    focus(wrapper);
-    const menuItems = getMenuItems(wrapper);
-
-    expect(menuItems.length).toBe(1);
-    expect(menuItems.text()).toBe(promptText);
+    const items = getItems(screen);
+    expect(items).toHaveLength(1);
+    expect(items[0]).toHaveTextContent(promptText);
   });
 
   it('displays the search text while searching', (done) => {
     const searchText = 'Search text';
 
-    wrapper.setProps({
-      onSearch: () => {
-        wrapper.setProps({ isLoading: true });
+    render(
+      <TestComponent
+        onSearch={() => {
+          const items = getItems(screen);
+          expect(items).toHaveLength(1);
+          expect(items[0]).toHaveTextContent(searchText);
+          done();
+        }}
+        searchText={searchText}
+      />
+    );
 
-        const menuItems = getMenuItems(wrapper);
-        expect(menuItems.length).toBe(1);
-        expect(menuItems.text()).toBe(searchText);
-        done();
-      },
-      searchText,
-    });
-
-    change(wrapper, 'search');
+    userEvent.type(getInput(screen), 'search');
   });
 
-  it('displays the empty label when there are no results', (done) => {
+  it('displays the empty label when there are no results', async () => {
     const emptyLabel = 'empty label';
+    render(<TestComponent emptyLabel={emptyLabel} />);
 
-    wrapper.setProps({ emptyLabel });
+    const input = getInput(screen);
+    userEvent.type(input, 'foo');
 
-    search(wrapper, 'foo', () => {
-      const menuItems = getMenuItems(wrapper);
-      expect(menuItems.length).toBe(1);
-      expect(menuItems.text()).toBe(emptyLabel);
-      done();
+    await waitFor(() => {
+      const items = getItems(screen);
+      expect(items).toHaveLength(1);
+      expect(items[0]).toHaveTextContent(emptyLabel);
     });
   });
 
   it('displays the empty label when the input has an initial value', () => {
     const emptyLabel = 'empty label';
 
-    wrapper = mount(
+    render(
       <AsyncTypeahead
         defaultInputValue="sometext"
         delay={0}
@@ -91,179 +91,206 @@ describe('<AsyncTypeahead>', () => {
         id="async-empty-label-test"
         isLoading={false}
         minLength={0}
-        onSearch={onSearch}
+        onSearch={noop}
         useCache={false}
       />
     );
 
-    focus(wrapper);
-    const menuItems = getMenuItems(wrapper);
+    getInput(screen).focus();
 
-    expect(menuItems.length).toEqual(1);
-    expect(menuItems.text()).toEqual(emptyLabel);
+    const items = getItems(screen);
+    expect(items).toHaveLength(1);
+    expect(items[0]).toHaveTextContent(emptyLabel);
   });
 
-  it('delays the search by at least the specified amount', (done) => {
+  it('delays the search by at least the specified amount', async () => {
     const delay = 100;
     const preSearch = Date.now();
 
-    wrapper.setProps({
-      delay,
-      onSearch: () => {
-        expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
-        done();
-      },
-    });
+    render(<TestComponent delay={delay} />);
 
-    change(wrapper, 'search');
+    userEvent.type(getInput(screen), 'search');
+    await waitFor(() => {
+      expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
+    });
   });
 
   it('does not call onSearch when a selection is made', () => {
     const onChange = jest.fn();
+    const onSearch = jest.fn();
 
-    wrapper.setProps({
-      onChange,
-      options: ['one', 'two', 'four'],
-    });
+    render(
+      <TestComponent
+        onChange={onChange}
+        onSearch={onSearch}
+        options={['one', 'two', 'four']}
+      />
+    );
 
-    focus(wrapper);
-    simulateKeyDown(wrapper, DOWN);
-    simulateKeyDown(wrapper, RETURN);
+    getInput(screen).focus();
+    userEvent.keyboard('{arrowdown}{enter}');
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
-  it('uses cached results and does not perform a new search', (done) => {
-    search(wrapper, 'foo', () => {
+  it('uses cached results and does not perform a new search', async () => {
+    const onSearch = jest.fn();
+    render(<TestComponent onSearch={onSearch} useCache />);
+
+    const input = getInput(screen);
+    userEvent.type(input, 'foo');
+
+    await waitFor(() => {
       expect(onSearch).toHaveBeenCalledTimes(1);
+    });
 
-      search(wrapper, 'bar', () => {
-        expect(onSearch).toHaveBeenCalledTimes(2);
+    userEvent.clear(input);
+    userEvent.type(input, 'bar');
 
-        // `onSearch` shouldn't be called when performing first search again.
-        search(wrapper, 'foo', () => {
-          expect(onSearch).toHaveBeenCalledTimes(2);
-          done();
-        });
-      });
+    await waitFor(() => {
+      expect(onSearch).toHaveBeenCalledTimes(2);
+    });
+
+    userEvent.clear(input);
+    userEvent.type(input, 'foo');
+
+    await waitFor(() => {
+      expect(onSearch).toHaveBeenCalledTimes(2);
     });
   });
 
-  it('does not use cached results', (done) => {
-    wrapper.setProps({
-      useCache: false,
+  it('does not use cached results', async () => {
+    const onSearch = jest.fn();
+    render(<TestComponent onSearch={onSearch} useCache={false} />);
+
+    const input = getInput(screen);
+    userEvent.type(input, 'search');
+
+    await waitFor(() => {
+      expect(onSearch).toHaveBeenCalledTimes(1);
     });
 
-    search(wrapper, 'search', () => {
-      expect(onSearch).toHaveBeenCalledTimes(1);
+    userEvent.clear(input);
+    userEvent.type(input, 'search');
 
-      search(wrapper, 'search', () => {
-        expect(onSearch).toHaveBeenCalledTimes(2);
-        done();
-      });
+    await waitFor(() => {
+      expect(onSearch).toHaveBeenCalledTimes(2);
     });
   });
 
-  it('does not call `onSearch` with an empty query', (done) => {
+  it('does not call `onSearch` with an empty query', async () => {
     const onInputChange = jest.fn();
+    const onSearch = jest.fn();
 
-    wrapper.setProps({
-      onInputChange,
-    });
+    render(
+      <TestComponent
+        defaultInputValue="x"
+        onInputChange={onInputChange}
+        onSearch={onSearch}
+      />
+    );
 
-    search(wrapper, '', () => {
+    getInput(screen).focus();
+    userEvent.keyboard('{backspace}');
+
+    await waitFor(() => {
       expect(onInputChange).toHaveBeenCalledTimes(1);
       expect(onSearch).toHaveBeenCalledTimes(0);
-      done();
     });
   });
 
-  it('does not call `onSearch` if query is less than `minLength`', (done) => {
+  it('does not call `onSearch` if query is less than `minLength`', async () => {
     const onInputChange = jest.fn();
+    const onSearch = jest.fn();
 
-    wrapper.setProps({
-      minLength: 2,
-      onInputChange,
-    });
+    render(
+      <TestComponent
+        minLength={2}
+        onInputChange={onInputChange}
+        onSearch={onSearch}
+      />
+    );
 
-    search(wrapper, 'x', () => {
+    userEvent.type(getInput(screen), 'x');
+
+    await waitFor(() => {
       expect(onInputChange).toHaveBeenCalledTimes(1);
       expect(onSearch).toHaveBeenCalledTimes(0);
-      done();
     });
   });
 
-  it('performs a search when there is already a selection', (done) => {
-    wrapper.setProps({
-      multiple: true,
-      options: ['one', 'two'],
-      selected: ['one'],
-    });
+  it('performs a search when there is already a selection', async () => {
+    const onSearch = jest.fn();
+
+    render(
+      <TestComponent
+        multiple
+        onSearch={onSearch}
+        options={['one', 'two']}
+        selected={['one']}
+      />
+    );
 
     expect(onSearch).toHaveBeenCalledTimes(0);
 
-    search(wrapper, 'two', () => {
+    userEvent.type(getInput(screen), 'foo');
+    await waitFor(() => {
       expect(onSearch).toHaveBeenCalledTimes(1);
-      done();
     });
   });
 
   it('receives an event as the second argument of `onInputChange`', () => {
-    wrapper.setProps({
-      onInputChange: (text, e) => {
-        expect(text).toBe('x');
-        expect(e).toBeDefined();
-      },
-    });
+    render(
+      <TestComponent
+        onInputChange={(text, e) => {
+          expect(text).toBe('x');
+          expect(e).toBeDefined();
+        }}
+      />
+    );
 
-    change(wrapper, 'x');
+    userEvent.type(getInput(screen), 'x');
   });
 
   it('displays a custom option when `allowNew` function returns true', (done) => {
-    wrapper.setProps({
-      allowNew: (results, props) => true,
-    });
+    render(
+      <TestComponent
+        allowNew={() => true}
+        onSearch={() => {
+          const items = getItems(screen);
+          expect(items).toHaveLength(1);
+          expect(items[0]).toHaveTextContent('zzz');
+          done();
+        }}
+      />
+    );
 
-    change(wrapper, 'zzz');
-
-    setTimeout(() => {
-      wrapper.setProps({ isLoading: true });
-
-      focus(wrapper);
-      const menuItems = getMenuItems(wrapper);
-
-      expect(menuItems.length).toBe(1);
-      expect(menuItems.at(0).text()).toMatch(/zzz/);
-      done();
-    }, 0);
+    userEvent.type(getInput(screen), 'zzz');
   });
 
-  it('disables `allowNew` while results are loading', (done) => {
-    wrapper.setProps({
-      allowNew: true,
+  it('disables `allowNew` while results are loading', async () => {
+    render(
+      <TestComponent
+        allowNew
+        onSearch={() => {
+          const items = getItems(screen);
+          expect(items).toHaveLength(1);
+          expect(items[0]).toHaveTextContent('Searching...');
+        }}
+      />
+    );
+
+    userEvent.type(getInput(screen), 'zzz');
+
+    await waitFor(() => {
+      expect(getItems(screen)[0]).toHaveTextContent('zzz');
     });
-
-    change(wrapper, 'zzz');
-
-    setTimeout(() => {
-      wrapper.setProps({ isLoading: true });
-
-      focus(wrapper);
-      const menuItems = getMenuItems(wrapper);
-      expect(menuItems.length).toBe(1);
-      expect(menuItems.at(0).text()).toBe('Searching...');
-
-      wrapper.setProps({ isLoading: false });
-      expect(getMenuItems(wrapper).at(0).text()).toMatch(/zzz/);
-      done();
-    }, 0);
   });
 
   it('exposes the typeahead instance and public methods', () => {
     const ref = createRef();
-
-    wrapper = mount(
+    render(
       <AsyncTypeahead
         id="async-instance-test"
         isLoading={false}

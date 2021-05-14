@@ -1,5 +1,3 @@
-import { mount } from 'enzyme';
-import { head, noop } from 'lodash';
 import React from 'react';
 
 import Token from '../../components/Token';
@@ -8,136 +6,135 @@ import TypeaheadInputMulti from '../../components/TypeaheadInputMulti';
 import options from '../data';
 
 import {
-  focus,
-  getFormControl,
   getHint,
   getInput,
   getTokens,
-  isFocused,
-  keyDown,
-  simulateKeyDown,
+  noop,
+  prepareSnapshot,
+  render,
+  screen,
   TestProvider,
+  userEvent,
 } from '../helpers';
 
-import { BACKSPACE, RETURN, TAB } from '../../constants';
+const TestComponent = ({ context, props }) => {
+  const selected = options.slice(1, 4);
+
+  return (
+    <TestProvider {...context} multiple onKeyDown={noop} selected={selected}>
+      {({ getInputProps }) => (
+        <TypeaheadInputMulti
+          {...getInputProps()}
+          {...props}
+          selected={selected}>
+          {selected.map((option) => (
+            <Token key={option.name} option={option} onRemove={noop}>
+              {option.name}
+            </Token>
+          ))}
+        </TypeaheadInputMulti>
+      )}
+    </TestProvider>
+  );
+};
 
 describe('<TypeaheadInputMulti>', () => {
-  let selected, shouldSelectHint, wrapper;
-
-  beforeEach(() => {
-    selected = options.slice(1, 4);
-    shouldSelectHint = jest.fn();
-    wrapper = mount(
-      <TestProvider multiple onKeyDown={noop} selected={selected}>
-        {({ getInputProps, state }) => (
-          <TypeaheadInputMulti
-            {...getInputProps()}
-            selected={selected}
-            shouldSelectHint={shouldSelectHint}>
-            {selected.map((option, idx) => (
-              <Token key={option.name} option={option} onRemove={noop}>
-                {option.name}
-              </Token>
-            ))}
-          </TypeaheadInputMulti>
-        )}
-      </TestProvider>
-    );
-  });
-
-  it('renders a multi-select input', () => {
-    const input = getFormControl(wrapper);
-
-    expect(input.length).toBe(1);
-    expect(input.hasClass('rbt-input')).toBe(true);
-    expect(input.hasClass('rbt-input-multi')).toBe(true);
+  it('renders a snapshot', () => {
+    expect(prepareSnapshot(<TestComponent />)).toMatchSnapshot();
   });
 
   it('displays the selected text', () => {
     const text = 'foo';
-    wrapper.setProps({ text });
-    expect(getInput(wrapper).prop('value')).toBe(text);
+    render(<TestComponent context={{ text }} />);
+    expect(getInput(screen).value).toBe(text);
   });
 
   it('renders a multi-select input with tokens', () => {
-    expect(getTokens(wrapper).length).toBe(3);
+    const { container } = render(<TestComponent />);
+    // Find the token close buttons as a proxy for the token itself.
+    expect(getTokens(container)).toHaveLength(3);
   });
 
   it('displays a hint and calls `shouldSelectHint`', () => {
-    const initialItem = head(options);
+    const initialItem = options[0];
+    const shouldSelectHint = jest.fn();
 
-    wrapper.setProps({
-      initialItem,
-      isFocused: true,
-      isMenuShown: true,
-      text: 'Al',
-    });
+    const { container } = render(
+      <TestComponent
+        context={{
+          initialItem,
+          isFocused: true,
+          isMenuShown: true,
+          text: 'Al',
+        }}
+        props={{
+          shouldSelectHint,
+        }}
+      />
+    );
 
-    expect(getHint(wrapper)).toBe(initialItem.name);
+    const hintInput = getHint(container);
+    expect(hintInput).toHaveValue(initialItem.name);
 
     // No need to test the logic for `shouldSelectHint` here; just make sure
     // it's passed through to the `Hint` component and called.
-    keyDown(wrapper, TAB);
+    screen.getByRole('textbox').focus();
+    userEvent.tab();
     expect(shouldSelectHint).toHaveBeenCalledTimes(1);
   });
 
-  // Disable tests that check focus since jsdom no longer supports
-  // `document.activeElement`.
-  xit('does not focus a disabled input', () => {
-    expect(isFocused(getInput(wrapper))).toBe(false);
+  it('does not focus a disabled input', () => {
+    render(
+      <React.Fragment>
+        <TestComponent props={{ 'data-testid': 'enabled-input' }} />
+        <TestComponent
+          props={{ 'data-testid': 'disabled-input', disabled: true }}
+        />
+      </React.Fragment>
+    );
 
-    wrapper.setProps({ disabled: true });
-    wrapper.simulate('click');
+    const enabledInput = screen.getByTestId('enabled-input');
+    const disabledInput = screen.getByTestId('disabled-input');
 
-    expect(isFocused(getInput(wrapper))).toBe(false);
+    expect(enabledInput).not.toBeDisabled();
+    expect(disabledInput).toBeDisabled();
 
-    wrapper.setProps({ disabled: false });
-    wrapper.simulate('click');
+    userEvent.click(enabledInput);
+    expect(enabledInput).toHaveFocus();
 
-    expect(isFocused(getInput(wrapper))).toBe(true);
+    userEvent.click(disabledInput);
+    expect(disabledInput).not.toHaveFocus();
   });
 
-  describe('keydown handler', () => {
-    let onKeyDown;
+  it('calls the keydown handler', () => {
+    const onKeyDown = jest.fn();
+    render(<TestComponent props={{ onKeyDown }} />);
 
-    beforeEach(() => {
-      onKeyDown = jest.fn();
-      wrapper.setProps({
-        onKeyDown,
-      });
-    });
+    getInput(screen).focus();
+    userEvent.keyboard('{enter}');
 
-    it('calls the keydown handler', () => {
-      simulateKeyDown(wrapper, RETURN);
-      expect(onKeyDown).toHaveBeenCalledTimes(1);
-    });
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+  });
 
-    // Disable tests that check focus since jsdom no longer supports
-    // `document.activeElement`.
-    xit('focuses the last token', () => {
-      const input = getInput(wrapper);
+  it('focuses the last token', () => {
+    const { container } = render(<TestComponent />);
 
-      focus(wrapper);
-      expect(isFocused(input)).toBe(true);
+    getInput(screen).focus();
+    userEvent.keyboard('{backspace}');
 
-      simulateKeyDown(wrapper, BACKSPACE);
+    const tokens = getTokens(container);
+    const lastToken = tokens[tokens.length - 1];
 
-      expect(isFocused(getTokens(wrapper).last())).toBe(true);
-      expect(onKeyDown).toHaveBeenCalledTimes(1);
-    });
+    expect(lastToken).toHaveFocus();
+  });
 
-    // Disable tests that check focus since jsdom no longer supports
-    // `document.activeElement`.
-    xit('does not focus the last token when the input has a value', () => {
-      wrapper.setProps({
-        text: 'foo',
-      });
+  it('does not focus the last token when the input has a value', () => {
+    render(<TestComponent context={{ text: 'foo' }} />);
 
-      focus(wrapper);
-      simulateKeyDown(wrapper, BACKSPACE);
+    const input = getInput(screen);
+    input.focus();
+    userEvent.keyboard('{backspace}');
 
-      expect(isFocused(getInput(wrapper))).toBe(true);
-      expect(onKeyDown).toHaveBeenCalledTimes(1);
-    });
+    expect(input).toHaveFocus();
   });
 });

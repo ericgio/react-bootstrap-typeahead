@@ -1,69 +1,80 @@
-import { shallow } from 'enzyme';
 import React from 'react';
 
 import Highlighter from '../../components/Highlighter';
+import { render } from '../helpers';
 
-function getMatches(wrapper) {
-  return wrapper.find('mark');
+function getMatches(nodes) {
+  return Array.from(nodes).filter((node) => node.tagName === 'MARK');
 }
 
 describe('<Highlighter>', () => {
-  let highlighter;
-
-  beforeEach(() => {
-    highlighter = shallow(<Highlighter search="">California</Highlighter>);
-  });
-
   it('does not highlight text when there is no search string', () => {
-    expect(highlighter.text()).toBe('California');
-    expect(getMatches(highlighter)).toHaveLength(0);
+    const { container } = render(
+      <Highlighter search="">California</Highlighter>
+    );
+
+    const nodes = container.childNodes;
+    expect(nodes).toHaveLength(1);
+    expect(nodes.item(0)).toHaveTextContent('California');
+    expect(getMatches(nodes)).toHaveLength(0);
   });
 
   it('does not highlight text when there is no match', () => {
-    highlighter.setProps({ search: 'x' });
-    expect(getMatches(highlighter)).toHaveLength(0);
+    const { container } = render(
+      <Highlighter search="x">California</Highlighter>
+    );
+
+    expect(getMatches(container.childNodes)).toHaveLength(0);
   });
 
   it('handles an empty child string', () => {
-    highlighter.setProps({
-      children: '',
-      search: 'foo',
-    });
+    // Explicitly set a string as the child.
+    // eslint-disable-next-line react/jsx-curly-brace-presence
+    const { container } = render(<Highlighter search="foo">{''}</Highlighter>);
 
-    expect(highlighter.text()).toBe('');
+    expect(container.childNodes.item(0)).toHaveTextContent('');
   });
 
-  it('highlights text in the middle of a string', () => {
-    highlighter.setProps({ search: 'i' });
+  it('highlights text within a string', () => {
+    const { container } = render(
+      <Highlighter search="i">California</Highlighter>
+    );
+
+    const nodes = container.childNodes;
+    const matches = getMatches(nodes);
 
     // Output: [Cal, <mark>i</mark>, forn, <mark>i</mark>, a]
-    expect(highlighter.length).toBe(5);
-    expect(highlighter.first().text()).toBe('Cal');
+    expect(nodes.length).toBe(5);
+    expect(nodes.item(0)).toHaveTextContent('Cal');
 
-    const matches = getMatches(highlighter);
     expect(matches.length).toBe(2);
-    expect(matches.first().text()).toBe('i');
-    expect(matches.first().hasClass('rbt-highlight-text')).toBe(true);
+    expect(matches[0]).toHaveTextContent('i');
+    expect(matches[0]).toHaveClass('rbt-highlight-text');
   });
 
   it('highlights text at the beginning of a string', () => {
-    highlighter.setProps({ search: 'cal' });
+    const { container } = render(
+      <Highlighter search="cal">California</Highlighter>
+    );
+
+    const nodes = container.childNodes;
+    const matches = getMatches(nodes);
 
     // Output: [<mark>Cal</mark>, ifornia]
-    expect(highlighter.length).toBe(2);
-    expect(highlighter.first().text()).toBe('Cal');
+    expect(nodes).toHaveLength(2);
+    expect(nodes.item(0)).toHaveTextContent('Cal');
 
-    const matches = getMatches(highlighter);
-    expect(matches.length).toBe(1);
-    expect(matches.first().text()).toBe('Cal');
+    expect(matches).toHaveLength(1);
+    expect(matches[0]).toHaveTextContent('Cal');
   });
 
   it('adds custom classnames to the highlighted children', () => {
-    highlighter.setProps({
-      highlightClassName: 'foo',
-      search: 'i',
-    });
+    const { container } = render(
+      <Highlighter highlightClassName="foo" search="i">
+        California
+      </Highlighter>
+    );
 
-    expect(getMatches(highlighter).first().hasClass('foo')).toBe(true);
+    expect(getMatches(container.childNodes)[0]).toHaveClass('foo');
   });
 });
