@@ -16,10 +16,8 @@ type Props = {
 };
 
 const Loader = ({ label }: Props) => (
-  <div
-    className="rbt-loader spinner-border spinner-border-sm"
-    role="status">
-    <span className="sr-only">{label}</span>
+  <div className="rbt-loader spinner-border spinner-border-sm" role="status">
+    <span className="sr-only visually-hidden">{label}</span>
   </div>
 );
 

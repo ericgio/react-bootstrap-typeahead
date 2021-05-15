@@ -69,7 +69,7 @@ const ClearButton = ({
     }}
     type="button">
     <span aria-hidden="true">&times;</span>
-    <span className="sr-only">{label}</span>
+    <span className="sr-only visually-hidden">{label}</span>
   </button>
 );
 
