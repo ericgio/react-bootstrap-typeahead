@@ -99,7 +99,7 @@ describe('<Typeahead>', () => {
     typeahead = mountTypeahead({ selected: [] });
   });
 
-  test('has an input', () => {
+  it('has an input', () => {
     expect(typeahead.find('input.rbt-input-main')).toHaveLength(1);
   });
 
@@ -112,17 +112,17 @@ describe('<Typeahead>', () => {
       typeahead.update();
     });
 
-    test('renders in multi-select mode when `multiple=true`', () => {
+    it('renders in multi-select mode when `multiple=true`', () => {
       expect(typeahead.find('.rbt-input-multi')).toHaveLength(1);
     });
 
-    test('displays and removes selections', () => {
+    it('displays and removes selections', () => {
       expect(getTokens(typeahead)).toHaveLength(3);
       getClearButton(typeahead).first().simulate('click');
       expect(getTokens(typeahead)).toHaveLength(2);
     });
 
-    test('adds selections', () => {
+    it('adds selections', () => {
       makeSelectionViaClick(typeahead);
       expect(getState(typeahead).text).toBe('');
     });
@@ -135,7 +135,7 @@ describe('<Typeahead>', () => {
     expect(isFocused(getInput(typeahead))).toBe(true);
   });
 
-  test('sets and unsets the focus state on focus/blur', () => {
+  it('sets and unsets the focus state on focus/blur', () => {
     const input = getInput(typeahead);
 
     expect(hasFocus(typeahead)).toBe(false);
@@ -164,11 +164,11 @@ describe('<Typeahead>', () => {
       expect(hasFocus(typeahead)).toBe(true);
     });
 
-    test('maintains focus when clicking a menu item', () => {
+    it('maintains focus when clicking a menu item', () => {
       makeSelectionViaClick(typeahead);
     });
 
-    test('maintains focus when clicking the clear button', () => {
+    it('maintains focus when clicking the clear button', () => {
       getClearButton(typeahead).simulate('click');
     });
   });
@@ -176,7 +176,7 @@ describe('<Typeahead>', () => {
   describe('behaviors when selections are passed in', () => {
     const multiSelections = states.slice(0, 4);
 
-    test('truncates selections when using `defaultSelected`', () => {
+    it('truncates selections when using `defaultSelected`', () => {
       const wrapper = mountTypeahead({
         defaultSelected: multiSelections,
       });
@@ -184,7 +184,7 @@ describe('<Typeahead>', () => {
       expect(getSelected(wrapper).length).toBe(1);
     });
 
-    test('filters menu options based on `selected` values', () => {
+    it('filters menu options based on `selected` values', () => {
       const selected = states.slice(0, 1);
       typeahead.setProps({ selected });
 
@@ -194,7 +194,7 @@ describe('<Typeahead>', () => {
       expect(getMenuItems(typeahead).length).toBe(1);
     });
 
-    test('filters menu options based on `defaultSelected` values', () => {
+    it('filters menu options based on `defaultSelected` values', () => {
       const defaultSelected = states.slice(0, 1);
       const value = head(defaultSelected).name;
 
@@ -207,7 +207,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('uses the `filterBy` prop as a callback to filter results', () => {
+  it('uses the `filterBy` prop as a callback to filter results', () => {
     const filterBy = jest.fn(
       (option, props) => option.name.indexOf(props.text) > -1
     );
@@ -223,7 +223,7 @@ describe('<Typeahead>', () => {
     expect(filterBy).toHaveBeenCalled();
   });
 
-  test('does not filter options when the menu is closed', () => {
+  it('does not filter options when the menu is closed', () => {
     const filterBy = jest.fn();
     typeahead.setProps({
       filterBy,
@@ -235,13 +235,13 @@ describe('<Typeahead>', () => {
   });
 
   describe('menu visibility behavior', () => {
-    test('shows the menu on initial render', () => {
+    it('shows the menu on initial render', () => {
       typeahead = mountTypeahead({ defaultOpen: true });
       expect(getState(typeahead).showMenu).toBe(true);
       expect(getMenu(typeahead).length).toBe(1);
     });
 
-    test('shows the menu when `open` is `true`', () => {
+    it('shows the menu when `open` is `true`', () => {
       typeahead.setProps({ open: true });
 
       // TODO: Menu isn't immediately rendered when changing props in testing
@@ -253,24 +253,24 @@ describe('<Typeahead>', () => {
       expect(getMenu(typeahead).length).toBe(1);
     });
 
-    test('hides the menu when `open` is `false`', () => {
+    it('hides the menu when `open` is `false`', () => {
       typeahead.setProps({ open: false });
       focus(typeahead);
       expect(getMenu(typeahead).length).toBe(0);
     });
 
-    test('shows the menu when the input is focused', () => {
+    it('shows the menu when the input is focused', () => {
       focus(typeahead);
       expect(getMenu(typeahead).length).toBe(1);
     });
 
-    test('hides the menu on focus when `minLength=1`', () => {
+    it('hides the menu on focus when `minLength=1`', () => {
       typeahead.setProps({ minLength: 1 });
       focus(typeahead);
       expect(getMenu(typeahead).length).toBe(0);
     });
 
-    test('shows the menu when there are no results and `allowNew=true`', () => {
+    it('shows the menu when there are no results and `allowNew=true`', () => {
       typeahead.setProps({
         allowNew: true,
         options: [],
@@ -284,14 +284,14 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('should disable the input if the component is disabled', () => {
+  it('should disable the input if the component is disabled', () => {
     typeahead.setProps({ disabled: true });
     const input = getFormControl(typeahead);
 
     expect(input.prop('disabled')).toBe(true);
   });
 
-  test('should not highlight disabled options', () => {
+  it('should not highlight disabled options', () => {
     let activeItem;
 
     const options = [
@@ -322,7 +322,7 @@ describe('<Typeahead>', () => {
     expect(activeItem.length).toBe(0);
   });
 
-  test('should not highlight disabled option which is the last in the list', () => {
+  it('should not highlight disabled option which is the last in the list', () => {
     const options = [
       { name: 'foo' },
       { name: 'bar' },
@@ -354,7 +354,7 @@ describe('<Typeahead>', () => {
       });
     });
 
-    test('has a menu item for pagination', () => {
+    it('has a menu item for pagination', () => {
       focus(typeahead);
       const paginator = getPaginator(typeahead);
 
@@ -362,7 +362,7 @@ describe('<Typeahead>', () => {
       expect(paginator.text()).toBe('Display additional results...');
     });
 
-    test('calls `onPaginate` when the menu item is clicked', () => {
+    it('calls `onPaginate` when the menu item is clicked', () => {
       focus(typeahead);
       typeahead
         .find('.rbt-menu-pagination-option a')
@@ -374,7 +374,7 @@ describe('<Typeahead>', () => {
       expect(getMenuItems(typeahead).length).toBe(21);
     });
 
-    test('calls `onPaginate` when the return key is pressed', () => {
+    it('calls `onPaginate` when the return key is pressed', () => {
       focus(typeahead);
       simulateKeyDown(typeahead, UP);
       simulateKeyDown(typeahead, RETURN);
@@ -384,7 +384,7 @@ describe('<Typeahead>', () => {
       expect(getMenuItems(typeahead).length).toBe(21);
     });
 
-    test('calls `onPaginate` when `labelKey` is a function', () => {
+    it('calls `onPaginate` when `labelKey` is a function', () => {
       typeahead.setProps({ labelKey: (o) => o.name });
 
       focus(typeahead);
@@ -396,7 +396,7 @@ describe('<Typeahead>', () => {
       expect(getMenuItems(typeahead).length).toBe(21);
     });
 
-    test('displays custom pagination text', () => {
+    it('displays custom pagination text', () => {
       const paginationText = 'More Results...';
       typeahead.setProps({ paginationText });
 
@@ -404,14 +404,14 @@ describe('<Typeahead>', () => {
       expect(getPaginator(typeahead).text()).toBe(paginationText);
     });
 
-    test('does not have a menu item for pagination', () => {
+    it('does not have a menu item for pagination', () => {
       typeahead.setProps({ paginate: false });
 
       focus(typeahead);
       expect(getPaginator(typeahead)).toHaveLength(0);
     });
 
-    test('resets the shown results when the input value changes', () => {
+    it('resets the shown results when the input value changes', () => {
       maxResults = 5;
       typeahead.setProps({ maxResults });
 
@@ -432,7 +432,7 @@ describe('<Typeahead>', () => {
       expect(shownResultsCount).toBe(maxResults * 2);
     });
 
-    test('updates the active item after pagination', () => {
+    it('updates the active item after pagination', () => {
       focus(typeahead);
       simulateKeyDown(typeahead, UP);
 
@@ -451,7 +451,7 @@ describe('<Typeahead>', () => {
       typeahead = mountTypeahead({ maxResults });
     });
 
-    test('should limit results when `paginate=true`', () => {
+    it('should limit results when `paginate=true`', () => {
       focus(typeahead);
 
       // When `paginate` is true, there will be a pagination menu item in
@@ -459,7 +459,7 @@ describe('<Typeahead>', () => {
       expect(getMenuItems(typeahead).length).toBe(maxResults + 1);
     });
 
-    test('should limit results when `paginate=false`', () => {
+    it('should limit results when `paginate=false`', () => {
       typeahead.setProps({ paginate: false });
       focus(typeahead);
 
@@ -467,7 +467,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test("changes the menu's horizontal positioning", () => {
+  it("changes the menu's horizontal positioning", () => {
     focus(typeahead);
 
     expect(getPlacement(typeahead)).toBe('bottom-start');
@@ -479,34 +479,34 @@ describe('<Typeahead>', () => {
     expect(getPlacement(typeahead)).toBe('bottom-start');
   });
 
-  test('should position the menu above the input when `dropup=true`', () => {
+  it('should position the menu above the input when `dropup=true`', () => {
     typeahead.setProps({ dropup: true });
     focus(typeahead);
 
     expect(getPlacement(typeahead)).toBe('top-start');
   });
 
-  test('renders a large input', () => {
+  it('renders a large input', () => {
     typeahead.setProps({ size: 'large' });
     const input = getFormControl(typeahead);
 
     expect(input.hasClass('form-control-lg')).toBe(true);
   });
 
-  test('renders a small input', () => {
+  it('renders a small input', () => {
     typeahead.setProps({ size: 'small' });
     const input = getFormControl(typeahead);
 
     expect(input.hasClass('form-control-sm')).toBe(true);
   });
 
-  test('renders a loading indicator', () => {
+  it('renders a loading indicator', () => {
     typeahead.setProps({ isLoading: true });
     expect(typeahead.find('.rbt-loader')).toHaveLength(1);
   });
 
   describe('updates when re-rendering with new props', () => {
-    test('acts as a controlled input in single-select mode', () => {
+    it('acts as a controlled input in single-select mode', () => {
       const selected1 = states.slice(0, 1);
       const selected2 = states.slice(1, 2);
 
@@ -529,7 +529,7 @@ describe('<Typeahead>', () => {
       expect(getText(typeahead)).toBe('');
     });
 
-    test('acts as a controlled input in multi-select mode', () => {
+    it('acts as a controlled input in multi-select mode', () => {
       const selected1 = states.slice(0, 4);
 
       // Pass in new selection
@@ -548,7 +548,7 @@ describe('<Typeahead>', () => {
       expect(getText(typeahead)).toBe('');
     });
 
-    test('updates the selections and input value in single-select mode', () => {
+    it('updates the selections and input value in single-select mode', () => {
       typeahead.setProps({
         // Simulate a controlled component.
         onChange: (selected) => typeahead.setProps({ selected }),
@@ -577,7 +577,7 @@ describe('<Typeahead>', () => {
       });
     });
 
-    test('does not highlight the only result', () => {
+    it('does not highlight the only result', () => {
       change(typeahead, 'Alab');
       focus(typeahead);
 
@@ -591,7 +591,7 @@ describe('<Typeahead>', () => {
       expect(selected.length).toBe(0);
     });
 
-    test('highlights the only result', () => {
+    it('highlights the only result', () => {
       typeahead.setProps({ highlightOnlyResult: true });
 
       change(typeahead, 'Alab');
@@ -607,7 +607,7 @@ describe('<Typeahead>', () => {
       expect(selected.length).toBe(1);
     });
 
-    test('does not highlight the only result when `allowNew=true`', () => {
+    it('does not highlight the only result when `allowNew=true`', () => {
       typeahead.setProps({
         allowNew: true,
         highlightOnlyResult: true,
@@ -626,7 +626,7 @@ describe('<Typeahead>', () => {
       expect(selected.length).toBe(0);
     });
 
-    test('does not highlight or select a disabled result', () => {
+    it('does not highlight or select a disabled result', () => {
       typeahead.setProps({
         highlightOnlyResult: true,
         options: [
@@ -651,14 +651,14 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('displays the active item value in the input', () => {
+  it('displays the active item value in the input', () => {
     focus(typeahead);
     simulateKeyDown(typeahead, DOWN);
 
     expect(getInput(typeahead).prop('value')).toBe('Alabama');
   });
 
-  test('applies custom styles to the top-level container', () => {
+  it('applies custom styles to the top-level container', () => {
     typeahead.setProps({ style: { display: 'inline-flex' } });
 
     expect(typeahead.find('div').first().prop('style').display).toEqual(
@@ -693,11 +693,11 @@ describe('<Typeahead>', () => {
       expect(props.type).toBe(inputProps.type);
     });
 
-    test('in single-select mode', () => {
+    it('in single-select mode', () => {
       // Continue to `afterEach`
     });
 
-    test('in multi-select mode', () => {
+    it('in multi-select mode', () => {
       typeahead.setProps({
         multiple: true,
         selected: states.slice(0, 1),
@@ -708,7 +708,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('triggers the `onKeyDown` callback', () => {
+  it('triggers the `onKeyDown` callback', () => {
     const onKeyDown = jest.fn();
 
     typeahead.setProps({ onKeyDown });
@@ -717,7 +717,7 @@ describe('<Typeahead>', () => {
     expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
 
-  test('calls `onMenuToggle`', () => {
+  it('calls `onMenuToggle`', () => {
     const onMenuToggle = jest.fn();
 
     typeahead.setProps({ onMenuToggle });
@@ -740,17 +740,17 @@ describe('<Typeahead>', () => {
       typeahead = mountTypeahead({ defaultInputValue: 'Ala' });
     });
 
-    test('does not display a hint when the input is not focused', () => {
+    it('does not display a hint when the input is not focused', () => {
       expect(hasFocus(typeahead)).toBe(false);
       expect(getHint(typeahead)).toBe('');
     });
 
-    test('displays a hint when the input is focused', () => {
+    it('displays a hint when the input is focused', () => {
       focus(typeahead);
       expect(getHint(typeahead)).toBe('Alabama');
     });
 
-    test('displays a hint in multi-select mode', () => {
+    it('displays a hint in multi-select mode', () => {
       typeahead.setProps({ multiple: true });
 
       change(typeahead, 'Ala');
@@ -759,7 +759,7 @@ describe('<Typeahead>', () => {
       expect(getHint(typeahead)).toBe('Alabama');
     });
 
-    test('does not display a hint if the menu is hidden', () => {
+    it('does not display a hint if the menu is hidden', () => {
       focus(typeahead);
 
       // When focused, the typeahead should show the menu and hint text.
@@ -789,14 +789,14 @@ describe('<Typeahead>', () => {
       focus(typeahead);
     });
 
-    test('should select the hinted result on tab keydown', () => {
+    it('should select the hinted result on tab keydown', () => {
       keyDown(typeahead, TAB);
 
       expect(keyCode).toBe(TAB);
       expect(getSelected(typeahead).length).toBe(1);
     });
 
-    test('should select the hinted result on right arrow keydown', () => {
+    it('should select the hinted result on right arrow keydown', () => {
       setCursorPosition(typeahead, getText(typeahead).length);
       keyDown(typeahead, RIGHT);
 
@@ -804,7 +804,7 @@ describe('<Typeahead>', () => {
       expect(getSelected(typeahead).length).toBe(1);
     });
 
-    test(
+    it(
       'should not select the hinted result on right arrow keydown unless ' +
         'the cursor is at the end of the input value',
       () => {
@@ -816,14 +816,14 @@ describe('<Typeahead>', () => {
       }
     );
 
-    test('should not select the hinted result on enter keydown', () => {
+    it('should not select the hinted result on enter keydown', () => {
       simulateKeyDown(typeahead, RETURN);
 
       expect(keyCode).toBe(RETURN);
       expect(getSelected(typeahead).length).toBe(0);
     });
 
-    test('should select the hinted result on enter keydown', () => {
+    it('should select the hinted result on enter keydown', () => {
       typeahead.setProps({ selectHintOnEnter: true });
       keyDown(typeahead, RETURN);
 
@@ -849,13 +849,13 @@ describe('<Typeahead>', () => {
       expect(onKeyDown).toHaveBeenCalledTimes(1);
     });
 
-    test('selects the active item when pressing return', () => {
+    it('selects the active item when pressing return', () => {
       keyDown(typeahead, RETURN);
       expect(getSelected(typeahead).length).toBe(1);
       expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
 
-    test('does not select the active item when the menu is closed', () => {
+    it('does not select the active item when the menu is closed', () => {
       typeahead.setProps({ open: false });
       simulateKeyDown(typeahead, RIGHT);
       expect(getSelected(typeahead).length).toBe(0);
@@ -870,14 +870,14 @@ describe('<Typeahead>', () => {
       preventDefault = jest.fn();
     });
 
-    test('prevents form submission when the menu is open', () => {
+    it('prevents form submission when the menu is open', () => {
       focus(typeahead);
       keyDown(typeahead, RETURN, { preventDefault });
 
       expect(preventDefault).toHaveBeenCalledTimes(1);
     });
 
-    test('allows form submission when the menu is closed', () => {
+    it('allows form submission when the menu is closed', () => {
       focus(typeahead);
       keyDown(typeahead, ESC); // Close the menu
       keyDown(typeahead, RETURN, { preventDefault });
@@ -886,7 +886,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('behavior when tabbing', () => {
+  it('hides the menu when tabbing out of the input', () => {
     focus(typeahead);
     expect(getState(typeahead).showMenu).toBe(true);
 
@@ -894,7 +894,7 @@ describe('<Typeahead>', () => {
     expect(getState(typeahead).showMenu).toBe(false);
   });
 
-  test('keydown handler', () => {
+  it('calls the keydown handler when a key is pressed', () => {
     const onKeyDown = jest.fn();
 
     typeahead.setProps({
@@ -908,7 +908,7 @@ describe('<Typeahead>', () => {
   });
 
   describe('accessibility attributes', () => {
-    test('adds an id to the menu for accessibility', () => {
+    it('adds an id to the menu for accessibility', () => {
       expect(getInput(typeahead).prop('aria-owns')).toBe(undefined);
 
       focus(typeahead);
@@ -923,7 +923,7 @@ describe('<Typeahead>', () => {
       expect(getInput(typeahead).prop('aria-owns')).toBe(id);
     });
 
-    test('sets the input `role`', () => {
+    it('sets the input `role`', () => {
       // Single-select
       expect(getInput(typeahead).prop('role')).toBe('combobox');
 
@@ -932,7 +932,7 @@ describe('<Typeahead>', () => {
       expect(getInput(typeahead).prop('role')).toBeUndefined();
     });
 
-    test('sets the input `aria-autocomplete` description', () => {
+    it('sets the input `aria-autocomplete` description', () => {
       // Single-select
       expect(getInput(typeahead).prop('aria-autocomplete')).toBe('both');
 
@@ -941,7 +941,7 @@ describe('<Typeahead>', () => {
       expect(getInput(typeahead).prop('aria-autocomplete')).toBe('list');
     });
 
-    test('sets the input `aria-expanded` description', () => {
+    it('sets the input `aria-expanded` description', () => {
       // Single-select
       expect(getInput(typeahead).prop('aria-expanded')).toBe(false);
 
@@ -953,7 +953,7 @@ describe('<Typeahead>', () => {
       expect(getInput(typeahead).prop('aria-expanded')).toBeUndefined();
     });
 
-    test('sets the input `aria-activedescendant` description', () => {
+    it('sets the input `aria-activedescendant` description', () => {
       typeahead.setProps({ id: 'my-id' });
       expect(getInput(typeahead).prop('aria-activedescendant')).toBe(undefined);
 
@@ -965,7 +965,7 @@ describe('<Typeahead>', () => {
       );
     });
 
-    test('sets menu item attributes', () => {
+    it('sets menu item attributes', () => {
       focus(typeahead);
 
       const menuItem = typeahead.find('.dropdown-item').first();
@@ -989,7 +989,7 @@ describe('<Typeahead>', () => {
       instance = ref.current;
     });
 
-    test('exposes the typeahead instance and public methods', () => {
+    it('exposes the typeahead instance and public methods', () => {
       ['clear', 'blur', 'focus', 'getInput', 'hideMenu', 'toggleMenu'].forEach(
         (method) => {
           expect(typeof instance[method]).toBe('function');
@@ -997,7 +997,7 @@ describe('<Typeahead>', () => {
       );
     });
 
-    test('calls the public `blur` method', () => {
+    it('calls the public `blur` method', () => {
       focus(typeahead);
       expect(getState(typeahead).showMenu).toBe(true);
 
@@ -1006,7 +1006,7 @@ describe('<Typeahead>', () => {
       expect(getState(typeahead).showMenu).toBe(false);
     });
 
-    test('calls the public `clear` method', () => {
+    it('calls the public `clear` method', () => {
       typeahead.setProps({ selected: states.slice(0, 1) });
 
       expect(getSelected(typeahead).length).toBe(1);
@@ -1018,13 +1018,13 @@ describe('<Typeahead>', () => {
       expect(getText(typeahead)).toBe('');
     });
 
-    test('calls the public `getInput` method', () => {
+    it('calls the public `getInput` method', () => {
       const inputNode = instance.getInput();
 
       expect(inputNode).toBe(getInput(typeahead).getDOMNode());
     });
 
-    test('calls the public `hideMenu` method', () => {
+    it('calls the public `hideMenu` method', () => {
       focus(typeahead);
       expect(getState(typeahead).showMenu).toBe(true);
 
@@ -1033,7 +1033,7 @@ describe('<Typeahead>', () => {
       expect(getState(typeahead).showMenu).toBe(false);
     });
 
-    test('calls the public `hideMenu` method', () => {
+    it('calls the public `hideMenu` method', () => {
       expect(getState(typeahead).showMenu).toBe(false);
 
       instance.toggleMenu();
@@ -1043,7 +1043,7 @@ describe('<Typeahead>', () => {
       expect(getState(typeahead).showMenu).toBe(false);
     });
 
-    test('clears the typeahead after a selection', () => {
+    it('clears the typeahead after a selection', () => {
       const onChange = jest.fn((selected) => {
         instance.clear();
       });
@@ -1058,7 +1058,7 @@ describe('<Typeahead>', () => {
     });
   });
 
-  test('opens the menu when the up or down arrow keys are pressed', () => {
+  it('opens the menu when the up or down arrow keys are pressed', () => {
     focus(typeahead);
     expect(getState(typeahead).showMenu).toBe(true);
 
@@ -1075,13 +1075,13 @@ describe('<Typeahead>', () => {
     expect(getState(typeahead).showMenu).toBe(true);
   });
 
-  test('renders a custom input', () => {
+  it('renders a custom input', () => {
     const renderInput = jest.fn();
     typeahead.setProps({ renderInput });
     expect(renderInput).toHaveBeenCalledTimes(1);
   });
 
-  test('renders custom content in the menu items', () => {
+  it('renders custom content in the menu items', () => {
     typeahead.setProps({
       // Render the capital instead of the state name.
       renderMenuItemChildren: (option, props) => option.capital,
@@ -1091,7 +1091,7 @@ describe('<Typeahead>', () => {
     expect(getMenuItems(typeahead).first().text()).toBe('Montgomery');
   });
 
-  test('renders custom tokens', () => {
+  it('renders custom tokens', () => {
     typeahead.setProps({
       multiple: true,
       renderToken: (option, props, idx) => (
@@ -1106,7 +1106,7 @@ describe('<Typeahead>', () => {
     expect(typeahead.find('.custom-token').text()).toBe('Montgomery');
   });
 
-  test('renders children', () => {
+  it('renders children', () => {
     const text = 'This is the child';
     const children = <div className="children">{text}</div>;
 
@@ -1115,7 +1115,7 @@ describe('<Typeahead>', () => {
     expect(typeahead.find('.children').text()).toBe(text);
   });
 
-  test('renders children via a render function', () => {
+  it('renders children via a render function', () => {
     const children = (props) => (
       <div className="children">
         The menu {props.isMenuShown ? 'is' : 'is not'} open
@@ -1151,11 +1151,11 @@ describe('<Typeahead>', () => {
       expect(input.hasClass('is-valid')).toBe(true);
     });
 
-    test('renders with validation classnames in single-select mode', () => {
+    it('renders with validation classnames in single-select mode', () => {
       typeahead.setProps({ multiple: false });
     });
 
-    test('renders with validation classnames in multi-select mode', () => {
+    it('renders with validation classnames in multi-select mode', () => {
       typeahead.setProps({ multiple: true });
     });
   });
@@ -1175,7 +1175,7 @@ describe('<Typeahead>', () => {
       });
     });
 
-    test('omits the custom option when `allowNew` is set to `false`', () => {
+    it('omits the custom option when `allowNew` is set to `false`', () => {
       typeahead.setProps({
         allowNew: false,
       });
@@ -1189,7 +1189,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.at(0).text()).toBe(emptyLabel);
     });
 
-    test('adds the custom option when `allowNew` is set to `true`', () => {
+    it('adds the custom option when `allowNew` is set to `true`', () => {
       change(typeahead, text);
       focus(typeahead);
 
@@ -1205,7 +1205,7 @@ describe('<Typeahead>', () => {
       expect(getSelected(typeahead)[0].id).toMatch('new-id-');
     });
 
-    test('omits the custom option when there is an exact text match', () => {
+    it('omits the custom option when there is an exact text match', () => {
       text = 'North Carolina';
 
       change(typeahead, text);
@@ -1217,7 +1217,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.at(0).text()).toBe(text);
     });
 
-    test('adds a custom option when `allowNew` returns true', () => {
+    it('adds a custom option when `allowNew` returns true', () => {
       text = 'North Carolina';
 
       typeahead.setProps({
@@ -1234,7 +1234,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.at(1).text()).toBe(`${newSelectionPrefix}${text}`);
     });
 
-    test('omits new option when `allowNew` returns false', () => {
+    it('omits new option when `allowNew` returns false', () => {
       text = 'North Carolina';
 
       typeahead.setProps({
@@ -1250,7 +1250,7 @@ describe('<Typeahead>', () => {
       expect(menuItems.at(0).text()).toBe(text);
     });
 
-    test('handles custom options when `labelKey` is a function', () => {
+    it('handles custom options when `labelKey` is a function', () => {
       typeahead.setProps({
         labelKey: (o) => o.name,
       });
@@ -1284,7 +1284,7 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  test('calls `onChange` when a menu item is clicked', () => {
+  it('calls `onChange` when a menu item is clicked', () => {
     focus(wrapper);
     getMenuItems(wrapper).first().simulate('click');
 
@@ -1292,7 +1292,7 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  test('calls `onChange` when a menu item is selected via keyboard', () => {
+  it('calls `onChange` when a menu item is selected via keyboard', () => {
     focus(wrapper);
     simulateKeyDown(wrapper, DOWN);
     simulateKeyDown(wrapper, RETURN);
@@ -1301,7 +1301,7 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  test(
+  it(
     'calls `onChange` once when a menu item is selected via keyboard and ' +
       '`selectHintOnEnter={true}`',
     () => {
@@ -1315,7 +1315,7 @@ describe('<Typeahead> `change` events', () => {
     }
   );
 
-  test('the clear button retains focus', () => {
+  it('retains focus on the clear button', () => {
     const stopPropagation = jest.fn();
 
     wrapper = mountTypeahead({
@@ -1327,7 +1327,7 @@ describe('<Typeahead> `change` events', () => {
     expect(stopPropagation).toHaveBeenCalledTimes(1);
   });
 
-  test('calls `onChange` when clicking the clear button', () => {
+  it('calls `onChange` when clicking the clear button', () => {
     wrapper = mountTypeahead({
       clearButton: true,
       onChange,
@@ -1341,13 +1341,13 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  test('calls `onInputChange` when text is entered in the input', () => {
+  it('calls `onInputChange` when text is entered in the input', () => {
     focus(wrapper);
     change(wrapper, 'z');
     expect(onInputChange).toHaveBeenCalledTimes(1);
   });
 
-  test('`onInputChange` receives an event as the second param', () => {
+  it('`onInputChange` receives an event as the second param', () => {
     let event;
 
     wrapper.setProps({
@@ -1360,7 +1360,7 @@ describe('<Typeahead> `change` events', () => {
     expect(event).toBeDefined();
   });
 
-  test('calls `onChange` when there is a selection and text is entered', () => {
+  it('calls `onChange` when there is a selection and text is entered', () => {
     wrapper.setProps({ selected });
 
     expect(getSelected(wrapper).length).toBe(1);
@@ -1373,7 +1373,7 @@ describe('<Typeahead> `change` events', () => {
     expect(getSelected(wrapper).length).toBe(0);
   });
 
-  test('does not call either when selections are updated via props', () => {
+  it('does not call either when selections are updated via props', () => {
     expect(getSelected(wrapper)).toEqual([]);
 
     wrapper.setProps({ selected });
@@ -1383,7 +1383,7 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  test('does not call either when `clear()` is called externally', () => {
+  it('does not call either when `clear()` is called externally', () => {
     wrapper = mountTypeahead({
       defaultSelected: selected,
     });
@@ -1409,7 +1409,7 @@ describe('<Typeahead> input value behaviors', () => {
     selected = states.slice(0, 1);
   });
 
-  test('sets an input value based on the `selected` value', () => {
+  it('sets an input value based on the `selected` value', () => {
     wrapper = mountTypeahead({ selected: [] });
     expect(getText(wrapper)).toBe('');
 
@@ -1417,18 +1417,18 @@ describe('<Typeahead> input value behaviors', () => {
     expect(getText(wrapper)).toBe(head(selected).name);
   });
 
-  test('sets a default initial input value', () => {
+  it('sets a default initial input value', () => {
     wrapper = mountTypeahead({ defaultInputValue });
     expect(getInput(wrapper).prop('value')).toBe(defaultInputValue);
   });
 
-  test('sets an input value based on the `defaultSelected` value', () => {
+  it('sets an input value based on the `defaultSelected` value', () => {
     wrapper = mountTypeahead({ defaultSelected });
     const inputValue = getInput(wrapper).prop('value');
     expect(inputValue).toBe(head(defaultSelected).name);
   });
 
-  test('overrides the initial input value', () => {
+  it('overrides the initial input value', () => {
     wrapper = mountTypeahead({ defaultInputValue, selected });
     expect(getInput(wrapper).prop('value')).toBe(head(selected).name);
   });
@@ -1444,12 +1444,12 @@ describe('<Typeahead> with clear button', () => {
     });
   });
 
-  test('does not display a clear button', () => {
+  it('does not display a clear button', () => {
     // Doesn't display since there are no selections.
     expect(getClearButton(wrapper).length).toBe(0);
   });
 
-  test('displays a clear button', () => {
+  it('displays a clear button', () => {
     wrapper.setProps({ selected: states.slice(0, 1) });
     wrapper.update();
 
@@ -1483,7 +1483,7 @@ describe('<Typeahead> with custom menu', () => {
     });
   });
 
-  test('renders the custom menu', () => {
+  it('renders the custom menu', () => {
     focus(wrapper);
 
     // Make sure the rendered menu and the internal state agree.
@@ -1491,7 +1491,7 @@ describe('<Typeahead> with custom menu', () => {
     expect(getMenuItems(wrapper).first().text()).toBe('Wyoming');
   });
 
-  test('shows the correct hint', () => {
+  it('shows the correct hint', () => {
     change(wrapper, 'u');
     focus(wrapper); // Focus needs to come after change.
 
@@ -1499,7 +1499,7 @@ describe('<Typeahead> with custom menu', () => {
     expect(getHint(wrapper)).toBe('utah');
   });
 
-  test('selects the correct option', () => {
+  it('selects the correct option', () => {
     focus(wrapper);
     simulateKeyDown(wrapper, DOWN);
 
@@ -1511,7 +1511,7 @@ describe('<Typeahead> with custom menu', () => {
 
   // Integration test to ensure that active index updating works correctly when
   // reshuffling the result set.
-  test('correctly handles disabled options', () => {
+  it('correctly handles disabled options', () => {
     // Disable the first option.
     const options = states.map((state) => {
       return state.name === 'Wyoming' ? { ...state, disabled: true } : state;
@@ -1537,7 +1537,7 @@ describe('State modifiers', () => {
     text: '',
   };
 
-  test('clearTypeahead', () => {
+  it('calls the clearTypeahead modifier', () => {
     const props = {
       defaultOpen: false,
       defaultSelected: [],
@@ -1555,7 +1555,7 @@ describe('State modifiers', () => {
     });
   });
 
-  test('getInitialState', () => {
+  it('calls the getInitialState modifier', () => {
     expect(
       getInitialState({
         defaultInputValue: 'foo',
@@ -1585,7 +1585,7 @@ describe('State modifiers', () => {
     });
   });
 
-  test('hideMenu', () => {
+  it('calls the hideMenu modifier', () => {
     const props = {
       defaultSelected: [],
       maxResults: 10,
@@ -1600,7 +1600,7 @@ describe('State modifiers', () => {
     });
   });
 
-  test('toggleMenu', () => {
+  it('calls the toggleMenu modifier', () => {
     const props = {
       defaultSelected: [],
       maxResults: 10,

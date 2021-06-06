@@ -1,7 +1,7 @@
 import { preventInputBlur } from '../../utils';
 
 describe('preventInputBlur', () => {
-  test('calls `preventDefault` on the event', () => {
+  it('calls `preventDefault` on the event', () => {
     const e = {
       preventDefault: jest.fn(),
     };

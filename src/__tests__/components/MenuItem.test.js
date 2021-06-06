@@ -15,29 +15,27 @@ describe('<BaseMenuItem>', () => {
   beforeEach(() => {
     onClick = jest.fn();
     baseMenuItem = shallow(
-      <BaseMenuItem onClick={onClick}>
-        This is a base menu item.
-      </BaseMenuItem>
+      <BaseMenuItem onClick={onClick}>This is a base menu item.</BaseMenuItem>
     );
   });
 
-  test('renders a base menu item', () => {
+  it('renders a base menu item', () => {
     expect(baseMenuItem).toBeDefined();
     expect(baseMenuItem.type()).toBe('a');
     expect(baseMenuItem.hasClass('dropdown-item')).toBe(true);
   });
 
-  test('renders an active base menu item', () => {
+  it('renders an active base menu item', () => {
     baseMenuItem.setProps({ active: true });
     expect(baseMenuItem.hasClass('active')).toBe(true);
   });
 
-  test('triggers an event when clicked', () => {
+  it('triggers an event when clicked', () => {
     baseMenuItem.simulate('click', event);
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  test('renders a disabled base menu item', () => {
+  it('renders a disabled base menu item', () => {
     baseMenuItem.setProps({ disabled: true });
     baseMenuItem.simulate('click', event);
 
@@ -54,10 +52,7 @@ describe('<MenuItem>', () => {
     menuItem = mount(
       <TestProvider selected={[]}>
         {() => (
-          <MenuItem
-            onClick={onClick}
-            option={{ label: 'test' }}
-            position={0}>
+          <MenuItem onClick={onClick} option={{ label: 'test' }} position={0}>
             This is a menu item.
           </MenuItem>
         )}
@@ -65,19 +60,19 @@ describe('<MenuItem>', () => {
     );
   });
 
-  test('renders a menu item', () => {
+  it('renders a menu item', () => {
     expect(menuItem).toBeDefined();
     expect(menuItem.find('a')).toHaveLength(1);
   });
 
-  test('changes the active state of the menu item', () => {
+  it('changes the active state of the menu item', () => {
     expect(menuItem.hasClass('active')).toBe(false);
 
     menuItem.setProps({ activeIndex: 0 });
     expect(menuItem.find('a').hasClass('active')).toBe(true);
   });
 
-  test('sets the active state if it is the only result', () => {
+  it('sets the active state if it is the only result', () => {
     expect(menuItem.hasClass('active')).toBe(false);
 
     menuItem.setProps({
@@ -87,7 +82,7 @@ describe('<MenuItem>', () => {
     expect(menuItem.find('a').hasClass('active')).toBe(true);
   });
 
-  test('triggers an event when clicked', () => {
+  it('triggers an event when clicked', () => {
     menuItem.find('a').simulate('click', event);
     expect(onClick).toHaveBeenCalledTimes(1);
   });

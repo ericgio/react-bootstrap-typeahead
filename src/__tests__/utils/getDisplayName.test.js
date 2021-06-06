@@ -6,7 +6,7 @@ const anonymize = (Component) => () => <Component />;
 const NamedComponent = (props) => <div />;
 
 describe('getDisplayName', () => {
-  test('returns the displayName of the component', () => {
+  it('returns the displayName of the component', () => {
     expect(getDisplayName(NamedComponent)).toBe('NamedComponent');
 
     NamedComponent.displayName = displayName;

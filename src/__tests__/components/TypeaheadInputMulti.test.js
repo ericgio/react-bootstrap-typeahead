@@ -45,7 +45,7 @@ describe('<TypeaheadInputMulti>', () => {
     );
   });
 
-  test('renders a multi-select input', () => {
+  it('renders a multi-select input', () => {
     const input = getFormControl(wrapper);
 
     expect(input.length).toBe(1);
@@ -53,17 +53,17 @@ describe('<TypeaheadInputMulti>', () => {
     expect(input.hasClass('rbt-input-multi')).toBe(true);
   });
 
-  test('displays the selected text', () => {
+  it('displays the selected text', () => {
     const text = 'foo';
     wrapper.setProps({ text });
     expect(getInput(wrapper).prop('value')).toBe(text);
   });
 
-  test('renders a multi-select input with tokens', () => {
+  it('renders a multi-select input with tokens', () => {
     expect(getTokens(wrapper).length).toBe(3);
   });
 
-  test('displays a hint and calls `shouldSelectHint`', () => {
+  it('displays a hint and calls `shouldSelectHint`', () => {
     const initialItem = head(options);
 
     wrapper.setProps({
@@ -107,7 +107,7 @@ describe('<TypeaheadInputMulti>', () => {
       });
     });
 
-    test('calls the keydown handler', () => {
+    it('calls the keydown handler', () => {
       simulateKeyDown(wrapper, RETURN);
       expect(onKeyDown).toHaveBeenCalledTimes(1);
     });

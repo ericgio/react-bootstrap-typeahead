@@ -6,15 +6,15 @@ describe('validateSelectedPropChange', () => {
   let str;
 
   beforeEach(() => {
-    console.error = jest.fn((msg) => str = msg);
+    console.error = jest.fn((msg) => (str = msg));
   });
 
-  test('does not trigger a warning', () => {
+  it('does not trigger a warning', () => {
     validateSelectedPropChange([], ['foo']);
     expect(console.error).toHaveBeenCalledTimes(0);
   });
 
-  test('warns about uncontrolled to controlled change', () => {
+  it('warns about uncontrolled to controlled change', () => {
     validateSelectedPropChange(undefined, []);
     const msg =
       'You are changing an uncontrolled typeahead to be controlled. Input ' +
@@ -26,7 +26,7 @@ describe('validateSelectedPropChange', () => {
     expect(str).toMatch(msg);
   });
 
-  test('warns about controlled to uncontrolled change', () => {
+  it('warns about controlled to uncontrolled change', () => {
     validateSelectedPropChange([], undefined);
     const msg =
       'You are changing a controlled typeahead to be uncontrolled. Input ' +

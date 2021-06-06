@@ -9,7 +9,7 @@ const results = [
 ];
 
 describe('getUpdatedActiveIndex', () => {
-  test('updates the active index', () => {
+  it('updates the active index', () => {
     expect(getUpdatedActiveIndex(-1, DOWN, results)).toBe(0);
     expect(getUpdatedActiveIndex(0, DOWN, results)).toBe(3);
     expect(getUpdatedActiveIndex(3, DOWN, results)).toBe(-1);

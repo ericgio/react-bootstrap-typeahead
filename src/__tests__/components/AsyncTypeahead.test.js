@@ -37,7 +37,7 @@ describe('<AsyncTypeahead>', () => {
     );
   });
 
-  test('displays a prompt', () => {
+  it('displays a prompt', () => {
     const promptText = 'Prompt text';
 
     wrapper.setProps({ promptText });
@@ -49,7 +49,7 @@ describe('<AsyncTypeahead>', () => {
     expect(menuItems.text()).toBe(promptText);
   });
 
-  test('displays the search text while searching', (done) => {
+  it('displays the search text while searching', (done) => {
     const searchText = 'Search text';
 
     wrapper.setProps({
@@ -67,7 +67,7 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'search');
   });
 
-  test('displays the empty label when there are no results', (done) => {
+  it('displays the empty label when there are no results', (done) => {
     const emptyLabel = 'empty label';
 
     wrapper.setProps({ emptyLabel });
@@ -80,7 +80,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  test('displays the empty label when the input has an initial value', () => {
+  it('displays the empty label when the input has an initial value', () => {
     const emptyLabel = 'empty label';
 
     wrapper = mount(
@@ -103,7 +103,7 @@ describe('<AsyncTypeahead>', () => {
     expect(menuItems.text()).toEqual(emptyLabel);
   });
 
-  test('delays the search by at least the specified amount', (done) => {
+  it('delays the search by at least the specified amount', (done) => {
     const delay = 100;
     const preSearch = Date.now();
 
@@ -118,7 +118,7 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'search');
   });
 
-  test('does not call onSearch when a selection is made', () => {
+  it('does not call onSearch when a selection is made', () => {
     const onChange = jest.fn();
 
     wrapper.setProps({
@@ -134,7 +134,7 @@ describe('<AsyncTypeahead>', () => {
     expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
-  test('uses cached results and does not perform a new search', (done) => {
+  it('uses cached results and does not perform a new search', (done) => {
     search(wrapper, 'foo', () => {
       expect(onSearch).toHaveBeenCalledTimes(1);
 
@@ -150,7 +150,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  test('does not use cached results', (done) => {
+  it('does not use cached results', (done) => {
     wrapper.setProps({
       useCache: false,
     });
@@ -165,7 +165,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  test('does not call `onSearch` with an empty query', (done) => {
+  it('does not call `onSearch` with an empty query', (done) => {
     const onInputChange = jest.fn();
 
     wrapper.setProps({
@@ -179,7 +179,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  test('does not call `onSearch` if query is less than `minLength`', (done) => {
+  it('does not call `onSearch` if query is less than `minLength`', (done) => {
     const onInputChange = jest.fn();
 
     wrapper.setProps({
@@ -194,7 +194,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  test('performs a search when there is already a selection', (done) => {
+  it('performs a search when there is already a selection', (done) => {
     wrapper.setProps({
       multiple: true,
       options: ['one', 'two'],
@@ -209,7 +209,7 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  test('receives an event as the second argument of `onInputChange`', () => {
+  it('receives an event as the second argument of `onInputChange`', () => {
     wrapper.setProps({
       onInputChange: (text, e) => {
         expect(text).toBe('x');
@@ -220,29 +220,26 @@ describe('<AsyncTypeahead>', () => {
     change(wrapper, 'x');
   });
 
-  test(
-    'displays a custom option when `allowNew` function returns true',
-    (done) => {
-      wrapper.setProps({
-        allowNew: (results, props) => true,
-      });
+  it('displays a custom option when `allowNew` function returns true', (done) => {
+    wrapper.setProps({
+      allowNew: (results, props) => true,
+    });
 
-      change(wrapper, 'zzz');
+    change(wrapper, 'zzz');
 
-      setTimeout(() => {
-        wrapper.setProps({ isLoading: true });
+    setTimeout(() => {
+      wrapper.setProps({ isLoading: true });
 
-        focus(wrapper);
-        const menuItems = getMenuItems(wrapper);
+      focus(wrapper);
+      const menuItems = getMenuItems(wrapper);
 
-        expect(menuItems.length).toBe(1);
-        expect(menuItems.at(0).text()).toMatch(/zzz/);
-        done();
-      }, 0);
-    }
-  );
+      expect(menuItems.length).toBe(1);
+      expect(menuItems.at(0).text()).toMatch(/zzz/);
+      done();
+    }, 0);
+  });
 
-  test('disables `allowNew` while results are loading', (done) => {
+  it('disables `allowNew` while results are loading', (done) => {
     wrapper.setProps({
       allowNew: true,
     });
@@ -263,7 +260,7 @@ describe('<AsyncTypeahead>', () => {
     }, 0);
   });
 
-  test('exposes the typeahead instance and public methods', () => {
+  it('exposes the typeahead instance and public methods', () => {
     const ref = createRef();
 
     wrapper = mount(

@@ -17,10 +17,7 @@ describe('<Menu>', () => {
     menu = shallow(
       <Menu id="menu-id" paginate={false}>
         {options.map((o, idx) => (
-          <MenuItem
-            key={o.label}
-            option={o}
-            position={idx}>
+          <MenuItem key={o.label} option={o} position={idx}>
             {o.label}
           </MenuItem>
         ))}
@@ -28,12 +25,12 @@ describe('<Menu>', () => {
     );
   });
 
-  test('renders a basic menu with menu items', () => {
+  it('renders a basic menu with menu items', () => {
     expect(menu.hasClass('rbt-menu dropdown-menu')).toBe(true);
     expect(menu.children().length).toBe(3);
   });
 
-  test('sets the maxHeight and other styles', () => {
+  it('sets the maxHeight and other styles', () => {
     let maxHeight = '100px';
 
     function getAttribute(wrapper, attribute) {
@@ -53,7 +50,7 @@ describe('<Menu>', () => {
     expect(getAttribute(menu, 'maxHeight')).toBe(maxHeight);
   });
 
-  test('renders an empty label when there are no children', () => {
+  it('renders an empty label when there are no children', () => {
     const emptyLabel = 'No matches.';
 
     menu.setProps({
@@ -72,7 +69,7 @@ describe('<Menu>', () => {
     expect(emptyLabelItem.dive().text()).toBe(emptyLabel);
   });
 
-  test('adds an aria-label attribute to the menu', () => {
+  it('adds an aria-label attribute to the menu', () => {
     expect(menu.prop('aria-label')).toBe('menu-options');
 
     menu.setProps({ 'aria-label': 'custom-label' });
@@ -80,7 +77,7 @@ describe('<Menu>', () => {
     expect(menu.prop('aria-label')).toBe('custom-label');
   });
 
-  test('updates the menu position if the input height changes', () => {
+  it('updates the menu position if the input height changes', () => {
     const scheduleUpdate = jest.fn();
 
     menu.setProps({
@@ -91,14 +88,14 @@ describe('<Menu>', () => {
     expect(scheduleUpdate).toHaveBeenCalledTimes(1);
   });
 
-  test('prevents the input from blurring on mousedown', () => {
+  it('prevents the input from blurring on mousedown', () => {
     const e = { preventDefault: jest.fn() };
     menu.simulate('mousedown', e);
     expect(e.preventDefault).toHaveBeenCalledTimes(1);
   });
 });
 
-test('<Menu.Divider>', () => {
+it('<Menu.Divider>', () => {
   const wrapper = shallow(<Menu.Divider />);
 
   expect(wrapper.type()).toBe('div');
@@ -106,14 +103,10 @@ test('<Menu.Divider>', () => {
   expect(wrapper.prop('role')).toBe('separator');
 });
 
-test('<Menu.Header>', () => {
+it('<Menu.Header>', () => {
   const children = 'This is a menu header';
 
-  const wrapper = shallow(
-    <Menu.Header>
-      {children}
-    </Menu.Header>
-  );
+  const wrapper = shallow(<Menu.Header>{children}</Menu.Header>);
 
   expect(wrapper.type()).toBe('div');
   expect(wrapper.hasClass('dropdown-header')).toBe(true);

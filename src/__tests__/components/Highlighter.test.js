@@ -11,24 +11,20 @@ describe('<Highlighter>', () => {
   let highlighter;
 
   beforeEach(() => {
-    highlighter = shallow(
-      <Highlighter search="">
-        California
-      </Highlighter>
-    );
+    highlighter = shallow(<Highlighter search="">California</Highlighter>);
   });
 
-  test('does not highlight text when there is no search string', () => {
+  it('does not highlight text when there is no search string', () => {
     expect(highlighter.text()).toBe('California');
     expect(getMatches(highlighter)).toHaveLength(0);
   });
 
-  test('does not highlight text when there is no match', () => {
+  it('does not highlight text when there is no match', () => {
     highlighter.setProps({ search: 'x' });
     expect(getMatches(highlighter)).toHaveLength(0);
   });
 
-  test('handles an empty child string', () => {
+  it('handles an empty child string', () => {
     highlighter.setProps({
       children: '',
       search: 'foo',
@@ -37,7 +33,7 @@ describe('<Highlighter>', () => {
     expect(highlighter.text()).toBe('');
   });
 
-  test('highlights text in the middle of a string', () => {
+  it('highlights text in the middle of a string', () => {
     highlighter.setProps({ search: 'i' });
 
     // Output: [Cal, <mark>i</mark>, forn, <mark>i</mark>, a]
@@ -50,7 +46,7 @@ describe('<Highlighter>', () => {
     expect(matches.first().hasClass('rbt-highlight-text')).toBe(true);
   });
 
-  test('highlights text at the beginning of a string', () => {
+  it('highlights text at the beginning of a string', () => {
     highlighter.setProps({ search: 'cal' });
 
     // Output: [<mark>Cal</mark>, ifornia]
@@ -62,7 +58,7 @@ describe('<Highlighter>', () => {
     expect(matches.first().text()).toBe('Cal');
   });
 
-  test('adds custom classnames to the highlighted children', () => {
+  it('adds custom classnames to the highlighted children', () => {
     highlighter.setProps({
       highlightClassName: 'foo',
       search: 'i',

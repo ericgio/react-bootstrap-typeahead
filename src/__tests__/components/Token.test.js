@@ -31,14 +31,10 @@ describe('<Token>', () => {
   let token;
 
   beforeEach(() => {
-    token = mount(
-      <Token option={option}>
-        This is a token
-      </Token>
-    );
+    token = mount(<Token option={option}>This is a token</Token>);
   });
 
-  test('renders a basic token', () => {
+  it('renders a basic token', () => {
     expect(token.find('div').hasClass('rbt-token')).toBe(true);
     expect(token.text()).toBe('This is a token');
   });
@@ -48,21 +44,21 @@ describe('<Token>', () => {
       expect(isRemoveable(token)).toBe(false);
     });
 
-    test('when no `onRemove` function is passed in', () => {
+    it('when no `onRemove` function is passed in', () => {
       token.setProps({ onRemove: undefined });
     });
 
-    test('when the token is disabled', () => {
+    it('when the token is disabled', () => {
       token.setProps({ disabled: true });
       expect(isDisabled(token)).toBe(true);
     });
 
-    test('when the token is read-only', () => {
+    it('when the token is read-only', () => {
       token.setProps({ readOnly: true });
     });
   });
 
-  test('renders a removeable token', () => {
+  it('renders a removeable token', () => {
     const onRemove = jest.fn();
 
     token.setProps({ onRemove });
@@ -74,7 +70,7 @@ describe('<Token>', () => {
     expect(onRemove).toHaveBeenCalledTimes(1);
   });
 
-  test('renders a token with an href', () => {
+  it('renders a token with an href', () => {
     const href = '#someHref';
     token.setProps({ href });
 
@@ -84,7 +80,7 @@ describe('<Token>', () => {
     expect(anchor.prop('href')).toBe(href);
   });
 
-  test('disabled tokens are not interactive', () => {
+  it('makes disabled tokens non-interactive', () => {
     token.setProps({
       disabled: true,
       href: '#somehref',
@@ -120,7 +116,7 @@ describe('<Token>', () => {
       expect(isActive(token)).toBe(false);
     });
 
-    test('handles click events', () => {
+    it('handles click events', () => {
       token.simulate('click', mockEvent);
 
       expect(onClick).toHaveBeenCalledTimes(1);
@@ -128,7 +124,7 @@ describe('<Token>', () => {
       expect(isActive(token)).toBe(true);
     });
 
-    test('handles focus events', () => {
+    it('handles focus events', () => {
       token.simulate('focus', mockEvent);
 
       expect(onFocus).toHaveBeenCalledTimes(1);
@@ -136,7 +132,7 @@ describe('<Token>', () => {
       expect(isActive(token)).toBe(true);
     });
 
-    test('handles blur events', () => {
+    it('handles blur events', () => {
       token.simulate('focus', mockEvent);
       expect(isActive(token)).toBe(true);
 
@@ -145,7 +141,7 @@ describe('<Token>', () => {
       expect(isActive(token)).toBe(false);
     });
 
-    test('handles keydown events', () => {
+    it('handles keydown events', () => {
       const preventDefault = jest.fn();
 
       token.simulate('keyDown', {

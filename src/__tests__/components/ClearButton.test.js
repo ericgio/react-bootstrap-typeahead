@@ -13,24 +13,24 @@ describe('<ClearButton>', () => {
     button = shallow(<ClearButton onClick={onClick} />);
   });
 
-  test('renders a default clear button', () => {
+  it('renders a default clear button', () => {
     expect(button.type()).toBe('button');
     expect(button.hasClass('close rbt-close')).toBe(true);
   });
 
-  test('renders a large clear button', () => {
+  it('renders a large clear button', () => {
     button.setProps({ size: 'large' });
     expect(button.hasClass('rbt-close-lg')).toBe(true);
   });
 
-  test('registers a click', () => {
+  it('registers a click', () => {
     const e = { stopPropagation: jest.fn() };
     button.simulate('click', e);
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(e.stopPropagation).toHaveBeenCalledTimes(1);
   });
 
-  test('prevents the default backspace behavior', () => {
+  it('prevents the default backspace behavior', () => {
     const onKeyDown = jest.fn();
     button.setProps({ onKeyDown });
 

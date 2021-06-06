@@ -26,12 +26,12 @@ describe('defaultShouldSelect', () => {
     };
   });
 
-  test('returns true when tab is pressed', () => {
+  it('returns true when tab is pressed', () => {
     expect(defaultShouldSelect(event, state)).toBe(true);
     expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 
-  test('behavior when the right arrow key is pressed', () => {
+  it('checks hinting behavior when the right arrow key is pressed', () => {
     event = { ...event, keyCode: RIGHT };
 
     event.currentTarget.selectionStart = 3;
@@ -44,7 +44,7 @@ describe('defaultShouldSelect', () => {
     expect(defaultShouldSelect(event, state)).toBe(true);
   });
 
-  test('behavior when enter is pressed', () => {
+  it('checks hinting behavior when enter is pressed', () => {
     event = { ...event, keyCode: RETURN };
 
     expect(defaultShouldSelect(event, state)).toBe(false);
@@ -53,7 +53,7 @@ describe('defaultShouldSelect', () => {
     expect(defaultShouldSelect(event, state)).toBe(true);
   });
 
-  test('returns false for other keycodes', () => {
+  it('returns false for other keycodes', () => {
     // Build up a set of valid keys.
     []
       .concat([37, 38, 39, 40]) // Arrow keys
@@ -63,18 +63,16 @@ describe('defaultShouldSelect', () => {
       .concat([8, 13, 27, 32]) // backspace, spacebar, esc, return
       .concat(range(186, 193)) // ;=,-./`
       .concat(range(219, 223)) // [\]'
-      .filter((keyCode) => (
-        keyCode !== RETURN &&
-        keyCode !== RIGHT &&
-        keyCode !== TAB
-      ))
+      .filter(
+        (keyCode) => keyCode !== RETURN && keyCode !== RIGHT && keyCode !== TAB
+      )
       .forEach((keyCode) => {
         event.keyCode = keyCode;
         expect(defaultShouldSelect(event, state)).toBe(false);
       });
   });
 
-  test('accepts a callback for custom behaviors', () => {
+  it('accepts a callback for custom behaviors', () => {
     event = { ...event, keyCode: RETURN };
     state.shouldSelect = (shouldSelectHint, e) => {
       // Selects the hint even though `selectHintOnEnter` is false.

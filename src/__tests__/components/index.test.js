@@ -38,77 +38,86 @@ import _TypeaheadInputMulti from '../../components/TypeaheadInputMulti';
 import _TypeaheadInputSingle from '../../components/TypeaheadInputSingle';
 import _TypeaheadMenu from '../../components/TypeaheadMenu';
 
-import _asyncContainer, { useAsync as _useAsync, withAsync as _withAsync } from '../../behaviors/async';
-import _menuItemContainer, { useItem as _useItem, withItem as _withItem } from '../../behaviors/item';
-import _tokenContainer, { useToken as _useToken, withToken as _withToken } from '../../behaviors/token';
+import _asyncContainer, {
+  useAsync as _useAsync,
+  withAsync as _withAsync,
+} from '../../behaviors/async';
+import _menuItemContainer, {
+  useItem as _useItem,
+  withItem as _withItem,
+} from '../../behaviors/item';
+import _tokenContainer, {
+  useToken as _useToken,
+  withToken as _withToken,
+} from '../../behaviors/token';
 
 describe('index.js', () => {
-  test('AsyncTypeahead is exported', () => {
+  it('AsyncTypeahead is exported', () => {
     expect(AsyncTypeahead).toBe(_AsyncTypeahead);
   });
 
-  test('ClearButton is exported', () => {
+  it('ClearButton is exported', () => {
     expect(ClearButton).toBe(_ClearButton);
   });
 
-  test('Highlighter is exported', () => {
+  it('Highlighter is exported', () => {
     expect(Highlighter).toBe(_Highlighter);
   });
 
-  test('Hint is exported', () => {
+  it('Hint is exported', () => {
     expect(Hint).toBe(_Hint);
     expect(useHint).toBe(_useHint);
   });
 
-  test('Input is exported', () => {
+  it('Input is exported', () => {
     expect(Input).toBe(_Input);
   });
 
-  test('Loader is exported', () => {
+  it('Loader is exported', () => {
     expect(Loader).toBe(_Loader);
   });
 
-  test('Menu is exported', () => {
+  it('Menu is exported', () => {
     expect(Menu).toBe(_Menu);
   });
 
-  test('MenuItem is exported', () => {
+  it('MenuItem is exported', () => {
     expect(MenuItem).toBe(_MenuItem);
   });
 
-  test('Token is exported', () => {
+  it('Token is exported', () => {
     expect(Token).toBe(_Token);
   });
 
-  test('Typeahead is exported', () => {
+  it('Typeahead is exported', () => {
     expect(Typeahead).toBe(_Typeahead);
   });
 
-  test('TypeaheadInputMulti is exported', () => {
+  it('TypeaheadInputMulti is exported', () => {
     expect(TypeaheadInputMulti).toBe(_TypeaheadInputMulti);
   });
 
-  test('TypeaheadInputSingle is exported', () => {
+  it('TypeaheadInputSingle is exported', () => {
     expect(TypeaheadInputSingle).toBe(_TypeaheadInputSingle);
   });
 
-  test('TypeaheadMenu is exported', () => {
+  it('TypeaheadMenu is exported', () => {
     expect(TypeaheadMenu).toBe(_TypeaheadMenu);
   });
 
-  test('async exports', () => {
+  it('async exports', () => {
     expect(asyncContainer).toBe(_asyncContainer);
     expect(useAsync).toBe(_useAsync);
     expect(withAsync).toBe(_withAsync);
   });
 
-  test('item exports', () => {
+  it('item exports', () => {
     expect(menuItemContainer).toBe(_menuItemContainer);
     expect(useItem).toBe(_useItem);
     expect(withItem).toBe(_withItem);
   });
 
-  test('token exports', () => {
+  it('token exports', () => {
     expect(tokenContainer).toBe(_tokenContainer);
     expect(useToken).toBe(_useToken);
     expect(withToken).toBe(_withToken);

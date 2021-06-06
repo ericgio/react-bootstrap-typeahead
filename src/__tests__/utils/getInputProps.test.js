@@ -41,7 +41,7 @@ const baseReceivedMultiProps = {
 };
 
 describe('getInputProps', () => {
-  test('single-select input props', () => {
+  it('receives single-select input props', () => {
     let inputProps = getInputProps(baseProps)();
 
     expect(inputProps).toEqual(baseReceivedProps);
@@ -64,7 +64,7 @@ describe('getInputProps', () => {
     });
   });
 
-  test('multi-select input props', () => {
+  it('receives multi-select input props', () => {
     let inputProps = getInputProps(baseMultiProps)();
 
     expect(inputProps).toEqual(baseReceivedMultiProps);

@@ -27,12 +27,12 @@ describe('<TypeaheadMenu>', () => {
     );
   });
 
-  test('renders a basic typeahead menu', () => {
+  it('renders a basic typeahead menu', () => {
     expect(menu.find('div').hasClass('rbt-menu dropdown-menu')).toBe(true);
     expect(menu.find(MenuItem).length).toBe(options.length);
   });
 
-  test('renders a menu with the specified max-height', () => {
+  it('renders a menu with the specified max-height', () => {
     const getMaxHeight = (wrapper) => getMenu(wrapper).prop('style').maxHeight;
 
     menu.setProps({ maxHeight: '200px' });
@@ -42,12 +42,12 @@ describe('<TypeaheadMenu>', () => {
     expect(getMaxHeight(menu)).toBe('50%');
   });
 
-  test('renders disabled menu items', () => {
+  it('renders disabled menu items', () => {
     menu.setProps({ options: options.map((o) => ({ ...o, disabled: true })) });
     expect(menu.find(MenuItem).first().prop('disabled')).toBe(true);
   });
 
-  test('renders an empty state when there are no results', () => {
+  it('renders an empty state when there are no results', () => {
     const emptyLabel = 'No matches found.';
 
     const menuItems = menu
@@ -74,13 +74,13 @@ describe('<TypeaheadMenu>', () => {
       });
     });
 
-    test('displays a paginator', () => {
+    it('displays a paginator', () => {
       const paginatorNode = getPaginator(menu);
       expect(paginatorNode.length).toBe(1);
       expect(paginatorNode.text()).toBe(paginationText);
     });
 
-    test('does not show a paginator when there are no results', () => {
+    it('does not show a paginator when there are no results', () => {
       menu.setProps({ options: [] });
       expect(getPaginator(menu).length).toBe(0);
     });

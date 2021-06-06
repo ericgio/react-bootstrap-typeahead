@@ -10,13 +10,14 @@ describe('<Loader>', () => {
     loader = shallow(<Loader />);
   });
 
-  test('renders a loading indicator', () => {
+  it('renders a loading indicator', () => {
     expect(loader.type()).toBe('div');
-    expect(loader.hasClass('rbt-loader spinner-border spinner-border-sm'))
-      .toBe(true);
+    expect(loader.hasClass('rbt-loader spinner-border spinner-border-sm')).toBe(
+      true
+    );
   });
 
-  test('renders a label for accessibility', () => {
+  it('renders a label for accessibility', () => {
     expect(loader.find('.sr-only').text()).toBe('Loading...');
 
     const label = 'Waiting...';

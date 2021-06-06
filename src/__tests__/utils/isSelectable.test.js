@@ -1,7 +1,7 @@
 import isSelectable from '../../utils/isSelectable';
 
 describe('isSelectable', () => {
-  test('identifies selectable elements', () => {
+  it('identifies selectable elements', () => {
     const input = document.createElement('input');
 
     input.setAttribute('type', 'text');
@@ -27,7 +27,7 @@ describe('isSelectable', () => {
     expect(isSelectable(textarea)).toBe(true);
   });
 
-  test('identifies non-selectable inputs', () => {
+  it('identifies non-selectable inputs', () => {
     const input = document.createElement('input');
 
     input.setAttribute('type', 'email');

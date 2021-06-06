@@ -18,25 +18,27 @@ describe('<Overlay>', () => {
 
   beforeEach(() => {
     wrapper = mount(
-      <Overlay
-        isMenuShown
-        referenceElement={document.createElement('div')}>
-        {(props) => <Menu {...props} id="menu-id">This is the menu</Menu>}
+      <Overlay isMenuShown referenceElement={document.createElement('div')}>
+        {(props) => (
+          <Menu {...props} id="menu-id">
+            This is the menu
+          </Menu>
+        )}
       </Overlay>
     );
   });
 
-  test('renders children `isMenuShown=true`', () => {
+  it('renders children `isMenuShown=true`', () => {
     expect(getPopper(wrapper).length).toBe(1);
   });
 
-  test('does not render children when `isMenuShown=false`', () => {
+  it('does not render children when `isMenuShown=false`', () => {
     wrapper.setProps({ isMenuShown: false });
     expect(wrapper.length).toBe(1);
     expect(getPopper(wrapper).length).toBe(0);
   });
 
-  test('updates the positioning type', () => {
+  it('updates the positioning type', () => {
     // Uses absolute positioning by default.
     expect(isPositionFixed(wrapper)).toBe(false);
 
@@ -44,17 +46,14 @@ describe('<Overlay>', () => {
     expect(isPositionFixed(wrapper)).toBe(true);
   });
 
-  test(
-    'provides a fallback inputHeight when there is no reference element',
-    () => {
-      wrapper.setProps({ referenceElement: undefined });
-      expect(wrapper.find(Menu).prop('inputHeight')).toBe(0);
-    }
-  );
+  it('provides a fallback inputHeight when there is no reference element', () => {
+    wrapper.setProps({ referenceElement: undefined });
+    expect(wrapper.find(Menu).prop('inputHeight')).toBe(0);
+  });
 });
 
 describe('Overlay placement', () => {
-  test('computes the placement string', () => {
+  it('computes the placement string', () => {
     const permutations = [
       { props: { align: 'right', dropup: false }, received: 'bottom-end' },
       { props: { align: 'left', dropup: false }, received: 'bottom-start' },

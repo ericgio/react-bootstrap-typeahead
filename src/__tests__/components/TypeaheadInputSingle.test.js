@@ -5,7 +5,13 @@ import React from 'react';
 import TypeaheadInputSingle from '../../components/TypeaheadInputSingle';
 
 import options from '../data';
-import { getFormControl, getHint, getInput, keyDown, TestProvider } from '../helpers';
+import {
+  getFormControl,
+  getHint,
+  getInput,
+  keyDown,
+  TestProvider,
+} from '../helpers';
 import { TAB } from '../../constants';
 
 describe('<TypeaheadInputSingle>', () => {
@@ -14,10 +20,7 @@ describe('<TypeaheadInputSingle>', () => {
   beforeEach(() => {
     shouldSelectHint = jest.fn();
     wrapper = mount(
-      <TestProvider
-        onKeyDown={noop}
-        options={options}
-        selected={[]}>
+      <TestProvider onKeyDown={noop} options={options} selected={[]}>
         {({ getInputProps }) => (
           <TypeaheadInputSingle
             {...getInputProps()}
@@ -29,7 +32,7 @@ describe('<TypeaheadInputSingle>', () => {
     );
   });
 
-  test('renders a single-select input', () => {
+  it('renders a single-select input', () => {
     const input = getFormControl(wrapper);
 
     expect(input.length).toBe(1);
@@ -37,7 +40,7 @@ describe('<TypeaheadInputSingle>', () => {
     expect(input.hasClass('rbt-input-main')).toBe(true);
   });
 
-  test('displays the selected text', () => {
+  it('displays the selected text', () => {
     const text = 'text';
 
     wrapper.setProps({ text });
@@ -45,7 +48,7 @@ describe('<TypeaheadInputSingle>', () => {
     expect(getInput(wrapper).prop('value')).toBe(text);
   });
 
-  test('displays a hint and calls `shouldSelectHint`', () => {
+  it('displays a hint and calls `shouldSelectHint`', () => {
     const initialItem = head(options);
 
     wrapper.setProps({
