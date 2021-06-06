@@ -1,26 +1,26 @@
 {
   "presets": [
-    ["@babel/preset-env", {
-      "modules": false,
-      "loose": true,
-    }],
+    ["@babel/preset-env", { "modules": false }],
     "@babel/preset-flow",
-    "@babel/preset-react",
+    "@babel/preset-react"
   ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-export-default-from",
     "dev-expression",
-    ["transform-imports", {
-      "lodash": {
-        "transform": "lodash/${member}",
-        "preventFullImport": true
-      },
-      "react-overlays": {
-        "transform": "react-overlays/${member}",
-        "preventFullImport": true
-      },
-    }]
+    [
+      "transform-imports",
+      {
+        "lodash": {
+          "transform": "lodash/${member}",
+          "preventFullImport": true
+        },
+        "react-overlays": {
+          "transform": "react-overlays/${member}",
+          "preventFullImport": true
+        }
+      }
+    ]
   ],
   "env": {
     "cjs": {
@@ -28,30 +28,20 @@
         "@babel/transform-runtime",
         "@babel/transform-modules-commonjs"
       ],
-      "ignore": [
-        "**/__tests__/*",
-        "src/types.js",
-      ],
+      "ignore": ["**/__tests__/*", "src/types.js"]
     },
     "es": {
-      "plugins": [
-        "@babel/transform-runtime"
-      ],
-      "ignore": [
-        "**/__tests__/*",
-        "src/types.js",
-      ],
+      "plugins": ["@babel/transform-runtime"],
+      "ignore": ["**/__tests__/*", "src/types.js"]
     },
     "production": {
-      "plugins": [
-        "transform-react-remove-prop-types",
-      ],
+      "plugins": ["transform-react-remove-prop-types"]
     },
     "test": {
       "plugins": [
         "@babel/transform-runtime",
         "@babel/transform-modules-commonjs"
-      ],
-    },
-  },
+      ]
+    }
+  }
 }
