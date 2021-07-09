@@ -40,7 +40,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@babel/runtime": "^7.3.4",
+    "@babel/runtime": "^7.14.6",
     "@restart/hooks": "^0.3.22",
     "classnames": "^2.2.0",
     "fast-deep-equal": "^3.1.1",
@@ -57,13 +57,13 @@
     "react-dom": ">=16.8.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-export-default-from": "^7.2.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.3.4",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@ericgio/eslint-config-react": "^6.0.0",
@@ -81,17 +81,17 @@
     "babel-plugin-transform-imports": "^2.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
     "circular-dependency-plugin": "^5.0.2",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.1.1",
     "css-loader": "^5.0.1",
     "es6-promise": "^4.0.5",
     "eslint": "^7.6.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "flow-bin": "^0.132.0",
-    "gh-pages": "^3.1.0",
+    "gh-pages": "^3.2.3",
     "husky": "^6.0.0",
     "isomorphic-fetch": "^3.0.0",
-    "jest": "^27.0.4",
+    "jest": "^27.0.6",
     "json-loader": "^0.5.4",
     "lint-staged": "^11.0.0",
     "lodash": "^4.17.11",
@@ -110,9 +110,9 @@
     "sass": "^1.28.0",
     "sass-loader": "^11.1.0",
     "style-loader": "^2.0.0",
-    "terser-webpack-plugin": "^5.0.3",
+    "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.10.0",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "^4.7.2"
   },
   "lint-staged": {
     "*.js": "eslint --report-unused-disable-directives"
