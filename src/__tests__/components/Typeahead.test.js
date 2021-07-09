@@ -1263,21 +1263,29 @@ describe('<Typeahead> `change` events', () => {
     }
   );
 
-  it('calls `onChange` when clicking the clear button', () => {
-    const selected = states.slice(0, 1);
+  it('calls change events when clicking the clear button', () => {
+    let event, value;
+
+    onInputChange = jest.fn((v, e) => {
+      value = v;
+      event = e;
+    });
+
     render(
       <TestComponent
         clearButton
         onChange={onChange}
         onInputChange={onInputChange}
-        selected={selected}
+        selected={states.slice(0, 1)}
       />
     );
 
     screen.getByRole('button').click();
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onInputChange).toHaveBeenCalledTimes(0);
+    expect(onInputChange).toHaveBeenCalledTimes(1);
+    expect(value).toBe('');
+    expect(event).toBeDefined();
   });
 
   it('calls `onInputChange` when text is entered in the input', () => {

@@ -290,6 +290,21 @@ export function toggleMenu(state: TypeaheadState, props: Props) {
   return state.showMenu ? hideMenu(state, props) : { showMenu: true };
 }
 
+/**
+ * Manually trigger the input's change event.
+ * https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-onchange-event-in-react-js/46012210#46012210
+ */
+function triggerInputChange(input: HTMLInputElement, value: string) {
+  const inputValue = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    'value'
+  );
+
+  inputValue && inputValue.set && inputValue.set.call(input, value);
+  const e = new Event('input', { bubbles: true });
+  input.dispatchEvent(e);
+}
+
 class Typeahead extends React.Component<Props, TypeaheadState> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
@@ -453,7 +468,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   }
 
   _handleClear = () => {
-    this.setState(clearTypeahead, () => this._handleChange([]));
+    this.inputNode && triggerInputChange(this.inputNode, '');
+    this.setState(clearTypeahead);
   }
 
   _handleFocus = (e: SyntheticEvent<HTMLInputElement>) => {

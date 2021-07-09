@@ -16,9 +16,11 @@ const BasicExample = () => {
       <Form.Group>
         <Form.Label>Single Selection</Form.Label>
         <Typeahead
+          clearButton
           id="basic-typeahead-single"
           labelKey="name"
           onChange={setSingleSelections}
+          onInputChange={console.log}
           options={options}
           placeholder="Choose a state..."
           selected={singleSelections}
