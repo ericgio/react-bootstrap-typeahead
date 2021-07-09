@@ -43,6 +43,17 @@ describe('<BaseMenuItem>', () => {
     expect(item).toHaveClass('disabled');
     expect(onClick).toHaveBeenCalledTimes(0);
   });
+
+  it('renders a default href', () => {
+    render(<TestComponent />);
+    expect(screen.getByRole('link')).toHaveAttribute('href', '#');
+  });
+
+  it('renders an href passed to the MenuItem', () => {
+    const href = '/some/link';
+    render(<TestComponent href={href} />);
+    expect(screen.getByRole('link')).toHaveAttribute('href', href);
+  });
 });
 
 describe('<MenuItem>', () => {

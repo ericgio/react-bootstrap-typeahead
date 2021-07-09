@@ -12,29 +12,26 @@ type MenuItemProps = {
   children?: Node,
   className?: string,
   disabled?: boolean,
+  href?: string,
   onClick?: EventHandler<HTMLElement>,
-  onMouseDown?: EventHandler<HTMLElement>,
 };
 
 const BaseMenuItem = React.forwardRef<MenuItemProps, ?HTMLElement>((
-  { active, children, className, disabled, onClick, onMouseDown, ...props },
+  { active, children, className, disabled, onClick, ...props },
   ref
 ) => {
   return (
-    /* eslint-disable jsx-a11y/anchor-is-valid */
     <a
       {...props}
       className={cx('dropdown-item', { active, disabled }, className)}
-      href="#"
+      href={props.href || '#'}
       onClick={(e: SyntheticEvent<HTMLElement>) => {
         e.preventDefault();
         !disabled && onClick && onClick(e);
       }}
-      onMouseDown={onMouseDown}
       ref={ref}>
       {children}
     </a>
-    /* eslint-enable jsx-a11y/anchor-is-valid */
   );
 });
 
