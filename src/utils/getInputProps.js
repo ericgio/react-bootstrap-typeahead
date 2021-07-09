@@ -36,8 +36,11 @@ const getInputProps = ({
       [className || '']: !multiple,
       focus: isFocused,
     }),
-    // Re-open the menu, eg: if it's closed via ESC.
-    onClick: onFocus,
+    onClick: (e) => {
+      // Re-open the menu if it's closed, eg: via ESC.
+      onFocus && onFocus(e);
+      inputProps.onClick && inputProps.onClick(e);
+    },
     onFocus,
     // Comboboxes are single-select by definition:
     // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox

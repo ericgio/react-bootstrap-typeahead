@@ -574,12 +574,16 @@ describe('<Typeahead>', () => {
         className: 'input-classname',
         id: 'input-id',
         name: 'input-name',
+        onClick: jest.fn(),
         tabIndex: '5',
         type: 'number',
       };
     });
 
     afterEach(() => {
+      userEvent.click(input);
+      expect(inputProps.onClick).toHaveBeenCalledTimes(1);
+
       expect(input).toHaveAttribute('autocomplete', inputProps.autoComplete);
       expect(input).toHaveClass(inputProps.className);
       expect(input).toHaveAttribute('id', inputProps.id);
