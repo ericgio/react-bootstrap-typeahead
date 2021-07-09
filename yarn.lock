@@ -1554,13 +1554,20 @@
   resolved "https://registry.yarnpkg.com/@restart/context/-/context-2.1.4.tgz#a99d87c299a34c28bd85bb489cb07bfd23149c02"
   integrity sha512-INJYZQJP7g+IoDUh/475NlGiTeMfwTXUEr3tmRneckHIxNolGOW9CTq83S8cxq0CgJwwcMzMJFchxvlwe7Rk8Q==
 
-"@restart/hooks@^0.3.22", "@restart/hooks@^0.3.26":
+"@restart/hooks@^0.3.26":
   version "0.3.26"
   resolved "https://registry.yarnpkg.com/@restart/hooks/-/hooks-0.3.26.tgz#ade155a7b0b014ef1073391dda46972c3a14a129"
   integrity sha512-7Hwk2ZMYm+JLWcb7R9qIXk1OoUg1Z+saKWqZXlrvFwT3w6UArVNWgxYOzf+PJoK9zZejp8okPAKTctthhXLt5g==
   dependencies:
     lodash "^4.17.20"
     lodash-es "^4.17.20"
+
+"@restart/hooks@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@restart/hooks/-/hooks-0.4.0.tgz#f923d7c96b9bce969de097dd458c822b5c8072ee"
+  integrity sha512-+RenTVobiCHPjUTbhQDV8m0PU1xEWqgloMIIOlf86oKnfghKR/l4tKto7TH543shEQZZa7ARSMTvT0cXN9u8+g==
+  dependencies:
+    dequal "^2.0.2"
 
 "@rollup/plugin-babel@^5.0.2":
   version "5.3.0"
@@ -3472,6 +3479,11 @@ delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
+
+dequal@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
+  integrity sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==
 
 des.js@^1.0.0:
   version "1.0.1"
