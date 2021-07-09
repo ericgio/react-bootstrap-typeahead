@@ -89,7 +89,7 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "flow-bin": "^0.132.0",
     "gh-pages": "^3.2.3",
-    "husky": "^6.0.0",
+    "husky": "^7.0.1",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.0.6",
     "json-loader": "^0.5.4",
