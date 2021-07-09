@@ -155,7 +155,7 @@ const Hint = ({ className, ...props }: Props) => {
           backgroundColor: 'transparent',
           borderColor: 'transparent',
           boxShadow: 'none',
-          color: 'rgba(0, 0, 0, 0.35)',
+          color: 'rgba(0, 0, 0, 0.54)',
           left: 0,
           pointerEvents: 'none',
           position: 'absolute',
