@@ -261,6 +261,9 @@ export function getInitialState(props: Props): TypeaheadState {
 }
 
 export function clearTypeahead(state: TypeaheadState, props: Props) {
+  if (typeof props.onInputChange === "function") {
+    props.onInputChange("");
+  }
   return {
     ...getInitialState(props),
     isFocused: state.isFocused,
