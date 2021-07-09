@@ -89,8 +89,9 @@ body {
   position: fixed;
 }
 
-.bs-docs-sidebar .nav > .nav-item > .nav-link {
-  color: #767676;
+.bs-docs-sidebar .nav > .nav-item > .nav-link,
+.back-to-top {
+  color: #717171;
   display: block;
   font-size: 13px;
   font-weight: 500;
@@ -114,8 +115,6 @@ body {
 }
 
 .back-to-top {
-  color: #999;
-  font-size: 12px;
   margin-left: 10px;
   padding: 4px 10px;
 }
@@ -152,7 +151,7 @@ body {
 
 .bs-docs-footer {
   background-color: #f0f0f0;
-  color: #99979c;
+  color: #6d6d6d;
   font-size: 13px;
   margin-top: 100px;
   padding-top: 50px;
@@ -161,7 +160,7 @@ body {
 }
 
 .bs-docs-footer a {
-  color: #666;
+  color: inherit;
 }
 
 .bs-docs-footer-links {
@@ -235,7 +234,7 @@ body {
 }
 
 .example-section-title {
-  color: #959595;
+  color: #767676;
   float: left;
   font-size: 12px;
   font-weight: 700;
@@ -250,6 +249,7 @@ body {
 
 .example-toggle-code {
   border: 0;
+  color: #0072ec;
   float: right;
   font-size: 12px;
   line-height: 1.1;
