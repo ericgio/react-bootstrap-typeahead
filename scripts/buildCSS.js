@@ -11,10 +11,7 @@ const STYLES_DIR = path.join(ROOT, 'styles');
 
 function buildCSS(options) {
   // Get the base filename.
-  let filename = options.file
-    .split(/\/|\\/)
-    .pop()
-    .replace('.scss', '');
+  let filename = options.file.split(/\/|\\/).pop().replace('.scss', '');
 
   // Denote minified CSS.
   if (options.outputStyle === 'compressed') {

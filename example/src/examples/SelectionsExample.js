@@ -12,7 +12,9 @@ const SelectionsExample = (props) => (
     defaultSelected={options.slice(0, 1)}
     id="selections-example"
     labelKey="name"
-    onInputChange={(text, e) => { console.log(text, e); }}
+    onInputChange={(text, e) => {
+      console.log(text, e);
+    }}
     options={options}
     placeholder="Choose a state..."
   />

@@ -17,7 +17,13 @@ import TypeaheadInputMulti from './TypeaheadInputMulti';
 import TypeaheadInputSingle from './TypeaheadInputSingle';
 import TypeaheadMenu from './TypeaheadMenu';
 
-import { getOptionLabel, isFunction, isSizeLarge, pick, preventInputBlur } from '../utils';
+import {
+  getOptionLabel,
+  isFunction,
+  isSizeLarge,
+  pick,
+  preventInputBlur,
+} from '../utils';
 import { checkPropType, inputPropsType, sizeType } from '../propTypes';
 
 import type { TypeaheadMenuProps } from './TypeaheadMenu';
@@ -33,21 +39,22 @@ import type {
   TypeaheadManagerProps,
 } from '../types';
 
-type Props = TypeaheadProps & TypeaheadMenuProps & {
-  className?: string,
-  clearButton: boolean,
-  disabled?: boolean,
-  instanceRef: RefCallback<any>,
-  inputProps: Object,
-  isInvalid: boolean,
-  isLoading: boolean,
-  isValid: boolean,
-  renderInput: (InputProps, TypeaheadManagerProps) => Node,
-  renderMenu: (Option[], TypeaheadMenuProps, TypeaheadProps) => Node,
-  renderToken: (Option, Object & InputProps, number) => Node,
-  size?: Size,
-  style?: Style,
-};
+type Props = TypeaheadProps &
+  TypeaheadMenuProps & {
+    className?: string,
+    clearButton: boolean,
+    disabled?: boolean,
+    instanceRef: RefCallback<any>,
+    inputProps: Object,
+    isInvalid: boolean,
+    isLoading: boolean,
+    isValid: boolean,
+    renderInput: (InputProps, TypeaheadManagerProps) => Node,
+    renderMenu: (Option[], TypeaheadMenuProps, TypeaheadProps) => Node,
+    renderToken: (Option, Object & InputProps, number) => Node,
+    size?: Size,
+    style?: Style,
+  };
 
 const propTypes = {
   /**
@@ -124,12 +131,7 @@ const defaultProps = {
 };
 
 function getOverlayProps(props: Props) {
-  return pick(props, [
-    'align',
-    'dropup',
-    'flip',
-    'positionFixed',
-  ]);
+  return pick(props, ['align', 'dropup', 'flip', 'positionFixed']);
 }
 
 type RootCloseProps = {
@@ -150,14 +152,8 @@ class TypeaheadComponent extends React.Component<Props> {
   _referenceElement: ?ReferenceElement;
 
   render() {
-    const {
-      children,
-      className,
-      instanceRef,
-      open,
-      options,
-      style,
-    } = this.props;
+    const { children, className, instanceRef, open, options, style } =
+      this.props;
 
     return (
       <Typeahead {...this.props} options={options} ref={instanceRef}>
@@ -166,9 +162,7 @@ class TypeaheadComponent extends React.Component<Props> {
           const auxContent = this._renderAux(props);
 
           return (
-            <RootClose
-              disabled={open || !isMenuShown}
-              onRootClose={hideMenu}>
+            <RootClose disabled={open || !isMenuShown} onRootClose={hideMenu}>
               {(ref) => (
                 <div
                   className={cx('rbt', { 'has-aux': !!auxContent }, className)}
@@ -179,19 +173,20 @@ class TypeaheadComponent extends React.Component<Props> {
                     position: 'relative',
                   }}
                   tabIndex={-1}>
-                  {this._renderInput({
-                    ...getInputProps(this.props.inputProps),
-                    referenceElementRef: this.referenceElementRef,
-                  }, props)}
+                  {this._renderInput(
+                    {
+                      ...getInputProps(this.props.inputProps),
+                      referenceElementRef: this.referenceElementRef,
+                    },
+                    props
+                  )}
                   <Overlay
                     {...getOverlayProps(this.props)}
                     isMenuShown={isMenuShown}
                     referenceElement={this._referenceElement}>
-                    {(menuProps: MenuProps) => this._renderMenu(
-                      results,
-                      menuProps,
-                      props
-                    )}
+                    {(menuProps: MenuProps) =>
+                      this._renderMenu(results, menuProps, props)
+                    }
                   </Overlay>
                   {auxContent}
                   {isFunction(children) ? children(props) : children}
@@ -206,17 +201,11 @@ class TypeaheadComponent extends React.Component<Props> {
 
   referenceElementRef = (referenceElement: ?ReferenceElement) => {
     this._referenceElement = referenceElement;
-  }
+  };
 
   _renderInput = (inputProps: InputProps, props: TypeaheadManagerProps) => {
-    const {
-      isInvalid,
-      isValid,
-      multiple,
-      renderInput,
-      renderToken,
-      size,
-    } = this.props;
+    const { isInvalid, isValid, multiple, renderInput, renderToken, size } =
+      this.props;
 
     if (isFunction(renderInput)) {
       return renderInput(inputProps, props);
@@ -236,15 +225,13 @@ class TypeaheadComponent extends React.Component<Props> {
     const { labelKey, onRemove, selected } = props;
 
     return (
-      <TypeaheadInputMulti
-        {...commonProps}
-        selected={selected}>
-        {selected.map((option, idx) => (
+      <TypeaheadInputMulti {...commonProps} selected={selected}>
+        {selected.map((option, idx) =>
           renderToken(option, { ...commonProps, labelKey, onRemove }, idx)
-        ))}
+        )}
       </TypeaheadInputMulti>
     );
-  }
+  };
 
   _renderMenu = (
     results: Option[],
@@ -262,16 +249,20 @@ class TypeaheadComponent extends React.Component<Props> {
       renderMenuItemChildren,
     } = this.props;
 
-    return renderMenu(results, {
-      ...menuProps,
-      emptyLabel,
-      id,
-      maxHeight,
-      newSelectionPrefix,
-      paginationText,
-      renderMenuItemChildren,
-    }, props);
-  }
+    return renderMenu(
+      results,
+      {
+        ...menuProps,
+        emptyLabel,
+        id,
+        maxHeight,
+        newSelectionPrefix,
+        paginationText,
+        renderMenuItemChildren,
+      },
+      props
+    );
+  };
 
   _renderAux = ({ onClear, selected }: TypeaheadManagerProps) => {
     const { clearButton, disabled, isLoading, size } = this.props;
@@ -281,7 +272,7 @@ class TypeaheadComponent extends React.Component<Props> {
     if (isLoading) {
       content = <Loader />;
     } else if (clearButton && !disabled && selected.length) {
-      content =
+      content = (
         <ClearButton
           onClick={onClear}
           onFocus={(e) => {
@@ -290,16 +281,16 @@ class TypeaheadComponent extends React.Component<Props> {
           }}
           onMouseDown={preventInputBlur}
           size={size}
-        />;
+        />
+      );
     }
 
-    return content ?
-      <div
-        className={cx('rbt-aux', { 'rbt-aux-lg': isSizeLarge(size) })}>
+    return content ? (
+      <div className={cx('rbt-aux', { 'rbt-aux-lg': isSizeLarge(size) })}>
         {content}
-      </div> :
-      null;
-  }
+      </div>
+    ) : null;
+  };
 }
 
 export default forwardRef<* & Props, ElementRef<typeof Typeahead>>(

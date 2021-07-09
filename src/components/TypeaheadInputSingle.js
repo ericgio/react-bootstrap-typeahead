@@ -15,19 +15,16 @@ type Props = {
   shouldSelectHint?: ShouldSelect,
 };
 
-export default withClassNames(({
-  inputRef,
-  referenceElementRef,
-  shouldSelectHint,
-  ...props
-}: Props) => (
-  <Hint shouldSelect={shouldSelectHint}>
-    <Input
-      {...props}
-      ref={(node) => {
-        inputRef(node);
-        referenceElementRef(node);
-      }}
-    />
-  </Hint>
-));
+export default withClassNames(
+  ({ inputRef, referenceElementRef, shouldSelectHint, ...props }: Props) => (
+    <Hint shouldSelect={shouldSelectHint}>
+      <Input
+        {...props}
+        ref={(node) => {
+          inputRef(node);
+          referenceElementRef(node);
+        }}
+      />
+    </Hint>
+  )
+);

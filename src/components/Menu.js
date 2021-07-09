@@ -30,7 +30,7 @@ const propTypes = {
    */
   id: checkPropType(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    isRequiredForA11y,
+    isRequiredForA11y
   ),
   /**
    * Maximum height of the dropdown menu.
@@ -84,11 +84,14 @@ class Menu extends React.Component<MenuComponentProps> {
       text,
     } = this.props;
 
-    const contents = Children.count(children) === 0 ?
-      <BaseMenuItem disabled role="option">
-        {emptyLabel}
-      </BaseMenuItem> :
-      children;
+    const contents =
+      Children.count(children) === 0 ? (
+        <BaseMenuItem disabled role="option">
+          {emptyLabel}
+        </BaseMenuItem>
+      ) : (
+        children
+      );
 
     return (
       /* eslint-disable jsx-a11y/interactive-supports-focus */

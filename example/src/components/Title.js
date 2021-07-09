@@ -7,9 +7,7 @@ import getIdFromTitle from '../util/getIdFromTitle';
 
 const Title = ({ children }) => (
   <h2>
-    <Anchor id={getIdFromTitle(children)}>
-      {children}
-    </Anchor>
+    <Anchor id={getIdFromTitle(children)}>{children}</Anchor>
   </h2>
 );
 

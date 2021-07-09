@@ -15,10 +15,9 @@ const CustomFilteringExample = () => {
     { label: 'Use data fields', value: 'fields' },
   ];
 
-  const filterByCallback = (option, props) => (
+  const filterByCallback = (option, props) =>
     option.capital.toLowerCase().indexOf(props.text.toLowerCase()) !== -1 ||
-    option.name.toLowerCase().indexOf(props.text.toLowerCase()) !== -1
-  );
+    option.name.toLowerCase().indexOf(props.text.toLowerCase()) !== -1;
 
   const filterByFields = ['capital', 'name'];
 

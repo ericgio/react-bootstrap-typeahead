@@ -110,30 +110,33 @@ export function useAsync(props: * & Props) {
   const forceUpdate = useForceUpdate();
   const prevProps = usePrevious(props);
 
-  const handleSearch = useCallback((query: string) => {
-    queryRef.current = query;
+  const handleSearch = useCallback(
+    (query: string) => {
+      queryRef.current = query;
 
-    if (!query || (minLength && query.length < minLength)) {
-      return;
-    }
+      if (!query || (minLength && query.length < minLength)) {
+        return;
+      }
 
-    // Use cached results, if applicable.
-    if (useCache && cacheRef.current[query]) {
-      // Re-render the component with the cached results.
-      forceUpdate();
-      return;
-    }
+      // Use cached results, if applicable.
+      if (useCache && cacheRef.current[query]) {
+        // Re-render the component with the cached results.
+        forceUpdate();
+        return;
+      }
 
-    // Perform the search.
-    onSearch(query);
-  }, [forceUpdate, minLength, onSearch, useCache]);
+      // Perform the search.
+      onSearch(query);
+    },
+    [forceUpdate, minLength, onSearch, useCache]
+  );
 
   // Set the debounced search function.
   useEffect(() => {
     handleSearchDebouncedRef.current = debounce(handleSearch, delay);
     return () => {
       handleSearchDebouncedRef.current &&
-      handleSearchDebouncedRef.current.cancel();
+        handleSearchDebouncedRef.current.cancel();
     };
   }, [delay, handleSearch]);
 
@@ -158,15 +161,15 @@ export function useAsync(props: * & Props) {
     return emptyLabel;
   };
 
-  const handleInputChange = useCallback((
-    query: string,
-    e: SyntheticEvent<HTMLInputElement>
-  ) => {
-    onInputChange && onInputChange(query, e);
+  const handleInputChange = useCallback(
+    (query: string, e: SyntheticEvent<HTMLInputElement>) => {
+      onInputChange && onInputChange(query, e);
 
-    handleSearchDebouncedRef.current &&
-    handleSearchDebouncedRef.current(query);
-  }, [onInputChange]);
+      handleSearchDebouncedRef.current &&
+        handleSearchDebouncedRef.current(query);
+    },
+    [onInputChange]
+  );
 
   const cachedQuery = cacheRef.current[queryRef.current];
 

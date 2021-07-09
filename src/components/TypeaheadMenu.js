@@ -81,9 +81,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
           key={position}
           label={label}>
           {newSelectionPrefix}
-          <Highlighter search={text}>
-            {label}
-          </Highlighter>
+          <Highlighter search={text}>{label}</Highlighter>
         </MenuItem>
       );
     }

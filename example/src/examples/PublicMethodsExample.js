@@ -26,12 +26,8 @@ const PublicMethodsExample = () => {
         ref={ref}
       />
       <ButtonToolbar style={{ marginTop: '10px' }}>
-        <Button onClick={() => ref.current.clear()}>
-          Clear
-        </Button>
-        <Button onClick={() => ref.current.focus()}>
-          Focus
-        </Button>
+        <Button onClick={() => ref.current.clear()}>Clear</Button>
+        <Button onClick={() => ref.current.focus()}>Focus</Button>
         <Button
           onClick={() => {
             ref.current.focus();
@@ -39,9 +35,7 @@ const PublicMethodsExample = () => {
           }}>
           Focus, then blur after 1 second
         </Button>
-        <Button onClick={() => ref.current.toggleMenu()}>
-          Toggle Menu
-        </Button>
+        <Button onClick={() => ref.current.toggleMenu()}>Toggle Menu</Button>
       </ButtonToolbar>
     </Fragment>
   );

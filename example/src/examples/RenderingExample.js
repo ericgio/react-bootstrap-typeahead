@@ -5,7 +5,14 @@
 import { groupBy } from 'lodash';
 import React, { Fragment, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { Highlighter, Hint, Menu, MenuItem, Token, Typeahead } from 'react-bootstrap-typeahead';
+import {
+  Highlighter,
+  Hint,
+  Menu,
+  MenuItem,
+  Token,
+  Typeahead,
+} from 'react-bootstrap-typeahead';
 
 import options from '../data';
 
@@ -43,23 +50,24 @@ const RenderingExample = () => {
       props.renderMenu = (results, menuProps, state) => {
         let index = 0;
         const regions = groupBy(results, 'region');
-        const items = Object.keys(regions).sort().map((region) => (
-          <Fragment key={region}>
-            {index !== 0 && <Menu.Divider />}
-            <Menu.Header>{region}</Menu.Header>
-            {regions[region].map((i) => {
-              const item =
-                <MenuItem key={index} option={i} position={index}>
-                  <Highlighter search={state.text}>
-                    {i.name}
-                  </Highlighter>
-                </MenuItem>;
+        const items = Object.keys(regions)
+          .sort()
+          .map((region) => (
+            <Fragment key={region}>
+              {index !== 0 && <Menu.Divider />}
+              <Menu.Header>{region}</Menu.Header>
+              {regions[region].map((i) => {
+                const item = (
+                  <MenuItem key={index} option={i} position={index}>
+                    <Highlighter search={state.text}>{i.name}</Highlighter>
+                  </MenuItem>
+                );
 
-              index += 1;
-              return item;
-            })}
-          </Fragment>
-        ));
+                index += 1;
+                return item;
+              })}
+            </Fragment>
+          ));
 
         return <Menu {...menuProps}>{items}</Menu>;
       };
@@ -67,13 +75,9 @@ const RenderingExample = () => {
     case 2:
       props.renderMenuItemChildren = (option, { text }, index) => (
         <Fragment>
-          <Highlighter search={text}>
-            {option.name}
-          </Highlighter>,
+          <Highlighter search={text}>{option.name}</Highlighter>,
           <div>
-            <small>
-              Population: {option.population.toLocaleString()}
-            </small>
+            <small>Population: {option.population.toLocaleString()}</small>
           </div>
         </Fragment>
       );
@@ -81,10 +85,7 @@ const RenderingExample = () => {
     case 3:
       props.multiple = true;
       props.renderToken = (option, { onRemove }, index) => (
-        <Token
-          key={index}
-          onRemove={onRemove}
-          option={option}>
+        <Token key={index} onRemove={onRemove} option={option}>
           {`${option.name} (Pop: ${option.population.toLocaleString()})`}
         </Token>
       );

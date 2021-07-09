@@ -76,7 +76,7 @@ export default function defaultFilterBy(option: Option, props: Props) {
       warn(
         false,
         'Fields passed to `filterBy` should have string values. Value will ' +
-        'be converted to a string; results may be unexpected.'
+          'be converted to a string; results may be unexpected.'
       );
 
       value = String(value);

@@ -25,12 +25,17 @@ function withClassNames(Component: ComponentType<*>) {
       return (
         <Component
           {...props}
-          className={cx('form-control', 'rbt-input', {
-            'form-control-lg': isSizeLarge(size),
-            'form-control-sm': isSizeSmall(size),
-            'is-invalid': isInvalid,
-            'is-valid': isValid,
-          }, className)}
+          className={cx(
+            'form-control',
+            'rbt-input',
+            {
+              'form-control-lg': isSizeLarge(size),
+              'form-control-sm': isSizeSmall(size),
+              'is-invalid': isInvalid,
+              'is-valid': isValid,
+            },
+            className
+          )}
         />
       );
     }

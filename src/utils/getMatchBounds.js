@@ -13,18 +13,13 @@ type MatchBounds = {
 
 // Export for testing.
 export function escapeStringRegexp(str: string): string {
-  invariant(
-    typeof str === 'string',
-    '`escapeStringRegexp` expected a string.'
-  );
+  invariant(typeof str === 'string', '`escapeStringRegexp` expected a string.');
 
   // Escape characters with special meaning either inside or outside character
   // sets. Use a simple backslash escape when it’s always valid, and a \unnnn
   // escape when the simpler form would be disallowed by Unicode patterns’
   // stricter grammar.
-  return str
-    .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
-    .replace(/-/g, '\\x2d');
+  return str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d');
 }
 
 export default function getMatchBounds(

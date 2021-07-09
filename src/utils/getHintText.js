@@ -60,10 +60,7 @@ function getHintText(props: Props) {
 
   // Text matching is case- and accent-insensitive, so to display the hint
   // correctly, splice the input string with the hint string.
-  return text + initialItemStr.slice(
-    bounds.end,
-    initialItemStr.length
-  );
+  return text + initialItemStr.slice(bounds.end, initialItemStr.length);
 }
 
 export default getHintText;

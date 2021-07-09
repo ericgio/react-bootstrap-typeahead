@@ -40,7 +40,7 @@ export const useToken = ({
   const handleActiveChange = (
     e: SyntheticEvent<HTMLElement>,
     isActive: boolean,
-    callback?: EventHandler<HTMLElement>,
+    callback?: EventHandler<HTMLElement>
   ) => {
     e.stopPropagation();
     setActive(isActive);

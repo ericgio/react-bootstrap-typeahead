@@ -36,9 +36,7 @@ class FormExample extends React.Component {
         <Form.Group>
           <InputGroup>
             <InputGroup.Prepend>
-              <InputGroup.Text>
-                The capital of {state.name} is
-              </InputGroup.Text>
+              <InputGroup.Text>The capital of {state.name} is</InputGroup.Text>
             </InputGroup.Prepend>
             <Typeahead
               id="form-example"

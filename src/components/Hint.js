@@ -55,7 +55,7 @@ export function defaultShouldSelect(
   state: {
     selectHintOnEnter?: boolean,
     shouldSelect?: ShouldSelect,
-  },
+  }
 ): boolean {
   let shouldSelectHint = false;
 
@@ -65,9 +65,9 @@ export function defaultShouldSelect(
     // For selectable input types ("text", "search"), only select the hint if
     // it's at the end of the input value. For non-selectable types ("email",
     // "number"), always select the hint.
-    shouldSelectHint = isSelectable(currentTarget) ?
-      currentTarget.selectionStart === currentTarget.value.length :
-      true;
+    shouldSelectHint = isSelectable(currentTarget)
+      ? currentTarget.selectionStart === currentTarget.value.length
+      : true;
   }
 
   if (keyCode === TAB) {
@@ -80,9 +80,9 @@ export function defaultShouldSelect(
     shouldSelectHint = !!state.selectHintOnEnter;
   }
 
-  return typeof state.shouldSelect === 'function' ?
-    state.shouldSelect(shouldSelectHint, e) :
-    shouldSelectHint;
+  return typeof state.shouldSelect === 'function'
+    ? state.shouldSelect(shouldSelectHint, e)
+    : shouldSelectHint;
 }
 
 type Config = {
@@ -96,13 +96,8 @@ export const useHint = ({ children, shouldSelect }: Config) => {
     '`useHint` expects one child.'
   );
 
-  const {
-    hintText,
-    initialItem,
-    inputNode,
-    onAdd,
-    selectHintOnEnter,
-  } = useTypeaheadContext();
+  const { hintText, initialItem, inputNode, onAdd, selectHintOnEnter } =
+    useTypeaheadContext();
 
   const hintRef = useRef<?HTMLInputElement>(null);
 

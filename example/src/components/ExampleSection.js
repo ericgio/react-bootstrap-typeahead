@@ -12,9 +12,7 @@ const ExampleSection = ({ children, code }) => {
     <div className="example-section">
       <div className="example">
         <div className="clearfix">
-          <div className="example-section-title">
-            Example
-          </div>
+          <div className="example-section-title">Example</div>
           <Button
             className="example-toggle-code"
             onClick={() => setIsOpen(!isOpen)}

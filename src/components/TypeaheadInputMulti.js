@@ -14,7 +14,12 @@ import withClassNames from '../behaviors/classNames';
 
 import { BACKSPACE } from '../constants';
 
-import type { InputProps, Option, RefCallback, ReferenceElement } from '../types';
+import type {
+  InputProps,
+  Option,
+  RefCallback,
+  ReferenceElement,
+} from '../types';
 
 type Props = {
   ...InputProps,
@@ -79,14 +84,14 @@ class TypeaheadInputMulti extends React.Component<Props> {
   getInputRef = (input: ?HTMLInputElement) => {
     this._input = input;
     this.props.inputRef(input);
-  }
+  };
 
   _handleClick = (e: SyntheticEvent<HTMLInputElement>) => {
     // Prevent clicks on the input from bubbling up to the container,
     // which then re-focuses the input.
     e.stopPropagation();
     this.props.onClick(e);
-  }
+  };
 
   /**
    * Forward click or focus events on the container element to the input.
@@ -110,7 +115,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
     }
 
     inputNode.focus();
-  }
+  };
 
   _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
     const { onKeyDown, selected, value } = this.props;
@@ -135,7 +140,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
     }
 
     onKeyDown(e);
-  }
+  };
 }
 
 export default withClassNames(TypeaheadInputMulti);

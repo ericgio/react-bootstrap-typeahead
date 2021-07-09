@@ -14,10 +14,7 @@ import type { LabelKey, Option } from '../types';
  */
 function getOptionLabel(option: Option, labelKey: LabelKey): string {
   // Handle internally created options first.
-  if (
-    !isString(option) &&
-    (option.paginationOption || option.customOption)
-  ) {
+  if (!isString(option) && (option.paginationOption || option.customOption)) {
     return option[getStringLabelKey(labelKey)];
   }
 
@@ -35,8 +32,8 @@ function getOptionLabel(option: Option, labelKey: LabelKey): string {
   invariant(
     isString(optionLabel),
     'One or more options does not have a valid label string. Check the ' +
-    '`labelKey` prop to ensure that it matches the correct option key and ' +
-    'provides a string for filtering and display.'
+      '`labelKey` prop to ensure that it matches the correct option key and ' +
+      'provides a string for filtering and display.'
   );
 
   return optionLabel;

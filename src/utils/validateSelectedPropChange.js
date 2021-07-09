@@ -29,8 +29,5 @@ export default function validateSelectedPropChange(
     'Decide between using a controlled or uncontrolled element for the ' +
     'lifetime of the component.';
 
-  warn(
-    !(uncontrolledToControlled || controlledToUncontrolled),
-    message,
-  );
+  warn(!(uncontrolledToControlled || controlledToUncontrolled), message);
 }

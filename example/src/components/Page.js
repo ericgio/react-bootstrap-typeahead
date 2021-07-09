@@ -38,13 +38,9 @@ class Page extends React.Component {
           <PageHeader />
           <Container as="main" fluid="md">
             <Row>
-              <Col md={9}>
-                {this.props.children}
-              </Col>
+              <Col md={9}>{this.props.children}</Col>
               <Col md={3}>
-                <PageMenu>
-                  {this._sections.map(this._renderMenuItem)}
-                </PageMenu>
+                <PageMenu>{this._sections.map(this._renderMenuItem)}</PageMenu>
               </Col>
             </Row>
           </Container>
@@ -65,25 +61,25 @@ class Page extends React.Component {
         </Nav.Link>
       </Nav.Item>
     );
-  }
+  };
 
   _handleMenuItemClick = (activeHref) => {
     window.location.hash = activeHref;
     this._updateActiveHref(activeHref);
-  }
+  };
 
   _onAfter = (href) => {
     this._updateActiveHref(href);
-  }
+  };
 
   _onBefore = (href) => {
     const index = this._hrefs.indexOf(href) - 1;
     this._updateActiveHref(this._hrefs[index]);
-  }
+  };
 
   _updateActiveHref = (activeHref) => {
     this.setState({ activeHref });
-  }
+  };
 }
 
 export default Page;

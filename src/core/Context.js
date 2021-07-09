@@ -21,20 +21,19 @@ export type TypeaheadContextType = {
   setItem: (Option, number) => void,
 };
 
-export const TypeaheadContext: Context<TypeaheadContextType> =
-  createContext({
-    activeIndex: -1,
-    hintText: '',
-    id: '',
-    initialItem: null,
-    inputNode: null,
-    isOnlyResult: false,
-    onActiveItemChange: noop,
-    onAdd: noop,
-    onInitialItemChange: noop,
-    onMenuItemClick: noop,
-    selectHintOnEnter: undefined,
-    setItem: noop,
-  });
+export const TypeaheadContext: Context<TypeaheadContextType> = createContext({
+  activeIndex: -1,
+  hintText: '',
+  id: '',
+  initialItem: null,
+  inputNode: null,
+  isOnlyResult: false,
+  onActiveItemChange: noop,
+  onAdd: noop,
+  onInitialItemChange: noop,
+  onMenuItemClick: noop,
+  selectHintOnEnter: undefined,
+  setItem: noop,
+});
 
 export const useTypeaheadContext = () => useContext(TypeaheadContext);

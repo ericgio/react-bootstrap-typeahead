@@ -18,24 +18,28 @@ class BasicBehaviorsExample extends React.Component {
   };
 
   render() {
-    const {
-      disabled,
-      dropup,
-      flip,
-      highlightOnlyResult,
-      minLength,
-      open,
-    } = this.state;
+    const { disabled, dropup, flip, highlightOnlyResult, minLength, open } =
+      this.state;
 
     const checkboxes = [
-      /* eslint-disable max-len */
       { checked: disabled, label: 'Disable the input', name: 'disabled' },
       { checked: dropup, label: 'Dropup menu', name: 'dropup' },
-      { checked: flip, label: 'Flip the menu position when it reaches the viewport bounds', name: 'flip' },
-      { checked: !!minLength, label: 'Require minimum input before showing results (2 chars)', name: 'minLength' },
-      { checked: highlightOnlyResult, label: 'Highlight the only result', name: 'highlightOnlyResult' },
+      {
+        checked: flip,
+        label: 'Flip the menu position when it reaches the viewport bounds',
+        name: 'flip',
+      },
+      {
+        checked: !!minLength,
+        label: 'Require minimum input before showing results (2 chars)',
+        name: 'minLength',
+      },
+      {
+        checked: highlightOnlyResult,
+        label: 'Highlight the only result',
+        name: 'highlightOnlyResult',
+      },
       { checked: !!open, label: 'Force the menu to stay open', name: 'open' },
-      /* eslint-enable max-len */
     ];
 
     return (
@@ -78,7 +82,7 @@ class BasicBehaviorsExample extends React.Component {
     }
 
     this.setState(newState);
-  }
+  };
 }
 /* example-end */
 

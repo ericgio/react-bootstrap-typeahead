@@ -6,7 +6,9 @@ const GitHubStarsButton = () => {
   const ref = useRef();
 
   // Set size to large on initial render.
-  useEffect(() => { ref.current.dataset.size = 'large'; }, []);
+  useEffect(() => {
+    ref.current.dataset.size = 'large';
+  }, []);
 
   return (
     <a

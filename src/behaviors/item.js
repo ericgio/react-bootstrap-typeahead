@@ -7,7 +7,12 @@ import PropTypes from 'prop-types';
 import type { ComponentType } from 'react';
 
 import { useTypeaheadContext } from '../core/Context';
-import { getDisplayName, getMenuItemId, preventInputBlur, warn } from '../utils';
+import {
+  getDisplayName,
+  getMenuItemId,
+  preventInputBlur,
+  warn,
+} from '../utils';
 
 import { optionType } from '../propTypes';
 import type { Option } from '../types';
@@ -54,19 +59,23 @@ export const useItem = ({
       // Automatically scroll the menu as the user keys through it.
       const node = itemRef.current;
 
-      node && scrollIntoView(node, {
-        block: 'nearest',
-        boundary: node.parentNode,
-        inline: 'nearest',
-        scrollMode: 'if-needed',
-      });
+      node &&
+        scrollIntoView(node, {
+          block: 'nearest',
+          boundary: node.parentNode,
+          inline: 'nearest',
+          scrollMode: 'if-needed',
+        });
     }
   });
 
-  const handleClick = useCallback((e: SyntheticEvent<HTMLElement>) => {
-    onMenuItemClick(option, e);
-    onClick && onClick(e);
-  }, [onClick, onMenuItemClick, option]);
+  const handleClick = useCallback(
+    (e: SyntheticEvent<HTMLElement>) => {
+      onMenuItemClick(option, e);
+      onClick && onClick(e);
+    },
+    [onClick, onMenuItemClick, option]
+  );
 
   const active = isOnlyResult || activeIndex === position;
 

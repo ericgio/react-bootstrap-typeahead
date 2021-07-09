@@ -57,10 +57,11 @@ function getModifiers({ align, flip }: OverlayProps) {
           // Use the following condition instead of `align === 'justify'`
           // since it allows the component to fall back to justifying the
           // menu width if `align` is undefined.
-          width: align !== ALIGN.RIGHT && align !== ALIGN.LEFT ?
-            // Set the popper width to match the target width.
-            data.offsets.reference.width :
-            styles.width,
+          width:
+            align !== ALIGN.RIGHT && align !== ALIGN.LEFT
+              ? // Set the popper width to match the target width.
+                data.offsets.reference.width
+              : styles.width,
         },
       }),
     },
@@ -105,11 +106,13 @@ const Overlay = (props: OverlayProps) => {
       placement={getPlacement(props)}
       positionFixed={positionFixed}
       referenceElement={referenceElement}>
-      {({ ref, ...popperProps }) => children({
-        ...popperProps,
-        innerRef: ref,
-        inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
-      })}
+      {({ ref, ...popperProps }) =>
+        children({
+          ...popperProps,
+          innerRef: ref,
+          inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
+        })
+      }
     </Popper>
   );
 };

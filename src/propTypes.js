@@ -39,10 +39,7 @@ export function caseSensitiveType(props, propName, componentName) {
 export function deprecated(validator, reason) {
   return (props, propName, componentName) => {
     if (props[propName] != null) {
-      warn(
-        false,
-        `The \`${propName}\` prop is deprecated. ${reason}`
-      );
+      warn(false, `The \`${propName}\` prop is deprecated. ${reason}`);
     }
 
     return PropTypes.checkPropTypes(
@@ -74,16 +71,12 @@ export function defaultSelectedType(props, propName, componentName) {
   warn(
     multiple || defaultSelected.length <= 1,
     'You are passing multiple options to the `defaultSelected` prop of a ' +
-    'Typeahead in single-select mode. The selections will be truncated to a ' +
-    'single selection.'
+      'Typeahead in single-select mode. The selections will be truncated to a ' +
+      'single selection.'
   );
 }
 
-export function highlightOnlyResultType(
-  props,
-  propName,
-  componentName
-) {
+export function highlightOnlyResultType(props, propName, componentName) {
   const { allowNew, highlightOnlyResult } = props;
   warn(
     !(highlightOnlyResult && allowNew),
@@ -101,10 +94,12 @@ export function ignoreDiacriticsType(props, propName, componentName) {
 
 export function inputPropsType(props, propName, componentName) {
   const { inputProps } = props;
-  if (!(
-    inputProps &&
-    Object.prototype.toString.call(inputProps) === '[object Object]'
-  )) {
+  if (
+    !(
+      inputProps &&
+      Object.prototype.toString.call(inputProps) === '[object Object]'
+    )
+  ) {
     return;
   }
 
@@ -122,7 +117,7 @@ export function isRequiredForA11y(props, propName, componentName) {
   warn(
     props[propName] != null,
     `The prop \`${propName}\` is required to make \`${componentName}\` ` +
-    'accessible for users of assistive technologies such as screen readers.'
+      'accessible for users of assistive technologies such as screen readers.'
   );
 }
 
@@ -145,13 +140,13 @@ export function selectedType(props, propName, componentName) {
   warn(
     multiple || !selected || selected.length <= 1,
     'You are passing multiple options to the `selected` prop of a Typeahead ' +
-    'in single-select mode. This may lead to unexpected behaviors or errors.'
+      'in single-select mode. This may lead to unexpected behaviors or errors.'
   );
 
   warn(
     !selected || (selected && isFunction(onChange)),
     'You provided a `selected` prop without an `onChange` handler. If you ' +
-    'want the typeahead to be uncontrolled, use `defaultSelected`. ' +
-    'Otherwise, set `onChange`.'
+      'want the typeahead to be uncontrolled, use `defaultSelected`. ' +
+      'Otherwise, set `onChange`.'
   );
 }

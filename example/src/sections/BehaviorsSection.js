@@ -27,19 +27,18 @@ const BehaviorsSection = (props) => (
   <Section title={props.title}>
     <Markdown>
       The typeahead has several basic configurable behaviors. You can `disable`
-      it as you would any input. You can position the menu above the input
-      with `dropup` or automatically re-position it when it hits the viewport
-      bounds. Use `minLength` to require a minimum user input before displaying
-      results.
+      it as you would any input. You can position the menu above the input with
+      `dropup` or automatically re-position it when it hits the viewport bounds.
+      Use `minLength` to require a minimum user input before displaying results.
     </Markdown>
     <ExampleSection code={BasicBehaviorsExampleCode}>
       <BasicBehaviorsExample />
     </ExampleSection>
     <Title>Controlling Selections</Title>
     <Markdown>
-      You can pre-populate the typeahead by passing in an array of
-      selections. Setting the `clearButton` prop displays a button allowing
-      users to clear the input.
+      You can pre-populate the typeahead by passing in an array of selections.
+      Setting the `clearButton` prop displays a button allowing users to clear
+      the input.
     </Markdown>
     <ExampleSection code={SelectionsExampleCode}>
       <SelectionsExample />
@@ -54,24 +53,24 @@ const BehaviorsSection = (props) => (
     </ExampleSection>
     <Title>Menu Alignment</Title>
     <Markdown>
-      Specify alignment of the menu via the `align` prop. Valid values
-      are `justify`, `left`, or `right`.
+      Specify alignment of the menu via the `align` prop. Valid values are
+      `justify`, `left`, or `right`.
     </Markdown>
     <ExampleSection code={MenuAlignExampleCode}>
       <MenuAlignExample />
     </ExampleSection>
     <Title>Input Groups and Validation States</Title>
     <Markdown>
-      The typeahead works with Bootstrap input groups and add-ons; it
-      also handles validation states.
+      The typeahead works with Bootstrap input groups and add-ons; it also
+      handles validation states.
     </Markdown>
     <ExampleSection code={FormExampleCode}>
       <FormExample />
     </ExampleSection>
     <Title>Pagination</Title>
     <Markdown>
-      To improve browser performance, the typeahead paginates large data sets
-      by default. You can set the number of results to be displayed using
+      To improve browser performance, the typeahead paginates large data sets by
+      default. You can set the number of results to be displayed using
       `maxResults`, or override pagination completely using `paginate`. The
       `onPaginate` hook allows you to respond to the pagination event.
     </Markdown>

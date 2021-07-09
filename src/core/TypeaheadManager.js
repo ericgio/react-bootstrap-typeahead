@@ -4,7 +4,13 @@ import React, { useEffect } from 'react';
 import usePrevious from '@restart/hooks/usePrevious';
 
 import { TypeaheadContext } from './Context';
-import { getHintText, getInputProps, getInputText, getIsOnlyResult, pick } from '../utils';
+import {
+  getHintText,
+  getInputProps,
+  getInputText,
+  getIsOnlyResult,
+  pick,
+} from '../utils';
 import { RETURN } from '../constants';
 
 import type { TypeaheadContextType } from './Context';

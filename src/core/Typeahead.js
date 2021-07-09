@@ -35,20 +35,9 @@ import {
   validateSelectedPropChange,
 } from '../utils';
 
-import {
-  DEFAULT_LABELKEY,
-  DOWN,
-  ESC,
-  RETURN,
-  TAB,
-  UP,
-} from '../constants';
+import { DEFAULT_LABELKEY, DOWN, ESC, RETURN, TAB, UP } from '../constants';
 
-import type {
-  Option,
-  TypeaheadProps,
-  TypeaheadState,
-} from '../types';
+import type { Option, TypeaheadProps, TypeaheadState } from '../types';
 
 const propTypes = {
   /**
@@ -59,10 +48,7 @@ const propTypes = {
    * If a function is specified, it will be used to determine whether a custom
    * option should be included. The return value should be true or false.
    */
-  allowNew: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-  ]),
+  allowNew: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   /**
    * Autofocus the input when the component initially mounts.
    */
@@ -106,7 +92,7 @@ const propTypes = {
    */
   id: checkPropType(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    isRequiredForA11y,
+    isRequiredForA11y
   ),
   /**
    * Whether the filter should ignore accents and other diacritical marks.
@@ -118,7 +104,7 @@ const propTypes = {
    */
   labelKey: checkPropType(
     PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    labelKeyType,
+    labelKeyType
   ),
   /**
    * Maximum number of results to display by default. Mostly done for
@@ -191,7 +177,7 @@ const propTypes = {
   selectHintOnEnter: deprecated(
     PropTypes.bool,
     'Use the `shouldSelect` prop on the `Hint` component to define which ' +
-    'keystrokes can select the hint.'
+      'keystrokes can select the hint.'
   ),
 };
 
@@ -232,9 +218,9 @@ export function getInitialState(props: Props): TypeaheadState {
     multiple,
   } = props;
 
-  let selected = props.selected ?
-    props.selected.slice() :
-    defaultSelected.slice();
+  let selected = props.selected
+    ? props.selected.slice()
+    : defaultSelected.slice();
 
   let text = defaultInputValue;
 
@@ -270,12 +256,8 @@ export function clearTypeahead(state: TypeaheadState, props: Props) {
 }
 
 export function hideMenu(state: TypeaheadState, props: Props) {
-  const {
-    activeIndex,
-    activeItem,
-    initialItem,
-    shownResults,
-  } = getInitialState(props);
+  const { activeIndex, activeItem, initialItem, shownResults } =
+    getInitialState(props);
 
   return {
     activeIndex,
@@ -343,14 +325,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     const { onChange, ...otherProps } = this.props;
     const mergedPropsAndState = { ...otherProps, ...this.state };
 
-    const {
-      filterBy,
-      labelKey,
-      options,
-      paginate,
-      shownResults,
-      text,
-    } = mergedPropsAndState;
+    const { filterBy, labelKey, options, paginate, shownResults, text } =
+      mergedPropsAndState;
 
     this.isMenuShown = isShown(mergedPropsAndState);
     this.items = []; // Reset items on re-render.
@@ -359,9 +335,9 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
     if (this.isMenuShown) {
       const cb = typeof filterBy === 'function' ? filterBy : defaultFilterBy;
-      results = options.filter((option: Option) => (
+      results = options.filter((option: Option) =>
         cb(option, mergedPropsAndState)
-      ));
+      );
 
       // This must come before results are truncated.
       const shouldPaginate = paginate && results.length > shownResults;
@@ -414,78 +390,81 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   blur = () => {
     this.inputNode && this.inputNode.blur();
     this.hideMenu();
-  }
+  };
 
   clear = () => {
     this.setState(clearTypeahead);
-  }
+  };
 
   focus = () => {
     this.inputNode && this.inputNode.focus();
-  }
+  };
 
   getInput = () => {
     return this.inputNode;
-  }
+  };
 
   inputRef = (inputNode: ?HTMLInputElement) => {
     this.inputNode = inputNode;
-  }
+  };
 
   setItem = (item: Option, position: number) => {
     this.items[position] = item;
-  }
+  };
 
   hideMenu = () => {
     this.setState(hideMenu);
-  }
+  };
 
   toggleMenu = () => {
     this.setState(toggleMenu);
-  }
+  };
 
   _handleActiveIndexChange = (activeIndex: number) => {
     this.setState((state: TypeaheadState) => ({
       activeIndex,
       activeItem: activeIndex === -1 ? null : state.activeItem,
     }));
-  }
+  };
 
   _handleActiveItemChange = (activeItem: Option) => {
     // Don't update the active item if it hasn't changed.
     if (!isEqual(activeItem, this.state.activeItem)) {
       this.setState({ activeItem });
     }
-  }
+  };
 
   _handleBlur = (e: SyntheticEvent<HTMLInputElement>) => {
     e.persist();
     this.setState({ isFocused: false }, () => this.props.onBlur(e));
-  }
+  };
 
   _handleChange = (selected: Option[]) => {
     this.props.onChange && this.props.onChange(selected);
-  }
+  };
 
   _handleClear = () => {
     this.inputNode && triggerInputChange(this.inputNode, '');
     this.setState(clearTypeahead);
-  }
+  };
 
   _handleFocus = (e: SyntheticEvent<HTMLInputElement>) => {
     e.persist();
-    this.setState({
-      isFocused: true,
-      showMenu: true,
-    }, () => this.props.onFocus(e));
-  }
+    this.setState(
+      {
+        isFocused: true,
+        showMenu: true,
+      },
+      () => this.props.onFocus(e)
+    );
+  };
 
   _handleInitialItemChange = (initialItem: ?Option) => {
     // Don't update the initial item if it hasn't changed.
     if (!isEqual(initialItem, this.state.initialItem)) {
       this.setState({ initialItem });
     }
-  }
+  };
 
   _handleInputChange = (e: SyntheticEvent<HTMLInputElement>) => {
     e.persist();
@@ -496,21 +475,25 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     // Clear selections when the input value changes in single-select mode.
     const shouldClearSelections = this.state.selected.length && !multiple;
 
-    this.setState((state, props) => {
-      const { activeIndex, activeItem, shownResults } = getInitialState(props);
-      return {
-        activeIndex,
-        activeItem,
-        selected: shouldClearSelections ? [] : state.selected,
-        showMenu: true,
-        shownResults,
-        text,
-      };
-    }, () => {
-      onInputChange(text, e);
-      shouldClearSelections && this._handleChange([]);
-    });
-  }
+    this.setState(
+      (state, props) => {
+        const { activeIndex, activeItem, shownResults } =
+          getInitialState(props);
+        return {
+          activeIndex,
+          activeItem,
+          selected: shouldClearSelections ? [] : state.selected,
+          showMenu: true,
+          shownResults,
+          text,
+        };
+      },
+      () => {
+        onInputChange(text, e);
+        shouldClearSelections && this._handleChange([]);
+      }
+    );
+  };
 
   _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
     const { activeItem } = this.state;
@@ -530,11 +513,9 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       case DOWN:
         // Prevent input cursor from going to the beginning when pressing up.
         e.preventDefault();
-        this._handleActiveIndexChange(getUpdatedActiveIndex(
-          this.state.activeIndex,
-          e.keyCode,
-          this.items
-        ));
+        this._handleActiveIndexChange(
+          getUpdatedActiveIndex(this.state.activeIndex, e.keyCode, this.items)
+        );
         break;
       case RETURN:
         // Prevent form submission while menu is open.
@@ -552,7 +533,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }
 
     this.props.onKeyDown(e);
-  }
+  };
 
   _handleMenuItemSelect = (option: Option, e: SyntheticEvent<HTMLElement>) => {
     if (option.paginationOption) {
@@ -560,15 +541,18 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     } else {
       this._handleSelectionAdd(option);
     }
-  }
+  };
 
   _handlePaginate = (e: SyntheticEvent<HTMLElement>) => {
     e.persist();
 
-    this.setState((state, props) => ({
-      shownResults: state.shownResults + props.maxResults,
-    }), () => this.props.onPaginate(e, this.state.shownResults));
-  }
+    this.setState(
+      (state, props) => ({
+        shownResults: state.shownResults + props.maxResults,
+      }),
+      () => this.props.onPaginate(e, this.state.shownResults)
+    );
+  };
 
   _handleSelectionAdd = (option: Option) => {
     const { multiple, labelKey } = this.props;
@@ -595,26 +579,32 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       text = getOptionLabel(selection, labelKey);
     }
 
-    this.setState((state, props) => ({
-      ...hideMenu(state, props),
-      initialItem: selection,
-      selected,
-      text,
-    }), () => this._handleChange(selected));
-  }
+    this.setState(
+      (state, props) => ({
+        ...hideMenu(state, props),
+        initialItem: selection,
+        selected,
+        text,
+      }),
+      () => this._handleChange(selected)
+    );
+  };
 
   _handleSelectionRemove = (selection: Option) => {
-    const selected = this.state.selected.filter((option) => (
-      !isEqual(option, selection)
-    ));
+    const selected = this.state.selected.filter(
+      (option) => !isEqual(option, selection)
+    );
 
     // Make sure the input stays focused after the item is removed.
     this.focus();
-    this.setState((state, props) => ({
-      ...hideMenu(state, props),
-      selected,
-    }), () => this._handleChange(selected));
-  }
+    this.setState(
+      (state, props) => ({
+        ...hideMenu(state, props),
+        selected,
+      }),
+      () => this._handleChange(selected)
+    );
+  };
 }
 
 export default Typeahead;

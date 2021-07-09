@@ -23,31 +23,39 @@ type Props = {
   tabIndex?: number,
 };
 
-const InteractiveToken = forwardRef<Props, ?HTMLElement>((
-  { active, children, className, onRemove, tabIndex, ...props },
-  ref
-) => (
-  <div
-    {...props}
-    className={cx('rbt-token', 'rbt-token-removeable', {
-      'rbt-token-active': !!active,
-    }, className)}
-    ref={ref}
-    tabIndex={tabIndex || 0}>
-    {children}
-    <ClearButton
-      className="rbt-token-remove-button"
-      label="Remove"
-      onClick={onRemove}
-      tabIndex={-1}
-    />
-  </div>
-));
+const InteractiveToken = forwardRef<Props, ?HTMLElement>(
+  ({ active, children, className, onRemove, tabIndex, ...props }, ref) => (
+    <div
+      {...props}
+      className={cx(
+        'rbt-token',
+        'rbt-token-removeable',
+        {
+          'rbt-token-active': !!active,
+        },
+        className
+      )}
+      ref={ref}
+      tabIndex={tabIndex || 0}>
+      {children}
+      <ClearButton
+        className="rbt-token-remove-button"
+        label="Remove"
+        onClick={onRemove}
+        tabIndex={-1}
+      />
+    </div>
+  )
+);
 
 const StaticToken = ({ children, className, disabled, href }) => {
-  const classnames = cx('rbt-token', {
-    'rbt-token-disabled': disabled,
-  }, className);
+  const classnames = cx(
+    'rbt-token',
+    {
+      'rbt-token-disabled': disabled,
+    },
+    className
+  );
 
   if (href && !disabled) {
     return (
@@ -57,11 +65,7 @@ const StaticToken = ({ children, className, disabled, href }) => {
     );
   }
 
-  return (
-    <div className={classnames}>
-      {children}
-    </div>
-  );
+  return <div className={classnames}>{children}</div>;
 };
 
 /**
@@ -73,9 +77,11 @@ const StaticToken = ({ children, className, disabled, href }) => {
 const Token = forwardRef<Props, ?HTMLElement>((props, ref) => {
   const { disabled, onRemove, readOnly } = props;
 
-  return !disabled && !readOnly && isFunction(onRemove) ?
-    <InteractiveToken {...props} ref={ref} /> :
-    <StaticToken {...props} />;
+  return !disabled && !readOnly && isFunction(onRemove) ? (
+    <InteractiveToken {...props} ref={ref} />
+  ) : (
+    <StaticToken {...props} />
+  );
 });
 
 export default withToken(Token);

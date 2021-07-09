@@ -11,24 +11,15 @@ module.exports = (env, argv) => {
         {
           exclude: /node_modules/,
           test: /\.js$/,
-          use: [
-            'babel-loader',
-          ],
+          use: ['babel-loader'],
         },
         {
           test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader',
-          ],
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.scss$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            'sass-loader',
-          ],
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
       ],
     },
@@ -59,7 +50,9 @@ module.exports = (env, argv) => {
     resolve: {
       alias: {
         'react-bootstrap-typeahead$': path.resolve(
-          __dirname, '..', 'src/index.js'
+          __dirname,
+          '..',
+          'src/index.js'
         ),
       },
       extensions: ['.js'],

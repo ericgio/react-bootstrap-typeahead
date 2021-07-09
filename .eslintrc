@@ -1,18 +1,17 @@
 {
   "env": {
     "browser": true,
-    "jest": true,
+    "jest": true
   },
   "extends": [
     "@ericgio/eslint-config-react",
     "plugin:react-hooks/recommended",
     "plugin:flowtype/recommended",
+    "prettier"
   ],
   "globals": {},
   "parser": "babel-eslint",
-  "plugins": [
-    "flowtype"
-  ],
+  "plugins": ["flowtype"],
   "settings": {
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
@@ -22,6 +21,6 @@
     }
   },
   "rules": {
-    "react/static-property-placement": [2, "static public field"],
-  },
+    "react/static-property-placement": [2, "static public field"]
+  }
 }

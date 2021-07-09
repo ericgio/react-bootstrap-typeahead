@@ -91,7 +91,7 @@ $rbt-placeholder-color: #6c757d !default;
     }
 
     // Safari and Chrome
-    &::-webkit-input-placeholder  {
+    &::-webkit-input-placeholder {
       color: $rbt-placeholder-color;
     }
   }
@@ -136,7 +136,7 @@ $rbt-token-active-color: $rbt-color-white !default;
 .rbt-token {
   background-color: $rbt-token-background-color;
   border: 0;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   color: $rbt-token-color;
   display: inline-block;
   line-height: 1em;
@@ -204,7 +204,6 @@ $rbt-token-active-color: $rbt-color-white !default;
 .has-aux .rbt-input {
   padding-right: 34px;
 }
-
 
 // Default highlight style
 .rbt-highlight-text {

@@ -11,15 +11,9 @@ const Section = ({ children, onAfter, onBefore, title }) => {
   const id = getIdFromTitle(title);
   return (
     <section className="section">
-      <ScrollSpy
-        href={`#${id}`}
-        onAfter={onAfter}
-        onBefore={onBefore}
-      />
+      <ScrollSpy href={`#${id}`} onAfter={onAfter} onBefore={onBefore} />
       <h1 className="page-header">
-        <Anchor id={id}>
-          {title}
-        </Anchor>
+        <Anchor id={id}>{title}</Anchor>
       </h1>
       {children}
     </section>
