@@ -16,9 +16,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install --frozen-lockfile
-      - run: yarn lint
-      - run: yarn flow
-      - run: yarn prettier
-      - run: yarn test:coverage
+      - run: yarn ci
       - uses: codecov/codecov-action@v1
       - run: yarn build

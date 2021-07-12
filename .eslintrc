@@ -5,22 +5,42 @@
   },
   "extends": [
     "@ericgio/eslint-config-react",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:flowtype/recommended",
     "prettier"
   ],
   "globals": {},
-  "parser": "babel-eslint",
-  "plugins": ["flowtype"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "settings": {
-    "flowtype": {
-      "onlyFilesWithFlowAnnotation": true
-    },
-    "react": {
-      "flowVersion": "0.109"
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   },
   "rules": {
-    "react/static-property-placement": [2, "static public field"]
+    "@typescript-eslint/no-shadow": 2,
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
+    ],
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".tsx"]
+      }
+    ],
+    "react/jsx-fragments": [2, "syntax"],
+    "react/static-property-placement": [2, "static public field"],
+
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/extensions": "off",
+
+    // Turn off the following rules since they conflict with the TS version.
+    "no-shadow": "off",
+    "no-use-before-define": "off"
   }
 }

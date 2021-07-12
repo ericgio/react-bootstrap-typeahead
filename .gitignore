@@ -9,4 +9,5 @@ node_modules/
 .coveralls.yml
 example/package-example.js
 npm-debug.log
+tsconfig.tsbuildinfo
 yarn-error.log
