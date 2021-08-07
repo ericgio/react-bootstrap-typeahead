@@ -6,6 +6,7 @@ exports[`<Menu> renders a snapshot 1`] = `
   className="rbt-menu dropdown-menu show"
   id="menu-id"
   onMouseDown={[Function]}
+  paginate={false}
   role="listbox"
   style={
     Object {
@@ -22,6 +23,12 @@ exports[`<Menu> renders a snapshot 1`] = `
     id="-item-0"
     onClick={[Function]}
     onMouseDown={[Function]}
+    option={
+      Object {
+        "label": "Item 1",
+      }
+    }
+    position={0}
     role="option"
   >
     Item 1
@@ -33,6 +40,12 @@ exports[`<Menu> renders a snapshot 1`] = `
     id="-item-1"
     onClick={[Function]}
     onMouseDown={[Function]}
+    option={
+      Object {
+        "label": "Item 2",
+      }
+    }
+    position={1}
     role="option"
   >
     Item 2
@@ -44,6 +57,12 @@ exports[`<Menu> renders a snapshot 1`] = `
     id="-item-2"
     onClick={[Function]}
     onMouseDown={[Function]}
+    option={
+      Object {
+        "label": "Item 3",
+      }
+    }
+    position={2}
     role="option"
   >
     Item 3

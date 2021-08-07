@@ -8,7 +8,7 @@ import { getMenu, render, screen, waitFor } from '../helpers';
 const TestComponent = (props) => (
   <Overlay referenceElement={document.createElement('div')} {...props}>
     {(menuProps) => (
-      <Menu {...menuProps} id="menu-id">
+      <Menu {...menuProps} id="menu-id" text="">
         This is the menu
       </Menu>
     )}

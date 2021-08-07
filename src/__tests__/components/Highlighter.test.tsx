@@ -3,8 +3,9 @@ import React from 'react';
 import Highlighter from '../../components/Highlighter';
 import { render } from '../helpers';
 
-function getMatches(nodes) {
-  return Array.from(nodes).filter((node) => node.tagName === 'MARK');
+function getMatches(nodes: NodeListOf<ChildNode>) {
+  const arr = Array.from(nodes) as Element[];
+  return arr.filter((node) => node.tagName === 'MARK');
 }
 
 describe('<Highlighter>', () => {

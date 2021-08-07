@@ -50,7 +50,7 @@ interface RenderMenuProps
   renderMenuItemChildren?: RenderMenuItemChildren;
 }
 
-interface Props extends TypeaheadProps {
+export interface TypeaheadComponentProps extends TypeaheadProps {
   align?: Align;
   className?: string;
   clearButton?: boolean;
@@ -158,9 +158,9 @@ const overlayPropKeys = [
   'dropup',
   'flip',
   'positionFixed',
-] as (keyof Props)[];
+] as (keyof TypeaheadComponentProps)[];
 
-function getOverlayProps(props: Props) {
+function getOverlayProps(props: TypeaheadComponentProps) {
   return pick(props, overlayPropKeys);
 }
 
@@ -176,7 +176,7 @@ const RootClose = ({ children, onRootClose, ...props }: RootCloseProps) => {
   return children(attachRef);
 };
 
-class TypeaheadComponent extends React.Component<Props> {
+class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
@@ -330,6 +330,6 @@ class TypeaheadComponent extends React.Component<Props> {
   };
 }
 
-export default forwardRef<Typeahead, Props>((props, ref) => (
+export default forwardRef<Typeahead, TypeaheadComponentProps>((props, ref) => (
   <TypeaheadComponent {...props} instanceRef={ref} />
 ));

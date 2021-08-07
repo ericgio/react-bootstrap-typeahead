@@ -93,7 +93,9 @@ function getModifiers(props: OverlayProps): PopperProps['modifiers'] {
   };
 }
 
-export function getPlacement(props: OverlayProps): Placement {
+export function getPlacement(
+  props: Pick<OverlayProps, 'align' | 'dropup'>
+): Placement {
   const x = props.align === Align.RIGHT ? 'end' : 'start';
   const y = props.dropup ? 'top' : 'bottom';
 

@@ -10,6 +10,8 @@ import {
   userEvent,
 } from '../helpers';
 
+import { Size } from '../../types';
+
 describe('<ClearButton>', () => {
   it('renders a snapshot', () => {
     expect(prepareSnapshot(<ClearButton />)).toMatchSnapshot();
@@ -21,7 +23,7 @@ describe('<ClearButton>', () => {
   });
 
   it('renders a large clear button', () => {
-    render(<ClearButton size="large" />);
+    render(<ClearButton size={Size.LARGE} />);
     expect(screen.getByRole('button').className).toContain('rbt-close-lg');
   });
 

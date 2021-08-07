@@ -56,8 +56,13 @@ describe('<BaseMenuItem>', () => {
   });
 });
 
+interface TestComponentProps {
+  context?: Record<string, unknown>;
+  props?: Record<string, unknown>;
+}
+
 describe('<MenuItem>', () => {
-  const TestComponent = ({ context, props }) => (
+  const TestComponent = ({ context, props }: TestComponentProps) => (
     <TestProvider {...context} selected={[]}>
       {() => (
         <MenuItem {...props} option={{ label: 'test' }} position={0}>

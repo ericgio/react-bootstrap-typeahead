@@ -18,7 +18,12 @@ import {
   userEvent,
 } from '../helpers';
 
-const TestComponent = ({ context, props }) => {
+interface TestComponentProps {
+  context?: Record<string, unknown>;
+  props?: Record<string, unknown>;
+}
+
+const TestComponent = ({ context, props }: TestComponentProps) => {
   const selected = options.slice(1, 4);
 
   return (
@@ -86,12 +91,12 @@ describe('<TypeaheadInputMulti>', () => {
 
   it('does not focus a disabled input', () => {
     render(
-      <React.Fragment>
+      <>
         <TestComponent props={{ 'data-testid': 'enabled-input' }} />
         <TestComponent
           props={{ 'data-testid': 'disabled-input', disabled: true }}
         />
-      </React.Fragment>
+      </>
     );
 
     const enabledInput = screen.getByTestId('enabled-input');

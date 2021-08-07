@@ -6,6 +6,7 @@ import options from '../data';
 import {
   getItems,
   getMenu,
+  noop,
   prepareSnapshot,
   render,
   screen,
@@ -59,7 +60,7 @@ describe('<TypeaheadMenu>', () => {
       paginationText = 'More results...';
       paginationProps = {
         maxResults: 10,
-        onPaginate: () => {},
+        onPaginate: noop,
         options: options.concat({
           name: '',
           paginationOption: true,

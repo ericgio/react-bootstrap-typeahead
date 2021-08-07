@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Token from '../../components/Token';
-import { prepareSnapshot, render, screen, userEvent } from '../helpers';
+import { noop, prepareSnapshot, render, screen, userEvent } from '../helpers';
 
 const option = {
   label: 'test option',
@@ -21,22 +21,22 @@ describe('<Token>', () => {
   it('renders a snapshot', () => {
     expect(
       prepareSnapshot(
-        <Fragment>
-          <TestComponent onRemove={() => {}} />
+        <>
+          <TestComponent onRemove={noop} />
           <TestComponent disabled />
           <TestComponent href="/path/to/some/url" />
-        </Fragment>
+        </>
       )
     ).toMatchSnapshot();
   });
 
   it('renders non-removeable tokens', () => {
     render(
-      <Fragment>
+      <>
         <TestComponent onRemove={undefined} />
         <TestComponent disabled />
         <TestComponent readOnly />
-      </Fragment>
+      </>
     );
 
     expect(screen.queryAllByRole('button').length).toBe(0);
@@ -60,9 +60,9 @@ describe('<Token>', () => {
       <TestComponent disabled href="/path/to/some/url" />
     );
 
-    const token = container.firstChild;
+    const token = container.firstChild as Element;
     expect(token.tagName).toBe('DIV');
-    expect(token.href).toBeUndefined();
+    expect(token).not.toHaveAttribute('href');
     expect(token).toHaveClass(DISABLED_CLASS);
   });
 });

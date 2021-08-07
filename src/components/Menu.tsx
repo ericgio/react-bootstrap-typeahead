@@ -1,6 +1,13 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React, { Children, HTMLProps, ReactNode, Ref, useEffect } from 'react';
+import React, {
+  Children,
+  HTMLProps,
+  ReactNode,
+  Ref,
+  useEffect,
+  useRef,
+} from 'react';
 
 import { BaseMenuItem } from './MenuItem';
 
@@ -61,8 +68,15 @@ const Menu = ({
   text,
   ...props
 }: MenuProps) => {
+  const isInitialMount = useRef(true);
+
   useEffect(() => {
-    scheduleUpdate();
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    scheduleUpdate && scheduleUpdate();
   }, [inputHeight, scheduleUpdate]);
 
   const contents =

@@ -8,6 +8,11 @@ Array [
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
+    option={
+      Object {
+        "label": "test option",
+      }
+    }
     tabIndex={0}
   >
     This is a token

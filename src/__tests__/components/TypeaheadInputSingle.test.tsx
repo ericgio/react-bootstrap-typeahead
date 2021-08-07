@@ -14,7 +14,12 @@ import {
   userEvent,
 } from '../helpers';
 
-const TestComponent = ({ context, props }) => {
+interface TestComponentProps {
+  context?: Record<string, unknown>;
+  props?: Record<string, unknown>;
+}
+
+const TestComponent = ({ context, props }: TestComponentProps) => {
   return (
     <TestProvider {...context} onKeyDown={noop} options={options} selected={[]}>
       {({ getInputProps }) => (

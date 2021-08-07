@@ -17,7 +17,13 @@ const getInputProps =
     placeholder,
     ...rest
   }: TypeaheadManagerProps) =>
-  ({ className, ...inputProps }: Record<string, unknown>) => {
+  (inputProps = {}) => {
+    const className = hasOwnProperty(inputProps, 'className')
+      ? inputProps.className
+      : undefined;
+
+    const onClick = hasOwnProperty(inputProps, 'onClick') && inputProps.onClick;
+
     const props = {
       // These props can be overridden by values in `inputProps`.
       autoComplete: 'off',
@@ -39,9 +45,7 @@ const getInputProps =
       onClick: (e: SyntheticEvent<HTMLInputElement>) => {
         // Re-open the menu if it's closed, eg: via ESC.
         onFocus && onFocus(e);
-        hasOwnProperty(inputProps, 'onClick') &&
-          isFunction(inputProps.onClick) &&
-          inputProps.onClick(e);
+        isFunction(onClick) && onClick(e);
       },
       onFocus,
       // Comboboxes are single-select by definition:
