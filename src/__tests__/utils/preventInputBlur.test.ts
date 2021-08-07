@@ -5,6 +5,7 @@ describe('preventInputBlur', () => {
     const e = {
       preventDefault: jest.fn(),
     };
+    // @ts-ignore
     preventInputBlur(e);
     expect(e.preventDefault).toHaveBeenCalled();
   });

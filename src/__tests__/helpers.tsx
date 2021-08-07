@@ -6,6 +6,7 @@ import TypeaheadManager from '../core/TypeaheadManager';
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export function noop() {}
 
 const context = {

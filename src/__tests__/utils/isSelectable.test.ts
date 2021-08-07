@@ -37,6 +37,7 @@ describe('isSelectable', () => {
     expect(isSelectable(input)).toBe(false);
 
     const div = document.createElement('div');
+    // @ts-ignore
     expect(isSelectable(div)).toBe(false);
   });
 });

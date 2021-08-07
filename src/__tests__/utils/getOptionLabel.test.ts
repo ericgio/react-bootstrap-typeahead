@@ -12,7 +12,7 @@ describe('getOptionLabel', () => {
   });
 
   it('returns a string when it receives a string `option` value', () => {
-    const optionLabel = getOptionLabel(name);
+    const optionLabel = getOptionLabel(name, '');
     expect(optionLabel).toBe(name);
   });
 
@@ -48,11 +48,13 @@ describe('getOptionLabel', () => {
   });
 
   it('throws an error when an invalid option is encountered', () => {
+    // @ts-ignore
     const willThrow = () => getOptionLabel([], 'name');
     expect(willThrow).toThrowError(Error);
   });
 
   it('throws an error when `option` is an object and no labelkey is specified', () => {
+    // @ts-ignore
     const willThrow = () => getOptionLabel(option);
     expect(willThrow).toThrowError(Error);
   });
