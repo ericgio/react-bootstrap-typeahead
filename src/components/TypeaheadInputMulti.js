@@ -40,36 +40,44 @@ class TypeaheadInputMulti extends React.Component<Props> {
       shouldSelectHint,
       ...props
     } = this.props;
-
+    const useFloatingLabel = props.useFloatingLabel;
+    const floatingLabelText = props.floatingLabelText || props.placeholder || null;
+    props.placeholder = props.placeholder || props.floatingLabelText || null;
+    delete props.useFloatingLabel;
+    delete props.floatingLabelText;
     return (
       <div
-        className={cx('rbt-input-multi', className)}
+        className={cx('rbt-input-multi', className, useFloatingLabel && "rbt-multi-input-floating-label")}
         disabled={props.disabled}
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
         ref={referenceElementRef}
-        tabIndex={-1}>
+        tabIndex={-1}
+        style={useFloatingLabel ? {padding: 0} : null}>
         <div className="rbt-input-wrapper" ref={this.wrapperRef}>
           {children}
           <Hint shouldSelect={shouldSelectHint}>
-            <Input
-              {...props}
-              className={inputClassName}
-              onClick={this._handleClick}
-              onKeyDown={this._handleKeyDown}
-              placeholder={selected.length ? '' : placeholder}
-              ref={this.getInputRef}
-              style={{
-                backgroundColor: 'transparent',
-                border: 0,
-                boxShadow: 'none',
-                cursor: 'inherit',
-                outline: 'none',
-                padding: 0,
-                width: '100%',
-                zIndex: 1,
-              }}
+            <div className={useFloatingLabel ? "form-floating" : ""}>
+              <Input
+                {...props}
+                className={`${useFloatingLabel?"form-control" : ""} inputClassName`}
+                onClick={this._handleClick}
+                onKeyDown={this._handleKeyDown}
+                placeholder={useFloatingLabel ? props.placeholder : (selected.length ? '' : props.placeholder)}
+                ref={this.getInputRef}
+                style={{
+                  backgroundColor: 'transparent',
+                  border: 0,
+                  boxShadow: 'none',
+                  cursor: 'inherit',
+                  outline: 'none',
+                  padding: useFloatingLabel ? null : 0,
+                  width: '100%',
+                  zIndex: 1,
+                }}
             />
+              {useFloatingLabel && <label htmlFor={props.id}>{floatingLabelText}</label>}
+            </div>
           </Hint>
         </div>
       </div>
