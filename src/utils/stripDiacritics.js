@@ -104,6 +104,20 @@ const map = [
   { base: 'x', letters: '\u0078\u24E7\uFF58\u1E8B\u1E8D' },
   { base: 'y', letters: '\u0079\u24E8\uFF59\u1EF3\u00FD\u0177\u1EF9\u0233\u1E8F\u00FF\u1EF7\u1E99\u1EF5\u01B4\u024F\u1EFF' },
   { base: 'z', letters: '\u007A\u24E9\uFF5A\u017A\u1E91\u017C\u017E\u1E93\u1E95\u01B6\u0225\u0240\u2C6C\uA763' },
+  { base: 'Α', letters: '\u0386' },
+  { base: 'Ε', letters: '\u0388' },
+  { base: 'Η', letters: '\u0389' },
+  { base: 'Ι', letters: '\u038a\u03aa' },
+  { base: 'Ο', letters: '\u038c' },
+  { base: 'Υ', letters: '\u038e\u03ab' },
+  { base: 'Ω', letters: '\u038f' },
+  { base: 'α', letters: '\u03ac' },
+  { base: 'ε', letters: '\u03ad' },
+  { base: 'η', letters: '\u03ae' },
+  { base: 'ι', letters: '\u03af\u03ca\u0390' },
+  { base: 'ο', letters: '\u03cc' },
+  { base: 'υ', letters: '\u03cd\u03cb\u03b0' },
+  { base: 'ω', letters: '\u03ce' },
 ];
 /* eslint-enable max-len */
 
