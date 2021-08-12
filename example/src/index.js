@@ -10,6 +10,7 @@ import CustomSelectionsSection from './sections/CustomSelectionsSection';
 import FilteringSection from './sections/FilteringSection';
 import PublicMethodsSection from './sections/PublicMethodsSection';
 import RenderingSection from './sections/RenderingSection';
+import FloatingLabelSection from "./sections/FloatingLabelSection";
 
 import '../../styles/Typeahead.scss';
 
@@ -17,6 +18,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Page>
       <BasicSection />
+        <FloatingLabelSection/>
       <BehaviorsSection />
       <RenderingSection />
       <FilteringSection />
