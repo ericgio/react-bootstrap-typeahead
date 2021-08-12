@@ -57,7 +57,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
         <div className="rbt-input-wrapper" ref={this.wrapperRef}>
           {children}
           <Hint shouldSelect={shouldSelectHint}>
-            <div className={useFloatingLabel ? "form-floating" : ""}>
+            <div className={`w-100 ${useFloatingLabel ? "form-floating" : ""}`}>
               <Input
                 {...props}
                 className={`${useFloatingLabel?"form-control" : ""} inputClassName`}

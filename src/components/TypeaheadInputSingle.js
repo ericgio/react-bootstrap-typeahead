@@ -27,7 +27,7 @@ export default withClassNames(({
     delete props.useFloatingLabel;
     delete props.floatingLabelText;
     return (<Hint shouldSelect={shouldSelectHint}>
-            <div className={useFloatingLabel ? "form-floating" : ""}>
+            <div className={`w-100 ${useFloatingLabel ? "form-floating" : ""}`}>
                 <Input
                     {...props}
                     ref={(node) => {
