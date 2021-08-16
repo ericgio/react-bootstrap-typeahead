@@ -67,6 +67,7 @@ export type TypeaheadProps = {
   defaultOpen: boolean,
   defaultSelected: Option[],
   filterBy: string[] | (Option, TypeaheadPropsAndState) => void,
+  forceCase: string,
   highlightOnlyResult: boolean,
   id?: Id,
   ignoreDiacritics: boolean,

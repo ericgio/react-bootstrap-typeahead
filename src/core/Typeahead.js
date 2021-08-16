@@ -31,6 +31,7 @@ import {
   isShown,
   isString,
   noop,
+  setCase,
   uniqueId,
   validateSelectedPropChange,
 } from '../utils';
@@ -95,6 +96,10 @@ const propTypes = {
     PropTypes.arrayOf(PropTypes.string.isRequired),
     PropTypes.func,
   ]),
+  /**
+   * Forces input to match a case style, does not affect case styling of options list
+   */
+  forceCase: PropTypes.string,
   /**
    * Highlights the menu item if there is only one result and allows selecting
    * that item by hitting enter. Does not work with `allowNew`.
@@ -203,6 +208,7 @@ const defaultProps = {
   defaultOpen: false,
   defaultSelected: [],
   filterBy: [],
+  forceCase: null,
   highlightOnlyResult: false,
   ignoreDiacritics: true,
   labelKey: DEFAULT_LABELKEY,
@@ -490,8 +496,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   _handleInputChange = (e: SyntheticEvent<HTMLInputElement>) => {
     e.persist();
 
-    const text = e.currentTarget.value;
-    const { multiple, onInputChange } = this.props;
+    const { multiple, onInputChange, forceCase } = this.props;
+    let text = forceCase ? setCase(e.currentTarget.value, forceCase) : e.currentTarget.value;
 
     // Clear selections when the input value changes in single-select mode.
     const shouldClearSelections = this.state.selected.length && !multiple;

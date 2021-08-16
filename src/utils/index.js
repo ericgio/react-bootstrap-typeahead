@@ -17,6 +17,7 @@ export isShown from './isShown';
 export * from './nodash';
 export preventInputBlur from './preventInputBlur';
 export * from './size';
+export setCase from './setCase';
 export stripDiacritics from './stripDiacritics';
 export validateSelectedPropChange from './validateSelectedPropChange';
 export warn from './warn';
