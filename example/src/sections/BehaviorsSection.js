@@ -15,6 +15,7 @@ import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample';
 import MenuAlignExampleCode from '!raw-loader!../examples/MenuAlignExample';
 import PaginationExampleCode from '!raw-loader!../examples/PaginationExample';
 import PositionFixedExampleCode from '!raw-loader!../examples/PositionFixedExample';
+import ForceCaseExampleCode from '!raw-loader!../examples/ForceCaseExample';
 import SelectionsExampleCode from '!raw-loader!../examples/SelectionsExample';
 /* eslint-enable import/no-unresolved, import/extensions */
 
@@ -22,6 +23,7 @@ import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 import Title from '../components/Title';
+import ForceCaseExample from "../examples/ForceCaseExample";
 
 const BehaviorsSection = (props) => (
   <Section title={props.title}>
@@ -86,6 +88,14 @@ const BehaviorsSection = (props) => (
     </Markdown>
     <ExampleSection code={PositionFixedExampleCode}>
       <PositionFixedExample />
+    </ExampleSection>
+    <Title>Force case</Title>
+    <Markdown>
+      Setting the `forceCase` prop will force the input to be in the given case style.
+        This is useful for forcing new options to be in a specific case style.
+    </Markdown>
+    <ExampleSection code={ForceCaseExampleCode}>
+      <ForceCaseExample />
     </ExampleSection>
   </Section>
 );
