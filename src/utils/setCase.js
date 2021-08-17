@@ -1,6 +1,7 @@
 import toTitleCase from "@gouch/to-title-case";
 
 const setCase = (text = "", caseType = "title") => {
+
     //Change text to case specified by caseType string
     switch (caseType.toLowerCase()) {
         case "upper":
@@ -28,14 +29,14 @@ const setCase = (text = "", caseType = "title") => {
         case "sentence":
         case "sentence_case":
         case "sentence-case":
-            return text.charAt(0).toUpperCase() + text.toLowerCase().slice(1);
+            return capitalise(text, true);
             break;
         case "capitalise":
         case "capitalize":
         case "firstletter":
         case "first_letter":
         case "first-letter":
-            return text.charAt(0).toUpperCase() + text.slice(1);
+            return capitalise(text, false, " ");
             break;
         case "alternating":
         case "alternatingcase":
@@ -70,11 +71,74 @@ const setCase = (text = "", caseType = "title") => {
         case "title_case":
         case "title-case":
         case "totitlecase":
+        case "to_title_case":
         case "to-title-case":
             return text.toTitleCase();
             break;
+        case "camel":
+        case "camelcase":
+        case "camel_case":
+        case "camel-case":
+            return (text.charAt(0).toLowerCase() + capitalise(text, false, " ").slice(1)).replace(/ (\w)/g, "$1");
+            break;
+        case "snake":
+        case "snakecase":
+        case "snake_case":
+        case "snake-case":
+            return text.toLowerCase().replace(/ /g, "_");
+            break;
+        case "snakeupper":
+        case "snakeuppercase":
+        case "snake_upper_case":
+        case "snake-upper-case":
+            return text.toUpperCase().replace(/ /g, "_");
+            break;
+        case "snakecapital":
+        case "snakecapitalise":
+        case "snakecapitalised":
+        case "snakecapitalcase":
+        case "snakecapitalisedcase":
+        case "snake_capital_case":
+        case "snake_capitalised_case":
+        case "snake-capital-case":
+        case "snake-capitalised-case":
+            return capitalise(text, true, "_");
+            break;
+        case "hyphen":
+        case "hyphencase":
+        case "hyphen_case":
+        case "hyphen-case":
+            return text.toLowerCase().replace(/ /g, "-");
+            break;
+        case "hyphencapital":
+        case "hyphencapitalise":
+        case "hyphencapitalised":
+        case "hyphencapitalcase":
+        case "hyphencapitalisedcase":
+        case "hyphen_capital_case":
+        case "hyphen_capitalised_case":
+        case "hyphen-capital-case":
+        case "hyphen-capitalised-case":
+            return capitalise(text, true, "-");
+            break;
+        case "hyphenupper":
+        case "hyphenuppercase":
+        case "hyphen_upper_case":
+        case "hyphen-upper-case":
+            return text.toUpperCase().replace(/ /g, "-");
+            break;
         default:
             return text;
+            break
+    }
+}
+export default setCase;
+
+const capitalise = (text: string, forceLower = true, delimiter = null, replaceAllDelimiters = false) => {
+    if (delimiter) {
+        const separator = replaceAllDelimiters ? /[ -_/\\:]/g : / /g;
+        return text.split(separator).map((x) => x.charAt(0).toUpperCase() + (forceLower ? x.toLowerCase().slice(1) : x.slice(1))).join(delimiter);
+    } else {
+        return text.charAt(0).toUpperCase() + (forceLower ? text.toLowerCase().slice(1) : text.slice(1));
     }
 };
-export default setCase;
