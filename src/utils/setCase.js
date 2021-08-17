@@ -102,7 +102,7 @@ const setCase = (text = "", caseType = "title") => {
         case "snake_capitalised_case":
         case "snake-capital-case":
         case "snake-capitalised-case":
-            return capitalise(text, true, "_");
+            return capitalise(text, true, "_", /[ _]/g);
             break;
         case "hyphen":
         case "hyphencase":
@@ -119,7 +119,7 @@ const setCase = (text = "", caseType = "title") => {
         case "hyphen_capitalised_case":
         case "hyphen-capital-case":
         case "hyphen-capitalised-case":
-            return capitalise(text, true, "-");
+            return capitalise(text, true, "-", /[ -]/g);
             break;
         case "hyphenupper":
         case "hyphenuppercase":
@@ -134,9 +134,8 @@ const setCase = (text = "", caseType = "title") => {
 }
 export default setCase;
 
-const capitalise = (text: string, forceLower = true, delimiter = null, replaceAllDelimiters = false) => {
+const capitalise = (text: string, forceLower = true, delimiter = null, separator = / /g) => {
     if (delimiter) {
-        const separator = replaceAllDelimiters ? /[ -_/\\:]/g : / /g;
         return text.split(separator).map((x) => x.charAt(0).toUpperCase() + (forceLower ? x.toLowerCase().slice(1) : x.slice(1))).join(delimiter);
     } else {
         return text.charAt(0).toUpperCase() + (forceLower ? text.toLowerCase().slice(1) : text.slice(1));
