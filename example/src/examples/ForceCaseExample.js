@@ -21,6 +21,7 @@ const ForceCaseExample = () => {
         { label: `AlTeRnAtInG ("alternate")`, value: 'alternate' },
         { label: `Title ("title")`, value: 'title' },
         { label: `camelCase ("camel")`, value: 'camel' },
+        { label: `PascalCase ("pascal")`, value: 'pascal' },
         { label: `snake_case ("snake")`, value: 'snake' },
         { label: `Capital_Snake_Case ("snakeCapital")`, value: 'snakeCapitalised' },
         { label: `UPPER_SNAKE_CASE ("snakeUpper")`, value: 'snakeUpper' },
