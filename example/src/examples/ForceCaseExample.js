@@ -14,12 +14,19 @@ const ForceCaseExample = () => {
     const [forceCaseValue, setForceCaseValue] = useState("");
     const ref = useRef();
     const forceCaseRadios = [
-        { label: `Uppercase ("upper")`, value: 'upper' },
-        { label: `Lowercase ("lower")`, value: 'lower' },
+        { label: `UPPERCASE ("upper")`, value: 'upper' },
+        { label: `lowercase ("lower")`, value: 'lower' },
         { label: `Sentence case ("sentence")`, value: 'sentence' },
         { label: `Capitalise ("capitalise")`, value: 'capitalise' },
-        { label: `Alternating ("alternate")`, value: 'alternate' },
-        { label: `Title ("alternate")`, value: 'title' }
+        { label: `AlTeRnAtInG ("alternate")`, value: 'alternate' },
+        { label: `Title ("title")`, value: 'title' },
+        { label: `camelCase ("camel")`, value: 'camel' },
+        { label: `snake_case ("snake")`, value: 'snake' },
+        { label: `Capital_Snake_Case ("snakeCapital")`, value: 'snakeCapitalised' },
+        { label: `UPPER_SNAKE_CASE ("snakeUpper")`, value: 'snakeUpper' },
+        { label: `Hyphenated-case ("hyphen")`, value: 'hyphen' },
+        { label: `Capital-Hyphenated-Case ("hyphenCapitalised")`, value: 'hyphenCapitalised' },
+        { label: `UPPER-HYPHENATED-CASE ("hyphenUpper")`, value: 'hyphenUpper' }
     ];
     return (
         <Fragment>
