@@ -1267,7 +1267,7 @@ describe('<Typeahead> `change` events', () => {
     }
   );
 
-  it('calls change events when clicking the clear button', () => {
+  it('calls change events when clicking the clear button on single', () => {
     let event, value;
 
     onInputChange = jest.fn((v, e) => {
@@ -1285,6 +1285,33 @@ describe('<Typeahead> `change` events', () => {
     );
 
     screen.getByRole('button').click();
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onInputChange).toHaveBeenCalledTimes(1);
+    expect(value).toBe('');
+    expect(event).toBeDefined();
+  });
+
+  it('calls change events when clicking the clear button on multiple', () => {
+    let event, value;
+
+    onInputChange = jest.fn((v, e) => {
+      value = v;
+      event = e;
+    });
+
+    render(
+      <TestComponent
+        multiple
+        clearButton
+        defaultInputValue="test"
+        onChange={onChange}
+        onInputChange={onInputChange}
+        selected={states.slice(0, 1)}
+      />
+    );
+
+    screen.getByLabelText('Clear').click();
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(1);

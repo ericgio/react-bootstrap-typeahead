@@ -469,7 +469,12 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   _handleClear = () => {
     this.inputNode && triggerInputChange(this.inputNode, '');
-    this.setState(clearTypeahead);
+    this.setState(clearTypeahead, () => {
+      // Clearing the input fields triggers this for single select mode.
+      if (this.props.multiple) {
+        this._handleChange([]);
+      }
+    });
   }
 
   _handleFocus = (e: SyntheticEvent<HTMLInputElement>) => {
