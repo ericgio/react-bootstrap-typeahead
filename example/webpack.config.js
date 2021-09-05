@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require('path');
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
@@ -12,6 +14,11 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           test: /\.js$/,
           use: ['babel-loader'],
+        },
+        {
+          exclude: /node_modules/,
+          test: /\.tsx?$/,
+          use: ['ts-loader'],
         },
         {
           test: /\.css$/,
@@ -52,10 +59,10 @@ module.exports = (env, argv) => {
         'react-bootstrap-typeahead$': path.resolve(
           __dirname,
           '..',
-          'src/index.js'
+          'src/index.ts'
         ),
       },
-      extensions: ['.js'],
+      extensions: ['.ts', '.tsx', '.js'],
     },
     stats: {
       warnings: argv.mode !== 'production',

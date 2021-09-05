@@ -52,6 +52,7 @@
     "react-overlays": "^5.1.0",
     "react-popper": "^1.0.0",
     "scroll-into-view-if-needed": "^2.2.20",
+    "ts-loader": "^9.2.5",
     "warning": "^4.0.1"
   },
   "peerDependencies": {
