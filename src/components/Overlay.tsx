@@ -69,20 +69,22 @@ function getModifiers(props: OverlayProps): PopperProps['modifiers'] {
   return {
     computeStyles: {
       enabled: true,
-      fn: (data: Data) => ({
-        ...data,
-        styles: {
-          ...data.styles,
-          // Use the following condition instead of `align === 'justify'`
-          // since it allows the component to fall back to justifying the
-          // menu width if `align` is undefined.
-          width:
-            props.align !== Align.RIGHT && props.align !== Align.LEFT
-              ? // Set the popper width to match the target width.
-                String(data.offsets.reference.width)
-              : data.styles.width,
-        },
-      }),
+      fn: (data: Data) => {
+        return {
+          ...data,
+          styles: {
+            ...data.styles,
+            // Use the following condition instead of `align === 'justify'`
+            // since it allows the component to fall back to justifying the
+            // menu width if `align` is undefined.
+            width:
+              props.align !== Align.RIGHT && props.align !== Align.LEFT
+                ? // Set the popper width to match the target width.
+                  `${data.offsets.reference.width}px`
+                : data.styles.width,
+          },
+        };
+      },
     },
     flip: {
       enabled: props.flip,
