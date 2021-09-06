@@ -16,7 +16,7 @@ import {
 const options = [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }];
 
 const TestComponent = (props) => (
-  <Menu id="menu-id" paginate={false} scheduleUpdate={noop} {...props}>
+  <Menu id="menu-id" scheduleUpdate={noop} {...props}>
     {options.map((o, idx) => (
       <MenuItem key={o.label} option={o} position={idx}>
         {o.label}
@@ -49,7 +49,16 @@ describe('<Menu>', () => {
 
   it('renders an empty label when there are no children', () => {
     const emptyLabel = 'No matches.';
-    render(<TestComponent emptyLabel={emptyLabel} />);
+    render(
+      <Menu
+        emptyLabel={emptyLabel}
+        id="menu-id"
+        inputHeight={0}
+        innerRef={undefined}
+        scheduleUpdate={noop}
+        text=""
+      />
+    );
 
     const items = getItems(screen);
     expect(items).toHaveLength(1);

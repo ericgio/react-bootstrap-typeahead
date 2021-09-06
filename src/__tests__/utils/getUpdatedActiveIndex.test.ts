@@ -1,20 +1,41 @@
-import getUpdatedActiveIndex from '../../utils/getUpdatedActiveIndex';
+import getUpdatedActiveIndex, {
+  isDisabledOption,
+  skipDisabledOptions,
+} from '../../utils/getUpdatedActiveIndex';
 
-const results = [
+const options = [
   { name: 'foo' },
   { disabled: true, name: 'bar' },
   { disabled: true, name: 'boo' },
   { name: 'baz' },
 ];
 
-describe('getUpdatedActiveIndex', () => {
-  it('updates the active index', () => {
-    expect(getUpdatedActiveIndex(-1, 'ArrowDown', results)).toBe(0);
-    expect(getUpdatedActiveIndex(0, 'ArrowDown', results)).toBe(3);
-    expect(getUpdatedActiveIndex(3, 'ArrowDown', results)).toBe(-1);
+const stringOptions = ['foo', 'bar', 'baz'];
 
-    expect(getUpdatedActiveIndex(-1, 'ArrowUp', results)).toBe(3);
-    expect(getUpdatedActiveIndex(3, 'ArrowUp', results)).toBe(0);
-    expect(getUpdatedActiveIndex(0, 'ArrowUp', results)).toBe(-1);
-  });
+test('getUpdatedActiveIndex', () => {
+  expect(getUpdatedActiveIndex(-1, 'ArrowDown', options)).toBe(0);
+  expect(getUpdatedActiveIndex(0, 'ArrowDown', options)).toBe(3);
+  expect(getUpdatedActiveIndex(3, 'ArrowDown', options)).toBe(-1);
+
+  expect(getUpdatedActiveIndex(-1, 'ArrowUp', options)).toBe(3);
+  expect(getUpdatedActiveIndex(3, 'ArrowUp', options)).toBe(0);
+  expect(getUpdatedActiveIndex(0, 'ArrowUp', options)).toBe(-1);
+});
+
+test('skipDisabledOptions', () => {
+  expect(skipDisabledOptions(0, 'ArrowDown', options)).toBe(0);
+  expect(skipDisabledOptions(0, 'ArrowUp', options)).toBe(0);
+
+  expect(skipDisabledOptions(1, 'ArrowDown', options)).toBe(3);
+  expect(skipDisabledOptions(1, 'ArrowUp', options)).toBe(0);
+
+  expect(skipDisabledOptions(1, 'ArrowDown', stringOptions)).toBe(1);
+  expect(skipDisabledOptions(1, 'ArrowUp', stringOptions)).toBe(1);
+});
+
+test('isDisabledOption', () => {
+  expect(isDisabledOption(0, options)).toBe(false);
+  expect(isDisabledOption(1, options)).toBe(true);
+  expect(isDisabledOption(6, options)).toBe(false);
+  expect(isDisabledOption(0, stringOptions)).toBe(false);
 });

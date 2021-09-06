@@ -1490,8 +1490,8 @@ describe('<Typeahead> with custom menu', () => {
 describe('State modifiers', () => {
   const defaultState = {
     activeIndex: -1,
-    activeItem: null,
-    initialItem: null,
+    activeItem: undefined,
+    initialItem: undefined,
     isFocused: false,
     selected: [],
     showMenu: false,
@@ -1554,8 +1554,8 @@ describe('State modifiers', () => {
 
     expect(hideMenu({}, props)).toEqual({
       activeIndex: -1,
-      activeItem: null,
-      initialItem: null,
+      activeItem: undefined,
+      initialItem: undefined,
       showMenu: false,
       shownResults: props.maxResults,
     });
@@ -1573,8 +1573,8 @@ describe('State modifiers', () => {
 
     expect(toggleMenu({ showMenu: true }, props)).toEqual({
       activeIndex: -1,
-      activeItem: null,
-      initialItem: null,
+      activeItem: undefined,
+      initialItem: undefined,
       showMenu: false,
       shownResults: props.maxResults,
     });

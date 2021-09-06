@@ -6,7 +6,6 @@ exports[`<Menu> renders a snapshot 1`] = `
   className="rbt-menu dropdown-menu show"
   id="menu-id"
   onMouseDown={[Function]}
-  paginate={false}
   role="listbox"
   style={
     Object {
