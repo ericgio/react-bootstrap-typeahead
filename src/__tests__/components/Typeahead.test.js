@@ -9,19 +9,19 @@ import {
 } from '../../core/Typeahead';
 
 import {
+  fireEvent,
   getHint,
   getInput,
   getItems,
   getMenu,
   getPaginator,
+  getTokens,
   noop,
   prepareSnapshot,
   render,
   screen,
-  fireEvent,
   userEvent,
   waitFor,
-  getTokens,
 } from '../helpers';
 
 import states from '../data';
@@ -92,8 +92,8 @@ describe('<Typeahead>', () => {
       const input = getInput(screen);
       input.focus();
 
-      // Use fireEvent.click instead of userEvent.click because of weird
-      // error about pointer-events being set to "none".
+      // Use `fireEvent` because Bootstrap applies "pointer-events: none" to
+      // the menu, which triggers an error when using `userEvent`.
       fireEvent.click(getItems(screen)[0]);
     });
 
@@ -277,7 +277,10 @@ describe('<Typeahead>', () => {
 
       getInput(screen).focus();
       const paginator = getPaginator(screen);
-      paginator.click();
+
+      // Use `fireEvent` because Bootstrap applies "pointer-events: none" to
+      // the menu, which triggers an error when using `userEvent`.
+      fireEvent.click(paginator);
 
       expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(maxResults * 2);
@@ -1219,7 +1222,7 @@ describe('<Typeahead> Public Methods', () => {
 
     const input = getInput(screen);
     input.focus();
-    getItems(screen)[0].click();
+    fireEvent.click(getItems(screen)[0]);
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(input).toHaveValue('');
@@ -1238,7 +1241,7 @@ describe('<Typeahead> `change` events', () => {
     render(<TestComponent onInputChange={onInputChange} onChange={onChange} />);
 
     getInput(screen).focus();
-    getItems(screen)[0].click();
+    fireEvent.click(getItems(screen)[0]);
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(0);
@@ -1284,7 +1287,7 @@ describe('<Typeahead> `change` events', () => {
       />
     );
 
-    screen.getByRole('button').click();
+    userEvent.click(screen.getByRole('button'));
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(1);
