@@ -17,7 +17,6 @@ exports[`<TypeaheadInputSingle> renders a snapshot 1`] = `
     autoComplete="off"
     className="rbt-input-main form-control rbt-input"
     onChange={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     role="combobox"

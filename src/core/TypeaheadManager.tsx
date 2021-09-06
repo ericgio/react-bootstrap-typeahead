@@ -21,6 +21,7 @@ const inputPropKeys = [
   'multiple',
   'onBlur',
   'onChange',
+  'onClick',
   'onFocus',
   'onKeyDown',
   'placeholder',

@@ -23,7 +23,7 @@ const baseReceivedProps = {
   'aria-owns': undefined,
   autoComplete: 'off',
   className: '',
-  onClick: expect.any(Function),
+  onClick: undefined,
   onFocus: undefined,
   placeholder: undefined,
   role: 'combobox',

@@ -3,6 +3,7 @@ import React, { createRef, forwardRef, useState } from 'react';
 import { Menu, MenuItem, Typeahead } from '../..';
 import {
   clearTypeahead,
+  clickOrFocusInput,
   getInitialState,
   hideMenu,
   toggleMenu,
@@ -626,11 +627,30 @@ describe('<Typeahead>', () => {
     });
   });
 
-  it('triggers the `onKeyDown` callback', () => {
+  it('calls `onBlur`', () => {
+    const onBlur = jest.fn();
+
+    render(<TestComponent onBlur={onBlur} />);
+    userEvent.click(getInput(screen));
+    getInput(screen).blur();
+
+    expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls `onFocus`', () => {
+    const onFocus = jest.fn();
+
+    render(<TestComponent onFocus={onFocus} />);
+    userEvent.click(getInput(screen));
+
+    expect(onFocus).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls `onKeyDown`', () => {
     const onKeyDown = jest.fn();
 
     render(<TestComponent onKeyDown={onKeyDown} />);
-    getInput(screen).focus();
+    userEvent.click(getInput(screen));
     userEvent.keyboard('{enter}');
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
@@ -1590,6 +1610,18 @@ describe('State modifiers', () => {
       ...defaultState,
       isFocused: true,
       shownResults: 10,
+    });
+  });
+
+  it('calls the clickOrFocusInput modifier', () => {
+    const state = {
+      isFocused: false,
+      showMenu: false,
+    };
+
+    expect(clickOrFocusInput(state)).toEqual({
+      isFocused: true,
+      showMenu: true,
     });
   });
 

@@ -136,6 +136,7 @@ export interface TypeaheadManagerProps
   onAdd: OptionHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onClear: () => void;
+  onClick: MouseEventHandler<HTMLInputElement>;
   onHide: () => void;
   onInitialItemChange: (option?: Option) => void;
   onMenuItemClick: (option: Option, event: SelectEvent<HTMLElement>) => void;

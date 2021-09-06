@@ -4,6 +4,7 @@ import React, {
   ChangeEvent,
   FocusEvent,
   KeyboardEvent,
+  MouseEvent,
   SyntheticEvent,
 } from 'react';
 
@@ -257,6 +258,14 @@ export function clearTypeahead(state: TypeaheadState, props: Props) {
   };
 }
 
+export function clickOrFocusInput(state: TypeaheadState) {
+  return {
+    ...state,
+    isFocused: true,
+    showMenu: true,
+  };
+}
+
 export function hideMenu(state: TypeaheadState, props: Props) {
   const { activeIndex, activeItem, initialItem, shownResults } =
     getInitialState(props);
@@ -379,6 +388,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         onBlur={this._handleBlur}
         onChange={this._handleInputChange}
         onClear={this._handleClear}
+        onClick={this._handleClick}
         onFocus={this._handleFocus}
         onHide={this.hideMenu}
         onInitialItemChange={this._handleInitialItemChange}
@@ -459,15 +469,16 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     });
   };
 
+  _handleClick = (e: MouseEvent<HTMLInputElement>) => {
+    e.persist();
+    const onClick = this.props.inputProps?.onClick;
+
+    this.setState(clickOrFocusInput, () => isFunction(onClick) && onClick(e));
+  };
+
   _handleFocus = (e: SyntheticEvent<HTMLInputElement>) => {
     e.persist();
-    this.setState(
-      {
-        isFocused: true,
-        showMenu: true,
-      },
-      () => this.props.onFocus(e)
-    );
+    this.setState(clickOrFocusInput, () => this.props.onFocus(e));
   };
 
   _handleInitialItemChange = (initialItem?: Option) => {

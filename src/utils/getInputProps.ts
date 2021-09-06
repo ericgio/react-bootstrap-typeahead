@@ -1,9 +1,7 @@
 import cx from 'classnames';
-import { SyntheticEvent } from 'react';
 
 import getMenuItemId from './getMenuItemId';
 import hasOwnProperty from './hasOwnProperty';
-import { isFunction } from './nodash';
 import { TypeaheadManagerProps } from '../types';
 
 const getInputProps =
@@ -13,6 +11,7 @@ const getInputProps =
     isFocused,
     isMenuShown,
     multiple,
+    onClick,
     onFocus,
     placeholder,
     ...rest
@@ -21,8 +20,6 @@ const getInputProps =
     const className = hasOwnProperty(inputProps, 'className')
       ? inputProps.className
       : undefined;
-
-    const onClick = hasOwnProperty(inputProps, 'onClick') && inputProps.onClick;
 
     const props = {
       // These props can be overridden by values in `inputProps`.
@@ -42,11 +39,7 @@ const getInputProps =
         [(className || '') as string]: !multiple,
         focus: isFocused,
       }),
-      onClick: (e: SyntheticEvent<HTMLInputElement>) => {
-        // Re-open the menu if it's closed, eg: via ESC.
-        onFocus && onFocus(e);
-        isFunction(onClick) && onClick(e);
-      },
+      onClick,
       onFocus,
       // Comboboxes are single-select by definition:
       // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
