@@ -12,6 +12,13 @@ describe('stripDiacritics', () => {
     expect(stripDiacritics(string)).toBe(result);
   });
 
+  it('works for non-latin alphabets', () => {
+    const string = 'ΆΈΉΊΪΌΎΫΏάέίϊΐόύϋΰ';
+    const result = 'ΑΕΗΙΙΟΥΥΩαειιιουυυ';
+
+    expect(stripDiacritics(string)).toBe(result);
+  });
+
   it('removes combining diacritical marks from a string', () => {
     const alphaRange = ['a', 'b', 'c', 'd', 'e', 'f'];
     const numRange = range(30, 37);

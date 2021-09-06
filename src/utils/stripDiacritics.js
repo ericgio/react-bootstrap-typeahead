@@ -104,22 +104,20 @@ const map = [
   { base: 'x', letters: '\u0078\u24E7\uFF58\u1E8B\u1E8D' },
   { base: 'y', letters: '\u0079\u24E8\uFF59\u1EF3\u00FD\u0177\u1EF9\u0233\u1E8F\u00FF\u1EF7\u1E99\u1EF5\u01B4\u024F\u1EFF' },
   { base: 'z', letters: '\u007A\u24E9\uFF5A\u017A\u1E91\u017C\u017E\u1E93\u1E95\u01B6\u0225\u0240\u2C6C\uA763' },
-];
-
-const diacriticsMap = {};
-for (let ii = 0; ii < map.length; ii++) {
-  const { letters } = map[ii];
-  for (let jj = 0; jj < letters.length; jj++) {
-    diacriticsMap[letters[jj]] = map[ii].base;
-  }
-}
+].reduce((acc, { base, letters }) => {
+  letters.split('').forEach((letter) => {
+    acc[letter] = base;
+  });
+  return acc;
+}, {});
 
 // "what?" version ... http://jsperf.com/diacritics/12
 export default function stripDiacritics(str: string): string {
   return (
     str
+      .normalize('NFD')
       .replace(/[\u0300-\u036F]/g, '') // Remove combining diacritics
       /* eslint-disable-next-line no-control-regex */
-      .replace(/[^\u0000-\u007E]/g, (a) => diacriticsMap[a] || a)
+      .replace(/[^\u0000-\u007E]/g, (a) => map[a] || a)
   );
 }
