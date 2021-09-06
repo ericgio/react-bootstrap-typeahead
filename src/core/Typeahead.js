@@ -11,7 +11,6 @@ import {
   checkPropType,
   defaultInputValueType,
   defaultSelectedType,
-  deprecated,
   highlightOnlyResultType,
   ignoreDiacriticsType,
   isRequiredForA11y,
@@ -171,14 +170,6 @@ const propTypes = {
    * to control the component via its parent.
    */
   selected: checkPropType(PropTypes.arrayOf(optionType), selectedType),
-  /**
-   * Allows selecting the hinted result by pressing enter.
-   */
-  selectHintOnEnter: deprecated(
-    PropTypes.bool,
-    'Use the `shouldSelect` prop on the `Hint` component to define which ' +
-      'keystrokes can select the hint.'
-  ),
 };
 
 const defaultProps = {

@@ -762,9 +762,13 @@ describe('<Typeahead>', () => {
     it('should select the hinted result on enter keydown', () => {
       render(
         <TestComponent
+          inputProps={{
+            shouldSelectHint: (shouldSelectHint, e) => {
+              return e.keyCode === RETURN || shouldSelectHint;
+            },
+          }}
           onChange={onChange}
           onKeyDown={onKeyDown}
-          selectHintOnEnter
         />
       );
 
@@ -1256,19 +1260,6 @@ describe('<Typeahead> `change` events', () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
-
-  it(
-    'calls `onChange` once when a menu item is selected via keyboard and ' +
-      '`selectHintOnEnter={true}`',
-    () => {
-      render(<TestComponent onChange={onChange} selectHintOnEnter />);
-
-      getInput(screen).focus();
-      userEvent.keyboard('{arrowdown}{enter}');
-
-      expect(onChange).toHaveBeenCalledTimes(1);
-    }
-  );
 
   it('calls change events when clicking the clear button', () => {
     let event, value;

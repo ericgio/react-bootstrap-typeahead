@@ -7,7 +7,7 @@ import type { Element } from 'react';
 
 import { useTypeaheadContext } from '../core/Context';
 import { isSelectable } from '../utils';
-import { RETURN, RIGHT, TAB } from '../constants';
+import { RIGHT, TAB } from '../constants';
 
 export type ShouldSelect = (
   boolean,
@@ -52,10 +52,7 @@ function copyStyles(inputNode: ?HTMLInputElement, hintNode: ?HTMLInputElement) {
 
 export function defaultShouldSelect(
   e: SyntheticKeyboardEvent<HTMLInputElement>,
-  state: {
-    selectHintOnEnter?: boolean,
-    shouldSelect?: ShouldSelect,
-  }
+  shouldSelect?: ShouldSelect
 ): boolean {
   let shouldSelectHint = false;
 
@@ -76,12 +73,8 @@ export function defaultShouldSelect(
     shouldSelectHint = true;
   }
 
-  if (keyCode === RETURN) {
-    shouldSelectHint = !!state.selectHintOnEnter;
-  }
-
-  return typeof state.shouldSelect === 'function'
-    ? state.shouldSelect(shouldSelectHint, e)
+  return typeof shouldSelect === 'function'
+    ? shouldSelect(shouldSelectHint, e)
     : shouldSelectHint;
 }
 
@@ -96,17 +89,12 @@ export const useHint = ({ children, shouldSelect }: Config) => {
     '`useHint` expects one child.'
   );
 
-  const { hintText, initialItem, inputNode, onAdd, selectHintOnEnter } =
-    useTypeaheadContext();
+  const { hintText, initialItem, inputNode, onAdd } = useTypeaheadContext();
 
   const hintRef = useRef<?HTMLInputElement>(null);
 
   const onKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-    if (
-      hintText &&
-      initialItem &&
-      defaultShouldSelect(e, { selectHintOnEnter, shouldSelect })
-    ) {
+    if (hintText && initialItem && defaultShouldSelect(e, shouldSelect)) {
       onAdd(initialItem);
     }
 

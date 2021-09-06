@@ -8,7 +8,7 @@ describe('<Hint>', () => {
 });
 
 describe('defaultShouldSelect', () => {
-  let event, preventDefault, state;
+  let event, preventDefault;
 
   beforeEach(() => {
     preventDefault = jest.fn();
@@ -20,14 +20,10 @@ describe('defaultShouldSelect', () => {
       keyCode: TAB,
       preventDefault,
     };
-
-    state = {
-      selectHintOnEnter: false,
-    };
   });
 
   it('returns true when tab is pressed', () => {
-    expect(defaultShouldSelect(event, state)).toBe(true);
+    expect(defaultShouldSelect(event)).toBe(true);
     expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 
@@ -35,22 +31,13 @@ describe('defaultShouldSelect', () => {
     event = { ...event, keyCode: RIGHT };
 
     event.currentTarget.selectionStart = 3;
-    expect(defaultShouldSelect(event, state)).toBe(false);
+    expect(defaultShouldSelect(event)).toBe(false);
 
     event.currentTarget.selectionStart = 4;
-    expect(defaultShouldSelect(event, state)).toBe(true);
+    expect(defaultShouldSelect(event)).toBe(true);
 
     event.currentTarget.selectionStart = null;
-    expect(defaultShouldSelect(event, state)).toBe(true);
-  });
-
-  it('checks hinting behavior when enter is pressed', () => {
-    event = { ...event, keyCode: RETURN };
-
-    expect(defaultShouldSelect(event, state)).toBe(false);
-
-    state.selectHintOnEnter = true;
-    expect(defaultShouldSelect(event, state)).toBe(true);
+    expect(defaultShouldSelect(event)).toBe(true);
   });
 
   it('returns false for other keycodes', () => {
@@ -68,20 +55,19 @@ describe('defaultShouldSelect', () => {
       )
       .forEach((keyCode) => {
         event.keyCode = keyCode;
-        expect(defaultShouldSelect(event, state)).toBe(false);
+        expect(defaultShouldSelect(event)).toBe(false);
       });
   });
 
   it('accepts a callback for custom behaviors', () => {
     event = { ...event, keyCode: RETURN };
-    state.shouldSelect = (shouldSelectHint, e) => {
-      // Selects the hint even though `selectHintOnEnter` is false.
+    const shouldSelect = (shouldSelectHint, e) => {
       if (e.keyCode === RETURN) {
         return true;
       }
       return shouldSelectHint;
     };
 
-    expect(defaultShouldSelect(event, state)).toBe(true);
+    expect(defaultShouldSelect(event, shouldSelect)).toBe(true);
   });
 });

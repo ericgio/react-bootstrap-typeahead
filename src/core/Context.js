@@ -17,7 +17,6 @@ export type TypeaheadContextType = {
   onAdd: OptionHandler,
   onInitialItemChange: (?Option) => void,
   onMenuItemClick: (Option, SyntheticEvent<HTMLElement>) => void,
-  selectHintOnEnter?: boolean,
   setItem: (Option, number) => void,
 };
 
@@ -32,7 +31,6 @@ export const TypeaheadContext: Context<TypeaheadContextType> = createContext({
   onAdd: noop,
   onInitialItemChange: noop,
   onMenuItemClick: noop,
-  selectHintOnEnter: undefined,
   setItem: noop,
 });
 

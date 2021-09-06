@@ -83,7 +83,6 @@ export type TypeaheadProps = {
   open?: boolean,
   options: Option[],
   paginate: boolean,
-  selectHintOnEnter?: boolean,
 };
 
 export type TypeaheadState = {|

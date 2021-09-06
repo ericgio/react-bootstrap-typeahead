@@ -54,7 +54,6 @@ const contextKeys = [
   'onAdd',
   'onInitialItemChange',
   'onMenuItemClick',
-  'selectHintOnEnter',
   'setItem',
 ];
 
