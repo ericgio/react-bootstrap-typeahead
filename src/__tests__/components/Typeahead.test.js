@@ -25,7 +25,6 @@ import {
 } from '../helpers';
 
 import states from '../data';
-import { RETURN, RIGHT, TAB } from '../../constants';
 
 const ID = 'rbt-id';
 
@@ -703,12 +702,12 @@ describe('<Typeahead>', () => {
   });
 
   describe('behavior when selecting the hinted result', () => {
-    let keyCode, onChange, onKeyDown;
+    let key, onChange, onKeyDown;
 
     beforeEach(() => {
-      keyCode = 0;
+      key = 0;
       onChange = jest.fn();
-      onKeyDown = jest.fn((e) => (keyCode = e.keyCode));
+      onKeyDown = jest.fn((e) => (key = e.key));
     });
 
     it('should select the hinted result on tab keydown', () => {
@@ -717,7 +716,7 @@ describe('<Typeahead>', () => {
       userEvent.type(getInput(screen), 'Ala');
       userEvent.tab();
 
-      expect(keyCode).toBe(TAB);
+      expect(key).toBe('Tab');
       expect(onChange).toHaveBeenCalledTimes(1);
     });
 
@@ -728,7 +727,7 @@ describe('<Typeahead>', () => {
       userEvent.type(input, 'Ala');
       userEvent.keyboard('{arrowright}');
 
-      expect(keyCode).toBe(RIGHT);
+      expect(key).toBe('ArrowRight');
       expect(onChange).toHaveBeenCalledTimes(1);
     });
 
@@ -743,7 +742,7 @@ describe('<Typeahead>', () => {
         input.selectionStart = 1;
         userEvent.keyboard('{arrowright}');
 
-        expect(keyCode).toBe(RIGHT);
+        expect(key).toBe('ArrowRight');
         expect(onChange).toHaveBeenCalledTimes(0);
       }
     );
@@ -755,7 +754,7 @@ describe('<Typeahead>', () => {
       userEvent.type(input, 'Ala');
       userEvent.keyboard('{enter}');
 
-      expect(keyCode).toBe(RETURN);
+      expect(key).toBe('Enter');
       expect(onChange).toHaveBeenCalledTimes(0);
     });
 
@@ -764,7 +763,7 @@ describe('<Typeahead>', () => {
         <TestComponent
           inputProps={{
             shouldSelectHint: (shouldSelectHint, e) => {
-              return e.keyCode === RETURN || shouldSelectHint;
+              return e.key === 'Enter' || shouldSelectHint;
             },
           }}
           onChange={onChange}
@@ -776,7 +775,7 @@ describe('<Typeahead>', () => {
       userEvent.type(input, 'Ala');
       userEvent.keyboard('{enter}');
 
-      expect(keyCode).toBe(RETURN);
+      expect(key).toBe('Enter');
       expect(onChange).toHaveBeenCalledTimes(1);
     });
   });

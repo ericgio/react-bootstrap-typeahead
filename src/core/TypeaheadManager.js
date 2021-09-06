@@ -11,7 +11,6 @@ import {
   getIsOnlyResult,
   pick,
 } from '../utils';
-import { RETURN } from '../constants';
 
 import type { TypeaheadContextType } from './Context';
 import type { TypeaheadManagerProps } from '../types';
@@ -86,8 +85,8 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
   });
 
   const handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-    switch (e.keyCode) {
-      case RETURN:
+    switch (e.key) {
+      case 'Enter':
         if (initialItem && getIsOnlyResult(props)) {
           onAdd(initialItem);
         }

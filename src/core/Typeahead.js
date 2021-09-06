@@ -34,7 +34,7 @@ import {
   validateSelectedPropChange,
 } from '../utils';
 
-import { DEFAULT_LABELKEY, DOWN, ESC, RETURN, TAB, UP } from '../constants';
+import { DEFAULT_LABELKEY } from '../constants';
 
 import type { Option, TypeaheadProps, TypeaheadState } from '../types';
 
@@ -491,7 +491,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
     // Skip most actions when the menu is hidden.
     if (!this.isMenuShown) {
-      if (e.keyCode === UP || e.keyCode === DOWN) {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
         this.setState({ showMenu: true });
       }
 
@@ -499,22 +499,22 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       return;
     }
 
-    switch (e.keyCode) {
-      case UP:
-      case DOWN:
+    switch (e.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
         // Prevent input cursor from going to the beginning when pressing up.
         e.preventDefault();
         this._handleActiveIndexChange(
-          getUpdatedActiveIndex(this.state.activeIndex, e.keyCode, this.items)
+          getUpdatedActiveIndex(this.state.activeIndex, e.key, this.items)
         );
         break;
-      case RETURN:
+      case 'Enter':
         // Prevent form submission while menu is open.
         e.preventDefault();
         activeItem && this._handleMenuItemSelect(activeItem, e);
         break;
-      case ESC:
-      case TAB:
+      case 'Escape':
+      case 'Tab':
         // ESC simply hides the menu. TAB will blur the input and move focus to
         // the next item; hide the menu so it doesn't gain focus.
         this.hideMenu();

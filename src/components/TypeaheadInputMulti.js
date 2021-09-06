@@ -12,8 +12,6 @@ import Input from './Input';
 import { isSelectable } from '../utils';
 import withClassNames from '../behaviors/classNames';
 
-import { BACKSPACE } from '../constants';
-
 import type {
   InputProps,
   Option,
@@ -120,8 +118,8 @@ class TypeaheadInputMulti extends React.Component<Props> {
   _handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
     const { onKeyDown, selected, value } = this.props;
 
-    switch (e.keyCode) {
-      case BACKSPACE:
+    switch (e.key) {
+      case 'Backspace':
         if (e.currentTarget === this._input && selected.length && !value) {
           // Prevent browser from going back.
           e.preventDefault();

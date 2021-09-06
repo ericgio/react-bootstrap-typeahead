@@ -10,8 +10,6 @@ import {
   userEvent,
 } from '../helpers';
 
-import { BACKSPACE, RETURN } from '../../constants';
-
 describe('<ClearButton>', () => {
   it('renders a snapshot', () => {
     expect(prepareSnapshot(<ClearButton />)).toMatchSnapshot();
@@ -46,14 +44,14 @@ describe('<ClearButton>', () => {
     const button = screen.getByRole('button');
 
     isDefault = fireEvent.keyDown(button, {
-      keyCode: BACKSPACE,
+      key: 'Backspace',
     });
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
     expect(isDefault).toBe(false);
 
     isDefault = fireEvent.keyDown(button, {
-      keyCode: RETURN,
+      key: 'Enter',
     });
 
     expect(onKeyDown).toHaveBeenCalledTimes(2);

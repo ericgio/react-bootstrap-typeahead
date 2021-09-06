@@ -5,7 +5,6 @@ import React, { type ComponentType, useState } from 'react';
 import { useRootClose } from 'react-overlays';
 
 import { getDisplayName, isFunction } from '../utils';
-import { BACKSPACE } from '../constants';
 
 import { optionType } from '../propTypes';
 import type { EventHandler, Option, OptionHandler } from '../types';
@@ -64,8 +63,8 @@ export const useToken = ({
   };
 
   const handleKeyDown = (e: SyntheticKeyboardEvent<HTMLInputElement>) => {
-    switch (e.keyCode) {
-      case BACKSPACE:
+    switch (e.key) {
+      case 'Backspace':
         if (active) {
           // Prevent backspace keypress from triggering the browser "back"
           // action.

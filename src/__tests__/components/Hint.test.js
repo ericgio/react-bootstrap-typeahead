@@ -1,7 +1,4 @@
-import { range } from 'lodash';
-
 import { defaultShouldSelect } from '../../components/Hint';
-import { RETURN, RIGHT, TAB } from '../../constants';
 
 describe('<Hint>', () => {
   // TODO...
@@ -17,7 +14,7 @@ describe('defaultShouldSelect', () => {
       currentTarget: {
         value: 'Cali',
       },
-      keyCode: TAB,
+      key: 'Tab',
       preventDefault,
     };
   });
@@ -28,7 +25,7 @@ describe('defaultShouldSelect', () => {
   });
 
   it('checks hinting behavior when the right arrow key is pressed', () => {
-    event = { ...event, keyCode: RIGHT };
+    event = { ...event, key: 'ArrowRight' };
 
     event.currentTarget.selectionStart = 3;
     expect(defaultShouldSelect(event)).toBe(false);
@@ -40,32 +37,26 @@ describe('defaultShouldSelect', () => {
     expect(defaultShouldSelect(event)).toBe(true);
   });
 
-  it('returns false for other keycodes', () => {
+  it('returns false for other keys', () => {
     // Build up a set of valid keys.
     []
-      .concat([37, 38, 39, 40]) // Arrow keys
-      .concat(range(48, 58)) // Number keys
-      .concat(range(65, 91)) // Letter keys
-      .concat(range(96, 112)) // Numpad keys
-      .concat([8, 13, 27, 32]) // backspace, spacebar, esc, return
-      .concat(range(186, 193)) // ;=,-./`
-      .concat(range(219, 223)) // [\]'
-      .filter(
-        (keyCode) => keyCode !== RETURN && keyCode !== RIGHT && keyCode !== TAB
-      )
-      .forEach((keyCode) => {
-        event.keyCode = keyCode;
+      .concat(['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'])
+      .concat('0123456789'.split(''))
+      .concat('abcdefghijqlmnopqrstuvwxyz'.split('')) // Letter keys
+      .concat(['Backspace', ' ', 'Escape', 'Enter', 'Tab'])
+      .concat(';=,-./`'.split(''))
+      .concat("[\\]'".split(''))
+      .filter((key) => key !== 'Enter' && key !== 'ArrowRight' && key !== 'Tab')
+      .forEach((key) => {
+        event.key = key;
         expect(defaultShouldSelect(event)).toBe(false);
       });
   });
 
   it('accepts a callback for custom behaviors', () => {
-    event = { ...event, keyCode: RETURN };
+    event = { ...event, key: 'Enter' };
     const shouldSelect = (shouldSelectHint, e) => {
-      if (e.keyCode === RETURN) {
-        return true;
-      }
-      return shouldSelectHint;
+      return e.key === 'Enter' || shouldSelectHint;
     };
 
     expect(defaultShouldSelect(event, shouldSelect)).toBe(true);

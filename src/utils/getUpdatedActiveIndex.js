@@ -1,19 +1,18 @@
 // @flow
 
-import { DOWN, UP } from '../constants';
 import type { Option } from '../types';
 
-type KeyCode = typeof DOWN | typeof UP;
+type Key = 'ArrowDown' | 'ArrowUp';
 
 function skipDisabledOptions(
   currentIndex: number,
-  keyCode: KeyCode,
+  key: Key,
   items: Option[]
 ): number {
   let newIndex = currentIndex;
 
   while (items[newIndex] && items[newIndex].disabled) {
-    newIndex += keyCode === UP ? -1 : 1;
+    newIndex += key === 'ArrowUp' ? -1 : 1;
   }
 
   return newIndex;
@@ -21,16 +20,16 @@ function skipDisabledOptions(
 
 export default function getUpdatedActiveIndex(
   currentIndex: number,
-  keyCode: KeyCode,
+  key: Key,
   items: Option[]
 ): number {
   let newIndex = currentIndex;
 
   // Increment or decrement index based on user keystroke.
-  newIndex += keyCode === UP ? -1 : 1;
+  newIndex += key === 'ArrowUp' ? -1 : 1;
 
   // Skip over any disabled options.
-  newIndex = skipDisabledOptions(newIndex, keyCode, items);
+  newIndex = skipDisabledOptions(newIndex, key, items);
 
   // If we've reached the end, go back to the beginning or vice-versa.
   if (newIndex === items.length) {
@@ -39,7 +38,7 @@ export default function getUpdatedActiveIndex(
     newIndex = items.length - 1;
 
     // Skip over any disabled options.
-    newIndex = skipDisabledOptions(newIndex, keyCode, items);
+    newIndex = skipDisabledOptions(newIndex, key, items);
   }
 
   return newIndex;

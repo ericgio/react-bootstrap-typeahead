@@ -1,5 +1,4 @@
 import getUpdatedActiveIndex from '../../utils/getUpdatedActiveIndex';
-import { DOWN, UP } from '../../constants';
 
 const results = [
   { name: 'foo' },
@@ -10,12 +9,12 @@ const results = [
 
 describe('getUpdatedActiveIndex', () => {
   it('updates the active index', () => {
-    expect(getUpdatedActiveIndex(-1, DOWN, results)).toBe(0);
-    expect(getUpdatedActiveIndex(0, DOWN, results)).toBe(3);
-    expect(getUpdatedActiveIndex(3, DOWN, results)).toBe(-1);
+    expect(getUpdatedActiveIndex(-1, 'ArrowDown', results)).toBe(0);
+    expect(getUpdatedActiveIndex(0, 'ArrowDown', results)).toBe(3);
+    expect(getUpdatedActiveIndex(3, 'ArrowDown', results)).toBe(-1);
 
-    expect(getUpdatedActiveIndex(-1, UP, results)).toBe(3);
-    expect(getUpdatedActiveIndex(3, UP, results)).toBe(0);
-    expect(getUpdatedActiveIndex(0, UP, results)).toBe(-1);
+    expect(getUpdatedActiveIndex(-1, 'ArrowUp', results)).toBe(3);
+    expect(getUpdatedActiveIndex(3, 'ArrowUp', results)).toBe(0);
+    expect(getUpdatedActiveIndex(0, 'ArrowUp', results)).toBe(-1);
   });
 });

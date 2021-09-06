@@ -9,8 +9,6 @@ import { isSizeLarge, noop } from '../utils';
 import { sizeType } from '../propTypes';
 import type { EventHandler, KeyboardEventHandler, Size } from '../types';
 
-import { BACKSPACE } from '../constants';
-
 const propTypes = {
   label: PropTypes.string,
   onClick: PropTypes.func,
@@ -62,7 +60,7 @@ const ClearButton = ({
     }}
     onKeyDown={(e: SyntheticKeyboardEvent<HTMLButtonElement>) => {
       // Prevent browser from navigating back.
-      if (e.keyCode === BACKSPACE) {
+      if (e.key === 'Backspace') {
         e.preventDefault();
       }
       onKeyDown(e);

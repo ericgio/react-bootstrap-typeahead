@@ -7,7 +7,6 @@ import type { Element } from 'react';
 
 import { useTypeaheadContext } from '../core/Context';
 import { isSelectable } from '../utils';
-import { RIGHT, TAB } from '../constants';
 
 export type ShouldSelect = (
   boolean,
@@ -56,9 +55,9 @@ export function defaultShouldSelect(
 ): boolean {
   let shouldSelectHint = false;
 
-  const { currentTarget, keyCode } = e;
+  const { currentTarget, key } = e;
 
-  if (keyCode === RIGHT) {
+  if (key === 'ArrowRight') {
     // For selectable input types ("text", "search"), only select the hint if
     // it's at the end of the input value. For non-selectable types ("email",
     // "number"), always select the hint.
@@ -67,7 +66,7 @@ export function defaultShouldSelect(
       : true;
   }
 
-  if (keyCode === TAB) {
+  if (key === 'Tab') {
     // Prevent input from blurring on TAB.
     e.preventDefault();
     shouldSelectHint = true;
