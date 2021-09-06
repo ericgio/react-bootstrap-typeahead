@@ -11,7 +11,7 @@ import type { ComponentType, ElementRef, Node } from 'react';
 import Typeahead from '../core/Typeahead';
 
 import { optionType } from '../propTypes';
-import { getDisplayName, isFunction, warn } from '../utils';
+import { getDisplayName, isFunction } from '../utils';
 
 import type { Option, Ref, TypeaheadProps } from '../types';
 
@@ -197,14 +197,4 @@ export function withAsync(Component: ComponentType<*>) {
   AsyncTypeahead.defaultProps = defaultProps;
 
   return AsyncTypeahead;
-}
-
-export default function asyncContainer(Component: ComponentType<*>) {
-  /* istanbul ignore next */
-  warn(
-    false,
-    'The `asyncContainer` export is deprecated; use `withAsync` instead.'
-  );
-  /* istanbul ignore next */
-  return withAsync(Component);
 }

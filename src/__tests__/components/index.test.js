@@ -12,9 +12,6 @@ import {
   TypeaheadInputMulti,
   TypeaheadInputSingle,
   TypeaheadMenu,
-  asyncContainer,
-  menuItemContainer,
-  tokenContainer,
   useAsync,
   useHint,
   useItem,
@@ -38,15 +35,15 @@ import _TypeaheadInputMulti from '../../components/TypeaheadInputMulti';
 import _TypeaheadInputSingle from '../../components/TypeaheadInputSingle';
 import _TypeaheadMenu from '../../components/TypeaheadMenu';
 
-import _asyncContainer, {
+import {
   useAsync as _useAsync,
   withAsync as _withAsync,
 } from '../../behaviors/async';
-import _menuItemContainer, {
+import {
   useItem as _useItem,
   withItem as _withItem,
 } from '../../behaviors/item';
-import _tokenContainer, {
+import {
   useToken as _useToken,
   withToken as _withToken,
 } from '../../behaviors/token';
@@ -106,19 +103,16 @@ describe('index.js', () => {
   });
 
   it('async exports', () => {
-    expect(asyncContainer).toBe(_asyncContainer);
     expect(useAsync).toBe(_useAsync);
     expect(withAsync).toBe(_withAsync);
   });
 
   it('item exports', () => {
-    expect(menuItemContainer).toBe(_menuItemContainer);
     expect(useItem).toBe(_useItem);
     expect(withItem).toBe(_withItem);
   });
 
   it('token exports', () => {
-    expect(tokenContainer).toBe(_tokenContainer);
     expect(useToken).toBe(_useToken);
     expect(withToken).toBe(_withToken);
   });

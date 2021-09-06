@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { type ComponentType, useState } from 'react';
 import { useRootClose } from 'react-overlays';
 
-import { getDisplayName, isFunction, warn } from '../utils';
+import { getDisplayName, isFunction } from '../utils';
 import { BACKSPACE } from '../constants';
 
 import { optionType } from '../propTypes';
@@ -105,13 +105,3 @@ export const withToken = (Component: ComponentType<*>) => {
 
   return WrappedToken;
 };
-
-export default function tokenContainer(Component: ComponentType<*>) {
-  /* istanbul ignore next */
-  warn(
-    false,
-    'The `tokenContainer` export is deprecated; use `withToken` instead.'
-  );
-  /* istanbul ignore next */
-  return withToken(Component);
-}

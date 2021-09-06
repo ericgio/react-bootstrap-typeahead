@@ -7,12 +7,7 @@ import PropTypes from 'prop-types';
 import type { ComponentType } from 'react';
 
 import { useTypeaheadContext } from '../core/Context';
-import {
-  getDisplayName,
-  getMenuItemId,
-  preventInputBlur,
-  warn,
-} from '../utils';
+import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
 
 import { optionType } from '../propTypes';
 import type { Option } from '../types';
@@ -105,13 +100,3 @@ export const withItem = (Component: ComponentType<*>) => {
 
   return WrappedMenuItem;
 };
-
-export default function menuItemContainer(Component: ComponentType<*>) {
-  /* istanbul ignore next */
-  warn(
-    false,
-    'The `menuItemContainer` export is deprecated; use `withItem` instead.'
-  );
-  /* istanbul ignore next */
-  return withItem(Component);
-}
