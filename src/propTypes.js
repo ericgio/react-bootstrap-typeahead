@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { isFunction, values, warn } from './utils';
+import { isFunction, warn } from './utils';
 import { SIZE } from './constants';
 
 const INPUT_PROPS_BLACKLIST = [
@@ -10,7 +10,7 @@ const INPUT_PROPS_BLACKLIST = [
   { alt: 'onKeyDown', prop: 'onKeyDown' },
 ];
 
-export const sizeType = PropTypes.oneOf(values(SIZE));
+export const sizeType = PropTypes.oneOf(Object.values(SIZE));
 
 /**
  * Allows additional warnings or messaging related to prop validation.

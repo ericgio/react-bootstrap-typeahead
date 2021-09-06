@@ -5,8 +5,6 @@ import {
   noop,
   pick,
   uniqueId,
-  values,
-  valuesPolyfill,
 } from '../../utils/nodash';
 
 const arr = [];
@@ -49,18 +47,5 @@ describe('nodash', () => {
   test('uniqueId', () => {
     expect(uniqueId()).toBe('1');
     expect(uniqueId('foo-')).toBe('foo-2');
-  });
-
-  test('values', () => {
-    const object = {
-      bar: null,
-      baz: 3,
-      foo: 'foo',
-    };
-
-    const vals = [null, 3, 'foo'];
-
-    expect(values(object)).toStrictEqual(vals);
-    expect(valuesPolyfill(object)).toStrictEqual(vals);
   });
 });

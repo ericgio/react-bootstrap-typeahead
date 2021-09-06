@@ -30,17 +30,3 @@ export function uniqueId(prefix: ?string): string {
   idCounter += 1;
   return (prefix == null ? '' : String(prefix)) + idCounter;
 }
-
-// Export for testing purposes.
-export function valuesPolyfill(obj: Object) {
-  return Object.keys(obj).reduce((accum: any[], key: string) => {
-    if (Object.prototype.propertyIsEnumerable.call(obj, key)) {
-      accum.push(obj[key]);
-    }
-    return accum;
-  }, []);
-}
-
-export function values(obj: Object) {
-  return isFunction(Object.values) ? Object.values(obj) : valuesPolyfill(obj);
-}

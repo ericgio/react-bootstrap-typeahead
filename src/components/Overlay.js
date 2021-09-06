@@ -6,7 +6,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Popper } from 'react-popper';
 
-import { values } from '../utils';
 import { ALIGN } from '../constants';
 
 import type { OverlayProps } from '../types';
@@ -22,7 +21,7 @@ const propTypes = {
    * or `right` will align the menu to that side and the width will be
    * determined by the length of menu item values.
    */
-  align: PropTypes.oneOf(values(ALIGN)),
+  align: PropTypes.oneOf(Object.values(ALIGN)),
   children: PropTypes.func.isRequired,
   /**
    * Specify whether the menu should appear above the input.

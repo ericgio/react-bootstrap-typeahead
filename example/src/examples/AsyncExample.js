@@ -1,13 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-shadow */
 
-import fetch from 'isomorphic-fetch';
 import React, { Fragment, useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
-
-// Polyfill Promises for IE and older browsers.
-require('es6-promise').polyfill();
 
 /* example-start */
 const SEARCH_URI = 'https://api.github.com/search/users';
