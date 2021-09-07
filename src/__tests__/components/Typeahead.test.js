@@ -1267,7 +1267,7 @@ describe('<Typeahead> `change` events', () => {
     }
   );
 
-  it('calls change events when clicking the clear button', () => {
+  it('handles clear button clicks in single-select mode', () => {
     let event, value;
 
     onInputChange = jest.fn((v, e) => {
@@ -1290,6 +1290,64 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(1);
     expect(value).toBe('');
     expect(event).toBeDefined();
+  });
+
+  it('handles clear button clicks in multi-select mode', () => {
+    let selected;
+
+    onInputChange = jest.fn();
+    onChange = jest.fn((s) => {
+      selected = s;
+    });
+
+    render(
+      <TestComponent
+        clearButton
+        multiple
+        onChange={onChange}
+        onInputChange={onInputChange}
+        selected={states.slice(0, 2)}
+      />
+    );
+
+    userEvent.click(screen.getByRole('button', { name: 'Clear' }));
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onInputChange).toHaveBeenCalledTimes(0);
+    expect(selected).toHaveLength(0);
+  });
+
+  it('handles clear button clicks in multi-select mode with initial input', () => {
+    let event, selected, value;
+
+    onInputChange = jest.fn((v, e) => {
+      value = v;
+      event = e;
+    });
+
+    onChange = jest.fn((s) => {
+      selected = s;
+    });
+
+    // Test that any text in the input also gets cleared.
+    render(
+      <TestComponent
+        clearButton
+        defaultInputValue="test"
+        multiple
+        onChange={onChange}
+        onInputChange={onInputChange}
+        selected={states.slice(0, 2)}
+      />
+    );
+
+    userEvent.click(screen.getByRole('button', { name: 'Clear' }));
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onInputChange).toHaveBeenCalledTimes(1);
+    expect(value).toBe('');
+    expect(event).toBeDefined();
+    expect(selected).toHaveLength(0);
   });
 
   it('calls `onInputChange` when text is entered in the input', () => {
