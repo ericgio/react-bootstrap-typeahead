@@ -4,7 +4,7 @@ import React from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 /* example-start */
-const CustomSelectionsExample = (props) => (
+const CustomSelectionsExample = () => (
   <Typeahead
     allowNew
     id="custom-selections-example"

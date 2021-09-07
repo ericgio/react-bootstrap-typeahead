@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -11,7 +11,7 @@ const PositionFixedExample = () => {
   const [positionFixed, setPositionFixed] = useState(true);
 
   return (
-    <Fragment>
+    <>
       <div
         style={{
           border: '1px solid #ddd',
@@ -38,7 +38,7 @@ const PositionFixedExample = () => {
           type="checkbox"
         />
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

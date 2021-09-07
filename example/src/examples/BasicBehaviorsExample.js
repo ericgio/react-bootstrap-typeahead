@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -43,7 +43,7 @@ class BasicBehaviorsExample extends React.Component {
     ];
 
     return (
-      <Fragment>
+      <>
         <Typeahead
           {...this.state}
           id="basic-behaviors-example"
@@ -62,7 +62,7 @@ class BasicBehaviorsExample extends React.Component {
             />
           ))}
         </Form.Group>
-      </Fragment>
+      </>
     );
   }
 

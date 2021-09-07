@@ -4,7 +4,7 @@ import React from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 /* example-start */
-const LabelKeyExample = (props) => (
+const LabelKeyExample = () => (
   <Typeahead
     id="labelkey-example"
     labelKey={(option) => `${option.firstName} ${option.lastName}`}

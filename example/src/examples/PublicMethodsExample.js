@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Button as RBButton, ButtonToolbar } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -15,7 +15,7 @@ const PublicMethodsExample = () => {
   const ref = useRef();
 
   return (
-    <Fragment>
+    <>
       <Typeahead
         defaultSelected={options.slice(0, 4)}
         id="public-methods-example"
@@ -37,7 +37,7 @@ const PublicMethodsExample = () => {
         </Button>
         <Button onClick={() => ref.current.toggleMenu()}>Toggle Menu</Button>
       </ButtonToolbar>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

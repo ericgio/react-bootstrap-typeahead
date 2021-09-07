@@ -6,7 +6,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import options from '../data';
 
 /* example-start */
-const SelectionsExample = (props) => (
+const SelectionsExample = () => (
   <Typeahead
     clearButton
     defaultSelected={options.slice(0, 1)}

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import { range } from 'lodash';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -13,10 +13,10 @@ const PaginationExample = () => {
   const [paginate, setPaginate] = useState(true);
 
   return (
-    <Fragment>
+    <>
       <Typeahead
         id="pagination-example"
-        onPaginate={(e) => console.log('Results paginated')}
+        onPaginate={() => console.log('Results paginated')}
         options={options}
         paginate={paginate}
         placeholder="Pick a number..."
@@ -30,7 +30,7 @@ const PaginationExample = () => {
           type="checkbox"
         />
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -17,7 +17,7 @@ const MenuAlignExample = () => {
   ];
 
   return (
-    <Fragment>
+    <>
       <Typeahead
         align={align}
         id="menu-align-example"
@@ -38,7 +38,7 @@ const MenuAlignExample = () => {
           />
         ))}
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

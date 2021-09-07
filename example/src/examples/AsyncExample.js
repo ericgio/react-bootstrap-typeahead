@@ -1,7 +1,6 @@
 /* eslint-disable import/no-unresolved */
-/* eslint-disable no-shadow */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 /* example-start */
@@ -17,13 +16,13 @@ const AsyncExample = () => {
     fetch(`${SEARCH_URI}?q=${query}+in:login&page=1&per_page=50`)
       .then((resp) => resp.json())
       .then(({ items }) => {
-        const options = items.map((i) => ({
+        const data = items.map((i) => ({
           avatar_url: i.avatar_url,
           id: i.id,
           login: i.login,
         }));
 
-        setOptions(options);
+        setOptions(data);
         setIsLoading(false);
       });
   };
@@ -42,8 +41,8 @@ const AsyncExample = () => {
       onSearch={handleSearch}
       options={options}
       placeholder="Search for a Github user..."
-      renderMenuItemChildren={(option, props) => (
-        <Fragment>
+      renderMenuItemChildren={(option) => (
+        <>
           <img
             alt={option.login}
             src={option.avatar_url}
@@ -54,7 +53,7 @@ const AsyncExample = () => {
             }}
           />
           <span>{option.login}</span>
-        </Fragment>
+        </>
       )}
     />
   );

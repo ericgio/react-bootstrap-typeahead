@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -12,7 +12,7 @@ const BasicExample = () => {
   const [multiSelections, setMultiSelections] = useState([]);
 
   return (
-    <Fragment>
+    <>
       <Form.Group>
         <Form.Label>Single Selection</Form.Label>
         <Typeahead
@@ -36,7 +36,7 @@ const BasicExample = () => {
           selected={multiSelections}
         />
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

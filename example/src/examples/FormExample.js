@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
 import { sortBy } from 'lodash';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -32,7 +32,7 @@ class FormExample extends React.Component {
     }
 
     return (
-      <Fragment>
+      <>
         <Form.Group>
           <InputGroup>
             <InputGroup.Prepend>
@@ -57,7 +57,7 @@ class FormExample extends React.Component {
             </InputGroup.Append>
           </InputGroup>
         </Form.Group>
-      </Fragment>
+      </>
     );
   }
 }

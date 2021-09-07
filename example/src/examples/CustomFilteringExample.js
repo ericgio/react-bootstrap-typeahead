@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -22,7 +22,7 @@ const CustomFilteringExample = () => {
   const filterByFields = ['capital', 'name'];
 
   return (
-    <Fragment>
+    <>
       <Typeahead
         filterBy={filterBy === 'callback' ? filterByCallback : filterByFields}
         id="custom-filtering-example"
@@ -45,13 +45,13 @@ const CustomFilteringExample = () => {
             id={value}
             key={value}
             label={label}
-            onChange={(e) => setFilterBy(value)}
+            onChange={() => setFilterBy(value)}
             type="radio"
             value={value}
           />
         ))}
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

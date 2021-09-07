@@ -3,10 +3,10 @@ import React from 'react';
 import CustomFilteringExample from '../examples/CustomFilteringExample';
 import FilteringExample from '../examples/FilteringExample';
 
-/* eslint-disable import/no-unresolved, import/extensions */
+/* eslint-disable import/no-unresolved */
 import FilteringExampleCode from '!raw-loader!../examples/FilteringExample';
 import CustomFilteringExampleCode from '!raw-loader!../examples/CustomFilteringExample';
-/* eslint-enable import/no-unresolved, import/extensions */
+/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

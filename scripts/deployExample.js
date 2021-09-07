@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-/* eslint-disable import/no-extraneous-dependencies,no-console */
+
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 const ghpages = require('gh-pages');
 const { version } = require('../package.json');

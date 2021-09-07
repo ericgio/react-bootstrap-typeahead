@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -17,7 +17,7 @@ const InputSizeExample = () => {
   ];
 
   return (
-    <Fragment>
+    <>
       <Typeahead
         id="input-size-example"
         labelKey="name"
@@ -38,7 +38,7 @@ const InputSizeExample = () => {
           />
         ))}
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

@@ -73,13 +73,13 @@ const RenderingExample = () => {
       };
       break;
     case 2:
-      props.renderMenuItemChildren = (option, { text }, index) => (
-        <Fragment>
+      props.renderMenuItemChildren = (option, { text }) => (
+        <>
           <Highlighter search={text}>{option.name}</Highlighter>,
           <div>
             <small>Population: {option.population.toLocaleString()}</small>
           </div>
-        </Fragment>
+        </>
       );
       break;
     case 3:
@@ -95,7 +95,7 @@ const RenderingExample = () => {
   }
 
   return (
-    <Fragment>
+    <>
       <Typeahead
         {...props}
         id="rendering-example"
@@ -115,7 +115,7 @@ const RenderingExample = () => {
           />
         ))}
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */

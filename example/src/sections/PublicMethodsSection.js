@@ -1,9 +1,9 @@
 import React from 'react';
 
 import PublicMethodsExample from '../examples/PublicMethodsExample';
-/* eslint-disable import/no-unresolved, import/extensions */
+/* eslint-disable import/no-unresolved */
 import PublicMethodsExampleCode from '!raw-loader!../examples/PublicMethodsExample';
-/* eslint-enable import/no-unresolved, import/extensions */
+/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';

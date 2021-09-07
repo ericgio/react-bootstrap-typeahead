@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
@@ -38,7 +38,7 @@ const FilteringExample = () => {
   const [ignoreDiacritics, setIgnoreDiacritics] = useState(true);
 
   return (
-    <Fragment>
+    <>
       <Typeahead
         caseSensitive={caseSensitive}
         id="filtering-example"
@@ -62,7 +62,7 @@ const FilteringExample = () => {
           type="checkbox"
         />
       </Form.Group>
-    </Fragment>
+    </>
   );
 };
 /* example-end */
