@@ -5,36 +5,20 @@ on:
   pull_request:
     branches: [master]
 jobs:
-  ci:
-    name: CI
-    runs-on: ${{ matrix.os }}
+  build:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        browser: [ChromeHeadless, FirefoxHeadless]
-        os: [macOS-latest, ubuntu-latest]
+        node-version: [12.x, 14.x]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node.js environment
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 12.x
-      - name: Update Brew (macOS)
-        if: matrix.os == 'macOS-latest'
-        run: brew update
-      - name: Install Chrome (macOS)
-        if: matrix.os == 'macOS-latest' && matrix.browser == 'ChromeHeadless'
-        run: brew install --cask google-chrome
-      - name: Install Firefox (macOS)
-        if: matrix.os == 'macOS-latest' && matrix.browser == 'FirefoxHeadless'
-        run: brew install --cask firefox
-      - name: Install Dependencies
-        run: yarn install
-      - name: Run Checks
-        run: yarn lint && yarn flow && yarn test:coverage
-        env:
-          BROWSER: ${{ matrix.browser }}
-      - name: Codecov
-        uses: codecov/codecov-action@v1
-      - name: Build Project
-        run: yarn build
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+      - run: yarn flow
+      - run: yarn test:coverage
+      - uses: codecov/codecov-action@v1
+      - run: yarn build
