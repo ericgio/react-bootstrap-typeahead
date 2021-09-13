@@ -271,6 +271,17 @@ describe('<Typeahead>', () => {
       expect(paginator).toHaveClass('rbt-menu-pagination-option');
     });
 
+    it('handles non-string labels', () => {
+      render(
+        <TestComponent maxResults={10} paginationText={<div>More...</div>} />
+      );
+
+      getInput(screen).focus();
+      const paginator = getPaginator(screen);
+      expect(paginator).toHaveTextContent('More...');
+      expect(paginator).toHaveAttribute('aria-label', '');
+    });
+
     it('triggers the pagination item via mouse or keyboard', () => {
       render(<TestComponent maxResults={maxResults} onPaginate={onPaginate} />);
 
@@ -1064,11 +1075,16 @@ describe('<Typeahead>', () => {
     });
 
     it('adds the custom option when `allowNew` is set to `true`', () => {
+      let selected;
+
       render(
         <TestComponent
           allowNew
           emptyLabel={emptyLabel}
           newSelectionPrefix={newSelectionPrefix}
+          onChange={(s) => {
+            selected = s;
+          }}
         />
       );
 
@@ -1078,6 +1094,9 @@ describe('<Typeahead>', () => {
       const items = getItems(screen);
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent(`${newSelectionPrefix}${value}`);
+
+      fireEvent.click(items[0]);
+      expect(selected[0].id).toContain('new-id-');
     });
 
     it('omits the custom option when there is an exact text match', () => {

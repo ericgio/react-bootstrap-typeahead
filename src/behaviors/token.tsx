@@ -98,6 +98,7 @@ export function useToken<T extends HTMLElement>({
   };
 }
 
+/* istanbul ignore next */
 export function withToken<T extends UseTokenProps<HTMLElement>>(
   Component: ComponentType<T>
 ) {

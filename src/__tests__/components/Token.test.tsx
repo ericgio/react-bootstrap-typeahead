@@ -108,7 +108,7 @@ describe('<Token> event handlers', () => {
   it('handles keydown events', () => {
     userEvent.keyboard('{backspace}');
 
-    // `onRemove` called only when token is active.
+    // `onRemove` called only when token is active/focused.
     expect(onRemove).toHaveBeenCalledTimes(0);
 
     token.focus();

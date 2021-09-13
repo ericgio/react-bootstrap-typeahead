@@ -93,6 +93,7 @@ export function useItem<T extends HTMLElement>({
   };
 }
 
+/* istanbul ignore next */
 export function withItem<T extends UseItemProps<HTMLElement>>(
   Component: ComponentType<T>
 ) {

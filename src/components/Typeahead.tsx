@@ -312,10 +312,6 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
       content = (
         <ClearButton
           onClick={onClear}
-          onFocus={(e) => {
-            // Prevent the main input from auto-focusing again.
-            e.stopPropagation();
-          }}
           onMouseDown={preventInputBlur}
           size={size}
         />

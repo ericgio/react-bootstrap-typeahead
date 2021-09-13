@@ -89,27 +89,26 @@ describe('<TypeaheadInputMulti>', () => {
     expect(shouldSelectHint).toHaveBeenCalledTimes(1);
   });
 
+  it('focuses the input', () => {
+    const { container } = render(<TestComponent />);
+
+    // Test clicking the container, which forwards the click to the input.
+    userEvent.click(container.firstElementChild);
+    expect(getInput(screen)).toHaveFocus();
+  });
+
   it('does not focus a disabled input', () => {
-    render(
-      <>
-        <TestComponent props={{ 'data-testid': 'enabled-input' }} />
-        <TestComponent
-          props={{ 'data-testid': 'disabled-input', disabled: true }}
-        />
-      </>
-    );
+    const { container } = render(<TestComponent props={{ disabled: true }} />);
 
-    const enabledInput = screen.getByTestId('enabled-input');
-    const disabledInput = screen.getByTestId('disabled-input');
+    const input = getInput(screen);
+    expect(input).toBeDisabled();
 
-    expect(enabledInput).not.toBeDisabled();
-    expect(disabledInput).toBeDisabled();
+    // Test clicking the container, which forwards the click to the input.
+    userEvent.click(container.firstElementChild);
+    expect(input).not.toHaveFocus();
 
-    userEvent.click(enabledInput);
-    expect(enabledInput).toHaveFocus();
-
-    userEvent.click(disabledInput);
-    expect(disabledInput).not.toHaveFocus();
+    userEvent.click(input);
+    expect(input).not.toHaveFocus();
   });
 
   it('prevents clicks on the input from bubbling', () => {

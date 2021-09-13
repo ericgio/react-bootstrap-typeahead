@@ -1,5 +1,6 @@
 .github
 .husky
+coverage
 dist
 docs
 es
