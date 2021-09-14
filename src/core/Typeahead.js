@@ -558,7 +558,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     if (option.paginationOption) {
       this._handlePaginate(e);
     } else {
-      this._handleSelectionAdd(option);
+      this._handleSelectionAdd(option, (e : any).ctrlKey);
     }
   }
 
@@ -570,7 +570,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }), () => this.props.onPaginate(e, this.state.shownResults));
   }
 
-  _handleSelectionAdd = (option: Option) => {
+  _handleSelectionAdd = (option: Option, doNotCloseMenu?: boolean) => {
     const { multiple, labelKey } = this.props;
 
     let selected;
@@ -587,7 +587,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       // If multiple selections are allowed, add the new selection to the
       // existing selections.
       selected = this.state.selected.concat(selection);
-      text = '';
+      text = doNotCloseMenu ? this.state.text : '';
     } else {
       // If only a single selection is allowed, replace the existing selection
       // with the new one.
@@ -596,7 +596,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }
 
     this.setState((state, props) => ({
-      ...hideMenu(state, props),
+      ...(multiple && doNotCloseMenu ? {} : hideMenu(state, props)),
       initialItem: selection,
       selected,
       text,
