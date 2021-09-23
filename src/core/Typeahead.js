@@ -558,7 +558,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     if (option.paginationOption) {
       this._handlePaginate(e);
     } else {
-      this._handleSelectionAdd(option, (e : any).ctrlKey);
+      this._handleSelectionAdd(option, (e: any).ctrlKey);
     }
   }
 
