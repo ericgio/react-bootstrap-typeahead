@@ -587,7 +587,10 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       // If multiple selections are allowed, add the new selection to the
       // existing selections.
       selected = this.state.selected.concat(selection);
+<<<<<<< HEAD
       // keep text in input in case of pressed ctrl key
+=======
+>>>>>>> 30fe8642bcd7c30cc42decb95a9a67421af6e125
       text = doNotCloseMenu ? this.state.text : '';
     } else {
       // If only a single selection is allowed, replace the existing selection
@@ -597,7 +600,10 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }
 
     this.setState((state, props) => ({
+<<<<<<< HEAD
       // do not hide menu in case of pressed ctrl key
+=======
+>>>>>>> 30fe8642bcd7c30cc42decb95a9a67421af6e125
       ...(multiple && doNotCloseMenu ? {} : hideMenu(state, props)),
       initialItem: selection,
       selected,
