@@ -1,33 +1,23 @@
 {
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig.json to read more about this file */
-    "target": "es5",
-    // Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'.
-    "module": "commonjs",
-    "allowJs": true, // Allow javascript files to be compiled
-    "checkJs": true, // Report errors in .js files.
-    "jsx": "react",
-    "rootDir": "src",
-    "outDir": "lib",
-    "noEmit": false,
-    "isolatedModules": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "baseUrl": "src", // Base directory to resolve non-absolute module names.
-    // Enables emit interoperability between CommonJS and ES Modules via
-    // creation of namespace objects for all imports.
-    // Implies 'allowSyntheticDefaultImports'.
+    "allowJs": true,
+    "baseUrl": "src",
+    "checkJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    /* List of folders to include type definitions from. */
-    // "typeRoots": [],
-    /* Type declaration files to be included in compilation. */
-    // "types": [],
-    /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-    // "allowSyntheticDefaultImports": true,
-    /* Enable incremental compilation */
-    "incremental": true
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": "types",
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es5"
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]

@@ -28,11 +28,11 @@
         "@babel/transform-runtime",
         "@babel/transform-modules-commonjs"
       ],
-      "ignore": ["**/__tests__/*", "src/types.js"]
+      "ignore": ["**/__tests__/*", "src/types.ts"]
     },
     "es": {
       "plugins": ["@babel/transform-runtime"],
-      "ignore": ["**/__tests__/*", "src/types.js"]
+      "ignore": ["**/__tests__/*", "src/types.ts"]
     },
     "production": {
       "plugins": ["transform-react-remove-prop-types"]

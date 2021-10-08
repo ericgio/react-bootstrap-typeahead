@@ -14,28 +14,34 @@ const globals = {
   'react-dom': 'ReactDOM',
 };
 
+const extensions = ['.ts', '.tsx', '.js', '.jsx'];
+
 const getUmdConfig = (isProd) => ({
-  input: './src/index.js',
+  input: './src/index.ts',
   output: {
-    file: `dist/${name}${isProd ? '.min' : ''}.js`,
+    file: `./dist/${name}${isProd ? '.min' : ''}.js`,
     format: 'umd',
     globals,
     name: 'ReactBootstrapTypeahead',
   },
   external: Object.keys(globals),
   plugins: [
-    nodeResolve(),
+    nodeResolve({
+      extensions,
+    }),
     commonjs({
       include: /node_modules/,
     }),
     babel({
       babelHelpers: 'bundled',
       exclude: /node_modules/,
+      extensions,
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(
         isProd ? 'production' : 'development'
       ),
+      preventAssignment: true,
     }),
     sizeSnapshot(),
     isProd ? terser() : null,

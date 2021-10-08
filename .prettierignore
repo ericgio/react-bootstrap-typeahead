@@ -1,10 +1,12 @@
 .github
 .husky
 coverage
+css
 dist
 docs
 es
 example/package-example.js
 example/public/prism.min.js
 lib
+types
 **/node_modules

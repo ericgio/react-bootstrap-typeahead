@@ -10,26 +10,29 @@
     "dist/",
     "docs/",
     "es/",
-    "lib",
+    "lib/",
+    "types/",
     "LICENSE.md"
   ],
   "main": "lib/index.js",
   "module": "es/index.js",
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/ericgio/react-bootstrap-typeahead.git"
   },
   "bugs": "https://github.com/ericgio/react-bootstrap-typeahead/issues",
   "scripts": {
-    "build": "npm run clean && npm run build:css && npm run build:cjs && npm run build:es && npm run build:dist && npm run build:example",
+    "build": "npm run clean && npm run build:css && npm run build:cjs && npm run build:es && npm run build:dist && npm run build:types && npm run build:example",
     "build:css": "node ./scripts/buildCSS.js",
     "build:dist": "rollup -c",
-    "build:cjs": "BABEL_ENV=cjs babel src --out-dir lib",
-    "build:es": "BABEL_ENV=es babel src --out-dir es",
+    "build:cjs": "BABEL_ENV=cjs babel src --out-dir lib -x '.ts,.tsx,.js,.jsx'",
+    "build:es": "BABEL_ENV=es babel src --out-dir es -x '.ts,.tsx,.js,.jsx'",
     "build:example": "webpack --mode production --config example/webpack.config.js",
+    "build:types": "npx tsc",
     "check": "npm run lint && npm run typecheck && npm run prettier && npm test",
     "ci": "npm run lint && npm run typecheck && npm run prettier && npm run test:coverage",
-    "clean": "rimraf coverage && rimraf css && rimraf dist && rimraf lib && rimraf es",
+    "clean": "rimraf coverage && rimraf css && rimraf dist && rimraf lib && rimraf es && rimraf types",
     "deploy-example": "node ./scripts/deployExample.js",
     "lint": "eslint . --report-unused-disable-directives",
     "lint:fix": "eslint . --fix",
@@ -39,7 +42,7 @@
     "start": "webpack --mode development -w --progress --config example/webpack.config.js",
     "test": "jest --silent",
     "test:coverage": "jest --coverage",
-    "typecheck": "npx tsc"
+    "typecheck": "npx tsc --noEmit"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
