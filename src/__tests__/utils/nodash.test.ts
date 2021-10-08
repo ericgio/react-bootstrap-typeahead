@@ -1,11 +1,4 @@
-import {
-  head,
-  isFunction,
-  isString,
-  noop,
-  pick,
-  uniqueId,
-} from '../../utils/nodash';
+import { isFunction, isString, noop, pick, uniqueId } from '../../utils/nodash';
 
 const arr = [];
 const fn = noop;
@@ -13,13 +6,6 @@ const obj = {};
 const str = 'foo';
 
 describe('nodash', () => {
-  test('head', () => {
-    expect(head([str])).toBe(str);
-    [arr, obj, str, fn, null, undefined, NaN].forEach((arg) => {
-      expect(head(arg)).toBe(undefined);
-    });
-  });
-
   test('isFunction', () => {
     expect(isFunction(fn)).toBe(true);
     [arr, obj, str, null, undefined, NaN].forEach((arg) => {
