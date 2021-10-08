@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import cx from 'classnames';
@@ -15,31 +14,32 @@ type Props = any & {
 };
 
 function withClassNames(Component: ComponentType<Props>) {
-  // Use a class instead of function component to support refs.
-  class WrappedComponent extends React.Component<Props> {
-    static displayName = `withClassNames(${getDisplayName(Component)})`;
+  const WrappedComponent = ({
+    className,
+    isInvalid,
+    isValid,
+    size,
+    ...props
+  }: Props) => {
+    return (
+      <Component
+        {...props}
+        className={cx(
+          'form-control',
+          'rbt-input',
+          {
+            'form-control-lg': isSizeLarge(size),
+            'form-control-sm': isSizeSmall(size),
+            'is-invalid': isInvalid,
+            'is-valid': isValid,
+          },
+          className
+        )}
+      />
+    );
+  };
 
-    render() {
-      const { className, isInvalid, isValid, size, ...props } = this.props;
-
-      return (
-        <Component
-          {...props}
-          className={cx(
-            'form-control',
-            'rbt-input',
-            {
-              'form-control-lg': isSizeLarge(size),
-              'form-control-sm': isSizeSmall(size),
-              'is-invalid': isInvalid,
-              'is-valid': isValid,
-            },
-            className
-          )}
-        />
-      );
-    }
-  }
+  WrappedComponent.displayName = `withClassNames(${getDisplayName(Component)})`;
 
   return WrappedComponent;
 }
