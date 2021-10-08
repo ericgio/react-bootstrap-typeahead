@@ -5,7 +5,7 @@ import Input from './Input';
 
 import withClassNames from '../behaviors/classNames';
 
-interface TypeaheadMenuProps {
+interface TypeaheadInputSingleProps {
   inputRef: RefCallback<HTMLInputElement>;
   referenceElementRef: RefCallback<HTMLInputElement>;
   shouldSelectHint?: ShouldSelect;
@@ -17,7 +17,7 @@ export default withClassNames(
     referenceElementRef,
     shouldSelectHint,
     ...props
-  }: TypeaheadMenuProps) => (
+  }: TypeaheadInputSingleProps) => (
     <Hint shouldSelect={shouldSelectHint}>
       <Input
         {...props}
