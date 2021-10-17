@@ -1,10 +1,77 @@
 # Upgrade Guide
 
+- [Version 6.0](Upgrading.md#v60-breaking-changes)
 - [Version 5.0](Upgrading.md#v50-breaking-changes)
 - [Version 4.0](Upgrading.md#v40-breaking-changes)
 - [Version 3.0](Upgrading.md#v30-breaking-changes)
 - [Version 2.0](Upgrading.md#v20)
 - [Version 1.0](Upgrading.md#v10)
+
+## v6.0 Breaking Changes
+
+### Removed `selectHintOnEnter`
+This prop was deprecated in v5 in favor of the more flexible `shouldSelectHint` and has been removed in v6. You can replicate the functionality in several ways:
+
+#### Top-level `inputProps`
+```jsx
+<Typeahead
+  ...
+  inputProps={{
+    shouldSelectHint: (shouldSelect, event) => (
+      event.key === "Enter" || shouldSelect;
+    )
+  }}
+/>
+```
+
+#### Using the provided input components
+```jsx
+<Typeahead
+  ...
+  renderInput={(inputProps) => (
+    <TypeaheadInputSingle
+      {...inputProps}
+      shouldSelectHint={(shouldSelect, event) => (
+        event.key === "Enter" || shouldSelect;
+      )}
+    />
+  )}
+/>
+```
+
+#### Directly on the `Hint` component
+```jsx
+<Typeahead
+  ...
+  renderInput={({
+    inputRef,
+    referenceElementRef,
+    ...inputProps
+  }) => (
+    <Hint
+      shouldSelect={(shouldSelect, event) => (
+        event.key === "Enter" || shouldSelect;
+      )}>
+      <input
+        {...inputProps}
+        ref={(node) => {
+          inputRef(node);
+          referenceElementRef(node);
+        }}
+      />
+    </Hint>
+  )}
+/>
+```
+
+### Refs can no longer be passed via `inputProps`
+If you need to access the input node, use the [public `getInput` method](Methods.md).
+
+### Removed `asyncContainer`, `menuItemContainer`, `tokenContainer` HOCs
+These were deprecated in v5 and renamed to `withAsync`, `withItem`, and `withToken`, respectively.
+
+### Drop support for IE11
+It's time. Edge is still supported.
 
 ## v5.0 Breaking Changes
 
@@ -31,7 +98,7 @@ This should generally be a transparent change. There is at least one instance wh
 
 // Instead, do one of the following:
 class MyComponent extends React.Component {
-  render () {  
+  render () {
     <AsyncTypeahead
       ...
       onSearch={this.handleSearch}
@@ -47,7 +114,7 @@ const MyComponent = () => {
   const handleSearch = useCallback((query) => {
     // Do stuff...
   }, []);
-  
+
   return (
     <AsyncTypeahead
       ...

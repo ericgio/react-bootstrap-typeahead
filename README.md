@@ -83,7 +83,7 @@ Recent versions of the following browsers are supported:
 
 - Chrome
 - Firefox
-- IE (>=11)
+- Edge
 - Safari
 
 Special thanks to [BrowserStack](https://www.browserstack.com) for providing cross-browser testing support.
