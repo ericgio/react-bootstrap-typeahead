@@ -84,7 +84,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
 
     if (getOptionProperty(option, 'paginationOption')) {
       return (
-        <>
+        <React.Fragment key="pagination-option-divider">
           <Menu.Divider />
           <MenuItem
             {...menuItemProps}
@@ -96,7 +96,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
             }>
             {paginationText}
           </MenuItem>
-        </>
+        </React.Fragment>
       );
     }
 

@@ -115,7 +115,7 @@ const Overlay = ({ referenceElement, ...props }: OverlayProps) => {
       placement={getPlacement(props)}
       positionFixed={props.positionFixed}
       referenceElement={referenceElement}>
-      {({ ref, ...popperProps }) =>
+      {({ arrowProps, ref, outOfBoundaries, ...popperProps }) =>
         props.children({
           ...popperProps,
           innerRef: ref,

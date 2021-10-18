@@ -47,7 +47,16 @@ const RenderingExample = () => {
       );
       break;
     case 1:
-      props.renderMenu = (results, menuProps, state) => {
+      props.renderMenu = (
+        results,
+        {
+          newSelectionPrefix,
+          paginationText,
+          renderMenuItemChildren,
+          ...menuProps
+        },
+        state
+      ) => {
         let index = 0;
         const regions = groupBy(results, 'region');
         const items = Object.keys(regions)
