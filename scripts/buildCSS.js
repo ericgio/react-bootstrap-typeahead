@@ -4,6 +4,7 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 const sass = require('sass');
@@ -36,6 +37,8 @@ function buildCSS(options) {
 if (!fs.existsSync(OUT_DIR)) {
   fs.mkdirSync(OUT_DIR);
 }
+
+console.log(chalk.cyan('Building CSS files...\n'));
 
 fs.readdirSync(STYLES_DIR).forEach((filename) => {
   const file = path.join(STYLES_DIR, filename);
