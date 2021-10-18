@@ -1,8 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* global Prism */
 
-import { PrismCode } from 'react-prism';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const START_STR = '/* example-start */';
 const END_STR = '/* example-end */';
@@ -14,19 +13,33 @@ function getExampleCode(str) {
   );
 }
 
-const CodeSample = ({ children, component, language }) => (
-  <PrismCode className={`language-${language}`} component={component}>
-    {getExampleCode(children)}
-  </PrismCode>
-);
+const CodeSample = ({ as: Component, children, language }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+
+    const highlight = () => Prism.highlightElement(ref.current);
+
+    highlight();
+  }, [ref]);
+
+  return (
+    <Component className={`language-${language}`} ref={ref}>
+      {getExampleCode(children)}
+    </Component>
+  );
+};
 
 CodeSample.propTypes = {
-  component: PropTypes.string,
+  as: PropTypes.string,
   language: PropTypes.string,
 };
 
 CodeSample.defaultProps = {
-  component: 'pre',
+  as: 'pre',
   language: 'jsx',
 };
 
