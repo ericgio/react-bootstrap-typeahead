@@ -8,10 +8,9 @@ import React, {
   MouseEventHandler,
 } from 'react';
 
+import { Size } from '../constants';
 import { isSizeLarge, noop } from '../utils';
-
 import { sizeType } from '../propTypes';
-import { Size } from '../types';
 
 const propTypes = {
   label: PropTypes.string,

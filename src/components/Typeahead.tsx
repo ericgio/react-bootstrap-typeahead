@@ -30,6 +30,7 @@ import {
   preventInputBlur,
 } from '../utils';
 import { checkPropType, inputPropsType, sizeType } from '../propTypes';
+import { Size } from '../constants';
 
 import {
   InputProps,
@@ -37,7 +38,6 @@ import {
   RefElement,
   RenderToken,
   RenderTokenProps,
-  Size,
   TypeaheadProps,
   TypeaheadManagerChildProps,
 } from '../types';

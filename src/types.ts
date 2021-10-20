@@ -11,13 +11,6 @@ import {
   SyntheticEvent,
 } from 'react';
 
-export enum Size {
-  LARGE = 'large',
-  LG = 'lg',
-  SM = 'sm',
-  SMALL = 'small',
-}
-
 export type AllowNew =
   | boolean
   | ((options: Option[], state: TypeaheadPropsAndState) => boolean);

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { HTMLProps, Requireable } from 'react';
 
+import { Size } from './constants';
 import { isFunction, warn } from './utils';
-import { Size, TypeaheadProps } from './types';
+import type { TypeaheadProps } from './types';
 
 interface InputPropItem {
   alt: string;

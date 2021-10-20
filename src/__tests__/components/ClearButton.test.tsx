@@ -10,7 +10,7 @@ import {
   userEvent,
 } from '../helpers';
 
-import { Size } from '../../types';
+import { Size } from '../../constants';
 
 describe('<ClearButton>', () => {
   it('renders a snapshot', () => {
