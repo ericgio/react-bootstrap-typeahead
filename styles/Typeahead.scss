@@ -201,8 +201,15 @@ $rbt-token-active-color: $rbt-color-white !default;
   }
 }
 
-.has-aux .rbt-input {
-  padding-right: 34px;
+.has-aux .form-control {
+  padding-right: 32px;
+
+  // Position validation icons next to clear button and loader.
+  &.is-valid,
+  &.is-invalid {
+    background-position: right 2rem center;
+    padding-right: 64px;
+  }
 }
 
 // Default highlight style
