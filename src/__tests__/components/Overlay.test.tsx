@@ -37,7 +37,7 @@ describe('<Overlay>', () => {
 
     rerender(<TestComponent isMenuShown positionFixed />);
     await waitFor(() => {
-      expect(getMenu(screen)).toHaveStyle('position: fixed');
+      expect(getMenu(screen)).toHaveStyle('position: absolute');
     });
   });
 });
