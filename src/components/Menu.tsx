@@ -48,7 +48,7 @@ export interface MenuProps extends HTMLProps<HTMLDivElement> {
   emptyLabel?: ReactNode;
   innerRef: Ref<HTMLDivElement>;
   inputHeight: number;
-  scheduleUpdate: () => void;
+  scheduleUpdate: (() => void) | null;
   maxHeight?: string;
   text: string;
 }

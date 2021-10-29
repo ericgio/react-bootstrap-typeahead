@@ -1,7 +1,11 @@
 import React from 'react';
 
 import Menu from '../../components/Menu';
-import Overlay, { getPlacement } from '../../components/Overlay';
+import Overlay, {
+  Align,
+  getModifiers,
+  getPlacement,
+} from '../../components/Overlay';
 
 import { getMenu, render, screen, waitFor } from '../helpers';
 
@@ -58,5 +62,33 @@ describe('Overlay placement', () => {
     permutations.forEach(({ props, received }) => {
       expect(getPlacement(props)).toBe(received);
     });
+  });
+});
+
+describe('Overlay modifiers', () => {
+  it('sets the `flip` modifier', () => {
+    const props = { align: Align.JUSTIFY, flip: false };
+    const selector = ({ name }) => name === 'flip';
+
+    expect(getModifiers(props).find(selector).enabled).toBe(false);
+
+    props.flip = true;
+    expect(getModifiers(props).find(selector).enabled).toBe(true);
+  });
+
+  it('conditionally adds the `setWidth` modifier', () => {
+    const props = { align: Align.JUSTIFY, flip: false };
+
+    const modifiers = getModifiers(props);
+    expect(modifiers).toHaveLength(2);
+    expect(
+      modifiers.find(({ name }) => name === 'setPopperWidth')
+    ).toBeTruthy();
+
+    props.align = Align.LEFT;
+    expect(getModifiers(props)).toHaveLength(1);
+
+    props.align = Align.RIGHT;
+    expect(getModifiers(props)).toHaveLength(1);
   });
 });

@@ -1,7 +1,7 @@
-import type { Data, Placement } from 'popper.js';
+import type { ModifierArguments, Placement, Options } from '@popperjs/core';
 import PropTypes from 'prop-types';
-import React, { CSSProperties, ReactNode, Ref } from 'react';
-import { Popper, PopperProps } from 'react-popper';
+import { CSSProperties, ReactElement, Ref, useState } from 'react';
+import { usePopper } from 'react-popper';
 
 import { noop } from '../utils';
 
@@ -51,13 +51,13 @@ export interface OverlayRenderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   innerRef: Ref<any>;
   inputHeight: number;
-  scheduleUpdate: () => void;
+  scheduleUpdate: (() => void) | null;
   style: CSSProperties;
 }
 
 export interface OverlayProps {
   align: Align;
-  children: (props: OverlayRenderProps) => ReactNode;
+  children: (props: OverlayRenderProps) => ReactElement | null;
   dropup: boolean;
   flip: boolean;
   isMenuShown: boolean;
@@ -65,34 +65,29 @@ export interface OverlayProps {
   referenceElement?: HTMLElement;
 }
 
-function getModifiers(props: OverlayProps): PopperProps['modifiers'] {
-  return {
-    computeStyles: {
-      enabled: true,
-      fn: (data: Data) => {
-        return {
-          ...data,
-          styles: {
-            ...data.styles,
-            // Use the following condition instead of `align === 'justify'`
-            // since it allows the component to fall back to justifying the
-            // menu width if `align` is undefined.
-            width:
-              props.align !== Align.RIGHT && props.align !== Align.LEFT
-                ? // Set the popper width to match the target width.
-                  `${data.offsets.reference.width}px`
-                : data.styles.width,
-          },
-        };
-      },
+const setPopperWidth = {
+  enabled: true,
+  fn: (data: ModifierArguments<Options>) => {
+    // eslint-disable-next-line no-param-reassign
+    data.state.styles.popper.width = `${data.state.rects.reference.width}px`;
+  },
+  name: 'setPopperWidth',
+  phase: 'write',
+};
+
+export function getModifiers(props: Pick<OverlayProps, 'align' | 'flip'>) {
+  const modifiers = [
+    {
+      enabled: !!props.flip,
+      name: 'flip',
     },
-    flip: {
-      enabled: props.flip,
-    },
-    preventOverflow: {
-      escapeWithReference: true,
-    },
-  };
+  ];
+
+  if (props.align !== Align.RIGHT && props.align !== Align.LEFT) {
+    modifiers.push(setPopperWidth);
+  }
+
+  return modifiers;
 }
 
 export function getPlacement(
@@ -105,25 +100,28 @@ export function getPlacement(
 }
 
 const Overlay = ({ referenceElement, ...props }: OverlayProps) => {
+  const [popperElement, attachRef] = useState<HTMLElement>();
+  const { attributes, styles, forceUpdate } = usePopper(
+    referenceElement,
+    popperElement,
+    {
+      modifiers: getModifiers(props),
+      placement: getPlacement(props),
+      strategy: props.positionFixed ? 'fixed' : 'absolute',
+    }
+  );
+
   if (!props.isMenuShown) {
     return null;
   }
 
-  return (
-    <Popper
-      modifiers={getModifiers(props)}
-      placement={getPlacement(props)}
-      positionFixed={props.positionFixed}
-      referenceElement={referenceElement}>
-      {({ arrowProps, ref, outOfBoundaries, ...popperProps }) =>
-        props.children({
-          ...popperProps,
-          innerRef: ref,
-          inputHeight: referenceElement ? referenceElement.offsetHeight : 0,
-        })
-      }
-    </Popper>
-  );
+  return props.children({
+    ...attributes.popper,
+    innerRef: attachRef,
+    inputHeight: referenceElement?.offsetHeight || 0,
+    scheduleUpdate: forceUpdate,
+    style: styles.popper,
+  });
 };
 
 Overlay.propTypes = propTypes;
