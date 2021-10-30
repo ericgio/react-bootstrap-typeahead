@@ -9,6 +9,14 @@
 
 ## v6.0 Breaking Changes
 
+### PopperJS upgraded to v2
+This should mostly be a transparent change. However, PopperJS now triggers the following warning in development when used with Bootstrap < 5:
+
+```js
+Popper: CSS "margin" styles cannot be used to apply padding between the popper and its reference element or boundary. To replicate margin, use the `offset` modifier, as well as the `padding` option in the `preventOverflow` and `flip` modifiers.
+```
+This is due to an [inherent conflict](https://github.com/react-bootstrap/react-bootstrap/issues/5081) between Bootstrap styles and PopperJS v2. There have been no observed issues in this library, but it's possible you may experience some visual glitches when the menu changes position.
+
 ### Removed `selectHintOnEnter`
 This prop was deprecated in v5 in favor of the more flexible `shouldSelectHint` and has been removed in v6. You can replicate the functionality in several ways:
 
