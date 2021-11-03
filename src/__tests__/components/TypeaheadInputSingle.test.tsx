@@ -41,7 +41,7 @@ describe('<TypeaheadInputSingle>', () => {
   it('displays the selected text', () => {
     const text = 'foo';
     render(<TestComponent context={{ text }} />);
-    expect(getInput(screen)).toHaveValue(text);
+    expect(getInput()).toHaveValue(text);
   });
 
   it('displays a hint and calls `shouldSelectHint`', () => {

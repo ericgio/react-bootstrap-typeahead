@@ -52,7 +52,7 @@ describe('<TypeaheadInputMulti>', () => {
   it('displays the selected text', () => {
     const text = 'foo';
     render(<TestComponent context={{ text }} />);
-    expect(getInput(screen).value).toBe(text);
+    expect(getInput()).toHaveValue(text);
   });
 
   it('renders a multi-select input with tokens', () => {
@@ -84,7 +84,7 @@ describe('<TypeaheadInputMulti>', () => {
 
     // No need to test the logic for `shouldSelectHint` here; just make sure
     // it's passed through to the `Hint` component and called.
-    getInput(screen).focus();
+    getInput().focus();
     userEvent.tab();
     expect(shouldSelectHint).toHaveBeenCalledTimes(1);
   });
@@ -94,13 +94,13 @@ describe('<TypeaheadInputMulti>', () => {
 
     // Test clicking the container, which forwards the click to the input.
     userEvent.click(container.firstElementChild);
-    expect(getInput(screen)).toHaveFocus();
+    expect(getInput()).toHaveFocus();
   });
 
   it('does not focus a disabled input', () => {
     const { container } = render(<TestComponent props={{ disabled: true }} />);
 
-    const input = getInput(screen);
+    const input = getInput();
     expect(input).toBeDisabled();
 
     // Test clicking the container, which forwards the click to the input.
@@ -115,7 +115,7 @@ describe('<TypeaheadInputMulti>', () => {
     const onClick = jest.fn();
     render(<TestComponent context={{ text: 'calif' }} props={{ onClick }} />);
 
-    const input = getInput(screen);
+    const input = getInput();
     input.selectionStart = 2;
     // userEvent.click triggers the wrong behavior for some reason.
     fireEvent.click(input);
@@ -129,7 +129,7 @@ describe('<TypeaheadInputMulti>', () => {
     const onKeyDown = jest.fn();
     render(<TestComponent props={{ onKeyDown }} />);
 
-    getInput(screen).focus();
+    getInput().focus();
     userEvent.keyboard('{enter}');
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
@@ -138,7 +138,7 @@ describe('<TypeaheadInputMulti>', () => {
   it('focuses the last token', () => {
     const { container } = render(<TestComponent />);
 
-    getInput(screen).focus();
+    getInput().focus();
     userEvent.keyboard('{backspace}');
 
     const tokens = getTokens(container);
@@ -150,7 +150,7 @@ describe('<TypeaheadInputMulti>', () => {
   it('does not focus the last token when the input has a value', () => {
     render(<TestComponent context={{ text: 'foo' }} />);
 
-    const input = getInput(screen);
+    const input = getInput();
     input.focus();
     userEvent.keyboard('{backspace}');
 

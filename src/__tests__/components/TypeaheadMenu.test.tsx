@@ -35,19 +35,17 @@ describe('<TypeaheadMenu>', () => {
 
   it('renders a menu with the specified max-height', () => {
     const { rerender } = render(<TestComponent maxHeight="200px" />);
-    expect(getMenu(screen).getAttribute('style')).toContain(
-      'max-height: 200px;'
-    );
+    expect(getMenu().getAttribute('style')).toContain('max-height: 200px;');
 
     rerender(<TestComponent maxHeight="50%" />);
-    expect(getMenu(screen).getAttribute('style')).toContain('max-height: 50%;');
+    expect(getMenu().getAttribute('style')).toContain('max-height: 50%;');
   });
 
   it('renders an empty state when there are no results', () => {
     const emptyLabel = 'No matches found.';
 
     render(<TestComponent emptyLabel={emptyLabel} options={[]} />);
-    const menuItems = getItems(screen);
+    const menuItems = getItems();
 
     expect(menuItems).toHaveLength(1);
     expect(menuItems[0]).toHaveTextContent(emptyLabel);
@@ -59,8 +57,6 @@ describe('<TypeaheadMenu>', () => {
     beforeEach(() => {
       paginationText = 'More results...';
       paginationProps = {
-        maxResults: 10,
-        onPaginate: noop,
         options: options.concat({
           name: '',
           paginationOption: true,

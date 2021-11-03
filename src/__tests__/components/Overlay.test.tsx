@@ -20,9 +20,12 @@ const TestComponent = (props) => (
 );
 
 describe('<Overlay>', () => {
-  it('renders children when `isMenuShown=true`', () => {
+  it('renders children when `isMenuShown=true`', async () => {
     render(<TestComponent isMenuShown />);
-    expect(getMenu(screen)).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(getMenu()).toBeInTheDocument();
+    });
   });
 
   it('does not render children when `isMenuShown=false`', () => {
@@ -36,12 +39,12 @@ describe('<Overlay>', () => {
 
     // Wait for component to finish multiple renders.
     await waitFor(() => {
-      expect(getMenu(screen)).toHaveStyle('position: absolute');
+      expect(getMenu()).toHaveStyle('position: absolute');
     });
 
     rerender(<TestComponent isMenuShown positionFixed />);
     await waitFor(() => {
-      expect(getMenu(screen)).toHaveStyle('position: fixed');
+      expect(getMenu()).toHaveStyle('position: fixed');
     });
   });
 });

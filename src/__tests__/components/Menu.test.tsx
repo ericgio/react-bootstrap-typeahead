@@ -33,8 +33,8 @@ describe('<Menu>', () => {
   it('renders a basic menu with menu items', () => {
     render(<TestComponent />);
 
-    expect(getMenu(screen)).toHaveClass('rbt-menu dropdown-menu');
-    expect(getItems(screen)).toHaveLength(3);
+    expect(getMenu()).toHaveClass('rbt-menu dropdown-menu');
+    expect(getItems()).toHaveLength(3);
   });
 
   it('sets the maxHeight and other styles', () => {
@@ -42,7 +42,7 @@ describe('<Menu>', () => {
       <TestComponent maxHeight="100px" style={{ backgroundColor: 'red' }} />
     );
 
-    const menu = getMenu(screen);
+    const menu = getMenu();
     expect(menu).toHaveStyle('background-color: red');
     expect(menu).toHaveStyle('max-height: 100px');
   });
@@ -60,7 +60,7 @@ describe('<Menu>', () => {
       />
     );
 
-    const items = getItems(screen);
+    const items = getItems();
     expect(items).toHaveLength(1);
     expect(items[0]).toHaveClass('disabled');
     expect(items[0]).toHaveTextContent(emptyLabel);
@@ -68,7 +68,7 @@ describe('<Menu>', () => {
 
   it('adds an aria-label attribute to the menu', () => {
     render(<TestComponent aria-label="custom-label" />);
-    expect(getMenu(screen)).toHaveAttribute('aria-label', 'custom-label');
+    expect(getMenu()).toHaveAttribute('aria-label', 'custom-label');
   });
 
   it('updates the menu position if the input height changes', () => {
@@ -86,7 +86,7 @@ describe('<Menu>', () => {
   it('prevents the input from blurring on mousedown', () => {
     render(<TestComponent />);
 
-    const menu = getMenu(screen);
+    const menu = getMenu();
 
     // `false` means e.preventDefault was called.
     expect(fireEvent.mouseDown(menu)).toBe(false);

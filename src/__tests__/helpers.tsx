@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { screen } from '@testing-library/react';
 
 import TypeaheadManager from '../core/TypeaheadManager';
 
@@ -50,21 +51,34 @@ export function getHint(container) {
   return container.getElementsByClassName('rbt-input-hint')[0];
 }
 
-export function getInput(screen) {
+export async function findInput(multiple = false) {
+  const role = multiple ? 'textbox' : 'combobox';
+  return screen.findByRole(role);
+}
+
+export function getInput() {
   // Look for either the single- or multi-select case.
   return screen.queryByRole('combobox') || screen.queryByRole('textbox');
 }
 
-export function getItems(screen) {
+export async function findItems() {
+  return screen.findAllByRole('option');
+}
+
+export function getItems() {
   return screen.getAllByRole('option');
 }
 
-export function getMenu(screen) {
+export async function findMenu() {
+  return screen.findByRole('listbox');
+}
+
+export function getMenu() {
   return screen.queryByRole('listbox');
 }
 
-export function getPaginator(screen) {
-  const items = getItems(screen);
+export async function findPaginator() {
+  const items = await findItems();
   return items[items.length - 1];
 }
 
