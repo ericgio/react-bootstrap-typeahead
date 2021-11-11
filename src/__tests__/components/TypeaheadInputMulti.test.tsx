@@ -13,7 +13,6 @@ import {
   noop,
   prepareSnapshot,
   render,
-  screen,
   TestProvider,
   userEvent,
 } from '../helpers';

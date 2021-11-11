@@ -6,7 +6,6 @@ import options from '../data';
 import {
   getItems,
   getMenu,
-  noop,
   prepareSnapshot,
   render,
   screen,
