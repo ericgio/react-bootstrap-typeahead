@@ -24,6 +24,7 @@ import {
   screen,
   userEvent,
   waitFor,
+  waitForOverlay,
 } from '../helpers';
 
 import states from '../data';
@@ -786,14 +787,16 @@ describe('<Typeahead>', () => {
       expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    xit(
+    it(
       'should not select the hinted result on right arrow keydown unless ' +
         'the cursor is at the end of the input value',
-      () => {
+      async () => {
         render(<TestComponent onChange={onChange} onKeyDown={onKeyDown} />);
 
         const input = getInput();
         userEvent.type(input, 'Ala');
+        await waitForOverlay();
+
         input.selectionStart = 1;
         userEvent.keyboard('{arrowright}');
 
@@ -802,13 +805,14 @@ describe('<Typeahead>', () => {
       }
     );
 
-    xit('should not select the hinted result on enter keydown', () => {
+    it('should not select the hinted result on enter keydown', async () => {
       render(<TestComponent onChange={onChange} onKeyDown={onKeyDown} />);
 
       const input = getInput();
       userEvent.type(input, 'Ala');
-      userEvent.keyboard('{enter}');
+      await waitForOverlay();
 
+      userEvent.keyboard('{enter}');
       expect(key).toBe('Enter');
       expect(onChange).toHaveBeenCalledTimes(0);
     });

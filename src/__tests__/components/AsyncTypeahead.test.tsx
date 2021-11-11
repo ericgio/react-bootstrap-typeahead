@@ -10,6 +10,7 @@ import {
   render,
   userEvent,
   waitFor,
+  waitForOverlay,
 } from '../helpers';
 
 const TestComponent = (props) => {
@@ -49,33 +50,37 @@ describe('<AsyncTypeahead>', () => {
     expect(items[0]).toHaveTextContent(promptText);
   });
 
-  xit('displays the search text while searching', (done) => {
+  it('displays the search text while searching', async () => {
     const searchText = 'Search text';
+
     render(
       <TestComponent
         onSearch={() => {
           const items = getItems();
           expect(items).toHaveLength(1);
           expect(items[0]).toHaveTextContent(searchText);
-          done();
         }}
         searchText={searchText}
       />
     );
 
     userEvent.type(getInput(), 'search');
+
+    // TODO: Fix async behaviors so component correctly displays search text
+    // when `isLoading` is true.
+    await waitForOverlay();
   });
 
   it('displays the empty label when there are no results', async () => {
     const emptyLabel = 'empty label';
+
     render(<TestComponent emptyLabel={emptyLabel} />);
-    const input = getInput();
-    userEvent.type(input, 'foo');
-    await waitFor(() => {
-      const items = getItems();
-      expect(items).toHaveLength(1);
-      expect(items[0]).toHaveTextContent(emptyLabel);
-    });
+
+    userEvent.type(getInput(), 'foo');
+
+    const items = await findItems();
+    expect(items).toHaveLength(1);
+    expect(items[0]).toHaveTextContent(emptyLabel);
   });
 
   it('displays the empty label when the input has an initial value', async () => {
@@ -87,7 +92,6 @@ describe('<AsyncTypeahead>', () => {
         emptyLabel={emptyLabel}
         id="async-empty-label-test"
         isLoading={false}
-        minLength={0}
         onSearch={noop}
         useCache={false}
       />
@@ -107,9 +111,9 @@ describe('<AsyncTypeahead>', () => {
     render(<TestComponent delay={delay} />);
 
     userEvent.type(getInput(), 'search');
-    await waitFor(() => {
-      expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
-    });
+    await waitForOverlay();
+
+    expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
   });
 
   it('does not call onSearch when a selection is made', () => {
@@ -172,28 +176,30 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  it('does not call `onSearch` with an empty query', async () => {
+  it('does not call `onSearch` with an empty query', () => {
     const onInputChange = jest.fn();
     const onSearch = jest.fn();
 
     render(
       <TestComponent
         defaultInputValue="x"
+        minLength={2}
         onInputChange={onInputChange}
         onSearch={onSearch}
       />
     );
 
-    getInput().focus();
+    const input = getInput();
+    expect(input).toHaveValue('x');
+    input.focus();
 
     userEvent.keyboard('{backspace}');
-    await waitFor(() => {
-      expect(onInputChange).toHaveBeenCalledTimes(1);
-    });
+    expect(input).toHaveValue('');
+    expect(onInputChange).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
-  it('does not call `onSearch` if query is less than `minLength`', async () => {
+  it('does not call `onSearch` if query is less than `minLength`', () => {
     const onInputChange = jest.fn();
     const onSearch = jest.fn();
 
@@ -206,9 +212,7 @@ describe('<AsyncTypeahead>', () => {
     );
 
     userEvent.type(getInput(), 'x');
-    await waitFor(() => {
-      expect(onInputChange).toHaveBeenCalledTimes(1);
-    });
+    expect(onInputChange).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
@@ -231,31 +235,28 @@ describe('<AsyncTypeahead>', () => {
     });
   });
 
-  xit('receives an event as the second argument of `onInputChange`', () => {
+  it('receives an event as the second argument of `onInputChange`', () => {
     render(
       <TestComponent
+        minLength={2}
         onInputChange={(text, e) => {
           expect(text).toBe('x');
           expect(e).toBeDefined();
         }}
       />
     );
+
     userEvent.type(getInput(), 'x');
   });
 
-  xit('displays a custom option when `allowNew` function returns true', (done) => {
-    render(
-      <TestComponent
-        allowNew={() => true}
-        onSearch={() => {
-          const items = getItems();
-          expect(items).toHaveLength(1);
-          expect(items[0]).toHaveTextContent('zzz');
-          done();
-        }}
-      />
-    );
+  it('displays a custom option when `allowNew` function returns true', async () => {
+    render(<TestComponent allowNew={() => true} />);
+
     userEvent.type(getInput(), 'zzz');
+
+    const items = await findItems();
+    expect(items).toHaveLength(1);
+    expect(items[0]).toHaveTextContent('zzz');
   });
 
   it('disables `allowNew` while results are loading', async () => {
@@ -271,6 +272,7 @@ describe('<AsyncTypeahead>', () => {
     );
 
     userEvent.type(getInput(), 'zzz');
+
     await waitFor(() => {
       expect(getItems()[0]).toHaveTextContent('zzz');
     });

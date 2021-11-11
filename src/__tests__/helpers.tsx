@@ -85,3 +85,7 @@ export async function findPaginator() {
 export function getTokens(container) {
   return container.getElementsByClassName('rbt-token');
 }
+
+export async function waitForOverlay() {
+  await findMenu();
+}
