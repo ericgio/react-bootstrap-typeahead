@@ -1,13 +1,18 @@
 /* istanbul ignore file */
 
+import { axe, toHaveNoViolations } from 'jest-axe';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { screen } from '@testing-library/react';
 
 import TypeaheadManager from '../core/TypeaheadManager';
 
+export { axe };
+export * from '@storybook/testing-react';
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
+
+expect.extend(toHaveNoViolations);
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export function noop() {}
