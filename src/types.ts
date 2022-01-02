@@ -70,7 +70,7 @@ export interface TypeaheadProps {
   highlightOnlyResult: boolean;
   id?: Id;
   ignoreDiacritics: boolean;
-  inputProps: HTMLProps<HTMLInputElement>;
+  inputProps?: HTMLProps<HTMLInputElement>;
   labelKey: LabelKey;
   maxResults: number;
   minLength: number;
@@ -105,7 +105,7 @@ export type TypeaheadPropsAndState = Omit<TypeaheadProps, 'onChange'> &
 
 export interface TypeaheadManagerChildProps {
   activeIndex: number;
-  getInputProps: (props: HTMLProps<HTMLInputElement>) => InputProps;
+  getInputProps: (props?: HTMLProps<HTMLInputElement>) => InputProps;
   hideMenu: () => void;
   isMenuShown: boolean;
   labelKey: LabelKey;

@@ -50,7 +50,7 @@ interface RenderMenuProps
   renderMenuItemChildren?: RenderMenuItemChildren;
 }
 
-export interface TypeaheadComponentProps extends TypeaheadProps {
+export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
   align?: Align;
   className?: string;
   clearButton?: boolean;
@@ -60,11 +60,13 @@ export interface TypeaheadComponentProps extends TypeaheadProps {
   flip?: boolean;
   instanceRef?: Ref<Typeahead>;
   isInvalid?: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
   isValid?: boolean;
   maxHeight?: string;
   newSelectionPrefix?: ReactNode;
+  options: Option[];
   paginationText?: ReactNode;
+  placeholder?: string;
   positionFixed?: boolean;
   renderInput?: (
     inputProps: InputProps,
