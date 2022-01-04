@@ -8,7 +8,7 @@ import React, {
   MouseEventHandler,
 } from 'react';
 
-import { Size } from '../constants';
+import type { Size } from '../types';
 import { isSizeLarge, noop } from '../utils';
 import { sizeType } from '../propTypes';
 

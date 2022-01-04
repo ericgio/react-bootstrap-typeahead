@@ -39,6 +39,9 @@ export type ShouldSelect = (
 
 export type RefElement<T> = T | null;
 
+export const sizeValues = ['large', 'lg', 'small', 'sm'] as const;
+export type Size = typeof sizeValues[number];
+
 export type TypeaheadChildren =
   | ReactNode
   | ((props: TypeaheadManagerChildProps) => ReactNode);

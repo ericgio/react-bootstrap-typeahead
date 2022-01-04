@@ -30,13 +30,13 @@ import {
   preventInputBlur,
 } from '../utils';
 import { checkPropType, inputPropsType, sizeType } from '../propTypes';
-import { Size } from '../constants';
 
 import {
   Option,
   RefElement,
   RenderToken,
   RenderTokenProps,
+  Size,
   TypeaheadInputProps,
   TypeaheadProps,
   TypeaheadManagerChildProps,

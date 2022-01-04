@@ -1,7 +1,9 @@
-export function isSizeLarge(size?: string): boolean {
+import type { Size } from '../types';
+
+export function isSizeLarge(size?: Size): boolean {
   return size === 'large' || size === 'lg';
 }
 
-export function isSizeSmall(size?: string): boolean {
+export function isSizeSmall(size?: Size): boolean {
   return size === 'small' || size === 'sm';
 }

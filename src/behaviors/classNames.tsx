@@ -4,7 +4,7 @@ import cx from 'classnames';
 import React, { ComponentType } from 'react';
 
 import { getDisplayName, isSizeLarge, isSizeSmall } from '../utils';
-import { Size } from '../constants';
+import type { Size } from '../types';
 
 type Props = any & {
   className?: string;

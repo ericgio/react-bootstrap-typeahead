@@ -1,8 +1,3 @@
-export const DEFAULT_LABELKEY = 'label';
+/* eslint-disable import/prefer-default-export */
 
-export enum Size {
-  LARGE = 'large',
-  LG = 'lg',
-  SM = 'sm',
-  SMALL = 'small',
-}
+export const DEFAULT_LABELKEY = 'label';

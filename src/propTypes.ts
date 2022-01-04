@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { Requireable } from 'react';
 
-import { Size } from './constants';
 import { isFunction, warn } from './utils';
-import type { InputProps, TypeaheadProps } from './types';
+import { InputProps, TypeaheadProps, sizeValues } from './types';
 
 interface InputPropItem {
   alt: string;
@@ -17,7 +16,7 @@ const INPUT_PROPS_BLACKLIST: InputPropItem[] = [
   { alt: 'onKeyDown', prop: 'onKeyDown' },
 ];
 
-export const sizeType = PropTypes.oneOf(Object.values(Size));
+export const sizeType = PropTypes.oneOf(sizeValues);
 
 type Props = TypeaheadProps;
 type PropName = keyof Props;
