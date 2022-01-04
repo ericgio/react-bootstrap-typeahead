@@ -5,11 +5,8 @@ import { usePopper } from 'react-popper';
 
 import { noop } from '../utils';
 
-export enum Align {
-  JUSTIFY = 'justify',
-  LEFT = 'left',
-  RIGHT = 'right',
-}
+const alignValues = ['justify', 'left', 'right'] as const;
+export type Align = typeof alignValues[number];
 
 // `Element` is not defined during server-side rendering, so shim it here.
 /* istanbul ignore next */
@@ -22,7 +19,7 @@ const propTypes = {
    * or `right` will align the menu to that side and the width will be
    * determined by the length of menu item values.
    */
-  align: PropTypes.oneOf(Object.values(Align)),
+  align: PropTypes.oneOf(alignValues),
   children: PropTypes.func.isRequired,
   /**
    * Specify whether the menu should appear above the input.
@@ -40,7 +37,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  align: Align.JUSTIFY,
+  align: 'justify',
   dropup: false,
   flip: false,
   isMenuShown: false,
@@ -83,7 +80,7 @@ export function getModifiers(props: Pick<OverlayProps, 'align' | 'flip'>) {
     },
   ];
 
-  if (props.align !== Align.RIGHT && props.align !== Align.LEFT) {
+  if (props.align !== 'right' && props.align !== 'left') {
     modifiers.push(setPopperWidth);
   }
 
@@ -93,7 +90,7 @@ export function getModifiers(props: Pick<OverlayProps, 'align' | 'flip'>) {
 export function getPlacement(
   props: Pick<OverlayProps, 'align' | 'dropup'>
 ): Placement {
-  const x = props.align === Align.RIGHT ? 'end' : 'start';
+  const x = props.align === 'right' ? 'end' : 'start';
   const y = props.dropup ? 'top' : 'bottom';
 
   return `${y}-${x}`;
