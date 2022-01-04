@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import { HTMLProps, Requireable } from 'react';
+import { Requireable } from 'react';
 
 import { Size } from './constants';
 import { isFunction, warn } from './utils';
-import type { TypeaheadProps } from './types';
+import type { InputProps, TypeaheadProps } from './types';
 
 interface InputPropItem {
   alt: string;
-  prop: keyof HTMLProps<HTMLInputElement>;
+  prop: keyof InputProps;
 }
 
 const INPUT_PROPS_BLACKLIST: InputPropItem[] = [

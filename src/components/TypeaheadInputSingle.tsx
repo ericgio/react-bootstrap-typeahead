@@ -1,15 +1,10 @@
-import React, { RefCallback } from 'react';
+import React from 'react';
 
-import Hint, { ShouldSelect } from './Hint';
+import Hint from './Hint';
 import Input from './Input';
 
 import withClassNames from '../behaviors/classNames';
-
-interface TypeaheadInputSingleProps {
-  inputRef: RefCallback<HTMLInputElement>;
-  referenceElementRef: RefCallback<HTMLInputElement>;
-  shouldSelectHint?: ShouldSelect;
-}
+import { TypeaheadInputProps } from '../types';
 
 export default withClassNames(
   ({
@@ -17,7 +12,7 @@ export default withClassNames(
     referenceElementRef,
     shouldSelectHint,
     ...props
-  }: TypeaheadInputSingleProps) => (
+  }: TypeaheadInputProps) => (
     <Hint shouldSelect={shouldSelectHint}>
       <Input
         {...props}

@@ -2,27 +2,19 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import cx from 'classnames';
-import React, {
-  FocusEvent,
-  KeyboardEvent,
-  MouseEvent,
-  ReactNode,
-  RefCallback,
-} from 'react';
+import React, { FocusEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
-import Hint, { ShouldSelect } from './Hint';
+import Hint from './Hint';
 import Input from './Input';
 
 import { isSelectable } from '../utils';
 import withClassNames from '../behaviors/classNames';
 
-import { InputProps, Option, RefElement } from '../types';
+import { Option, RefElement, TypeaheadInputProps } from '../types';
 
-interface Props extends InputProps {
+interface Props extends TypeaheadInputProps {
   children: ReactNode;
-  referenceElementRef: RefCallback<HTMLElement>;
   selected: Option[];
-  shouldSelectHint?: ShouldSelect;
 }
 
 class TypeaheadInputMulti extends React.Component<Props> {
@@ -85,7 +77,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
     // Prevent clicks on the input from bubbling up to the container,
     // which then re-focuses the input.
     e.stopPropagation();
-    this.props.onClick(e);
+    this.props.onClick && this.props.onClick(e);
   };
 
   /**
@@ -136,7 +128,7 @@ class TypeaheadInputMulti extends React.Component<Props> {
         break;
     }
 
-    onKeyDown(e);
+    onKeyDown && onKeyDown(e);
   };
 }
 

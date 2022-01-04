@@ -2,11 +2,12 @@ import {
   ChangeEvent,
   ChangeEventHandler,
   FocusEventHandler,
-  HTMLProps,
+  InputHTMLAttributes,
   KeyboardEvent,
   KeyboardEventHandler,
   MouseEvent,
   MouseEventHandler,
+  ReactNode,
   RefCallback,
   SyntheticEvent,
 } from 'react';
@@ -14,35 +15,42 @@ import {
 export type AllowNew =
   | boolean
   | ((options: Option[], state: TypeaheadPropsAndState) => boolean);
+
 export type FilterByCallback = (
   option: Option,
-  state: Omit<TypeaheadPropsAndState, 'onChange'>
+  state: TypeaheadPropsAndState
 ) => void;
+
 export type Id = string;
-export type Option = string | Record<string, unknown>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Option = string | Record<string, any>;
+
 export type OptionHandler = (option: Option) => void;
+
 export type LabelKey = string | ((option: Option) => string);
 
 export type SelectEvent<T> = MouseEvent<T> | KeyboardEvent<T>;
 
+export type ShouldSelect = (
+  shouldSelectHint: boolean,
+  event: KeyboardEvent<HTMLInputElement>
+) => boolean;
+
 export type RefElement<T> = T | null;
 
-export interface InputProps {
-  autoComplete: string;
-  className?: string;
-  disabled?: boolean;
+export type TypeaheadChildren =
+  | ReactNode
+  | ((props: TypeaheadManagerChildProps) => ReactNode);
+
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  shouldSelectHint?: ShouldSelect;
+}
+
+export interface TypeaheadInputProps extends InputProps {
   inputClassName?: string;
   inputRef: RefCallback<HTMLInputElement>;
-  onBlur: FocusEventHandler<HTMLInputElement>;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  onClick: MouseEventHandler<HTMLInputElement>;
-  onFocus: FocusEventHandler<HTMLInputElement>;
-  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
-  placeholder?: string;
-  referenceElementRef: (element: RefElement<HTMLElement>) => void;
-  tabIndex?: number;
-  type: string;
-  value: string;
+  referenceElementRef: RefCallback<HTMLElement>;
 }
 
 export interface RenderTokenProps {
@@ -62,21 +70,22 @@ export interface TypeaheadProps {
   allowNew: AllowNew;
   autoFocus: boolean;
   caseSensitive: boolean;
-  children: (props: TypeaheadManagerChildProps) => JSX.Element;
+  children: TypeaheadChildren;
   defaultInputValue: string;
   defaultOpen: boolean;
   defaultSelected: Option[];
+  emptyLabel?: ReactNode;
   filterBy: string[] | FilterByCallback;
   highlightOnlyResult: boolean;
   id?: Id;
   ignoreDiacritics: boolean;
-  inputProps?: HTMLProps<HTMLInputElement>;
+  inputProps?: InputProps;
   labelKey: LabelKey;
   maxResults: number;
   minLength: number;
   multiple: boolean;
   onBlur: FocusEventHandler<HTMLInputElement>;
-  onChange: (selected: Option[]) => void;
+  onChange?: (selected: Option[]) => void;
   onFocus: (event: SyntheticEvent<HTMLInputElement>) => void;
   onInputChange: (text: string, event: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
@@ -85,7 +94,7 @@ export interface TypeaheadProps {
   open?: boolean;
   options: Option[];
   paginate: boolean;
-  selected: Option[];
+  selected?: Option[];
   selectHintOnEnter?: boolean;
 }
 
@@ -105,7 +114,7 @@ export type TypeaheadPropsAndState = Omit<TypeaheadProps, 'onChange'> &
 
 export interface TypeaheadManagerChildProps {
   activeIndex: number;
-  getInputProps: (props?: HTMLProps<HTMLInputElement>) => InputProps;
+  getInputProps: (props?: InputProps) => TypeaheadInputProps;
   hideMenu: () => void;
   isMenuShown: boolean;
   labelKey: LabelKey;
@@ -118,9 +127,7 @@ export interface TypeaheadManagerChildProps {
   toggleMenu: () => void;
 }
 
-export interface TypeaheadManagerProps
-  extends Omit<TypeaheadPropsAndState, 'children' | 'onChange'> {
-  children: (props: TypeaheadManagerChildProps) => JSX.Element;
+export interface TypeaheadManagerProps extends TypeaheadPropsAndState {
   hideMenu: () => void;
   inputNode: RefElement<HTMLInputElement>;
   inputRef: RefCallback<HTMLInputElement>;

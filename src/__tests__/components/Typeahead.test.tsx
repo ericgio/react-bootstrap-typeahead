@@ -1,6 +1,7 @@
-import React, { createRef, forwardRef, useState } from 'react';
+import React, { createRef, ElementRef, forwardRef, useState } from 'react';
 
 import { Menu, MenuItem, Typeahead } from '../..';
+import { TypeaheadComponentProps } from '../../components/Typeahead';
 import {
   clearTypeahead,
   clickOrFocusInput,
@@ -31,7 +32,10 @@ import states from '../data';
 
 const ID = 'rbt-id';
 
-const TestComponent = forwardRef((props, ref) => (
+const TestComponent = forwardRef<
+  ElementRef<typeof Typeahead>,
+  Partial<TypeaheadComponentProps>
+>((props, ref) => (
   <Typeahead
     id={ID}
     labelKey="name"

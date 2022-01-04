@@ -7,6 +7,7 @@ import {
   getInputProps,
   getInputText,
   getIsOnlyResult,
+  isFunction,
   pick,
 } from '../utils';
 import { TypeaheadManagerProps } from '../types';
@@ -111,7 +112,7 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
 
   return (
     <TypeaheadContext.Provider value={contextValue}>
-      {children(childProps)}
+      {isFunction(children) ? children(childProps) : children}
     </TypeaheadContext.Provider>
   );
 };

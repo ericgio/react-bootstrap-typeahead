@@ -58,7 +58,7 @@ export async function findInput(multiple = false) {
   return screen.findByRole(role);
 }
 
-export function getInput() {
+export function getInput(): HTMLInputElement {
   // Look for either the single- or multi-select case.
   return screen.queryByRole('combobox') || screen.queryByRole('textbox');
 }

@@ -4,10 +4,7 @@ import React, { cloneElement, KeyboardEvent, useEffect, useRef } from 'react';
 import { useTypeaheadContext } from '../core/Context';
 import { isSelectable } from '../utils';
 
-export type ShouldSelect = (
-  shouldSelectHint: boolean,
-  event: KeyboardEvent<HTMLInputElement>
-) => boolean;
+import { ShouldSelect } from '../types';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.

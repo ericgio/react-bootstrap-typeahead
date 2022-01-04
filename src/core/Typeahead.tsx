@@ -207,10 +207,7 @@ const defaultProps = {
   paginate: true,
 };
 
-interface Props extends Omit<TypeaheadProps, 'onChange' | 'selected'> {
-  onChange?: (selected: Option[]) => void;
-  selected?: Option[];
-}
+type Props = TypeaheadProps;
 
 export function getInitialState(props: Props): TypeaheadState {
   const {

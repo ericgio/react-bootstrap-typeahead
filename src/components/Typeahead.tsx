@@ -33,11 +33,11 @@ import { checkPropType, inputPropsType, sizeType } from '../propTypes';
 import { Size } from '../constants';
 
 import {
-  InputProps,
   Option,
   RefElement,
   RenderToken,
   RenderTokenProps,
+  TypeaheadInputProps,
   TypeaheadProps,
   TypeaheadManagerChildProps,
 } from '../types';
@@ -69,7 +69,7 @@ export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
   placeholder?: string;
   positionFixed?: boolean;
   renderInput?: (
-    inputProps: InputProps,
+    inputProps: TypeaheadInputProps,
     props: TypeaheadManagerChildProps
   ) => JSX.Element;
   renderMenu?: (
@@ -237,7 +237,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
   };
 
   _renderInput = (
-    inputProps: InputProps,
+    inputProps: TypeaheadInputProps,
     props: TypeaheadManagerChildProps
   ) => {
     const { isInvalid, isValid, multiple, renderInput, renderToken, size } =

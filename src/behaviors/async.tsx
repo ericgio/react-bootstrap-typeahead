@@ -59,7 +59,6 @@ const propTypes = {
 
 export interface UseAsyncProps extends TypeaheadProps {
   delay?: number;
-  emptyLabel?: ReactNode;
   isLoading: boolean;
   onSearch: (query: string) => void;
   promptText?: ReactNode;
