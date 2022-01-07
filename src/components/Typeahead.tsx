@@ -42,7 +42,7 @@ import {
   TypeaheadManagerChildProps,
 } from '../types';
 
-interface RenderMenuProps
+export interface RenderMenuProps
   extends Omit<
     TypeaheadMenuProps,
     'labelKey' | 'options' | 'renderMenuItemChildren' | 'text'

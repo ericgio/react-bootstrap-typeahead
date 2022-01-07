@@ -6,7 +6,6 @@ describe('getStringLabelKey', () => {
   });
 
   it('returns the default labelKey when `labelKey` is a function', () => {
-    // @ts-ignore
     expect(getStringLabelKey((o) => o.name)).toBe('label');
   });
 });

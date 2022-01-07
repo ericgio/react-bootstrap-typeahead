@@ -26,7 +26,7 @@ const defaultProps = {
 };
 
 interface ClearButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
-  label: string;
+  label?: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
   onKeyDown: KeyboardEventHandler<HTMLButtonElement>;
   size?: Size;

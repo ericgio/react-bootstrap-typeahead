@@ -14,11 +14,11 @@ export type RenderMenuItemChildren = (
   idx: number
 ) => JSX.Element;
 
-export interface TypeaheadMenuProps extends Omit<MenuProps, 'ref'> {
+export interface TypeaheadMenuProps extends MenuProps {
   labelKey: LabelKey;
-  newSelectionPrefix: ReactNode;
+  newSelectionPrefix?: ReactNode;
   options: Option[];
-  paginationText: ReactNode;
+  paginationText?: ReactNode;
   renderMenuItemChildren: RenderMenuItemChildren;
   text: string;
 }

@@ -15,7 +15,7 @@ const defaultProps = {
 
 export interface HighlighterProps {
   children: string;
-  highlightClassName: string;
+  highlightClassName?: string;
   search: string;
 }
 

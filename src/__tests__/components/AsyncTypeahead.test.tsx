@@ -93,6 +93,7 @@ describe('<AsyncTypeahead>', () => {
         id="async-empty-label-test"
         isLoading={false}
         onSearch={noop}
+        options={[]}
         useCache={false}
       />
     );

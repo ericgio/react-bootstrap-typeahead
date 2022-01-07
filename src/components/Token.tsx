@@ -11,7 +11,6 @@ type HTMLElementProps = Omit<HTMLProps<HTMLDivElement>, 'onBlur' | 'ref'>;
 interface InteractiveTokenProps extends HTMLElementProps {
   active?: boolean;
   onRemove?: MouseEventHandler<HTMLElement>;
-  tabIndex?: number;
 }
 
 const InteractiveToken = forwardRef<HTMLDivElement, InteractiveTokenProps>(

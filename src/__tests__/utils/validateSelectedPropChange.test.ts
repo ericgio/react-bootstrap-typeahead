@@ -3,7 +3,7 @@
 import validateSelectedPropChange from '../../utils/validateSelectedPropChange';
 
 describe('validateSelectedPropChange', () => {
-  let str;
+  let str: string;
 
   beforeEach(() => {
     console.error = jest.fn((msg) => (str = msg));

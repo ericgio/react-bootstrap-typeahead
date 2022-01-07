@@ -10,7 +10,7 @@ const defaultProps = {
 };
 
 interface LoaderProps {
-  label: string;
+  label?: string;
 }
 
 const Loader = ({ label }: LoaderProps) => (

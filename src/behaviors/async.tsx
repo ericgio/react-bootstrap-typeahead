@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, {
   ChangeEvent,
   ComponentType,
-  ElementRef,
   forwardRef,
   ReactNode,
   useCallback,
@@ -18,7 +17,8 @@ import Typeahead from '../core/Typeahead';
 import { optionType } from '../propTypes';
 import { getDisplayName, isFunction } from '../utils';
 
-import type { Option, TypeaheadProps } from '../types';
+import { TypeaheadComponentProps } from '../components/Typeahead';
+import type { Option } from '../types';
 
 const propTypes = {
   /**
@@ -57,7 +57,7 @@ const propTypes = {
   useCache: PropTypes.bool,
 };
 
-export interface UseAsyncProps extends TypeaheadProps {
+export interface UseAsyncProps extends TypeaheadComponentProps {
   delay?: number;
   isLoading: boolean;
   onSearch: (query: string) => void;
@@ -181,9 +181,9 @@ export function useAsync(props: UseAsyncProps) {
 export function withAsync<T extends UseAsyncProps = UseAsyncProps>(
   Component: ComponentType<T>
 ) {
-  const AsyncTypeahead = forwardRef<ElementRef<typeof Typeahead>, T>(
-    (props, ref) => <Component {...props} {...useAsync(props)} ref={ref} />
-  );
+  const AsyncTypeahead = forwardRef<Typeahead, T>((props, ref) => (
+    <Component {...props} {...useAsync(props)} ref={ref} />
+  ));
 
   AsyncTypeahead.displayName = `withAsync(${getDisplayName(Component)})`;
   // @ts-ignore

@@ -2,12 +2,14 @@ import getHintText from '../../utils/getHintText';
 import states from '../data';
 
 const props = {
+  activeIndex: -1,
   activeItem: null,
   initialItem: { name: 'Alabama' },
   isFocused: true,
   isMenuShown: true,
   labelKey: 'name',
   minLength: 0,
+  multiple: false,
   selected: [],
   text: 'alA',
 };
