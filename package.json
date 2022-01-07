@@ -37,7 +37,7 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
     "postpublish": "yarn deploy-example",
-    "prepublishOnly": "yarn check && yarn build",
+    "prepublishOnly": "yarn run check && yarn build",
     "start": "webpack --mode development -w --progress --config example/webpack.config.js",
     "test": "jest --silent",
     "test:coverage": "jest --coverage",
