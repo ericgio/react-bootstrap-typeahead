@@ -12,6 +12,8 @@ import {
   SyntheticEvent,
 } from 'react';
 
+import { SIZES } from './constants';
+
 export type AllowNew =
   | boolean
   | ((options: Option[], state: TypeaheadPropsAndState) => boolean);
@@ -39,8 +41,7 @@ export type ShouldSelect = (
 
 export type RefElement<T> = T | null;
 
-export const sizeValues = ['large', 'lg', 'small', 'sm'] as const;
-export type Size = typeof sizeValues[number];
+export type Size = typeof SIZES[number];
 
 export type TypeaheadChildren =
   | ReactNode
