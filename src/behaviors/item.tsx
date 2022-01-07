@@ -32,6 +32,7 @@ export function useItem<T extends HTMLElement>({
   onClick,
   option,
   position,
+  ...props
 }: UseItemProps<T>) {
   const {
     activeIndex,
@@ -82,6 +83,7 @@ export function useItem<T extends HTMLElement>({
   setItem(option, position);
 
   return {
+    ...props,
     active,
     'aria-label': label,
     'aria-selected': active,

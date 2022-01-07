@@ -21,18 +21,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-0"
-    label="Alabama"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Montgomery",
-        "name": "Alabama",
-        "population": 4780127,
-        "region": "South",
-      }
-    }
-    position={0}
     role="option"
   >
     Alabama
@@ -43,18 +33,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-1"
-    label="Alaska"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Juneau",
-        "name": "Alaska",
-        "population": 710249,
-        "region": "West",
-      }
-    }
-    position={1}
     role="option"
   >
     Alaska
@@ -65,18 +45,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-2"
-    label="Arizona"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Phoenix",
-        "name": "Arizona",
-        "population": 6392307,
-        "region": "West",
-      }
-    }
-    position={2}
     role="option"
   >
     Arizona
@@ -87,18 +57,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-3"
-    label="Arkansas"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Little Rock",
-        "name": "Arkansas",
-        "population": 2915958,
-        "region": "South",
-      }
-    }
-    position={3}
     role="option"
   >
     Arkansas
@@ -109,18 +69,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-4"
-    label="California"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Sacramento",
-        "name": "California",
-        "population": 37254503,
-        "region": "West",
-      }
-    }
-    position={4}
     role="option"
   >
     California
@@ -131,18 +81,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-5"
-    label="Colorado"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Denver",
-        "name": "Colorado",
-        "population": 5029324,
-        "region": "West",
-      }
-    }
-    position={5}
     role="option"
   >
     Colorado
@@ -153,18 +93,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-6"
-    label="Connecticut"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Hartford",
-        "name": "Connecticut",
-        "population": 3574118,
-        "region": "Northeast",
-      }
-    }
-    position={6}
     role="option"
   >
     Connecticut
@@ -175,18 +105,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-7"
-    label="Delaware"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Dover",
-        "name": "Delaware",
-        "population": 897936,
-        "region": "South",
-      }
-    }
-    position={7}
     role="option"
   >
     Delaware
@@ -197,18 +117,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-8"
-    label="Florida"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Tallahassee",
-        "name": "Florida",
-        "population": 18804623,
-        "region": "South",
-      }
-    }
-    position={8}
     role="option"
   >
     Florida
@@ -219,18 +129,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-9"
-    label="Georgia"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Atlanta",
-        "name": "Georgia",
-        "population": 9688681,
-        "region": "South",
-      }
-    }
-    position={9}
     role="option"
   >
     Georgia
@@ -241,18 +141,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-10"
-    label="Hawaii"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Honolulu",
-        "name": "Hawaii",
-        "population": 1360301,
-        "region": "West",
-      }
-    }
-    position={10}
     role="option"
   >
     Hawaii
@@ -263,18 +153,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-11"
-    label="Idaho"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Boise",
-        "name": "Idaho",
-        "population": 1567652,
-        "region": "West",
-      }
-    }
-    position={11}
     role="option"
   >
     Idaho
@@ -285,18 +165,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-12"
-    label="Illinois"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Springfield",
-        "name": "Illinois",
-        "population": 12831549,
-        "region": "Midwest",
-      }
-    }
-    position={12}
     role="option"
   >
     Illinois
@@ -307,18 +177,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-13"
-    label="Indiana"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Indianapolis",
-        "name": "Indiana",
-        "population": 6484229,
-        "region": "Midwest",
-      }
-    }
-    position={13}
     role="option"
   >
     Indiana
@@ -329,18 +189,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-14"
-    label="Iowa"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Des Moines",
-        "name": "Iowa",
-        "population": 3046869,
-        "region": "Midwest",
-      }
-    }
-    position={14}
     role="option"
   >
     Iowa
@@ -351,18 +201,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-15"
-    label="Kansas"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Topeka",
-        "name": "Kansas",
-        "population": 2853132,
-        "region": "Midwest",
-      }
-    }
-    position={15}
     role="option"
   >
     Kansas
@@ -373,18 +213,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-16"
-    label="Kentucky"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Frankfort",
-        "name": "Kentucky",
-        "population": 4339349,
-        "region": "South",
-      }
-    }
-    position={16}
     role="option"
   >
     Kentucky
@@ -395,18 +225,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-17"
-    label="Louisiana"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Baton Rouge",
-        "name": "Louisiana",
-        "population": 4533479,
-        "region": "South",
-      }
-    }
-    position={17}
     role="option"
   >
     Louisiana
@@ -417,18 +237,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-18"
-    label="Maine"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Augusta",
-        "name": "Maine",
-        "population": 1328361,
-        "region": "Northeast",
-      }
-    }
-    position={18}
     role="option"
   >
     Maine
@@ -439,18 +249,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-19"
-    label="Maryland"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Annapolis",
-        "name": "Maryland",
-        "population": 5773785,
-        "region": "South",
-      }
-    }
-    position={19}
     role="option"
   >
     Maryland
@@ -461,18 +261,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-20"
-    label="Massachusetts"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Boston",
-        "name": "Massachusetts",
-        "population": 6547817,
-        "region": "Northeast",
-      }
-    }
-    position={20}
     role="option"
   >
     Massachusetts
@@ -483,18 +273,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-21"
-    label="Michigan"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Lansing",
-        "name": "Michigan",
-        "population": 9884129,
-        "region": "Midwest",
-      }
-    }
-    position={21}
     role="option"
   >
     Michigan
@@ -505,18 +285,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-22"
-    label="Minnesota"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Saint Paul",
-        "name": "Minnesota",
-        "population": 5303925,
-        "region": "Midwest",
-      }
-    }
-    position={22}
     role="option"
   >
     Minnesota
@@ -527,18 +297,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-23"
-    label="Mississippi"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Jackson",
-        "name": "Mississippi",
-        "population": 2968103,
-        "region": "South",
-      }
-    }
-    position={23}
     role="option"
   >
     Mississippi
@@ -549,18 +309,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-24"
-    label="Missouri"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Jefferson City",
-        "name": "Missouri",
-        "population": 5988927,
-        "region": "Midwest",
-      }
-    }
-    position={24}
     role="option"
   >
     Missouri
@@ -571,18 +321,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-25"
-    label="Montana"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Alberta",
-        "name": "Montana",
-        "population": 989417,
-        "region": "West",
-      }
-    }
-    position={25}
     role="option"
   >
     Montana
@@ -593,18 +333,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-26"
-    label="Nebraska"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Lincoln",
-        "name": "Nebraska",
-        "population": 1826341,
-        "region": "Midwest",
-      }
-    }
-    position={26}
     role="option"
   >
     Nebraska
@@ -615,18 +345,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-27"
-    label="Nevada"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Carson City",
-        "name": "Nevada",
-        "population": 2700691,
-        "region": "West",
-      }
-    }
-    position={27}
     role="option"
   >
     Nevada
@@ -637,18 +357,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-28"
-    label="New Hampshire"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Concord",
-        "name": "New Hampshire",
-        "population": 1316466,
-        "region": "Northeast",
-      }
-    }
-    position={28}
     role="option"
   >
     New Hampshire
@@ -659,18 +369,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-29"
-    label="New Jersey"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Trenton",
-        "name": "New Jersey",
-        "population": 8791936,
-        "region": "Northeast",
-      }
-    }
-    position={29}
     role="option"
   >
     New Jersey
@@ -681,18 +381,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-30"
-    label="New Mexico"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Santa Fe",
-        "name": "New Mexico",
-        "population": 2059192,
-        "region": "West",
-      }
-    }
-    position={30}
     role="option"
   >
     New Mexico
@@ -703,18 +393,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-31"
-    label="New York"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Albany",
-        "name": "New York",
-        "population": 19378087,
-        "region": "Northeast",
-      }
-    }
-    position={31}
     role="option"
   >
     New York
@@ -725,18 +405,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-32"
-    label="North Carolina"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Raleigh",
-        "name": "North Carolina",
-        "population": 9535692,
-        "region": "South",
-      }
-    }
-    position={32}
     role="option"
   >
     North Carolina
@@ -747,18 +417,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-33"
-    label="North Dakota"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Bismarck",
-        "name": "North Dakota",
-        "population": 672591,
-        "region": "Midwest",
-      }
-    }
-    position={33}
     role="option"
   >
     North Dakota
@@ -769,18 +429,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-34"
-    label="Ohio"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Columbus",
-        "name": "Ohio",
-        "population": 11536725,
-        "region": "Midwest",
-      }
-    }
-    position={34}
     role="option"
   >
     Ohio
@@ -791,18 +441,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-35"
-    label="Oklahoma"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Oklahoma City",
-        "name": "Oklahoma",
-        "population": 3751616,
-        "region": "South",
-      }
-    }
-    position={35}
     role="option"
   >
     Oklahoma
@@ -813,18 +453,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-36"
-    label="Oregon"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Salem",
-        "name": "Oregon",
-        "population": 3831073,
-        "region": "West",
-      }
-    }
-    position={36}
     role="option"
   >
     Oregon
@@ -835,18 +465,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-37"
-    label="Pennsylvania"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Harrisburg",
-        "name": "Pennsylvania",
-        "population": 12702887,
-        "region": "Northeast",
-      }
-    }
-    position={37}
     role="option"
   >
     Pennsylvania
@@ -857,18 +477,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-38"
-    label="Rhode Island"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Providence",
-        "name": "Rhode Island",
-        "population": 1052931,
-        "region": "Northeast",
-      }
-    }
-    position={38}
     role="option"
   >
     Rhode Island
@@ -879,18 +489,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-39"
-    label="South Carolina"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Columbia",
-        "name": "South Carolina",
-        "population": 4625401,
-        "region": "South",
-      }
-    }
-    position={39}
     role="option"
   >
     South Carolina
@@ -901,18 +501,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-40"
-    label="South Dakota"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Pierre",
-        "name": "South Dakota",
-        "population": 814191,
-        "region": "Midwest",
-      }
-    }
-    position={40}
     role="option"
   >
     South Dakota
@@ -923,18 +513,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-41"
-    label="Tennessee"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Nashville",
-        "name": "Tennessee",
-        "population": 6346275,
-        "region": "South",
-      }
-    }
-    position={41}
     role="option"
   >
     Tennessee
@@ -945,18 +525,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-42"
-    label="Texas"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Austin",
-        "name": "Texas",
-        "population": 25146105,
-        "region": "South",
-      }
-    }
-    position={42}
     role="option"
   >
     Texas
@@ -967,18 +537,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-43"
-    label="Utah"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Salt Lake City",
-        "name": "Utah",
-        "population": 2763888,
-        "region": "West",
-      }
-    }
-    position={43}
     role="option"
   >
     Utah
@@ -989,18 +549,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-44"
-    label="Vermont"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Montpelier",
-        "name": "Vermont",
-        "population": 625745,
-        "region": "Northeast",
-      }
-    }
-    position={44}
     role="option"
   >
     Vermont
@@ -1011,18 +561,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-45"
-    label="Virginia"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Richmond",
-        "name": "Virginia",
-        "population": 8001045,
-        "region": "South",
-      }
-    }
-    position={45}
     role="option"
   >
     Virginia
@@ -1033,18 +573,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-46"
-    label="Washington"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Olympia",
-        "name": "Washington",
-        "population": 6724543,
-        "region": "West",
-      }
-    }
-    position={46}
     role="option"
   >
     Washington
@@ -1055,18 +585,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-47"
-    label="West Virginia"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Charleston",
-        "name": "West Virginia",
-        "population": 1853011,
-        "region": "South",
-      }
-    }
-    position={47}
     role="option"
   >
     West Virginia
@@ -1077,18 +597,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-48"
-    label="Wisconsin"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Madison",
-        "name": "Wisconsin",
-        "population": 5687289,
-        "region": "West",
-      }
-    }
-    position={48}
     role="option"
   >
     Wisconsin
@@ -1099,18 +609,8 @@ exports[`<TypeaheadMenu> renders a snapshot 1`] = `
     className="dropdown-item"
     href="#"
     id="-item-49"
-    label="Wyoming"
     onClick={[Function]}
     onMouseDown={[Function]}
-    option={
-      Object {
-        "capital": "Cheyenne",
-        "name": "Wyoming",
-        "population": 563767,
-        "region": "West",
-      }
-    }
-    position={49}
     role="option"
   >
     Wyoming

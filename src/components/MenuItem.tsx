@@ -27,5 +27,5 @@ export const BaseMenuItem = forwardRef<HTMLAnchorElement, MenuItemProps>(
 );
 
 export default function MenuItem(props: UseItemProps<HTMLAnchorElement>) {
-  return <BaseMenuItem {...props} {...useItem(props)} />;
+  return <BaseMenuItem {...useItem(props)} />;
 }

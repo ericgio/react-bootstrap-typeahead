@@ -18,12 +18,6 @@ exports[`<MenuItem> renders a snapshot 1`] = `
   id="-item-0"
   onClick={[Function]}
   onMouseDown={[Function]}
-  option={
-    Object {
-      "label": "test",
-    }
-  }
-  position={0}
   role="option"
 >
   This is a menu item.
