@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ClearButton> Default story renders snapshot 1`] = `
+<button
+  aria-label="Clear"
+  className="close rbt-close"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
+>
+  <span
+    aria-hidden="true"
+  >
+    ×
+  </span>
+  <span
+    className="sr-only visually-hidden"
+  >
+    Clear
+  </span>
+</button>
+`;
+
+exports[`<ClearButton> Large story renders snapshot 1`] = `
+<button
+  aria-label="Clear"
+  className="close rbt-close rbt-close-lg"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  type="button"
+>
+  <span
+    aria-hidden="true"
+  >
+    ×
+  </span>
+  <span
+    className="sr-only visually-hidden"
+  >
+    Clear
+  </span>
+</button>
+`;

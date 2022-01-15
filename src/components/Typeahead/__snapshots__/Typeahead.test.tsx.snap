@@ -1,0 +1,695 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Typeahead> AllowNew story renders snapshot 1`] = `
+<div
+  className="rbt"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      autoComplete="off"
+      className="rbt-input-main form-control rbt-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value=""
+    />
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`<Typeahead> ClearButton story renders snapshot 1`] = `
+<div
+  className="rbt has-aux"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      autoComplete="off"
+      className="rbt-input-main form-control rbt-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value="Alabama"
+    />
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+  <div
+    className="rbt-aux"
+  >
+    <button
+      aria-label="Clear"
+      className="close rbt-close"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onMouseDown={[Function]}
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+      <span
+        className="sr-only visually-hidden"
+      >
+        Clear
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`<Typeahead> Controlled story renders snapshot 1`] = `
+<div
+  className="rbt"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      autoComplete="off"
+      className="rbt-input-main form-control rbt-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value=""
+    />
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`<Typeahead> CustomMenu story renders snapshot 1`] = `
+<div
+  className="rbt"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      autoComplete="off"
+      className="rbt-input-main form-control rbt-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value=""
+    />
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`<Typeahead> Default story renders snapshot 1`] = `
+<div
+  className="rbt"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      autoComplete="off"
+      className="rbt-input-main form-control rbt-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value=""
+    />
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`<Typeahead> LoadingState story renders snapshot 1`] = `
+<div
+  className="rbt has-aux"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      autoComplete="off"
+      className="rbt-input-main form-control rbt-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value=""
+    />
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+  <div
+    className="rbt-aux"
+  >
+    <div
+      className="rbt-loader spinner-border spinner-border-sm"
+      role="status"
+    >
+      <span
+        className="sr-only visually-hidden"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
+<div
+  className="rbt"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    className="rbt-input-multi form-control rbt-input"
+    onClick={[Function]}
+    onFocus={[Function]}
+    tabIndex={-1}
+  >
+    <div
+      className="rbt-input-wrapper"
+    >
+      <div
+        className="rbt-token rbt-token-removeable"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        option={
+          Object {
+            "capital": "Montgomery",
+            "name": "Alabama",
+            "population": 4780127,
+            "region": "South",
+          }
+        }
+        tabIndex={0}
+      >
+        Alabama
+        <button
+          aria-label="Remove"
+          className="close rbt-close rbt-token-remove-button"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+          <span
+            className="sr-only visually-hidden"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+      <div
+        className="rbt-token rbt-token-removeable"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        option={
+          Object {
+            "capital": "Juneau",
+            "name": "Alaska",
+            "population": 710249,
+            "region": "West",
+          }
+        }
+        tabIndex={0}
+      >
+        Alaska
+        <button
+          aria-label="Remove"
+          className="close rbt-close rbt-token-remove-button"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+          <span
+            className="sr-only visually-hidden"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+      <div
+        className="rbt-token rbt-token-removeable"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        option={
+          Object {
+            "capital": "Phoenix",
+            "name": "Arizona",
+            "population": 6392307,
+            "region": "West",
+          }
+        }
+        tabIndex={0}
+      >
+        Arizona
+        <button
+          aria-label="Remove"
+          className="close rbt-close rbt-token-remove-button"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+          <span
+            className="sr-only visually-hidden"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+      <div
+        className="rbt-token rbt-token-removeable"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        option={
+          Object {
+            "capital": "Little Rock",
+            "name": "Arkansas",
+            "population": 2915958,
+            "region": "South",
+          }
+        }
+        tabIndex={0}
+      >
+        Arkansas
+        <button
+          aria-label="Remove"
+          className="close rbt-close rbt-token-remove-button"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+          <span
+            className="sr-only visually-hidden"
+          >
+            Remove
+          </span>
+        </button>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "height": "100%",
+            "position": "relative",
+          }
+        }
+      >
+        <input
+          aria-autocomplete="list"
+          aria-haspopup="listbox"
+          autoComplete="off"
+          className="rbt-input-main"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          placeholder=""
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "border": 0,
+              "boxShadow": "none",
+              "cursor": "inherit",
+              "outline": "none",
+              "padding": 0,
+              "width": "100%",
+              "zIndex": 1,
+            }
+          }
+          type="text"
+          value=""
+        />
+        <input
+          aria-hidden={true}
+          className="rbt-input-hint"
+          readOnly={true}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderColor": "transparent",
+              "boxShadow": "none",
+              "color": "rgba(0, 0, 0, 0.54)",
+              "left": 0,
+              "pointerEvents": "none",
+              "position": "absolute",
+              "top": 0,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Typeahead> Pagination story renders snapshot 1`] = `
+<div
+  className="rbt"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded={false}
+      aria-haspopup="listbox"
+      autoComplete="off"
+      className="rbt-input-main form-control rbt-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value=""
+    />
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+</div>
+`;

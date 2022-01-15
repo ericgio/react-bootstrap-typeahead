@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TypeaheadInputSingle> Default story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="rbt-input-main form-control rbt-input"
+    onKeyDown={[Function]}
+    placeholder="This is a default input..."
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value=""
+  />
+</div>
+`;
+
+exports[`<TypeaheadInputSingle> Invalid story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="rbt-input-main form-control rbt-input is-invalid"
+    onKeyDown={[Function]}
+    placeholder="This is an invalid input..."
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value=""
+  />
+</div>
+`;
+
+exports[`<TypeaheadInputSingle> Large story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="rbt-input-main form-control rbt-input form-control-lg"
+    onKeyDown={[Function]}
+    placeholder="This is a large input..."
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value=""
+  />
+</div>
+`;
+
+exports[`<TypeaheadInputSingle> Small story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="rbt-input-main form-control rbt-input form-control-sm"
+    onKeyDown={[Function]}
+    placeholder="This is a small input..."
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value=""
+  />
+</div>
+`;
+
+exports[`<TypeaheadInputSingle> Valid story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="rbt-input-main form-control rbt-input is-valid"
+    onKeyDown={[Function]}
+    placeholder="This is a valid input..."
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value=""
+  />
+</div>
+`;
+
+exports[`<TypeaheadInputSingle> WithHint story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="rbt-input-main form-control rbt-input"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    value="Ca"
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value="California"
+  />
+</div>
+`;

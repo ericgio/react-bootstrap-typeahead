@@ -18,7 +18,7 @@ export interface TypeaheadContextType {
   setItem: (option: Option, position: number) => void;
 }
 
-export const TypeaheadContext = createContext<TypeaheadContextType>({
+export const defaultContext = {
   activeIndex: -1,
   hintText: '',
   id: '',
@@ -31,6 +31,9 @@ export const TypeaheadContext = createContext<TypeaheadContextType>({
   onMenuItemClick: noop,
   selectHintOnEnter: undefined,
   setItem: noop,
-});
+};
+
+export const TypeaheadContext =
+  createContext<TypeaheadContextType>(defaultContext);
 
 export const useTypeaheadContext = () => useContext(TypeaheadContext);

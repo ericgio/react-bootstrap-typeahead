@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Loader> Default story renders snapshot 1`] = `
+<div
+  className="rbt-loader spinner-border spinner-border-sm"
+  role="status"
+>
+  <span
+    className="sr-only visually-hidden"
+  >
+    Loading...
+  </span>
+</div>
+`;
