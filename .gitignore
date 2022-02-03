@@ -9,6 +9,7 @@ types/
 
 .DS_Store
 .coveralls.yml
+build-storybook.log
 example/package-example.js
 npm-debug.log
 tsconfig.tsbuildinfo
