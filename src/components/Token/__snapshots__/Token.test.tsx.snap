@@ -5,7 +5,11 @@ exports[`<Token> Anchor story renders snapshot 1`] = `
   className="rbt-token"
   href="#"
 >
-  This is a link token
+  <div
+    className="rbt-token-label"
+  >
+    This is a link token
+  </div>
 </a>
 `;
 
@@ -13,7 +17,11 @@ exports[`<Token> Disabled story renders snapshot 1`] = `
 <div
   className="rbt-token rbt-token-disabled"
 >
-  This is a disabled token
+  <div
+    className="rbt-token-label"
+  >
+    This is a disabled token
+  </div>
 </div>
 `;
 
@@ -26,10 +34,14 @@ exports[`<Token> Interactive story renders snapshot 1`] = `
   onKeyDown={[Function]}
   tabIndex={0}
 >
-  This is an interactive token
+  <div
+    className="rbt-token-label"
+  >
+    This is an interactive token
+  </div>
   <button
     aria-label="Remove"
-    className="close rbt-close rbt-token-remove-button"
+    className="close btn-close rbt-close rbt-token-remove-button"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={-1}
@@ -37,6 +49,7 @@ exports[`<Token> Interactive story renders snapshot 1`] = `
   >
     <span
       aria-hidden="true"
+      className="rbt-close-content"
     >
       ×
     </span>
@@ -53,6 +66,10 @@ exports[`<Token> Static story renders snapshot 1`] = `
 <div
   className="rbt-token"
 >
-  This is a static token
+  <div
+    className="rbt-token-label"
+  >
+    This is a static token
+  </div>
 </div>
 `;

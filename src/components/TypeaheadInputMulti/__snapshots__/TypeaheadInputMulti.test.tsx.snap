@@ -26,10 +26,14 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       }
       tabIndex={0}
     >
-      Alaska
+      <div
+        className="rbt-token-label"
+      >
+        Alaska
+      </div>
       <button
         aria-label="Remove"
-        className="close rbt-close rbt-token-remove-button"
+        className="close btn-close rbt-close rbt-token-remove-button"
         onClick={[Function]}
         onKeyDown={[Function]}
         tabIndex={-1}
@@ -37,6 +41,7 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       >
         <span
           aria-hidden="true"
+          className="rbt-close-content"
         >
           ×
         </span>
@@ -63,10 +68,14 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       }
       tabIndex={0}
     >
-      Arizona
+      <div
+        className="rbt-token-label"
+      >
+        Arizona
+      </div>
       <button
         aria-label="Remove"
-        className="close rbt-close rbt-token-remove-button"
+        className="close btn-close rbt-close rbt-token-remove-button"
         onClick={[Function]}
         onKeyDown={[Function]}
         tabIndex={-1}
@@ -74,6 +83,7 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       >
         <span
           aria-hidden="true"
+          className="rbt-close-content"
         >
           ×
         </span>
@@ -100,10 +110,14 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       }
       tabIndex={0}
     >
-      Arkansas
+      <div
+        className="rbt-token-label"
+      >
+        Arkansas
+      </div>
       <button
         aria-label="Remove"
-        className="close rbt-close rbt-token-remove-button"
+        className="close btn-close rbt-close rbt-token-remove-button"
         onClick={[Function]}
         onKeyDown={[Function]}
         tabIndex={-1}
@@ -111,6 +125,7 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       >
         <span
           aria-hidden="true"
+          className="rbt-close-content"
         >
           ×
         </span>
@@ -188,17 +203,29 @@ exports[`<TypeaheadInputMulti> Disabled story renders snapshot 1`] = `
     <div
       className="rbt-token rbt-token-disabled"
     >
-      Alaska
+      <div
+        className="rbt-token-label"
+      >
+        Alaska
+      </div>
     </div>
     <div
       className="rbt-token rbt-token-disabled"
     >
-      Arizona
+      <div
+        className="rbt-token-label"
+      >
+        Arizona
+      </div>
     </div>
     <div
       className="rbt-token rbt-token-disabled"
     >
-      Arkansas
+      <div
+        className="rbt-token-label"
+      >
+        Arkansas
+      </div>
     </div>
     <div
       style={
@@ -281,10 +308,14 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       }
       tabIndex={0}
     >
-      Alaska
+      <div
+        className="rbt-token-label"
+      >
+        Alaska
+      </div>
       <button
         aria-label="Remove"
-        className="close rbt-close rbt-token-remove-button"
+        className="close btn-close rbt-close rbt-token-remove-button"
         onClick={[Function]}
         onKeyDown={[Function]}
         tabIndex={-1}
@@ -292,6 +323,7 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       >
         <span
           aria-hidden="true"
+          className="rbt-close-content"
         >
           ×
         </span>
@@ -318,10 +350,14 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       }
       tabIndex={0}
     >
-      Arizona
+      <div
+        className="rbt-token-label"
+      >
+        Arizona
+      </div>
       <button
         aria-label="Remove"
-        className="close rbt-close rbt-token-remove-button"
+        className="close btn-close rbt-close rbt-token-remove-button"
         onClick={[Function]}
         onKeyDown={[Function]}
         tabIndex={-1}
@@ -329,6 +365,7 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       >
         <span
           aria-hidden="true"
+          className="rbt-close-content"
         >
           ×
         </span>
@@ -355,10 +392,14 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       }
       tabIndex={0}
     >
-      Arkansas
+      <div
+        className="rbt-token-label"
+      >
+        Arkansas
+      </div>
       <button
         aria-label="Remove"
-        className="close rbt-close rbt-token-remove-button"
+        className="close btn-close rbt-close rbt-token-remove-button"
         onClick={[Function]}
         onKeyDown={[Function]}
         tabIndex={-1}
@@ -366,6 +407,7 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       >
         <span
           aria-hidden="true"
+          className="rbt-close-content"
         >
           ×
         </span>

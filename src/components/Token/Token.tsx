@@ -77,13 +77,16 @@ export interface TokenProps<T> extends UseTokenProps<T> {
  * Individual token component, generally displayed within the
  * `TypeaheadInputMulti` component, but can also be rendered on its own.
  */
-const Token = ({ readOnly, ...props }: TokenProps<HTMLElement>) => {
+const Token = ({ children, readOnly, ...props }: TokenProps<HTMLElement>) => {
   const { ref, ...tokenProps } = useToken(props);
+  const child = <div className="rbt-token-label">{children}</div>;
 
   return !props.disabled && !readOnly && isFunction(tokenProps.onRemove) ? (
-    <InteractiveToken {...props} {...tokenProps} ref={ref} />
+    <InteractiveToken {...props} {...tokenProps} ref={ref}>
+      {child}
+    </InteractiveToken>
   ) : (
-    <StaticToken {...props} />
+    <StaticToken {...props}>{child}</StaticToken>
   );
 };
 

@@ -18,7 +18,9 @@ describe('<ClearButton>', () => {
 
   it('renders a default clear button', () => {
     render(<Default />);
-    expect(screen.getByRole('button').className).toBe('close rbt-close');
+    expect(screen.getByRole('button').className).toBe(
+      'close btn-close rbt-close'
+    );
   });
 
   it('renders a large clear button', () => {

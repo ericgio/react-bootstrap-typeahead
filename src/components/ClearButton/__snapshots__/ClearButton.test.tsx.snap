@@ -3,13 +3,14 @@
 exports[`<ClearButton> Default story renders snapshot 1`] = `
 <button
   aria-label="Clear"
-  className="close rbt-close"
+  className="close btn-close rbt-close"
   onClick={[Function]}
   onKeyDown={[Function]}
   type="button"
 >
   <span
     aria-hidden="true"
+    className="rbt-close-content"
   >
     ×
   </span>
@@ -24,13 +25,14 @@ exports[`<ClearButton> Default story renders snapshot 1`] = `
 exports[`<ClearButton> Large story renders snapshot 1`] = `
 <button
   aria-label="Clear"
-  className="close rbt-close rbt-close-lg"
+  className="close btn-close rbt-close rbt-close-lg"
   onClick={[Function]}
   onKeyDown={[Function]}
   type="button"
 >
   <span
     aria-hidden="true"
+    className="rbt-close-content"
   >
     ×
   </span>

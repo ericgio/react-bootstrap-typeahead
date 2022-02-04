@@ -138,11 +138,14 @@ $rbt-token-active-color: $rbt-color-white !default;
   border: 0;
   border-radius: 0.25rem;
   color: $rbt-token-color;
-  display: inline-block;
+  display: inline-flex;
   line-height: 1em;
+  // TODO: Use `gap` when it's better supported
   margin: 1px 3px 2px 0;
-  padding: 4px 7px;
-  position: relative;
+
+  .rbt-token-label {
+    padding: 4px 7px;
+  }
 
   &-disabled {
     background-color: $rbt-token-disabled-background-color;
@@ -152,7 +155,6 @@ $rbt-token-active-color: $rbt-color-white !default;
 
   &-removeable {
     cursor: pointer;
-    padding-right: 21px;
   }
 
   &-active {
@@ -163,17 +165,25 @@ $rbt-token-active-color: $rbt-color-white !default;
   }
 
   & &-remove-button {
-    bottom: 0;
+    // Hide Bootstrap close button image
+    background-image: none;
+    // Override Bootstrap button shadow
+    box-shadow: none;
     color: inherit;
+    display: flex;
+    justify-content: center;
     font-size: inherit;
     font-weight: normal;
     opacity: 1;
     outline: none;
     padding: 3px 7px;
-    position: absolute;
-    right: 0;
+    padding-left: 0;
     text-shadow: none;
-    top: -2px;
+
+    .rbt-close-content {
+      // Override `display: none` in BS5 styles.
+      display: block;
+    }
   }
 }
 

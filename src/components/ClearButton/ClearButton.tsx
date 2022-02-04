@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import React, { HTMLProps, KeyboardEvent, MouseEvent } from 'react';
 
 import type { Size } from '../../types';
-import { isSizeLarge } from '../../utils';
+import { isSizeLarge, isSizeSmall } from '../../utils';
+
 import { sizeType } from '../../propTypes';
 
 const propTypes = {
@@ -41,9 +42,11 @@ const ClearButton = ({
     aria-label={label}
     className={cx(
       'close',
+      'btn-close',
       'rbt-close',
       {
         'rbt-close-lg': isSizeLarge(size),
+        'rbt-close-sm': isSizeSmall(size),
       },
       className
     )}
@@ -59,7 +62,9 @@ const ClearButton = ({
       onKeyDown && onKeyDown(e);
     }}
     type="button">
-    <span aria-hidden="true">&times;</span>
+    <span aria-hidden="true" className="rbt-close-content">
+      &times;
+    </span>
     <span className="sr-only visually-hidden">{label}</span>
   </button>
 );

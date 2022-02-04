@@ -124,7 +124,7 @@ exports[`<Typeahead> ClearButton story renders snapshot 1`] = `
   >
     <button
       aria-label="Clear"
-      className="close rbt-close"
+      className="close btn-close rbt-close"
       onClick={[Function]}
       onKeyDown={[Function]}
       onMouseDown={[Function]}
@@ -132,6 +132,7 @@ exports[`<Typeahead> ClearButton story renders snapshot 1`] = `
     >
       <span
         aria-hidden="true"
+        className="rbt-close-content"
       >
         ×
       </span>
@@ -439,10 +440,14 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         }
         tabIndex={0}
       >
-        Alabama
+        <div
+          className="rbt-token-label"
+        >
+          Alabama
+        </div>
         <button
           aria-label="Remove"
-          className="close rbt-close rbt-token-remove-button"
+          className="close btn-close rbt-close rbt-token-remove-button"
           onClick={[Function]}
           onKeyDown={[Function]}
           tabIndex={-1}
@@ -450,6 +455,7 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         >
           <span
             aria-hidden="true"
+            className="rbt-close-content"
           >
             ×
           </span>
@@ -476,10 +482,14 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         }
         tabIndex={0}
       >
-        Alaska
+        <div
+          className="rbt-token-label"
+        >
+          Alaska
+        </div>
         <button
           aria-label="Remove"
-          className="close rbt-close rbt-token-remove-button"
+          className="close btn-close rbt-close rbt-token-remove-button"
           onClick={[Function]}
           onKeyDown={[Function]}
           tabIndex={-1}
@@ -487,6 +497,7 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         >
           <span
             aria-hidden="true"
+            className="rbt-close-content"
           >
             ×
           </span>
@@ -513,10 +524,14 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         }
         tabIndex={0}
       >
-        Arizona
+        <div
+          className="rbt-token-label"
+        >
+          Arizona
+        </div>
         <button
           aria-label="Remove"
-          className="close rbt-close rbt-token-remove-button"
+          className="close btn-close rbt-close rbt-token-remove-button"
           onClick={[Function]}
           onKeyDown={[Function]}
           tabIndex={-1}
@@ -524,6 +539,7 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         >
           <span
             aria-hidden="true"
+            className="rbt-close-content"
           >
             ×
           </span>
@@ -550,10 +566,14 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         }
         tabIndex={0}
       >
-        Arkansas
+        <div
+          className="rbt-token-label"
+        >
+          Arkansas
+        </div>
         <button
           aria-label="Remove"
-          className="close rbt-close rbt-token-remove-button"
+          className="close btn-close rbt-close rbt-token-remove-button"
           onClick={[Function]}
           onKeyDown={[Function]}
           tabIndex={-1}
@@ -561,6 +581,7 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         >
           <span
             aria-hidden="true"
+            className="rbt-close-content"
           >
             ×
           </span>
