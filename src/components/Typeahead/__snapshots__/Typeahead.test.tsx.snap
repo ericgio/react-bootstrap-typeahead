@@ -430,14 +430,6 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         onClick={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
-        option={
-          Object {
-            "capital": "Montgomery",
-            "name": "Alabama",
-            "population": 4780127,
-            "region": "South",
-          }
-        }
         tabIndex={0}
       >
         <div
@@ -472,14 +464,6 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         onClick={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
-        option={
-          Object {
-            "capital": "Juneau",
-            "name": "Alaska",
-            "population": 710249,
-            "region": "West",
-          }
-        }
         tabIndex={0}
       >
         <div
@@ -514,14 +498,6 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         onClick={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
-        option={
-          Object {
-            "capital": "Phoenix",
-            "name": "Arizona",
-            "population": 6392307,
-            "region": "West",
-          }
-        }
         tabIndex={0}
       >
         <div
@@ -556,14 +532,6 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
         onClick={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
-        option={
-          Object {
-            "capital": "Little Rock",
-            "name": "Arkansas",
-            "population": 2915958,
-            "region": "South",
-          }
-        }
         tabIndex={0}
       >
         <div

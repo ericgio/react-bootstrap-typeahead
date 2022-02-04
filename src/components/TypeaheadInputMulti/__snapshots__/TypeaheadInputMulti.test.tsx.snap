@@ -16,14 +16,6 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      option={
-        Object {
-          "capital": "Juneau",
-          "name": "Alaska",
-          "population": 710249,
-          "region": "West",
-        }
-      }
       tabIndex={0}
     >
       <div
@@ -58,14 +50,6 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      option={
-        Object {
-          "capital": "Phoenix",
-          "name": "Arizona",
-          "population": 6392307,
-          "region": "West",
-        }
-      }
       tabIndex={0}
     >
       <div
@@ -100,14 +84,6 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      option={
-        Object {
-          "capital": "Little Rock",
-          "name": "Arkansas",
-          "population": 2915958,
-          "region": "South",
-        }
-      }
       tabIndex={0}
     >
       <div
@@ -298,14 +274,6 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      option={
-        Object {
-          "capital": "Juneau",
-          "name": "Alaska",
-          "population": 710249,
-          "region": "West",
-        }
-      }
       tabIndex={0}
     >
       <div
@@ -340,14 +308,6 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      option={
-        Object {
-          "capital": "Phoenix",
-          "name": "Arizona",
-          "population": 6392307,
-          "region": "West",
-        }
-      }
       tabIndex={0}
     >
       <div
@@ -382,14 +342,6 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      option={
-        Object {
-          "capital": "Little Rock",
-          "name": "Arkansas",
-          "population": 2915958,
-          "region": "South",
-        }
-      }
       tabIndex={0}
     >
       <div
