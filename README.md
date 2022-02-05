@@ -62,6 +62,9 @@ or
 />
 ```
 
+### Bootstrap 5
+In an effort to support Bootstrap 5, this package also contains a CSS file named `Typeahead.bs5.css` that should be included alongside the base CSS file above.
+
 ## Examples
 
 Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), which also include code samples. If you'd like to modify the examples, clone the repository and run `npm install` and `npm start` to build the example file. You can then open the HTML file locally in your browser.
