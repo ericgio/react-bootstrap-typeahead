@@ -47,7 +47,8 @@ export type TypeaheadChildren =
   | ReactNode
   | ((props: TypeaheadManagerChildProps) => ReactNode);
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   shouldSelectHint?: ShouldSelect;
 }
 

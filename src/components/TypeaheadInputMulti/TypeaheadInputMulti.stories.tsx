@@ -10,6 +10,7 @@ import TypeaheadInputMulti, {
 
 import options from '../../tests/data';
 import { HintProvider, noop } from '../../tests/helpers';
+import type { Size } from '../../types';
 
 export default {
   title: 'Components/TypeaheadInputMulti',
@@ -29,6 +30,9 @@ const defaultProps = {
 
 interface Args extends TypeaheadInputMultiProps {
   hintText?: string;
+  isValid?: boolean;
+  isInvalid?: boolean;
+  size?: Size;
 }
 
 const Template: Story<Args> = ({ hintText = '', ...args }) => {
@@ -55,11 +59,10 @@ Default.args = {
   ...defaultProps,
 };
 
-export const WithHint = Template.bind({});
-WithHint.args = {
+export const FocusState = Template.bind({});
+FocusState.args = {
   ...defaultProps,
-  hintText: 'california',
-  value: 'cali',
+  className: 'focus',
 };
 
 export const Disabled = Template.bind({});
@@ -71,4 +74,37 @@ Disabled.args = {
     </Token>
   )),
   disabled: true,
+};
+
+export const Small = Template.bind({});
+Small.args = {
+  ...defaultProps,
+  size: 'sm',
+};
+
+export const Large = Template.bind({});
+Large.args = {
+  ...defaultProps,
+  size: 'lg',
+};
+
+export const Valid = Template.bind({});
+Valid.args = {
+  ...defaultProps,
+  className: 'focus',
+  isValid: true,
+};
+
+export const Invalid = Template.bind({});
+Invalid.args = {
+  ...defaultProps,
+  className: 'focus',
+  isInvalid: true,
+};
+
+export const WithHint = Template.bind({});
+WithHint.args = {
+  ...defaultProps,
+  hintText: 'california',
+  value: 'cali',
 };

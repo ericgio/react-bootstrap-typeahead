@@ -39,6 +39,12 @@ Default.args = {
   placeholder: 'This is a default input...',
 };
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+  placeholder: 'This is a disabled input...',
+};
+
 export const Small = Template.bind({});
 Small.args = {
   placeholder: 'This is a small input...',

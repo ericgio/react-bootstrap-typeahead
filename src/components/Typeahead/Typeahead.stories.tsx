@@ -1,6 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React, { useState } from 'react';
+import { InputGroup } from 'react-bootstrap';
 import { Story, Meta } from '@storybook/react';
 
 import Typeahead, { TypeaheadComponentProps } from './Typeahead';
@@ -111,6 +112,17 @@ CustomMenu.args = {
         ))}
     </Menu>
   ),
+};
+
+export const InputGrouping = (args: TypeaheadComponentProps) => (
+  <InputGroup size={args.size}>
+    <InputGroup.Text>$</InputGroup.Text>
+    <Typeahead {...args} />
+    <InputGroup.Text>.00</InputGroup.Text>
+  </InputGroup>
+);
+InputGrouping.args = {
+  ...defaultProps,
 };
 
 export const Controlled = (args: TypeaheadComponentProps) => {

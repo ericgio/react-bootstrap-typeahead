@@ -39,6 +39,46 @@ exports[`<TypeaheadInputSingle> Default story renders snapshot 1`] = `
 </div>
 `;
 
+exports[`<TypeaheadInputSingle> Disabled story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="rbt-input-main form-control rbt-input"
+    disabled={true}
+    onKeyDown={[Function]}
+    placeholder="This is a disabled input..."
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value=""
+  />
+</div>
+`;
+
 exports[`<TypeaheadInputSingle> Invalid story renders snapshot 1`] = `
 <div
   style={
