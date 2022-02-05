@@ -387,12 +387,12 @@ describe('<Typeahead>', () => {
   });
 
   it('renders a large input', () => {
-    render(<Default size="large" />);
+    render(<Default size="lg" />);
     expect(getInput()).toHaveClass('form-control-lg');
   });
 
   it('renders a small input', () => {
-    render(<Default size="small" />);
+    render(<Default size="sm" />);
     expect(getInput()).toHaveClass('form-control-sm');
   });
 

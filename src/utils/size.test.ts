@@ -2,7 +2,6 @@ import { isSizeLarge, isSizeSmall } from './size';
 
 describe('size', () => {
   it('tests `isSizeLarge` behavior', () => {
-    expect(isSizeLarge('large')).toBe(true);
     expect(isSizeLarge('lg')).toBe(true);
 
     expect(isSizeLarge()).toBe(false);
@@ -11,7 +10,6 @@ describe('size', () => {
   });
 
   it('tests `isSizeSmall` behavior', () => {
-    expect(isSizeSmall('small')).toBe(true);
     expect(isSizeSmall('sm')).toBe(true);
 
     expect(isSizeSmall()).toBe(false);

@@ -11,9 +11,9 @@ const InputSizeExample = () => {
   const [size, setSize] = useState(undefined);
 
   const radios = [
-    { label: 'Small', value: 'small' },
+    { label: 'Small', value: 'sm' },
     { label: 'Default', value: undefined },
-    { label: 'Large', value: 'large' },
+    { label: 'Large', value: 'lg' },
   ];
 
   return (
