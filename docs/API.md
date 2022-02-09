@@ -64,7 +64,7 @@ renderMenu | function | | Callback for custom menu rendering. See full documenta
 renderMenuItemChildren | function | | Callback for customized rendering of menu item contents. See full documentation in the [Rendering section](Rendering.md#rendermenuitemchildrenoption-objectstring-props-object-index-number).
 renderToken | function | | Callback for custom token rendering. See full documentation in the [Rendering section](Rendering.md#rendertokenoption-objectstring-props-object-index-number).
 selected | Array\<Object\|string\> | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
-selectHintOnEnter | boolean | `false` | `DEPRECATED`: Use `shouldSelect` prop on `Hint` component or `shouldSelectHint` prop on `TypeaheadInputSingle` & `TypeaheadInputMulti`. Allows selecting the hinted result by pressing enter.
+selectHint | function | | Callback function that determines whether the hint should be selected.<br><br><pre>`(shouldSelectHint: boolean, KeyboardEvent<HTMLInputElement>) => boolean`</pre>
 size | `'large'` \| `'lg'` \| `'small'` \| `'sm'` | | Specify the size of the input.
 
 #### Children
@@ -145,18 +145,23 @@ highlightClassName | string | `'rbt-highlight-text'` | Classname applied to the 
 search `(required)` | string | | The substring to look for. This value should correspond to the input text of the typeahead and can be obtained via the `onInputChange` prop or from the `text` property of props being passed down via `renderMenu` or `renderMenuItemChildren`.
 
 ### `<Hint>`
-The `Hint` component can be used to wrap custom inputs. The `shouldSelect` prop allows you to define the conditions under which the hint should be selected.
+The `Hint` component can be used to wrap custom inputs.
 
 ```jsx
 <Typeahead
   ...
-  renderInput={({ inputRef, ...inputProps }) => (
-    <Hint
-      shouldSelect={(shouldSelect, e) => {
-        // Selects the hint when the user hits the 'enter' key.
-        return e.keyCode === 13 || shouldSelect;
-      }}>
-      <MyInput {...inputProps} ref={inputRef} />
+  renderInput={({ inputRef, referenceElementRef ...inputProps }) => (
+    <Hint>
+      <FloatingLabel controlId="name" label="Name">
+        <Form.Control
+          {...inputProps}
+          ref={(node) => {
+            inputRef(node);
+            referenceElementRef(node);
+          }}
+          type="text"
+        />
+      </FloatingLabel>
     </Hint>
   )}
 />
@@ -165,8 +170,7 @@ The `Hint` component can be used to wrap custom inputs. The `shouldSelect` prop 
 #### Props
 Name | Type | Default | Description
 -----|------|---------|------------
-children `(required)` | node | | `Hint` expects a single child: your input component.
-shouldSelect | function | | Callback function that determines whether the hint should be selected.<br><br><pre>`(shouldSelect: boolean, SyntheticKeyboardEvent<HTMLInputElement>) => boolean`</pre>
+children `(required)` | node | |
 
 ### `<Input>`
 Abstract `<input>` component that handles an `inputRef` prop and is used as the basis for both single- and multi-select input components.
@@ -196,7 +200,6 @@ Input components that handles single- and multi-selections, respectively. In the
 Name | Type | Default | Description
 -----|------|---------|------------
 disabled | boolean | `false` | Whether or not the input component is disabled.
-shouldSelectHint | function | | Callback function passed down to `Hint` component to define whether or not the hint should be selected under certain conditions. See the `shouldSelect` prop of `Hint`.
 
 ### `<TypeaheadMenu>`
 The default menu which is rendered by the `Typeahead` component. Can be used in a custom `renderMenu` function for wrapping or modifying the props passed to it without having to re-implement the default functionality.
@@ -291,7 +294,7 @@ If using the hook, you can also apply it directly within your token component:
 ```jsx
 const MyToken = (props) => {
   const { active, onRemove, ref, ...otherProps } = useToken(props);
-  
+
   return (
     <div
       {...otherProps}
@@ -306,15 +309,15 @@ const MyToken = (props) => {
 ```
 
 ### `useHint`
-Hook for adding a hint to a custom input. Mainly useful if you'd like to customize the hint's markup. Accepts an object with required `children` and an optional `shouldSelect` callback.
+Hook for adding a hint to a custom input. Mainly useful if you'd like to customize the hint's markup.
 
 ```jsx
 const CustomHint = (props) => {
-  const { child, hintRef, hintText } = useHint(props);
+  const { hintRef, hintText } = useHint(props);
 
   return (
     <div ... >
-      {child}
+      {props.children}
       <input
         ...
         ref={hintRef}

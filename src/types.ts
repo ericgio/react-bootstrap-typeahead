@@ -34,7 +34,7 @@ export type LabelKey = string | ((option: Option) => string);
 
 export type SelectEvent<T> = MouseEvent<T> | KeyboardEvent<T>;
 
-export type ShouldSelect = (
+export type SelectHint = (
   shouldSelectHint: boolean,
   event: KeyboardEvent<HTMLInputElement>
 ) => boolean;
@@ -47,10 +47,7 @@ export type TypeaheadChildren =
   | ReactNode
   | ((props: TypeaheadManagerChildProps) => ReactNode);
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  shouldSelectHint?: ShouldSelect;
-}
+export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
 
 export interface TypeaheadInputProps extends InputProps {
   inputClassName?: string;
@@ -100,7 +97,7 @@ export interface TypeaheadProps {
   options: Option[];
   paginate: boolean;
   selected?: Option[];
-  selectHintOnEnter?: boolean;
+  selectHint?: SelectHint;
 }
 
 export interface TypeaheadState {

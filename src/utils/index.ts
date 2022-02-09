@@ -1,5 +1,6 @@
 export { default as addCustomOption } from './addCustomOption';
 export { default as defaultFilterBy } from './defaultFilterBy';
+export { default as defaultSelectHint } from './defaultSelectHint';
 export { default as getDisplayName } from './getDisplayName';
 export { default as getHintText } from './getHintText';
 export { default as getInputProps } from './getInputProps';

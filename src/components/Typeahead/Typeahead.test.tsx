@@ -798,13 +798,11 @@ describe('<Typeahead>', () => {
     it('should select the hinted result on enter keydown', () => {
       render(
         <Default
-          inputProps={{
-            shouldSelectHint: (shouldSelectHint, e) => {
-              return e.key === 'Enter' || shouldSelectHint;
-            },
-          }}
           onChange={onChange}
           onKeyDown={onKeyDown}
+          selectHint={(shouldSelectHint, e) =>
+            e.key === 'Enter' || shouldSelectHint
+          }
         />
       );
 

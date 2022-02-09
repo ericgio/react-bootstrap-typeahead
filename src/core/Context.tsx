@@ -14,7 +14,6 @@ export interface TypeaheadContextType {
   onAdd: OptionHandler;
   onInitialItemChange: (option?: Option) => void;
   onMenuItemClick: (option: Option, event: SelectEvent<HTMLElement>) => void;
-  selectHintOnEnter?: boolean;
   setItem: (option: Option, position: number) => void;
 }
 
@@ -29,7 +28,6 @@ export const defaultContext = {
   onAdd: noop,
   onInitialItemChange: noop,
   onMenuItemClick: noop,
-  selectHintOnEnter: undefined,
   setItem: noop,
 };
 

@@ -9,18 +9,10 @@
 
 ## v6.0 Breaking Changes
 
-### PopperJS upgraded to v2
-This should mostly be a transparent change. However, PopperJS now triggers the following warning in development when used with Bootstrap < 5:
+### `shouldSelectHint` replaced by top-level `selectHint`
+The `shouldSelectHint` prop was introduced as in v5 as a more flexible way to control hint selection. However, the implementation was still limited and not very convenient to use. v6 introduces `selectHint` as a top-level prop that can be used to control hint selection more easily. The signature for `selectHint` remains the same as `shouldSelectHint`:
 
-```js
-Popper: CSS "margin" styles cannot be used to apply padding between the popper and its reference element or boundary. To replicate margin, use the `offset` modifier, as well as the `padding` option in the `preventOverflow` and `flip` modifiers.
-```
-This is due to an [inherent conflict](https://github.com/react-bootstrap/react-bootstrap/issues/5081) between Bootstrap styles and PopperJS v2. There have been no observed issues in this library, but it's possible you may experience some visual glitches when the menu changes position.
-
-### Removed `selectHintOnEnter`
-This prop was deprecated in v5 in favor of the more flexible `shouldSelectHint` and has been removed in v6. You can replicate the functionality in several ways:
-
-#### Top-level `inputProps`
+#### v5
 ```jsx
 <Typeahead
   ...
@@ -32,45 +24,26 @@ This prop was deprecated in v5 in favor of the more flexible `shouldSelectHint` 
 />
 ```
 
-#### Using the provided input components
+#### v6
 ```jsx
 <Typeahead
   ...
-  renderInput={(inputProps) => (
-    <TypeaheadInputSingle
-      {...inputProps}
-      shouldSelectHint={(shouldSelect, event) => (
-        event.key === "Enter" || shouldSelect;
-      )}
-    />
+  selectHint={(shouldSelect, event) => (
+    event.key === "Enter" || shouldSelect;
   )}
 />
 ```
 
-#### Directly on the `Hint` component
-```jsx
-<Typeahead
-  ...
-  renderInput={({
-    inputRef,
-    referenceElementRef,
-    ...inputProps
-  }) => (
-    <Hint
-      shouldSelect={(shouldSelect, event) => (
-        event.key === "Enter" || shouldSelect;
-      )}>
-      <input
-        {...inputProps}
-        ref={(node) => {
-          inputRef(node);
-          referenceElementRef(node);
-        }}
-      />
-    </Hint>
-  )}
-/>
+### Removed `selectHintOnEnter`
+This prop was deprecated in v5 and is now gone. Use `selectHint` instead.
+
+### PopperJS upgraded to v2
+This should mostly be a transparent change. However, PopperJS now triggers the following warning in development when used with Bootstrap < 5:
+
+```js
+Popper: CSS "margin" styles cannot be used to apply padding between the popper and its reference element or boundary. To replicate margin, use the `offset` modifier, as well as the `padding` option in the `preventOverflow` and `flip` modifiers.
 ```
+This is due to an [inherent conflict](https://github.com/react-bootstrap/react-bootstrap/issues/5081) between Bootstrap styles and PopperJS v2. There have been no observed issues in this library, but it's possible you may experience some visual glitches when the menu changes position.
 
 ### Refs can no longer be passed via `inputProps`
 If you need to access the input node, use the [public `getInput` method](Methods.md).

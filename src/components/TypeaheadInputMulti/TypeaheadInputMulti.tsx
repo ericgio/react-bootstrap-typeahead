@@ -30,7 +30,6 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
       placeholder,
       referenceElementRef,
       selected,
-      shouldSelectHint,
       ...props
     } = this.props;
 
@@ -43,7 +42,7 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
         tabIndex={-1}>
         <div className="rbt-input-wrapper" ref={this.wrapperRef}>
           {children}
-          <Hint shouldSelect={shouldSelectHint}>
+          <Hint>
             <Input
               {...props}
               className={inputClassName}

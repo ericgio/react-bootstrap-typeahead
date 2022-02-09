@@ -3,6 +3,7 @@ import usePrevious from '@restart/hooks/usePrevious';
 
 import { TypeaheadContext, TypeaheadContextType } from './Context';
 import {
+  defaultSelectHint,
   getHintText,
   getInputProps,
   getInputText,
@@ -65,9 +66,11 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     onKeyDown,
     onMenuToggle,
     results,
+    selectHint,
   } = props;
 
   const prevProps = usePrevious(props);
+  const hintText = getHintText(props);
 
   useEffect(() => {
     // Clear the initial item when there are no results.
@@ -83,16 +86,18 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
   });
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    switch (e.key) {
-      case 'Enter':
-        if (initialItem && getIsOnlyResult(props)) {
-          onAdd(initialItem);
-        }
-        break;
-      default:
-        break;
-    }
     onKeyDown(e);
+
+    if (!initialItem) {
+      return;
+    }
+
+    const addOnlyResult = e.key === 'Enter' && getIsOnlyResult(props);
+    const shouldSelectHint = hintText && defaultSelectHint(e, selectHint);
+
+    if (addOnlyResult || shouldSelectHint) {
+      onAdd(initialItem);
+    }
   };
 
   const childProps = {
@@ -106,7 +111,7 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
 
   const contextValue: TypeaheadContextType = {
     ...pick(props, contextKeys),
-    hintText: getHintText(props),
+    hintText,
     isOnlyResult: getIsOnlyResult(props),
   };
 

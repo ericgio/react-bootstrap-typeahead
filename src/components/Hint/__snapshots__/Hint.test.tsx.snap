@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Hint> Default story renders snapshot 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+      "position": "relative",
+    }
+  }
+>
+  <input
+    className="form-control form-control-lg"
+    onChange={[Function]}
+    value="cal"
+  />
+  <input
+    aria-hidden={true}
+    className="rbt-input-hint"
+    readOnly={true}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "transparent",
+        "boxShadow": "none",
+        "color": "rgba(0, 0, 0, 0.54)",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={-1}
+    value="california"
+  />
+</div>
+`;

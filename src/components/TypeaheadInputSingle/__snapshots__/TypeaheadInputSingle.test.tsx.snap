@@ -13,7 +13,6 @@ exports[`<TypeaheadInputSingle> Default story renders snapshot 1`] = `
 >
   <input
     className="rbt-input-main form-control rbt-input"
-    onKeyDown={[Function]}
     placeholder="This is a default input..."
   />
   <input
@@ -53,7 +52,6 @@ exports[`<TypeaheadInputSingle> Disabled story renders snapshot 1`] = `
   <input
     className="rbt-input-main form-control rbt-input"
     disabled={true}
-    onKeyDown={[Function]}
     placeholder="This is a disabled input..."
   />
   <input
@@ -92,7 +90,6 @@ exports[`<TypeaheadInputSingle> Invalid story renders snapshot 1`] = `
 >
   <input
     className="rbt-input-main form-control rbt-input is-invalid"
-    onKeyDown={[Function]}
     placeholder="This is an invalid input..."
   />
   <input
@@ -131,7 +128,6 @@ exports[`<TypeaheadInputSingle> Large story renders snapshot 1`] = `
 >
   <input
     className="rbt-input-main form-control rbt-input form-control-lg"
-    onKeyDown={[Function]}
     placeholder="This is a large input..."
   />
   <input
@@ -170,7 +166,6 @@ exports[`<TypeaheadInputSingle> Small story renders snapshot 1`] = `
 >
   <input
     className="rbt-input-main form-control rbt-input form-control-sm"
-    onKeyDown={[Function]}
     placeholder="This is a small input..."
   />
   <input
@@ -209,7 +204,6 @@ exports[`<TypeaheadInputSingle> Valid story renders snapshot 1`] = `
 >
   <input
     className="rbt-input-main form-control rbt-input is-valid"
-    onKeyDown={[Function]}
     placeholder="This is a valid input..."
   />
   <input
@@ -249,7 +243,6 @@ exports[`<TypeaheadInputSingle> WithHint story renders snapshot 1`] = `
   <input
     className="rbt-input-main form-control rbt-input"
     onChange={[Function]}
-    onKeyDown={[Function]}
     value="Ca"
   />
   <input
