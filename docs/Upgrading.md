@@ -9,6 +9,9 @@
 
 ## v6.0 Breaking Changes
 
+### `"small"` and `"large"` are no longer valid `size` values
+The `size` prop previously accepted `"small"` and `"large"` as valid values but now only accepts `"sm"` or `"lg"`. This better reflects Bootstrap classnames and related libraries like [React-Bootstrap](https://react-bootstrap.github.io/forms/form-control/#form-control-props).
+
 ### `shouldSelectHint` replaced by top-level `selectHint`
 The `shouldSelectHint` prop was introduced as in v5 as a more flexible way to control hint selection. However, the implementation was still limited and not very convenient to use. v6 introduces `selectHint` as a top-level prop that can be used to control hint selection more easily. The signature for `selectHint` remains the same as `shouldSelectHint`:
 

@@ -65,7 +65,7 @@ renderMenuItemChildren | function | | Callback for customized rendering of menu 
 renderToken | function | | Callback for custom token rendering. See full documentation in the [Rendering section](Rendering.md#rendertokenoption-objectstring-props-object-index-number).
 selected | Array\<Object\|string\> | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
 selectHint | function | | Callback function that determines whether the hint should be selected.<br><br><pre>`(shouldSelectHint: boolean, KeyboardEvent<HTMLInputElement>) => boolean`</pre>
-size | `'large'` \| `'lg'` \| `'small'` \| `'sm'` | | Specify the size of the input.
+size | `'lg'` \| `'sm'` | | Specify the size of the input.
 
 #### Children
 In addition to the props listed above, `Typeahead` also accepts either children or a child render function.
