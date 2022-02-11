@@ -10,13 +10,13 @@
     "gzipped": 32011
   },
   "react-bootstrap-typeahead.js": {
-    "bundled": 250738,
-    "minified": 85087,
-    "gzipped": 30427
+    "bundled": 249716,
+    "minified": 84673,
+    "gzipped": 30237
   },
   "react-bootstrap-typeahead.min.js": {
-    "bundled": 212136,
-    "minified": 72626,
-    "gzipped": 26471
+    "bundled": 211147,
+    "minified": 72243,
+    "gzipped": 26323
   }
 }
