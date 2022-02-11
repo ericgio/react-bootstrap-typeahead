@@ -117,7 +117,7 @@ $rbt-placeholder-color: #6c757d !default;
   z-index: 1;
 
   &-lg {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 }
 
@@ -139,12 +139,16 @@ $rbt-token-active-color: $rbt-color-white !default;
   border-radius: 0.25rem;
   color: $rbt-token-color;
   display: inline-flex;
-  line-height: 1em;
+  line-height: 1rem;
   // TODO: Use `gap` when it's better supported
   margin: 1px 3px 2px 0;
 
   .rbt-token-label {
-    padding: 4px 7px;
+    padding: 0.25rem 0.5rem;
+
+    &:not(:last-child) {
+      padding-right: 0.25rem;
+    }
   }
 
   &-disabled {
@@ -167,6 +171,8 @@ $rbt-token-active-color: $rbt-color-white !default;
   & &-remove-button {
     // Hide Bootstrap close button image
     background-image: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
     // Override Bootstrap button shadow
     box-shadow: none;
     color: inherit;
@@ -176,7 +182,7 @@ $rbt-token-active-color: $rbt-color-white !default;
     font-weight: normal;
     opacity: 1;
     outline: none;
-    padding: 3px 7px;
+    padding: 0.25rem 0.5rem;
     padding-left: 0;
     text-shadow: none;
 
@@ -199,26 +205,26 @@ $rbt-token-active-color: $rbt-color-white !default;
   position: absolute;
   right: 0;
   top: 0;
-  width: 34px;
+  width: 2rem;
 
   &-lg {
-    width: 46px;
+    width: 3rem;
   }
 
   & .rbt-close {
-    margin-top: -4px;
+    margin-top: -0.25rem;
     pointer-events: auto; /* Override pointer-events: none; above */
   }
 }
 
 .has-aux .form-control {
-  padding-right: 32px;
+  padding-right: 2rem;
 
   // Position validation icons next to clear button and loader.
   &.is-valid,
   &.is-invalid {
     background-position: right 2rem center;
-    padding-right: 64px;
+    padding-right: 4rem;
   }
 }
 
