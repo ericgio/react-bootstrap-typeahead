@@ -6,4 +6,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/preset-scss',
   ],
+  core: {
+    builder: 'webpack5',
+  },
 };
