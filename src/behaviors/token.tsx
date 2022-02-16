@@ -46,19 +46,16 @@ export function useToken<T extends HTMLElement>({
   const [rootElement, attachRef] = useState<RefElement<T>>(null);
 
   const handleBlur = (e: Event) => {
-    e.stopPropagation();
     setActive(false);
     onBlur && onBlur(e);
   };
 
   const handleClick = (e: MouseEvent<T>) => {
-    e.stopPropagation();
     setActive(true);
     onClick && onClick(e);
   };
 
   const handleFocus = (e: FocusEvent<T>) => {
-    e.stopPropagation();
     setActive(true);
     onFocus && onFocus(e);
   };
@@ -68,17 +65,10 @@ export function useToken<T extends HTMLElement>({
   };
 
   const handleKeyDown = (e: KeyboardEvent<T>) => {
-    switch (e.key) {
-      case 'Backspace':
-        if (active) {
-          // Prevent backspace keypress from triggering the browser "back"
-          // action.
-          e.preventDefault();
-          handleRemove();
-        }
-        break;
-      default:
-        break;
+    if (e.key === 'Backspace' && active) {
+      // Prevent browser from going back.
+      e.preventDefault();
+      handleRemove();
     }
   };
 

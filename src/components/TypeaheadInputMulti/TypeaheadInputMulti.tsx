@@ -46,7 +46,6 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
             <Input
               {...props}
               className={inputClassName}
-              onClick={this._handleClick}
               onKeyDown={this._handleKeyDown}
               placeholder={selected.length ? '' : placeholder}
               ref={this.getInputRef}
@@ -72,13 +71,6 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
     this.props.inputRef(input);
   };
 
-  _handleClick = (e: MouseEvent<HTMLInputElement>) => {
-    // Prevent clicks on the input from bubbling up to the container,
-    // which then re-focuses the input.
-    e.stopPropagation();
-    this.props.onClick && this.props.onClick(e);
-  };
-
   /**
    * Forward click or focus events on the container element to the input.
    */
@@ -91,14 +83,19 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
       return;
     }
 
-    // Move cursor to the end if the user clicks outside the actual input.
     const inputNode = this._input;
-
-    if (!inputNode) {
+    if (
+      !inputNode ||
+      // Ignore if the clicked element is a child of the container, ie: a token
+      // or the input itself.
+      (e.currentTarget.contains(e.target as HTMLElement) &&
+        e.currentTarget !== e.target)
+    ) {
       return;
     }
 
     if (isSelectable(inputNode)) {
+      // Move cursor to the end if the user clicks outside the actual input.
       inputNode.selectionStart = inputNode.value.length;
     }
 
@@ -108,23 +105,17 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
   _handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const { onKeyDown, selected, value } = this.props;
 
-    switch (e.key) {
-      case 'Backspace':
-        if (selected.length && !value) {
-          // Prevent browser from going back.
-          e.preventDefault();
+    if (e.key === 'Backspace' && selected.length && !value) {
+      // Prevent browser from going back.
+      e.preventDefault();
 
-          // If the input is selected and there is no text, focus the last
-          // token when the user hits backspace.
-          if (this.wrapperRef.current) {
-            const { children } = this.wrapperRef.current;
-            const lastToken = children[children.length - 2];
-            lastToken && (lastToken as HTMLElement).focus();
-          }
-        }
-        break;
-      default:
-        break;
+      // If the input is selected and there is no text, focus the last
+      // token when the user hits backspace.
+      if (this.wrapperRef.current) {
+        const { children } = this.wrapperRef.current;
+        const lastToken = children[children.length - 2];
+        lastToken && (lastToken as HTMLElement).focus();
+      }
     }
 
     onKeyDown && onKeyDown(e);

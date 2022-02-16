@@ -19,6 +19,9 @@ export default {
       options: ['justify', 'left', 'right'],
       control: { type: 'radio' },
     },
+    disabled: {
+      control: { type: 'boolean' },
+    },
     size: {
       options: ['default', 'sm', 'lg'],
       control: { type: 'radio' },
@@ -47,7 +50,6 @@ const defaultProps = {
   options,
   placeholder: 'Choose a state...',
   positionFixed: true,
-  size: undefined,
 };
 
 const Template: Story<TypeaheadComponentProps> = (args) => (

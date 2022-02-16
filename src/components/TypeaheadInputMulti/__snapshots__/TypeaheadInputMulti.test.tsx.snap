@@ -125,7 +125,6 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
       <input
         className="rbt-input-main"
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
@@ -217,7 +216,6 @@ exports[`<TypeaheadInputMulti> Disabled story renders snapshot 1`] = `
         className="rbt-input-main"
         disabled={true}
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
@@ -383,7 +381,6 @@ exports[`<TypeaheadInputMulti> FocusState story renders snapshot 1`] = `
       <input
         className="rbt-input-main"
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
@@ -549,7 +546,6 @@ exports[`<TypeaheadInputMulti> Invalid story renders snapshot 1`] = `
       <input
         className="rbt-input-main"
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
@@ -715,7 +711,6 @@ exports[`<TypeaheadInputMulti> Large story renders snapshot 1`] = `
       <input
         className="rbt-input-main"
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
@@ -881,7 +876,6 @@ exports[`<TypeaheadInputMulti> Small story renders snapshot 1`] = `
       <input
         className="rbt-input-main"
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
@@ -1047,7 +1041,6 @@ exports[`<TypeaheadInputMulti> Valid story renders snapshot 1`] = `
       <input
         className="rbt-input-main"
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
@@ -1213,7 +1206,6 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
       <input
         className="rbt-input-main"
         onChange={[Function]}
-        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         style={
