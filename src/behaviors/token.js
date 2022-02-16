@@ -42,7 +42,6 @@ export const useToken = ({
     isActive: boolean,
     callback?: EventHandler<HTMLElement>,
   ) => {
-    e.stopPropagation();
     setActive(isActive);
     typeof callback === 'function' && callback(e);
   };

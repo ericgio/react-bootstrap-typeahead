@@ -55,7 +55,6 @@ class TypeaheadInputMulti extends React.Component<Props> {
             <Input
               {...props}
               className={inputClassName}
-              onClick={this._handleClick}
               onKeyDown={this._handleKeyDown}
               placeholder={selected.length ? '' : placeholder}
               ref={this.getInputRef}
@@ -81,13 +80,6 @@ class TypeaheadInputMulti extends React.Component<Props> {
     this.props.inputRef(input);
   }
 
-  _handleClick = (e: SyntheticEvent<HTMLInputElement>) => {
-    // Prevent clicks on the input from bubbling up to the container,
-    // which then re-focuses the input.
-    e.stopPropagation();
-    this.props.onClick(e);
-  }
-
   /**
    * Forward click or focus events on the container element to the input.
    */
@@ -101,7 +93,11 @@ class TypeaheadInputMulti extends React.Component<Props> {
     // Move cursor to the end if the user clicks outside the actual input.
     const inputNode = this._input;
 
-    if (!inputNode) {
+    if (
+      !inputNode ||
+      // $FlowFixMe
+      (e.currentTarget.contains(e.target) && e.currentTarget !== e.target)
+    ) {
       return;
     }
 
