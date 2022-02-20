@@ -119,7 +119,7 @@
     "lint-staged": "^12.3.4",
     "lodash": "^4.17.11",
     "marked": "^4.0.12",
-    "prettier": "2.4.1",
+    "prettier": "^2.5.1",
     "raw-loader": "^4.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.0.0-beta.17",
