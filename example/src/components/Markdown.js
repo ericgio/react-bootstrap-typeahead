@@ -2,7 +2,7 @@
 /* eslint-disable react/no-danger,import/no-extraneous-dependencies */
 
 import cx from 'classnames';
-import marked from 'marked';
+import { marked } from 'marked';
 import PropTypes from 'prop-types';
 import React from 'react';
 
