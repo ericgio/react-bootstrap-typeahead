@@ -7,8 +7,7 @@ import React, { FocusEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import Hint from '../Hint';
 import Input from '../Input';
 
-import { isSelectable } from '../../utils';
-import withClassNames from '../../behaviors/classNames';
+import { isSelectable, propsWithBsClassName } from '../../utils';
 
 import { Option, RefElement, TypeaheadInputProps } from '../../types';
 
@@ -31,7 +30,7 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
       referenceElementRef,
       selected,
       ...props
-    } = this.props;
+    } = propsWithBsClassName<TypeaheadInputMultiProps>(this.props);
 
     return (
       <div
@@ -122,4 +121,4 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
   };
 }
 
-export default withClassNames(TypeaheadInputMulti);
+export default TypeaheadInputMulti;

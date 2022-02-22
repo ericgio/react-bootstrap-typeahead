@@ -19,6 +19,7 @@ export { default as isSelectable } from './isSelectable';
 export { default as isShown } from './isShown';
 export * from './nodash';
 export { default as preventInputBlur } from './preventInputBlur';
+export { default as propsWithBsClassName } from './propsWithBsClassName';
 export * from './size';
 export { default as stripDiacritics } from './stripDiacritics';
 export { default as validateSelectedPropChange } from './validateSelectedPropChange';

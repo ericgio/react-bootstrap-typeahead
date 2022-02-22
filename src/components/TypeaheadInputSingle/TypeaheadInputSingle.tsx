@@ -3,8 +3,8 @@ import React from 'react';
 import Hint from '../Hint';
 import Input from '../Input';
 
-import withClassNames from '../../behaviors/classNames';
 import { TypeaheadInputProps } from '../../types';
+import { propsWithBsClassName } from '../../utils';
 
 const TypeaheadInputSingle = ({
   inputRef,
@@ -13,7 +13,7 @@ const TypeaheadInputSingle = ({
 }: TypeaheadInputProps) => (
   <Hint>
     <Input
-      {...props}
+      {...propsWithBsClassName(props)}
       ref={(node) => {
         inputRef(node);
         referenceElementRef(node);
@@ -22,4 +22,4 @@ const TypeaheadInputSingle = ({
   </Hint>
 );
 
-export default withClassNames(TypeaheadInputSingle);
+export default TypeaheadInputSingle;
