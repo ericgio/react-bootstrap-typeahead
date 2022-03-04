@@ -21,7 +21,7 @@ export type AllowNew =
 export type FilterByCallback = (
   option: Option,
   state: TypeaheadPropsAndState
-) => void;
+) => boolean;
 
 export type Id = string;
 
