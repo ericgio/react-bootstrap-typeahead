@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const path = require('path');
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
@@ -7,18 +5,22 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, argv) => {
   return {
-    entry: path.join(__dirname, 'src/index.js'),
+    entry: path.join(__dirname, 'src/index.tsx'),
     module: {
       rules: [
         {
+          test: /\.(ts|js)x?$/,
           exclude: /node_modules/,
-          test: /\.js$/,
-          use: ['babel-loader'],
-        },
-        {
-          exclude: /node_modules/,
-          test: /\.tsx?$/,
-          use: ['ts-loader'],
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+              ],
+            },
+          },
         },
         {
           test: /\.css$/,
@@ -44,7 +46,7 @@ module.exports = (env, argv) => {
     },
     output: {
       filename: 'package-example.js',
-      path: path.resolve('example'),
+      path: path.resolve('.'),
     },
     plugins: [
       new CircularDependencyPlugin({
@@ -56,7 +58,7 @@ module.exports = (env, argv) => {
     ],
     resolve: {
       alias: {
-        'react-bootstrap-typeahead$': path.resolve(
+        'react-bootstrap-typeahead': path.resolve(
           __dirname,
           '..',
           'src/index.ts'

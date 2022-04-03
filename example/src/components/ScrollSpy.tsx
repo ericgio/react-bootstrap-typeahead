@@ -1,9 +1,13 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
 
-const ScrollSpy = ({ href, onBefore, onAfter }) => (
+interface ScrollSpyProps {
+  href: string;
+  onBefore: (href: string) => void;
+  onAfter: (href: string) => void;
+}
+
+const ScrollSpy = ({ href, onBefore, onAfter }: ScrollSpyProps) => (
   <Waypoint
     bottomOffset={-10}
     onEnter={({ previousPosition }) =>

@@ -1,0 +1,31 @@
+{
+  "name": "react-bootstrap-typeahead-examples",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "babel-loader": "^8.2.4",
+    "circular-dependency-plugin": "^5.2.2",
+    "css-loader": "^6.7.1",
+    "marked": "^4.0.12",
+    "raw-loader": "^4.0.2",
+    "react-bootstrap": "^1.6.0",
+    "react-waypoint": "^10.1.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.71.0"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack --mode development -w --progress"
+  },
+  "devDependencies": {
+    "@types/marked": "^4.0.3"
+  }
+}

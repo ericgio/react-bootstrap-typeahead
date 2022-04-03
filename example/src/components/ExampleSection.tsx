@@ -1,11 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Button } from 'react-bootstrap';
 
 import CodeSample from './CodeSample';
 
-const ExampleSection = ({ children, code }) => {
+interface ExampleSectionProps {
+  children: ReactNode;
+  code: string;
+}
+
+const ExampleSection = ({ children, code }: ExampleSectionProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

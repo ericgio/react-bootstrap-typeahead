@@ -3,6 +3,7 @@ import React from 'react';
 import AsyncExample from '../examples/AsyncExample';
 
 /* eslint-disable import/no-unresolved */
+// @ts-ignore
 import AsyncExampleCode from '!raw-loader!../examples/AsyncExample';
 /* eslint-enable import/no-unresolved */
 

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const DATA =
@@ -11,25 +10,22 @@ const DATA =
   '1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 ' +
   '1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z';
 
-const GitHubLogo = ({ size, style }) => (
+interface GitHubLogoProps {
+  size?: number;
+  style?: React.CSSProperties;
+}
+
+const GitHubLogo = ({ size = 24, ...props }: GitHubLogoProps) => (
   <svg
+    {...props}
     aria-hidden
     fill="currentColor"
     height={size}
-    style={style}
     viewBox="0 0 16 16"
     version="1.1"
     width={size}>
     <path fillRule="evenodd" d={DATA} />
   </svg>
 );
-
-GitHubLogo.propTypes = {
-  size: PropTypes.number,
-};
-
-GitHubLogo.defaultProps = {
-  size: 24,
-};
 
 export default GitHubLogo;

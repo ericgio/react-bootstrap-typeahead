@@ -1,14 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Anchor from './Anchor';
-import { withContext } from './Context';
+import { useExampleContext } from './Context';
 import ScrollSpy from './ScrollSpy';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
-const Section = ({ children, onAfter, onBefore, title }) => {
+interface SectionProps {
+  children: React.ReactNode;
+  title: string;
+}
+
+const Section = ({ children, title }: SectionProps) => {
+  const { onAfter, onBefore } = useExampleContext();
   const id = getIdFromTitle(title);
+
   return (
     <section className="section">
       <ScrollSpy href={`#${id}`} onAfter={onAfter} onBefore={onBefore} />
@@ -20,10 +26,4 @@ const Section = ({ children, onAfter, onBefore, title }) => {
   );
 };
 
-Section.propTypes = {
-  onAfter: PropTypes.func.isRequired,
-  onBefore: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-};
-
-export default withContext(Section, ['onAfter', 'onBefore']);
+export default Section;

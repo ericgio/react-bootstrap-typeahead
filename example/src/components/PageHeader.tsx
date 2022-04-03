@@ -1,11 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import pkg from '../../../package.json';
 
 import GitHubLogo from './GitHubLogo';
-
-import pkg from '../../../package.json';
 
 const GITHUB_URL = 'https://github.com/ericgio/react-bootstrap-typeahead';
 

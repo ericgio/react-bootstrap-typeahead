@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 // prettier-ignore
 export default [
   { name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South' },

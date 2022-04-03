@@ -1,9 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 import React, { Children } from 'react';
 import { Col, Container, Nav, Row } from 'react-bootstrap';
 
-import Context from './Context';
+import ExampleContext from './Context';
 import PageFooter from './PageFooter';
 import PageHeader from './PageHeader';
 import PageMenu from './PageMenu';
@@ -29,7 +27,7 @@ class Page extends React.Component {
 
   render() {
     return (
-      <Context.Provider
+      <ExampleContext.Provider
         value={{
           onAfter: this._onAfter,
           onBefore: this._onBefore,
@@ -46,7 +44,7 @@ class Page extends React.Component {
           </Container>
           <PageFooter />
         </div>
-      </Context.Provider>
+      </ExampleContext.Provider>
     );
   }
 

@@ -1,18 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Anchor from './Anchor';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
-const Title = ({ children }) => (
+interface TitleProps {
+  children: string;
+}
+
+const Title = ({ children }: TitleProps) => (
   <h2>
     <Anchor id={getIdFromTitle(children)}>{children}</Anchor>
   </h2>
 );
-
-Title.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 export default Title;

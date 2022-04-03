@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 import Page from './components/Page';
 
@@ -13,7 +13,7 @@ import RenderingSection from './sections/RenderingSection';
 
 import '../../styles/Typeahead.scss';
 
-ReactDOM.render(
+render(
   <React.StrictMode>
     <Page>
       <BasicSection />

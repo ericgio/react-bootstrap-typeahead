@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Anchor = ({ children, id }) => (
+interface AnchorProps {
+  children: ReactNode;
+  id: string;
+}
+
+const Anchor = ({ children, id }: AnchorProps) => (
   <>
     <span className="page-anchor" id={id} />
     <a className="anchor" href={`#${id}`}>

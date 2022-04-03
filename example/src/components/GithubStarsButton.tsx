@@ -3,11 +3,13 @@ import React, { useEffect, useRef } from 'react';
 const AUTHOR_REPO = 'ericgio/react-bootstrap-typeahead';
 
 const GitHubStarsButton = () => {
-  const ref = useRef();
+  const ref = useRef<HTMLAnchorElement>(null);
 
   // Set size to large on initial render.
   useEffect(() => {
-    ref.current.dataset.size = 'large';
+    if (ref.current) {
+      ref.current.dataset.size = 'large';
+    }
   }, []);
 
   return (

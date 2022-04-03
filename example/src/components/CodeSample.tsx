@@ -1,19 +1,26 @@
-/* global Prism */
-
-import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 
 const START_STR = '/* example-start */';
 const END_STR = '/* example-end */';
 
-function getExampleCode(str) {
+function getExampleCode(str: string) {
   return str.slice(
     str.indexOf(START_STR) + START_STR.length + 1,
     str.indexOf(END_STR)
   );
 }
 
-const CodeSample = ({ as: Component, children, language }) => {
+interface CodeSampleProps {
+  as?: React.ElementType;
+  children: string;
+  language?: string;
+}
+
+const CodeSample = ({
+  as: Component = 'pre',
+  children,
+  language = 'jsx',
+}: CodeSampleProps) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -21,6 +28,7 @@ const CodeSample = ({ as: Component, children, language }) => {
       return;
     }
 
+    // @ts-ignore: Global
     const highlight = () => Prism.highlightElement(ref.current);
 
     highlight();
@@ -31,16 +39,6 @@ const CodeSample = ({ as: Component, children, language }) => {
       {getExampleCode(children)}
     </Component>
   );
-};
-
-CodeSample.propTypes = {
-  as: PropTypes.string,
-  language: PropTypes.string,
-};
-
-CodeSample.defaultProps = {
-  as: 'pre',
-  language: 'jsx',
 };
 
 export default CodeSample;
