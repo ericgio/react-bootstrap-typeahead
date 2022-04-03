@@ -18,7 +18,6 @@ import { optionType } from '../propTypes';
 import { getDisplayName, isFunction } from '../utils';
 
 import { TypeaheadComponentProps } from '../components/Typeahead';
-import type { Option } from '../types';
 
 const propTypes = {
   /**
@@ -57,7 +56,7 @@ const propTypes = {
   useCache: PropTypes.bool,
 };
 
-export interface UseAsyncProps extends TypeaheadComponentProps {
+export interface UseAsyncProps<O> extends TypeaheadComponentProps<O> {
   delay?: number;
   isLoading: boolean;
   onSearch: (query: string) => void;
@@ -80,7 +79,7 @@ interface DebouncedFunction extends Function {
  *  - Optional query caching
  *  - Search prompt and empty results behaviors
  */
-export function useAsync(props: UseAsyncProps) {
+export function useAsync<O>(props: UseAsyncProps<O>) {
   const {
     allowNew,
     delay = 200,

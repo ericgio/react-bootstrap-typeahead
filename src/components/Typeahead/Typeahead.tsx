@@ -32,7 +32,6 @@ import {
 import { checkPropType, inputPropsType, sizeType } from '../../propTypes';
 
 import {
-  Option,
   RefElement,
   RenderToken,
   RenderTokenProps,
@@ -50,7 +49,7 @@ export interface RenderMenuProps
   renderMenuItemChildren?: RenderMenuItemChildren;
 }
 
-export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
+export interface TypeaheadComponentProps<Option> extends Partial<TypeaheadProps<Option>> {
   align?: Align;
   className?: string;
   clearButton?: boolean;
@@ -58,7 +57,7 @@ export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
   dropup?: boolean;
   emptyLabel?: ReactNode;
   flip?: boolean;
-  instanceRef?: Ref<Typeahead>;
+  instanceRef?: Ref<Typeahead<Option>>;
   isInvalid?: boolean;
   isLoading?: boolean;
   isValid?: boolean;
@@ -70,15 +69,15 @@ export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
   positionFixed?: boolean;
   renderInput?: (
     inputProps: TypeaheadInputProps,
-    props: TypeaheadManagerChildProps
+    props: TypeaheadManagerChildProps<Option>
   ) => JSX.Element;
   renderMenu?: (
     results: Option[],
     menuProps: RenderMenuProps,
-    state: TypeaheadManagerChildProps
+    state: TypeaheadManagerChildProps<Option>
   ) => JSX.Element;
   renderMenuItemChildren?: RenderMenuItemChildren;
-  renderToken?: RenderToken;
+  renderToken?: RenderToken<Option>;
   size?: Size;
   style?: CSSProperties;
 }
@@ -130,7 +129,7 @@ const defaultProps = {
 const defaultRenderMenu = (
   results: Option[],
   menuProps: RenderMenuProps,
-  props: TypeaheadManagerChildProps
+  props: TypeaheadManagerChildProps<Option>
 ) => (
   <TypeaheadMenu
     {...menuProps}
@@ -142,7 +141,7 @@ const defaultRenderMenu = (
 
 const defaultRenderToken = (
   option: Option,
-  props: RenderTokenProps,
+  props: RenderTokenProps<Option>,
   idx: number
 ) => (
   <Token
@@ -160,9 +159,9 @@ const overlayPropKeys = [
   'dropup',
   'flip',
   'positionFixed',
-] as (keyof TypeaheadComponentProps)[];
+] as (keyof TypeaheadComponentProps<Option>)[];
 
-function getOverlayProps(props: TypeaheadComponentProps) {
+function getOverlayProps(props: TypeaheadComponentProps<Option>) {
   return pick(props, overlayPropKeys);
 }
 
@@ -178,7 +177,7 @@ const RootClose = ({ children, onRootClose, ...props }: RootCloseProps) => {
   return children(attachRef);
 };
 
-class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
+class TypeaheadComponent<Option> extends React.Component<TypeaheadComponentProps<Option>> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
@@ -190,7 +189,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
 
     return (
       <Typeahead {...this.props} options={options} ref={instanceRef}>
-        {(props: TypeaheadManagerChildProps) => {
+        {(props: TypeaheadManagerChildProps<Option>) => {
           const { hideMenu, isMenuShown, results } = props;
           const auxContent = this._renderAux(props);
 
@@ -238,7 +237,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
 
   _renderInput = (
     inputProps: TypeaheadInputProps,
-    props: TypeaheadManagerChildProps
+    props: TypeaheadManagerChildProps<Option>
   ) => {
     const { isInvalid, isValid, multiple, renderInput, renderToken, size } =
       this.props;
@@ -276,7 +275,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
   _renderMenu = (
     results: Option[],
     menuProps: OverlayRenderProps,
-    props: TypeaheadManagerChildProps
+    props: TypeaheadManagerChildProps<Option>
   ) => {
     const {
       emptyLabel,
@@ -303,7 +302,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
     );
   };
 
-  _renderAux = ({ onClear, selected }: TypeaheadManagerChildProps) => {
+  _renderAux = ({ onClear, selected }: TypeaheadManagerChildProps<Option>) => {
     const { clearButton, disabled, isLoading, size } = this.props;
 
     let content;
@@ -328,6 +327,6 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
   };
 }
 
-export default forwardRef<Typeahead, TypeaheadComponentProps>((props, ref) => (
+export default forwardRef<Typeahead<Option>, TypeaheadComponentProps<Option>>((props, ref) => (
   <TypeaheadComponent {...props} instanceRef={ref} />
 ));

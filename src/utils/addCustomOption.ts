@@ -1,11 +1,11 @@
 import getOptionLabel from './getOptionLabel';
 import { isFunction } from './nodash';
 
-import { Option, TypeaheadPropsAndState } from '../types';
+import { TypeaheadPropsAndState } from '../types';
 
-function addCustomOption(
+function addCustomOption<Option>(
   results: Option[],
-  props: TypeaheadPropsAndState
+  props: TypeaheadPropsAndState<Option>
 ): boolean {
   const { allowNew, labelKey, text } = props;
 
