@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
+import cx from 'classnames';
 import React, { useState } from 'react';
-import { InputGroup } from 'react-bootstrap';
 import { Story, Meta } from '@storybook/react';
 
 import Typeahead, { TypeaheadComponentProps } from './Typeahead';
@@ -117,11 +117,15 @@ CustomMenu.args = {
 };
 
 export const InputGrouping = (args: TypeaheadComponentProps) => (
-  <InputGroup size={args.size}>
-    <InputGroup.Text>$</InputGroup.Text>
+  <div
+    className={cx('input-group', {
+      'input-group-sm': args.size === 'sm',
+      'input-group-lg': args.size === 'lg',
+    })}>
+    <span className="input-group-text">$</span>
     <Typeahead {...args} />
-    <InputGroup.Text>.00</InputGroup.Text>
-  </InputGroup>
+    <span className="input-group-text">.00</span>
+  </div>
 );
 InputGrouping.args = {
   ...defaultProps,
