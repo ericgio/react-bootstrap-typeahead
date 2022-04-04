@@ -1,19 +1,22 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
 
 import CustomFilteringExample from '../examples/CustomFilteringExample';
 import FilteringExample from '../examples/FilteringExample';
-
-/* eslint-disable import/no-unresolved */
 import FilteringExampleCode from '!raw-loader!../examples/FilteringExample';
 import CustomFilteringExampleCode from '!raw-loader!../examples/CustomFilteringExample';
-/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 import Title from '../components/Title';
 
-const FilteringSection = (props) => (
+interface FilteringSectionProps {
+  title: string;
+}
+
+const FilteringSection = (props: FilteringSectionProps) => (
   <Section title={props.title}>
     <Markdown>
       By default, the typeahead is not case-sensitive and ignores diacritical
@@ -33,9 +36,5 @@ const FilteringSection = (props) => (
     </ExampleSection>
   </Section>
 );
-
-FilteringSection.defaultProps = {
-  title: 'Filtering',
-};
 
 export default FilteringSection;

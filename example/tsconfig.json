@@ -17,7 +17,8 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "types": ["raw-loader.d.ts"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "public", "**/*.js"]

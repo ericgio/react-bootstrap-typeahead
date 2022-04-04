@@ -1,15 +1,19 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
 
 import CustomSelectionsExample from '../examples/CustomSelectionsExample';
-/* eslint-disable import/no-unresolved */
 import CustomSelectionsExampleCode from '!raw-loader!../examples/CustomSelectionsExample';
-/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const CustomSelections = (props) => (
+interface CustomSelectionsProps {
+  title: string;
+}
+
+const CustomSelections = (props: CustomSelectionsProps) => (
   <Section title={props.title}>
     <Markdown>
       Setting the `allowNew` prop provides the ability to create new options for
@@ -21,9 +25,5 @@ const CustomSelections = (props) => (
     </ExampleSection>
   </Section>
 );
-
-CustomSelections.defaultProps = {
-  title: 'Custom Selections',
-};
 
 export default CustomSelections;

@@ -1,15 +1,19 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
 
 import PublicMethodsExample from '../examples/PublicMethodsExample';
-/* eslint-disable import/no-unresolved */
 import PublicMethodsExampleCode from '!raw-loader!../examples/PublicMethodsExample';
-/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const PublicMethodsSection = (props) => (
+interface PublicMethodsSectionProps {
+  title: string;
+}
+
+const PublicMethodsSection = (props: PublicMethodsSectionProps) => (
   <Section title={props.title}>
     <Markdown>
       The `clear`, `focus`, and `blur` methods are exposed for programmatic
@@ -20,9 +24,5 @@ const PublicMethodsSection = (props) => (
     </ExampleSection>
   </Section>
 );
-
-PublicMethodsSection.defaultProps = {
-  title: 'Public Methods',
-};
 
 export default PublicMethodsSection;

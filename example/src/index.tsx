@@ -16,13 +16,13 @@ import '../../styles/Typeahead.scss';
 render(
   <React.StrictMode>
     <Page>
-      <BasicSection />
-      <BehaviorsSection />
-      <RenderingSection />
-      <FilteringSection />
-      <CustomSelectionsSection />
-      <AsyncSection />
-      <PublicMethodsSection />
+      <BasicSection title="Basic Example" />
+      <BehaviorsSection title="Behaviors" />
+      <RenderingSection title="Rendering" />
+      <FilteringSection title="Filtering" />
+      <CustomSelectionsSection title="Custom Selections" />
+      <AsyncSection title="Asynchronous Searching" />
+      <PublicMethodsSection title="Public Methods" />
     </Page>
   </React.StrictMode>,
   document.getElementById('root')

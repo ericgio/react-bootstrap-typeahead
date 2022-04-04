@@ -1,15 +1,19 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
 
 import BasicExample from '../examples/BasicExample';
-/* eslint-disable import/no-unresolved */
 import BasicExampleCode from '!raw-loader!../examples/BasicExample';
-/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const BasicSection = (props) => (
+interface BasicSectionProps {
+  title: string;
+}
+
+const BasicSection = (props: BasicSectionProps) => (
   <Section title={props.title}>
     <Markdown>
       The typeahead allows single-selection by default. Setting the `multiple`
@@ -20,9 +24,5 @@ const BasicSection = (props) => (
     </ExampleSection>
   </Section>
 );
-
-BasicSection.defaultProps = {
-  title: 'Basic Example',
-};
 
 export default BasicSection;

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
 
 import BasicBehaviorsExample from '../examples/BasicBehaviorsExample';
@@ -8,7 +10,6 @@ import PaginationExample from '../examples/PaginationExample';
 import PositionFixedExample from '../examples/PositionFixedExample';
 import SelectionsExample from '../examples/SelectionsExample';
 
-/* eslint-disable import/no-unresolved */
 import BasicBehaviorsExampleCode from '!raw-loader!../examples/BasicBehaviorsExample';
 import FormExampleCode from '!raw-loader!../examples/FormExample';
 import InputSizeExampleCode from '!raw-loader!../examples/InputSizeExample';
@@ -16,14 +17,17 @@ import MenuAlignExampleCode from '!raw-loader!../examples/MenuAlignExample';
 import PaginationExampleCode from '!raw-loader!../examples/PaginationExample';
 import PositionFixedExampleCode from '!raw-loader!../examples/PositionFixedExample';
 import SelectionsExampleCode from '!raw-loader!../examples/SelectionsExample';
-/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 import Title from '../components/Title';
 
-const BehaviorsSection = (props) => (
+interface BehaviorsSectionProps {
+  title: string;
+}
+
+const BehaviorsSection = (props: BehaviorsSectionProps) => (
   <Section title={props.title}>
     <Markdown>
       The typeahead has several basic configurable behaviors. You can `disable`
@@ -88,9 +92,5 @@ const BehaviorsSection = (props) => (
     </ExampleSection>
   </Section>
 );
-
-BehaviorsSection.defaultProps = {
-  title: 'Behaviors',
-};
 
 export default BehaviorsSection;

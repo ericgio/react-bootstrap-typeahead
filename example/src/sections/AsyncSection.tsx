@@ -1,17 +1,19 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
 
 import AsyncExample from '../examples/AsyncExample';
-
-/* eslint-disable import/no-unresolved */
-// @ts-ignore
 import AsyncExampleCode from '!raw-loader!../examples/AsyncExample';
-/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 
-const AsyncSection = (props) => (
+interface AsyncSectionProps {
+  title: string;
+}
+
+const AsyncSection = (props: AsyncSectionProps) => (
   <Section title={props.title}>
     <Markdown>
       You can use the `AsyncTypeahead` component for asynchronous searches. It
@@ -23,9 +25,5 @@ const AsyncSection = (props) => (
     </ExampleSection>
   </Section>
 );
-
-AsyncSection.defaultProps = {
-  title: 'Asynchronous Searching',
-};
 
 export default AsyncSection;

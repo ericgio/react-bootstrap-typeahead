@@ -8,10 +8,8 @@ import PageMenu from './PageMenu';
 
 import getIdFromTitle from '../util/getIdFromTitle';
 
-type SectionComponent = React.ComponentType<{ title: string }>;
-
 interface PageProps {
-  children: SectionComponent[];
+  children: JSX.Element[];
 }
 
 const Page = ({ children }: PageProps) => {
@@ -21,7 +19,6 @@ const Page = ({ children }: PageProps) => {
   const sections: string[] = [];
 
   Children.forEach(children, (child) => {
-    // @ts-ignore
     const { title } = child.props;
     hrefs.push(`#${getIdFromTitle(title)}`);
     sections.push(title);

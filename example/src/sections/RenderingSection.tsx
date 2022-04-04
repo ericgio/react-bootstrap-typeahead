@@ -1,19 +1,23 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react';
 
 import LabelKeyExample from '../examples/LabelKeyExample';
 import RenderingExample from '../examples/RenderingExample';
 
-/* eslint-disable import/no-unresolved */
 import LabelKeyExampleCode from '!raw-loader!../examples/LabelKeyExample';
 import RenderingExampleCode from '!raw-loader!../examples/RenderingExample';
-/* eslint-enable import/no-unresolved */
 
 import ExampleSection from '../components/ExampleSection';
 import Markdown from '../components/Markdown';
 import Section from '../components/Section';
 import Title from '../components/Title';
 
-const RenderingSection = (props) => (
+interface RenderingSectionProps {
+  title: string;
+}
+
+const RenderingSection = (props: RenderingSectionProps) => (
   <Section title={props.title}>
     <Markdown>
       You can customize how the typeahead looks and behaves by using the
@@ -32,9 +36,5 @@ const RenderingSection = (props) => (
     </ExampleSection>
   </Section>
 );
-
-RenderingSection.defaultProps = {
-  title: 'Rendering',
-};
 
 export default RenderingSection;
