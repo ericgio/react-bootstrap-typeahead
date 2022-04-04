@@ -13,6 +13,7 @@
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^6.7.1",
     "marked": "^4.0.12",
+    "prismjs": "^1.27.0",
     "raw-loader": "^4.0.2",
     "react-bootstrap": "^1.6.0",
     "react-waypoint": "^10.1.0",
@@ -26,6 +27,8 @@
     "start": "webpack --mode development -w --progress"
   },
   "devDependencies": {
-    "@types/marked": "^4.0.3"
+    "@types/marked": "^4.0.3",
+    "@types/prismjs": "^1.26.0",
+    "babel-plugin-prismjs": "^2.1.0"
   }
 }

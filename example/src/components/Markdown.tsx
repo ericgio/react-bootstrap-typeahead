@@ -1,12 +1,9 @@
-import cx from 'classnames';
 import { marked } from 'marked';
 import React from 'react';
 
 marked.setOptions({
   breaks: true,
   gfm: true,
-  // @ts-ignore: Global
-  highlight: (code) => Prism.highlight(code, Prism.languages.markdown),
   pedantic: false,
   smartLists: true,
   smartypants: false,
@@ -14,12 +11,11 @@ marked.setOptions({
 
 interface MarkdownProps {
   children: string;
-  className?: string;
 }
 
-const Markdown = ({ children, className }: MarkdownProps) => (
+const Markdown = ({ children }: MarkdownProps) => (
   <div
-    className={cx('markdown-body', className)}
+    className="markdown-body"
     // eslint-disable-next-line react/no-danger
     dangerouslySetInnerHTML={{ __html: marked.parse(children) }}
   />

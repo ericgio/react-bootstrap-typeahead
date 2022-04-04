@@ -1,3 +1,4 @@
+import Prism from 'prismjs';
 import React, { useEffect, useRef } from 'react';
 
 const START_STR = '/* example-start */';
@@ -11,33 +12,22 @@ function getExampleCode(str: string) {
 }
 
 interface CodeSampleProps {
-  as?: React.ElementType;
   children: string;
-  language?: string;
 }
 
-const CodeSample = ({
-  as: Component = 'pre',
-  children,
-  language = 'jsx',
-}: CodeSampleProps) => {
-  const ref = useRef(null);
+const CodeSample = ({ children }: CodeSampleProps) => {
+  const ref = useRef<HTMLPreElement>(null);
 
   useEffect(() => {
-    if (!ref.current) {
-      return;
+    if (ref.current) {
+      Prism.highlightElement(ref.current);
     }
-
-    // @ts-ignore: Global
-    const highlight = () => Prism.highlightElement(ref.current);
-
-    highlight();
-  }, [ref]);
+  }, []);
 
   return (
-    <Component className={`language-${language}`} ref={ref}>
+    <pre className="language-jsx" ref={ref}>
       {getExampleCode(children)}
-    </Component>
+    </pre>
   );
 };
 

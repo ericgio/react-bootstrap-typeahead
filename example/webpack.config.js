@@ -19,6 +19,16 @@ module.exports = (env, argv) => {
                 '@babel/preset-react',
                 '@babel/preset-typescript',
               ],
+              plugins: [
+                [
+                  'prismjs',
+                  {
+                    languages: ['jsx', 'tsx'],
+                    theme: 'okaidia',
+                    css: true,
+                  },
+                ],
+              ],
             },
           },
         },
