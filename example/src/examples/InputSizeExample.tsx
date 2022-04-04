@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
+/* eslint-disable import/no-unresolved */
 
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
@@ -7,14 +7,21 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import options from '../data';
 
 /* example-start */
-const InputSizeExample = () => {
-  const [size, setSize] = useState(undefined);
+type Size = 'sm' | 'lg' | undefined;
 
-  const radios = [
-    { label: 'Small', value: 'sm' },
-    { label: 'Default', value: undefined },
-    { label: 'Large', value: 'lg' },
-  ];
+interface Radio {
+  label: string;
+  value: Size;
+}
+
+const radios: Radio[] = [
+  { label: 'Small', value: 'sm' },
+  { label: 'Default', value: undefined },
+  { label: 'Large', value: 'lg' },
+];
+
+const InputSizeExample = () => {
+  const [size, setSize] = useState<Size>();
 
   return (
     <>

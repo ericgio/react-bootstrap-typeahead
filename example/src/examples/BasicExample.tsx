@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
+/* eslint-disable import/no-unresolved */
 
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';

@@ -1,6 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable import/no-unresolved, react/no-array-index-key */
 
 import { groupBy } from 'lodash';
 import React, { Fragment, useState } from 'react';

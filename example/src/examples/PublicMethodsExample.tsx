@@ -1,12 +1,16 @@
-/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
+/* eslint-disable import/no-unresolved */
 
 import React, { useRef } from 'react';
-import { Button as RBButton, ButtonToolbar } from 'react-bootstrap';
+import {
+  Button as RBButton,
+  ButtonProps,
+  ButtonToolbar,
+} from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 import options from '../data';
 
-const Button = (props) => (
+const Button = (props: ButtonProps) => (
   <RBButton {...props} size="sm" variant="outline-secondary" />
 );
 
@@ -26,16 +30,16 @@ const PublicMethodsExample = () => {
         ref={ref}
       />
       <ButtonToolbar style={{ marginTop: '10px' }}>
-        <Button onClick={() => ref.current.clear()}>Clear</Button>
-        <Button onClick={() => ref.current.focus()}>Focus</Button>
+        <Button onClick={() => ref.current?.clear()}>Clear</Button>
+        <Button onClick={() => ref.current?.focus()}>Focus</Button>
         <Button
           onClick={() => {
-            ref.current.focus();
-            setTimeout(() => ref.current.blur(), 1000);
+            ref.current?.focus();
+            setTimeout(() => ref.current?.blur(), 1000);
           }}>
           Focus, then blur after 1 second
         </Button>
-        <Button onClick={() => ref.current.toggleMenu()}>Toggle Menu</Button>
+        <Button onClick={() => ref.current?.toggleMenu()}>Toggle Menu</Button>
       </ButtonToolbar>
     </>
   );

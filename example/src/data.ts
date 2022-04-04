@@ -1,3 +1,10 @@
+export interface Option {
+  name: string;
+  population: number;
+  capital: string;
+  region: string;
+}
+
 // prettier-ignore
 export default [
   { name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South' },
@@ -50,4 +57,4 @@ export default [
   { name: 'West Virginia', population: 1853011, capital: 'Charleston', region: 'South' },
   { name: 'Wisconsin', population: 5687289, capital: 'Madison', region: 'West' },
   { name: 'Wyoming', population: 563767, capital: 'Cheyenne', region: 'West' },
-];
+] as Option[];

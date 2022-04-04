@@ -1,10 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies,import/no-unresolved */
+/* eslint-disable import/no-unresolved */
 
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
-import options from '../data';
+import options, { Option } from '../data';
 
 /* example-start */
 const CustomFilteringExample = () => {
@@ -15,7 +15,7 @@ const CustomFilteringExample = () => {
     { label: 'Use data fields', value: 'fields' },
   ];
 
-  const filterByCallback = (option, props) =>
+  const filterByCallback = (option: Option, props) =>
     option.capital.toLowerCase().indexOf(props.text.toLowerCase()) !== -1 ||
     option.name.toLowerCase().indexOf(props.text.toLowerCase()) !== -1;
 
@@ -29,7 +29,7 @@ const CustomFilteringExample = () => {
         labelKey="name"
         options={options}
         placeholder="Filter by state name or capital..."
-        renderMenuItemChildren={(option) => (
+        renderMenuItemChildren={(option: Option) => (
           <div>
             {option.name}
             <div>
