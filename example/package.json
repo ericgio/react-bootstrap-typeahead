@@ -5,30 +5,31 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "@babel/core": "^7.17.8",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "babel-loader": "^8.2.4",
-    "circular-dependency-plugin": "^5.2.2",
-    "css-loader": "^6.7.1",
     "marked": "^4.0.12",
     "prismjs": "^1.27.0",
-    "raw-loader": "^4.0.2",
-    "react-bootstrap": "^1.6.0",
-    "react-waypoint": "^10.1.0",
-    "sass-loader": "^12.6.0",
-    "style-loader": "^3.3.1",
-    "terser-webpack-plugin": "^5.3.1",
-    "webpack": "^5.71.0"
+    "react-bootstrap": "^2.2.3",
+    "react-waypoint": "^10.1.0"
   },
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack --mode development -w --progress"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@types/marked": "^4.0.3",
     "@types/prismjs": "^1.26.0",
-    "babel-plugin-prismjs": "^2.1.0"
+    "babel-loader": "^8.2.4",
+    "babel-plugin-prismjs": "^2.1.0",
+    "circular-dependency-plugin": "^5.2.2",
+    "css-loader": "^6.7.1",
+    "raw-loader": "^4.0.2",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2"
   }
 }
