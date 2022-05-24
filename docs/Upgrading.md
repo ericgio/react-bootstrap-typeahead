@@ -41,12 +41,12 @@ The `shouldSelectHint` prop was introduced as in v5 as a more flexible way to co
 This prop was deprecated in v5 and is now gone. Use `selectHint` instead.
 
 ### PopperJS upgraded to v2
-This should mostly be a transparent change. However, PopperJS now triggers the following warning in development when used with Bootstrap < 5:
+This should mostly be a transparent change. However, PopperJS now triggers the following warning in development:
 
 ```js
 Popper: CSS "margin" styles cannot be used to apply padding between the popper and its reference element or boundary. To replicate margin, use the `offset` modifier, as well as the `padding` option in the `preventOverflow` and `flip` modifiers.
 ```
-This is due to an [inherent conflict](https://github.com/react-bootstrap/react-bootstrap/issues/5081) between Bootstrap styles and PopperJS v2. There have been no observed issues in this library, but it's possible you may experience some visual glitches when the menu changes position.
+This is due to an [inherent conflict](https://github.com/react-bootstrap/react-bootstrap/issues/5081) between Bootstrap styles and PopperJS v2. There have been no observed issues in this library, but it's possible you may experience some visual glitches when the menu changes position. The warning should go away in a future major version when support for Bootstrap 4 is dropped.
 
 ### Refs can no longer be passed via `inputProps`
 If you need to access the input node, use the [public `getInput` method](Methods.md).
