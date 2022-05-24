@@ -45,8 +45,8 @@ export default function defaultFilterBy(option: Option, props: Props): boolean {
     return false;
   }
 
-  if (isFunction(labelKey) && isMatch(text, labelKey(option), props)) {
-    return true;
+  if (isFunction(labelKey)) {
+    return isMatch(text, labelKey(option), props);
   }
 
   const fields: string[] = filterBy.slice();

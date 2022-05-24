@@ -60,6 +60,23 @@ describe('defaultFilterBy', () => {
       const results = options.filter((o) => defaultFilterBy(o, props));
       expect(results.length).toBe(0);
     });
+
+    it('does not include string options in the results', () => {
+      const map = {
+        abcd1: 'Eric',
+        efgh2: 'Paul',
+        ijkl3: 'Tom',
+      };
+      options = Object.keys(map);
+      const results = options.filter((option) =>
+        defaultFilterBy(option, {
+          ...props,
+          labelKey: (o: string) => map[o],
+          text: 'e',
+        })
+      );
+      expect(results).toEqual(['abcd1']);
+    });
   });
 
   it('returns case-sensitive filtered results', () => {
