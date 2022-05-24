@@ -30,9 +30,7 @@ const FormExample = () => {
     <>
       <Form.Group>
         <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>The capital of {state.name} is</InputGroup.Text>
-          </InputGroup.Prepend>
+          <InputGroup.Text>The capital of {state.name} is</InputGroup.Text>
           <Typeahead
             id="form-example"
             isInvalid={isInvalid}
@@ -43,16 +41,14 @@ const FormExample = () => {
             placeholder="Select a capital..."
             selected={selected}
           />
-          <InputGroup.Append>
-            <Button
-              onClick={() => {
-                setIndex(getIndex());
-                setSelected([]);
-              }}
-              variant="outline-secondary">
-              Play Again
-            </Button>
-          </InputGroup.Append>
+          <Button
+            onClick={() => {
+              setIndex(getIndex());
+              setSelected([]);
+            }}
+            variant="outline-secondary">
+            Play Again
+          </Button>
         </InputGroup>
       </Form.Group>
     </>
