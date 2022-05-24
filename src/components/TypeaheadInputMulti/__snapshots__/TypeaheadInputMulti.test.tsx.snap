@@ -167,7 +167,7 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> Disabled story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input"
+  className="rbt-input-multi disabled form-control rbt-input"
   onClick={[Function]}
   onFocus={[Function]}
   tabIndex={-1}

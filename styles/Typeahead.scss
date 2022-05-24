@@ -62,7 +62,7 @@ $rbt-placeholder-color: #6c757d !default;
   }
 
   // BS4 uses the :disabled pseudo-class, which doesn't work with non-inputs.
-  &.form-control[disabled] {
+  &.disabled {
     background-color: $rbt-background-color-disabled;
     opacity: 1;
   }

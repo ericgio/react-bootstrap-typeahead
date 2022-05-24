@@ -34,7 +34,11 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
 
     return (
       <div
-        className={cx('rbt-input-multi', className)}
+        className={cx(
+          'rbt-input-multi',
+          { disabled: props.disabled },
+          className
+        )}
         onClick={this._handleContainerClickOrFocus}
         onFocus={this._handleContainerClickOrFocus}
         ref={referenceElementRef}
