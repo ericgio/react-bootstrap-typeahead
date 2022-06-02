@@ -55,7 +55,7 @@
     "invariant": "^2.2.1",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.5.8",
-    "react-overlays": "^5.1.0",
+    "react-overlays": "^5.2.0",
     "react-popper": "^2.2.5",
     "scroll-into-view-if-needed": "^2.2.20",
     "warning": "^4.0.1"
