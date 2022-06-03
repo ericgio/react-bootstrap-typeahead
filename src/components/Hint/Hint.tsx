@@ -29,6 +29,7 @@ function copyStyles(inputNode: HTMLInputElement, hintNode: HTMLInputElement) {
   hintNode.style.borderStyle = interpolateStyle(inputStyle, 'border', 'style');
   hintNode.style.borderWidth = interpolateStyle(inputStyle, 'border', 'width');
   hintNode.style.fontSize = inputStyle.fontSize;
+  hintNode.style.fontWeight = inputStyle.fontWeight;
   hintNode.style.height = inputStyle.height;
   hintNode.style.lineHeight = inputStyle.lineHeight;
   hintNode.style.margin = interpolateStyle(inputStyle, 'margin');
