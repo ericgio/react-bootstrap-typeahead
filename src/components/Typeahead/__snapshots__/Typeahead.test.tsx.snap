@@ -207,6 +207,77 @@ exports[`<Typeahead> Controlled story renders snapshot 1`] = `
 </div>
 `;
 
+exports[`<Typeahead> CustomInput story renders snapshot 1`] = `
+<div
+  className="rbt"
+  style={
+    Object {
+      "outline": "none",
+      "position": "relative",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "height": "100%",
+        "position": "relative",
+      }
+    }
+  >
+    <div
+      className="form-floating"
+    >
+      <input
+        aria-autocomplete="both"
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        autoComplete="off"
+        className="form-control"
+        id="floatingInput"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Choose a state..."
+        role="combobox"
+        type="text"
+        value=""
+      />
+      <label
+        htmlFor="floatingInput"
+      >
+        Choose a state...
+      </label>
+    </div>
+    <input
+      aria-hidden={true}
+      className="rbt-input-hint"
+      readOnly={true}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "boxShadow": "none",
+          "color": "rgba(0, 0, 0, 0.54)",
+          "left": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      tabIndex={-1}
+      value=""
+    />
+  </div>
+</div>
+`;
+
 exports[`<Typeahead> CustomMenu story renders snapshot 1`] = `
 <div
   className="rbt"

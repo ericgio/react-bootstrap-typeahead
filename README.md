@@ -78,6 +78,7 @@ You can also try out the following sandbox examples:
 - [Custom loader & clear button](https://codesandbox.io/s/rbt-custom-aux-components-gn3kn)
 - [Multi-select with reorderable drag & drop tokens](https://codesandbox.io/s/rbt-drag-drop-token-example-u43sf)
 - [Keep the menu open during multi-selection](https://codesandbox.io/s/rbt-keep-menu-open-during-multi-select-nr2y4)
+- [Single-select with floating label (BS5)](https://codesandbox.io/s/rbt-floating-labels-8c2j6b)
 
 If you have an example use case that would be useful to others, please create a sandbox and submit a pull request to add it to the list!
 

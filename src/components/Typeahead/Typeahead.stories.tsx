@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react';
 
 import Typeahead, { TypeaheadComponentProps } from './Typeahead';
+import Hint from '../Hint';
 import Menu from '../Menu';
 import MenuItem from '../MenuItem';
 
@@ -92,6 +93,27 @@ export const AllowNew = Template.bind({});
 AllowNew.args = {
   ...defaultProps,
   allowNew: true,
+};
+
+export const CustomInput = Template.bind({});
+CustomInput.args = {
+  ...defaultProps,
+  renderInput: ({ inputRef, referenceElementRef, ...inputProps }) => (
+    <Hint>
+      <div className="form-floating">
+        <input
+          {...inputProps}
+          className="form-control"
+          id="floatingInput"
+          ref={(node) => {
+            inputRef(node);
+            referenceElementRef(node);
+          }}
+        />
+        <label htmlFor="floatingInput">{inputProps.placeholder}</label>
+      </div>
+    </Hint>
+  ),
 };
 
 export const CustomMenu = Template.bind({});
