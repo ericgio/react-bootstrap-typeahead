@@ -126,7 +126,6 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
         className="rbt-input-main"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",
@@ -217,7 +216,6 @@ exports[`<TypeaheadInputMulti> Disabled story renders snapshot 1`] = `
         disabled={true}
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",
@@ -382,7 +380,6 @@ exports[`<TypeaheadInputMulti> FocusState story renders snapshot 1`] = `
         className="rbt-input-main"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",
@@ -547,7 +544,6 @@ exports[`<TypeaheadInputMulti> Invalid story renders snapshot 1`] = `
         className="rbt-input-main"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",
@@ -712,7 +708,6 @@ exports[`<TypeaheadInputMulti> Large story renders snapshot 1`] = `
         className="rbt-input-main"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",
@@ -877,7 +872,6 @@ exports[`<TypeaheadInputMulti> Small story renders snapshot 1`] = `
         className="rbt-input-main"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",
@@ -1042,7 +1036,6 @@ exports[`<TypeaheadInputMulti> Valid story renders snapshot 1`] = `
         className="rbt-input-main"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",
@@ -1207,7 +1200,6 @@ exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
         className="rbt-input-main"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder=""
         style={
           Object {
             "backgroundColor": "transparent",

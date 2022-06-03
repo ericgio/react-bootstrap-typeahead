@@ -26,7 +26,6 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
       className,
       inputClassName,
       inputRef,
-      placeholder,
       referenceElementRef,
       selected,
       ...props
@@ -50,7 +49,6 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
               {...props}
               className={inputClassName}
               onKeyDown={this._handleKeyDown}
-              placeholder={selected.length ? '' : placeholder}
               ref={this.getInputRef}
               style={{
                 backgroundColor: 'transparent',

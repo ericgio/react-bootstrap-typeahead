@@ -261,7 +261,10 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
     const { labelKey, onRemove, selected } = props;
 
     return (
-      <TypeaheadInputMulti {...commonProps} selected={selected}>
+      <TypeaheadInputMulti
+        {...commonProps}
+        placeholder={selected.length ? '' : inputProps.placeholder}
+        selected={selected}>
         {selected.map((option, idx) =>
           (renderToken || defaultRenderToken)(
             option,
