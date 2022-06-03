@@ -15,13 +15,14 @@ const { Disabled } = composeStories(stories);
 describe('<TypeaheadInputSingle>', () => {
   generateSnapshots(stories);
 
-  it('does not focus a disabled input', () => {
+  it('does not focus a disabled input', async () => {
+    const user = userEvent.setup();
     render(<Disabled />);
 
     const input = getInput();
     expect(input).toBeDisabled();
 
-    userEvent.click(input);
+    await user.click(input);
     expect(input).not.toHaveFocus();
   });
 });

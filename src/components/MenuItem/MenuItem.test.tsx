@@ -17,12 +17,13 @@ const { Default } = composeStories(stories);
 describe('<BaseMenuItem>', () => {
   generateSnapshots(baseStories);
 
-  it('triggers an event when clicked', () => {
+  it('triggers an event when clicked', async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
     render(<BaseDefault onClick={onClick} />);
 
     const item = screen.getByRole('link');
-    userEvent.click(item);
+    await user.click(item);
 
     expect(onClick).toHaveBeenCalledTimes(1);
   });
@@ -43,12 +44,13 @@ describe('<BaseMenuItem>', () => {
     expect(screen.getByRole('link')).toHaveClass('active');
   });
 
-  it('renders a disabled base menu item', () => {
+  it('renders a disabled base menu item', async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
     render(<Disabled disabled onClick={onClick} />);
 
     const item = screen.getByRole('link');
-    userEvent.click(item);
+    await user.click(item);
 
     expect(item).toHaveClass('disabled');
     expect(onClick).toHaveBeenCalledTimes(0);
@@ -112,23 +114,25 @@ describe('<MenuItem>', () => {
     expect(option).toHaveAttribute('aria-selected', 'true');
   });
 
-  it('calls the click handlers', () => {
+  it('calls the click handlers', async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
     const onMenuItemClick = jest.fn();
 
     render(<Default context={{ onMenuItemClick }} props={{ onClick }} />);
 
-    userEvent.click(screen.getByRole('option'));
+    await user.click(screen.getByRole('option'));
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onMenuItemClick).toHaveBeenCalledTimes(1);
   });
 
-  it('renders a disabled menu item', () => {
+  it('renders a disabled menu item', async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
     render(<Default props={{ disabled: true, onClick }} />);
 
     const item = screen.getByRole('option');
-    userEvent.click(item);
+    await user.click(item);
 
     expect(item).toHaveClass('disabled');
     expect(onClick).toHaveBeenCalledTimes(0);

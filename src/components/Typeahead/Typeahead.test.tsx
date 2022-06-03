@@ -27,7 +27,6 @@ import {
   screen,
   userEvent,
   waitFor,
-  waitForOverlay,
 } from '../../tests/helpers';
 
 import states from '../../tests/data';
@@ -90,22 +89,24 @@ describe('<Typeahead>', () => {
       expect(getInput()).toHaveFocus();
     });
 
-    it('maintains focus when clicking a menu item', () => {
+    it('maintains focus when clicking a menu item', async () => {
+      const user = userEvent.setup();
       render(<Default />);
       const input = getInput();
       input.focus();
 
-      userEvent.click(getItems()[0]);
+      await user.click(getItems()[0]);
     });
 
-    it('maintains focus when clicking the clear button', () => {
+    it('maintains focus when clicking the clear button', async () => {
+      const user = userEvent.setup();
       render(<ClearButton />);
 
       const input = getInput();
       input.focus();
 
       // Click the close button
-      userEvent.click(screen.getByRole('button'));
+      await user.click(screen.getByRole('button'));
     });
   });
 
@@ -151,6 +152,7 @@ describe('<Typeahead>', () => {
   });
 
   it('uses the `filterBy` prop as a callback to filter results', async () => {
+    const user = userEvent.setup();
     const filterBy = jest.fn(
       (option, props) => option.name.indexOf(props.text) > -1
     );
@@ -158,21 +160,21 @@ describe('<Typeahead>', () => {
     render(<Default filterBy={filterBy} />);
 
     const input = getInput();
-    userEvent.type(input, 'Cali');
+    await user.type(input, 'Cali');
 
-    const items = await findItems();
+    const items = getItems();
 
     expect(items).toHaveLength(1);
     expect(items[0]).toHaveTextContent('California');
     expect(filterBy).toHaveBeenCalled();
   });
 
-  it('does not filter options when the menu is closed', () => {
+  it('does not filter options when the menu is closed', async () => {
+    const user = userEvent.setup();
     const filterBy = jest.fn();
     render(<Default filterBy={filterBy} open={false} />);
 
-    const input = getInput();
-    userEvent.type(input, 'Cali');
+    await user.type(getInput(), 'Cali');
 
     expect(filterBy).not.toHaveBeenCalled();
   });
@@ -207,11 +209,12 @@ describe('<Typeahead>', () => {
     });
 
     it('shows the menu when there are no results and `allowNew=true`', async () => {
+      const user = userEvent.setup();
       render(<AllowNew options={[]} />);
 
-      userEvent.type(getInput(), 'xx');
+      await user.type(getInput(), 'xx');
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent('New selection: xx');
     });
@@ -223,6 +226,7 @@ describe('<Typeahead>', () => {
   });
 
   it('should not highlight disabled options', async () => {
+    const user = userEvent.setup();
     const options = [
       { name: 'foo' },
       { disabled: true, name: 'bar' },
@@ -239,16 +243,16 @@ describe('<Typeahead>', () => {
     expect(items[2]).toHaveClass('disabled');
     expect(items[4]).toHaveClass('disabled');
 
-    userEvent.keyboard('{arrowdown}');
+    await user.keyboard('{ArrowDown}');
     expect(items[0]).toHaveClass('active');
 
-    userEvent.keyboard('{arrowdown}');
+    await user.keyboard('{ArrowDown}');
     expect(items[3]).toHaveClass('active');
 
-    userEvent.keyboard('{arrowup}');
+    await user.keyboard('{ArrowUp}');
     expect(items[0]).toHaveClass('active');
 
-    userEvent.keyboard('{arrowup}{arrowup}');
+    await user.keyboard('{ArrowUp}{ArrowUp}');
     expect(items[3]).toHaveClass('active');
   });
 
@@ -284,31 +288,31 @@ describe('<Typeahead>', () => {
     });
 
     it('triggers the pagination item via mouse or keyboard', async () => {
+      const user = userEvent.setup();
       render(<Pagination onPaginate={onPaginate} />);
 
       getInput().focus();
       const paginator = await findPaginator();
-      userEvent.click(paginator);
+      await user.click(paginator);
 
       expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(20);
       expect(getItems()).toHaveLength(21);
 
-      userEvent.keyboard('{arrowup}{enter}');
+      await user.keyboard('{ArrowUp}{Enter}');
       expect(onPaginate).toHaveBeenCalledTimes(2);
       expect(shownResultsCount).toBe(30);
       expect(getItems()).toHaveLength(31);
     });
 
     it('calls `onPaginate` when `labelKey` is a function', async () => {
+      const user = userEvent.setup();
       render(<Pagination labelKey={(o) => o.name} onPaginate={onPaginate} />);
 
       getInput().focus();
-      userEvent.keyboard('{arrowup}{enter}');
+      await user.keyboard('{ArrowUp}{Enter}');
 
-      await waitFor(() => {
-        expect(onPaginate).toHaveBeenCalledTimes(1);
-      });
+      expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(20);
       expect(getItems()).toHaveLength(21);
     });
@@ -332,35 +336,32 @@ describe('<Typeahead>', () => {
     });
 
     it('resets the shown results when the input value changes', async () => {
+      const user = userEvent.setup();
       render(<Pagination maxResults={5} onPaginate={onPaginate} />);
 
       const input = getInput();
-      userEvent.type(input, 'ar');
-      userEvent.keyboard('{arrowup}{enter}');
+      await user.type(input, 'ar');
+      await user.keyboard('{ArrowUp}{Enter}');
 
-      await waitFor(() => {
-        expect(onPaginate).toHaveBeenCalledTimes(1);
-      });
-
+      expect(onPaginate).toHaveBeenCalledTimes(1);
       expect(shownResultsCount).toBe(10);
 
-      userEvent.clear(input);
-      userEvent.type(input, 'or');
-      userEvent.keyboard('{arrowup}{enter}');
+      await user.clear(input);
+      await user.type(input, 'or');
+      await user.keyboard('{ArrowUp}{Enter}');
 
-      await waitFor(() => {
-        expect(onPaginate).toHaveBeenCalledTimes(2);
-      });
+      expect(onPaginate).toHaveBeenCalledTimes(2);
       expect(shownResultsCount).toBe(10);
     });
 
     it('updates the active item after pagination', async () => {
+      const user = userEvent.setup();
       render(<Pagination />);
 
       getInput().focus();
-      userEvent.keyboard('{arrowup}{enter}');
+      await user.keyboard('{ArrowUp}{Enter}');
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(21);
       expect(items[10]).toHaveClass('active');
     });
@@ -452,6 +453,7 @@ describe('<Typeahead>', () => {
 
     it('updates the selections and input value in single-select mode', async () => {
       let selected = [];
+      const user = userEvent.setup();
 
       render(
         <Controlled selected={states.slice(0, 1)}>
@@ -467,12 +469,10 @@ describe('<Typeahead>', () => {
 
       // Delete the last character.
       input.focus();
-      userEvent.keyboard('{backspace}');
+      await user.keyboard('{Backspace}');
 
       // Text entry should clear the selection and keep the partial entry.
-      await waitFor(() => {
-        expect(selected).toHaveLength(0);
-      });
+      expect(selected).toHaveLength(0);
       expect(input).toHaveValue('Alabam');
     });
   });
@@ -486,51 +486,55 @@ describe('<Typeahead>', () => {
     });
 
     it('does not highlight the only result', async () => {
+      const user = userEvent.setup();
       render(<Default onChange={onChange} />);
 
       const input = getInput();
-      userEvent.type(input, 'Alab');
+      await user.type(input, 'Alab');
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).not.toHaveClass('active');
 
-      userEvent.keyboard('{enter}');
+      await user.keyboard('{Enter}');
       expect(selected).toHaveLength(0);
       expect(onChange).toHaveBeenCalledTimes(0);
     });
 
     it('highlights the only result', async () => {
+      const user = userEvent.setup();
       render(<Default highlightOnlyResult onChange={onChange} />);
 
       const input = getInput();
-      userEvent.type(input, 'Alab');
+      await user.type(input, 'Alab');
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveClass('active');
 
-      userEvent.keyboard('{enter}');
+      await user.keyboard('{Enter}');
       expect(selected).toHaveLength(1);
       expect(onChange).toHaveBeenCalledTimes(1);
     });
 
     it('does not highlight the only result when `allowNew=true`', async () => {
+      const user = userEvent.setup();
       render(<AllowNew highlightOnlyResult onChange={onChange} />);
 
       const input = getInput();
-      userEvent.type(input, 'qqq');
+      await user.type(input, 'qqq');
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).not.toHaveClass('active');
 
-      userEvent.keyboard('{enter}');
+      await user.keyboard('{Enter}');
       expect(selected).toHaveLength(0);
       expect(onChange).toHaveBeenCalledTimes(0);
     });
 
     it('does not highlight or select a disabled result', async () => {
+      const user = userEvent.setup();
       render(
         <Default
           highlightOnlyResult
@@ -545,28 +549,27 @@ describe('<Typeahead>', () => {
       );
 
       const input = getInput();
-      userEvent.type(input, 'bar');
+      await user.type(input, 'bar');
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).not.toHaveClass('active');
 
-      userEvent.keyboard('{enter}');
+      await user.keyboard('{Enter}');
       expect(selected).toHaveLength(0);
       expect(onChange).toHaveBeenCalledTimes(0);
     });
   });
 
   it('displays the active item value in the input', async () => {
+    const user = userEvent.setup();
     render(<Default />);
 
     const input = getInput();
     input.focus();
-    userEvent.keyboard('{arrowdown}');
+    await user.keyboard('{ArrowDown}');
 
-    await waitFor(() => {
-      expect(input).toHaveValue('Alabama');
-    });
+    expect(input).toHaveValue('Alabama');
   });
 
   it('applies custom styles to the top-level container', () => {
@@ -593,12 +596,10 @@ describe('<Typeahead>', () => {
     });
 
     afterEach(async () => {
-      userEvent.click(input);
+      const user = userEvent.setup();
+      await user.click(input);
 
-      await waitFor(() => {
-        expect(inputProps.onClick).toHaveBeenCalledTimes(1);
-      });
-
+      expect(inputProps.onClick).toHaveBeenCalledTimes(1);
       expect(input).toHaveAttribute('autocomplete', inputProps.autoComplete);
       expect(input).toHaveClass(inputProps.className);
       expect(input).toHaveAttribute('id', inputProps.id);
@@ -625,43 +626,41 @@ describe('<Typeahead>', () => {
   });
 
   it('calls `onBlur`', async () => {
+    const user = userEvent.setup();
     const onBlur = jest.fn();
 
     render(<Default onBlur={onBlur} />);
 
     const input = getInput();
-    userEvent.click(input);
+    await user.click(input);
     input.blur();
 
-    await waitFor(() => {
-      expect(onBlur).toHaveBeenCalledTimes(1);
-    });
+    expect(onBlur).toHaveBeenCalledTimes(1);
   });
 
   it('calls `onFocus`', async () => {
+    const user = userEvent.setup();
     const onFocus = jest.fn();
 
     render(<Default onFocus={onFocus} />);
-    userEvent.click(getInput());
+    await user.click(getInput());
 
-    await waitFor(() => {
-      expect(onFocus).toHaveBeenCalledTimes(1);
-    });
+    expect(onFocus).toHaveBeenCalledTimes(1);
   });
 
   it('calls `onKeyDown`', async () => {
+    const user = userEvent.setup();
     const onKeyDown = jest.fn();
 
     render(<Default onKeyDown={onKeyDown} />);
-    userEvent.click(getInput());
-    userEvent.keyboard('{enter}');
+    await user.click(getInput());
+    await user.keyboard('{Enter}');
 
-    await waitFor(() => {
-      expect(onKeyDown).toHaveBeenCalledTimes(1);
-    });
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
 
-  it('calls `onMenuToggle`', () => {
+  it('calls `onMenuToggle`', async () => {
+    const user = userEvent.setup();
     const onMenuToggle = jest.fn();
 
     render(<Default onMenuToggle={onMenuToggle} />);
@@ -676,21 +675,20 @@ describe('<Typeahead>', () => {
     input.focus();
     expect(onMenuToggle).toHaveBeenCalledTimes(1);
 
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{Escape}');
     expect(onMenuToggle).toHaveBeenCalledTimes(2);
   });
 
   describe('hint behavior', () => {
     it('hides and shows the hint in the single-select case', async () => {
+      const user = userEvent.setup();
       const { container } = render(<Default />);
 
       const input = getInput();
       const hint = getHint(container);
 
-      userEvent.type(input, 'Ala');
-      await waitFor(() => {
-        expect(input).toHaveFocus();
-      });
+      await user.type(input, 'Ala');
+      expect(input).toHaveFocus();
       expect(hint).toHaveValue('Alabama');
 
       input.blur();
@@ -699,15 +697,14 @@ describe('<Typeahead>', () => {
     });
 
     it('hides and shows the hint in the multi-select case', async () => {
+      const user = userEvent.setup();
       const { container } = render(<MultiSelect selected={[]} />);
 
       const input = getInput();
       const hint = getHint(container);
 
-      userEvent.type(input, 'Ala');
-      await waitFor(() => {
-        expect(input).toHaveFocus();
-      });
+      await user.type(input, 'Ala');
+      expect(input).toHaveFocus();
       expect(hint).toHaveValue('Alabama');
 
       input.blur();
@@ -716,17 +713,18 @@ describe('<Typeahead>', () => {
     });
 
     it('does not display a hint if the menu is hidden', async () => {
+      const user = userEvent.setup();
       const { container } = render(<Default />);
       const input = getInput();
       const hint = getHint(container);
 
-      userEvent.type(input, 'Ala');
+      await user.type(input, 'Ala');
 
       // When focused, the typeahead should show the menu and hint text.
       expect(getMenu()).toBeInTheDocument();
       expect(hint).toHaveValue('Alabama');
 
-      userEvent.keyboard('{esc}');
+      await user.keyboard('{Escape}');
 
       // Expect the input to remain focused, but the menu and hint to be hidden.
       expect(input).toHaveFocus();
@@ -744,22 +742,24 @@ describe('<Typeahead>', () => {
       onKeyDown = jest.fn((e) => (key = e.key));
     });
 
-    it('should select the hinted result on tab keydown', () => {
+    it('should select the hinted result on tab keydown', async () => {
+      const user = userEvent.setup();
       render(<Default onChange={onChange} onKeyDown={onKeyDown} />);
 
-      userEvent.type(getInput(), 'Ala');
-      userEvent.tab();
+      await user.type(getInput(), 'Ala');
+      await user.tab();
 
       expect(key).toBe('Tab');
       expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    it('should select the hinted result on right arrow keydown', () => {
+    it('should select the hinted result on right arrow keydown', async () => {
+      const user = userEvent.setup();
       render(<Default onChange={onChange} onKeyDown={onKeyDown} />);
 
       const input = getInput();
-      userEvent.type(input, 'Ala');
-      userEvent.keyboard('{arrowright}');
+      await user.type(input, 'Ala');
+      await user.keyboard('{arrowright}');
 
       expect(key).toBe('ArrowRight');
       expect(onChange).toHaveBeenCalledTimes(1);
@@ -769,14 +769,14 @@ describe('<Typeahead>', () => {
       'should not select the hinted result on right arrow keydown unless ' +
         'the cursor is at the end of the input value',
       async () => {
+        const user = userEvent.setup();
         render(<Default onChange={onChange} onKeyDown={onKeyDown} />);
 
         const input = getInput();
-        userEvent.type(input, 'Ala');
-        await waitForOverlay();
+        await user.type(input, 'Ala');
 
         input.selectionStart = 1;
-        userEvent.keyboard('{arrowright}');
+        await user.keyboard('{arrowright}');
 
         expect(key).toBe('ArrowRight');
         expect(onChange).toHaveBeenCalledTimes(0);
@@ -784,18 +784,17 @@ describe('<Typeahead>', () => {
     );
 
     it('should not select the hinted result on enter keydown', async () => {
+      const user = userEvent.setup();
       render(<Default onChange={onChange} onKeyDown={onKeyDown} />);
 
-      const input = getInput();
-      userEvent.type(input, 'Ala');
-      await waitForOverlay();
-
-      userEvent.keyboard('{enter}');
+      await user.type(getInput(), 'Ala');
+      await user.keyboard('{Enter}');
       expect(key).toBe('Enter');
       expect(onChange).toHaveBeenCalledTimes(0);
     });
 
-    it('should select the hinted result on enter keydown', () => {
+    it('should select the hinted result on enter keydown', async () => {
+      const user = userEvent.setup();
       render(
         <Default
           onChange={onChange}
@@ -807,8 +806,8 @@ describe('<Typeahead>', () => {
       );
 
       const input = getInput();
-      userEvent.type(input, 'Ala');
-      userEvent.keyboard('{enter}');
+      await user.type(input, 'Ala');
+      await user.keyboard('{Enter}');
 
       expect(key).toBe('Enter');
       expect(onChange).toHaveBeenCalledTimes(1);
@@ -823,30 +822,33 @@ describe('<Typeahead>', () => {
       onKeyDown = jest.fn();
     });
 
-    it('selects the active item when pressing return', () => {
+    it('selects the active item when pressing return', async () => {
+      const user = userEvent.setup();
       render(<Default onChange={onChange} onKeyDown={onKeyDown} />);
 
       getInput().focus();
-      userEvent.keyboard('{arrowdown}{enter}');
+      await user.keyboard('{ArrowDown}{Enter}');
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
 
-    it('does not select the active item when the menu is closed', () => {
+    it('does not select the active item when the menu is closed', async () => {
+      const user = userEvent.setup();
       render(
         <Default onChange={onChange} onKeyDown={onKeyDown} open={false} />
       );
 
       getInput().focus();
-      userEvent.keyboard('{arrowdown}{enter}');
+      await user.keyboard('{ArrowDown}{Enter}');
 
       expect(onChange).toHaveBeenCalledTimes(0);
       expect(onKeyDown).toHaveBeenCalledTimes(2);
     });
   });
 
-  it('prevents form submission when the menu is open', () => {
+  it('prevents form submission when the menu is open', async () => {
+    const user = userEvent.setup();
     const onSubmit = jest.fn();
     render(
       <form onSubmit={onSubmit}>
@@ -858,32 +860,32 @@ describe('<Typeahead>', () => {
     const input = getInput();
     input.focus();
 
-    userEvent.keyboard('{enter}');
+    await user.keyboard('{Enter}');
     expect(onSubmit).toHaveBeenCalledTimes(0);
 
-    userEvent.keyboard('{esc}{enter}');
+    await user.keyboard('{Escape}{Enter}');
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
-  it('hides the menu when tabbing out of the input', () => {
+  it('hides the menu when tabbing out of the input', async () => {
+    const user = userEvent.setup();
     render(<Default />);
 
     getInput().focus();
     expect(getMenu()).toBeInTheDocument();
 
-    userEvent.tab();
+    await user.tab();
     expect(getMenu()).not.toBeInTheDocument();
   });
 
   it('calls the keydown handler when a key is pressed', async () => {
+    const user = userEvent.setup();
     const onKeyDown = jest.fn();
     render(<Default onKeyDown={onKeyDown} />);
 
-    userEvent.type(getInput(), 'foo');
+    await user.type(getInput(), 'foo');
 
-    await waitFor(() => {
-      expect(onKeyDown).toHaveBeenCalledTimes(3);
-    });
+    expect(onKeyDown).toHaveBeenCalledTimes(3);
   });
 
   describe('accessibility attributes', () => {
@@ -907,6 +909,7 @@ describe('<Typeahead>', () => {
     });
 
     it('sets aria attributes for single-selection', async () => {
+      const user = userEvent.setup();
       render(<Default id="my-id" />);
       const input = getInput();
 
@@ -915,11 +918,9 @@ describe('<Typeahead>', () => {
       expect(input).not.toHaveAttribute('aria-activedescendant');
 
       input.focus();
-      userEvent.keyboard('{arrowdown}');
+      await user.keyboard('{ArrowDown}');
 
-      await waitFor(() => {
-        expect(input).toHaveAttribute('aria-expanded', 'true');
-      });
+      expect(input).toHaveAttribute('aria-expanded', 'true');
       expect(input).toHaveAttribute('aria-activedescendant', 'my-id-item-0');
     });
 
@@ -932,6 +933,7 @@ describe('<Typeahead>', () => {
     });
 
     it('sets menu item attributes', async () => {
+      const user = userEvent.setup();
       render(<Default id="my-id" />);
 
       getInput().focus();
@@ -942,29 +944,31 @@ describe('<Typeahead>', () => {
       expect(item).toHaveAttribute('aria-selected', 'false');
       expect(item).toHaveClass('dropdown-item');
 
-      userEvent.keyboard('{arrowdown}');
+      await user.keyboard('{ArrowDown}');
       expect(item).toHaveAttribute('aria-selected', 'true');
     });
   });
 
   describe('<Typeahead> multi-select', () => {
-    it('displays and removes selections', () => {
+    it('displays and removes selections', async () => {
+      const user = userEvent.setup();
       render(<MultiSelect />);
 
       // Use close button as a proxy for the token.
       const closeButtons = screen.getAllByRole('button');
       expect(closeButtons).toHaveLength(4);
 
-      userEvent.click(closeButtons[0]);
+      await user.click(closeButtons[0]);
       expect(screen.getAllByRole('button')).toHaveLength(3);
     });
 
-    it('adds selections', () => {
+    it('adds selections', async () => {
+      const user = userEvent.setup();
       render(<MultiSelect />);
 
       const input = getInput();
       input.focus();
-      userEvent.keyboard('{arrowdown}{enter}');
+      await user.keyboard('{ArrowDown}{Enter}');
 
       expect(screen.getAllByRole('button')).toHaveLength(5);
       expect(input).toHaveValue('');
@@ -972,6 +976,7 @@ describe('<Typeahead>', () => {
   });
 
   it('opens the menu when the up or down arrow keys are pressed', async () => {
+    const user = userEvent.setup();
     render(<Default />);
 
     const input = getInput();
@@ -979,17 +984,17 @@ describe('<Typeahead>', () => {
 
     expect(await findMenu()).toBeInTheDocument();
 
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{Escape}');
     expect(getMenu()).not.toBeInTheDocument();
 
-    userEvent.keyboard('{arrowdown}');
-    expect(await findMenu()).toBeInTheDocument();
+    await user.keyboard('{ArrowDown}');
+    expect(getMenu()).toBeInTheDocument();
 
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{Escape}');
     expect(getMenu()).not.toBeInTheDocument();
 
-    userEvent.keyboard('{arrowup}');
-    expect(await findMenu()).toBeInTheDocument();
+    await user.keyboard('{ArrowUp}');
+    expect(getMenu()).toBeInTheDocument();
   });
 
   it('renders a custom input', () => {
@@ -1099,18 +1104,20 @@ describe('<Typeahead>', () => {
     });
 
     it('omits the custom option when `allowNew` is set to `false`', async () => {
+      const user = userEvent.setup();
       render(<Default emptyLabel={emptyLabel} />);
 
       const input = getInput();
-      userEvent.type(input, value);
+      await user.type(input, value);
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent(emptyLabel);
     });
 
     it('adds the custom option when `allowNew` is set to `true`', async () => {
       let selected;
+      const user = userEvent.setup();
 
       render(
         <AllowNew
@@ -1123,29 +1130,31 @@ describe('<Typeahead>', () => {
       );
 
       const input = getInput();
-      userEvent.type(input, value);
+      await user.type(input, value);
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent(`${newSelectionPrefix}${value}`);
 
-      userEvent.click(items[0]);
+      await user.click(items[0]);
       expect(selected[0].id).toContain('new-id-');
     });
 
     it('omits the custom option when there is an exact text match', async () => {
+      const user = userEvent.setup();
       value = 'North Carolina';
       render(<AllowNew />);
 
       const input = getInput();
-      userEvent.type(input, value);
+      await user.type(input, value);
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent(value);
     });
 
     it('adds a custom option when `allowNew` returns true', async () => {
+      const user = userEvent.setup();
       value = 'North Carolina';
 
       render(
@@ -1156,26 +1165,28 @@ describe('<Typeahead>', () => {
       );
 
       const input = getInput();
-      userEvent.type(input, value);
+      await user.type(input, value);
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(2);
       expect(items[0]).toHaveTextContent(value);
       expect(items[1]).toHaveTextContent(`${newSelectionPrefix}${value}`);
     });
 
     it('omits new option when `allowNew` returns false', async () => {
+      const user = userEvent.setup();
       render(<AllowNew allowNew={() => false} emptyLabel={emptyLabel} />);
 
       const input = getInput();
-      userEvent.type(input, value);
+      await user.type(input, value);
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent(emptyLabel);
     });
 
     it('handles custom options when `labelKey` is a function', async () => {
+      const user = userEvent.setup();
       render(
         <AllowNew
           labelKey={(o) => o.name}
@@ -1184,9 +1195,9 @@ describe('<Typeahead>', () => {
       );
 
       const input = getInput();
-      userEvent.type(input, value);
+      await user.type(input, value);
 
-      const items = await findItems();
+      const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent(`${newSelectionPrefix}${value}`);
     });
@@ -1218,14 +1229,15 @@ describe('<Typeahead> Public Methods', () => {
     expect(input).not.toHaveFocus();
   });
 
-  it('calls the public `clear` method', () => {
+  it('calls the public `clear` method', async () => {
+    const user = userEvent.setup();
     const ref = createRef<Typeahead>();
     const { container } = render(
       <TestComponent multiple ref={ref} selected={states.slice(0, 3)} />
     );
 
     const input = getInput();
-    userEvent.type(input, 'foo');
+    await user.type(input, 'foo');
     const tokens = container.getElementsByClassName('rbt-token');
 
     expect(tokens).toHaveLength(3);
@@ -1269,6 +1281,7 @@ describe('<Typeahead> Public Methods', () => {
   });
 
   it('clears the typeahead after a selection', async () => {
+    const user = userEvent.setup();
     const ref = createRef<Typeahead>();
     const onChange = jest.fn(() => {
       ref.current.clear();
@@ -1279,7 +1292,7 @@ describe('<Typeahead> Public Methods', () => {
     input.focus();
 
     const items = await findItems();
-    userEvent.click(items[0]);
+    await user.click(items[0]);
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(input).toHaveValue('');
@@ -1295,27 +1308,30 @@ describe('<Typeahead> `change` events', () => {
   });
 
   it('calls `onChange` when a menu item is clicked', async () => {
+    const user = userEvent.setup();
     render(<Default onInputChange={onInputChange} onChange={onChange} />);
 
     getInput().focus();
     const items = await findItems();
-    userEvent.click(items[0]);
+    await user.click(items[0]);
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  it('calls `onChange` when a menu item is selected via keyboard', () => {
+  it('calls `onChange` when a menu item is selected via keyboard', async () => {
+    const user = userEvent.setup();
     render(<Default onInputChange={onInputChange} onChange={onChange} />);
 
     getInput().focus();
-    userEvent.keyboard('{arrowdown}{enter}');
+    await user.keyboard('{arrowdown}{Enter}');
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  it('handles clear button clicks in single-select mode', () => {
+  it('handles clear button clicks in single-select mode', async () => {
+    const user = userEvent.setup();
     let event, value;
 
     onInputChange = jest.fn((v, e) => {
@@ -1325,7 +1341,7 @@ describe('<Typeahead> `change` events', () => {
 
     render(<ClearButton onChange={onChange} onInputChange={onInputChange} />);
 
-    userEvent.click(screen.getByRole('button'));
+    await user.click(screen.getByRole('button'));
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(1);
@@ -1333,8 +1349,9 @@ describe('<Typeahead> `change` events', () => {
     expect(event).toBeDefined();
   });
 
-  it('handles clear button clicks in multi-select mode', () => {
+  it('handles clear button clicks in multi-select mode', async () => {
     let selected;
+    const user = userEvent.setup();
 
     onInputChange = jest.fn();
     onChange = jest.fn((s) => {
@@ -1345,15 +1362,16 @@ describe('<Typeahead> `change` events', () => {
       <ClearButton multiple onChange={onChange} onInputChange={onInputChange} />
     );
 
-    userEvent.click(screen.getByRole('button', { name: 'Clear' }));
+    await user.click(screen.getByRole('button', { name: 'Clear' }));
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(0);
     expect(selected).toHaveLength(0);
   });
 
-  it('handles clear button clicks in multi-select mode with initial input', () => {
+  it('handles clear button clicks in multi-select mode with initial input', async () => {
     let event, selected, value;
+    const user = userEvent.setup();
 
     onInputChange = jest.fn((v, e) => {
       value = v;
@@ -1375,7 +1393,7 @@ describe('<Typeahead> `change` events', () => {
       />
     );
 
-    userEvent.click(screen.getByRole('button', { name: 'Clear' }));
+    await user.click(screen.getByRole('button', { name: 'Clear' }));
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(1);
@@ -1385,29 +1403,28 @@ describe('<Typeahead> `change` events', () => {
   });
 
   it('calls `onInputChange` when text is entered in the input', async () => {
+    const user = userEvent.setup();
     render(<Default onInputChange={onInputChange} />);
 
     const input = getInput();
-    userEvent.type(input, 'z');
+    await user.type(input, 'z');
 
-    await waitFor(() => {
-      expect(onInputChange).toHaveBeenCalledTimes(1);
-    });
+    expect(onInputChange).toHaveBeenCalledTimes(1);
   });
 
   it('`onInputChange` receives an event as the second param', async () => {
     let event;
+    const user = userEvent.setup();
     render(<Default onInputChange={(text, e) => (event = e)} />);
 
     const input = getInput();
-    userEvent.type(input, 'z');
+    await user.type(input, 'z');
 
-    await waitFor(() => {
-      expect(event).toBeDefined();
-    });
+    expect(event).toBeDefined();
   });
 
   it('calls `onChange` when there is a selection and text is entered', async () => {
+    const user = userEvent.setup();
     const selected = states.slice(0, 1);
     render(
       <Default
@@ -1418,11 +1435,9 @@ describe('<Typeahead> `change` events', () => {
     );
 
     const input = getInput();
-    userEvent.type(input, 'z');
+    await user.type(input, 'z');
 
-    await waitFor(() => {
-      expect(onChange).toHaveBeenCalledTimes(1);
-    });
+    expect(onChange).toHaveBeenCalledTimes(1);
     expect(onInputChange).toHaveBeenCalledTimes(1);
   });
 
@@ -1536,29 +1551,31 @@ describe('<Typeahead> with custom menu', () => {
   });
 
   it('shows the correct hint', async () => {
+    const user = userEvent.setup();
     const { container } = render(<CustomMenu />);
     const hint = getHint(container);
 
-    userEvent.type(getInput(), 'u');
+    await user.type(getInput(), 'u');
 
-    const items = await findItems();
+    const items = getItems();
     expect(items[0]).toHaveTextContent('Utah');
     expect(hint).toHaveValue('utah');
   });
 
   it('selects the correct option', async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(<CustomMenu onChange={onChange} />);
 
     const input = getInput();
     input.focus();
-    userEvent.keyboard('{arrowdown}');
+    await user.keyboard('{ArrowDown}');
 
-    const items = await findItems();
+    const items = getItems();
     expect(items[0]).toHaveTextContent('Wyoming');
     expect(items[0]).toHaveClass('active');
 
-    userEvent.keyboard('{enter}');
+    await user.keyboard('{Enter}');
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(input).toHaveValue('Wyoming');
   });
@@ -1566,6 +1583,7 @@ describe('<Typeahead> with custom menu', () => {
   // Integration test to ensure that active index updating works correctly when
   // reshuffling the result set.
   it('correctly handles disabled options', async () => {
+    const user = userEvent.setup();
     const options = states.map((state) => {
       return state.name === 'Wyoming' ? { ...state, disabled: true } : state;
     });
@@ -1573,10 +1591,10 @@ describe('<Typeahead> with custom menu', () => {
     render(<CustomMenu options={options} />);
 
     getInput().focus();
-    userEvent.keyboard('{arrowdown}');
+    await user.keyboard('{ArrowDown}');
 
     // Keying down should skip over the first option
-    const items = await findItems();
+    const items = getItems();
     expect(items[1]).toHaveClass('active');
     expect(items[1]).toHaveTextContent('Wisconsin');
   });

@@ -28,12 +28,13 @@ describe('<ClearButton>', () => {
     expect(screen.getByRole('button').className).toContain('rbt-close-lg');
   });
 
-  it('registers a click', () => {
+  it('registers a click', async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
     render(<Default onClick={onClick} />);
 
     const button = screen.getByRole('button');
-    userEvent.click(button);
+    await user.click(button);
 
     expect(onClick).toHaveBeenCalledTimes(1);
   });

@@ -31,7 +31,8 @@ describe('<Token>', () => {
     expect(screen.queryAllByRole('button').length).toBe(0);
   });
 
-  it('renders a removeable token', () => {
+  it('renders a removeable token', async () => {
+    const user = userEvent.setup();
     const onRemove = jest.fn();
     const { container } = render(<Interactive onRemove={onRemove} />);
 
@@ -39,7 +40,7 @@ describe('<Token>', () => {
     expect(token).toHaveClass(REMOVEABLE_CLASS);
 
     const closeButton = screen.getByRole('button');
-    userEvent.click(closeButton);
+    await user.click(closeButton);
     expect(onRemove).toHaveBeenCalledTimes(1);
   });
 
@@ -52,7 +53,8 @@ describe('<Token>', () => {
     expect(token).toHaveClass(DISABLED_CLASS);
   });
 
-  it('handles events', () => {
+  it('handles events', async () => {
+    const user = userEvent.setup();
     const onBlur = jest.fn();
     const onClick = jest.fn();
     const onFocus = jest.fn();
@@ -79,22 +81,22 @@ describe('<Token>', () => {
     expect(onBlur).toHaveBeenCalledTimes(1);
     expect(token).not.toHaveClass(ACTIVE_CLASS);
 
-    userEvent.click(token);
+    await user.click(token);
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onFocus).toHaveBeenCalledTimes(2);
     expect(token).toHaveClass(ACTIVE_CLASS);
 
     // `onRemove` called only when token is active/focused.
     token.blur();
-    userEvent.keyboard('{backspace}');
+    await user.keyboard('{backspace}');
     expect(onRemove).toHaveBeenCalledTimes(0);
 
     token.focus();
-    userEvent.keyboard('{backspace}');
+    await user.keyboard('{backspace}');
     expect(onRemove).toHaveBeenCalledTimes(1);
 
     // Other events are ignored.
-    userEvent.keyboard('{enter}');
+    await user.keyboard('{enter}');
     expect(onRemove).toHaveBeenCalledTimes(1);
   });
 });

@@ -10,8 +10,6 @@ import {
   noop,
   render,
   userEvent,
-  waitFor,
-  waitForOverlay,
 } from '../../tests/helpers';
 
 const TestComponent = (props) => {
@@ -52,6 +50,7 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('displays the search text while searching', async () => {
+    const user = userEvent.setup();
     const searchText = 'Search text';
 
     render(
@@ -65,21 +64,18 @@ describe('<AsyncTypeahead>', () => {
       />
     );
 
-    userEvent.type(getInput(), 'search');
-
-    // TODO: Fix async behaviors so component correctly displays search text
-    // when `isLoading` is true.
-    await waitForOverlay();
+    await user.type(getInput(), 'search');
   });
 
   it('displays the empty label when there are no results', async () => {
+    const user = userEvent.setup();
     const emptyLabel = 'empty label';
 
     render(<TestComponent emptyLabel={emptyLabel} />);
 
-    userEvent.type(getInput(), 'foo');
+    await user.type(getInput(), 'foo');
 
-    const items = await findItems();
+    const items = getItems();
     expect(items).toHaveLength(1);
     expect(items[0]).toHaveTextContent(emptyLabel);
   });
@@ -107,18 +103,18 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('delays the search by at least the specified amount', async () => {
+    const user = userEvent.setup();
     const delay = 100;
     const preSearch = Date.now();
 
     render(<TestComponent delay={delay} />);
 
-    userEvent.type(getInput(), 'search');
-    await waitForOverlay();
-
+    await user.type(getInput(), 'search');
     expect(Date.now() - preSearch).toBeGreaterThanOrEqual(delay);
   });
 
-  it('does not call onSearch when a selection is made', () => {
+  it('does not call onSearch when a selection is made', async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     const onSearch = jest.fn();
 
@@ -132,53 +128,46 @@ describe('<AsyncTypeahead>', () => {
 
     getInput().focus();
 
-    userEvent.keyboard('{arrowdown}{enter}');
+    await user.keyboard('{ArrowDown}{Enter}');
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
   it('uses cached results and does not perform a new search', async () => {
+    const user = userEvent.setup();
     const onSearch = jest.fn();
     render(<TestComponent onSearch={onSearch} useCache />);
 
     const input = getInput();
-    userEvent.type(input, 'foo');
-    await waitFor(() => {
-      expect(onSearch).toHaveBeenCalledTimes(1);
-    });
+    await user.type(input, 'f');
+    expect(onSearch).toHaveBeenCalledTimes(1);
 
-    userEvent.clear(input);
-    userEvent.type(input, 'bar');
-    await waitFor(() => {
-      expect(onSearch).toHaveBeenCalledTimes(2);
-    });
+    await user.clear(input);
+    await user.type(input, 'b');
+    expect(onSearch).toHaveBeenCalledTimes(2);
 
-    userEvent.clear(input);
-    userEvent.type(input, 'foo');
-    await waitFor(() => {
-      expect(onSearch).toHaveBeenCalledTimes(2);
-    });
+    await user.clear(input);
+    await user.type(input, 'f');
+    expect(onSearch).toHaveBeenCalledTimes(2);
   });
 
   it('does not use cached results', async () => {
+    const user = userEvent.setup();
     const onSearch = jest.fn();
 
     render(<TestComponent onSearch={onSearch} useCache={false} />);
 
     const input = getInput();
-    userEvent.type(input, 'search');
-    await waitFor(() => {
-      expect(onSearch).toHaveBeenCalledTimes(1);
-    });
+    await user.type(input, 's');
+    expect(onSearch).toHaveBeenCalledTimes(1);
 
-    userEvent.clear(input);
-    userEvent.type(input, 'search');
-    await waitFor(() => {
-      expect(onSearch).toHaveBeenCalledTimes(2);
-    });
+    await user.clear(input);
+    await user.type(input, 's');
+    expect(onSearch).toHaveBeenCalledTimes(2);
   });
 
-  it('does not call `onSearch` with an empty query', () => {
+  it('does not call `onSearch` with an empty query', async () => {
+    const user = userEvent.setup();
     const onInputChange = jest.fn();
     const onSearch = jest.fn();
 
@@ -195,13 +184,14 @@ describe('<AsyncTypeahead>', () => {
     expect(input).toHaveValue('x');
     input.focus();
 
-    userEvent.keyboard('{backspace}');
+    await user.keyboard('{Backspace}');
     expect(input).toHaveValue('');
     expect(onInputChange).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
-  it('does not call `onSearch` if query is less than `minLength`', () => {
+  it('does not call `onSearch` if query is less than `minLength`', async () => {
+    const user = userEvent.setup();
     const onInputChange = jest.fn();
     const onSearch = jest.fn();
 
@@ -213,12 +203,13 @@ describe('<AsyncTypeahead>', () => {
       />
     );
 
-    userEvent.type(getInput(), 'x');
+    await user.type(getInput(), 'x');
     expect(onInputChange).toHaveBeenCalledTimes(1);
     expect(onSearch).toHaveBeenCalledTimes(0);
   });
 
   it('performs a search when there is already a selection', async () => {
+    const user = userEvent.setup();
     const onSearch = jest.fn();
     render(
       <TestComponent
@@ -231,13 +222,12 @@ describe('<AsyncTypeahead>', () => {
 
     expect(onSearch).toHaveBeenCalledTimes(0);
 
-    userEvent.type(getInput(), 'foo');
-    await waitFor(() => {
-      expect(onSearch).toHaveBeenCalledTimes(1);
-    });
+    await user.type(getInput(), 'f');
+    expect(onSearch).toHaveBeenCalledTimes(1);
   });
 
-  it('receives an event as the second argument of `onInputChange`', () => {
+  it('receives an event as the second argument of `onInputChange`', async () => {
+    const user = userEvent.setup();
     render(
       <TestComponent
         minLength={2}
@@ -248,20 +238,22 @@ describe('<AsyncTypeahead>', () => {
       />
     );
 
-    userEvent.type(getInput(), 'x');
+    await user.type(getInput(), 'x');
   });
 
   it('displays a custom option when `allowNew` function returns true', async () => {
+    const user = userEvent.setup();
     render(<TestComponent allowNew={() => true} />);
 
-    userEvent.type(getInput(), 'zzz');
+    await user.type(getInput(), 'zzz');
 
-    const items = await findItems();
+    const items = getItems();
     expect(items).toHaveLength(1);
     expect(items[0]).toHaveTextContent('zzz');
   });
 
   it('disables `allowNew` while results are loading', async () => {
+    const user = userEvent.setup();
     render(
       <TestComponent
         allowNew
@@ -273,11 +265,8 @@ describe('<AsyncTypeahead>', () => {
       />
     );
 
-    userEvent.type(getInput(), 'zzz');
-
-    await waitFor(() => {
-      expect(getItems()[0]).toHaveTextContent('zzz');
-    });
+    await user.type(getInput(), 'zzz');
+    expect(getItems()[0]).toHaveTextContent('zzz');
   });
 
   it('exposes the typeahead instance and public methods', () => {

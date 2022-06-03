@@ -23,29 +23,31 @@ describe('<TypeaheadInputMulti>', () => {
     expect(getTokens(container)).toHaveLength(3);
   });
 
-  it('focuses the input', () => {
+  it('focuses the input', async () => {
+    const user = userEvent.setup();
     const { container } = render(<Default />);
 
     // Test clicking the container, which forwards the click to the input.
-    userEvent.click(container.firstElementChild);
+    await user.click(container.firstElementChild);
     expect(getInput()).toHaveFocus();
   });
 
-  it('does not focus a disabled input', () => {
+  it('does not focus a disabled input', async () => {
+    const user = userEvent.setup();
     const { container } = render(<Disabled />);
 
     const input = getInput();
     expect(input).toBeDisabled();
 
     // Test clicking the container, which forwards the click to the input.
-    userEvent.click(container.firstElementChild);
+    await user.click(container.firstElementChild);
     expect(input).not.toHaveFocus();
 
-    userEvent.click(input);
+    await user.click(input);
     expect(input).not.toHaveFocus();
   });
 
-  it('prevents clicks on the input from bubbling', () => {
+  it('prevents clicks on the input from bubbling', async () => {
     const onClick = jest.fn();
     render(<Default onClick={onClick} value="calif" />);
 
@@ -61,21 +63,23 @@ describe('<TypeaheadInputMulti>', () => {
     expect(input.selectionStart).toBe(2);
   });
 
-  it('calls the keydown handler', () => {
+  it('calls the keydown handler', async () => {
+    const user = userEvent.setup();
     const onKeyDown = jest.fn();
     render(<Default onKeyDown={onKeyDown} />);
 
     getInput().focus();
-    userEvent.keyboard('{enter}');
+    await user.keyboard('{enter}');
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
 
-  it('focuses the last token', () => {
+  it('focuses the last token', async () => {
+    const user = userEvent.setup();
     const { container } = render(<Default />);
 
     getInput().focus();
-    userEvent.keyboard('{backspace}');
+    await user.keyboard('{backspace}');
 
     const tokens = getTokens(container);
     const lastToken = tokens[tokens.length - 1];
@@ -83,12 +87,13 @@ describe('<TypeaheadInputMulti>', () => {
     expect(lastToken).toHaveFocus();
   });
 
-  it('does not focus the last token when the input has a value', () => {
+  it('does not focus the last token when the input has a value', async () => {
+    const user = userEvent.setup();
     render(<Default value="foo" />);
 
     const input = getInput();
     input.focus();
-    userEvent.keyboard('{backspace}');
+    await user.keyboard('{backspace}');
 
     expect(input).toHaveFocus();
   });
