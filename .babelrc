@@ -7,6 +7,8 @@
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-private-methods",
+    "@babel/plugin-proposal-private-property-in-object",
     "dev-expression",
     [
       "transform-imports",
