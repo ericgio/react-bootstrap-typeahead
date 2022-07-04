@@ -56,6 +56,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
     options,
     paginationText,
     renderMenuItemChildren,
+    text,
     ...menuProps
   } = props;
 
@@ -77,7 +78,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
           key={position}
           label={label}>
           {newSelectionPrefix}
-          <Highlighter search={menuProps.text}>{label}</Highlighter>
+          <Highlighter search={text}>{label}</Highlighter>
         </MenuItem>
       );
     }
@@ -107,7 +108,17 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
     );
   };
 
-  return <Menu {...menuProps}>{options.map(renderMenuItem)}</Menu>;
+  return (
+    <Menu
+      {...menuProps}
+      key={
+        // Force a re-render if the text changes to ensure that menu
+        // positioning updates correctly.
+        text
+      }>
+      {options.map(renderMenuItem)}
+    </Menu>
+  );
 };
 
 TypeaheadMenu.propTypes = propTypes;

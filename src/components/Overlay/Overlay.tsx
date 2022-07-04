@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   CSSProperties,
   ReactElement,
-  Ref,
+  RefCallback,
   useLayoutEffect,
   useState,
 } from 'react';
@@ -51,8 +51,7 @@ const defaultProps = {
 };
 
 export interface OverlayRenderProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  innerRef: Ref<any>;
+  innerRef: RefCallback<HTMLElement>;
   style: CSSProperties;
 }
 

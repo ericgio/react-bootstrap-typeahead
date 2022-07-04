@@ -15,10 +15,6 @@ export default {
   component: Menu,
 } as Meta;
 
-const defaultProps = {
-  text: '',
-};
-
 const children = options.map((o, idx) => (
   <MenuItem key={o.label} option={o} position={idx}>
     {o.label}
@@ -37,20 +33,17 @@ const Template: Story<MenuProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  ...defaultProps,
   children,
   id: 'default-menu',
 };
 
 export const Empty = Template.bind({});
 Empty.args = {
-  ...defaultProps,
   id: 'empty-menu',
 };
 
 export const HeaderAndDivider = Template.bind({});
 HeaderAndDivider.args = {
-  ...defaultProps,
   children: (
     <>
       <Menu.Header>This is a menu header</Menu.Header>

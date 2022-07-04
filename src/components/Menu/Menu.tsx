@@ -41,7 +41,6 @@ export interface MenuProps extends HTMLProps<HTMLDivElement> {
   emptyLabel?: ReactNode;
   innerRef?: Ref<HTMLDivElement>;
   maxHeight?: string;
-  text?: string;
 }
 
 /**
@@ -52,7 +51,6 @@ const Menu = ({
   innerRef,
   maxHeight = '300px',
   style,
-  text = '',
   ...props
 }: MenuProps) => {
   const children =
@@ -69,11 +67,6 @@ const Menu = ({
     <div
       {...props}
       className={cx('rbt-menu', 'dropdown-menu', 'show', props.className)}
-      key={
-        // Force a re-render if the text changes to ensure that menu
-        // positioning updates correctly.
-        text
-      }
       onMouseDown={
         // Prevent input from blurring when clicking on the menu scrollbar.
         preventInputBlur
