@@ -47,16 +47,6 @@ describe('<Menu>', () => {
     expect(getMenu()).toHaveAttribute('aria-label', 'custom-label');
   });
 
-  it('updates the menu position if the input height changes', () => {
-    const scheduleUpdate = jest.fn();
-    const { rerender } = render(<Default scheduleUpdate={scheduleUpdate} />);
-
-    expect(scheduleUpdate).toHaveBeenCalledTimes(0);
-
-    rerender(<Default inputHeight={1} scheduleUpdate={scheduleUpdate} />);
-    expect(scheduleUpdate).toHaveBeenCalledTimes(1);
-  });
-
   it('prevents the input from blurring on mousedown', () => {
     render(<Default />);
 

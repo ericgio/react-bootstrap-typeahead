@@ -1,6 +1,12 @@
 import type { ModifierArguments, Placement, Options } from '@popperjs/core';
 import PropTypes from 'prop-types';
-import { CSSProperties, ReactElement, Ref, useState } from 'react';
+import {
+  CSSProperties,
+  ReactElement,
+  Ref,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { usePopper } from 'react-popper';
 
 import { noop } from '../../utils';
@@ -47,8 +53,6 @@ const defaultProps = {
 export interface OverlayRenderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   innerRef: Ref<any>;
-  inputHeight: number;
-  scheduleUpdate: (() => void) | null;
   style: CSSProperties;
 }
 
@@ -97,7 +101,7 @@ export function getPlacement(
 }
 
 const Overlay = ({ referenceElement, ...props }: OverlayProps) => {
-  const [popperElement, attachRef] = useState<HTMLElement>();
+  const [popperElement, attachRef] = useState<HTMLElement | null>(null);
   const { attributes, styles, forceUpdate } = usePopper(
     referenceElement,
     popperElement,
@@ -108,6 +112,14 @@ const Overlay = ({ referenceElement, ...props }: OverlayProps) => {
     }
   );
 
+  const refElementHeight = referenceElement?.offsetHeight;
+
+  // Re-position the popper if the height of the reference element changes.
+  // Exclude `forceUpdate` from dependencies since it changes with each render.
+  useLayoutEffect(() => {
+    forceUpdate && forceUpdate();
+  }, [refElementHeight]); // eslint-disable-line
+
   if (!props.isMenuShown) {
     return null;
   }
@@ -115,8 +127,6 @@ const Overlay = ({ referenceElement, ...props }: OverlayProps) => {
   return props.children({
     ...attributes.popper,
     innerRef: attachRef,
-    inputHeight: referenceElement?.offsetHeight || 0,
-    scheduleUpdate: forceUpdate,
     style: styles.popper,
   });
 };

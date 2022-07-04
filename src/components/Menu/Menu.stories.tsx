@@ -5,7 +5,6 @@ import { Story, Meta } from '@storybook/react';
 
 import Menu, { MenuProps } from './Menu';
 import MenuItem from '../MenuItem';
-import { noop } from '../../utils';
 
 const options = [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }];
 
@@ -17,8 +16,6 @@ export default {
 } as Meta;
 
 const defaultProps = {
-  inputHeight: 0,
-  scheduleUpdate: noop,
   text: '',
 };
 

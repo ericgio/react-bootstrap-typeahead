@@ -120,7 +120,7 @@ export const CustomMenu = Template.bind({});
 CustomMenu.args = {
   ...defaultProps,
   renderMenu: (results, menuProps) => (
-    <Menu {...menuProps} inputHeight={0} scheduleUpdate={noop}>
+    <Menu {...menuProps}>
       {/* Use `slice` to avoid mutating the original array */}
       {results
         .slice()

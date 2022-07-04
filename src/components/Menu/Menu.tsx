@@ -1,13 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React, {
-  Children,
-  HTMLProps,
-  ReactNode,
-  Ref,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { Children, HTMLProps, ReactNode, Ref } from 'react';
 
 import { BaseMenuItem } from '../MenuItem';
 
@@ -47,8 +40,6 @@ const defaultProps = {
 export interface MenuProps extends HTMLProps<HTMLDivElement> {
   emptyLabel?: ReactNode;
   innerRef?: Ref<HTMLDivElement>;
-  inputHeight: number;
-  scheduleUpdate: (() => void) | null;
   maxHeight?: string;
   text?: string;
 }
@@ -57,42 +48,27 @@ export interface MenuProps extends HTMLProps<HTMLDivElement> {
  * Menu component that handles empty state when passed a set of results.
  */
 const Menu = ({
-  children,
-  className,
   emptyLabel = 'No matches found.',
   innerRef,
-  inputHeight,
   maxHeight = '300px',
-  scheduleUpdate,
   style,
   text = '',
   ...props
 }: MenuProps) => {
-  const isInitialMount = useRef(true);
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-
-    scheduleUpdate && scheduleUpdate();
-  }, [inputHeight, scheduleUpdate]);
-
-  const contents =
-    Children.count(children) === 0 ? (
+  const children =
+    Children.count(props.children) === 0 ? (
       <BaseMenuItem disabled role="option">
         {emptyLabel}
       </BaseMenuItem>
     ) : (
-      children
+      props.children
     );
 
   return (
     /* eslint-disable jsx-a11y/interactive-supports-focus */
     <div
       {...props}
-      className={cx('rbt-menu', 'dropdown-menu', 'show', className)}
+      className={cx('rbt-menu', 'dropdown-menu', 'show', props.className)}
       key={
         // Force a re-render if the text changes to ensure that menu
         // positioning updates correctly.
@@ -110,7 +86,7 @@ const Menu = ({
         maxHeight,
         overflow: 'auto',
       }}>
-      {contents}
+      {children}
     </div>
     /* eslint-enable jsx-a11y/interactive-supports-focus */
   );
