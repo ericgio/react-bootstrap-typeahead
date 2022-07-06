@@ -1,11 +1,12 @@
 import cx from 'classnames';
-import React, { forwardRef, HTMLProps, MouseEvent } from 'react';
+import React, { forwardRef, HTMLAttributes, MouseEvent } from 'react';
 
 import { useItem, UseItemProps } from '../../behaviors/item';
 
-export interface BaseMenuItemProps extends HTMLProps<HTMLAnchorElement> {
+export interface BaseMenuItemProps extends HTMLAttributes<HTMLAnchorElement> {
   active?: boolean;
   disabled?: boolean;
+  href?: string;
 }
 
 export const BaseMenuItem = forwardRef<HTMLAnchorElement, BaseMenuItemProps>(

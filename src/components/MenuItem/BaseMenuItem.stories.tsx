@@ -10,10 +10,7 @@ export default {
   component: BaseMenuItem,
 } as Meta;
 
-const Template: Story<BaseMenuItemProps> = (args) => (
-  // @ts-ignore
-  <BaseMenuItem {...args} />
-);
+const Template: Story<BaseMenuItemProps> = (args) => <BaseMenuItem {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
