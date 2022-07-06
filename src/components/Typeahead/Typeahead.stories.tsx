@@ -9,7 +9,7 @@ import Hint from '../Hint';
 import Menu from '../Menu';
 import MenuItem from '../MenuItem';
 
-import options from '../../tests/data';
+import options, { Option } from '../../tests/data';
 import { noop } from '../../tests/helpers';
 
 export default {
@@ -122,16 +122,12 @@ CustomMenu.args = {
   renderMenu: (results, menuProps) => (
     <Menu {...menuProps}>
       {/* Use `slice` to avoid mutating the original array */}
-      {results
+      {(results as Option[])
         .slice()
         .reverse()
         .map((r, index) => (
-          // @ts-ignore
           <MenuItem key={r.name} option={r} position={index}>
-            {
-              // @ts-ignore
-              r.name
-            }
+            {r.name}
           </MenuItem>
         ))}
     </Menu>
