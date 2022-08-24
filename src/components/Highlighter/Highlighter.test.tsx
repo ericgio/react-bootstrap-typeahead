@@ -69,6 +69,48 @@ describe('<Highlighter>', () => {
     expect(matches[0]).toHaveTextContent('Cal');
   });
 
+  it('handles diacritical marks in the search string', () => {
+    const { container } = render(
+      <Highlighter search="schö">Schön ist, was schön lässt.</Highlighter>
+    );
+
+    const nodes = container.childNodes;
+    const matches = getMatches(nodes);
+
+    // Output: [<mark>Scho</mark>, n ist, was , <mark>scho</mark>, n lasst.]
+    expect(nodes).toHaveLength(4);
+    expect(matches).toHaveLength(2);
+    expect(matches[0]).toHaveTextContent('Scho');
+  });
+
+  it('matches composed diacritical marks', () => {
+    const { container } = render(
+      <Highlighter search="was schon">Schön ist, was schön lässt.</Highlighter>
+    );
+
+    const nodes = container.childNodes;
+    const matches = getMatches(nodes);
+
+    expect(nodes).toHaveLength(3);
+    expect(matches).toHaveLength(1);
+    expect(matches[0]).toHaveTextContent('was schon');
+  });
+
+  it('matches combined diacritical marks', () => {
+    const { container } = render(
+      <Highlighter search="was schon">
+        {'Scho\u0308n ist, was scho\u0308n la\u0308sst.'}
+      </Highlighter>
+    );
+
+    const nodes = container.childNodes;
+    const matches = getMatches(nodes);
+
+    expect(nodes).toHaveLength(3);
+    expect(matches).toHaveLength(1);
+    expect(matches[0]).toHaveTextContent('was schon');
+  });
+
   it('adds custom classnames to the highlighted children', () => {
     const { container } = render(
       <Highlighter highlightClassName="foo" search="i">
