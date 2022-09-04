@@ -39,7 +39,6 @@ body {
   background-color: #111;
 }
 
-
 /* Brand */
 .bs-docs-nav .navbar-brand {
   color: #00d8ff;
@@ -77,7 +76,6 @@ body {
 .bs-docs-nav .navbar-toggler:hover .icon-bar {
   background-color: #fff;
 }
-
 
 /* Sidenav */
 .bs-docs-sidenav {
@@ -190,7 +188,7 @@ body {
 
 /* Add "space" above in-page anchors to account for fixed nav. */
 .page-anchor {
-  content: " ";
+  content: ' ';
   display: block;
   height: 60px;
   margin-top: -60px;
@@ -210,15 +208,15 @@ body {
 }
 .anchor-icon {
   font-size: 90%;
-  padding-top: .1em;
+  padding-top: 0.1em;
   position: absolute;
-  left: -.8em;
+  left: -0.8em;
   opacity: 0;
 }
 
 .anchor:focus .anchor-icon,
 .anchor:hover .anchor-icon {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .checkbox:last-child,
