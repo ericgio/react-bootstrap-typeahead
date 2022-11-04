@@ -57,7 +57,7 @@ CustomChildren.args = {
       <>
         <div>{name}</div>
         <div>
-          <small>Population: {population.toLocaleString()}</small>
+          <small>Population: {population.toString()}</small>
         </div>
       </>
     );
