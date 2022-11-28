@@ -43,6 +43,7 @@ import { DEFAULT_LABELKEY } from '../constants';
 
 import type {
   FilterByCallback,
+  KeepOpen,
   Option,
   RefElement,
   SelectEvent,
@@ -109,6 +110,11 @@ const propTypes = {
    * Whether the filter should ignore accents and other diacritical marks.
    */
   ignoreDiacritics: checkPropType(PropTypes.bool, ignoreDiacriticsType),
+  /**
+   * Whether the menu should stay open after selecting an item.
+   * Can be used allow selecting multiple items at once.
+   */
+  keepOpen: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   /**
    * Specify the option key to use for display or a function returning the
    * display string. By default, the selector will use the `label` key.
@@ -194,6 +200,7 @@ const defaultProps = {
   filterBy: [],
   highlightOnlyResult: false,
   ignoreDiacritics: true,
+  keepOpen: false,
   labelKey: DEFAULT_LABELKEY,
   maxResults: 100,
   minLength: 0,
@@ -294,6 +301,14 @@ function triggerInputChange(input: HTMLInputElement, value: string) {
   inputValue && inputValue.set && inputValue.set.call(input, value);
   const e = new Event('input', { bubbles: true });
   input.dispatchEvent(e);
+}
+
+function shouldKeepOpen(keepOpen: KeepOpen = false): boolean {
+  if (typeof keepOpen === 'function') {
+    return keepOpen();
+  }
+
+  return keepOpen;
 }
 
 class Typeahead extends React.Component<Props, TypeaheadState> {
@@ -574,7 +589,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   };
 
   _handleSelectionAdd = (option: Option) => {
-    const { multiple, labelKey } = this.props;
+    const { keepOpen, labelKey, multiple } = this.props;
 
     let selected: Option[];
     let selection = option;
@@ -599,12 +614,24 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     }
 
     this.setState(
-      (state, props) => ({
-        ...hideMenu(state, props),
-        initialItem: selection,
-        selected,
-        text,
-      }),
+      (state, props) => {
+        if (multiple && shouldKeepOpen(keepOpen)) {
+          return {
+            ...state,
+            activeIndex: -1,
+            activeItem: undefined,
+            initialItem: selection,
+            selected,
+          };
+        }
+
+        return {
+          ...hideMenu(state, props),
+          initialItem: selection,
+          selected,
+          text,
+        };
+      },
       () => this._handleChange(selected)
     );
   };

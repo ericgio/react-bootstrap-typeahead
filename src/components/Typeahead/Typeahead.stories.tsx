@@ -95,6 +95,13 @@ AllowNew.args = {
   allowNew: true,
 };
 
+export const KeepOpen = Template.bind({});
+KeepOpen.args = {
+  ...defaultProps,
+  multiple: true,
+  keepOpen: true,
+};
+
 export const CustomInput = Template.bind({});
 CustomInput.args = {
   ...defaultProps,
