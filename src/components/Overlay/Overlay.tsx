@@ -4,10 +4,10 @@ import {
   CSSProperties,
   ReactElement,
   RefCallback,
-  useLayoutEffect,
   useState,
 } from 'react';
 import { usePopper } from 'react-popper';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
 import { noop } from '../../utils';
 
@@ -115,7 +115,7 @@ const Overlay = ({ referenceElement, ...props }: OverlayProps) => {
 
   // Re-position the popper if the height of the reference element changes.
   // Exclude `forceUpdate` from dependencies since it changes with each render.
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     forceUpdate && forceUpdate();
   }, [refElementHeight]); // eslint-disable-line
 
