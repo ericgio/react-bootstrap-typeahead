@@ -7,6 +7,8 @@ const baseProps = {
   isFocused: false,
   isMenuShown: false,
   multiple: false,
+  onClick: noop,
+  onFocus: noop,
 };
 
 const baseMultiProps = {
@@ -20,11 +22,13 @@ const baseReceivedProps = {
   'aria-autocomplete': 'both',
   'aria-expanded': false,
   'aria-haspopup': 'listbox',
+  'aria-multiselectable': undefined,
   'aria-owns': undefined,
   autoComplete: 'off',
   className: '',
-  onClick: undefined,
-  onFocus: undefined,
+  inputClassName: undefined,
+  onClick: noop,
+  onFocus: noop,
   placeholder: undefined,
   role: 'combobox',
   type: 'text',
@@ -32,11 +36,8 @@ const baseReceivedProps = {
 
 const baseReceivedMultiProps = {
   ...baseReceivedProps,
-  'aria-autocomplete': 'list',
-  'aria-expanded': undefined,
-  inputClassName: undefined,
+  'aria-multiselectable': true,
   onRemove: noop,
-  role: undefined,
 };
 
 describe('getInputProps', () => {

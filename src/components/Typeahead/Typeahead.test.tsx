@@ -618,7 +618,7 @@ describe('<Typeahead>', () => {
         <MultiSelect inputProps={inputProps} selected={states.slice(0, 1)} />
       );
 
-      input = screen.getByRole('spinbutton');
+      input = getInput();
 
       const token = screen.getByRole('button').parentElement;
       expect(token).toHaveAttribute('tabIndex', inputProps.tabIndex);
@@ -917,7 +917,7 @@ describe('<Typeahead>', () => {
       expect(input).toHaveAttribute('aria-expanded', 'false');
       expect(input).not.toHaveAttribute('aria-activedescendant');
 
-      input.focus();
+      input?.focus();
       await user.keyboard('{ArrowDown}');
 
       expect(input).toHaveAttribute('aria-expanded', 'true');
@@ -928,8 +928,9 @@ describe('<Typeahead>', () => {
       render(<MultiSelect />);
       const input = getInput();
 
-      expect(input).toHaveAttribute('aria-autocomplete', 'list');
-      expect(input).not.toHaveAttribute('aria-expanded');
+      expect(input).toHaveAttribute('aria-autocomplete', 'both');
+      expect(input).toHaveAttribute('aria-expanded', 'false');
+      expect(input).toHaveAttribute('aria-multiselectable', 'true');
     });
 
     it('sets menu item attributes', async () => {

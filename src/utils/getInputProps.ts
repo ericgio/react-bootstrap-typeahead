@@ -4,6 +4,18 @@ import getMenuItemId from './getMenuItemId';
 import hasOwnProperty from './hasOwnProperty';
 import { TypeaheadManagerProps } from '../types';
 
+type Args = Pick<
+  TypeaheadManagerProps,
+  | 'activeIndex'
+  | 'id'
+  | 'isFocused'
+  | 'isMenuShown'
+  | 'multiple'
+  | 'onClick'
+  | 'onFocus'
+  | 'placeholder'
+>;
+
 const getInputProps =
   ({
     activeIndex,
@@ -14,48 +26,36 @@ const getInputProps =
     onClick,
     onFocus,
     placeholder,
-    ...rest
-  }: TypeaheadManagerProps) =>
+    ...props
+  }: Args) =>
   (inputProps = {}) => {
     const className = hasOwnProperty(inputProps, 'className')
-      ? inputProps.className
+      ? String(inputProps.className)
       : undefined;
 
-    const props = {
+    return {
       // These props can be overridden by values in `inputProps`.
       autoComplete: 'off',
       placeholder,
       type: 'text',
 
       ...inputProps,
-      ...rest,
+      ...props,
       'aria-activedescendant':
         activeIndex >= 0 ? getMenuItemId(id, activeIndex) : undefined,
       'aria-autocomplete': 'both',
       'aria-expanded': isMenuShown,
       'aria-haspopup': 'listbox',
+      'aria-multiselectable': multiple || undefined,
       'aria-owns': isMenuShown ? id : undefined,
       className: cx({
-        [(className || '') as string]: !multiple,
+        [className || '']: !multiple,
         focus: isFocused,
       }),
+      inputClassName: multiple ? className : undefined,
       onClick,
       onFocus,
-      // Comboboxes are single-select by definition:
-      // https://www.w3.org/TR/wai-aria-practices-1.1/#combobox
       role: 'combobox',
-    };
-
-    if (!multiple) {
-      return props;
-    }
-
-    return {
-      ...props,
-      'aria-autocomplete': 'list',
-      'aria-expanded': undefined,
-      inputClassName: className,
-      role: undefined,
     };
   };
 
