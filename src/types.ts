@@ -39,8 +39,6 @@ export type SelectHint = (
   event: KeyboardEvent<HTMLInputElement>
 ) => boolean;
 
-export type RefElement<T> = T | null;
-
 export type Size = typeof SIZES[number];
 
 export type TypeaheadChildren =
@@ -131,7 +129,7 @@ export interface TypeaheadManagerChildProps {
 
 export interface TypeaheadManagerProps extends TypeaheadPropsAndState {
   hideMenu: () => void;
-  inputNode: RefElement<HTMLInputElement>;
+  inputNode: HTMLInputElement | null;
   inputRef: RefCallback<HTMLInputElement>;
   isMenuShown: boolean;
   onActiveItemChange: OptionHandler;

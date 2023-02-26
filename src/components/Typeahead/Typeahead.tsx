@@ -33,7 +33,6 @@ import { checkPropType, inputPropsType, sizeType } from '../../propTypes';
 
 import {
   Option,
-  RefElement,
   RenderToken,
   RenderTokenProps,
   Size,
@@ -173,7 +172,7 @@ interface RootCloseProps {
 }
 
 const RootClose = ({ children, onRootClose, ...props }: RootCloseProps) => {
-  const [rootElement, attachRef] = useState<RefElement<HTMLDivElement>>(null);
+  const [rootElement, attachRef] = useState<HTMLDivElement | null>(null);
   useRootClose(rootElement, onRootClose, props);
   return children(attachRef);
 };
@@ -182,7 +181,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  _referenceElement: RefElement<HTMLElement> = null;
+  _referenceElement: HTMLElement | null = null;
 
   render() {
     const { children, className, instanceRef, open, options, style } =
@@ -232,7 +231,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
     );
   }
 
-  referenceElementRef = (referenceElement: RefElement<HTMLElement>) => {
+  referenceElementRef = (referenceElement: HTMLElement | null) => {
     this._referenceElement = referenceElement;
   };
 

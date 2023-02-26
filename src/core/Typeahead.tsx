@@ -44,7 +44,6 @@ import { DEFAULT_LABELKEY } from '../constants';
 import type {
   FilterByCallback,
   Option,
-  RefElement,
   SelectEvent,
   TypeaheadProps,
   TypeaheadState,
@@ -302,7 +301,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
   state = getInitialState(this.props);
 
-  inputNode: RefElement<HTMLInputElement> = null;
+  inputNode: HTMLInputElement | null = null;
   isMenuShown = false;
   // Keeps track of actual items displayed in the menu, after sorting,
   // truncating, grouping, etc.
@@ -416,7 +415,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     return this.inputNode;
   };
 
-  inputRef = (inputNode: RefElement<HTMLInputElement>) => {
+  inputRef = (inputNode: HTMLInputElement | null) => {
     this.inputNode = inputNode;
   };
 

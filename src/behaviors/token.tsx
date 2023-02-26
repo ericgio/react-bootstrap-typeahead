@@ -14,7 +14,7 @@ import { useRootClose } from 'react-overlays';
 import { getDisplayName, isFunction } from '../utils';
 
 import { optionType } from '../propTypes';
-import { Option, OptionHandler, RefElement } from '../types';
+import { Option, OptionHandler } from '../types';
 
 export interface UseTokenProps<T> extends Omit<HTMLProps<T>, 'onBlur'> {
   // `onBlur` is typed more generically because it's passed to `useRootClose`,
@@ -43,7 +43,7 @@ export function useToken<T extends HTMLElement>({
   ...props
 }: UseTokenProps<T>) {
   const [active, setActive] = useState<boolean>(false);
-  const [rootElement, attachRef] = useState<RefElement<T>>(null);
+  const [rootElement, attachRef] = useState<T | null>(null);
 
   const handleBlur = (e: Event) => {
     setActive(false);
