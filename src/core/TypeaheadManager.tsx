@@ -1,5 +1,4 @@
-import React, { KeyboardEvent, useEffect } from 'react';
-import usePrevious from '@restart/hooks/usePrevious';
+import React, { KeyboardEvent, useEffect, useRef } from 'react';
 
 import { TypeaheadContext, TypeaheadContextType } from './Context';
 import {
@@ -69,7 +68,6 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     selectHint,
   } = props;
 
-  const prevProps = usePrevious(props);
   const hintText = getHintText(props);
 
   useEffect(() => {
@@ -79,11 +77,14 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     }
   });
 
+  const isInitialRender = useRef(true);
   useEffect(() => {
-    if (prevProps && prevProps.isMenuShown !== isMenuShown) {
-      onMenuToggle(isMenuShown);
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
     }
-  });
+    onMenuToggle(isMenuShown);
+  }, [isMenuShown, onMenuToggle]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     onKeyDown(e);
