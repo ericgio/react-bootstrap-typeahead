@@ -4,7 +4,7 @@ import {
   CSSProperties,
   ReactElement,
   RefCallback,
-  useLayoutEffect,
+  useEffect,
   useState,
 } from 'react';
 import { usePopper } from 'react-popper';
@@ -115,7 +115,7 @@ const Overlay = ({ referenceElement, ...props }: OverlayProps) => {
 
   // Re-position the popper if the height of the reference element changes.
   // Exclude `forceUpdate` from dependencies since it changes with each render.
-  useLayoutEffect(() => {
+  useEffect(() => {
     forceUpdate && forceUpdate();
   }, [refElementHeight]); // eslint-disable-line
 
