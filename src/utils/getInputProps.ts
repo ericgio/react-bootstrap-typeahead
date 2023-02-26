@@ -52,7 +52,7 @@ const getInputProps =
         [className || '']: !multiple,
         focus: isFocused,
       }),
-      inputClassName: multiple ? className : undefined,
+      ...(multiple && { inputClassName: className }),
       onClick,
       onFocus,
       role: 'combobox',
