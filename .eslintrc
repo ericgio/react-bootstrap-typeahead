@@ -38,6 +38,7 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "import/extensions": "off",
+    "react/jsx-no-bind": "off",
 
     // Turn off the following rules since they conflict with the TS version.
     "no-shadow": "off",

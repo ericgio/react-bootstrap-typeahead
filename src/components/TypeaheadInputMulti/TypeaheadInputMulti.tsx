@@ -9,82 +9,45 @@ import Input from '../Input';
 
 import { isSelectable, propsWithBsClassName } from '../../utils';
 
-import { Option, RefElement, TypeaheadInputProps } from '../../types';
+import { Option, TypeaheadInputProps } from '../../types';
 
 export interface TypeaheadInputMultiProps extends TypeaheadInputProps {
   children: ReactNode;
   selected: Option[];
 }
 
-class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
-  wrapperRef = React.createRef<HTMLDivElement>();
-  _input: RefElement<HTMLInputElement> = null;
+function TypeaheadInputMulti(props: TypeaheadInputMultiProps) {
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
+  const inputElem = React.useRef<HTMLInputElement | null>(null);
 
-  render() {
-    const {
-      children,
-      className,
-      inputClassName,
-      inputRef,
-      referenceElementRef,
-      selected,
-      ...props
-    } = propsWithBsClassName<TypeaheadInputMultiProps>(this.props);
+  const {
+    children,
+    className,
+    inputClassName,
+    inputRef,
+    referenceElementRef,
+    selected,
+    ...rest
+  } = propsWithBsClassName<TypeaheadInputMultiProps>(props);
 
-    return (
-      <div
-        className={cx(
-          'rbt-input-multi',
-          { disabled: props.disabled },
-          className
-        )}
-        onClick={this._handleContainerClickOrFocus}
-        onFocus={this._handleContainerClickOrFocus}
-        ref={referenceElementRef}
-        tabIndex={-1}>
-        <div className="rbt-input-wrapper" ref={this.wrapperRef}>
-          {children}
-          <Hint>
-            <Input
-              {...props}
-              className={inputClassName}
-              onKeyDown={this._handleKeyDown}
-              ref={this.getInputRef}
-              style={{
-                backgroundColor: 'transparent',
-                border: 0,
-                boxShadow: 'none',
-                cursor: 'inherit',
-                outline: 'none',
-                padding: 0,
-                width: '100%',
-                zIndex: 1,
-              }}
-            />
-          </Hint>
-        </div>
-      </div>
-    );
+  function getInputRef(input: HTMLInputElement | null) {
+    inputElem.current = input;
+    props.inputRef(input);
   }
-
-  getInputRef = (input: RefElement<HTMLInputElement>) => {
-    this._input = input;
-    this.props.inputRef(input);
-  };
 
   /**
    * Forward click or focus events on the container element to the input.
    */
-  _handleContainerClickOrFocus = (
+  function handleContainerClickOrFocus(
     e: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>
-  ) => {
+  ) {
     // Don't focus the input if it's disabled.
-    if (this.props.disabled) {
+    if (props.disabled) {
       e.currentTarget.blur();
       return;
     }
 
-    const inputNode = this._input;
+    const inputNode = inputElem.current;
     if (
       !inputNode ||
       // Ignore if the clicked element is a child of the container, ie: a token
@@ -101,26 +64,58 @@ class TypeaheadInputMulti extends React.Component<TypeaheadInputMultiProps> {
     }
 
     inputNode.focus();
-  };
+  }
 
-  _handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    const { onKeyDown, selected, value } = this.props;
-
-    if (e.key === 'Backspace' && selected.length && !value) {
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Backspace' && selected.length && !props.value) {
       // Prevent browser from going back.
       e.preventDefault();
 
       // If the input is selected and there is no text, focus the last
       // token when the user hits backspace.
-      if (this.wrapperRef.current) {
-        const { children } = this.wrapperRef.current;
-        const lastToken = children[children.length - 2];
-        lastToken && (lastToken as HTMLElement).focus();
+
+      const wrapperChildren = wrapperRef.current?.children;
+      if (wrapperChildren?.length) {
+        const lastToken = wrapperChildren[
+          wrapperChildren.length - 2
+        ] as HTMLElement;
+        lastToken?.focus();
       }
     }
 
-    onKeyDown && onKeyDown(e);
-  };
+    props.onKeyDown && props.onKeyDown(e);
+  }
+
+  return (
+    <div
+      className={cx('rbt-input-multi', { disabled: props.disabled }, className)}
+      onClick={handleContainerClickOrFocus}
+      onFocus={handleContainerClickOrFocus}
+      ref={referenceElementRef}
+      tabIndex={-1}>
+      <div className="rbt-input-wrapper" ref={wrapperRef}>
+        {children}
+        <Hint>
+          <Input
+            {...rest}
+            className={inputClassName}
+            onKeyDown={handleKeyDown}
+            ref={getInputRef}
+            style={{
+              backgroundColor: 'transparent',
+              border: 0,
+              boxShadow: 'none',
+              cursor: 'inherit',
+              outline: 'none',
+              padding: 0,
+              width: '100%',
+              zIndex: 1,
+            }}
+          />
+        </Hint>
+      </div>
+    </div>
+  );
 }
 
 export default TypeaheadInputMulti;
