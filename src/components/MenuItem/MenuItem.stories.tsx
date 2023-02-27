@@ -9,6 +9,7 @@ import {
   TypeaheadContext,
   TypeaheadContextType,
 } from '../../core/Context';
+import {OptionType} from "../../types";
 
 export default {
   title: 'Components/MenuItem/MenuItem',
@@ -16,7 +17,7 @@ export default {
 } as Meta;
 
 interface Args {
-  context: Partial<TypeaheadContextType>;
+  context: Partial<TypeaheadContextType<OptionType>>;
   props: MenuItemProps;
 }
 

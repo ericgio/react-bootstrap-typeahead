@@ -5,6 +5,7 @@ import ClearButton from '../ClearButton';
 
 import { useToken, UseTokenProps } from '../../behaviors/token';
 import { isFunction } from '../../utils';
+import {OptionType} from "../../types";
 
 type HTMLElementProps = Omit<HTMLProps<HTMLDivElement>, 'onBlur' | 'ref'>;
 
@@ -68,7 +69,7 @@ const StaticToken = ({
   return <div className={classnames}>{children}</div>;
 };
 
-export interface TokenProps<T> extends UseTokenProps<T> {
+export interface TokenProps<T, Option extends OptionType> extends UseTokenProps<T, Option> {
   disabled?: boolean;
   readOnly?: boolean;
 }
@@ -77,12 +78,12 @@ export interface TokenProps<T> extends UseTokenProps<T> {
  * Individual token component, generally displayed within the
  * `TypeaheadInputMulti` component, but can also be rendered on its own.
  */
-const Token = ({
+const Token = <Option extends OptionType>({
   children,
   option,
   readOnly,
   ...props
-}: TokenProps<HTMLElement>) => {
+}: TokenProps<HTMLElement, Option>) => {
   const { ref, ...tokenProps } = useToken({ ...props, option });
   const child = <div className="rbt-token-label">{children}</div>;
 

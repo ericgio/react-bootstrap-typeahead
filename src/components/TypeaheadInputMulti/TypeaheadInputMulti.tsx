@@ -9,14 +9,14 @@ import Input from '../Input';
 
 import { isSelectable, propsWithBsClassName } from '../../utils';
 
-import { Option, TypeaheadInputProps } from '../../types';
+import { OptionType, TypeaheadInputProps } from '../../types';
 
-export interface TypeaheadInputMultiProps extends TypeaheadInputProps {
+export interface TypeaheadInputMultiProps<Option extends OptionType> extends TypeaheadInputProps {
   children: ReactNode;
   selected: Option[];
 }
 
-function TypeaheadInputMulti(props: TypeaheadInputMultiProps) {
+function TypeaheadInputMulti<Option extends OptionType>(props: TypeaheadInputMultiProps<Option>) {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const inputElem = React.useRef<HTMLInputElement | null>(null);
 
@@ -28,7 +28,7 @@ function TypeaheadInputMulti(props: TypeaheadInputMultiProps) {
     referenceElementRef,
     selected,
     ...rest
-  } = propsWithBsClassName<TypeaheadInputMultiProps>(props);
+  } = propsWithBsClassName<TypeaheadInputMultiProps<Option>>(props);
 
   function getInputRef(input: HTMLInputElement | null) {
     inputElem.current = input;

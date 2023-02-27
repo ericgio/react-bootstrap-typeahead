@@ -19,7 +19,7 @@ import {
 } from '../utils';
 
 import { optionType } from '../propTypes';
-import { Option } from '../types';
+import { OptionType } from '../types';
 
 const propTypes = {
   option: optionType.isRequired,
@@ -28,7 +28,7 @@ const propTypes = {
 
 export interface UseItemProps<T> extends HTMLProps<T> {
   onClick?: MouseEventHandler<T>;
-  option: Option;
+  option: OptionType;
   position: number;
 }
 

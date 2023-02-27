@@ -1,10 +1,10 @@
-import type { Option } from '../types';
+import type { OptionType } from '../types';
 import { isString } from './nodash';
 import hasOwnProperty from './hasOwnProperty';
 
 type Key = 'ArrowDown' | 'ArrowUp';
 
-export function isDisabledOption(index: number, items: Option[]): boolean {
+export function isDisabledOption(index: number, items: OptionType[]): boolean {
   const option = items[index];
   return !!option && !isString(option) && hasOwnProperty(option, 'disabled');
 }
@@ -12,7 +12,7 @@ export function isDisabledOption(index: number, items: Option[]): boolean {
 export function skipDisabledOptions(
   currentIndex: number,
   key: Key,
-  items: Option[]
+  items: OptionType[]
 ): number {
   let newIndex = currentIndex;
 
@@ -26,7 +26,7 @@ export function skipDisabledOptions(
 export default function getUpdatedActiveIndex(
   currentIndex: number,
   key: Key,
-  items: Option[]
+  items: OptionType[]
 ): number {
   let newIndex = currentIndex;
 

@@ -5,13 +5,14 @@ import { Story, Meta } from '@storybook/react';
 
 import Token, { TokenProps } from './Token';
 import { noop } from '../../utils';
+import {OptionType} from "../../types";
 
 export default {
   title: 'Components/Token',
   component: Token,
 } as Meta;
 
-const Template: Story<TokenProps<HTMLElement>> = (args) => <Token {...args} />;
+const Template: Story<TokenProps<HTMLElement, OptionType>> = (args) => <Token {...args} />;
 
 export const Interactive = Template.bind({});
 Interactive.args = {

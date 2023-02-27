@@ -1,11 +1,11 @@
 import getOptionProperty from './getOptionProperty';
 
-import { AllowNew, Option } from '../types';
+import { AllowNew, OptionType } from '../types';
 
 interface Props {
   allowNew: AllowNew;
   highlightOnlyResult: boolean;
-  results: Option[];
+  results: OptionType[];
 }
 
 function getIsOnlyResult(props: Props): boolean {

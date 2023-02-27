@@ -1,11 +1,11 @@
 import getOptionLabel from './getOptionLabel';
-import { LabelKey, Option } from '../types';
+import { LabelKey, OptionType } from '../types';
 
 interface Props {
-  activeItem?: Option;
+  activeItem?: OptionType;
   labelKey: LabelKey;
   multiple: boolean;
-  selected: Option[];
+  selected: OptionType[];
   text: string;
 }
 

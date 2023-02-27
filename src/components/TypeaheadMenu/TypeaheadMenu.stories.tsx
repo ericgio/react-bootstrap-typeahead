@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react';
 
 import TypeaheadMenu, { TypeaheadMenuProps } from './TypeaheadMenu';
 
-import options from '../../tests/data';
+import options, {TestOption} from '../../tests/data';
 import { getOptionProperty } from '../../utils';
 
 export default {
@@ -20,7 +20,7 @@ const defaultProps = {
   text: '',
 };
 
-const Template: Story<TypeaheadMenuProps> = (args) => (
+const Template: Story<TypeaheadMenuProps<TestOption>> = (args) => (
   <div style={{ minHeight: '300px' }}>
     <div style={{ position: 'relative' }}>
       <TypeaheadMenu {...args} />

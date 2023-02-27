@@ -5,7 +5,7 @@ import { isFunction, isString } from './nodash';
 import stripDiacritics from './stripDiacritics';
 import warn from './warn';
 
-import type { LabelKey, Option } from '../types';
+import type { LabelKey, OptionType } from '../types';
 
 interface Props {
   caseSensitive: boolean;
@@ -13,7 +13,7 @@ interface Props {
   ignoreDiacritics: boolean;
   labelKey: LabelKey;
   multiple: boolean;
-  selected: Option[];
+  selected: OptionType[];
   text: string;
 }
 
@@ -37,7 +37,7 @@ function isMatch(input: string, string: string, props: Props): boolean {
 /**
  * Default algorithm for filtering results.
  */
-export default function defaultFilterBy(option: Option, props: Props): boolean {
+export default function defaultFilterBy(option: OptionType, props: Props): boolean {
   const { filterBy, labelKey, multiple, selected, text } = props;
 
   // Don't show selected options in the menu for the multi-select case.

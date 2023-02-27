@@ -3,16 +3,16 @@ import getOptionLabel from './getOptionLabel';
 import hasOwnProperty from './hasOwnProperty';
 import { isString } from './nodash';
 
-import { LabelKey, Option } from '../types';
+import { LabelKey, OptionType } from '../types';
 
 interface HintProps {
   activeIndex: number;
-  initialItem?: Option;
+  initialItem?: OptionType;
   isFocused: boolean;
   isMenuShown: boolean;
   labelKey: LabelKey;
   multiple: boolean;
-  selected: Option[];
+  selected: OptionType[];
   text: string;
 }
 

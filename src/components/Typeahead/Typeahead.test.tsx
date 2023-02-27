@@ -23,7 +23,7 @@ import {
   waitFor,
 } from '../../tests/helpers';
 
-import states, { Option } from '../../tests/data';
+import states, {TestOption} from '../../tests/data';
 
 const ID = 'rbt-id';
 
@@ -37,7 +37,7 @@ const inputProps = {
   type: 'number',
 };
 
-const TestComponent = forwardRef<Typeahead, Partial<TypeaheadComponentProps>>(
+const TestComponent = forwardRef<Typeahead<TestOption>, Partial<TypeaheadComponentProps<TestOption>>>(
   (props, ref) => (
     <TypeaheadComponent
       id={ID}
@@ -116,7 +116,7 @@ describe('<Typeahead>', () => {
   });
 
   it('truncates selections when using `defaultSelected`', () => {
-    let selected: Option[] = states.slice(0, 4);
+    let selected: TestOption[] = states.slice(0, 4);
     render(
       <Default defaultSelected={selected}>
         {(state) => {
@@ -411,7 +411,7 @@ describe('<Typeahead>', () => {
 
   describe('updates when re-rendering with new props', () => {
     it('acts as a controlled input in single-select mode', () => {
-      let selected: Option[] = [];
+      let selected: TestOption[] = [];
 
       const children = (state) => {
         selected = state.selected;
@@ -459,7 +459,7 @@ describe('<Typeahead>', () => {
     });
 
     it('updates the selections and input value in single-select mode', async () => {
-      let selected: Option[] = [];
+      let selected: TestOption[] = [];
       const user = userEvent.setup();
 
       render(
@@ -1145,7 +1145,7 @@ describe('<Typeahead>', () => {
     });
 
     it('adds the custom option when `allowNew` is set to `true`', async () => {
-      let selected: Option[] = [];
+      let selected: TestOption[] = [];
       const user = userEvent.setup();
 
       render(

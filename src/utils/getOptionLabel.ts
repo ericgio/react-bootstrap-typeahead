@@ -4,14 +4,14 @@ import getStringLabelKey from './getStringLabelKey';
 import hasOwnProperty from './hasOwnProperty';
 import { isFunction, isString } from './nodash';
 
-import type { LabelKey, Option } from '../types';
+import type { LabelKey, OptionType } from '../types';
 
 /**
  * Retrieves the display string from an option. Options can be the string
  * themselves, or an object with a defined display string. Anything else throws
  * an error.
  */
-function getOptionLabel(option: Option, labelKey: LabelKey): string {
+function getOptionLabel(option: OptionType, labelKey: LabelKey): string {
   // Handle internally created options first.
   if (
     !isString(option) &&

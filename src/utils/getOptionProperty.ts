@@ -1,7 +1,7 @@
 import { isString } from './nodash';
-import { Option } from '../types';
+import { OptionType } from '../types';
 
-export default function getOptionProperty(option: Option, key: string) {
+export default function getOptionProperty(option: OptionType, key: string) {
   if (isString(option)) {
     return undefined;
   }

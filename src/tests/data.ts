@@ -39,7 +39,7 @@ export const defaultState = {
   text: '',
 };
 
-export interface Option {
+export interface TestOption {
   name: string;
   population: number;
   capital: string;
@@ -98,4 +98,4 @@ export default [
   { name: 'West Virginia', population: 1853011, capital: 'Charleston', region: 'South' },
   { name: 'Wisconsin', population: 5687289, capital: 'Madison', region: 'West' },
   { name: 'Wyoming', population: 563767, capital: 'Cheyenne', region: 'West' },
-];
+] as TestOption[];
