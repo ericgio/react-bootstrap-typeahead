@@ -30,6 +30,7 @@ import {
 } from '../../tests/helpers';
 
 import states from '../../tests/data';
+import { Option } from '../../types';
 
 const ID = 'rbt-id';
 
@@ -452,7 +453,7 @@ describe('<Typeahead>', () => {
     });
 
     it('updates the selections and input value in single-select mode', async () => {
-      let selected = [];
+      let selected: Option = [];
       const user = userEvent.setup();
 
       render(
@@ -1212,7 +1213,7 @@ describe('<Typeahead> Public Methods', () => {
 
     ['clear', 'blur', 'focus', 'getInput', 'hideMenu', 'toggleMenu'].forEach(
       (method) => {
-        expect(typeof ref.current[method]).toBe('function');
+        expect(typeof ref.current?.[method]).toBe('function');
       }
     );
   });
@@ -1223,10 +1224,10 @@ describe('<Typeahead> Public Methods', () => {
 
     const input = getInput();
 
-    ref.current.focus();
+    ref.current?.focus();
     expect(input).toHaveFocus();
 
-    ref.current.blur();
+    ref.current?.blur();
     expect(input).not.toHaveFocus();
   });
 
@@ -1244,7 +1245,7 @@ describe('<Typeahead> Public Methods', () => {
     expect(tokens).toHaveLength(3);
     expect(input).toHaveValue('foo');
 
-    ref.current.clear();
+    ref.current?.clear();
 
     expect(tokens).toHaveLength(0);
     expect(input).toHaveValue('');
@@ -1253,7 +1254,7 @@ describe('<Typeahead> Public Methods', () => {
   it('calls the public `getInput` method', () => {
     const ref = createRef<Typeahead>();
     render(<TestComponent ref={ref} />);
-    expect(ref.current.getInput()).toEqual(getInput());
+    expect(ref.current?.getInput()).toEqual(getInput());
   });
 
   it('calls the public `hideMenu` method', async () => {
@@ -1264,7 +1265,7 @@ describe('<Typeahead> Public Methods', () => {
     const menu = await findMenu();
     expect(menu).toBeInTheDocument();
 
-    ref.current.hideMenu();
+    ref.current?.hideMenu();
     expect(menu).not.toBeInTheDocument();
   });
 
@@ -1274,10 +1275,10 @@ describe('<Typeahead> Public Methods', () => {
 
     expect(getMenu()).not.toBeInTheDocument();
 
-    ref.current.toggleMenu();
+    ref.current?.toggleMenu();
     expect(getMenu()).toBeInTheDocument();
 
-    ref.current.toggleMenu();
+    ref.current?.toggleMenu();
     expect(getMenu()).not.toBeInTheDocument();
   });
 
@@ -1285,7 +1286,7 @@ describe('<Typeahead> Public Methods', () => {
     const user = userEvent.setup();
     const ref = createRef<Typeahead>();
     const onChange = jest.fn(() => {
-      ref.current.clear();
+      ref.current?.clear();
     });
     render(<TestComponent onChange={onChange} ref={ref} />);
 
@@ -1481,7 +1482,7 @@ describe('<Typeahead> `change` events', () => {
 
     expect(getInput()).toHaveValue(selected[0].name);
 
-    ref.current.clear();
+    ref.current?.clear();
 
     expect(getInput()).toHaveValue('');
     expect(onChange).toHaveBeenCalledTimes(0);

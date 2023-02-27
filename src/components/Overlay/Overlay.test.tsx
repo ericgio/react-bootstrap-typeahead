@@ -81,10 +81,10 @@ describe('Overlay modifiers', () => {
     const props: ModifierProps = { align: 'justify', flip: false };
     const selector = ({ name }) => name === 'flip';
 
-    expect(getModifiers(props).find(selector).enabled).toBe(false);
+    expect(getModifiers(props).find(selector)?.enabled).toBe(false);
 
     props.flip = true;
-    expect(getModifiers(props).find(selector).enabled).toBe(true);
+    expect(getModifiers(props).find(selector)?.enabled).toBe(true);
   });
 
   it('conditionally adds the `setWidth` modifier', () => {

@@ -6,9 +6,9 @@ import {
   composeStories,
   fireEvent,
   generateSnapshots,
-  getInput,
   getTokens,
   render,
+  screen,
   userEvent,
 } from '../../tests/helpers';
 
@@ -29,14 +29,14 @@ describe('<TypeaheadInputMulti>', () => {
 
     // Test clicking the container, which forwards the click to the input.
     await user.click(container.firstElementChild);
-    expect(getInput()).toHaveFocus();
+    expect(screen.getByRole('textbox')).toHaveFocus();
   });
 
   it('does not focus a disabled input', async () => {
     const user = userEvent.setup();
     const { container } = render(<Disabled />);
 
-    const input = getInput();
+    const input = screen.getByRole('textbox');
     expect(input).toBeDisabled();
 
     // Test clicking the container, which forwards the click to the input.
@@ -51,7 +51,7 @@ describe('<TypeaheadInputMulti>', () => {
     const onClick = jest.fn();
     render(<Default onClick={onClick} value="calif" />);
 
-    const input = getInput();
+    const input: HTMLInputElement = screen.getByRole('textbox');
 
     input.focus();
     input.selectionStart = 2;
@@ -68,7 +68,7 @@ describe('<TypeaheadInputMulti>', () => {
     const onKeyDown = jest.fn();
     render(<Default onKeyDown={onKeyDown} />);
 
-    getInput().focus();
+    screen.getByRole('textbox').focus();
     await user.keyboard('{enter}');
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
@@ -78,7 +78,7 @@ describe('<TypeaheadInputMulti>', () => {
     const user = userEvent.setup();
     const { container } = render(<Default />);
 
-    getInput().focus();
+    screen.getByRole('textbox').focus();
     await user.keyboard('{backspace}');
 
     const tokens = getTokens(container);
@@ -91,7 +91,7 @@ describe('<TypeaheadInputMulti>', () => {
     const user = userEvent.setup();
     render(<Default value="foo" />);
 
-    const input = getInput();
+    const input = screen.getByRole('textbox');
     input.focus();
     await user.keyboard('{backspace}');
 

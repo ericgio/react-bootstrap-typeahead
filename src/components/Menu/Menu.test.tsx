@@ -51,7 +51,7 @@ describe('<Menu>', () => {
     render(<Default />);
 
     // `false` means e.preventDefault was called.
-    expect(fireEvent.mouseDown(getMenu())).toBe(false);
+    expect(fireEvent.mouseDown(screen.getByRole('listbox'))).toBe(false);
   });
 
   it('checks the menu header and divider', () => {

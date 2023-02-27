@@ -5,8 +5,8 @@ import * as stories from './TypeaheadInputSingle.stories';
 import {
   composeStories,
   generateSnapshots,
-  getInput,
   render,
+  screen,
   userEvent,
 } from '../../tests/helpers';
 
@@ -19,7 +19,7 @@ describe('<TypeaheadInputSingle>', () => {
     const user = userEvent.setup();
     render(<Disabled />);
 
-    const input = getInput();
+    const input = screen.getByRole('textbox');
     expect(input).toBeDisabled();
 
     await user.click(input);

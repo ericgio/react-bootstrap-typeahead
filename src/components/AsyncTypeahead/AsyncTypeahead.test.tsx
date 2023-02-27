@@ -283,7 +283,7 @@ describe('<AsyncTypeahead>', () => {
     );
 
     ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
-      expect(typeof ref.current[method]).toBe('function');
+      expect(typeof ref.current?.[method]).toBe('function');
     });
   });
 });
