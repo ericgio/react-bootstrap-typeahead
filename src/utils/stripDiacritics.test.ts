@@ -24,7 +24,7 @@ describe('stripDiacritics', () => {
     const alphaRange = ['a', 'b', 'c', 'd', 'e', 'f'];
     const numRange = range(30, 37);
 
-    const arr = [];
+    const arr: string[] = [];
 
     numRange.forEach((n) => {
       alphaRange.forEach((a) => {
@@ -34,8 +34,8 @@ describe('stripDiacritics', () => {
 
     // Build up a string of every unicode combining mark (\u0300-\u036F).
     const str = arr
-      .concat(range(300, 370))
-      .map((n) => String.fromCharCode(`0x0${n}`))
+      .concat(range(300, 370).map((num) => num.toString()))
+      .map((n) => String.fromCharCode(Number(`0x0${n}`)))
       .join('');
 
     expect(str.length).toBe(112);

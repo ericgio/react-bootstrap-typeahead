@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React, { ComponentType, FC } from 'react';
 import getDisplayName from './getDisplayName';
 
 const displayName = 'AnotherName';
-const anonymize = (Component) => () => <Component />;
+const anonymize = (Component: ComponentType) => () => <Component />;
 const NamedComponent = () => <div />;
 
 describe('getDisplayName', () => {

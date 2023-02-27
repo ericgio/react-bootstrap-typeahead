@@ -1,16 +1,13 @@
 import getOptionLabel from './getOptionLabel';
 import getStringLabelKey from './getStringLabelKey';
 
-const labelKeyFn = (o) => o.name;
+import { Option } from '../types';
+
+const name = 'California';
+const option = { name };
+const labelKeyFn = (o: Option) => o.name;
 
 describe('getOptionLabel', () => {
-  let name, option;
-
-  beforeEach(() => {
-    name = 'California';
-    option = { name };
-  });
-
   it('returns a string when it receives a string `option` value', () => {
     const optionLabel = getOptionLabel(name, '');
     expect(optionLabel).toBe(name);
@@ -53,6 +50,7 @@ describe('getOptionLabel', () => {
   });
 
   it('throws an error when `option` is an object and no labelkey is specified', () => {
+    // @ts-expect-error
     const willThrow = () => getOptionLabel(option);
     expect(willThrow).toThrowError(Error);
   });

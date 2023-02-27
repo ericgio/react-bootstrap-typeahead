@@ -1,10 +1,49 @@
 /* eslint-disable sort-keys */
 
+import { DEFAULT_LABELKEY } from '../constants';
+import { noop } from '../utils/nodash';
+
+export const defaultProps = {
+  allowNew: false,
+  autoFocus: false,
+  caseSensitive: false,
+  children: noop,
+  defaultInputValue: '',
+  defaultOpen: false,
+  defaultSelected: [],
+  filterBy: [],
+  highlightOnlyResult: false,
+  ignoreDiacritics: true,
+  labelKey: DEFAULT_LABELKEY,
+  maxResults: 100,
+  minLength: 0,
+  multiple: false,
+  onBlur: noop,
+  onFocus: noop,
+  onInputChange: noop,
+  onKeyDown: noop,
+  onMenuToggle: noop,
+  onPaginate: noop,
+  options: [],
+  paginate: true,
+};
+
+export const defaultState = {
+  activeIndex: -1,
+  activeItem: undefined,
+  initialItem: undefined,
+  isFocused: false,
+  selected: [],
+  showMenu: false,
+  shownResults: 100,
+  text: '',
+};
+
 export interface Option {
   name: string;
   population: number;
   capital: string;
-  region: 'South' | 'West' | 'Northeast' | 'Midwest';
+  region: string;
 }
 
 // prettier-ignore

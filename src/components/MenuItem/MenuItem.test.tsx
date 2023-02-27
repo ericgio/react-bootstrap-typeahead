@@ -14,6 +14,8 @@ import {
 const { Default: BaseDefault, Active, Disabled } = composeStories(baseStories);
 const { Default } = composeStories(stories);
 
+const option = '';
+
 describe('<BaseMenuItem>', () => {
   generateSnapshots(baseStories);
 
@@ -63,10 +65,10 @@ describe('<MenuItem>', () => {
   it('renders a MenuItem', () => {
     render(<Default />);
 
-    const option = screen.getByRole('option');
-    expect(option).toHaveAttribute('aria-label', 'test label');
-    expect(option).toHaveAttribute('aria-selected', 'false');
-    expect(option).toHaveAttribute('id', 'test-id-item-0');
+    const item = screen.getByRole('option');
+    expect(item).toHaveAttribute('aria-label', 'test label');
+    expect(item).toHaveAttribute('aria-selected', 'false');
+    expect(item).toHaveAttribute('id', 'test-id-item-0');
   });
 
   it('conditionally calls `onInitialItemChange`', () => {
@@ -74,11 +76,11 @@ describe('<MenuItem>', () => {
     const context = { onInitialItemChange };
 
     const { rerender } = render(
-      <Default context={context} props={{ position: 1 }} />
+      <Default context={context} props={{ option, position: 1 }} />
     );
     expect(onInitialItemChange).toHaveBeenCalledTimes(0);
 
-    rerender(<Default context={context} props={{ position: 0 }} />);
+    rerender(<Default context={context} props={{ option, position: 0 }} />);
     expect(onInitialItemChange).toHaveBeenCalledTimes(1);
   });
 
@@ -90,28 +92,28 @@ describe('<MenuItem>', () => {
     };
 
     const { rerender } = render(
-      <Default context={context} props={{ position: 0 }} />
+      <Default context={context} props={{ option, position: 0 }} />
     );
     expect(onActiveItemChange).toHaveBeenCalledTimes(0);
 
-    rerender(<Default context={context} props={{ position: 1 }} />);
+    rerender(<Default context={context} props={{ option, position: 1 }} />);
     expect(onActiveItemChange).toHaveBeenCalledTimes(1);
   });
 
   it('changes the active state of the menu item', () => {
     render(<Default context={{ activeIndex: 0 }} />);
 
-    const option = screen.getByRole('option');
-    expect(option).toHaveClass('active');
-    expect(option).toHaveAttribute('aria-selected', 'true');
+    const item = screen.getByRole('option');
+    expect(item).toHaveClass('active');
+    expect(item).toHaveAttribute('aria-selected', 'true');
   });
 
   it('sets the active state if it is the only result', () => {
     render(<Default context={{ isOnlyResult: true }} />);
 
-    const option = screen.getByRole('option');
-    expect(option).toHaveClass('active');
-    expect(option).toHaveAttribute('aria-selected', 'true');
+    const item = screen.getByRole('option');
+    expect(item).toHaveClass('active');
+    expect(item).toHaveAttribute('aria-selected', 'true');
   });
 
   it('calls the click handlers', async () => {
@@ -119,7 +121,12 @@ describe('<MenuItem>', () => {
     const onClick = jest.fn();
     const onMenuItemClick = jest.fn();
 
-    render(<Default context={{ onMenuItemClick }} props={{ onClick }} />);
+    render(
+      <Default
+        context={{ onMenuItemClick }}
+        props={{ onClick, option, position: 0 }}
+      />
+    );
 
     await user.click(screen.getByRole('option'));
     expect(onClick).toHaveBeenCalledTimes(1);
@@ -129,7 +136,9 @@ describe('<MenuItem>', () => {
   it('renders a disabled menu item', async () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
-    render(<Default props={{ disabled: true, onClick }} />);
+    render(
+      <Default props={{ disabled: true, onClick, option, position: 0 }} />
+    );
 
     const item = screen.getByRole('option');
     await user.click(item);

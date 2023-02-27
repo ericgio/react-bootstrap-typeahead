@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react';
+import React, { ChangeEvent, createRef, useState } from 'react';
 
 import AsyncTypeahead from './AsyncTypeahead';
 import Typeahead from '../../core/Typeahead';
@@ -231,7 +231,7 @@ describe('<AsyncTypeahead>', () => {
     render(
       <TestComponent
         minLength={2}
-        onInputChange={(text, e) => {
+        onInputChange={(text: string, e: ChangeEvent<HTMLInputElement>) => {
           expect(text).toBe('x');
           expect(e).toBeDefined();
         }}
@@ -282,8 +282,11 @@ describe('<AsyncTypeahead>', () => {
       />
     );
 
-    ['clear', 'blur', 'focus', 'getInput'].forEach((method) => {
-      expect(typeof ref.current?.[method]).toBe('function');
-    });
+    expect(typeof ref.current?.blur).toBe('function');
+    expect(typeof ref.current?.clear).toBe('function');
+    expect(typeof ref.current?.focus).toBe('function');
+    expect(typeof ref.current?.getInput).toBe('function');
+    expect(typeof ref.current?.hideMenu).toBe('function');
+    expect(typeof ref.current?.toggleMenu).toBe('function');
   });
 });

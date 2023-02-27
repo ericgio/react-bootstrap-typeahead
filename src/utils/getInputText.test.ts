@@ -3,7 +3,7 @@ import options from '../tests/data';
 
 const labelKey = 'name';
 const baseArgs = {
-  activeItem: null,
+  activeItem: undefined,
   labelKey,
   multiple: false,
   selected: [],

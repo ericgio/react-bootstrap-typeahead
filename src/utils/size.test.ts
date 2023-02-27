@@ -5,7 +5,9 @@ describe('size', () => {
     expect(isSizeLarge('lg')).toBe(true);
 
     expect(isSizeLarge()).toBe(false);
+    // @ts-expect-error
     expect(isSizeLarge(null)).toBe(false);
+    // @ts-expect-error
     expect(isSizeLarge('lrg')).toBe(false);
   });
 
@@ -13,7 +15,9 @@ describe('size', () => {
     expect(isSizeSmall('sm')).toBe(true);
 
     expect(isSizeSmall()).toBe(false);
+    // @ts-expect-error
     expect(isSizeSmall(null)).toBe(false);
+    // @ts-expect-error
     expect(isSizeSmall('sml')).toBe(false);
   });
 });

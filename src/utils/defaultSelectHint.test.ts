@@ -1,27 +1,28 @@
+import { KeyboardEvent } from 'react';
+
 import defaultSelectHint from './defaultSelectHint';
+import { noop } from '../tests/helpers';
+
+const defaultEvent = {
+  currentTarget: {
+    value: 'Cali',
+  },
+  key: 'Tab',
+  preventDefault: noop,
+} as KeyboardEvent<HTMLInputElement>;
 
 describe('defaultSelectHint', () => {
-  let event, preventDefault;
-
   beforeEach(() => {
-    preventDefault = jest.fn();
-
-    event = {
-      currentTarget: {
-        value: 'Cali',
-      },
-      key: 'Tab',
-      preventDefault,
-    };
+    defaultEvent.preventDefault = jest.fn();
   });
 
   it('returns true when tab is pressed', () => {
-    expect(defaultSelectHint(event)).toBe(true);
-    expect(preventDefault).toHaveBeenCalledTimes(1);
+    expect(defaultSelectHint(defaultEvent)).toBe(true);
+    expect(defaultEvent.preventDefault).toHaveBeenCalledTimes(1);
   });
 
   it('checks hinting behavior when the right arrow key is pressed', () => {
-    event = { ...event, key: 'ArrowRight' };
+    const event = { ...defaultEvent, key: 'ArrowRight' };
 
     event.currentTarget.selectionStart = 3;
     expect(defaultSelectHint(event)).toBe(false);
@@ -35,24 +36,29 @@ describe('defaultSelectHint', () => {
 
   it('returns false for other keys', () => {
     // Build up a set of valid keys.
-    []
-      .concat(['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'])
-      .concat('0123456789'.split(''))
-      .concat('abcdefghijqlmnopqrstuvwxyz'.split('')) // Letter keys
-      .concat(['Backspace', ' ', 'Escape', 'Enter', 'Tab'])
-      .concat(';=,-./`'.split(''))
-      .concat("[\\]'".split(''))
+    const keys: string[] = [
+      ...['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'],
+      ...'0123456789'.split(''),
+      ...'abcdefghijqlmnopqrstuvwxyz'.split(''),
+      ...['Backspace', ' ', 'Escape', 'Enter', 'Tab'],
+      ...';=,-./`'.split(''),
+      ..."[\\]'".split(''),
+    ];
+
+    keys
       .filter((key) => key !== 'Enter' && key !== 'ArrowRight' && key !== 'Tab')
       .forEach((key) => {
-        event.key = key;
-        expect(defaultSelectHint(event)).toBe(false);
+        defaultEvent.key = key;
+        expect(defaultSelectHint(defaultEvent)).toBe(false);
       });
   });
 
   it('accepts a callback for custom behaviors', () => {
-    event = { ...event, key: 'Enter' };
-    const selectHint = (shouldSelectHint, e) =>
-      e.key === 'Enter' || shouldSelectHint;
+    const event = { ...defaultEvent, key: 'Enter' };
+    const selectHint = (
+      shouldSelectHint: boolean,
+      e: KeyboardEvent<HTMLInputElement>
+    ) => e.key === 'Enter' || shouldSelectHint;
 
     expect(defaultSelectHint(event, selectHint)).toBe(true);
   });

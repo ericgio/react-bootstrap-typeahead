@@ -22,6 +22,10 @@ interface PlacementPermutation {
   received: string;
 }
 
+interface Modifier {
+  name: string;
+}
+
 interface ModifierProps {
   align: Align;
   flip: boolean;
@@ -63,10 +67,12 @@ describe('Overlay placement', () => {
       { props: { align: 'right', dropup: false }, received: 'bottom-end' },
       { props: { align: 'left', dropup: false }, received: 'bottom-start' },
       { props: { align: 'justify', dropup: false }, received: 'bottom-start' },
+      // @ts-expect-error
       { props: { align: 'foo', dropup: false }, received: 'bottom-start' },
       { props: { align: 'right', dropup: true }, received: 'top-end' },
       { props: { align: 'left', dropup: true }, received: 'top-start' },
       { props: { align: 'justify', dropup: true }, received: 'top-start' },
+      // @ts-expect-error
       { props: { align: 'foo', dropup: true }, received: 'top-start' },
     ];
 
@@ -79,7 +85,7 @@ describe('Overlay placement', () => {
 describe('Overlay modifiers', () => {
   it('sets the `flip` modifier', () => {
     const props: ModifierProps = { align: 'justify', flip: false };
-    const selector = ({ name }) => name === 'flip';
+    const selector = ({ name }: Modifier) => name === 'flip';
 
     expect(getModifiers(props).find(selector)?.enabled).toBe(false);
 

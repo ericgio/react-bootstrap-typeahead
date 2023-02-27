@@ -1,11 +1,13 @@
+import { MouseEvent } from 'react';
 import preventInputBlur from './preventInputBlur';
+
+const mouseEvent = {
+  preventDefault: jest.fn(),
+} as unknown as MouseEvent<HTMLInputElement>;
 
 describe('preventInputBlur', () => {
   it('calls `preventDefault` on the event', () => {
-    const e = {
-      preventDefault: jest.fn(),
-    };
-    preventInputBlur(e);
-    expect(e.preventDefault).toHaveBeenCalled();
+    preventInputBlur(mouseEvent);
+    expect(mouseEvent.preventDefault).toHaveBeenCalled();
   });
 });

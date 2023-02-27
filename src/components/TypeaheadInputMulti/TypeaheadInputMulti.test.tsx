@@ -28,7 +28,9 @@ describe('<TypeaheadInputMulti>', () => {
     const { container } = render(<Default />);
 
     // Test clicking the container, which forwards the click to the input.
-    await user.click(container.firstElementChild);
+    if (container.firstElementChild) {
+      await user.click(container.firstElementChild);
+    }
     expect(screen.getByRole('textbox')).toHaveFocus();
   });
 
@@ -40,7 +42,9 @@ describe('<TypeaheadInputMulti>', () => {
     expect(input).toBeDisabled();
 
     // Test clicking the container, which forwards the click to the input.
-    await user.click(container.firstElementChild);
+    if (container.firstElementChild) {
+      await user.click(container.firstElementChild);
+    }
     expect(input).not.toHaveFocus();
 
     await user.click(input);

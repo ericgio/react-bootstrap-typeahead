@@ -1,6 +1,6 @@
 import { isFunction, isString, noop, pick, uniqueId } from './nodash';
 
-const arr = [];
+const arr: string[] = [];
 const fn = noop;
 const obj = {};
 const str = 'foo';
@@ -27,6 +27,7 @@ describe('nodash', () => {
     };
 
     expect(pick(object, ['bar'])).toEqual({ bar: 'one' });
+    // @ts-expect-error
     expect(pick(object, ['baz'])).toEqual({});
   });
 

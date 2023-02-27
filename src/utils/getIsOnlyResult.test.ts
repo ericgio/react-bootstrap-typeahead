@@ -1,16 +1,12 @@
 import getIsOnlyResult from './getIsOnlyResult';
 
+const props = {
+  allowNew: false,
+  highlightOnlyResult: true,
+  results: ['The only result!'],
+};
+
 describe('getIsOnlyResult', () => {
-  let props;
-
-  beforeEach(() => {
-    props = {
-      allowNew: false,
-      highlightOnlyResult: true,
-      results: ['The only result!'],
-    };
-  });
-
   it('returns true when there is only one result', () => {
     expect(getIsOnlyResult(props)).toBe(true);
   });

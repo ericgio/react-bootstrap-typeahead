@@ -1,13 +1,7 @@
-import React, { createRef, forwardRef } from 'react';
+import React, { createRef, forwardRef, ReactNode } from 'react';
 
 import TypeaheadComponent, { TypeaheadComponentProps } from './Typeahead';
-import Typeahead, {
-  clearTypeahead,
-  clickOrFocusInput,
-  getInitialState,
-  hideMenu,
-  toggleMenu,
-} from '../../core/Typeahead';
+import Typeahead from '../../core/Typeahead';
 
 import * as stories from './Typeahead.stories';
 
@@ -29,10 +23,19 @@ import {
   waitFor,
 } from '../../tests/helpers';
 
-import states from '../../tests/data';
-import { Option } from '../../types';
+import states, { Option } from '../../tests/data';
 
 const ID = 'rbt-id';
+
+const inputProps = {
+  autoComplete: 'nope',
+  className: 'input-classname',
+  id: 'input-id',
+  name: 'input-name',
+  onClick: noop,
+  tabIndex: 5,
+  type: 'number',
+};
 
 const TestComponent = forwardRef<Typeahead, Partial<TypeaheadComponentProps>>(
   (props, ref) => (
@@ -112,7 +115,7 @@ describe('<Typeahead>', () => {
   });
 
   it('truncates selections when using `defaultSelected`', () => {
-    let selected = states.slice(0, 4);
+    let selected: Option[] = states.slice(0, 4);
     render(
       <Default defaultSelected={selected}>
         {(state) => {
@@ -125,7 +128,8 @@ describe('<Typeahead>', () => {
   });
 
   describe('behaviors when selections are passed in', () => {
-    let selected, selectedText;
+    let selected: { name: string }[];
+    let selectedText: string;
 
     beforeEach(() => {
       selected = states.slice(0, 1);
@@ -258,7 +262,8 @@ describe('<Typeahead>', () => {
   });
 
   describe('pagination behaviors', () => {
-    let onPaginate, shownResultsCount;
+    let onPaginate: jest.Mock;
+    let shownResultsCount: number;
 
     beforeEach(() => {
       shownResultsCount = 10;
@@ -405,7 +410,7 @@ describe('<Typeahead>', () => {
 
   describe('updates when re-rendering with new props', () => {
     it('acts as a controlled input in single-select mode', () => {
-      let selected = [];
+      let selected: Option[] = [];
 
       const children = (state) => {
         selected = state.selected;
@@ -453,7 +458,7 @@ describe('<Typeahead>', () => {
     });
 
     it('updates the selections and input value in single-select mode', async () => {
-      let selected: Option = [];
+      let selected: Option[] = [];
       const user = userEvent.setup();
 
       render(
@@ -479,7 +484,8 @@ describe('<Typeahead>', () => {
   });
 
   describe('`highlightOnlyResult` behavior', () => {
-    let onChange, selected;
+    let onChange: jest.Mock;
+    let selected: Option[];
 
     beforeEach(() => {
       onChange = jest.fn((s) => (selected = [s]));
@@ -582,18 +588,10 @@ describe('<Typeahead>', () => {
   });
 
   describe('input props', () => {
-    let input, inputProps;
+    let input: HTMLInputElement;
 
     beforeEach(() => {
-      inputProps = {
-        autoComplete: 'nope',
-        className: 'input-classname',
-        id: 'input-id',
-        name: 'input-name',
-        onClick: jest.fn(),
-        tabIndex: '5',
-        type: 'number',
-      };
+      inputProps.onClick = jest.fn();
     });
 
     afterEach(async () => {
@@ -605,7 +603,7 @@ describe('<Typeahead>', () => {
       expect(input).toHaveClass(inputProps.className);
       expect(input).toHaveAttribute('id', inputProps.id);
       expect(input).toHaveAttribute('name', inputProps.name);
-      expect(input).toHaveAttribute('tabIndex', inputProps.tabIndex);
+      expect(input).toHaveAttribute('tabIndex', `${inputProps.tabIndex}`);
       expect(input).toHaveAttribute('type', inputProps.type);
     });
 
@@ -622,7 +620,7 @@ describe('<Typeahead>', () => {
       input = getInput();
 
       const token = screen.getByRole('button').parentElement;
-      expect(token).toHaveAttribute('tabIndex', inputProps.tabIndex);
+      expect(token).toHaveAttribute('tabIndex', `${inputProps.tabIndex}`);
     });
   });
 
@@ -735,7 +733,9 @@ describe('<Typeahead>', () => {
   });
 
   describe('behavior when selecting the hinted result', () => {
-    let key, onChange, onKeyDown;
+    let key: number;
+    let onChange: jest.Mock;
+    let onKeyDown: jest.Mock;
 
     beforeEach(() => {
       key = 0;
@@ -816,7 +816,8 @@ describe('<Typeahead>', () => {
   });
 
   describe('keydown behaviors with active item', () => {
-    let onChange, onKeyDown;
+    let onChange: jest.Mock;
+    let onKeyDown: jest.Mock;
 
     beforeEach(() => {
       onChange = jest.fn();
@@ -1097,7 +1098,9 @@ describe('<Typeahead>', () => {
   });
 
   describe('allowNew behavior', () => {
-    let emptyLabel, newSelectionPrefix, value;
+    let emptyLabel: string;
+    let newSelectionPrefix: ReactNode;
+    let value: string;
 
     beforeEach(() => {
       emptyLabel = 'No results...';
@@ -1118,7 +1121,7 @@ describe('<Typeahead>', () => {
     });
 
     it('adds the custom option when `allowNew` is set to `true`', async () => {
-      let selected;
+      let selected: Option[] = [];
       const user = userEvent.setup();
 
       render(
@@ -1211,11 +1214,12 @@ describe('<Typeahead> Public Methods', () => {
     const ref = createRef<Typeahead>();
     render(<TestComponent ref={ref} />);
 
-    ['clear', 'blur', 'focus', 'getInput', 'hideMenu', 'toggleMenu'].forEach(
-      (method) => {
-        expect(typeof ref.current?.[method]).toBe('function');
-      }
-    );
+    expect(typeof ref.current?.blur).toBe('function');
+    expect(typeof ref.current?.clear).toBe('function');
+    expect(typeof ref.current?.focus).toBe('function');
+    expect(typeof ref.current?.getInput).toBe('function');
+    expect(typeof ref.current?.hideMenu).toBe('function');
+    expect(typeof ref.current?.toggleMenu).toBe('function');
   });
 
   it('calls the public `focus` and `blur` methods', () => {
@@ -1235,7 +1239,7 @@ describe('<Typeahead> Public Methods', () => {
     const user = userEvent.setup();
     const ref = createRef<Typeahead>();
     const { container } = render(
-      <TestComponent multiple ref={ref} selected={states.slice(0, 3)} />
+      <TestComponent multiple ref={ref} defaultSelected={states.slice(0, 3)} />
     );
 
     const input = getInput();
@@ -1302,7 +1306,8 @@ describe('<Typeahead> Public Methods', () => {
 });
 
 describe('<Typeahead> `change` events', () => {
-  let onChange, onInputChange;
+  let onChange: jest.Mock;
+  let onInputChange: jest.Mock;
 
   beforeEach(() => {
     onChange = jest.fn();
@@ -1491,7 +1496,9 @@ describe('<Typeahead> `change` events', () => {
 });
 
 describe('<Typeahead> input value behaviors', () => {
-  let defaultInputValue, defaultSelected, selected;
+  let defaultInputValue: string;
+  let defaultSelected: Option[];
+  let selected: Option[];
 
   beforeEach(() => {
     defaultInputValue = 'This is a default value';
@@ -1599,118 +1606,5 @@ describe('<Typeahead> with custom menu', () => {
     const items = getItems();
     expect(items[1]).toHaveClass('active');
     expect(items[1]).toHaveTextContent('Wisconsin');
-  });
-});
-
-describe('State modifiers', () => {
-  const defaultState = {
-    activeIndex: -1,
-    activeItem: undefined,
-    initialItem: undefined,
-    isFocused: false,
-    selected: [],
-    showMenu: false,
-    shownResults: 100,
-    text: '',
-  };
-
-  it('calls the clearTypeahead modifier', () => {
-    const props = {
-      defaultOpen: false,
-      defaultSelected: [],
-      maxResults: 10,
-    };
-
-    const state = {
-      ...defaultState,
-      isFocused: true,
-    };
-
-    expect(clearTypeahead(state, props)).toEqual({
-      ...defaultState,
-      isFocused: true,
-      shownResults: 10,
-    });
-  });
-
-  it('calls the clickOrFocusInput modifier', () => {
-    const state = {
-      ...defaultState,
-      isFocused: false,
-      showMenu: false,
-    };
-
-    expect(clickOrFocusInput(state)).toEqual({
-      ...defaultState,
-      isFocused: true,
-      showMenu: true,
-    });
-  });
-
-  it('calls the getInitialState modifier', () => {
-    expect(
-      getInitialState({
-        defaultInputValue: 'foo',
-        defaultOpen: false,
-        defaultSelected: [],
-        maxResults: 10,
-      })
-    ).toEqual({
-      ...defaultState,
-      shownResults: 10,
-      text: 'foo',
-    });
-
-    expect(
-      getInitialState({
-        defaultInputValue: 'foo',
-        defaultOpen: true,
-        defaultSelected: ['bar', 'foo'],
-        maxResults: 10,
-      })
-    ).toEqual({
-      ...defaultState,
-      selected: ['bar'],
-      showMenu: true,
-      shownResults: 10,
-      text: 'bar',
-    });
-  });
-
-  it('calls the hideMenu modifier', () => {
-    const props = {
-      defaultSelected: [],
-      maxResults: 10,
-    };
-
-    expect(hideMenu(defaultState, props)).toEqual({
-      ...defaultState,
-      activeIndex: -1,
-      activeItem: undefined,
-      initialItem: undefined,
-      showMenu: false,
-      shownResults: props.maxResults,
-    });
-  });
-
-  it('calls the toggleMenu modifier', () => {
-    const props = {
-      defaultSelected: [],
-      maxResults: 10,
-    };
-
-    expect(toggleMenu({ ...defaultState, showMenu: false }, props)).toEqual({
-      ...defaultState,
-      showMenu: true,
-    });
-
-    expect(toggleMenu({ ...defaultState, showMenu: true }, props)).toEqual({
-      ...defaultState,
-      activeIndex: -1,
-      activeItem: undefined,
-      initialItem: undefined,
-      showMenu: false,
-      shownResults: props.maxResults,
-    });
   });
 });
