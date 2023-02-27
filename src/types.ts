@@ -25,6 +25,8 @@ export type FilterByCallback = (
 
 export type Id = string;
 
+export type KeepOpen = boolean | (() => boolean);
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Option = string | Record<string, any>;
 
@@ -80,6 +82,7 @@ export interface TypeaheadProps {
   id?: Id;
   ignoreDiacritics: boolean;
   inputProps?: InputProps;
+  keepOpen?: KeepOpen;
   labelKey: LabelKey;
   maxResults: number;
   minLength: number;

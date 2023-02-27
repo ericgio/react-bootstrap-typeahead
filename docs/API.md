@@ -47,6 +47,7 @@ inputProps | object | {} | Props to be applied directly to the input. `onBlur`, 
 isInvalid | boolean | false | Adds the `is-invalid` classname to the `form-control`. Only affects Bootstrap 4.
 isLoading | boolean | false | Indicate whether an asynchronous data fetch is happening.
 isValid | boolean | false | Adds the `is-valid` classname to the `form-control`. Only affects Bootstrap 4.
+keepOpen | boolean \| function | `false` | Allows selecting of multiple values from the menu at once.
 labelKey | string \| function | `'label'` | See full documentation in the [Rendering section](Rendering.md#labelkey-string--function).
 onChange | function | | Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selected` is always an array of selections, even if multi-selection is not enabled. <br><br><pre>`(selected: Array<Object\|string>) => void`</pre>
 onInputChange | function | | Invoked when the input value changes. Receives the string value of the input (`text`), as well as the original event. <br><br><pre>`(text: string, event: Event) => void`</pre>

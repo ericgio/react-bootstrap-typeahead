@@ -1,4 +1,4 @@
-import React, { createRef, forwardRef } from 'react';
+import React, { createRef, forwardRef, useState } from 'react';
 
 import TypeaheadComponent, { TypeaheadComponentProps } from './Typeahead';
 import Typeahead, {
@@ -1202,6 +1202,96 @@ describe('<Typeahead>', () => {
       const items = getItems();
       expect(items).toHaveLength(1);
       expect(items[0]).toHaveTextContent(`${newSelectionPrefix}${value}`);
+    });
+  });
+
+  describe('keepOpen behaviour', () => {
+    it('should not affect single selection mode', async () => {
+      const user = userEvent.setup();
+      render(<Default />);
+      getInput().focus();
+      const menu = await findMenu();
+      expect(menu).toBeInTheDocument();
+      await user.keyboard('{ArrowDown}{Enter}');
+      expect(menu).not.toBeInTheDocument();
+    });
+
+    it('should default to false', async () => {
+      const user = userEvent.setup();
+      render(<MultiSelect selected={[]} />);
+      getInput().focus();
+      const menu = await findMenu();
+      expect(menu).toBeInTheDocument();
+      await user.keyboard('{ArrowDown}{Enter}');
+      expect(menu).not.toBeInTheDocument();
+    });
+
+    it('should keep the menu open after selection', async () => {
+      const user = userEvent.setup();
+      render(<MultiSelect selected={[]} keepOpen />);
+      getInput().focus();
+      const menu = await findMenu();
+      expect(menu).toBeInTheDocument();
+      await user.keyboard('{ArrowDown}{Enter}');
+      expect(menu).toBeInTheDocument();
+    });
+
+    it('should close the menu if keepOpen function returns false', async () => {
+      const user = userEvent.setup();
+      const ctrlPressed = false;
+      render(<MultiSelect selected={[]} keepOpen={() => ctrlPressed} />);
+      getInput().focus();
+      const menu = await findMenu();
+      expect(menu).toBeInTheDocument();
+      await user.keyboard('{ArrowDown}{Enter}');
+      expect(menu).not.toBeInTheDocument();
+    });
+
+    it('should keep the menu open if keepOpen function returns true', async () => {
+      const user = userEvent.setup();
+      const ctrlPressed = true;
+      render(<MultiSelect selected={[]} keepOpen={() => ctrlPressed} />);
+      getInput().focus();
+      const menu = await findMenu();
+      expect(menu).toBeInTheDocument();
+      await user.keyboard('{ArrowDown}{Enter}');
+      expect(menu).toBeInTheDocument();
+    });
+
+    it('should retain the search input after selection', async () => {
+      const user = userEvent.setup();
+      render(<MultiSelect selected={[]} keepOpen />);
+
+      const search = 'Ala';
+      const input = getInput();
+      await user.type(input, search);
+
+      const menu = await findMenu();
+      expect(menu).toBeInTheDocument();
+      await user.keyboard('{ArrowDown}{Enter}');
+      expect(input).toHaveValue(search);
+    });
+
+    it('should reset hint and active item after selection', async () => {
+      const user = userEvent.setup();
+      const KeepOpenAndSelect = () => {
+        const [selected, setSelected] = useState<Option[]>([]);
+        return (
+          <MultiSelect selected={selected} onChange={setSelected} keepOpen />
+        );
+      };
+
+      const { container } = render(<KeepOpenAndSelect />);
+
+      const input = getInput();
+      const hint = getHint(container);
+
+      await user.type(input, 'Ala');
+      expect(input).toHaveFocus();
+      expect(hint).toHaveValue('Alabama');
+
+      await user.keyboard('{ArrowDown}{Enter}');
+      expect(hint).toHaveValue('Alaska');
     });
   });
 });
