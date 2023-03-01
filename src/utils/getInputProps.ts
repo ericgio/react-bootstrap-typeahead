@@ -4,17 +4,25 @@ import getMenuItemId from './getMenuItemId';
 import hasOwnProperty from './hasOwnProperty';
 import { TypeaheadManagerProps } from '../types';
 
-type Args = Pick<
-  TypeaheadManagerProps,
-  | 'activeIndex'
-  | 'id'
-  | 'isFocused'
-  | 'isMenuShown'
-  | 'multiple'
-  | 'onClick'
-  | 'onFocus'
-  | 'placeholder'
->;
+interface Args
+  extends Pick<
+    TypeaheadManagerProps,
+    | 'activeIndex'
+    | 'id'
+    | 'inputRef'
+    | 'isFocused'
+    | 'isMenuShown'
+    | 'multiple'
+    | 'onBlur'
+    | 'onChange'
+    | 'onClick'
+    | 'onFocus'
+    | 'onKeyDown'
+    | 'placeholder'
+  > {
+  disabled?: boolean;
+  value: string;
+}
 
 const getInputProps =
   ({
@@ -43,9 +51,9 @@ const getInputProps =
       ...props,
       'aria-activedescendant':
         activeIndex >= 0 ? getMenuItemId(id, activeIndex) : undefined,
-      'aria-autocomplete': 'both',
+      'aria-autocomplete': 'both' as const,
       'aria-expanded': isMenuShown,
-      'aria-haspopup': 'listbox',
+      'aria-haspopup': 'listbox' as const,
       'aria-multiselectable': multiple || undefined,
       'aria-owns': isMenuShown ? id : undefined,
       className: cx({

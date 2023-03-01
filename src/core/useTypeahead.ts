@@ -23,11 +23,15 @@ import {
   Option,
   SelectEvent,
   TypeaheadProps,
+  TypeaheadState,
 } from '../types';
 
 import {
   addCustomOption,
   defaultFilterBy,
+  defaultSelectHint,
+  getHintText,
+  getIsOnlyResult,
   getOptionLabel,
   getOptionProperty,
   getStringLabelKey,
@@ -81,6 +85,58 @@ function triggerInputChange(input: HTMLInputElement, value: string) {
   input.dispatchEvent(e);
 }
 
+function useDidUpdate(
+  props: InternalProps,
+  state: TypeaheadState,
+  setState: (partialState: Partial<TypeaheadState>) => void
+) {
+  const prevProps = usePrevious(props);
+  const isInitialRender = useRef(true);
+
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+
+    validateSelectedPropChange(props.selected, prevProps?.selected);
+
+    // Sync selections in state with those in props.
+    if (props.selected && !isEqual(props.selected, state.selected)) {
+      setState({ selected: props.selected });
+
+      if (!props.multiple) {
+        setState({
+          text: props.selected.length
+            ? getOptionLabel(props.selected[0], props.labelKey)
+            : '',
+        });
+      }
+    }
+  }, [
+    props.labelKey,
+    props.multiple,
+    props.selected,
+    prevProps?.selected,
+    setState,
+    state.selected,
+  ]);
+}
+
+function useOnMenuToggle(
+  isMenuShown: boolean,
+  onMenuToggle: TypeaheadProps['onMenuToggle']
+) {
+  const isInitialRender = useRef(true);
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+    onMenuToggle(isMenuShown);
+  }, [isMenuShown, onMenuToggle]);
+}
+
 export interface TypeaheadRef {
   blur: () => void;
   clear: () => void;
@@ -113,6 +169,10 @@ function useTypeahead(
 
   const isMenuShown = isShown(mergedPropsAndState);
   const items: Option[] = [];
+  const hintText = getHintText({ ...mergedPropsAndState, isMenuShown });
+
+  useDidUpdate(props, state, setState);
+  useOnMenuToggle(isMenuShown, props.onMenuToggle);
 
   // Imperative methods
   function hideMenu() {
@@ -153,37 +213,41 @@ function useTypeahead(
     props.autoFocus && focus();
   }, [props.autoFocus, focus]);
 
-  const prevProps = usePrevious(props);
-  const isFirstRender = useRef(true);
+  let results: Option[] = [];
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
+  if (isMenuShown) {
+    const cb = (
+      isFunction(filterBy) ? filterBy : defaultFilterBy
+    ) as FilterByCallback;
+
+    results = options.filter((option: Option) =>
+      cb(option, mergedPropsAndState)
+    );
+
+    // This must come before results are truncated.
+    const shouldPaginate = paginate && results.length > state.shownResults;
+
+    // Truncate results if necessary.
+    results = getTruncatedOptions(results, state.shownResults);
+
+    // Add the custom option if necessary.
+    if (addCustomOption(results, mergedPropsAndState)) {
+      results.push({
+        customOption: true,
+        [getStringLabelKey(labelKey)]: state.text,
+      });
     }
 
-    validateSelectedPropChange(props.selected, prevProps?.selected);
-
-    // Sync selections in state with those in props.
-    if (props.selected && !isEqual(props.selected, state.selected)) {
-      setState({ selected: props.selected });
-
-      if (!props.multiple) {
-        setState({
-          text: props.selected.length
-            ? getOptionLabel(props.selected[0], props.labelKey)
-            : '',
-        });
-      }
+    // Add the pagination item if necessary.
+    if (shouldPaginate) {
+      results.push({
+        [getStringLabelKey(labelKey)]: '',
+        paginationOption: true,
+      });
     }
-  }, [
-    props.labelKey,
-    props.multiple,
-    props.selected,
-    prevProps?.selected,
-    setState,
-    state.selected,
-  ]);
+  }
+
+  const isOnlyResult = getIsOnlyResult({ ...props, results });
 
   function setItem(item: Option, position: number) {
     items[position] = item;
@@ -310,13 +374,13 @@ function useTypeahead(
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    props.onKeyDown(e);
+
     // Skip most actions when the menu is hidden.
     if (!isMenuShown) {
       if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
         setState({ showMenu: true });
       }
-
-      props.onKeyDown(e);
       return;
     }
 
@@ -344,7 +408,16 @@ function useTypeahead(
         break;
     }
 
-    props.onKeyDown(e);
+    if (!state.initialItem) {
+      return;
+    }
+
+    const addOnlyResult = e.key === 'Enter' && isOnlyResult;
+    const shouldSelectHint = hintText && defaultSelectHint(e, props.selectHint);
+
+    if (addOnlyResult || shouldSelectHint) {
+      onAdd(state.initialItem);
+    }
   }
 
   function onRemove(selection: Option) {
@@ -363,46 +436,21 @@ function useTypeahead(
     );
   }
 
-  let results: Option[] = [];
-
-  if (isMenuShown) {
-    const cb = (
-      isFunction(filterBy) ? filterBy : defaultFilterBy
-    ) as FilterByCallback;
-
-    results = options.filter((option: Option) =>
-      cb(option, mergedPropsAndState)
-    );
-
-    // This must come before results are truncated.
-    const shouldPaginate = paginate && results.length > state.shownResults;
-
-    // Truncate results if necessary.
-    results = getTruncatedOptions(results, state.shownResults);
-
-    // Add the custom option if necessary.
-    if (addCustomOption(results, mergedPropsAndState)) {
-      results.push({
-        customOption: true,
-        [getStringLabelKey(labelKey)]: state.text,
-      });
+  useEffect(() => {
+    // Clear the initial item when there are no results.
+    if (!(props.allowNew || results.length)) {
+      onInitialItemChange();
     }
-
-    // Add the pagination item if necessary.
-    if (shouldPaginate) {
-      results.push({
-        [getStringLabelKey(labelKey)]: '',
-        paginationOption: true,
-      });
-    }
-  }
+  });
 
   return {
     ...mergedPropsAndState,
     hideMenu,
+    hintText,
     inputNode,
     inputRef: setInputNode,
     isMenuShown,
+    isOnlyResult,
     onActiveItemChange,
     onAdd,
     onBlur,

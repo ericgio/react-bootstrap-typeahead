@@ -68,7 +68,7 @@ export function deprecated(validator: Validator, reason: string) {
 }
 
 export function defaultInputValueType(props: Props) {
-  const { defaultInputValue, defaultSelected, multiple, selected } = props;
+  const { defaultInputValue, defaultSelected = [], multiple, selected } = props;
   const name = defaultSelected.length ? 'defaultSelected' : 'selected';
 
   warn(
@@ -82,7 +82,7 @@ export function defaultInputValueType(props: Props) {
 }
 
 export function defaultSelectedType(props: Props) {
-  const { defaultSelected, multiple } = props;
+  const { defaultSelected = [], multiple } = props;
 
   warn(
     multiple || defaultSelected.length <= 1,

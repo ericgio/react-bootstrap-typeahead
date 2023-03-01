@@ -6,8 +6,8 @@ import { Id, Option, OptionHandler, SelectEvent } from '../types';
 export interface TypeaheadContextType {
   activeIndex: number;
   hintText: string;
-  id: Id;
-  initialItem: Option | null;
+  id?: Id;
+  initialItem?: Option;
   inputNode: HTMLInputElement | null;
   isOnlyResult: boolean;
   onActiveItemChange: OptionHandler;
@@ -21,7 +21,7 @@ export const defaultContext = {
   activeIndex: -1,
   hintText: '',
   id: '',
-  initialItem: null,
+  initialItem: undefined,
   inputNode: null,
   isOnlyResult: false,
   onActiveItemChange: noop,
