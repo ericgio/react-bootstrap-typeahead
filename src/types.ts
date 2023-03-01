@@ -72,7 +72,7 @@ export interface TypeaheadProps {
   allowNew: AllowNew;
   autoFocus: boolean;
   caseSensitive: boolean;
-  children: TypeaheadChildren;
+  children?: TypeaheadChildren;
   defaultInputValue: string;
   defaultOpen: boolean;
   defaultSelected: Option[];
