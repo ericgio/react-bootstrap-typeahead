@@ -13,7 +13,7 @@ import Typeahead from '../../core/Typeahead';
 
 import ClearButton from '../ClearButton';
 import Loader from '../Loader';
-import Overlay, { Align, OverlayRenderProps } from '../Overlay';
+import Overlay, { OverlayRenderProps } from '../Overlay';
 import Token from '../Token/Token';
 import TypeaheadInputMulti from '../TypeaheadInputMulti';
 import TypeaheadInputSingle from '../TypeaheadInputSingle';
@@ -32,6 +32,7 @@ import {
 import { checkPropType, inputPropsType, sizeType } from '../../propTypes';
 
 import {
+  Align,
   Option,
   RenderToken,
   RenderTokenProps,

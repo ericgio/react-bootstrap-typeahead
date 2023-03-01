@@ -12,7 +12,9 @@ import {
   SyntheticEvent,
 } from 'react';
 
-import { SIZES } from './constants';
+import { ALIGN_VALUES, SIZES } from './constants';
+
+export type Align = typeof ALIGN_VALUES[number];
 
 export type AllowNew =
   | boolean

@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { Align, getModifiers, getPlacement } from './Overlay';
+import { getModifiers, getPlacement } from './useOverlay';
 import * as stories from './Overlay.stories';
+
+import { Align } from '../../types';
 
 import {
   composeStories,

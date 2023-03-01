@@ -17,6 +17,7 @@ Array [
     className="rbt-menu dropdown-menu show"
     id="overlay-story"
     onMouseDown={[Function]}
+    overlayRef={[Function]}
     role="listbox"
     style={
       Object {
