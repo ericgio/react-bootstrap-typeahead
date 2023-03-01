@@ -2,7 +2,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import cx from 'classnames';
-import React, { FocusEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import React, {
+  FocusEvent,
+  KeyboardEvent,
+  MouseEvent,
+  ReactNode,
+  useCallback,
+} from 'react';
 
 import Hint from '../Hint';
 import Input from '../Input';
@@ -30,10 +36,13 @@ function TypeaheadInputMulti(props: TypeaheadInputMultiProps) {
     ...rest
   } = propsWithBsClassName<TypeaheadInputMultiProps>(props);
 
-  function getInputRef(input: HTMLInputElement | null) {
-    inputElem.current = input;
-    props.inputRef(input);
-  }
+  const getInputRef = useCallback(
+    (input: HTMLInputElement | null) => {
+      inputElem.current = input;
+      inputRef(input);
+    },
+    [inputRef]
+  );
 
   /**
    * Forward click or focus events on the container element to the input.

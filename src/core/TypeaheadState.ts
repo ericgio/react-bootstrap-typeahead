@@ -1,10 +1,17 @@
 import { useEffect, useReducer, useRef } from 'react';
 
-import { TypeaheadProps, TypeaheadState } from '../types';
+import { LabelKey, Option, TypeaheadState } from '../types';
 import { getOptionLabel, isFunction } from '../utils';
 
-// Aliases
-type Props = TypeaheadProps;
+interface Props {
+  defaultInputValue: string;
+  defaultOpen: boolean;
+  defaultSelected: Option[];
+  maxResults: number;
+  multiple: boolean;
+  labelKey: LabelKey;
+  selected?: Option[];
+}
 type State = TypeaheadState;
 
 type NewStateObject = Partial<State>;

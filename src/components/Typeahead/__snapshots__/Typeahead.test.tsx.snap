@@ -24,7 +24,7 @@ exports[`<Typeahead> AllowNew story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -56,7 +56,7 @@ exports[`<Typeahead> ClearButton story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -109,7 +109,7 @@ exports[`<Typeahead> Controlled story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -151,7 +151,7 @@ exports[`<Typeahead> CustomInput story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -183,7 +183,7 @@ exports[`<Typeahead> CustomMenu story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -215,7 +215,7 @@ exports[`<Typeahead> Default story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -247,7 +247,7 @@ exports[`<Typeahead> DisabledItem story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -287,7 +287,7 @@ exports[`<Typeahead> InputGrouping story renders snapshot 1`] = `
         aria-hidden="true"
         class="rbt-input-hint"
         readonly=""
-        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
         tabindex="-1"
         value=""
       />
@@ -328,7 +328,7 @@ exports[`<Typeahead> InputValidation story renders snapshot 1`] = `
         aria-hidden="true"
         class="rbt-input-hint"
         readonly=""
-        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
         tabindex="-1"
         value=""
       />
@@ -366,7 +366,7 @@ exports[`<Typeahead> LoadingState story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />
@@ -533,7 +533,7 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
           aria-hidden="true"
           class="rbt-input-hint"
           readonly=""
-          style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+          style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
           tabindex="-1"
           value=""
         />
@@ -567,7 +567,7 @@ exports[`<Typeahead> Pagination story renders snapshot 1`] = `
       aria-hidden="true"
       class="rbt-input-hint"
       readonly=""
-      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
       tabindex="-1"
       value=""
     />

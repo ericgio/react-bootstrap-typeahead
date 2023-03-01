@@ -1,119 +1,53 @@
-import React, { KeyboardEvent, useEffect, useRef } from 'react';
+import React from 'react';
 
-import { TypeaheadContext, TypeaheadContextType } from './Context';
-import {
-  defaultSelectHint,
-  getHintText,
-  getInputProps,
-  getInputText,
-  getIsOnlyResult,
-  isFunction,
-  pick,
-} from '../utils';
+import { TypeaheadContext } from './Context';
+import { getInputProps, getInputText, isFunction } from '../utils';
 import { TypeaheadManagerProps } from '../types';
 
-const inputPropKeys = [
-  'activeIndex',
-  'disabled',
-  'id',
-  'inputRef',
-  'isFocused',
-  'isMenuShown',
-  'multiple',
-  'onBlur',
-  'onChange',
-  'onClick',
-  'onFocus',
-  'onKeyDown',
-  'placeholder',
-] as (keyof TypeaheadManagerProps)[];
-
-const propKeys = [
-  'activeIndex',
-  'hideMenu',
-  'isMenuShown',
-  'labelKey',
-  'onClear',
-  'onHide',
-  'onRemove',
-  'results',
-  'selected',
-  'text',
-  'toggleMenu',
-] as (keyof TypeaheadManagerProps)[];
-
-const contextKeys = [
-  'activeIndex',
-  'id',
-  'initialItem',
-  'inputNode',
-  'onActiveItemChange',
-  'onAdd',
-  'onInitialItemChange',
-  'onMenuItemClick',
-  'setItem',
-] as (keyof TypeaheadManagerProps)[];
-
 const TypeaheadManager = (props: TypeaheadManagerProps) => {
-  const {
-    allowNew,
-    children,
-    initialItem,
-    isMenuShown,
-    onAdd,
-    onInitialItemChange,
-    onKeyDown,
-    onMenuToggle,
-    results,
-    selectHint,
-  } = props;
-
-  const hintText = getHintText(props);
-
-  useEffect(() => {
-    // Clear the initial item when there are no results.
-    if (!(allowNew || results.length)) {
-      onInitialItemChange();
-    }
-  });
-
-  const isInitialRender = useRef(true);
-  useEffect(() => {
-    if (isInitialRender.current) {
-      isInitialRender.current = false;
-      return;
-    }
-    onMenuToggle(isMenuShown);
-  }, [isMenuShown, onMenuToggle]);
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    onKeyDown(e);
-
-    if (!initialItem) {
-      return;
-    }
-
-    const addOnlyResult = e.key === 'Enter' && getIsOnlyResult(props);
-    const shouldSelectHint = hintText && defaultSelectHint(e, selectHint);
-
-    if (addOnlyResult || shouldSelectHint) {
-      onAdd(initialItem);
-    }
-  };
+  const { activeIndex, children, id, isMenuShown, onKeyDown } = props;
 
   const childProps = {
-    ...pick(props, propKeys),
     getInputProps: getInputProps({
-      ...pick(props, inputPropKeys),
-      onKeyDown: handleKeyDown,
+      activeIndex,
+      disabled: props.disabled,
+      id,
+      inputRef: props.inputRef,
+      isFocused: props.isFocused,
+      isMenuShown,
+      multiple: props.multiple,
+      onBlur: props.onBlur,
+      onChange: props.onChange,
+      onClick: props.onClick,
+      onFocus: props.onFocus,
+      onKeyDown,
+      placeholder: props.placeholder,
       value: getInputText(props),
     }),
+    hideMenu: props.hideMenu,
+    isMenuShown,
+    labelKey: props.labelKey,
+    onClear: props.onClear,
+    onHide: props.onHide,
+    onRemove: props.onRemove,
+    results: props.results,
+    selected: props.selected,
+    text: props.text,
+    toggleMenu: props.toggleMenu,
   };
 
-  const contextValue: TypeaheadContextType = {
-    ...pick(props, contextKeys),
-    hintText,
-    isOnlyResult: getIsOnlyResult(props),
+  const contextValue = {
+    activeIndex,
+    hintText: props.hintText,
+    id,
+    initialItem: props.initialItem,
+    inputNode: props.inputNode,
+    isOnlyResult: props.isOnlyResult,
+    onActiveItemChange: props.onActiveItemChange,
+    onAdd: props.onAdd,
+    onInitialItemChange: props.onInitialItemChange,
+    onMenuItemClick: props.onMenuItemClick,
+    setItem: props.setItem,
   };
 
   return (
