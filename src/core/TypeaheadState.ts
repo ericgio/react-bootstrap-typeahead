@@ -11,15 +11,15 @@ type NewStateObject = Partial<State>;
 type NewStateCallback = (state: State, props: Props) => Partial<State>;
 type PostUpdateCallback = (state: State) => void;
 
-export function getInitialState(props: Props): State {
-  const {
-    defaultInputValue = '',
-    defaultOpen = false,
-    defaultSelected = [],
-    maxResults,
-    multiple,
-  } = props;
-
+export function getInitialState({
+  defaultInputValue,
+  defaultOpen,
+  defaultSelected,
+  labelKey,
+  maxResults,
+  multiple,
+  ...props
+}: Props) {
   let selected = props.selected
     ? props.selected.slice()
     : defaultSelected.slice();
@@ -28,7 +28,7 @@ export function getInitialState(props: Props): State {
 
   if (!multiple && selected.length) {
     // Set the text if an initial selection is passed in.
-    text = getOptionLabel(selected[0], props.labelKey);
+    text = getOptionLabel(selected[0], labelKey);
 
     if (selected.length > 1) {
       // Limit to 1 selection in single-select mode.
