@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Hint from '../Hint';
 import Input from '../Input';
@@ -10,16 +10,20 @@ const TypeaheadInputSingle = ({
   inputRef,
   referenceElementRef,
   ...props
-}: TypeaheadInputProps) => (
-  <Hint>
-    <Input
-      {...propsWithBsClassName(props)}
-      ref={(node) => {
-        inputRef(node);
-        referenceElementRef(node);
-      }}
-    />
-  </Hint>
-);
+}: TypeaheadInputProps) => {
+  const ref = useCallback(
+    (node: HTMLInputElement) => {
+      inputRef(node);
+      referenceElementRef(node);
+    },
+    [inputRef, referenceElementRef]
+  );
+
+  return (
+    <Hint>
+      <Input {...propsWithBsClassName(props)} ref={ref} />
+    </Hint>
+  );
+};
 
 export default TypeaheadInputSingle;

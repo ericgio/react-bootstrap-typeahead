@@ -954,7 +954,7 @@ describe('<Typeahead>', () => {
       expect(input).toHaveAttribute('aria-expanded', 'false');
       expect(input).not.toHaveAttribute('aria-activedescendant');
 
-      input?.focus();
+      input.focus();
       await user.keyboard('{ArrowDown}');
 
       expect(input).toHaveAttribute('aria-expanded', 'true');
@@ -1327,7 +1327,7 @@ describe('<Typeahead> Public Methods', () => {
     const ref = createRef<Typeahead>();
     render(<TestComponent ref={ref} />);
 
-    getInput().focus();
+    getInput()?.focus();
     const menu = await findMenu();
     expect(menu).toBeInTheDocument();
 

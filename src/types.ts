@@ -87,7 +87,7 @@ export interface TypeaheadProps {
   minLength: number;
   multiple: boolean;
   onBlur: FocusEventHandler<HTMLInputElement>;
-  onChange?: (selected: Option[]) => void;
+  onChange: (selected: Option[]) => void;
   onFocus: (event: SyntheticEvent<HTMLInputElement>) => void;
   onInputChange: (text: string, event: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
@@ -115,8 +115,9 @@ export type TypeaheadPropsAndState = Omit<TypeaheadProps, 'onChange'> &
   TypeaheadState;
 
 export interface TypeaheadManagerChildProps {
-  activeIndex: number;
-  getInputProps: (props?: InputProps) => TypeaheadInputProps;
+  getInputProps: (
+    props?: InputProps
+  ) => Omit<TypeaheadInputProps, 'referenceElementRef'>;
   hideMenu: () => void;
   isMenuShown: boolean;
   labelKey: LabelKey;
@@ -130,10 +131,13 @@ export interface TypeaheadManagerChildProps {
 }
 
 export interface TypeaheadManagerProps extends TypeaheadPropsAndState {
+  disabled?: boolean;
   hideMenu: () => void;
+  hintText: string;
   inputNode: HTMLInputElement | null;
   inputRef: RefCallback<HTMLInputElement>;
   isMenuShown: boolean;
+  isOnlyResult: boolean;
   onActiveItemChange: OptionHandler;
   onAdd: OptionHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
