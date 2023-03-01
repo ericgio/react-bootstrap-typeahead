@@ -4,9 +4,9 @@ import {
   getInitialState,
   hideMenu,
   toggleMenu,
-} from '../../core/Typeahead';
+} from './TypeaheadState';
 
-import { defaultProps, defaultState } from '../../tests/data';
+import { defaultProps, defaultState } from '../tests/data';
 
 describe('State modifiers', () => {
   it('calls the clearTypeahead modifier', () => {
