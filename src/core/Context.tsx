@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import {noop, once} from '../utils';
+import { noop, once } from '../utils';
 import { Id, OptionType, OptionHandler, SelectEvent } from '../types';
 
 export interface TypeaheadContextType<Option extends OptionType> {

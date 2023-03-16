@@ -519,7 +519,7 @@ class Typeahead<Option extends OptionType> extends React.Component<Props<Option>
     // Add a unique id to the custom selection. Avoid doing this in `render` so
     // the id doesn't increment every time.
     if (!isString(selection) && selection.customOption) {
-      // @ts-ignore selection is an object
+      // @ts-ignore selection is an object, since `isString` returned `false`
       selection = { ...selection , id: uniqueId('new-id-') };
     }
 

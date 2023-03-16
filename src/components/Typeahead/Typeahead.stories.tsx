@@ -123,7 +123,7 @@ CustomMenu.args = {
   renderMenu: (results, menuProps) => (
     <Menu {...menuProps}>
       {/* Use `slice` to avoid mutating the original array */}
-      {(results as TestOption[])
+      {results
         .slice()
         .reverse()
         .map((r, index) => (
