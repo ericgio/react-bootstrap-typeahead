@@ -4,15 +4,15 @@ import hasOwnProperty from './hasOwnProperty';
 
 type Key = 'ArrowDown' | 'ArrowUp';
 
-export function isDisabledOption(index: number, items: OptionType[]): boolean {
+export function isDisabledOption<Option extends OptionType>(index: number, items: Option[]): boolean {
   const option = items[index];
   return !!option && !isString(option) && hasOwnProperty(option, 'disabled');
 }
 
-export function skipDisabledOptions(
+export function skipDisabledOptions<Option extends OptionType>(
   currentIndex: number,
   key: Key,
-  items: OptionType[]
+  items: Option[]
 ): number {
   let newIndex = currentIndex;
 
@@ -23,10 +23,10 @@ export function skipDisabledOptions(
   return newIndex;
 }
 
-export default function getUpdatedActiveIndex(
+export default function getUpdatedActiveIndex<Option extends OptionType>(
   currentIndex: number,
   key: Key,
-  items: OptionType[]
+  items: Option[]
 ): number {
   let newIndex = currentIndex;
 

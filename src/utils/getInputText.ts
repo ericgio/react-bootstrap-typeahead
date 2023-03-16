@@ -1,15 +1,15 @@
 import getOptionLabel from './getOptionLabel';
 import { LabelKey, OptionType } from '../types';
 
-interface Props {
-  activeItem?: OptionType;
-  labelKey: LabelKey;
+interface Props<Option extends OptionType> {
+  activeItem?: Option;
+  labelKey: LabelKey<Option>;
   multiple: boolean;
-  selected: OptionType[];
+  selected: Option[];
   text: string;
 }
 
-function getInputText(props: Props): string {
+function getInputText<Option extends OptionType>(props: Props<Option>): string {
   const { activeItem, labelKey, multiple, selected, text } = props;
 
   if (activeItem) {

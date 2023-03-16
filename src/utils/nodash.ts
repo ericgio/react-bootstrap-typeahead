@@ -25,3 +25,17 @@ export function uniqueId(prefix?: string): string {
   idCounter += 1;
   return (prefix == null ? '' : String(prefix)) + idCounter;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const once = <T extends (...args: any) => any>(func: T): T => {
+  let called = false;
+  let result: unknown;
+  // @ts-ignore
+  return (...args) => {
+    if (!called) {
+      result = func(...args)
+      called = true;
+    }
+    return result
+  }
+}

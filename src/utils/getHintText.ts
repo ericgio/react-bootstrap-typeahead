@@ -5,18 +5,18 @@ import { isString } from './nodash';
 
 import { LabelKey, OptionType } from '../types';
 
-interface HintProps {
+interface HintProps<Option extends OptionType> {
   activeIndex: number;
-  initialItem?: OptionType;
+  initialItem?: Option;
   isFocused: boolean;
   isMenuShown: boolean;
-  labelKey: LabelKey;
+  labelKey: LabelKey<Option>;
   multiple: boolean;
-  selected: OptionType[];
+  selected: Option[];
   text: string;
 }
 
-function getHintText({
+function getHintText<Option extends OptionType>({
   activeIndex,
   initialItem,
   isFocused,
@@ -25,7 +25,7 @@ function getHintText({
   multiple,
   selected,
   text,
-}: HintProps) {
+}: HintProps<Option>) {
   // Don't display a hint under the following conditions:
   if (
     // No text entered.

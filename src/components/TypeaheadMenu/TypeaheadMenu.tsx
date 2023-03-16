@@ -42,7 +42,7 @@ const propTypes = {
 const defaultProps = {
   newSelectionPrefix: 'New selection: ',
   paginationText: 'Display additional results...',
-  renderMenuItemChildren: (option: OptionType, props: TypeaheadMenuProps<OptionType>) => (
+  renderMenuItemChildren: <Option extends OptionType>(option: Option, props: TypeaheadMenuProps<Option>) => (
     <Highlighter search={props.text}>
       {getOptionLabel(option, props.labelKey)}
     </Highlighter>

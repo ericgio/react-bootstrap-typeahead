@@ -89,7 +89,7 @@ export function useToken<T extends HTMLElement, Option extends OptionType>({
 }
 
 /* istanbul ignore next */
-export function withToken<T extends UseTokenProps<HTMLElement>>(
+export function withToken<Option extends OptionType, T extends UseTokenProps<HTMLElement, Option>>(
   Component: ComponentType<T>
 ) {
   warn(

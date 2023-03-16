@@ -1,6 +1,6 @@
 import React, { KeyboardEvent, useEffect, useRef } from 'react';
 
-import { TypeaheadContext, TypeaheadContextType } from './Context';
+import {createTypeaheadContext, TypeaheadContextType} from './Context';
 import {
   defaultSelectHint,
   getHintText,
@@ -55,6 +55,8 @@ const contextKeys = [
 ] as (keyof TypeaheadManagerProps<OptionType>)[];
 
 const TypeaheadManager = <Option extends OptionType>(props: TypeaheadManagerProps<Option>) => {
+  const TypeaheadContext = createTypeaheadContext<Option>()
+
   const {
     allowNew,
     children,

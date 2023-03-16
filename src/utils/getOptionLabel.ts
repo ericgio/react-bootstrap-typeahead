@@ -11,7 +11,7 @@ import type { LabelKey, OptionType } from '../types';
  * themselves, or an object with a defined display string. Anything else throws
  * an error.
  */
-function getOptionLabel(option: OptionType, labelKey: LabelKey): string {
+function getOptionLabel<Option extends OptionType>(option: Option, labelKey: LabelKey<Option>): string {
   // Handle internally created options first.
   if (
     !isString(option) &&

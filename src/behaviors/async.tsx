@@ -66,7 +66,7 @@ export interface UseAsyncProps<Option extends OptionType> extends TypeaheadCompo
   useCache?: boolean;
 }
 
-type Cache = Record<string, OptionType[]>;
+type Cache<Option extends OptionType> = Record<string, Option[]>;
 
 interface DebouncedFunction extends Function {
   cancel(): void;
@@ -96,7 +96,7 @@ export function useAsync<Option extends OptionType>(props: UseAsyncProps<Option>
     ...otherProps
   } = props;
 
-  const cacheRef = useRef<Cache>({});
+  const cacheRef = useRef<Cache<Option>>({});
   const handleSearchDebouncedRef = useRef<DebouncedFunction | null>(null);
   const queryRef = useRef<string>(props.defaultInputValue || '');
 
@@ -179,16 +179,15 @@ export function useAsync<Option extends OptionType>(props: UseAsyncProps<Option>
 }
 
 /* istanbul ignore next */
-export function withAsync<T extends UseAsyncProps = UseAsyncProps>(
+export function withAsync<Option extends OptionType, T extends UseAsyncProps<Option> = UseAsyncProps<Option>>(
   Component: ComponentType<T>
 ) {
   warn(
-    false,
-    'Warning: `withAsync` is deprecated and will be removed in the next ' +
+      false,
+      'Warning: `withAsync` is deprecated and will be removed in the next ' +
       'major version. Use `useAsync` instead.'
   );
-
-  const AsyncTypeahead = forwardRef<Typeahead, T>((props, ref) => (
+  const AsyncTypeahead = forwardRef<Typeahead<Option>, T>((props, ref) => (
     <Component {...props} {...useAsync(props)} ref={ref} />
   ));
 

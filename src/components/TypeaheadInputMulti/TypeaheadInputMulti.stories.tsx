@@ -8,7 +8,7 @@ import TypeaheadInputMulti, {
   TypeaheadInputMultiProps,
 } from './TypeaheadInputMulti';
 
-import options from '../../tests/data';
+import options, {TestOption} from '../../tests/data';
 import { HintProvider, noop } from '../../tests/helpers';
 import type { Size } from '../../types';
 import {OptionType} from "../../types";
@@ -36,7 +36,7 @@ interface Args<Option extends OptionType> extends TypeaheadInputMultiProps<Optio
   size?: Size;
 }
 
-const Template: Story<Args> = ({ hintText = '', ...args }) => {
+const Template: Story<Args<TestOption>> = ({ hintText = '', ...args }) => {
   const [value, setValue] = useState(args.value);
   const [inputNode, setInputNode] = useState<HTMLInputElement | null>(null);
 

@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { noop } from '../utils';
+import {noop, once} from '../utils';
 import { Id, OptionType, OptionHandler, SelectEvent } from '../types';
 
 export interface TypeaheadContextType<Option extends OptionType> {
@@ -31,7 +31,5 @@ export const defaultContext = {
   setItem: noop,
 };
 
-export const TypeaheadContext =
-  createContext<TypeaheadContextType<OptionType>>(defaultContext);
-
-export const useTypeaheadContext = () => useContext(TypeaheadContext);
+export const createTypeaheadContext = once(<Option extends OptionType>() => createContext<TypeaheadContextType<Option>>(defaultContext));
+export const useTypeaheadContext = <Option extends OptionType>() => useContext(createTypeaheadContext<Option>());

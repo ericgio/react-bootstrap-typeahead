@@ -5,11 +5,11 @@ import { Story, Meta } from '@storybook/react';
 
 import MenuItem, { MenuItemProps } from './MenuItem';
 import {
+  createTypeaheadContext,
   defaultContext,
-  TypeaheadContext,
   TypeaheadContextType,
 } from '../../core/Context';
-import {OptionType} from "../../types";
+import {TestOption} from "../../tests/data";
 
 export default {
   title: 'Components/MenuItem/MenuItem',
@@ -17,7 +17,7 @@ export default {
 } as Meta;
 
 interface Args {
-  context: Partial<TypeaheadContextType<OptionType>>;
+  context: Partial<TypeaheadContextType<TestOption>>;
   props: MenuItemProps;
 }
 
@@ -26,11 +26,12 @@ const value = {
   id: 'test-id',
 };
 
-const Template: Story<Args> = ({ context, props }) => (
-  <TypeaheadContext.Provider value={{ ...value, ...context }}>
+const Template: Story<Args> = ({ context, props }) => {
+  const TypeaheadContext = createTypeaheadContext<TestOption>()
+  return <TypeaheadContext.Provider value={{...value, ...context}}>
     <MenuItem {...props} />
   </TypeaheadContext.Provider>
-);
+};
 
 export const Default = Template.bind({});
 Default.args = {

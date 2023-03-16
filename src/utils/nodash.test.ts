@@ -1,4 +1,4 @@
-import { isFunction, isString, noop, pick, uniqueId } from './nodash';
+import {isFunction, isString, noop, once, pick, uniqueId} from './nodash';
 
 const arr: string[] = [];
 const fn = noop;
@@ -35,4 +35,19 @@ describe('nodash', () => {
     expect(uniqueId()).toBe('1');
     expect(uniqueId('foo-')).toBe('foo-2');
   });
+
+  test('once', () =>{
+    const onceFn = (a: number) => a;
+
+    const onlyOnce = once(onceFn)
+
+    let result = -100;
+    for (let i = 0; i < 100; i++) {
+      result = onlyOnce(i)
+    }
+
+    expect(fn).toBeCalledTimes(1)
+    expect(fn).toBeCalledWith(0)
+    expect(result).toBe(0)
+  })
 });

@@ -2,9 +2,9 @@ import warn from './warn';
 
 import type { OptionType } from '../types';
 
-export default function validateSelectedPropChange(
-  prevSelected?: OptionType[],
-  selected?: OptionType[]
+export default function validateSelectedPropChange<Option extends OptionType>(
+  prevSelected?: Option[],
+  selected?: Option[]
 ): void {
   const uncontrolledToControlled = !prevSelected && selected;
   const controlledToUncontrolled = prevSelected && !selected;
