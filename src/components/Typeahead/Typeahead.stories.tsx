@@ -150,7 +150,7 @@ InputGrouping.args = {
   ...defaultProps,
 };
 
-export const Controlled = <Option extends OptionType>(args: TypeaheadComponentProps<Option>) => {
+export const Controlled = <Option extends OptionType = TestOption>(args: TypeaheadComponentProps<Option>) => {
   const [selected, setSelected] = useState(args.selected || []);
 
   return <Typeahead {...args} onChange={setSelected} selected={selected} />;

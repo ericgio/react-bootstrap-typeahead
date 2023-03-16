@@ -321,7 +321,7 @@ class TypeaheadComponent<Option extends OptionType> extends React.Component<Type
   };
 }
 
-const TypeaheadComponentInner = <Option extends OptionType>(props: TypeaheadComponentProps<Option>, ref:  React.ForwardedRef<Typeahead<Option>>) => <TypeaheadComponent {...props} instanceRef={ref} />
+const TypeaheadComponentInner = <Option extends OptionType>(props: TypeaheadComponentProps<Option>, ref: React.ForwardedRef<Typeahead<Option>>) => <TypeaheadComponent {...props} instanceRef={ref} />
 
 const TypeaheadComponentWithRef = forwardRef(TypeaheadComponentInner);
 

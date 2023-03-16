@@ -6,7 +6,7 @@ import { Story, Meta } from '@storybook/react';
 import TypeaheadMenu, { TypeaheadMenuProps } from './TypeaheadMenu';
 
 import options, {TestOption} from '../../tests/data';
-import { getOptionProperty } from '../../utils';
+import {OptionType} from "../../types";
 
 export default {
   title: 'Components/TypeaheadMenu',
@@ -20,7 +20,7 @@ const defaultProps = {
   text: '',
 };
 
-const Template: Story<TypeaheadMenuProps<TestOption>> = (args) => (
+const Template = <Option extends OptionType>(): Story<TypeaheadMenuProps<Option>> => (args) => (
   <div style={{ minHeight: '300px' }}>
     <div style={{ position: 'relative' }}>
       <TypeaheadMenu {...args} />
@@ -28,36 +28,33 @@ const Template: Story<TypeaheadMenuProps<TestOption>> = (args) => (
   </div>
 );
 
-export const Default = Template.bind({});
+export const Default = Template().bind({});
 Default.args = {
   ...defaultProps,
 };
 
-export const CustomOption = Template.bind({});
+export const CustomOption = Template().bind({});
 CustomOption.args = {
   ...defaultProps,
   options: [{ customOption: true, name: 'custom option' }],
   text: 'custom option',
 };
 
-export const Pagination = Template.bind({});
+export const Pagination = Template().bind({});
 Pagination.args = {
   ...defaultProps,
   options: [...options.slice(0, 5), { paginationOption: true }],
 };
 
-export const CustomChildren = Template.bind({});
+export const CustomChildren = Template<TestOption>().bind({});
 CustomChildren.args = {
   ...defaultProps,
   renderMenuItemChildren: (option) => {
-    const name = getOptionProperty(option, 'name');
-    const population = getOptionProperty(option, 'population');
-
     return (
       <>
-        <div>{name}</div>
+        <div>{option.name}</div>
         <div>
-          <small>Population: {population.toString()}</small>
+          <small>Population: {option.population.toString()}</small>
         </div>
       </>
     );

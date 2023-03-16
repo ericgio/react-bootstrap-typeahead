@@ -9,16 +9,16 @@ import {
   defaultContext,
   TypeaheadContextType,
 } from '../../core/Context';
-import {TestOption} from "../../tests/data";
+import {OptionType} from "../../types";
 
 export default {
   title: 'Components/MenuItem/MenuItem',
   component: MenuItem,
 } as Meta;
 
-interface Args {
-  context: Partial<TypeaheadContextType<TestOption>>;
-  props: MenuItemProps;
+interface Args<Option extends OptionType> {
+  context: Partial<TypeaheadContextType<Option>>;
+  props: MenuItemProps<Option>;
 }
 
 const value = {
@@ -26,14 +26,14 @@ const value = {
   id: 'test-id',
 };
 
-const Template: Story<Args> = ({ context, props }) => {
-  const TypeaheadContext = createTypeaheadContext<TestOption>()
+const Template = <Option extends OptionType>(): Story<Args<Option>> => ({ context, props }) => {
+  const TypeaheadContext = createTypeaheadContext<Option>()
   return <TypeaheadContext.Provider value={{...value, ...context}}>
     <MenuItem {...props} />
   </TypeaheadContext.Provider>
 };
 
-export const Default = Template.bind({});
+export const Default = Template().bind({});
 Default.args = {
   props: {
     children: 'This is a menu item',
