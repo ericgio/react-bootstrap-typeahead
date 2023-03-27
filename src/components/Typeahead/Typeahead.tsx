@@ -180,7 +180,15 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
             <RootClose disabled={open || !isMenuShown} onRootClose={hideMenu}>
               {(ref) => (
                 <div
-                  className={cx('rbt', { 'has-aux': !!auxContent }, className)}
+                  className={cx(
+                    'rbt',
+                    {
+                      'has-aux': !!auxContent,
+                      'is-invalid': this.props.isInvalid,
+                      'is-valid': this.props.isValid,
+                    },
+                    className
+                  )}
                   ref={ref}
                   style={{
                     ...style,

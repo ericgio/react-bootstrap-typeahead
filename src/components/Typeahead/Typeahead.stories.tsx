@@ -157,3 +157,32 @@ export const Controlled = (args: TypeaheadComponentProps) => {
 Controlled.args = {
   ...defaultProps,
 };
+
+export const InputValidation = (args: TypeaheadComponentProps) => {
+  let feedback;
+  if (args.isValid) {
+    feedback = 'Looks good!';
+  }
+
+  if (args.isInvalid) {
+    feedback = 'Please provide a value!';
+  }
+
+  return (
+    <div className="form-group">
+      <Typeahead {...args} />
+      <div
+        className={cx({
+          'valid-feedback': args.isValid,
+          'invalid-feedback': args.isInvalid,
+        })}>
+        {feedback}
+      </div>
+    </div>
+  );
+};
+InputValidation.args = {
+  ...defaultProps,
+  isValid: true,
+  isInvalid: false,
+};

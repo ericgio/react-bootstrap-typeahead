@@ -54,6 +54,7 @@ const {
   Default,
   MultiSelect,
   ClearButton,
+  InputValidation,
   Pagination,
   AllowNew,
   CustomMenu,
@@ -1094,6 +1095,29 @@ describe('<Typeahead>', () => {
       rerender(<MultiSelect isInvalid isValid />);
       expect(formControl).toHaveClass('is-invalid');
       expect(formControl).toHaveClass('is-valid');
+    });
+
+    it('displays validation feedback', () => {
+      const validFeedback = /Looks good/;
+      const invalidFeedback = /Please provide a value/;
+
+      const { rerender } = render(
+        <InputValidation isInvalid={false} isValid={false} />
+      );
+      expect(screen.queryByText(validFeedback)).not.toBeInTheDocument();
+      expect(screen.queryByText(invalidFeedback)).not.toBeInTheDocument();
+
+      rerender(<InputValidation isInvalid={false} isValid />);
+      expect(screen.getByText(validFeedback)).toBeInTheDocument();
+
+      rerender(<InputValidation isInvalid={false} isValid multiple />);
+      expect(screen.getByText(validFeedback)).toBeInTheDocument();
+
+      rerender(<InputValidation isInvalid isValid={false} />);
+      expect(screen.getByText(invalidFeedback)).toBeInTheDocument();
+
+      rerender(<InputValidation isInvalid isValid={false} multiple />);
+      expect(screen.getByText(invalidFeedback)).toBeInTheDocument();
     });
   });
 
