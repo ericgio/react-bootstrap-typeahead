@@ -102,7 +102,7 @@ function BasicBehaviorsExample() {
         options={options}
         placeholder="Choose a state..."
       />
-      <Form.Group>
+      <Form.Group className="mt-3">
         {getCheckboxes(state).map((props) => (
           <Form.Check
             {...props}

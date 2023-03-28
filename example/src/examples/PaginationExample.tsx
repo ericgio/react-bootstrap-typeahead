@@ -20,7 +20,7 @@ const PaginationExample = () => {
         paginate={paginate}
         placeholder="Pick a number..."
       />
-      <Form.Group>
+      <Form.Group className="mt-3">
         <Form.Check
           checked={paginate}
           id="paginate-results"

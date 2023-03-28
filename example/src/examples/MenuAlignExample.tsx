@@ -25,7 +25,7 @@ const MenuAlignExample = () => {
         options={options}
         placeholder="Choose a state..."
       />
-      <Form.Group>
+      <Form.Group className="mt-3">
         {radios.map(({ label, value }) => (
           <Form.Check
             checked={align === value}

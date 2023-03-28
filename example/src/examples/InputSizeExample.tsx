@@ -32,7 +32,7 @@ const InputSizeExample = () => {
         placeholder="Choose a state..."
         size={size}
       />
-      <Form.Group>
+      <Form.Group className="mt-3">
         {radios.map(({ label, value }) => (
           <Form.Check
             checked={size === value}

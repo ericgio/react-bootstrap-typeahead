@@ -24,7 +24,7 @@ const BasicExample = () => {
           selected={singleSelections}
         />
       </Form.Group>
-      <Form.Group style={{ marginTop: '20px' }}>
+      <Form.Group className="mt-3">
         <Form.Label>Multiple Selections</Form.Label>
         <Typeahead
           id="basic-typeahead-multiple"

@@ -110,7 +110,7 @@ const RenderingExample = () => {
         options={options}
         placeholder="Choose a state..."
       />
-      <Form.Group>
+      <Form.Group className="mt-3">
         {RADIO_OPTIONS.map((label, idx) => (
           <Form.Check
             checked={selectedOption === idx}

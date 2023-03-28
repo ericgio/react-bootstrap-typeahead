@@ -29,7 +29,7 @@ const PositionFixedExample = () => {
           />
         </div>
       </div>
-      <Form.Group>
+      <Form.Group className="mt-3">
         <Form.Check
           checked={positionFixed}
           id="position-fixed"

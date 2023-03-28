@@ -16,7 +16,7 @@ const Button = (props: ButtonProps) => (
 
 /* example-start */
 const PublicMethodsExample = () => {
-  const ref = useRef();
+  const ref = useRef<Typeahead>(null);
 
   return (
     <>
@@ -29,7 +29,7 @@ const PublicMethodsExample = () => {
         placeholder="Choose a state..."
         ref={ref}
       />
-      <ButtonToolbar style={{ marginTop: '10px' }}>
+      <ButtonToolbar className="mt-3">
         <Button onClick={() => ref.current?.clear()}>Clear</Button>
         <Button onClick={() => ref.current?.focus()}>Focus</Button>
         <Button

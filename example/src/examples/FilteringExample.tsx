@@ -46,7 +46,7 @@ const FilteringExample = () => {
         options={options}
         placeholder="Cities in Poland..."
       />
-      <Form.Group>
+      <Form.Group className="mt-3">
         <Form.Check
           checked={caseSensitive}
           id="case-sensitive-filtering"
