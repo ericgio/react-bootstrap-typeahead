@@ -2,59 +2,30 @@
 
 exports[`<Typeahead> AllowNew story renders snapshot 1`] = `
 <div
-  className="rbt"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <input
       aria-autocomplete="both"
-      aria-expanded={false}
+      aria-expanded="false"
       aria-haspopup="listbox"
-      autoComplete="off"
-      className="rbt-input-main form-control rbt-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
       placeholder="Choose a state..."
       role="combobox"
       type="text"
       value=""
     />
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>
@@ -63,81 +34,49 @@ exports[`<Typeahead> AllowNew story renders snapshot 1`] = `
 
 exports[`<Typeahead> ClearButton story renders snapshot 1`] = `
 <div
-  className="rbt has-aux"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt has-aux"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <input
       aria-autocomplete="both"
-      aria-expanded={false}
+      aria-expanded="false"
       aria-haspopup="listbox"
-      autoComplete="off"
-      className="rbt-input-main form-control rbt-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
       placeholder="Choose a state..."
       role="combobox"
       type="text"
       value="Alabama"
     />
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>
   <div
-    className="rbt-aux"
+    class="rbt-aux"
   >
     <button
       aria-label="Clear"
-      className="close btn-close rbt-close"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      onMouseDown={[Function]}
+      class="close btn-close rbt-close"
       type="button"
     >
       <span
         aria-hidden="true"
-        className="rbt-close-content"
+        class="rbt-close-content"
       >
         ×
       </span>
       <span
-        className="sr-only visually-hidden"
+        class="sr-only visually-hidden"
       >
         Clear
       </span>
@@ -148,59 +87,30 @@ exports[`<Typeahead> ClearButton story renders snapshot 1`] = `
 
 exports[`<Typeahead> Controlled story renders snapshot 1`] = `
 <div
-  className="rbt"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <input
       aria-autocomplete="both"
-      aria-expanded={false}
+      aria-expanded="false"
       aria-haspopup="listbox"
-      autoComplete="off"
-      className="rbt-input-main form-control rbt-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
       placeholder="Choose a state..."
       role="combobox"
       type="text"
       value=""
     />
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>
@@ -209,69 +119,40 @@ exports[`<Typeahead> Controlled story renders snapshot 1`] = `
 
 exports[`<Typeahead> CustomInput story renders snapshot 1`] = `
 <div
-  className="rbt"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <div
-      className="form-floating"
+      class="form-floating"
     >
       <input
         aria-autocomplete="both"
-        aria-expanded={false}
+        aria-expanded="false"
         aria-haspopup="listbox"
-        autoComplete="off"
-        className="form-control"
+        autocomplete="off"
+        class="form-control"
         id="floatingInput"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
         placeholder="Choose a state..."
         role="combobox"
         type="text"
         value=""
       />
       <label
-        htmlFor="floatingInput"
+        for="floatingInput"
       >
         Choose a state...
       </label>
     </div>
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>
@@ -280,59 +161,30 @@ exports[`<Typeahead> CustomInput story renders snapshot 1`] = `
 
 exports[`<Typeahead> CustomMenu story renders snapshot 1`] = `
 <div
-  className="rbt"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <input
       aria-autocomplete="both"
-      aria-expanded={false}
+      aria-expanded="false"
       aria-haspopup="listbox"
-      autoComplete="off"
-      className="rbt-input-main form-control rbt-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
       placeholder="Choose a state..."
       role="combobox"
       type="text"
       value=""
     />
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>
@@ -341,59 +193,30 @@ exports[`<Typeahead> CustomMenu story renders snapshot 1`] = `
 
 exports[`<Typeahead> Default story renders snapshot 1`] = `
 <div
-  className="rbt"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <input
       aria-autocomplete="both"
-      aria-expanded={false}
+      aria-expanded="false"
       aria-haspopup="listbox"
-      autoComplete="off"
-      className="rbt-input-main form-control rbt-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
       placeholder="Choose a state..."
       role="combobox"
       type="text"
       value=""
     />
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>
@@ -402,73 +225,44 @@ exports[`<Typeahead> Default story renders snapshot 1`] = `
 
 exports[`<Typeahead> InputGrouping story renders snapshot 1`] = `
 <div
-  className="input-group"
+  class="input-group"
 >
   <span
-    className="input-group-text"
+    class="input-group-text"
   >
     $
   </span>
   <div
-    className="rbt"
-    style={
-      Object {
-        "outline": "none",
-        "position": "relative",
-      }
-    }
-    tabIndex={-1}
+    class="rbt"
+    style="outline: none; position: relative;"
+    tabindex="-1"
   >
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
         aria-autocomplete="both"
-        aria-expanded={false}
+        aria-expanded="false"
         aria-haspopup="listbox"
-        autoComplete="off"
-        className="rbt-input-main form-control rbt-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
+        autocomplete="off"
+        class="rbt-input-main form-control rbt-input"
         placeholder="Choose a state..."
         role="combobox"
         type="text"
         value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+        tabindex="-1"
         value=""
       />
     </div>
   </div>
   <span
-    className="input-group-text"
+    class="input-group-text"
   >
     .00
   </span>
@@ -477,68 +271,39 @@ exports[`<Typeahead> InputGrouping story renders snapshot 1`] = `
 
 exports[`<Typeahead> InputValidation story renders snapshot 1`] = `
 <div
-  className="form-group"
+  class="form-group"
 >
   <div
-    className="rbt is-valid"
-    style={
-      Object {
-        "outline": "none",
-        "position": "relative",
-      }
-    }
-    tabIndex={-1}
+    class="rbt is-valid"
+    style="outline: none; position: relative;"
+    tabindex="-1"
   >
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
         aria-autocomplete="both"
-        aria-expanded={false}
+        aria-expanded="false"
         aria-haspopup="listbox"
-        autoComplete="off"
-        className="rbt-input-main form-control rbt-input is-valid"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
+        autocomplete="off"
+        class="rbt-input-main form-control rbt-input is-valid"
         placeholder="Choose a state..."
         role="combobox"
         type="text"
         value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+        tabindex="-1"
         value=""
       />
     </div>
   </div>
   <div
-    className="valid-feedback"
+    class="valid-feedback"
   >
     Looks good!
   </div>
@@ -547,71 +312,42 @@ exports[`<Typeahead> InputValidation story renders snapshot 1`] = `
 
 exports[`<Typeahead> LoadingState story renders snapshot 1`] = `
 <div
-  className="rbt has-aux"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt has-aux"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <input
       aria-autocomplete="both"
-      aria-expanded={false}
+      aria-expanded="false"
       aria-haspopup="listbox"
-      autoComplete="off"
-      className="rbt-input-main form-control rbt-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
       placeholder="Choose a state..."
       role="combobox"
       type="text"
       value=""
     />
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>
   <div
-    className="rbt-aux"
+    class="rbt-aux"
   >
     <div
-      className="rbt-loader spinner-border spinner-border-sm"
+      class="rbt-loader spinner-border spinner-border-sm"
       role="status"
     >
       <span
-        className="sr-only visually-hidden"
+        class="sr-only visually-hidden"
       >
         Loading...
       </span>
@@ -622,217 +358,151 @@ exports[`<Typeahead> LoadingState story renders snapshot 1`] = `
 
 exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
 <div
-  className="rbt"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-multi form-control rbt-input"
-    onClick={[Function]}
-    onFocus={[Function]}
-    tabIndex={-1}
+    class="rbt-input-multi form-control rbt-input"
+    tabindex="-1"
   >
     <div
-      className="rbt-input-wrapper"
+      class="rbt-input-wrapper"
     >
       <div
-        className="rbt-token rbt-token-removeable"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={0}
+        class="rbt-token rbt-token-removeable"
+        tabindex="0"
       >
         <div
-          className="rbt-token-label"
+          class="rbt-token-label"
         >
           Alabama
         </div>
         <button
           aria-label="Remove"
-          className="close btn-close rbt-close rbt-token-remove-button"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          tabIndex={-1}
+          class="close btn-close rbt-close rbt-token-remove-button"
+          tabindex="-1"
           type="button"
         >
           <span
             aria-hidden="true"
-            className="rbt-close-content"
+            class="rbt-close-content"
           >
             ×
           </span>
           <span
-            className="sr-only visually-hidden"
+            class="sr-only visually-hidden"
           >
             Remove
           </span>
         </button>
       </div>
       <div
-        className="rbt-token rbt-token-removeable"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={0}
+        class="rbt-token rbt-token-removeable"
+        tabindex="0"
       >
         <div
-          className="rbt-token-label"
+          class="rbt-token-label"
         >
           Alaska
         </div>
         <button
           aria-label="Remove"
-          className="close btn-close rbt-close rbt-token-remove-button"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          tabIndex={-1}
+          class="close btn-close rbt-close rbt-token-remove-button"
+          tabindex="-1"
           type="button"
         >
           <span
             aria-hidden="true"
-            className="rbt-close-content"
+            class="rbt-close-content"
           >
             ×
           </span>
           <span
-            className="sr-only visually-hidden"
+            class="sr-only visually-hidden"
           >
             Remove
           </span>
         </button>
       </div>
       <div
-        className="rbt-token rbt-token-removeable"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={0}
+        class="rbt-token rbt-token-removeable"
+        tabindex="0"
       >
         <div
-          className="rbt-token-label"
+          class="rbt-token-label"
         >
           Arizona
         </div>
         <button
           aria-label="Remove"
-          className="close btn-close rbt-close rbt-token-remove-button"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          tabIndex={-1}
+          class="close btn-close rbt-close rbt-token-remove-button"
+          tabindex="-1"
           type="button"
         >
           <span
             aria-hidden="true"
-            className="rbt-close-content"
+            class="rbt-close-content"
           >
             ×
           </span>
           <span
-            className="sr-only visually-hidden"
+            class="sr-only visually-hidden"
           >
             Remove
           </span>
         </button>
       </div>
       <div
-        className="rbt-token rbt-token-removeable"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={0}
+        class="rbt-token rbt-token-removeable"
+        tabindex="0"
       >
         <div
-          className="rbt-token-label"
+          class="rbt-token-label"
         >
           Arkansas
         </div>
         <button
           aria-label="Remove"
-          className="close btn-close rbt-close rbt-token-remove-button"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          tabIndex={-1}
+          class="close btn-close rbt-close rbt-token-remove-button"
+          tabindex="-1"
           type="button"
         >
           <span
             aria-hidden="true"
-            className="rbt-close-content"
+            class="rbt-close-content"
           >
             ×
           </span>
           <span
-            className="sr-only visually-hidden"
+            class="sr-only visually-hidden"
           >
             Remove
           </span>
         </button>
       </div>
       <div
-        style={
-          Object {
-            "display": "flex",
-            "flex": 1,
-            "height": "100%",
-            "position": "relative",
-          }
-        }
+        style="display: flex; flex: 1; height: 100%; position: relative;"
       >
         <input
           aria-autocomplete="both"
-          aria-expanded={false}
+          aria-expanded="false"
           aria-haspopup="listbox"
-          aria-multiselectable={true}
-          autoComplete="off"
-          className="rbt-input-main"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
+          aria-multiselectable="true"
+          autocomplete="off"
+          class="rbt-input-main"
           placeholder=""
           role="combobox"
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "border": 0,
-              "boxShadow": "none",
-              "cursor": "inherit",
-              "outline": "none",
-              "padding": 0,
-              "width": "100%",
-              "zIndex": 1,
-            }
-          }
+          style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
           type="text"
           value=""
         />
         <input
-          aria-hidden={true}
-          className="rbt-input-hint"
-          readOnly={true}
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "borderColor": "transparent",
-              "boxShadow": "none",
-              "color": "rgba(0, 0, 0, 0.54)",
-              "left": 0,
-              "pointerEvents": "none",
-              "position": "absolute",
-              "top": 0,
-              "width": "100%",
-            }
-          }
-          tabIndex={-1}
+          aria-hidden="true"
+          class="rbt-input-hint"
+          readonly=""
+          style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+          tabindex="-1"
           value=""
         />
       </div>
@@ -843,59 +513,30 @@ exports[`<Typeahead> MultiSelect story renders snapshot 1`] = `
 
 exports[`<Typeahead> Pagination story renders snapshot 1`] = `
 <div
-  className="rbt"
-  style={
-    Object {
-      "outline": "none",
-      "position": "relative",
-    }
-  }
-  tabIndex={-1}
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
 >
   <div
-    style={
-      Object {
-        "display": "flex",
-        "flex": 1,
-        "height": "100%",
-        "position": "relative",
-      }
-    }
+    style="display: flex; flex: 1; height: 100%; position: relative;"
   >
     <input
       aria-autocomplete="both"
-      aria-expanded={false}
+      aria-expanded="false"
       aria-haspopup="listbox"
-      autoComplete="off"
-      className="rbt-input-main form-control rbt-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
       placeholder="Choose a state..."
       role="combobox"
       type="text"
       value=""
     />
     <input
-      aria-hidden={true}
-      className="rbt-input-hint"
-      readOnly={true}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-          "borderColor": "transparent",
-          "boxShadow": "none",
-          "color": "rgba(0, 0, 0, 0.54)",
-          "left": 0,
-          "pointerEvents": "none",
-          "position": "absolute",
-          "top": 0,
-          "width": "100%",
-        }
-      }
-      tabIndex={-1}
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
       value=""
     />
   </div>

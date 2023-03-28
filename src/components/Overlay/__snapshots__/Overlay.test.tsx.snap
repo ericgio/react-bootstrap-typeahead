@@ -1,43 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Overlay> Default story renders snapshot 1`] = `
-Array [
+<div>
   <div
-    style={
-      Object {
-        "border": "1px solid red",
-        "padding": "4px",
-      }
-    }
+    style="border: 1px solid red; padding: 4px;"
   >
     Reference element
-  </div>,
+  </div>
   <div
     aria-label="menu-options"
-    className="rbt-menu dropdown-menu show"
+    class="rbt-menu dropdown-menu show"
+    data-popper-escaped="true"
+    data-popper-placement="bottom-start"
+    data-popper-reference-hidden="true"
     id="overlay-story"
-    onMouseDown={[Function]}
-    overlayRef={[Function]}
     role="listbox"
-    style={
-      Object {
-        "display": "block",
-        "left": "0",
-        "maxHeight": "300px",
-        "overflow": "auto",
-        "position": "fixed",
-        "top": "0",
-      }
-    }
+    style="position: fixed; left: 0px; top: 0px; display: block; max-height: 300px; overflow: auto; transform: translate(0px, 0px); width: 0px;"
   >
     <a
-      className="dropdown-item"
+      class="dropdown-item"
       href="#"
-      onClick={[Function]}
       role="option"
     >
       This is the menu
     </a>
-  </div>,
-]
+  </div>
+</div>
 `;

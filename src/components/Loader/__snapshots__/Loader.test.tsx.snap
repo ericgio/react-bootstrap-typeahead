@@ -2,11 +2,11 @@
 
 exports[`<Loader> Default story renders snapshot 1`] = `
 <div
-  className="rbt-loader spinner-border spinner-border-sm"
+  class="rbt-loader spinner-border spinner-border-sm"
   role="status"
 >
   <span
-    className="sr-only visually-hidden"
+    class="sr-only visually-hidden"
   >
     Loading...
   </span>

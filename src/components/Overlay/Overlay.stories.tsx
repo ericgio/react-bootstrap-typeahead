@@ -17,7 +17,7 @@ const Template: Story<OverlayProps> = (args) => {
     useState<HTMLDivElement | null>(null);
 
   return (
-    <>
+    <div>
       <div
         ref={setReferenceElement}
         style={{ border: '1px solid red', padding: '4px' }}>
@@ -30,7 +30,7 @@ const Template: Story<OverlayProps> = (args) => {
           </Menu>
         )}
       </Overlay>
-    </>
+    </div>
   );
 };
 

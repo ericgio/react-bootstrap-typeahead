@@ -2,9 +2,8 @@
 
 exports[`<BaseMenuItem> Active story renders snapshot 1`] = `
 <a
-  className="dropdown-item active"
+  class="dropdown-item active"
   href="#"
-  onClick={[Function]}
 >
   This is an active base menu item
 </a>
@@ -12,9 +11,8 @@ exports[`<BaseMenuItem> Active story renders snapshot 1`] = `
 
 exports[`<BaseMenuItem> Default story renders snapshot 1`] = `
 <a
-  className="dropdown-item"
+  class="dropdown-item"
   href="#"
-  onClick={[Function]}
 >
   This is a base menu item
 </a>
@@ -22,9 +20,8 @@ exports[`<BaseMenuItem> Default story renders snapshot 1`] = `
 
 exports[`<BaseMenuItem> Disabled story renders snapshot 1`] = `
 <a
-  className="dropdown-item disabled"
+  class="dropdown-item disabled"
   href="#"
-  onClick={[Function]}
 >
   This is a disabled base menu item
 </a>
@@ -33,12 +30,10 @@ exports[`<BaseMenuItem> Disabled story renders snapshot 1`] = `
 exports[`<MenuItem> Default story renders snapshot 1`] = `
 <a
   aria-label="test label"
-  aria-selected={false}
-  className="dropdown-item"
+  aria-selected="false"
+  class="dropdown-item"
   href="#"
   id="test-id-item-0"
-  onClick={[Function]}
-  onMouseDown={[Function]}
   role="option"
 >
   This is a menu item

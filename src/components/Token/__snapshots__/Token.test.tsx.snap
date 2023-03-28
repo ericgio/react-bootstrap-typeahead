@@ -2,11 +2,11 @@
 
 exports[`<Token> Anchor story renders snapshot 1`] = `
 <a
-  className="rbt-token"
+  class="rbt-token"
   href="#"
 >
   <div
-    className="rbt-token-label"
+    class="rbt-token-label"
   >
     This is a link token
   </div>
@@ -15,10 +15,10 @@ exports[`<Token> Anchor story renders snapshot 1`] = `
 
 exports[`<Token> Disabled story renders snapshot 1`] = `
 <div
-  className="rbt-token rbt-token-disabled"
+  class="rbt-token rbt-token-disabled"
 >
   <div
-    className="rbt-token-label"
+    class="rbt-token-label"
   >
     This is a disabled token
   </div>
@@ -27,34 +27,28 @@ exports[`<Token> Disabled story renders snapshot 1`] = `
 
 exports[`<Token> Interactive story renders snapshot 1`] = `
 <div
-  className="rbt-token rbt-token-removeable"
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onKeyDown={[Function]}
-  tabIndex={0}
+  class="rbt-token rbt-token-removeable"
+  tabindex="0"
 >
   <div
-    className="rbt-token-label"
+    class="rbt-token-label"
   >
     This is an interactive token
   </div>
   <button
     aria-label="Remove"
-    className="close btn-close rbt-close rbt-token-remove-button"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    tabIndex={-1}
+    class="close btn-close rbt-close rbt-token-remove-button"
+    tabindex="-1"
     type="button"
   >
     <span
       aria-hidden="true"
-      className="rbt-close-content"
+      class="rbt-close-content"
     >
       ×
     </span>
     <span
-      className="sr-only visually-hidden"
+      class="sr-only visually-hidden"
     >
       Remove
     </span>
@@ -64,10 +58,10 @@ exports[`<Token> Interactive story renders snapshot 1`] = `
 
 exports[`<Token> Static story renders snapshot 1`] = `
 <div
-  className="rbt-token"
+  class="rbt-token"
 >
   <div
-    className="rbt-token-label"
+    class="rbt-token-label"
   >
     This is a static token
   </div>

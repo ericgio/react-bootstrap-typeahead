@@ -2,41 +2,24 @@
 
 exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "minHeight": "300px",
-    }
-  }
+  style="min-height: 300px;"
 >
   <div
-    style={
-      Object {
-        "position": "relative",
-      }
-    }
+    style="position: relative;"
   >
     <div
       aria-label="menu-options"
-      className="rbt-menu dropdown-menu show"
+      class="rbt-menu dropdown-menu show"
       id="typeahead-menu"
-      onMouseDown={[Function]}
       role="listbox"
-      style={
-        Object {
-          "display": "block",
-          "maxHeight": "300px",
-          "overflow": "auto",
-        }
-      }
+      style="display: block; max-height: 300px; overflow: auto;"
     >
       <a
         aria-label="Alabama"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-0"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -51,12 +34,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Alaska"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-1"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -71,12 +52,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Arizona"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-2"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -91,12 +70,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Arkansas"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-3"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -111,12 +88,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="California"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-4"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -131,12 +106,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Colorado"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-5"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -151,12 +124,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Connecticut"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-6"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -171,12 +142,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Delaware"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-7"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -191,12 +160,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Florida"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-8"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -211,12 +178,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Georgia"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-9"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -231,12 +196,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Hawaii"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-10"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -251,12 +214,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Idaho"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-11"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -271,12 +232,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Illinois"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-12"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -291,12 +250,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Indiana"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-13"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -311,12 +268,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Iowa"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-14"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -331,12 +286,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Kansas"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-15"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -351,12 +304,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Kentucky"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-16"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -371,12 +322,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Louisiana"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-17"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -391,12 +340,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Maine"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-18"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -411,12 +358,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Maryland"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-19"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -431,12 +376,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Massachusetts"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-20"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -451,12 +394,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Michigan"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-21"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -471,12 +412,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Minnesota"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-22"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -491,12 +430,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Mississippi"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-23"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -511,12 +448,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Missouri"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-24"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -531,12 +466,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Montana"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-25"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -551,12 +484,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Nebraska"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-26"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -571,12 +502,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Nevada"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-27"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -591,12 +520,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="New Hampshire"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-28"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -611,12 +538,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="New Jersey"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-29"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -631,12 +556,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="New Mexico"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-30"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -651,12 +574,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="New York"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-31"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -671,12 +592,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="North Carolina"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-32"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -691,12 +610,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="North Dakota"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-33"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -711,12 +628,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Ohio"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-34"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -731,12 +646,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Oklahoma"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-35"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -751,12 +664,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Oregon"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-36"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -771,12 +682,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Pennsylvania"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-37"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -791,12 +700,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Rhode Island"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-38"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -811,12 +718,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="South Carolina"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-39"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -831,12 +736,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="South Dakota"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-40"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -851,12 +754,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Tennessee"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-41"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -871,12 +772,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Texas"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-42"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -891,12 +790,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Utah"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-43"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -911,12 +808,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Vermont"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-44"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -931,12 +826,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Virginia"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-45"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -951,12 +844,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Washington"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-46"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -971,12 +862,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="West Virginia"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-47"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -991,12 +880,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Wisconsin"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-48"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -1011,12 +898,10 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
       </a>
       <a
         aria-label="Wyoming"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-49"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         <div>
@@ -1036,46 +921,29 @@ exports[`<TypeaheadMenu> CustomChildren story renders snapshot 1`] = `
 
 exports[`<TypeaheadMenu> CustomOption story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "minHeight": "300px",
-    }
-  }
+  style="min-height: 300px;"
 >
   <div
-    style={
-      Object {
-        "position": "relative",
-      }
-    }
+    style="position: relative;"
   >
     <div
       aria-label="menu-options"
-      className="rbt-menu dropdown-menu show"
+      class="rbt-menu dropdown-menu show"
       id="typeahead-menu"
-      onMouseDown={[Function]}
       role="listbox"
-      style={
-        Object {
-          "display": "block",
-          "maxHeight": "300px",
-          "overflow": "auto",
-        }
-      }
+      style="display: block; max-height: 300px; overflow: auto;"
     >
       <a
         aria-label="custom option"
-        aria-selected={false}
-        className="dropdown-item rbt-menu-custom-option"
+        aria-selected="false"
+        class="dropdown-item rbt-menu-custom-option"
         href="#"
         id="-item-0"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         New selection: 
         <mark
-          className="rbt-highlight-text"
+          class="rbt-highlight-text"
         >
           custom option
         </mark>
@@ -1087,629 +955,514 @@ exports[`<TypeaheadMenu> CustomOption story renders snapshot 1`] = `
 
 exports[`<TypeaheadMenu> Default story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "minHeight": "300px",
-    }
-  }
+  style="min-height: 300px;"
 >
   <div
-    style={
-      Object {
-        "position": "relative",
-      }
-    }
+    style="position: relative;"
   >
     <div
       aria-label="menu-options"
-      className="rbt-menu dropdown-menu show"
+      class="rbt-menu dropdown-menu show"
       id="typeahead-menu"
-      onMouseDown={[Function]}
       role="listbox"
-      style={
-        Object {
-          "display": "block",
-          "maxHeight": "300px",
-          "overflow": "auto",
-        }
-      }
+      style="display: block; max-height: 300px; overflow: auto;"
     >
       <a
         aria-label="Alabama"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-0"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Alabama
       </a>
       <a
         aria-label="Alaska"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-1"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Alaska
       </a>
       <a
         aria-label="Arizona"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-2"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Arizona
       </a>
       <a
         aria-label="Arkansas"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-3"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Arkansas
       </a>
       <a
         aria-label="California"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-4"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         California
       </a>
       <a
         aria-label="Colorado"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-5"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Colorado
       </a>
       <a
         aria-label="Connecticut"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-6"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Connecticut
       </a>
       <a
         aria-label="Delaware"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-7"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Delaware
       </a>
       <a
         aria-label="Florida"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-8"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Florida
       </a>
       <a
         aria-label="Georgia"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-9"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Georgia
       </a>
       <a
         aria-label="Hawaii"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-10"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Hawaii
       </a>
       <a
         aria-label="Idaho"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-11"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Idaho
       </a>
       <a
         aria-label="Illinois"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-12"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Illinois
       </a>
       <a
         aria-label="Indiana"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-13"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Indiana
       </a>
       <a
         aria-label="Iowa"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-14"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Iowa
       </a>
       <a
         aria-label="Kansas"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-15"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Kansas
       </a>
       <a
         aria-label="Kentucky"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-16"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Kentucky
       </a>
       <a
         aria-label="Louisiana"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-17"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Louisiana
       </a>
       <a
         aria-label="Maine"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-18"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Maine
       </a>
       <a
         aria-label="Maryland"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-19"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Maryland
       </a>
       <a
         aria-label="Massachusetts"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-20"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Massachusetts
       </a>
       <a
         aria-label="Michigan"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-21"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Michigan
       </a>
       <a
         aria-label="Minnesota"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-22"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Minnesota
       </a>
       <a
         aria-label="Mississippi"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-23"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Mississippi
       </a>
       <a
         aria-label="Missouri"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-24"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Missouri
       </a>
       <a
         aria-label="Montana"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-25"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Montana
       </a>
       <a
         aria-label="Nebraska"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-26"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Nebraska
       </a>
       <a
         aria-label="Nevada"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-27"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Nevada
       </a>
       <a
         aria-label="New Hampshire"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-28"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         New Hampshire
       </a>
       <a
         aria-label="New Jersey"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-29"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         New Jersey
       </a>
       <a
         aria-label="New Mexico"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-30"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         New Mexico
       </a>
       <a
         aria-label="New York"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-31"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         New York
       </a>
       <a
         aria-label="North Carolina"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-32"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         North Carolina
       </a>
       <a
         aria-label="North Dakota"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-33"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         North Dakota
       </a>
       <a
         aria-label="Ohio"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-34"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Ohio
       </a>
       <a
         aria-label="Oklahoma"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-35"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Oklahoma
       </a>
       <a
         aria-label="Oregon"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-36"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Oregon
       </a>
       <a
         aria-label="Pennsylvania"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-37"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Pennsylvania
       </a>
       <a
         aria-label="Rhode Island"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-38"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Rhode Island
       </a>
       <a
         aria-label="South Carolina"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-39"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         South Carolina
       </a>
       <a
         aria-label="South Dakota"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-40"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         South Dakota
       </a>
       <a
         aria-label="Tennessee"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-41"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Tennessee
       </a>
       <a
         aria-label="Texas"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-42"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Texas
       </a>
       <a
         aria-label="Utah"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-43"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Utah
       </a>
       <a
         aria-label="Vermont"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-44"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Vermont
       </a>
       <a
         aria-label="Virginia"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-45"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Virginia
       </a>
       <a
         aria-label="Washington"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-46"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Washington
       </a>
       <a
         aria-label="West Virginia"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-47"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         West Virginia
       </a>
       <a
         aria-label="Wisconsin"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-48"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Wisconsin
       </a>
       <a
         aria-label="Wyoming"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-49"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Wyoming
@@ -1721,105 +1474,78 @@ exports[`<TypeaheadMenu> Default story renders snapshot 1`] = `
 
 exports[`<TypeaheadMenu> Pagination story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "minHeight": "300px",
-    }
-  }
+  style="min-height: 300px;"
 >
   <div
-    style={
-      Object {
-        "position": "relative",
-      }
-    }
+    style="position: relative;"
   >
     <div
       aria-label="menu-options"
-      className="rbt-menu dropdown-menu show"
+      class="rbt-menu dropdown-menu show"
       id="typeahead-menu"
-      onMouseDown={[Function]}
       role="listbox"
-      style={
-        Object {
-          "display": "block",
-          "maxHeight": "300px",
-          "overflow": "auto",
-        }
-      }
+      style="display: block; max-height: 300px; overflow: auto;"
     >
       <a
         aria-label="Alabama"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-0"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Alabama
       </a>
       <a
         aria-label="Alaska"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-1"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Alaska
       </a>
       <a
         aria-label="Arizona"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-2"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Arizona
       </a>
       <a
         aria-label="Arkansas"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-3"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Arkansas
       </a>
       <a
         aria-label="California"
-        aria-selected={false}
-        className="dropdown-item"
+        aria-selected="false"
+        class="dropdown-item"
         href="#"
         id="-item-4"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         California
       </a>
       <div
-        className="dropdown-divider"
+        class="dropdown-divider"
         role="separator"
       />
       <a
         aria-label="Display additional results..."
-        aria-selected={false}
-        className="dropdown-item rbt-menu-pagination-option"
+        aria-selected="false"
+        class="dropdown-item rbt-menu-pagination-option"
         href="#"
         id="-item-5"
-        onClick={[Function]}
-        onMouseDown={[Function]}
         role="option"
       >
         Display additional results...

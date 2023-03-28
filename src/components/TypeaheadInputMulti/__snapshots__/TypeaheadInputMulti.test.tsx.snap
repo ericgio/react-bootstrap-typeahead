@@ -2,161 +2,110 @@
 
 exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi form-control rbt-input"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
+        value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value=""
       />
     </div>
@@ -166,87 +115,54 @@ exports[`<TypeaheadInputMulti> Default story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> Disabled story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi disabled form-control rbt-input"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi disabled form-control rbt-input"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-disabled"
+      class="rbt-token rbt-token-disabled"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
     </div>
     <div
-      className="rbt-token rbt-token-disabled"
+      class="rbt-token rbt-token-disabled"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
     </div>
     <div
-      className="rbt-token rbt-token-disabled"
+      class="rbt-token rbt-token-disabled"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        disabled={true}
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        disabled=""
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
+        value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value=""
       />
     </div>
@@ -256,161 +172,110 @@ exports[`<TypeaheadInputMulti> Disabled story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> FocusState story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input focus"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi form-control rbt-input focus"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
+        value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value=""
       />
     </div>
@@ -420,161 +285,110 @@ exports[`<TypeaheadInputMulti> FocusState story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> Invalid story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input is-invalid focus"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi form-control rbt-input is-invalid focus"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
+        value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value=""
       />
     </div>
@@ -584,161 +398,110 @@ exports[`<TypeaheadInputMulti> Invalid story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> Large story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input form-control-lg"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi form-control rbt-input form-control-lg"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
+        value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value=""
       />
     </div>
@@ -748,161 +511,110 @@ exports[`<TypeaheadInputMulti> Large story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> Small story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input form-control-sm"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi form-control rbt-input form-control-sm"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
+        value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value=""
       />
     </div>
@@ -912,161 +624,110 @@ exports[`<TypeaheadInputMulti> Small story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> Valid story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input is-valid focus"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi form-control rbt-input is-valid focus"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
+        value=""
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value=""
       />
     </div>
@@ -1076,162 +737,110 @@ exports[`<TypeaheadInputMulti> Valid story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputMulti> WithHint story renders snapshot 1`] = `
 <div
-  className="rbt-input-multi form-control rbt-input"
-  onClick={[Function]}
-  onFocus={[Function]}
-  tabIndex={-1}
+  class="rbt-input-multi form-control rbt-input"
+  tabindex="-1"
 >
   <div
-    className="rbt-input-wrapper"
+    class="rbt-input-wrapper"
   >
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Alaska
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arizona
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      className="rbt-token rbt-token-removeable"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      tabIndex={0}
+      class="rbt-token rbt-token-removeable"
+      tabindex="0"
     >
       <div
-        className="rbt-token-label"
+        class="rbt-token-label"
       >
         Arkansas
       </div>
       <button
         aria-label="Remove"
-        className="close btn-close rbt-close rbt-token-remove-button"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={-1}
+        class="close btn-close rbt-close rbt-token-remove-button"
+        tabindex="-1"
         type="button"
       >
         <span
           aria-hidden="true"
-          className="rbt-close-content"
+          class="rbt-close-content"
         >
           ×
         </span>
         <span
-          className="sr-only visually-hidden"
+          class="sr-only visually-hidden"
         >
           Remove
         </span>
       </button>
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "height": "100%",
-          "position": "relative",
-        }
-      }
+      style="display: flex; flex: 1; height: 100%; position: relative;"
     >
       <input
-        className="rbt-input-main"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "border": 0,
-            "boxShadow": "none",
-            "cursor": "inherit",
-            "outline": "none",
-            "padding": 0,
-            "width": "100%",
-            "zIndex": 1,
-          }
-        }
+        class="rbt-input-main"
+        style="background-color: transparent; border: 0px; box-shadow: none; cursor: inherit; outline: none; padding: 0px; width: 100%; z-index: 1;"
         value="cali"
       />
       <input
-        aria-hidden={true}
-        className="rbt-input-hint"
-        readOnly={true}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "borderColor": "transparent",
-            "boxShadow": "none",
-            "color": "rgba(0, 0, 0, 0.54)",
-            "left": 0,
-            "pointerEvents": "none",
-            "position": "absolute",
-            "top": 0,
-            "width": "100%",
-          }
-        }
-        tabIndex={-1}
+        aria-hidden="true"
+        class="rbt-input-hint"
+        readonly=""
+        style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 0px 0px 0px 0px; line-height: normal; padding: 0px 0px 0px 0px;"
+        tabindex="-1"
         value="california"
       />
     </div>

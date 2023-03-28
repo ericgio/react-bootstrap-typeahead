@@ -2,37 +2,18 @@
 
 exports[`<TypeaheadInputSingle> Default story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "display": "flex",
-      "flex": 1,
-      "height": "100%",
-      "position": "relative",
-    }
-  }
+  style="display: flex; flex: 1; height: 100%; position: relative;"
 >
   <input
-    className="rbt-input-main form-control rbt-input"
+    class="rbt-input-main form-control rbt-input"
     placeholder="This is a default input..."
   />
   <input
-    aria-hidden={true}
-    className="rbt-input-hint"
-    readOnly={true}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "borderColor": "transparent",
-        "boxShadow": "none",
-        "color": "rgba(0, 0, 0, 0.54)",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-        "width": "100%",
-      }
-    }
-    tabIndex={-1}
+    aria-hidden="true"
+    class="rbt-input-hint"
+    readonly=""
+    style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
+    tabindex="-1"
     value=""
   />
 </div>
@@ -40,38 +21,19 @@ exports[`<TypeaheadInputSingle> Default story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputSingle> Disabled story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "display": "flex",
-      "flex": 1,
-      "height": "100%",
-      "position": "relative",
-    }
-  }
+  style="display: flex; flex: 1; height: 100%; position: relative;"
 >
   <input
-    className="rbt-input-main form-control rbt-input"
-    disabled={true}
+    class="rbt-input-main form-control rbt-input"
+    disabled=""
     placeholder="This is a disabled input..."
   />
   <input
-    aria-hidden={true}
-    className="rbt-input-hint"
-    readOnly={true}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "borderColor": "transparent",
-        "boxShadow": "none",
-        "color": "rgba(0, 0, 0, 0.54)",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-        "width": "100%",
-      }
-    }
-    tabIndex={-1}
+    aria-hidden="true"
+    class="rbt-input-hint"
+    readonly=""
+    style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
+    tabindex="-1"
     value=""
   />
 </div>
@@ -79,37 +41,18 @@ exports[`<TypeaheadInputSingle> Disabled story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputSingle> Invalid story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "display": "flex",
-      "flex": 1,
-      "height": "100%",
-      "position": "relative",
-    }
-  }
+  style="display: flex; flex: 1; height: 100%; position: relative;"
 >
   <input
-    className="rbt-input-main form-control rbt-input is-invalid"
+    class="rbt-input-main form-control rbt-input is-invalid"
     placeholder="This is an invalid input..."
   />
   <input
-    aria-hidden={true}
-    className="rbt-input-hint"
-    readOnly={true}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "borderColor": "transparent",
-        "boxShadow": "none",
-        "color": "rgba(0, 0, 0, 0.54)",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-        "width": "100%",
-      }
-    }
-    tabIndex={-1}
+    aria-hidden="true"
+    class="rbt-input-hint"
+    readonly=""
+    style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
+    tabindex="-1"
     value=""
   />
 </div>
@@ -117,37 +60,18 @@ exports[`<TypeaheadInputSingle> Invalid story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputSingle> Large story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "display": "flex",
-      "flex": 1,
-      "height": "100%",
-      "position": "relative",
-    }
-  }
+  style="display: flex; flex: 1; height: 100%; position: relative;"
 >
   <input
-    className="rbt-input-main form-control rbt-input form-control-lg"
+    class="rbt-input-main form-control rbt-input form-control-lg"
     placeholder="This is a large input..."
   />
   <input
-    aria-hidden={true}
-    className="rbt-input-hint"
-    readOnly={true}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "borderColor": "transparent",
-        "boxShadow": "none",
-        "color": "rgba(0, 0, 0, 0.54)",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-        "width": "100%",
-      }
-    }
-    tabIndex={-1}
+    aria-hidden="true"
+    class="rbt-input-hint"
+    readonly=""
+    style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
+    tabindex="-1"
     value=""
   />
 </div>
@@ -155,37 +79,18 @@ exports[`<TypeaheadInputSingle> Large story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputSingle> Small story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "display": "flex",
-      "flex": 1,
-      "height": "100%",
-      "position": "relative",
-    }
-  }
+  style="display: flex; flex: 1; height: 100%; position: relative;"
 >
   <input
-    className="rbt-input-main form-control rbt-input form-control-sm"
+    class="rbt-input-main form-control rbt-input form-control-sm"
     placeholder="This is a small input..."
   />
   <input
-    aria-hidden={true}
-    className="rbt-input-hint"
-    readOnly={true}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "borderColor": "transparent",
-        "boxShadow": "none",
-        "color": "rgba(0, 0, 0, 0.54)",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-        "width": "100%",
-      }
-    }
-    tabIndex={-1}
+    aria-hidden="true"
+    class="rbt-input-hint"
+    readonly=""
+    style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
+    tabindex="-1"
     value=""
   />
 </div>
@@ -193,37 +98,18 @@ exports[`<TypeaheadInputSingle> Small story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputSingle> Valid story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "display": "flex",
-      "flex": 1,
-      "height": "100%",
-      "position": "relative",
-    }
-  }
+  style="display: flex; flex: 1; height: 100%; position: relative;"
 >
   <input
-    className="rbt-input-main form-control rbt-input is-valid"
+    class="rbt-input-main form-control rbt-input is-valid"
     placeholder="This is a valid input..."
   />
   <input
-    aria-hidden={true}
-    className="rbt-input-hint"
-    readOnly={true}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "borderColor": "transparent",
-        "boxShadow": "none",
-        "color": "rgba(0, 0, 0, 0.54)",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-        "width": "100%",
-      }
-    }
-    tabIndex={-1}
+    aria-hidden="true"
+    class="rbt-input-hint"
+    readonly=""
+    style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
+    tabindex="-1"
     value=""
   />
 </div>
@@ -231,38 +117,18 @@ exports[`<TypeaheadInputSingle> Valid story renders snapshot 1`] = `
 
 exports[`<TypeaheadInputSingle> WithHint story renders snapshot 1`] = `
 <div
-  style={
-    Object {
-      "display": "flex",
-      "flex": 1,
-      "height": "100%",
-      "position": "relative",
-    }
-  }
+  style="display: flex; flex: 1; height: 100%; position: relative;"
 >
   <input
-    className="rbt-input-main form-control rbt-input"
-    onChange={[Function]}
+    class="rbt-input-main form-control rbt-input"
     value="Ca"
   />
   <input
-    aria-hidden={true}
-    className="rbt-input-hint"
-    readOnly={true}
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "borderColor": "transparent",
-        "boxShadow": "none",
-        "color": "rgba(0, 0, 0, 0.54)",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": 0,
-        "width": "100%",
-      }
-    }
-    tabIndex={-1}
+    aria-hidden="true"
+    class="rbt-input-hint"
+    readonly=""
+    style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%; border-style: inset inset inset inset; border-width: 2px 2px 2px 2px; line-height: normal; padding: 1px 1px 1px 1px;"
+    tabindex="-1"
     value="California"
   />
 </div>

@@ -3,10 +3,9 @@
 
 import { axe } from 'jest-axe';
 import React, { ReactNode } from 'react';
-import renderer from 'react-test-renderer';
 import { Meta } from '@storybook/react';
 import { composeStories, composeStory } from '@storybook/testing-react';
-import { screen } from '@testing-library/react';
+import { render, screen, RenderResult } from '@testing-library/react';
 
 import {
   defaultContext,
@@ -22,24 +21,33 @@ export { default as userEvent } from '@testing-library/user-event';
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export function noop() {}
 
-export function prepareSnapshot(element: React.ReactElement) {
-  return renderer.create(element).toJSON();
-}
-
 interface StoriesImport {
   default: Meta;
 }
 
+interface TestOptions {
+  /**
+   * Get the element to snapshot, either synchronously or asynchronously.
+   */
+  getElement?: (
+    wrapper: RenderResult
+  ) => Promise<ChildNode | null> | ChildNode | null;
+}
+
 type ComposedStory = ReturnType<typeof composeStory>;
 
-export function generateSnapshots(stories: StoriesImport) {
+export function generateSnapshots(
+  stories: StoriesImport,
+  { getElement = (wrapper) => wrapper.container.firstChild }: TestOptions = {}
+) {
   const composed = composeStories(stories);
 
   Object.entries<ComposedStory>(composed).forEach(([storyName, Story]) => {
     if (Story.parameters?.snapshot?.skip) return;
 
     test(`${storyName} story renders snapshot`, async () => {
-      expect(prepareSnapshot(<Story />)).toMatchSnapshot();
+      const view = render(<Story />);
+      expect(await getElement(view)).toMatchSnapshot();
     });
   });
 }

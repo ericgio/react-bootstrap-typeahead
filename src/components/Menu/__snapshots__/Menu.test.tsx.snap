@@ -3,48 +3,34 @@
 exports[`<Menu> Default story renders snapshot 1`] = `
 <div
   aria-label="menu-options"
-  className="rbt-menu dropdown-menu show"
+  class="rbt-menu dropdown-menu show"
   id="default-menu"
-  onMouseDown={[Function]}
   role="listbox"
-  style={
-    Object {
-      "display": "block",
-      "maxHeight": "300px",
-      "overflow": "auto",
-      "position": "relative",
-    }
-  }
+  style="position: relative; display: block; max-height: 300px; overflow: auto;"
 >
   <a
-    aria-selected={false}
-    className="dropdown-item"
+    aria-selected="false"
+    class="dropdown-item"
     href="#"
     id="-item-0"
-    onClick={[Function]}
-    onMouseDown={[Function]}
     role="option"
   >
     Item 1
   </a>
   <a
-    aria-selected={false}
-    className="dropdown-item"
+    aria-selected="false"
+    class="dropdown-item"
     href="#"
     id="-item-1"
-    onClick={[Function]}
-    onMouseDown={[Function]}
     role="option"
   >
     Item 2
   </a>
   <a
-    aria-selected={false}
-    className="dropdown-item"
+    aria-selected="false"
+    class="dropdown-item"
     href="#"
     id="-item-2"
-    onClick={[Function]}
-    onMouseDown={[Function]}
     role="option"
   >
     Item 3
@@ -55,23 +41,14 @@ exports[`<Menu> Default story renders snapshot 1`] = `
 exports[`<Menu> Empty story renders snapshot 1`] = `
 <div
   aria-label="menu-options"
-  className="rbt-menu dropdown-menu show"
+  class="rbt-menu dropdown-menu show"
   id="empty-menu"
-  onMouseDown={[Function]}
   role="listbox"
-  style={
-    Object {
-      "display": "block",
-      "maxHeight": "300px",
-      "overflow": "auto",
-      "position": "relative",
-    }
-  }
+  style="position: relative; display: block; max-height: 300px; overflow: auto;"
 >
   <a
-    className="dropdown-item disabled"
+    class="dropdown-item disabled"
     href="#"
-    onClick={[Function]}
     role="option"
   >
     No matches found.
@@ -82,36 +59,26 @@ exports[`<Menu> Empty story renders snapshot 1`] = `
 exports[`<Menu> HeaderAndDivider story renders snapshot 1`] = `
 <div
   aria-label="menu-options"
-  className="rbt-menu dropdown-menu show"
+  class="rbt-menu dropdown-menu show"
   id="header-and-divider"
-  onMouseDown={[Function]}
   role="listbox"
-  style={
-    Object {
-      "display": "block",
-      "maxHeight": "300px",
-      "overflow": "auto",
-      "position": "relative",
-    }
-  }
+  style="position: relative; display: block; max-height: 300px; overflow: auto;"
 >
   <div
-    className="dropdown-header"
+    class="dropdown-header"
     role="heading"
   >
     This is a menu header
   </div>
   <div
-    className="dropdown-divider"
+    class="dropdown-divider"
     role="separator"
   />
   <a
-    aria-selected={false}
-    className="dropdown-item"
+    aria-selected="false"
+    class="dropdown-item"
     href="#"
     id="-item-0"
-    onClick={[Function]}
-    onMouseDown={[Function]}
     role="option"
   >
     Item 1

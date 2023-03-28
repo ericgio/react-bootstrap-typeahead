@@ -2,6 +2,6 @@
 
 exports[`<Input> Default story renders snapshot 1`] = `
 <input
-  className="rbt-input-main"
+  class="rbt-input-main"
 />
 `;
