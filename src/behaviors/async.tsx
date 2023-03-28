@@ -15,7 +15,7 @@ import usePrevious from '@restart/hooks/usePrevious';
 import Typeahead from '../core/Typeahead';
 
 import { optionType } from '../propTypes';
-import { getDisplayName, isFunction } from '../utils';
+import { getDisplayName, isFunction, warn } from '../utils';
 
 import { TypeaheadComponentProps } from '../components/Typeahead';
 import type { Option } from '../types';
@@ -181,6 +181,12 @@ export function useAsync(props: UseAsyncProps) {
 export function withAsync<T extends UseAsyncProps = UseAsyncProps>(
   Component: ComponentType<T>
 ) {
+  warn(
+    false,
+    'Warning: `withAsync` is deprecated and will be removed in the next ' +
+      'major version. Use `useAsync` instead.'
+  );
+
   const AsyncTypeahead = forwardRef<Typeahead, T>((props, ref) => (
     <Component {...props} {...useAsync(props)} ref={ref} />
   ));

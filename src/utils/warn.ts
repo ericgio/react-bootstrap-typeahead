@@ -1,5 +1,3 @@
-// @flow
-
 import warning from 'warning';
 
 let warned: Record<string, boolean> = {};

@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 import { useRootClose } from 'react-overlays';
 
-import { getDisplayName, isFunction } from '../utils';
+import { getDisplayName, isFunction, warn } from '../utils';
 
 import { optionType } from '../propTypes';
 import { Option, OptionHandler } from '../types';
@@ -92,6 +92,12 @@ export function useToken<T extends HTMLElement>({
 export function withToken<T extends UseTokenProps<HTMLElement>>(
   Component: ComponentType<T>
 ) {
+  warn(
+    false,
+    'Warning: `withToken` is deprecated and will be removed in the next ' +
+      'major version. Use `useToken` instead.'
+  );
+
   const displayName = `withToken(${getDisplayName(Component)})`;
 
   const WrappedToken = (props: T) => (

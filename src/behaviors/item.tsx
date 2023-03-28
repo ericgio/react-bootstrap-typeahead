@@ -11,7 +11,12 @@ import React, {
 import scrollIntoView from 'scroll-into-view-if-needed';
 
 import { useTypeaheadContext } from '../core/Context';
-import { getDisplayName, getMenuItemId, preventInputBlur } from '../utils';
+import {
+  getDisplayName,
+  getMenuItemId,
+  preventInputBlur,
+  warn,
+} from '../utils';
 
 import { optionType } from '../propTypes';
 import { Option } from '../types';
@@ -99,6 +104,12 @@ export function useItem<T extends HTMLElement>({
 export function withItem<T extends UseItemProps<HTMLElement>>(
   Component: ComponentType<T>
 ) {
+  warn(
+    false,
+    'Warning: `withItem` is deprecated and will be removed in the next ' +
+      'major version. Use `useItem` instead.'
+  );
+
   const WrappedMenuItem = (props: T) => (
     <Component {...props} {...useItem(props)} />
   );
