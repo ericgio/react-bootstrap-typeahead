@@ -16,15 +16,12 @@ import {
   useHint,
   useItem,
   useToken,
-  withAsync,
-  withItem,
-  withToken,
 } from '..';
 
 import _AsyncTypeahead from '../components/AsyncTypeahead';
 import _ClearButton from '../components/ClearButton';
 import _Highlighter from '../components/Highlighter';
-import _Hint, { useHint as _useHint } from '../components/Hint';
+import _Hint from '../components/Hint';
 import _Input from '../components/Input';
 import _Loader from '../components/Loader';
 import _Menu from '../components/Menu';
@@ -35,15 +32,10 @@ import _TypeaheadInputMulti from '../components/TypeaheadInputMulti';
 import _TypeaheadInputSingle from '../components/TypeaheadInputSingle';
 import _TypeaheadMenu from '../components/TypeaheadMenu';
 
-import {
-  useAsync as _useAsync,
-  withAsync as _withAsync,
-} from '../behaviors/async';
-import { useItem as _useItem, withItem as _withItem } from '../behaviors/item';
-import {
-  useToken as _useToken,
-  withToken as _withToken,
-} from '../behaviors/token';
+import _useAsync from '../core/useAsync';
+import _useHint from '../core/useHint';
+import _useItem from '../core/useItem';
+import _useToken from '../core/useToken';
 
 describe('index.js', () => {
   it('AsyncTypeahead is exported', () => {
@@ -101,16 +93,13 @@ describe('index.js', () => {
 
   it('async exports', () => {
     expect(useAsync).toBe(_useAsync);
-    expect(withAsync).toBe(_withAsync);
   });
 
   it('item exports', () => {
     expect(useItem).toBe(_useItem);
-    expect(withItem).toBe(_withItem);
   });
 
   it('token exports', () => {
     expect(useToken).toBe(_useToken);
-    expect(withToken).toBe(_withToken);
   });
 });

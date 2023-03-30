@@ -1,5 +1,5 @@
 import { Ref } from 'react';
-import useRootClose from './useRootClose';
+import useRootClose from '../../core/useRootClose';
 
 interface RootCloseProps {
   children: (ref: Ref<HTMLDivElement>) => JSX.Element;

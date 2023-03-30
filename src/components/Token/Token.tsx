@@ -1,9 +1,11 @@
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import React, { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
 import ClearButton from '../ClearButton';
 
-import { useToken, UseTokenProps } from '../../behaviors/token';
+import useToken, { UseTokenProps } from '../../core/useToken';
+import { optionType } from '../../propTypes';
 import { isFunction } from '../../utils';
 
 type HTMLElementProps = Omit<HTMLProps<HTMLDivElement>, 'onBlur' | 'ref'>;
@@ -93,6 +95,14 @@ const Token = ({
   ) : (
     <StaticToken {...props}>{child}</StaticToken>
   );
+};
+
+Token.propTypes = {
+  onBlur: PropTypes.func,
+  onClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onRemove: PropTypes.func,
+  option: optionType.isRequired,
 };
 
 export default Token;
