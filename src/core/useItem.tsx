@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import React, {
-  ComponentType,
+import {
   HTMLProps,
   MouseEvent,
   MouseEventHandler,
@@ -10,21 +8,10 @@ import React, {
 } from 'react';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
-import { useTypeaheadContext } from '../core/Context';
-import {
-  getDisplayName,
-  getMenuItemId,
-  preventInputBlur,
-  warn,
-} from '../utils';
+import { useTypeaheadContext } from './Context';
+import { getMenuItemId, preventInputBlur } from '../utils';
 
-import { optionType } from '../propTypes';
 import { Option } from '../types';
-
-const propTypes = {
-  option: optionType.isRequired,
-  position: PropTypes.number,
-};
 
 export interface UseItemProps<T> extends HTMLProps<T> {
   onClick?: MouseEventHandler<T>;
@@ -32,7 +19,7 @@ export interface UseItemProps<T> extends HTMLProps<T> {
   position: number;
 }
 
-export function useItem<T extends HTMLElement>({
+function useItem<T extends HTMLElement>({
   label,
   onClick,
   option,
@@ -98,22 +85,4 @@ export function useItem<T extends HTMLElement>({
   };
 }
 
-/* istanbul ignore next */
-export function withItem<T extends UseItemProps<HTMLElement>>(
-  Component: ComponentType<T>
-) {
-  warn(
-    false,
-    'Warning: `withItem` is deprecated and will be removed in the next ' +
-      'major version. Use `useItem` instead.'
-  );
-
-  const WrappedMenuItem = (props: T) => (
-    <Component {...props} {...useItem(props)} />
-  );
-
-  WrappedMenuItem.displayName = `withItem(${getDisplayName(Component)})`;
-  WrappedMenuItem.propTypes = propTypes;
-
-  return WrappedMenuItem;
-}
+export default useItem;

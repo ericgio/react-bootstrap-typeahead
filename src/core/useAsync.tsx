@@ -1,61 +1,12 @@
 import debounce from 'lodash.debounce';
-import PropTypes from 'prop-types';
-import React, {
-  ChangeEvent,
-  ComponentType,
-  forwardRef,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import { ChangeEvent, ReactNode, useCallback, useEffect, useRef } from 'react';
 import useForceUpdate from '@restart/hooks/useForceUpdate';
 import usePrevious from '@restart/hooks/usePrevious';
 
-import Typeahead from '../core/Typeahead';
-
-import { optionType } from '../propTypes';
-import { getDisplayName, isFunction, warn } from '../utils';
+import { isFunction } from '../utils';
 
 import { TypeaheadComponentProps } from '../components/Typeahead';
 import type { Option } from '../types';
-
-const propTypes = {
-  /**
-   * Delay, in milliseconds, before performing search.
-   */
-  delay: PropTypes.number,
-  /**
-   * Whether or not a request is currently pending. Necessary for the
-   * container to know when new results are available.
-   */
-  isLoading: PropTypes.bool.isRequired,
-  /**
-   * Number of input characters that must be entered before showing results.
-   */
-  minLength: PropTypes.number,
-  /**
-   * Callback to perform when the search is executed.
-   */
-  onSearch: PropTypes.func.isRequired,
-  /**
-   * Options to be passed to the typeahead. Will typically be the query
-   * results, but can also be initial default options.
-   */
-  options: PropTypes.arrayOf(optionType),
-  /**
-   * Message displayed in the menu when there is no user input.
-   */
-  promptText: PropTypes.node,
-  /**
-   * Message displayed in the menu while the request is pending.
-   */
-  searchText: PropTypes.node,
-  /**
-   * Whether or not the component should cache query results.
-   */
-  useCache: PropTypes.bool,
-};
 
 export interface UseAsyncProps extends TypeaheadComponentProps {
   delay?: number;
@@ -80,7 +31,7 @@ type DebouncedFn<T> = T & {
  *  - Optional query caching
  *  - Search prompt and empty results behaviors
  */
-export function useAsync(props: UseAsyncProps) {
+function useAsync(props: UseAsyncProps) {
   const {
     allowNew,
     delay = 200,
@@ -180,23 +131,4 @@ export function useAsync(props: UseAsyncProps) {
   };
 }
 
-/* istanbul ignore next */
-export function withAsync<T extends UseAsyncProps = UseAsyncProps>(
-  Component: ComponentType<T>
-) {
-  warn(
-    false,
-    'Warning: `withAsync` is deprecated and will be removed in the next ' +
-      'major version. Use `useAsync` instead.'
-  );
-
-  const AsyncTypeahead = forwardRef<Typeahead, T>((props, ref) => (
-    <Component {...props} {...useAsync(props)} ref={ref} />
-  ));
-
-  AsyncTypeahead.displayName = `withAsync(${getDisplayName(Component)})`;
-  // @ts-ignore
-  AsyncTypeahead.propTypes = propTypes;
-
-  return AsyncTypeahead;
-}
+export default useAsync;

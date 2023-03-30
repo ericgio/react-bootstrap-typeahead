@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import useEventCallback from '@restart/hooks/useEventCallback';
 
 import useClickOutside, { ClickOutsideOptions } from './useClickOutside';
-import { noop } from '../../utils';
+import { noop } from '../utils';
 
 function useRootClose(
   onRootClose: (e: Event) => void,

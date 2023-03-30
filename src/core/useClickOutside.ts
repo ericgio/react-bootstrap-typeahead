@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import useEventCallback from '@restart/hooks/useEventCallback';
 
-import { noop, warn } from '../../utils';
+import { noop, warn } from '../utils';
 
 export type MouseEvents = {
   [K in keyof GlobalEventHandlersEventMap]: GlobalEventHandlersEventMap[K] extends MouseEvent

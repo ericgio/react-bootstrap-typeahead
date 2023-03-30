@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import React, {
-  ComponentType,
+import {
   FocusEvent,
   FocusEventHandler,
   HTMLProps,
@@ -10,10 +8,8 @@ import React, {
   useState,
 } from 'react';
 
-import { useRootClose } from '../components/RootClose';
-import { getDisplayName, isFunction, warn } from '../utils';
-
-import { optionType } from '../propTypes';
+import useRootClose from './useRootClose';
+import { isFunction } from '../utils';
 import { Option, OptionHandler } from '../types';
 
 export interface UseTokenProps<T> extends Omit<HTMLProps<T>, 'onBlur'> {
@@ -26,15 +22,7 @@ export interface UseTokenProps<T> extends Omit<HTMLProps<T>, 'onBlur'> {
   option: Option;
 }
 
-const propTypes = {
-  onBlur: PropTypes.func,
-  onClick: PropTypes.func,
-  onFocus: PropTypes.func,
-  onRemove: PropTypes.func,
-  option: optionType.isRequired,
-};
-
-export function useToken<T extends HTMLElement>({
+function useToken<T extends HTMLElement>({
   onBlur,
   onClick,
   onFocus,
@@ -71,7 +59,7 @@ export function useToken<T extends HTMLElement>({
     }
   };
 
-  const attachRef = useRootClose(handleBlur, {
+  const rootElementRef = useRootClose(handleBlur, {
     ...props,
     disabled: !active,
   });
@@ -83,28 +71,8 @@ export function useToken<T extends HTMLElement>({
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
     onRemove: isFunction(onRemove) ? handleRemove : undefined,
-    ref: attachRef,
+    ref: rootElementRef,
   };
 }
 
-/* istanbul ignore next */
-export function withToken<T extends UseTokenProps<HTMLElement>>(
-  Component: ComponentType<T>
-) {
-  warn(
-    false,
-    'Warning: `withToken` is deprecated and will be removed in the next ' +
-      'major version. Use `useToken` instead.'
-  );
-
-  const displayName = `withToken(${getDisplayName(Component)})`;
-
-  const WrappedToken = (props: T) => (
-    <Component {...props} {...useToken(props)} />
-  );
-
-  WrappedToken.displayName = displayName;
-  WrappedToken.propTypes = propTypes;
-
-  return WrappedToken;
-}
+export default useToken;
