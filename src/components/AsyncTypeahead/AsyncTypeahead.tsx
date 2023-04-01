@@ -1,5 +1,10 @@
-import { withAsync } from '../../behaviors/async';
-import Typeahead from '../Typeahead';
+import React, { forwardRef } from 'react';
+import { useAsync, UseAsyncProps } from '../../behaviors/async';
+import TypeaheadComponent from '../Typeahead';
+import Typeahead from '../../core/Typeahead';
 
-// @ts-ignore
-export default withAsync(Typeahead);
+const AsyncTypeahead = forwardRef<Typeahead, UseAsyncProps>((props, ref) => (
+  <TypeaheadComponent {...useAsync(props)} ref={ref} />
+));
+
+export default AsyncTypeahead;
