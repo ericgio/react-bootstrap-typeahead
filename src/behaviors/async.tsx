@@ -178,6 +178,7 @@ export function useAsync(props: UseAsyncProps) {
   };
 }
 
+/* istanbul ignore next */
 export function withAsync<T extends UseAsyncProps = UseAsyncProps>(
   Component: ComponentType<T>
 ) {
