@@ -72,9 +72,7 @@ export function useOverlay(
 
   return {
     ...attributes.popper,
-    // Keep for backwards compatibility.
     innerRef: attachRef,
-    overlayRef: attachRef,
     style: styles.popper,
   };
 }
