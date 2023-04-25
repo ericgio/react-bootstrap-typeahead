@@ -48,6 +48,7 @@ isInvalid | boolean | false | Adds the `is-invalid` classname to the `form-contr
 isLoading | boolean | false | Indicate whether an asynchronous data fetch is happening.
 isValid | boolean | false | Adds the `is-valid` classname to the `form-control`. Only affects Bootstrap 4.
 labelKey | string \| function | `'label'` | See full documentation in the [Rendering section](Rendering.md#labelkey-string--function).
+minLength | number | 0 | Minimum user input before displaying results.
 onChange | function | | Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selected` is always an array of selections, even if multi-selection is not enabled. <br><br><pre>`(selected: Array<Object\|string>) => void`</pre>
 onInputChange | function | | Invoked when the input value changes. Receives the string value of the input (`text`), as well as the original event. <br><br><pre>`(text: string, event: Event) => void`</pre>
 onBlur, onFocus, onKeyDown | function | | As with a normal text input, these are called when the typeahead input has blur, focus, or keydown events. <br><br><pre>`(event: Event) => void`</pre>
