@@ -881,6 +881,34 @@ describe('<Typeahead>', () => {
     expect(getMenu()).not.toBeInTheDocument();
   });
 
+  it('hides the menu when tabbing out of the input with selectOptionOnTab and no active item', async () => {
+    const user = userEvent.setup();
+    render(<Default selectOptionOnTab />);
+
+    const input = getInput();
+    input.focus();
+
+    await user.keyboard('{ArrowDown}{ArrowUp}');
+    await user.tab();
+
+    expect(getMenu()).not.toBeInTheDocument();
+    expect(input).toHaveValue('');
+  });
+
+  it('selects active item on tabbing out of menu with selectOptionOnTab prop', async () => {
+    const user = userEvent.setup();
+    render(<Default selectOptionOnTab />);
+
+    const input = getInput();
+    input.focus();
+
+    await user.keyboard('{ArrowDown}');
+    await user.tab();
+
+    expect(input).toHaveValue('Alabama');
+    expect(getMenu()).not.toBeInTheDocument();
+  });
+
   it('calls the keydown handler when a key is pressed', async () => {
     const user = userEvent.setup();
     const onKeyDown = jest.fn();

@@ -188,6 +188,10 @@ const propTypes = {
    * to control the component via its parent.
    */
   selected: checkPropType(PropTypes.arrayOf(optionType), selectedType),
+  /**
+   * Whether pressing Tab is selecting the active item in the menu.
+   */
+  selectOptionOnTab: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -211,6 +215,7 @@ const defaultProps = {
   onMenuToggle: noop,
   onPaginate: noop,
   paginate: true,
+  selectOptionOnTab: false,
 };
 
 type Props = TypeaheadProps;
@@ -476,10 +481,14 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         activeItem && this._handleMenuItemSelect(activeItem, e);
         break;
       case 'Escape':
-      case 'Tab':
-        // ESC simply hides the menu. TAB will blur the input and move focus to
-        // the next item; hide the menu so it doesn't gain focus.
         this.hideMenu();
+        break;
+      case 'Tab':
+        if (this.props.selectOptionOnTab && activeItem) {
+           this._handleMenuItemSelect(activeItem, e);
+        } else {
+          this.hideMenu();
+        }
         break;
       default:
         break;

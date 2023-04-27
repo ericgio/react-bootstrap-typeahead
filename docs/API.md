@@ -67,6 +67,7 @@ renderToken | function | | Callback for custom token rendering. See full documen
 selected | Array\<Object\|string\> | `[]` | The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent.
 selectHint | function | | Callback function that determines whether the hint should be selected.<br><br><pre>`(shouldSelectHint: boolean, KeyboardEvent<HTMLInputElement>) => boolean`</pre>
 size | `'lg'` \| `'sm'` | | Specify the size of the input.
+selectOptionOnTab | boolean | false | Lets Tab choose selected option in menu instead of behaving like tabbing out of a standard input
 
 #### Children
 In addition to the props listed above, `Typeahead` also accepts either children or a child render function.

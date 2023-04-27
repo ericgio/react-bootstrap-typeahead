@@ -98,6 +98,7 @@ export interface TypeaheadProps {
   paginate: boolean;
   selected?: Option[];
   selectHint?: SelectHint;
+  selectOptionOnTab?: boolean;
 }
 
 export interface TypeaheadState {
