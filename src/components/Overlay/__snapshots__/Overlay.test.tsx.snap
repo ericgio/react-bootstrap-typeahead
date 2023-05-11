@@ -15,7 +15,7 @@ exports[`<Overlay> Default story renders snapshot 1`] = `
     data-popper-reference-hidden="true"
     id="overlay-story"
     role="listbox"
-    style="position: fixed; left: 0px; top: 0px; display: block; max-height: 300px; overflow: auto; transform: translate(0px, 0px); width: 0px;"
+    style="display: block; max-height: 300px; overflow: auto; position: fixed; top: 0px; left: 0px; transform: translate(0px, 0px); width: 0px;"
   >
     <a
       class="dropdown-item"

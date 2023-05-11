@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import _useRootClose, { RootCloseOptions } from 'react-overlays/useRootClose';
+import _useRootClose, { RootCloseOptions } from '@restart/ui/useRootClose';
 
 function useRootClose(
   onRootClose: (e: Event) => void,

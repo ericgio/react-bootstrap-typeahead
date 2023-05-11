@@ -1,8 +1,19 @@
-import type { ModifierArguments, Placement, Options } from '@popperjs/core';
-import { useEffect, useState } from 'react';
-import { usePopper } from 'react-popper';
+import { CSSProperties, useEffect, useState } from 'react';
+import usePopper, {
+  Placement,
+  Options,
+  State,
+  Instance,
+} from '@restart/ui/usePopper';
 
 import { Align } from '../../types';
+
+interface ModifierArguments<Options> {
+  state: State;
+  instance: Instance;
+  options: Partial<Options>;
+  name: string;
+}
 
 const setPopperWidth = {
   enabled: true,
@@ -57,7 +68,7 @@ export function useOverlay(
   referenceElement: ReferenceElement,
   options: OverlayOptions
 ) {
-  const [popperElement, attachRef] = useState<ReferenceElement>(null);
+  const [popperElement, attachRef] = useState<HTMLElement | null>(null);
   const { attributes, styles, forceUpdate } = usePopper(
     referenceElement,
     popperElement,
@@ -73,13 +84,20 @@ export function useOverlay(
   // Re-position the popper if the height of the reference element changes.
   // Exclude `forceUpdate` from dependencies since it changes with each render.
   useEffect(() => {
-    forceUpdate && forceUpdate();
+    forceUpdate();
   }, [refElementHeight]); // eslint-disable-line
+
+  // Re-calculate popper position when using the 'fixed' strategy.
+  useEffect(() => {
+    if (options.positionFixed && popperElement) {
+      forceUpdate();
+    }
+  }, [options.positionFixed, popperElement]); // eslint-disable-line
 
   return {
     ...attributes.popper,
     innerRef: attachRef,
-    style: styles.popper,
+    style: styles.popper as CSSProperties,
   };
 }
 
