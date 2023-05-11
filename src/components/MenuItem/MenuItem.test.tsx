@@ -84,22 +84,6 @@ describe('<MenuItem>', () => {
     expect(onInitialItemChange).toHaveBeenCalledTimes(1);
   });
 
-  it('conditionally calls `onInitialItemChange`', () => {
-    const onActiveItemChange = jest.fn();
-    const context = {
-      activeIndex: 1,
-      onActiveItemChange,
-    };
-
-    const { rerender } = render(
-      <Default context={context} props={{ option, position: 0 }} />
-    );
-    expect(onActiveItemChange).toHaveBeenCalledTimes(0);
-
-    rerender(<Default context={context} props={{ option, position: 1 }} />);
-    expect(onActiveItemChange).toHaveBeenCalledTimes(1);
-  });
-
   it('changes the active state of the menu item', () => {
     render(<Default context={{ activeIndex: 0 }} />);
 

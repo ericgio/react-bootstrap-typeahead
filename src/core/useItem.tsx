@@ -30,7 +30,6 @@ function useItem<T extends HTMLElement>({
     activeIndex,
     id,
     isOnlyResult,
-    onActiveItemChange,
     onInitialItemChange,
     onMenuItemClick,
     setItem,
@@ -46,8 +45,6 @@ function useItem<T extends HTMLElement>({
 
   useEffect(() => {
     if (position === activeIndex) {
-      onActiveItemChange(option);
-
       // Automatically scroll the menu as the user keys through it.
       const node = itemRef.current;
 
@@ -57,7 +54,7 @@ function useItem<T extends HTMLElement>({
           scrollMode: 'if-needed',
         });
     }
-  }, [activeIndex, onActiveItemChange, option, position]);
+  }, [activeIndex, option, position]);
 
   const handleClick = useCallback(
     (e: MouseEvent<T>) => {
