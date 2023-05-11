@@ -254,17 +254,10 @@ function useTypeahead(
   }
 
   function onActiveIndexChange(index: number) {
-    setState((currentState) => ({
+    setState({
       activeIndex: index,
-      activeItem: index >= 0 ? currentState.activeItem : undefined,
-    }));
-  }
-
-  function onActiveItemChange(activeItem: Option) {
-    // Don't update the active item if it hasn't changed.
-    if (!isEqual(activeItem, state.activeItem)) {
-      setState({ activeItem });
-    }
+      activeItem: index >= 0 ? items[index] : undefined,
+    });
   }
 
   function onBlur(e: React.FocusEvent<HTMLInputElement>) {
@@ -451,7 +444,6 @@ function useTypeahead(
     inputRef: setInputNode,
     isMenuShown,
     isOnlyResult,
-    onActiveItemChange,
     onAdd,
     onBlur,
     onChange: onInputChange,
