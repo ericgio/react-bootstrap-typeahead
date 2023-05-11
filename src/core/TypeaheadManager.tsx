@@ -43,7 +43,6 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     initialItem: props.initialItem,
     inputNode: props.inputNode,
     isOnlyResult: props.isOnlyResult,
-    onActiveItemChange: props.onActiveItemChange,
     onAdd: props.onAdd,
     onInitialItemChange: props.onInitialItemChange,
     onMenuItemClick: props.onMenuItemClick,

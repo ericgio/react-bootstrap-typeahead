@@ -138,7 +138,6 @@ export interface TypeaheadManagerProps extends TypeaheadPropsAndState {
   inputRef: RefCallback<HTMLInputElement>;
   isMenuShown: boolean;
   isOnlyResult: boolean;
-  onActiveItemChange: OptionHandler;
   onAdd: OptionHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onClear: () => void;

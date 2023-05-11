@@ -10,7 +10,6 @@ export interface TypeaheadContextType {
   initialItem?: Option;
   inputNode: HTMLInputElement | null;
   isOnlyResult: boolean;
-  onActiveItemChange: OptionHandler;
   onAdd: OptionHandler;
   onInitialItemChange: (option?: Option) => void;
   onMenuItemClick: (option: Option, event: SelectEvent<HTMLElement>) => void;
@@ -24,7 +23,6 @@ export const defaultContext = {
   initialItem: undefined,
   inputNode: null,
   isOnlyResult: false,
-  onActiveItemChange: noop,
   onAdd: noop,
   onInitialItemChange: noop,
   onMenuItemClick: noop,
