@@ -1,4 +1,4 @@
-/* eslint-disable sort-keys,no-template-curly-in-string */
+/* eslint-disable sort-keys */
 
 // `ignore` option doesn't support wildcard for extension.
 // https://github.com/babel/babel/issues/12008
@@ -20,15 +20,6 @@ module.exports = {
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-export-default-from',
     'dev-expression',
-    [
-      'transform-imports',
-      {
-        lodash: {
-          transform: 'lodash/${member}',
-          preventFullImport: true,
-        },
-      },
-    ],
   ],
   env: {
     cjs: {
