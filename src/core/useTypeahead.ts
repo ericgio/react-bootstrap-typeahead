@@ -47,7 +47,7 @@ import {
 
 import { DEFAULT_LABELKEY } from '../constants';
 
-export const defaultProps = {
+const defaultProps = {
   allowNew: false,
   autoFocus: false,
   caseSensitive: false,

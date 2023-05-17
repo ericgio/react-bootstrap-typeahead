@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { forwardRef } from 'react';
 
-import useTypeahead, { TypeaheadRef, defaultProps } from './useTypeahead';
+import useTypeahead, { TypeaheadRef } from './useTypeahead';
 import TypeaheadManager from './TypeaheadManager';
 
 import {
@@ -163,6 +163,5 @@ const Typeahead = forwardRef<TypeaheadRef, Props>((props, ref) => {
 
 // @ts-ignore
 Typeahead.propTypes = propTypes;
-Typeahead.defaultProps = defaultProps;
 
 export default Typeahead;
