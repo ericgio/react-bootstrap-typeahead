@@ -39,7 +39,10 @@ const propTypes = {
   renderMenuItemChildren: PropTypes.func,
 };
 
-function renderMenuItemChildrenFn(option: Option, props: TypeaheadMenuProps) {
+function defaultRenderMenuItemChildren(
+  option: Option,
+  props: TypeaheadMenuProps
+) {
   return (
     <Highlighter search={props.text}>
       {getOptionLabel(option, props.labelKey)}
@@ -53,7 +56,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
     newSelectionPrefix = 'New selection: ',
     options,
     paginationText = 'Display additional results...',
-    renderMenuItemChildren = renderMenuItemChildrenFn,
+    renderMenuItemChildren = defaultRenderMenuItemChildren,
     text,
     ...menuProps
   } = props;
