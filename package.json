@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-typeahead",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "React typeahead with Bootstrap styling",
   "homepage": "http://ericgio.github.io/react-bootstrap-typeahead/",
   "author": "ericgio",
@@ -12,6 +12,7 @@
     "docs/",
     "es/",
     "types/",
+    "types.ts",
     "LICENSE.md"
   ],
   "main": "cjs/index.js",
