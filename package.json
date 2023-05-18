@@ -12,7 +12,6 @@
     "docs/",
     "es/",
     "types/",
-    "types.ts",
     "LICENSE.md"
   ],
   "main": "cjs/index.js",

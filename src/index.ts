@@ -25,4 +25,3 @@ export * from './behaviors/token';
 
 // Types
 export { default as TypeaheadRef } from './core/Typeahead';
-export * from './types';
