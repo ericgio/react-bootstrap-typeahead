@@ -159,7 +159,7 @@ Controlled.args = {
   ...defaultProps,
 };
 
-export const InputValidation = (args: TypeaheadComponentProps) => {
+export const InputValidation = <Option extends OptionType = TestOption>(args: TypeaheadComponentProps<Option>) => {
   let feedback;
   if (args.isValid) {
     feedback = 'Looks good!';

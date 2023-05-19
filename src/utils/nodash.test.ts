@@ -37,17 +37,16 @@ describe('nodash', () => {
   });
 
   test('once', () =>{
-    const onceFn = (a: number) => a;
+    const myFunc = jest.fn((a: number) => a);
 
-    const onlyOnce = once(onceFn)
+    const onlyOnce = once(myFunc)
 
     let result = -100;
     for (let i = 0; i < 100; i++) {
       result = onlyOnce(i)
     }
 
-    expect(fn).toBeCalledTimes(1)
-    expect(fn).toBeCalledWith(0)
+    expect(myFunc).toBeCalledTimes(1)
     expect(result).toBe(0)
   })
 });

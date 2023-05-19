@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import React, { CSSProperties, forwardRef, ReactNode, Ref } from 'react';
+import React, { CSSProperties, forwardRef, ReactElement, ReactNode, Ref } from 'react';
 
 import Typeahead from '../../core/Typeahead';
 
@@ -321,18 +321,7 @@ class TypeaheadComponent<Option extends OptionType> extends React.Component<Type
   };
 }
 
-const TypeaheadComponentInner = <Option extends OptionType>(props: TypeaheadComponentProps<Option>, ref: React.ForwardedRef<Typeahead<Option>>) => <TypeaheadComponent {...props} instanceRef={ref} />
-
-const TypeaheadComponentWithRef = forwardRef(TypeaheadComponentInner);
-
-type TypeaheadComponentWithRefProps<Option extends OptionType> = TypeaheadComponentProps<Option> & {
-  ref?: React.Ref<Typeahead<Option>>;
-};
-
-export default function TypeaheadComp<Option extends OptionType>({
-                                   ref,
-                                   ...props
-                                 }: TypeaheadComponentWithRefProps<Option>) {
-  // @ts-ignore
-  return <TypeaheadComponentWithRef ref={ref} {...props} />;
-}
+// Generics are handled with `as` casting
+export default forwardRef<Typeahead<OptionType>, TypeaheadComponentProps<OptionType>>((props, ref) =>
+    <TypeaheadComponent instanceRef={ref} {...props}  />
+) as <Option extends OptionType>(p: TypeaheadComponentProps<Option> & { ref?: React.Ref<Typeahead<Option>> }) => ReactElement
