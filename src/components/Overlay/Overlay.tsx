@@ -40,7 +40,7 @@ const defaultProps = {
   flip: false,
   isMenuShown: false,
   positionFixed: false,
-};
+} as const;
 
 export interface OverlayRenderProps {
   innerRef: RefCallback<HTMLElement>;
@@ -53,8 +53,8 @@ export interface OverlayProps extends OverlayOptions {
   referenceElement: ReferenceElement;
 }
 
-const Overlay = ({ referenceElement, isMenuShown, ...props }: OverlayProps) => {
-  const overlayProps = useOverlay(referenceElement, props);
+const Overlay = ({ referenceElement, isMenuShown = defaultProps.isMenuShown, ...props }: OverlayProps) => {
+  const overlayProps = useOverlay(referenceElement, { ...defaultProps, ...props });
 
   if (!isMenuShown) {
     return null;
@@ -64,6 +64,5 @@ const Overlay = ({ referenceElement, isMenuShown, ...props }: OverlayProps) => {
 };
 
 Overlay.propTypes = propTypes;
-Overlay.defaultProps = defaultProps;
 
 export default Overlay;
