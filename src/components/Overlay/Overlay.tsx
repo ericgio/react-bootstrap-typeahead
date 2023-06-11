@@ -34,14 +34,6 @@ const propTypes = {
   referenceElement: PropTypes.instanceOf(SafeElement),
 };
 
-const defaultProps = {
-  align: 'justify',
-  dropup: false,
-  flip: false,
-  isMenuShown: false,
-  positionFixed: false,
-};
-
 export interface OverlayRenderProps {
   innerRef: RefCallback<HTMLElement>;
   style: CSSProperties;
@@ -64,6 +56,5 @@ const Overlay = ({ referenceElement, isMenuShown, ...props }: OverlayProps) => {
 };
 
 Overlay.propTypes = propTypes;
-Overlay.defaultProps = defaultProps;
 
 export default Overlay;
