@@ -114,7 +114,7 @@ export default function stripDiacritics(str: string): string {
   return (
     str
       .normalize('NFD')
-      .replace(/[\u0300-\u036F]/g, '') // Remove combining diacritics
+      .replace(/[\u0300-\u036F\u3099\u309A]/g, '') // Remove combining diacritics
       /* eslint-disable-next-line no-control-regex */
       .replace(/[^\u0000-\u007E]/g, (a) => map[a] || a)
   );
