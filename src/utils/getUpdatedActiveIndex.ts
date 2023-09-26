@@ -1,12 +1,11 @@
 import type { Option } from '../types';
-import { isString } from './nodash';
-import hasOwnProperty from './hasOwnProperty';
+import getOptionProperty from './getOptionProperty';
 
 type Key = 'ArrowDown' | 'ArrowUp';
 
 export function isDisabledOption(index: number, items: Option[]): boolean {
   const option = items[index];
-  return !!option && !isString(option) && hasOwnProperty(option, 'disabled');
+  return !!option && !!getOptionProperty(option, 'disabled');
 }
 
 export function skipDisabledOptions(
