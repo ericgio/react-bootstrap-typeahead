@@ -151,7 +151,7 @@ The `Hint` component can be used to wrap custom inputs.
 ```jsx
 <Typeahead
   ...
-  renderInput={({ inputRef, referenceElementRef ...inputProps }) => (
+  renderInput={({ inputRef, referenceElementRef, ...inputProps }) => (
     <Hint>
       <FloatingLabel controlId="name" label="Name">
         <Form.Control
