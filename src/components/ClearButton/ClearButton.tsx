@@ -14,10 +14,6 @@ const propTypes = {
   size: sizeType,
 };
 
-const defaultProps = {
-  label: 'Clear',
-};
-
 export interface ClearButtonProps
   extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
   label: string;
@@ -31,7 +27,7 @@ export interface ClearButtonProps
  */
 const ClearButton = ({
   className,
-  label,
+  label = 'Clear',
   onClick,
   onKeyDown,
   size,
@@ -70,6 +66,5 @@ const ClearButton = ({
 );
 
 ClearButton.propTypes = propTypes;
-ClearButton.defaultProps = defaultProps;
 
 export default ClearButton;
