@@ -6,20 +6,20 @@ import Menu, { MenuProps } from '../Menu';
 import MenuItem from '../MenuItem';
 
 import { getOptionLabel, getOptionProperty, isString } from '../../utils';
-import { LabelKey, Option } from '../../types';
+import { LabelKey, OptionType } from '../../types';
 
-export type RenderMenuItemChildren = (
+export type RenderMenuItemChildren<Option extends OptionType> = (
   option: Option,
-  menuProps: TypeaheadMenuProps,
+  menuProps: TypeaheadMenuProps<Option>,
   idx: number
 ) => JSX.Element;
 
-export interface TypeaheadMenuProps extends MenuProps {
-  labelKey: LabelKey;
+export interface TypeaheadMenuProps<Option extends OptionType> extends MenuProps {
+  labelKey: LabelKey<Option>;
   newSelectionPrefix?: ReactNode;
   options: Option[];
   paginationText?: ReactNode;
-  renderMenuItemChildren: RenderMenuItemChildren;
+  renderMenuItemChildren: RenderMenuItemChildren<Option>;
   text: string;
 }
 
@@ -42,14 +42,14 @@ const propTypes = {
 const defaultProps = {
   newSelectionPrefix: 'New selection: ',
   paginationText: 'Display additional results...',
-  renderMenuItemChildren: (option: Option, props: TypeaheadMenuProps) => (
+  renderMenuItemChildren: <Option extends OptionType>(option: Option, props: TypeaheadMenuProps<Option>) => (
     <Highlighter search={props.text}>
       {getOptionLabel(option, props.labelKey)}
     </Highlighter>
   ),
 };
 
-const TypeaheadMenu = (props: TypeaheadMenuProps) => {
+const TypeaheadMenu = <Option extends OptionType>(props: TypeaheadMenuProps<Option>) => {
   const {
     labelKey,
     newSelectionPrefix,

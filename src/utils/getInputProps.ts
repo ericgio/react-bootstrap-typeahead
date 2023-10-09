@@ -2,10 +2,10 @@ import cx from 'classnames';
 
 import getMenuItemId from './getMenuItemId';
 import hasOwnProperty from './hasOwnProperty';
-import { TypeaheadManagerProps } from '../types';
+import {OptionType, TypeaheadManagerProps} from '../types';
 
-type Args = Pick<
-  TypeaheadManagerProps,
+type Args<Option extends OptionType> = Pick<
+  TypeaheadManagerProps<Option>,
   | 'activeIndex'
   | 'id'
   | 'isFocused'
@@ -17,7 +17,7 @@ type Args = Pick<
 >;
 
 const getInputProps =
-  ({
+  <Option extends OptionType>({
     activeIndex,
     id,
     isFocused,
@@ -27,7 +27,7 @@ const getInputProps =
     onFocus,
     placeholder,
     ...props
-  }: Args) =>
+  }: Args<Option>) =>
   (inputProps = {}) => {
     const className = hasOwnProperty(inputProps, 'className')
       ? String(inputProps.className)

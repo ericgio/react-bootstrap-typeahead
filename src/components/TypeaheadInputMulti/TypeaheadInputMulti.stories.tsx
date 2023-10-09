@@ -8,9 +8,10 @@ import TypeaheadInputMulti, {
   TypeaheadInputMultiProps,
 } from './TypeaheadInputMulti';
 
-import options from '../../tests/data';
+import options, {TestOption} from '../../tests/data';
 import { HintProvider, noop } from '../../tests/helpers';
 import type { Size } from '../../types';
+import {OptionType} from "../../types";
 
 export default {
   title: 'Components/TypeaheadInputMulti',
@@ -28,14 +29,14 @@ const defaultProps = {
   selected,
 };
 
-interface Args extends TypeaheadInputMultiProps {
+interface Args<Option extends OptionType> extends TypeaheadInputMultiProps<Option> {
   hintText?: string;
   isValid?: boolean;
   isInvalid?: boolean;
   size?: Size;
 }
 
-const Template: Story<Args> = ({ hintText = '', ...args }) => {
+const Template: Story<Args<TestOption>> = ({ hintText = '', ...args }) => {
   const [value, setValue] = useState(args.value);
   const [inputNode, setInputNode] = useState<HTMLInputElement | null>(null);
 

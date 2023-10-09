@@ -11,6 +11,7 @@ import {
   render,
   userEvent,
 } from '../../tests/helpers';
+import {TestOption} from "../../tests/data";
 
 const TestComponent = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +38,7 @@ const TestComponent = (props) => {
   );
 };
 
-describe('<AsyncTypeahead>', () => {
+describe('<AsyncTyThere isnt peahead>', () => {
   it('displays a search prompt', async () => {
     const promptText = 'Prompt text';
     render(<TestComponent promptText={promptText} />);
@@ -270,7 +271,7 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('exposes the typeahead instance and public methods', () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<Typeahead<TestOption>>();
 
     render(
       <AsyncTypeahead

@@ -19,26 +19,26 @@ import {
 } from '../utils';
 
 import { optionType } from '../propTypes';
-import { Option } from '../types';
+import { OptionType } from '../types';
 
 const propTypes = {
   option: optionType.isRequired,
   position: PropTypes.number,
 };
 
-export interface UseItemProps<T> extends HTMLProps<T> {
+export interface UseItemProps<T, Option extends OptionType> extends HTMLProps<T> {
   onClick?: MouseEventHandler<T>;
   option: Option;
   position: number;
 }
 
-export function useItem<T extends HTMLElement>({
+export function useItem<T extends HTMLElement, Option extends OptionType>({
   label,
   onClick,
   option,
   position,
   ...props
-}: UseItemProps<T>) {
+}: UseItemProps<T, Option>) {
   const {
     activeIndex,
     id,
@@ -47,7 +47,7 @@ export function useItem<T extends HTMLElement>({
     onInitialItemChange,
     onMenuItemClick,
     setItem,
-  } = useTypeaheadContext();
+  } = useTypeaheadContext<Option>();
 
   const itemRef = useRef<T>(null);
 
@@ -101,7 +101,7 @@ export function useItem<T extends HTMLElement>({
 }
 
 /* istanbul ignore next */
-export function withItem<T extends UseItemProps<HTMLElement>>(
+export function withItem<Option extends OptionType, T extends UseItemProps<HTMLElement, Option>>(
   Component: ComponentType<T>
 ) {
   warn(

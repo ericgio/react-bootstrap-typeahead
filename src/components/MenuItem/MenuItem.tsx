@@ -2,6 +2,7 @@ import cx from 'classnames';
 import React, { forwardRef, HTMLAttributes, MouseEvent } from 'react';
 
 import { useItem, UseItemProps } from '../../behaviors/item';
+import {OptionType} from "../../types";
 
 export interface BaseMenuItemProps extends HTMLAttributes<HTMLAnchorElement> {
   active?: boolean;
@@ -27,8 +28,8 @@ export const BaseMenuItem = forwardRef<HTMLAnchorElement, BaseMenuItemProps>(
   }
 );
 
-export type MenuItemProps = UseItemProps<HTMLAnchorElement>;
+export type MenuItemProps<Option extends OptionType> = UseItemProps<HTMLAnchorElement, Option>;
 
-export default function MenuItem(props: MenuItemProps) {
+export default function MenuItem<Option extends OptionType>(props: MenuItemProps<Option>) {
   return <BaseMenuItem {...useItem(props)} />;
 }

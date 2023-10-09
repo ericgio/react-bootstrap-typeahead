@@ -1,14 +1,14 @@
 import getOptionProperty from './getOptionProperty';
 
-import { AllowNew, Option } from '../types';
+import { AllowNew, OptionType } from '../types';
 
-interface Props {
-  allowNew: AllowNew;
+interface Props<Option extends OptionType> {
+  allowNew: AllowNew<Option>;
   highlightOnlyResult: boolean;
   results: Option[];
 }
 
-function getIsOnlyResult(props: Props): boolean {
+function getIsOnlyResult<Option extends OptionType>(props: Props<Option>): boolean {
   const { allowNew, highlightOnlyResult, results } = props;
 
   if (!highlightOnlyResult || allowNew) {

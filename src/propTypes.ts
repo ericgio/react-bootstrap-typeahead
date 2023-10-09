@@ -3,7 +3,7 @@ import { Requireable } from 'react';
 
 import { SIZES } from './constants';
 import { isFunction, warn } from './utils';
-import type { InputProps, TypeaheadProps } from './types';
+import type {InputProps, OptionType, TypeaheadProps} from './types';
 
 interface InputPropItem {
   alt: string;
@@ -19,11 +19,11 @@ const INPUT_PROPS_BLACKLIST: InputPropItem[] = [
 
 export const sizeType = PropTypes.oneOf(SIZES);
 
-type Props = TypeaheadProps;
-type PropName = keyof Props;
-type Callback = (
-  props: Props,
-  propName: PropName,
+type Props<Option extends OptionType> = TypeaheadProps<Option>;
+type PropName<Option extends OptionType> = keyof Props<Option>;
+type Callback = <Option extends OptionType>(
+  props: Props<Option>,
+  propName: PropName<Option>,
   componentName: string
 ) => void;
 type Validator = Requireable<unknown>;
@@ -31,8 +31,8 @@ type Validator = Requireable<unknown>;
 /**
  * Allows additional warnings or messaging related to prop validation.
  */
-export function checkPropType(validator: Validator, callback: Callback) {
-  return (props: Props, propName: PropName, componentName: string) => {
+export function checkPropType<Option extends OptionType>(validator: Validator, callback: Callback) {
+  return (props: Props<Option>, propName: PropName<Option>, componentName: string) => {
     PropTypes.checkPropTypes(
       { [propName]: validator },
       props,
@@ -44,7 +44,7 @@ export function checkPropType(validator: Validator, callback: Callback) {
   };
 }
 
-export function caseSensitiveType(props: Props) {
+export function caseSensitiveType<Option extends OptionType>(props: Props<Option>) {
   const { caseSensitive, filterBy } = props;
   warn(
     !caseSensitive || typeof filterBy !== 'function',
@@ -52,8 +52,8 @@ export function caseSensitiveType(props: Props) {
   );
 }
 
-export function deprecated(validator: Validator, reason: string) {
-  return (props: Props, propName: PropName, componentName: string) => {
+export function deprecated<Option extends OptionType>(validator: Validator, reason: string) {
+  return (props: Props<Option>, propName: PropName<Option>, componentName: string) => {
     if (props[propName] != null) {
       warn(false, `The \`${propName}\` prop is deprecated. ${reason}`);
     }
@@ -67,7 +67,7 @@ export function deprecated(validator: Validator, reason: string) {
   };
 }
 
-export function defaultInputValueType(props: Props) {
+export function defaultInputValueType<Option extends OptionType>(props: Props<Option>) {
   const { defaultInputValue, defaultSelected, multiple, selected } = props;
   const name = defaultSelected.length ? 'defaultSelected' : 'selected';
 
@@ -81,7 +81,7 @@ export function defaultInputValueType(props: Props) {
   );
 }
 
-export function defaultSelectedType(props: Props) {
+export function defaultSelectedType<Option extends OptionType>(props: Props<Option>) {
   const { defaultSelected, multiple } = props;
 
   warn(
@@ -92,17 +92,17 @@ export function defaultSelectedType(props: Props) {
   );
 }
 
-export function highlightOnlyResultType({
+export function highlightOnlyResultType<Option extends OptionType>({
   allowNew,
   highlightOnlyResult,
-}: Props) {
+}: Props<Option>) {
   warn(
     !(highlightOnlyResult && allowNew),
     '`highlightOnlyResult` will not work with `allowNew`.'
   );
 }
 
-export function ignoreDiacriticsType(props: Props) {
+export function ignoreDiacriticsType<Option extends OptionType>(props: Props<Option>) {
   const { filterBy, ignoreDiacritics } = props;
   warn(
     ignoreDiacritics || typeof filterBy !== 'function',
@@ -110,7 +110,7 @@ export function ignoreDiacriticsType(props: Props) {
   );
 }
 
-export function inputPropsType({ inputProps }: Props) {
+export function inputPropsType<Option extends OptionType>({ inputProps }: Props<Option>) {
   if (
     !(
       inputProps &&
@@ -130,9 +130,9 @@ export function inputPropsType({ inputProps }: Props) {
   });
 }
 
-export function isRequiredForA11y(
-  props: Props,
-  propName: PropName,
+export function isRequiredForA11y<Option extends OptionType>(
+  props: Props<Option>,
+  propName: PropName<Option>,
   componentName: string
 ) {
   warn(
@@ -142,7 +142,7 @@ export function isRequiredForA11y(
   );
 }
 
-export function labelKeyType({ allowNew, labelKey }: Props) {
+export function labelKeyType<Option extends OptionType>({ allowNew, labelKey }: Props<Option>) {
   warn(
     !(isFunction(labelKey) && allowNew),
     '`labelKey` must be a string when `allowNew={true}`.'
@@ -154,7 +154,7 @@ export const optionType = PropTypes.oneOfType([
   PropTypes.string,
 ]);
 
-export function selectedType({ multiple, onChange, selected }: Props) {
+export function selectedType<Option extends OptionType>({ multiple, onChange, selected }: Props<Option>) {
   warn(
     multiple || !selected || selected.length <= 1,
     'You are passing multiple options to the `selected` prop of a Typeahead ' +

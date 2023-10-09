@@ -8,10 +8,11 @@ import { composeStories, composeStory } from '@storybook/testing-react';
 import { render, screen, RenderResult } from '@testing-library/react';
 
 import {
+  createTypeaheadContext,
   defaultContext,
-  TypeaheadContext,
   TypeaheadContextType,
 } from '../core/Context';
+import {OptionType} from "../types";
 
 export { axe };
 export * from '@storybook/testing-react';
@@ -52,11 +53,12 @@ export function generateSnapshots(
   });
 }
 
-interface HintProviderProps extends Partial<TypeaheadContextType> {
+interface HintProviderProps<Option extends OptionType> extends Partial<TypeaheadContextType<Option>> {
   children?: ReactNode;
 }
 
-export const HintProvider = ({ children, ...context }: HintProviderProps) => {
+export const HintProvider = <Option extends OptionType>({ children, ...context }: HintProviderProps<Option>) => {
+  const TypeaheadContext = createTypeaheadContext<Option>()
   return (
     <TypeaheadContext.Provider
       value={{

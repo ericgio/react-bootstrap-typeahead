@@ -1,17 +1,17 @@
 import { createContext, useContext } from 'react';
 
-import { noop } from '../utils';
-import { Id, Option, OptionHandler, SelectEvent } from '../types';
+import { noop, once } from '../utils';
+import { Id, OptionType, OptionHandler, SelectEvent } from '../types';
 
-export interface TypeaheadContextType {
+export interface TypeaheadContextType<Option extends OptionType> {
   activeIndex: number;
   hintText: string;
   id: Id;
   initialItem: Option | null;
   inputNode: HTMLInputElement | null;
   isOnlyResult: boolean;
-  onActiveItemChange: OptionHandler;
-  onAdd: OptionHandler;
+  onActiveItemChange: OptionHandler<Option>;
+  onAdd: OptionHandler<Option>;
   onInitialItemChange: (option?: Option) => void;
   onMenuItemClick: (option: Option, event: SelectEvent<HTMLElement>) => void;
   setItem: (option: Option, position: number) => void;
@@ -31,7 +31,5 @@ export const defaultContext = {
   setItem: noop,
 };
 
-export const TypeaheadContext =
-  createContext<TypeaheadContextType>(defaultContext);
-
-export const useTypeaheadContext = () => useContext(TypeaheadContext);
+export const createTypeaheadContext = once(<Option extends OptionType>() => createContext<TypeaheadContextType<Option>>(defaultContext));
+export const useTypeaheadContext = <Option extends OptionType>() => useContext(createTypeaheadContext<Option>());

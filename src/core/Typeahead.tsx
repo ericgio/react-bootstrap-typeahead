@@ -50,7 +50,7 @@ import { DEFAULT_LABELKEY } from '../constants';
 
 import type {
   FilterByCallback,
-  Option,
+  OptionType,
   SelectEvent,
   TypeaheadProps,
   TypeaheadState,
@@ -213,7 +213,7 @@ const defaultProps = {
   paginate: true,
 };
 
-type Props = TypeaheadProps;
+type Props<Option extends OptionType> = TypeaheadProps<Option>;
 
 /**
  * Manually trigger the input's change event.
@@ -230,7 +230,7 @@ function triggerInputChange(input: HTMLInputElement, value: string) {
   input.dispatchEvent(e);
 }
 
-class Typeahead extends React.Component<Props, TypeaheadState> {
+class Typeahead<Option extends OptionType> extends React.Component<Props<Option>, TypeaheadState<Option>> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
@@ -246,7 +246,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     this.props.autoFocus && this.focus();
   }
 
-  componentDidUpdate(prevProps: Props, prevState: TypeaheadState) {
+  componentDidUpdate(prevProps: Props<Option>, prevState: TypeaheadState<Option>) {
     const { labelKey, multiple, selected } = this.props;
 
     validateSelectedPropChange(selected, prevProps.selected);
@@ -278,7 +278,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     if (this.isMenuShown) {
       const cb = (
         isFunction(filterBy) ? filterBy : defaultFilterBy
-      ) as FilterByCallback;
+      ) as FilterByCallback<Option>;
 
       results = options.filter((option: Option) =>
         cb(option, mergedPropsAndState)
@@ -292,6 +292,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
       // Add the custom option if necessary.
       if (addCustomOption(results, mergedPropsAndState)) {
+        // @ts-ignore
         results.push({
           customOption: true,
           [getStringLabelKey(labelKey)]: text,
@@ -300,6 +301,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
 
       // Add the pagination item if necessary.
       if (shouldPaginate) {
+        // @ts-ignore
         results.push({
           [getStringLabelKey(labelKey)]: '',
           paginationOption: true,
@@ -367,7 +369,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   };
 
   _handleActiveIndexChange = (activeIndex: number) => {
-    this.setState((state: TypeaheadState) => ({
+    this.setState((state: TypeaheadState<Option>) => ({
       activeIndex,
       activeItem: activeIndex >= 0 ? state.activeItem : undefined,
     }));
@@ -517,7 +519,8 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     // Add a unique id to the custom selection. Avoid doing this in `render` so
     // the id doesn't increment every time.
     if (!isString(selection) && selection.customOption) {
-      selection = { ...selection, id: uniqueId('new-id-') };
+      // @ts-ignore selection is an object, since `isString` returned `false`
+      selection = { ...selection , id: uniqueId('new-id-') };
     }
 
     if (multiple) {

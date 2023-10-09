@@ -1,8 +1,8 @@
 import warn from './warn';
 
-import type { Option } from '../types';
+import type { OptionType } from '../types';
 
-export default function validateSelectedPropChange(
+export default function validateSelectedPropChange<Option extends OptionType>(
   prevSelected?: Option[],
   selected?: Option[]
 ): void {

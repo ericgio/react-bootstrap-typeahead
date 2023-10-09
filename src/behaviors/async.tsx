@@ -18,7 +18,7 @@ import { optionType } from '../propTypes';
 import { getDisplayName, isFunction, warn } from '../utils';
 
 import { TypeaheadComponentProps } from '../components/Typeahead';
-import type { Option } from '../types';
+import type { OptionType } from '../types';
 
 const propTypes = {
   /**
@@ -57,7 +57,7 @@ const propTypes = {
   useCache: PropTypes.bool,
 };
 
-export interface UseAsyncProps extends TypeaheadComponentProps {
+export interface UseAsyncProps<Option extends OptionType> extends TypeaheadComponentProps<Option> {
   delay?: number;
   isLoading: boolean;
   onSearch: (query: string) => void;
@@ -66,7 +66,7 @@ export interface UseAsyncProps extends TypeaheadComponentProps {
   useCache?: boolean;
 }
 
-type Cache = Record<string, Option[]>;
+type Cache<Option extends OptionType> = Record<string, Option[]>;
 
 interface DebouncedFunction extends Function {
   cancel(): void;
@@ -80,7 +80,7 @@ interface DebouncedFunction extends Function {
  *  - Optional query caching
  *  - Search prompt and empty results behaviors
  */
-export function useAsync(props: UseAsyncProps) {
+export function useAsync<Option extends OptionType>(props: UseAsyncProps<Option>) {
   const {
     allowNew,
     delay = 200,
@@ -96,7 +96,7 @@ export function useAsync(props: UseAsyncProps) {
     ...otherProps
   } = props;
 
-  const cacheRef = useRef<Cache>({});
+  const cacheRef = useRef<Cache<Option>>({});
   const handleSearchDebouncedRef = useRef<DebouncedFunction | null>(null);
   const queryRef = useRef<string>(props.defaultInputValue || '');
 
@@ -179,16 +179,15 @@ export function useAsync(props: UseAsyncProps) {
 }
 
 /* istanbul ignore next */
-export function withAsync<T extends UseAsyncProps = UseAsyncProps>(
+export function withAsync<Option extends OptionType, T extends UseAsyncProps<Option> = UseAsyncProps<Option>>(
   Component: ComponentType<T>
 ) {
   warn(
-    false,
-    'Warning: `withAsync` is deprecated and will be removed in the next ' +
+      false,
+      'Warning: `withAsync` is deprecated and will be removed in the next ' +
       'major version. Use `useAsync` instead.'
   );
-
-  const AsyncTypeahead = forwardRef<Typeahead, T>((props, ref) => (
+  const AsyncTypeahead = forwardRef<Typeahead<Option>, T>((props, ref) => (
     <Component {...props} {...useAsync(props)} ref={ref} />
   ));
 

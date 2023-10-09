@@ -1,9 +1,9 @@
-import { TypeaheadProps, TypeaheadState } from '../types';
+import {OptionType, TypeaheadProps, TypeaheadState} from '../types';
 import { getOptionLabel } from '../utils';
 
-type Props = TypeaheadProps;
+type Props<Option extends OptionType> = TypeaheadProps<Option>;
 
-export function getInitialState(props: Props): TypeaheadState {
+export function getInitialState<Option extends OptionType>(props: Props<Option>): TypeaheadState<Option> {
   const {
     defaultInputValue,
     defaultOpen,
@@ -40,7 +40,7 @@ export function getInitialState(props: Props): TypeaheadState {
   };
 }
 
-export function clearTypeahead(state: TypeaheadState, props: Props) {
+export function clearTypeahead<Option extends OptionType>(state: TypeaheadState<Option>, props: Props<Option>) {
   return {
     ...getInitialState(props),
     isFocused: state.isFocused,
@@ -49,7 +49,7 @@ export function clearTypeahead(state: TypeaheadState, props: Props) {
   };
 }
 
-export function clickOrFocusInput(state: TypeaheadState) {
+export function clickOrFocusInput<Option extends OptionType>(state: TypeaheadState<Option>) {
   return {
     ...state,
     isFocused: true,
@@ -57,7 +57,7 @@ export function clickOrFocusInput(state: TypeaheadState) {
   };
 }
 
-export function hideMenu(state: TypeaheadState, props: Props) {
+export function hideMenu<Option extends OptionType>(state: TypeaheadState<Option>, props: Props<Option>) {
   const { activeIndex, activeItem, initialItem, shownResults } =
     getInitialState(props);
 
@@ -71,6 +71,6 @@ export function hideMenu(state: TypeaheadState, props: Props) {
   };
 }
 
-export function toggleMenu(state: TypeaheadState, props: Props) {
+export function toggleMenu<Option extends OptionType>(state: TypeaheadState<Option>, props: Props<Option>) {
   return state.showMenu ? hideMenu(state, props) : { ...state, showMenu: true };
 }
