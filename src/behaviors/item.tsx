@@ -66,13 +66,11 @@ export function useItem<T extends HTMLElement>({
 
       node &&
         scrollIntoView(node, {
-          block: 'nearest',
           boundary: node.parentNode as Element,
-          inline: 'nearest',
           scrollMode: 'if-needed',
         });
     }
-  });
+  }, [activeIndex, onActiveItemChange, option, position]);
 
   const handleClick = useCallback(
     (e: MouseEvent<T>) => {
