@@ -5,21 +5,16 @@ const propTypes = {
   label: PropTypes.string,
 };
 
-const defaultProps = {
-  label: 'Loading...',
-};
-
 export interface LoaderProps {
   label?: string;
 }
 
-const Loader = ({ label }: LoaderProps) => (
+const Loader = ({ label = 'Loading...' }: LoaderProps) => (
   <div className="rbt-loader spinner-border spinner-border-sm" role="status">
     <span className="sr-only visually-hidden">{label}</span>
   </div>
 );
 
 Loader.propTypes = propTypes;
-Loader.defaultProps = defaultProps;
 
 export default Loader;

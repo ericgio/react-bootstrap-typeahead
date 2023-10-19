@@ -9,10 +9,6 @@ const propTypes = {
   search: PropTypes.string.isRequired,
 };
 
-const defaultProps = {
-  highlightClassName: 'rbt-highlight-text',
-};
-
 export interface HighlighterProps {
   children: string;
   highlightClassName?: string;
@@ -27,7 +23,7 @@ export interface HighlighterProps {
  */
 const Highlighter = ({
   children,
-  highlightClassName,
+  highlightClassName = 'rbt-highlight-text',
   search,
 }: HighlighterProps) => {
   if (!search || !children) {
@@ -71,6 +67,5 @@ const Highlighter = ({
 };
 
 Highlighter.propTypes = propTypes;
-Highlighter.defaultProps = defaultProps;
 
 export default Highlighter;

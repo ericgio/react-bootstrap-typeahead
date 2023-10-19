@@ -33,10 +33,6 @@ const propTypes = {
   maxHeight: PropTypes.string,
 };
 
-const defaultProps = {
-  'aria-label': 'menu-options',
-};
-
 export interface MenuProps extends HTMLProps<HTMLDivElement> {
   emptyLabel?: ReactNode;
   innerRef?: Ref<HTMLDivElement>;
@@ -66,6 +62,7 @@ const Menu = ({
     /* eslint-disable jsx-a11y/interactive-supports-focus */
     <div
       {...props}
+      aria-label={props['aria-label'] || 'menu-options'}
       className={cx('rbt-menu', 'dropdown-menu', 'show', props.className)}
       onMouseDown={
         // Prevent input from blurring when clicking on the menu scrollbar.
@@ -86,7 +83,6 @@ const Menu = ({
 };
 
 Menu.propTypes = propTypes;
-Menu.defaultProps = defaultProps;
 Menu.Divider = MenuDivider;
 Menu.Header = MenuHeader;
 
