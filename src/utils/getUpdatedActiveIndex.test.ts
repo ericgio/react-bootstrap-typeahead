@@ -7,8 +7,8 @@ const options = [
   { name: 'foo' },
   { disabled: true, name: 'bar' },
   { disabled: true, name: 'boo' },
-  { name: 'baz', disabled: false },
-  { name: 'bja', disabled: undefined },
+  { disabled: false, name: 'baz' },
+  { disabled: undefined, name: 'bja' },
 ];
 
 const stringOptions = ['foo', 'bar', 'baz'];
