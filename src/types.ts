@@ -14,7 +14,7 @@ import {
 
 import { ALIGN_VALUES, SIZES } from './constants';
 
-export type Align = typeof ALIGN_VALUES[number];
+export type Align = (typeof ALIGN_VALUES)[number];
 
 export type AllowNew =
   | boolean
@@ -41,7 +41,7 @@ export type SelectHint = (
   event: KeyboardEvent<HTMLInputElement>
 ) => boolean;
 
-export type Size = typeof SIZES[number];
+export type Size = (typeof SIZES)[number];
 
 export type TypeaheadChildren =
   | ReactNode
