@@ -132,6 +132,9 @@
     "typescript": "^4.3.5",
     "webpack": "^5.44.0"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "lint-staged": {
     "*.js": "eslint --report-unused-disable-directives",
     "**/*": "prettier --write --ignore-unknown"
