@@ -68,9 +68,9 @@ export interface UseAsyncProps extends TypeaheadComponentProps {
 
 type Cache = Record<string, Option[]>;
 
-interface DebouncedFunction extends Function {
-  cancel(): void;
-}
+type DebouncedFn<T> = T & {
+  cancel: () => void;
+};
 
 /**
  * Logic that encapsulates common behavior and functionality around
@@ -97,7 +97,9 @@ export function useAsync(props: UseAsyncProps) {
   } = props;
 
   const cacheRef = useRef<Cache>({});
-  const handleSearchDebouncedRef = useRef<DebouncedFunction | null>(null);
+  const handleSearchDebouncedRef = useRef<DebouncedFn<
+    typeof handleSearch
+  > | null>(null);
   const queryRef = useRef<string>(props.defaultInputValue || '');
 
   const forceUpdate = useForceUpdate();

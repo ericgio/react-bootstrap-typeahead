@@ -9,7 +9,6 @@ export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export function noop(): void {}
 
 export function pick<T, K extends keyof T>(obj: T, keys: K[]) {

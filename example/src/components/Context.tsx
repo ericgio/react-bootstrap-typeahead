@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-const noop = () => {}; // eslint-disable-line
+const noop = () => {};
 
 interface ExampleContextType {
   onAfter: (href: string) => void;
