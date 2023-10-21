@@ -117,6 +117,10 @@ const propTypes = {
   size: sizeType,
 };
 
+const defaultProps = {
+  isLoading: false,
+};
+
 const defaultRenderMenu = (
   results: Option[],
   menuProps: RenderMenuProps,
@@ -158,6 +162,7 @@ function getOverlayProps(props: TypeaheadComponentProps) {
 
 class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
   static propTypes = propTypes;
+  static defaultProps = defaultProps;
 
   _referenceElement: HTMLElement | null = null;
 
@@ -292,7 +297,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
   };
 
   _renderAux = ({ onClear, selected }: TypeaheadManagerChildProps) => {
-    const { clearButton, disabled, isLoading = 'false', size } = this.props;
+    const { clearButton, disabled, isLoading, size } = this.props;
 
     let content;
 

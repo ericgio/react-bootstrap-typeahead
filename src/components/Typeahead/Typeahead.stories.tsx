@@ -40,7 +40,7 @@ const defaultProps = {
   clearButton: false,
   flip: true,
   id: 'rbt-id',
-  isLoading: false,
+  isLoading: undefined,
   labelKey: 'name',
   multiple: false,
   onBlur: noop,
