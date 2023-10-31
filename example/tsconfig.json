@@ -18,7 +18,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "types": ["raw-loader.d.ts"]
+    "types": ["./raw-loader.d.ts"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "public", "**/*.js"]
