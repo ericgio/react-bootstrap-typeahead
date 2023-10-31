@@ -41,4 +41,8 @@ describe('stripDiacritics', () => {
     expect(str.length).toBe(112);
     expect(stripDiacritics(str)).toBe('');
   });
+
+  it('removes combining marks from Japanese characters', () => {
+    expect(stripDiacritics('ネバダ州')).toBe('ネハタ州');
+  });
 });

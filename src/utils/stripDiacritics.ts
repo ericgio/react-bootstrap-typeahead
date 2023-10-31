@@ -1,20 +1,5 @@
-/**
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * Taken from: http://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript/18391901#18391901
- */
-
 // prettier-ignore
+
 const map = [
   { base: 'A', letters: '\u0041\u24B6\uFF21\u00C0\u00C1\u00C2\u1EA6\u1EA4\u1EAA\u1EA8\u00C3\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u00C4\u01DE\u1EA2\u00C5\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F' },
   { base: 'AA', letters: '\uA732' },
@@ -109,12 +94,16 @@ const map = [
   return acc;
 }, {});
 
-// "what?" version ... http://jsperf.com/diacritics/12
+// Combining marks
+const latin = '\u0300-\u036F';
+const japanese = '\u3099\u309A';
+
 export default function stripDiacritics(str: string): string {
   return (
     str
       .normalize('NFD')
-      .replace(/[\u0300-\u036F\u3099\u309A]/g, '') // Remove combining diacritics
+      // Remove combining diacritics
+      .replace(new RegExp(`[${latin}${japanese}]`, 'g'), '')
       /* eslint-disable-next-line no-control-regex */
       .replace(/[^\u0000-\u007E]/g, (a) => map[a] || a)
   );
