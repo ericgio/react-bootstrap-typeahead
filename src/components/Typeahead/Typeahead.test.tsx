@@ -99,8 +99,8 @@ describe('<Typeahead>', () => {
       const user = userEvent.setup();
       render(<Default />);
       const input = getInput();
-      input.focus();
 
+      await input.focus();
       await user.click(getItems()[0]);
     });
 
@@ -639,9 +639,11 @@ describe('<Typeahead>', () => {
 
     const input = getInput();
     await user.click(input);
-    input.blur();
 
-    expect(onBlur).toHaveBeenCalledTimes(1);
+    input.blur();
+    await waitFor(() => {
+      expect(onBlur).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('calls `onFocus`', async () => {
@@ -675,11 +677,15 @@ describe('<Typeahead>', () => {
     expect(onMenuToggle).toHaveBeenCalledTimes(0);
 
     input.focus();
-    expect(onMenuToggle).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(onMenuToggle).toHaveBeenCalledTimes(1);
+    });
 
     // Shouldn't be called again if not hidden first.
     input.focus();
-    expect(onMenuToggle).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(onMenuToggle).toHaveBeenCalledTimes(1);
+    });
 
     await user.keyboard('{Escape}');
     expect(onMenuToggle).toHaveBeenCalledTimes(2);
@@ -698,7 +704,9 @@ describe('<Typeahead>', () => {
       expect(hint).toHaveValue('Alabama');
 
       input.blur();
-      expect(input).not.toHaveFocus();
+      await waitFor(() => {
+        expect(input).not.toHaveFocus();
+      });
       expect(hint).toHaveValue('');
     });
 
@@ -714,7 +722,9 @@ describe('<Typeahead>', () => {
       expect(hint).toHaveValue('Alabama');
 
       input.blur();
-      expect(input).not.toHaveFocus();
+      await waitFor(() => {
+        expect(input).not.toHaveFocus();
+      });
       expect(hint).toHaveValue('');
     });
 
@@ -897,7 +907,9 @@ describe('<Typeahead>', () => {
     render(<Default />);
 
     getInput().focus();
-    expect(getMenu()).toBeInTheDocument();
+    await waitFor(() => {
+      expect(getMenu()).toBeInTheDocument();
+    });
 
     await user.tab();
     expect(getMenu()).not.toBeInTheDocument();
@@ -1268,14 +1280,16 @@ describe('<Typeahead> Public Methods', () => {
     expect(typeof ref.current?.toggleMenu).toBe('function');
   });
 
-  it('calls the public `focus` and `blur` methods', () => {
+  it('calls the public `focus` and `blur` methods', async () => {
     const ref = createRef<Typeahead>();
     render(<TestComponent ref={ref} />);
 
     const input = getInput();
 
     ref.current?.focus();
-    expect(input).toHaveFocus();
+    await waitFor(() => {
+      expect(input).toHaveFocus();
+    });
 
     ref.current?.blur();
     expect(input).not.toHaveFocus();
@@ -1297,7 +1311,9 @@ describe('<Typeahead> Public Methods', () => {
 
     ref.current?.clear();
 
-    expect(tokens).toHaveLength(0);
+    await waitFor(() => {
+      expect(tokens).toHaveLength(0);
+    });
     expect(input).toHaveValue('');
   });
 
@@ -1316,20 +1332,26 @@ describe('<Typeahead> Public Methods', () => {
     expect(menu).toBeInTheDocument();
 
     ref.current?.hideMenu();
-    expect(menu).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(menu).not.toBeInTheDocument();
+    });
   });
 
-  it('calls the public `toggleMenu` method', () => {
+  it('calls the public `toggleMenu` method', async () => {
     const ref = createRef<Typeahead>();
     render(<TestComponent ref={ref} />);
 
     expect(getMenu()).not.toBeInTheDocument();
 
     ref.current?.toggleMenu();
-    expect(getMenu()).toBeInTheDocument();
+    await waitFor(() => {
+      expect(getMenu()).toBeInTheDocument();
+    });
 
     ref.current?.toggleMenu();
-    expect(getMenu()).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(getMenu()).not.toBeInTheDocument();
+    });
   });
 
   it('clears the typeahead after a selection', async () => {
@@ -1519,7 +1541,7 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
 
-  it('does not call either when `clear()` is called externally', () => {
+  it('does not call either when `clear()` is called externally', async () => {
     const ref = createRef<Typeahead>();
     const selected = states.slice(0, 1);
     render(
@@ -1535,7 +1557,9 @@ describe('<Typeahead> `change` events', () => {
 
     ref.current?.clear();
 
-    expect(getInput()).toHaveValue('');
+    await waitFor(() => {
+      expect(getInput()).toHaveValue('');
+    });
     expect(onChange).toHaveBeenCalledTimes(0);
     expect(onInputChange).toHaveBeenCalledTimes(0);
   });
