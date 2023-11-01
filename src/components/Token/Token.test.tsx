@@ -8,6 +8,7 @@ import {
   render,
   screen,
   userEvent,
+  waitFor,
 } from '../../tests/helpers';
 
 const ACTIVE_CLASS = 'rbt-token-active';
@@ -74,11 +75,15 @@ describe('<Token>', () => {
     expect(token).not.toHaveClass(ACTIVE_CLASS);
 
     token.focus();
-    expect(onFocus).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(onFocus).toHaveBeenCalledTimes(1);
+    });
     expect(token).toHaveClass(ACTIVE_CLASS);
 
     token.blur();
-    expect(onBlur).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(onBlur).toHaveBeenCalledTimes(1);
+    });
     expect(token).not.toHaveClass(ACTIVE_CLASS);
 
     await user.click(token);
