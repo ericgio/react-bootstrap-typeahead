@@ -33,7 +33,7 @@ describe('<Highlighter>', () => {
     // eslint-disable-next-line react/jsx-curly-brace-presence
     const { container } = render(<Highlighter search="foo">{''}</Highlighter>);
 
-    expect(container.childNodes.item(0)).toHaveTextContent('');
+    expect(container.childNodes.item(0)).toBeNull();
   });
 
   it('highlights text within a string', () => {
