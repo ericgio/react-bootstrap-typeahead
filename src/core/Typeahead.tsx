@@ -230,6 +230,8 @@ function triggerInputChange(input: HTMLInputElement, value: string) {
   input.dispatchEvent(e);
 }
 
+let selectedOptions: Option[];
+
 class Typeahead extends React.Component<Props, TypeaheadState> {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
@@ -325,6 +327,7 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
         onInitialItemChange={this._handleInitialItemChange}
         onKeyDown={this._handleKeyDown}
         onMenuItemClick={this._handleMenuItemSelect}
+        onSelectAllClick={this._handleAddAll}
         onRemove={this._handleSelectionRemove}
         results={results}
         setItem={this.setItem}
@@ -510,7 +513,6 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   _handleSelectionAdd = (option: Option) => {
     const { multiple, labelKey } = this.props;
 
-    let selected: Option[];
     let selection = option;
     let text: string;
 
@@ -523,12 +525,12 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
     if (multiple) {
       // If multiple selections are allowed, add the new selection to the
       // existing selections.
-      selected = this.state.selected.concat(selection);
+      selectedOptions = this.state.selected.concat(selection);
       text = '';
     } else {
       // If only a single selection is allowed, replace the existing selection
       // with the new one.
-      selected = [selection];
+      selectedOptions = [selection];
       text = getOptionLabel(selection, labelKey);
     }
 
@@ -536,12 +538,41 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
       (state, props) => ({
         ...hideMenu(state, props),
         initialItem: selection,
-        selected,
+        selected: selectedOptions,
         text,
       }),
-      () => this._handleChange(selected)
+      () => this._handleChange(selectedOptions)
     );
   };
+
+  _handleAddAll = (results: Option[]) => {
+    const { multiple } = this.props
+
+    const updatedResults = results.map((result) => {
+      
+      if (!isString(result) && result.customOption) {
+        return { ...result, id: uniqueId('new-id-') };
+      }
+      return result
+    })
+
+    if (multiple) {
+      // If multiple selections are allowed, add the all result to the
+      // existing selections.
+      selectedOptions = this.state.selected.concat(updatedResults);
+    }
+    
+    this.setState(
+      (state, props) => ({
+        ...hideMenu(state, props),
+        // initialItem: selection,
+        selected: selectedOptions,
+        text: '',
+      }),
+      () => this._handleChange(selectedOptions)
+    );
+  }
+
 
   _handleSelectionRemove = (selection: Option) => {
     const selected = this.state.selected.filter(

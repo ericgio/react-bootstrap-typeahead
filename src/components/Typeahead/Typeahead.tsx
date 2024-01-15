@@ -279,6 +279,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
       paginationText,
       renderMenu,
       renderMenuItemChildren,
+      multiple,
     } = this.props;
 
     return (renderMenu || defaultRenderMenu)(
@@ -288,6 +289,7 @@ class TypeaheadComponent extends React.Component<TypeaheadComponentProps> {
         emptyLabel,
         id,
         maxHeight,
+        multiple,
         newSelectionPrefix,
         paginationText,
         renderMenuItemChildren,
