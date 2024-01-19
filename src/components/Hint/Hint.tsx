@@ -42,6 +42,7 @@ export const useHint = () => {
   
   const hintRef = useRef<HTMLInputElement | null>(null);
 
+  // scroll hint input when the text input is scrolling
   inputNode?.addEventListener("scroll", () => {
     hintRef.current!.scrollLeft = inputNode?.scrollLeft
   })
