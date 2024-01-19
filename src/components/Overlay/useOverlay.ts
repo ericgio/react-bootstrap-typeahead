@@ -29,12 +29,6 @@ export function getModifiers(props: Pick<OverlayOptions, 'align' | 'flip'>) {
       enabled: !!props.flip,
       name: 'flip',
     },
-    {
-      name: 'preventOverflow',
-      options: {
-        mainAxis: false
-      }
-    }
   ];
 
   if (props.align !== 'right' && props.align !== 'left') {
