@@ -71,14 +71,14 @@ Try the [live examples](http://ericgio.github.io/react-bootstrap-typeahead/), wh
 
 You can also try out the following sandbox examples:
 
-- [Windowing with large data sets](https://codesandbox.io/s/react-bootstrap-typeahead-windowing-example-4q1yjrzrn0)
-- [Asynchronous pagination](https://codesandbox.io/s/react-bootstrap-typeahead-async-pagination-example-qg895)
-- [Combobox](https://codesandbox.io/s/rbt-combobox-example-kkmyd)
-- [Validation and feedback](https://codesandbox.io/s/rbt-validation-feedback-example-4w01px4z6x)
-- [Custom loader & clear button](https://codesandbox.io/s/rbt-custom-aux-components-gn3kn)
-- [Multi-select with reorderable drag & drop tokens](https://codesandbox.io/s/rbt-drag-drop-token-example-u43sf)
-- [Keep the menu open during multi-selection](https://codesandbox.io/s/rbt-keep-menu-open-during-multi-select-nr2y4)
-- [Single-select with floating label (BS5)](https://codesandbox.io/s/rbt-floating-labels-8c2j6b)
+- [Windowing with large data sets](https://codesandbox.io/p/sandbox/stoic-river-4q1yjrzrn0)
+- [Asynchronous pagination](https://codesandbox.io/p/sandbox/heuristic-pateu-zfjwjq)
+- [Combobox](https://codesandbox.io/p/sandbox/friendly-bose-kkmyd)
+- [Validation and feedback](https://codesandbox.io/p/sandbox/amazing-mendeleev-4w01px4z6x)
+- [Custom loader & clear button](https://codesandbox.io/p/sandbox/practical-jang-gn3kn)
+- [Multi-select with reorderable drag & drop tokens](https://codesandbox.io/p/sandbox/misty-water-u43sf)
+- [Keep the menu open during multi-selection](https://codesandbox.io/p/sandbox/eloquent-germain-nr2y4)
+- [Single-select with floating label (BS5)](https://codesandbox.io/p/sandbox/upbeat-paper-8c2j6b)
 
 If you have an example use case that would be useful to others, please create a sandbox and submit a pull request to add it to the list!
 
