@@ -142,6 +142,7 @@ export interface TypeaheadManagerProps extends TypeaheadPropsAndState {
   onHide: () => void;
   onInitialItemChange: (option?: Option) => void;
   onMenuItemClick: (option: Option, event: SelectEvent<HTMLElement>) => void;
+  onSelectAllClick: (result: Option[]) => void,
   onRemove: OptionHandler;
   placeholder?: string;
   results: Option[];
