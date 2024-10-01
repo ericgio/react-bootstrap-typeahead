@@ -99,15 +99,15 @@ describe('Overlay modifiers', () => {
     const props: ModifierProps = { align: 'justify', flip: false };
 
     const modifiers = getModifiers(props);
-    expect(modifiers).toHaveLength(2);
+    expect(modifiers).toHaveLength(3);
     expect(
       modifiers.find(({ name }) => name === 'setPopperWidth')
     ).toBeTruthy();
 
     props.align = 'left';
-    expect(getModifiers(props)).toHaveLength(1);
+    expect(getModifiers(props)).toHaveLength(2);
 
     props.align = 'right';
-    expect(getModifiers(props)).toHaveLength(1);
+    expect(getModifiers(props)).toHaveLength(2);
   });
 });
