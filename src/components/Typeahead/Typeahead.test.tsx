@@ -1636,4 +1636,23 @@ describe('<Typeahead> with custom menu', () => {
     expect(items[1]).toHaveClass('active');
     expect(items[1]).toHaveTextContent('Wisconsin');
   });
+
+  describe('<Typehead> with multiselect', () => {
+    it('Should select all options when select all button is pressed', async () => {
+      const user = userEvent.setup();
+
+      const { container } = render(<MultiSelect selected={[]} defaultSelected={[]} />);
+      const input = getInput()
+      await user.type(input, 'Te');
+
+      await user.click(screen.getByRole('button'));
+
+      const tokens = getTokens(container);
+
+      expect(tokens).toHaveLength(2);
+
+      expect(screen.getByText('Tennessee')).toBeInTheDocument();
+      expect(screen.getByText('Texas')).toBeInTheDocument();
+    });
+  });
 });

@@ -2,6 +2,8 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Children, HTMLProps, ReactNode, Ref } from 'react';
 
+import { useTypeaheadContext } from '../../core/Context';
+
 import { BaseMenuItem } from '../MenuItem';
 
 import { preventInputBlur } from '../../utils';
@@ -37,6 +39,7 @@ export interface MenuProps extends HTMLProps<HTMLDivElement> {
   emptyLabel?: ReactNode;
   innerRef?: Ref<HTMLDivElement>;
   maxHeight?: string;
+  multiple?: boolean;
 }
 
 /**
@@ -57,6 +60,8 @@ const Menu = ({
     ) : (
       props.children
     );
+  
+  const { onSelectAllClick } = useTypeaheadContext();
 
   return (
     /* eslint-disable jsx-a11y/interactive-supports-focus */
@@ -76,6 +81,7 @@ const Menu = ({
         maxHeight,
         overflow: 'auto',
       }}>
+        {props.multiple && <button type='button' className={cx('dropdown-item')} onClick={() => onSelectAllClick() }>Select All</button>}
       {children}
     </div>
     /* eslint-enable jsx-a11y/interactive-supports-focus */
