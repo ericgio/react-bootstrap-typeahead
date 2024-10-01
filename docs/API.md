@@ -44,9 +44,9 @@ highlightOnlyResult | boolean | false | Highlights the menu item if there is onl
 id `required` | string or number | | An html id attribute, required for assistive technologies such as screen readers.
 ignoreDiacritics | boolean | true | Whether the filter should ignore accents and other diacritical marks.
 inputProps | object | {} | Props to be applied directly to the input. `onBlur`, `onChange`, `onFocus`, and `onKeyDown` are ignored.
-isInvalid | boolean | false | Adds the `is-invalid` classname to the `form-control`. Only affects Bootstrap 4.
+isInvalid | boolean | false | Adds the `is-invalid` classname to the `form-control`. Only affects Bootstrap 4 and above.
 isLoading | boolean | false | Indicate whether an asynchronous data fetch is happening.
-isValid | boolean | false | Adds the `is-valid` classname to the `form-control`. Only affects Bootstrap 4.
+isValid | boolean | false | Adds the `is-valid` classname to the `form-control`. Only affects Bootstrap 4 and above.
 labelKey | string \| function | `'label'` | See full documentation in the [Rendering section](Rendering.md#labelkey-string--function).
 minLength | number | 0 | Minimum user input before displaying results.
 onChange | function | | Invoked when the set of selections changes (ie: an item is added or removed). For consistency, `selected` is always an array of selections, even if multi-selection is not enabled. <br><br><pre>`(selected: Array<Object\|string>) => void`</pre>
