@@ -32,9 +32,9 @@ export function getModifiers(props: Pick<OverlayOptions, 'align' | 'flip'>) {
     {
       name: 'preventOverflow',
       options: {
-        mainAxis: false
-      }
-    }
+        mainAxis: false,
+      },
+    },
   ];
 
   if (props.align !== 'right' && props.align !== 'left') {
@@ -69,7 +69,7 @@ export function useOverlay(
   );
 
   const refElementHeight = referenceElement?.offsetHeight;
-  
+
   // Re-position the popper if the height of the reference element changes.
   // Exclude `forceUpdate` from dependencies since it changes with each render.
   useEffect(() => {
