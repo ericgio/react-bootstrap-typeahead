@@ -12,6 +12,7 @@ import PublicMethodsSection from './sections/PublicMethodsSection';
 import RenderingSection from './sections/RenderingSection';
 
 import '../../styles/Typeahead.scss';
+import '../../styles/Typeahead.bs5.scss';
 
 render(
   <React.StrictMode>
