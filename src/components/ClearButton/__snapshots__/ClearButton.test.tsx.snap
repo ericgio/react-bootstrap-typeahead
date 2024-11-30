@@ -39,3 +39,23 @@ exports[`<ClearButton> Large story renders snapshot 1`] = `
   </span>
 </button>
 `;
+
+exports[`<ClearButton> Small story renders snapshot 1`] = `
+<button
+  aria-label="Clear"
+  class="close btn-close rbt-close rbt-close-sm"
+  type="button"
+>
+  <span
+    aria-hidden="true"
+    class="rbt-close-content"
+  >
+    ×
+  </span>
+  <span
+    class="sr-only visually-hidden"
+  >
+    Clear
+  </span>
+</button>
+`;

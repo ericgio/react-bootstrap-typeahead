@@ -17,6 +17,9 @@ The following HOCs were deprecated in a previous version and have been removed:
 - `withItem` (use `useItem`)
 - `withToken` (use `useToken`)
 
+### Drop support for Bootstrap 4
+Bootstrap 5 is now over 3 years old. BS4 should still mostly work, but you may need to add some custom CSS in a few cases.
+
 ## v6.0 Breaking Changes
 
 ### `"small"` and `"large"` are no longer valid `size` values

@@ -19,3 +19,8 @@ export const Large = Template.bind({});
 Large.args = {
   size: 'lg',
 };
+
+export const Small = Template.bind({});
+Small.args = {
+  size: 'sm',
+};
