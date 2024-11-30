@@ -95,6 +95,16 @@ AllowNew.args = {
   allowNew: true,
 };
 
+export const DisabledItem = Template.bind({});
+DisabledItem.args = {
+  ...defaultProps,
+  options: options.map((option) =>
+    option.name === 'Alabama'
+      ? { ...option, disabled: true }
+      : { ...option, disabled: false }
+  ),
+};
+
 export const CustomInput = Template.bind({});
 CustomInput.args = {
   ...defaultProps,

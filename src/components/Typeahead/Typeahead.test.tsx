@@ -57,6 +57,7 @@ const {
   InputValidation,
   Pagination,
   AllowNew,
+  DisabledItem,
   CustomMenu,
   Controlled,
 } = composeStories(stories);
@@ -735,6 +736,22 @@ describe('<Typeahead>', () => {
       expect(input).toHaveFocus();
       expect(getMenu()).not.toBeInTheDocument();
       expect(hint).toHaveValue('');
+    });
+
+    it('only displays a hint for non-disabled items', async () => {
+      const user = userEvent.setup();
+      const { container } = render(<DisabledItem />);
+      const input = getInput();
+      const hint = getHint(container);
+
+      await user.type(input, 'Ala');
+
+      // The hint should not display if the initial item is disabled.
+      expect(hint).toHaveValue('');
+
+      await user.clear(input);
+      await user.type(input, 'Ari');
+      expect(hint).toHaveValue('Arizona');
     });
   });
 

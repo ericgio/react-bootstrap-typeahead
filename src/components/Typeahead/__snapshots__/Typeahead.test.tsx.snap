@@ -223,6 +223,38 @@ exports[`<Typeahead> Default story renders snapshot 1`] = `
 </div>
 `;
 
+exports[`<Typeahead> DisabledItem story renders snapshot 1`] = `
+<div
+  class="rbt"
+  style="outline: none; position: relative;"
+  tabindex="-1"
+>
+  <div
+    style="display: flex; flex: 1; height: 100%; position: relative;"
+  >
+    <input
+      aria-autocomplete="both"
+      aria-expanded="false"
+      aria-haspopup="listbox"
+      autocomplete="off"
+      class="rbt-input-main form-control rbt-input"
+      placeholder="Choose a state..."
+      role="combobox"
+      type="text"
+      value=""
+    />
+    <input
+      aria-hidden="true"
+      class="rbt-input-hint"
+      readonly=""
+      style="background-color: transparent; border-color: transparent; box-shadow: none; color: rgba(0, 0, 0, 0.54); left: 0px; pointer-events: none; position: absolute; top: 0px; width: 100%;"
+      tabindex="-1"
+      value=""
+    />
+  </div>
+</div>
+`;
+
 exports[`<Typeahead> InputGrouping story renders snapshot 1`] = `
 <div
   class="input-group"

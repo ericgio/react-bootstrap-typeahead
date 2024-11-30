@@ -60,6 +60,18 @@ describe('getHintText', () => {
     expect(hintText).toBe('');
   });
 
+  it('returns an empty string when the initial item is disabled', () => {
+    const initialItem = { ...props.initialItem, disabled: true };
+    const hintText = getHintText({ ...props, initialItem });
+    expect(hintText).toBe('');
+  });
+
+  it('returns the hint string when the initial item is not disabled', () => {
+    const initialItem = { ...props.initialItem, disabled: false };
+    const hintText = getHintText({ ...props, initialItem });
+    expect(hintText).toBe('alAbama');
+  });
+
   it('handles string with composed diacritical marks', () => {
     const hintText = getHintText({
       ...props,

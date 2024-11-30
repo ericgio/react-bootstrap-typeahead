@@ -38,6 +38,8 @@ function getHintText({
     !initialItem ||
     // The initial item is a custom option.
     (!isString(initialItem) && hasOwnProperty(initialItem, 'customOption')) ||
+    // The initial item is disabled
+    (!isString(initialItem) && initialItem.disabled) ||
     // One of the menu items is active.
     activeIndex > -1 ||
     // There's already a selection in single-select mode.
