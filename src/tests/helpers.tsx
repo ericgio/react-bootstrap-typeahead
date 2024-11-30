@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* istanbul ignore file */
 
-import { axe } from 'jest-axe';
 import React, { ReactNode } from 'react';
 import { Meta } from '@storybook/react';
 import { composeStories, composeStory } from '@storybook/testing-react';
@@ -13,7 +12,6 @@ import {
   TypeaheadContextType,
 } from '../core/Context';
 
-export { axe };
 export * from '@storybook/testing-react';
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
