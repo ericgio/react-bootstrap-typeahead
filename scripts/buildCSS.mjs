@@ -2,12 +2,12 @@
 
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-var-requires */
 
-const chalk = require('chalk');
-const fs = require('fs');
-const path = require('path');
-const sass = require('sass');
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import * as sass from 'sass';
+import __dirname from './__dirname.mjs';
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'css');
