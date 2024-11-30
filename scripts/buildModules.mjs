@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 
-const chalk = require('chalk');
-const execa = require('execa');
-const path = require('path');
+import chalk from 'chalk';
+import { execa } from 'execa';
+import path from 'path';
+import __dirname from './__dirname.mjs';
 
 const shell = (cmd) =>
   execa(cmd, {
