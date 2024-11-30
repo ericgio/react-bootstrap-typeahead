@@ -22,8 +22,6 @@ export interface ClearButtonProps
 
 /**
  * ClearButton
- *
- * http://getbootstrap.com/css/#helper-classes-close
  */
 const ClearButton = ({
   className,
