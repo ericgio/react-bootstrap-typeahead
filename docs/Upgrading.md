@@ -1,11 +1,21 @@
 # Upgrade Guide
 
+- [Version 7.0](Upgrading.md#v70-breaking-changes)
 - [Version 6.0](Upgrading.md#v60-breaking-changes)
 - [Version 5.0](Upgrading.md#v50-breaking-changes)
 - [Version 4.0](Upgrading.md#v40-breaking-changes)
 - [Version 3.0](Upgrading.md#v30-breaking-changes)
 - [Version 2.0](Upgrading.md#v20)
 - [Version 1.0](Upgrading.md#v10)
+
+## v7.0 Breaking Changes
+
+### HOCs removed in favor of hooks
+The following HOCs were deprecated in a previous version and have been removed:
+
+- `withAsync` (use `useAsync`)
+- `withItem` (use `useItem`)
+- `withToken` (use `useToken`)
 
 ## v6.0 Breaking Changes
 

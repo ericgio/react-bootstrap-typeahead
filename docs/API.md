@@ -1,5 +1,5 @@
 # API Reference
-The components and higher-order components (HOCs) described below are publicly exposed in the top-level module. Other components should be considered private and subject to change without notice.
+The components and hooks described below are publicly exposed in the top-level module. Other components should be considered private and subject to change without notice.
 
 #### [Components](#components-1)
 - [`<Typeahead>`](#typeahead)
@@ -13,10 +13,10 @@ The components and higher-order components (HOCs) described below are publicly e
 - [`<TypeaheadMenu>`](#typeaheadmenu)
 - [`<Token>`](#token)
 
-#### [Higher-Order Components & Hooks](#higher-order-components--hooks-1)
-- [`useAsync` & `withAsync`](#useasync--withasync)
-- [`useItem` & `withItem`](#useitem--withitem)
-- [`useToken` & `withToken`](#usetoken--withtoken)
+#### [Hooks](#hooks-1)
+- [`useAsync`](#useasync)
+- [`useItem`](#useitem)
+- [`useToken`](#usetoken)
 - [`useHint`](#useHint)
 
 ## Components
@@ -108,9 +108,11 @@ An enhanced version of the normal `Typeahead` component for use when performing 
 
 Note that this component is the same as:
 ```jsx
-import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
+import { Typeahead, useAsync } from 'react-bootstrap-typeahead';
 
-const AsyncTypeahead = withAsync(Typeahead);
+const AsyncTypeahead = forwardRef<TypeaheadRef, UseAsyncProps>((props, ref) => {
+  return <Typeahead {...useAsync(props)} ref={ref} />;
+});
 ```
 
 #### Props
@@ -186,7 +188,7 @@ id `required` | string \| number | | Id value required for accessibility.
 maxHeight | string | `'300px'` | Maximum height of the dropdown menu.
 
 ### `<MenuItem>`
-Provides the markup for a Bootstrap menu item, but is wrapped by the [`withItem` HOC](#useitem--withitem) to ensure proper behavior within the typeahead context. Provided for use if a more customized `Menu` is desired.
+Provides the markup for a Bootstrap menu item, but uses the [`useItem` hook](#useitem) to ensure proper behavior within the typeahead context. Provided for use if a more customized `Menu` is desired.
 
 #### Props
 Name | Type | Default | Description
@@ -228,21 +230,17 @@ tabIndex | number | `0` | Allows the tabindex to be set if something other than 
 
 ## Higher-Order Components & Hooks
 
-### `useAsync` & `withAsync`
-The HOC used in [`AsyncTypeahead`](#asynctypeahead).
+### `useAsync`
+The hook used in [`AsyncTypeahead`](#asynctypeahead).
 
-### `useItem` & `withItem`
+### `useItem`
 Connects individual menu items with the main typeahead component via context and abstracts a lot of complex functionality required for behaviors like keying through the menu and input hinting. Also provides `onClick` behavior and active state.
 
-If you use your own menu item components (in `renderMenu` for example), you are strongly advised to use either the hook or the HOC:
+If you use your own menu item components (in `renderMenu` for example), you are strongly advised to use the hook to retain correct behaviors:
 
 ```jsx
 import { MenuItem } from 'react-bootstrap';
-import { Menu, Typeahead, useItem, withItem } from 'react-bootstrap-typeahead';
-
-const Item = withItem(MenuItem);
-
-// OR
+import { Menu, Typeahead, useItem } from 'react-bootstrap-typeahead';
 
 const Item = (props) => <MenuItem {...useItem(props)} />;
 
@@ -259,8 +257,8 @@ const Item = (props) => <MenuItem {...useItem(props)} />;
 />
 ```
 
-### `useToken` & `withToken`
-Encapsulates keystroke and outside click behaviors used in `Token`. Useful if you want completely custom markup for the token. The hook and the HOC provide the following props to be consumed by the token component:
+### `useToken`
+Encapsulates keystroke and outside click behaviors used in `Token`. Useful if you want completely custom markup for the token. Provides the following props to be consumed by the token component:
 
 Name | Type | Description
 -----|------|------------
@@ -285,10 +283,6 @@ const MyToken = forwardRef(({ active, onRemove, ...props }, ref) => (
   </div>
 ));
 
-// HOC
-const CustomToken = withToken(MyToken);
-
-// Hook
 const CustomToken = (props) => <MyToken {...useToken(props)} />;
 ```
 If using the hook, you can also apply it directly within your token component:
