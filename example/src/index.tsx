@@ -12,7 +12,6 @@ import PublicMethodsSection from './sections/PublicMethodsSection';
 import RenderingSection from './sections/RenderingSection';
 
 import '../../styles/Typeahead.scss';
-import '../../styles/Typeahead.bs5.scss';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);

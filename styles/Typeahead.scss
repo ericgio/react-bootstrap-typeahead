@@ -11,8 +11,6 @@ $rbt-color-white: #fff !default;
  * Menu
  */
 .rbt-menu {
-  margin-bottom: 2px; // Spacing for dropup
-
   & > .dropdown-item {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -114,10 +112,19 @@ $rbt-placeholder-color: #6c757d !default;
  * Close Button
  */
 .rbt-close {
+  font-size: 1rem;
   z-index: 1;
+
+  &-sm {
+    font-size: 0.75rem;
+  }
 
   &-lg {
     font-size: 1.5rem;
+  }
+
+  &-content {
+    display: none;
   }
 }
 
@@ -205,14 +212,13 @@ $rbt-token-active-color: $rbt-color-white !default;
   position: absolute;
   right: 0;
   top: 0;
-  width: 2rem;
+  width: 2.5rem;
 
   &-lg {
     width: 3rem;
   }
 
   & .rbt-close {
-    margin-top: -0.25rem;
     pointer-events: auto; /* Override pointer-events: none; above */
   }
 }
@@ -256,5 +262,27 @@ $rbt-token-active-color: $rbt-color-white !default;
   &:not(:last-child) .form-control {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+  }
+}
+
+.rbt .form-floating {
+  flex: 1;
+}
+
+.form-floating > .rbt-input-multi {
+  &:not(:placeholder-shown) ~ label {
+    opacity: inherit;
+    transform: inherit;
+  }
+
+  // Hide the placeholder
+  .rbt-input-main::placeholder {
+    color: transparent;
+  }
+
+  // Shrink the label when multi-selector is focused or there are selections.
+  &.focus ~ label {
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
   }
 }

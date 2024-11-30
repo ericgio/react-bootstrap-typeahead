@@ -25,8 +25,7 @@ yarn add react-bootstrap-typeahead
 Include the module in your project:
 
 ```jsx
-import { Typeahead } from 'react-bootstrap-typeahead'; // ES2015
-var Typeahead = require('react-bootstrap-typeahead').Typeahead; // CommonJS
+import { Typeahead } from 'react-bootstrap-typeahead';
 ```
 
 #### UMD Build
@@ -61,9 +60,6 @@ or
   href="https://unpkg.com/react-bootstrap-typeahead/css/Typeahead.css"
 />
 ```
-
-### Bootstrap 5
-In an effort to support Bootstrap 5, this package also contains a CSS file named `Typeahead.bs5.css` that should be included alongside the base CSS file above.
 
 ## Examples
 
