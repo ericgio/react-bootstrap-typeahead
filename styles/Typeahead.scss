@@ -98,13 +98,8 @@ $rbt-placeholder-color: #6c757d !default;
     align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: -4px;
-    margin-top: -1px;
+    gap: 0.25rem;
     overflow: hidden;
-  }
-
-  .rbt-input-main {
-    margin: 1px 0 4px;
   }
 }
 
@@ -147,8 +142,6 @@ $rbt-token-active-color: $rbt-color-white !default;
   color: $rbt-token-color;
   display: inline-flex;
   line-height: 1rem;
-  // TODO: Use `gap` when it's better supported
-  margin: 1px 3px 2px 0;
 
   .rbt-token-label {
     padding: 0.25rem 0.5rem;
