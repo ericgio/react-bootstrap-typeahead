@@ -51,6 +51,7 @@ const contextKeys = [
   'onAdd',
   'onInitialItemChange',
   'onMenuItemClick',
+  'onSelectAllClick',
   'setItem',
 ] as (keyof TypeaheadManagerProps)[];
 
@@ -66,6 +67,7 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     onMenuToggle,
     results,
     selectHint,
+    onSelectAllClick
   } = props;
 
   const hintText = getHintText(props);
@@ -101,6 +103,10 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     }
   };
 
+  const handleSelectAll = () => {
+    onSelectAllClick(results)
+  }
+
   const childProps = {
     ...pick(props, propKeys),
     getInputProps: getInputProps({
@@ -114,6 +120,7 @@ const TypeaheadManager = (props: TypeaheadManagerProps) => {
     ...pick(props, contextKeys),
     hintText,
     isOnlyResult: getIsOnlyResult(props),
+    onSelectAllClick: handleSelectAll
   };
 
   return (
