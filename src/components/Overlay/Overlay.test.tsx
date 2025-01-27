@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getModifiers, getPlacement } from './useOverlay';
+import { getMiddleware, getPlacement } from './useOverlay';
 import * as stories from './Overlay.stories';
 
 import { Align } from '../../types';
@@ -89,25 +89,25 @@ describe('Overlay modifiers', () => {
     const props: ModifierProps = { align: 'justify', flip: false };
     const selector = ({ name }: Modifier) => name === 'flip';
 
-    expect(getModifiers(props).find(selector)?.enabled).toBe(false);
+    expect(getMiddleware(props).some(selector)).toBe(false);
 
     props.flip = true;
-    expect(getModifiers(props).find(selector)?.enabled).toBe(true);
+    expect(getMiddleware(props).some(selector)).toBe(true);
   });
 
   it('conditionally adds the `setWidth` modifier', () => {
     const props: ModifierProps = { align: 'justify', flip: false };
 
-    const modifiers = getModifiers(props);
-    expect(modifiers).toHaveLength(3);
+    const modifiers = getMiddleware(props);
+    expect(modifiers).toHaveLength(1);
     expect(
-      modifiers.find(({ name }) => name === 'setPopperWidth')
+      modifiers.find(({ name }) => name === 'size')
     ).toBeTruthy();
 
     props.align = 'left';
-    expect(getModifiers(props)).toHaveLength(2);
+    expect(getMiddleware(props)).toHaveLength(0);
 
     props.align = 'right';
-    expect(getModifiers(props)).toHaveLength(2);
+    expect(getMiddleware(props)).toHaveLength(0);
   });
 });

@@ -16,7 +16,9 @@ module.exports = (env, argv) => {
             options: {
               presets: [
                 '@babel/preset-env',
-                '@babel/preset-react',
+                ['@babel/preset-react', {
+                  "runtime": "automatic"
+                }],
                 '@babel/preset-typescript',
               ],
               plugins: [
@@ -68,6 +70,7 @@ module.exports = (env, argv) => {
     ],
     resolve: {
       alias: {
+        'react/jsx-runtime': path.resolve(__dirname, '../node_modules/react/jsx-runtime.js'),
         'react-bootstrap-typeahead': path.resolve(
           __dirname,
           '..',
