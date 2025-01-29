@@ -10,12 +10,9 @@ exports[`<Overlay> Default story renders snapshot 1`] = `
   <div
     aria-label="menu-options"
     class="rbt-menu dropdown-menu show"
-    data-popper-escaped="true"
-    data-popper-placement="bottom-start"
-    data-popper-reference-hidden="true"
     id="overlay-story"
     role="listbox"
-    style="position: fixed; left: 0px; top: 0px; display: block; max-height: 300px; overflow: auto; transform: translate(0px, 0px); width: 0px;"
+    style="position: fixed; left: 0px; top: 0px; display: block; max-height: 300px; overflow: auto; transform: translate(0px, 0px);"
   >
     <a
       class="dropdown-item"

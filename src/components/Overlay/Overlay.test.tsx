@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getModifiers, getPlacement } from './useOverlay';
+import { getMiddleware, getPlacement } from './useOverlay';
 import * as stories from './Overlay.stories';
 
 import { Align } from '../../types';
@@ -85,29 +85,30 @@ describe('Overlay placement', () => {
 });
 
 describe('Overlay modifiers', () => {
-  it('sets the `flip` modifier', () => {
+  it('conditionally adds the `flip` middleware', () => {
     const props: ModifierProps = { align: 'justify', flip: false };
     const selector = ({ name }: Modifier) => name === 'flip';
 
-    expect(getModifiers(props).find(selector)?.enabled).toBe(false);
+    expect(getMiddleware(props).some(selector)).toBe(false);
 
     props.flip = true;
-    expect(getModifiers(props).find(selector)?.enabled).toBe(true);
+    expect(getMiddleware(props).some(selector)).toBe(true);
   });
 
-  it('conditionally adds the `setWidth` modifier', () => {
+  it('conditionally adds the `size` middleware', () => {
     const props: ModifierProps = { align: 'justify', flip: false };
 
-    const modifiers = getModifiers(props);
-    expect(modifiers).toHaveLength(3);
-    expect(
-      modifiers.find(({ name }) => name === 'setPopperWidth')
-    ).toBeTruthy();
+    const middleware = getMiddleware(props);
+    expect(middleware).toHaveLength(1);
+    expect(middleware.some(({ name }) => name === 'size')).toBe(true);
 
     props.align = 'left';
-    expect(getModifiers(props)).toHaveLength(2);
+    expect(getMiddleware(props)).toHaveLength(0);
 
     props.align = 'right';
-    expect(getModifiers(props)).toHaveLength(2);
+    expect(getMiddleware(props)).toHaveLength(0);
+
+    props.align = 'justify';
+    expect(getMiddleware(props)).toHaveLength(1);
   });
 });

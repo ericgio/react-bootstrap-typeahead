@@ -1,18 +1,14 @@
-import type { ModifierArguments, Placement, Options } from '@popperjs/core';
-import { useEffect, useState } from 'react';
-import { usePopper } from 'react-popper';
+import {
+  autoUpdate,
+  flip,
+  Middleware,
+  Placement,
+  size,
+  useFloating,
+} from '@floating-ui/react-dom';
+import { useState } from 'react';
 
 import { Align } from '../../types';
-
-const setPopperWidth = {
-  enabled: true,
-  fn: (data: ModifierArguments<Options>) => {
-    // eslint-disable-next-line no-param-reassign
-    data.state.styles.popper.width = `${data.state.rects.reference.width}px`;
-  },
-  name: 'setPopperWidth',
-  phase: 'write',
-};
 
 export type ReferenceElement = HTMLElement | null;
 
@@ -23,25 +19,25 @@ export interface OverlayOptions {
   positionFixed?: boolean;
 }
 
-export function getModifiers(props: Pick<OverlayOptions, 'align' | 'flip'>) {
-  const modifiers = [
-    {
-      enabled: !!props.flip,
-      name: 'flip',
-    },
-    {
-      name: 'preventOverflow',
-      options: {
-        mainAxis: false,
-      },
-    },
-  ];
-
-  if (props.align !== 'right' && props.align !== 'left') {
-    modifiers.push(setPopperWidth);
+export function getMiddleware(props: Pick<OverlayOptions, 'align' | 'flip'>) {
+  const middleware: Middleware[] = [];
+  if (props.flip) {
+    middleware.push(flip());
   }
 
-  return modifiers;
+  if (props.align !== 'right' && props.align !== 'left') {
+    middleware.push(
+      size({
+        apply({ rects, elements }) {
+          Object.assign(elements.floating.style, {
+            width: `${rects.reference.width}px`,
+          });
+        },
+      })
+    );
+  }
+
+  return middleware;
 }
 
 export function getPlacement(
@@ -57,29 +53,21 @@ export function useOverlay(
   referenceElement: ReferenceElement,
   options: OverlayOptions
 ) {
-  const [popperElement, attachRef] = useState<ReferenceElement>(null);
-  const { attributes, styles, forceUpdate } = usePopper(
-    referenceElement,
-    popperElement,
-    {
-      modifiers: getModifiers(options),
-      placement: getPlacement(options),
-      strategy: options.positionFixed ? 'fixed' : 'absolute',
-    }
-  );
-
-  const refElementHeight = referenceElement?.offsetHeight;
-
-  // Re-position the popper if the height of the reference element changes.
-  // Exclude `forceUpdate` from dependencies since it changes with each render.
-  useEffect(() => {
-    forceUpdate && forceUpdate();
-  }, [refElementHeight]); // eslint-disable-line
+  const [floatingElement, attachRef] = useState<ReferenceElement>(null);
+  const { floatingStyles } = useFloating({
+    elements: {
+      floating: floatingElement,
+      reference: referenceElement,
+    },
+    middleware: getMiddleware(options),
+    placement: getPlacement(options),
+    strategy: options.positionFixed ? 'fixed' : 'absolute',
+    whileElementsMounted: autoUpdate,
+  });
 
   return {
-    ...attributes.popper,
     innerRef: attachRef,
-    style: styles.popper,
+    style: floatingStyles,
   };
 }
 
