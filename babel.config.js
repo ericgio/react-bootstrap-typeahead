@@ -27,10 +27,6 @@ module.exports = {
           transform: 'lodash/${member}',
           preventFullImport: true,
         },
-        'react-overlays': {
-          transform: 'react-overlays/${member}',
-          preventFullImport: true,
-        },
       },
     ],
   ],

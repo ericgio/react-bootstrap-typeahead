@@ -9,8 +9,8 @@ import React, {
   MouseEventHandler,
   useState,
 } from 'react';
-import { useRootClose } from 'react-overlays';
 
+import { useRootClose } from '../components/RootClose';
 import { getDisplayName, isFunction, warn } from '../utils';
 
 import { optionType } from '../propTypes';
@@ -43,7 +43,6 @@ export function useToken<T extends HTMLElement>({
   ...props
 }: UseTokenProps<T>) {
   const [active, setActive] = useState<boolean>(false);
-  const [rootElement, attachRef] = useState<T | null>(null);
 
   const handleBlur = (e: Event) => {
     setActive(false);
@@ -72,7 +71,7 @@ export function useToken<T extends HTMLElement>({
     }
   };
 
-  useRootClose(rootElement, handleBlur, {
+  const attachRef = useRootClose(handleBlur, {
     ...props,
     disabled: !active,
   });
