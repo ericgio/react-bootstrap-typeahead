@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import React, { CSSProperties, forwardRef, ReactNode, useState } from 'react';
 
 import TypeaheadManager from '../../core/TypeaheadManager';
+import useRootClose from '../../core/useRootClose';
 import useTypeahead, { TypeaheadRef } from '../../core/useTypeahead';
 
 import ClearButton from '../ClearButton';
 import Loader from '../Loader';
 import { useOverlay } from '../Overlay';
-import { useRootClose } from '../RootClose';
 import Token from '../Token/Token';
 import TypeaheadInputMulti from '../TypeaheadInputMulti';
 import TypeaheadInputSingle from '../TypeaheadInputSingle';
