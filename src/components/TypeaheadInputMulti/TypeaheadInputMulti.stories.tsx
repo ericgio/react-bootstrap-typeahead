@@ -1,5 +1,3 @@
-/* eslint-disable sort-keys,import/no-extraneous-dependencies */
-
 import React, { ChangeEvent, useState } from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 

@@ -82,6 +82,7 @@ const propTypes = {
    * Props to be applied directly to the input. `onBlur`, `onChange`,
    * `onFocus`, and `onKeyDown` are ignored.
    */
+  // eslint-disable-next-line react/forbid-prop-types
   inputProps: checkPropType(PropTypes.object, inputPropsType),
   /**
    * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
