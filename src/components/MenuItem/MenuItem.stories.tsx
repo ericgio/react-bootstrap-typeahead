@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import MenuItem, { MenuItemProps } from './MenuItem';
 import {
@@ -25,7 +25,7 @@ const value = {
   id: 'test-id',
 };
 
-const Template: Story<Args> = ({ context, props }) => (
+const Template: StoryFn<Args> = ({ context, props }) => (
   <TypeaheadContext.Provider value={{ ...value, ...context }}>
     <div className="dropdown-menu show">
       <MenuItem {...props} />

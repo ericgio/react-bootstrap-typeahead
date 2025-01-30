@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import TypeaheadInputSingle from './TypeaheadInputSingle';
 
@@ -20,7 +20,7 @@ interface Args extends Omit<TypeaheadInputProps, 'size'> {
   size?: Size;
 }
 
-const Template: Story<Args> = ({ hintText = '', ...args }) => {
+const Template: StoryFn<Args> = ({ hintText = '', ...args }) => {
   const [inputNode, setInputNode] = useState<HTMLInputElement | null>(null);
 
   return (

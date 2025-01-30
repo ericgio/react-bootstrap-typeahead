@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import Overlay, { OverlayProps } from './Overlay';
 import Menu from '../Menu';
@@ -12,7 +12,7 @@ export default {
   component: Overlay,
 } as Meta;
 
-const Template: Story<OverlayProps> = (args) => {
+const Template: StoryFn<OverlayProps> = (args) => {
   const [referenceElement, setReferenceElement] =
     useState<HTMLDivElement | null>(null);
 

@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React, { ChangeEvent, useState } from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import Token from '../Token';
 import TypeaheadInputMulti, {
@@ -35,7 +35,7 @@ interface Args extends TypeaheadInputMultiProps {
   size?: Size;
 }
 
-const Template: Story<Args> = ({ hintText = '', ...args }) => {
+const Template: StoryFn<Args> = ({ hintText = '', ...args }) => {
   const [value, setValue] = useState(args.value);
   const [inputNode, setInputNode] = useState<HTMLInputElement | null>(null);
 

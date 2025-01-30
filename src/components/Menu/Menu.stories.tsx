@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import Menu, { MenuProps } from './Menu';
 import MenuItem from '../MenuItem';
@@ -21,7 +21,7 @@ const children = options.map((o, idx) => (
   </MenuItem>
 ));
 
-const Template: Story<MenuProps> = (args) => (
+const Template: StoryFn<MenuProps> = (args) => (
   <Menu
     {...args}
     style={{
