@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 
 import React, { ReactNode } from 'react';
-import { Meta } from '@storybook/react';
-import { composeStories, composeStory } from '@storybook/testing-react';
+import { Meta, composeStories, composeStory } from '@storybook/react';
 import { render, screen, RenderResult } from '@testing-library/react';
 
 import {
@@ -12,7 +11,7 @@ import {
   TypeaheadContextType,
 } from '../core/Context';
 
-export * from '@storybook/testing-react';
+export { composeStories, composeStory };
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
 

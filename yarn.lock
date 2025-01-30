@@ -1963,11 +1963,6 @@
     webpack-hot-middleware "^2.25.1"
     webpack-virtual-modules "^0.6.0"
 
-"@storybook/client-logger@^8.5.2":
-  version "8.5.2"
-  resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-8.5.2.tgz#b81750fe6f3923e8dfc48f6687d71040eff351b4"
-  integrity sha512-Vox51+F2BtQYZpsdQ1CsP4CgCpia4yZAG4IxQY6AYo4/YM1f3NpBStevsaFkh4UzgvUCNiolHAGqISJvsmqU6g==
-
 "@storybook/components@8.5.2":
   version "8.5.2"
   resolved "https://registry.yarnpkg.com/@storybook/components/-/components-8.5.2.tgz#987eb741c39c1edeef87347ebd00555f13ebc859"
@@ -2008,13 +2003,6 @@
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.12.tgz#1dcfa0f398a69b834c563884b5f747db3d5a81df"
   integrity sha512-9/exVhabisyIVL0VxTCxo01Tdm8wefIXKXfltAPTSr8cbLn5JAxGQ6QV3mjdecLGEOucfoVhAKtJfVHxEK1iqw==
-  dependencies:
-    type-fest "^2.19.0"
-
-"@storybook/csf@^0.1.0":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.13.tgz#c8a9bea2ae518a3d9700546748fa30a8b07f7f80"
-  integrity sha512-7xOOwCLGB3ebM87eemep89MYRFTko+D8qE7EdAAq74lgdqRR5cOUtYWJLjO2dLtP94nqoOdHJo6MdLLKzg412Q==
   dependencies:
     type-fest "^2.19.0"
 
@@ -2120,13 +2108,6 @@
     "@testing-library/user-event" "14.5.2"
     "@vitest/expect" "2.0.5"
     "@vitest/spy" "2.0.5"
-
-"@storybook/testing-react@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@storybook/testing-react/-/testing-react-2.0.1.tgz#89417ab9f4261d0d0db8578a611b222adc652e36"
-  integrity sha512-D0fT7f0TUU8+usR+0NSyCYQCYDWernQqGZou32ISsoBkY9IiH1JMY4hQE8zUaGozu9eMlaa2wieWIMsjWovpdw==
-  dependencies:
-    "@storybook/csf" "^0.1.0"
 
 "@storybook/theming@8.5.2":
   version "8.5.2"
