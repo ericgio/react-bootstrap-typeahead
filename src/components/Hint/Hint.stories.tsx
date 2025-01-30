@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import Hint, { HintProps } from './Hint';
 import { HintProvider, noop } from '../../tests/helpers';
@@ -11,7 +11,7 @@ export default {
   component: Hint,
 } as Meta;
 
-const Template: Story<HintProps> = (args) => {
+const Template: StoryFn<HintProps> = (args) => {
   const [inputNode, setInputNode] = useState<HTMLInputElement | null>(null);
 
   return (

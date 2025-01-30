@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import TypeaheadMenu, { TypeaheadMenuProps } from './TypeaheadMenu';
 
@@ -20,7 +20,7 @@ const defaultProps = {
   text: '',
 };
 
-const Template: Story<TypeaheadMenuProps> = (args) => (
+const Template: StoryFn<TypeaheadMenuProps> = (args) => (
   <div style={{ minHeight: '300px' }}>
     <div style={{ position: 'relative' }}>
       <TypeaheadMenu {...args} />

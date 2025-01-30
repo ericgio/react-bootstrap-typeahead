@@ -2,7 +2,7 @@
 
 import cx from 'classnames';
 import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import Typeahead, { TypeaheadComponentProps } from './Typeahead';
 import Hint from '../Hint';
@@ -53,7 +53,7 @@ const defaultProps = {
   positionFixed: true,
 };
 
-const Template: Story<TypeaheadComponentProps> = (args) => (
+const Template: StoryFn<TypeaheadComponentProps> = (args) => (
   <Typeahead {...args} />
 );
 

@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import ClearButton, { ClearButtonProps } from './ClearButton';
 
@@ -10,7 +10,7 @@ export default {
   component: ClearButton,
 } as Meta;
 
-const Template: Story<ClearButtonProps> = (args) => <ClearButton {...args} />;
+const Template: StoryFn<ClearButtonProps> = (args) => <ClearButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};

@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import Token, { TokenProps } from './Token';
 import { noop } from '../../utils';
@@ -11,7 +11,9 @@ export default {
   component: Token,
 } as Meta;
 
-const Template: Story<TokenProps<HTMLElement>> = (args) => <Token {...args} />;
+const Template: StoryFn<TokenProps<HTMLElement>> = (args) => (
+  <Token {...args} />
+);
 
 export const Interactive = Template.bind({});
 Interactive.args = {

@@ -30,10 +30,12 @@ AsyncTypeahead.propTypes = {
   /**
    * Message displayed in the menu when there is no user input.
    */
+  // @ts-ignore
   promptText: PropTypes.node,
   /**
    * Message displayed in the menu while the request is pending.
    */
+  // @ts-ignore
   searchText: PropTypes.node,
   /**
    * Whether or not the component should cache query results.

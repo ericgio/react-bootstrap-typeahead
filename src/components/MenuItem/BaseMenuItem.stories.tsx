@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys,import/no-extraneous-dependencies */
 
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { BaseMenuItem, BaseMenuItemProps } from './MenuItem';
 
@@ -10,7 +10,7 @@ export default {
   component: BaseMenuItem,
 } as Meta;
 
-const Template: Story<BaseMenuItemProps> = (args) => (
+const Template: StoryFn<BaseMenuItemProps> = (args) => (
   <div className="dropdown-menu show">
     <BaseMenuItem {...args} />
   </div>
