@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-console */
-
 import chalk from 'chalk';
 import { execa } from 'execa';
 import path from 'path';

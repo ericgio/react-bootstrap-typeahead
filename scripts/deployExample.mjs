@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-console */
-
 import ghpages from 'gh-pages';
 import pkg from '../package.json' assert { type: 'json' };
 

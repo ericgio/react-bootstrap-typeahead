@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import path from 'path';
 import { fileURLToPath } from 'url';
 
