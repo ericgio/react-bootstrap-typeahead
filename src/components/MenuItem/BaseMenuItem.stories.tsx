@@ -10,7 +10,11 @@ export default {
   component: BaseMenuItem,
 } as Meta;
 
-const Template: Story<BaseMenuItemProps> = (args) => <BaseMenuItem {...args} />;
+const Template: Story<BaseMenuItemProps> = (args) => (
+  <div className="dropdown-menu show">
+    <BaseMenuItem {...args} />
+  </div>
+);
 
 export const Default = Template.bind({});
 Default.args = {

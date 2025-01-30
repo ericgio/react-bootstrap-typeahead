@@ -27,7 +27,9 @@ const value = {
 
 const Template: Story<Args> = ({ context, props }) => (
   <TypeaheadContext.Provider value={{ ...value, ...context }}>
-    <MenuItem {...props} />
+    <div className="dropdown-menu show">
+      <MenuItem {...props} />
+    </div>
   </TypeaheadContext.Provider>
 );
 

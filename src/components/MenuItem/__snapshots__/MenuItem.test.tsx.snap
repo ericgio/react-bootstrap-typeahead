@@ -1,41 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BaseMenuItem> Active story renders snapshot 1`] = `
-<a
-  class="dropdown-item active"
-  href="#"
+<div
+  class="dropdown-menu show"
 >
-  This is an active base menu item
-</a>
+  <a
+    class="dropdown-item active"
+    href="#"
+  >
+    This is an active base menu item
+  </a>
+</div>
 `;
 
 exports[`<BaseMenuItem> Default story renders snapshot 1`] = `
-<a
-  class="dropdown-item"
-  href="#"
+<div
+  class="dropdown-menu show"
 >
-  This is a base menu item
-</a>
+  <a
+    class="dropdown-item"
+    href="#"
+  >
+    This is a base menu item
+  </a>
+</div>
 `;
 
 exports[`<BaseMenuItem> Disabled story renders snapshot 1`] = `
-<a
-  class="dropdown-item disabled"
-  href="#"
+<div
+  class="dropdown-menu show"
 >
-  This is a disabled base menu item
-</a>
+  <a
+    class="dropdown-item disabled"
+    href="#"
+  >
+    This is a disabled base menu item
+  </a>
+</div>
 `;
 
 exports[`<MenuItem> Default story renders snapshot 1`] = `
-<a
-  aria-label="test label"
-  aria-selected="false"
-  class="dropdown-item"
-  href="#"
-  id="test-id-item-0"
-  role="option"
+<div
+  class="dropdown-menu show"
 >
-  This is a menu item
-</a>
+  <a
+    aria-label="test label"
+    aria-selected="false"
+    class="dropdown-item"
+    href="#"
+    id="test-id-item-0"
+    role="option"
+  >
+    This is a menu item
+  </a>
+</div>
 `;
