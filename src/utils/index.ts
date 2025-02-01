@@ -9,6 +9,7 @@ export { default as getIsOnlyResult } from './getIsOnlyResult';
 export { default as getMatchBounds } from './getMatchBounds';
 export * from './getMatchBounds';
 export { default as getMenuItemId } from './getMenuItemId';
+export { default as getMenuProps } from './getMenuProps';
 export { default as getOptionLabel } from './getOptionLabel';
 export { default as getOptionProperty } from './getOptionProperty';
 export { default as getStringLabelKey } from './getStringLabelKey';

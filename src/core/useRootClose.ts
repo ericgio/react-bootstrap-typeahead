@@ -8,7 +8,7 @@ function useRootClose(
   onRootClose: (e: Event) => void,
   options: ClickOutsideOptions
 ) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const onClose = onRootClose || noop;
 
