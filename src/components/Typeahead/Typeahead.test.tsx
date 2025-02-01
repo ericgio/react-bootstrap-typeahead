@@ -1,7 +1,6 @@
 import React, { createRef, forwardRef, ReactNode } from 'react';
 
 import TypeaheadComponent, { TypeaheadComponentProps } from './Typeahead';
-import Typeahead from '../../core/Typeahead';
 
 import * as stories from './Typeahead.stories';
 

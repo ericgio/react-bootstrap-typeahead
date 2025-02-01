@@ -1,8 +1,7 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React, { CSSProperties, forwardRef, ReactNode, useState } from 'react';
 
-import TypeaheadManager from '../../core/TypeaheadManager';
+import { TypeaheadContext } from '../../core/Context';
 import useRootClose from '../../core/useRootClose';
 import useTypeahead, { TypeaheadRef } from '../../core/useTypeahead';
 
@@ -22,8 +21,6 @@ import {
   preventInputBlur,
 } from '../../utils';
 
-import { checkPropType, inputPropsType, sizeType } from '../../propTypes';
-
 import {
   Align,
   Option,
@@ -32,7 +29,7 @@ import {
   Size,
   TypeaheadInputProps,
   TypeaheadProps,
-  TypeaheadManagerChildProps,
+  TypeaheadChildProps,
 } from '../../types';
 
 export interface RenderMenuProps extends MenuProps {
@@ -44,13 +41,25 @@ export interface RenderMenuProps extends MenuProps {
 export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
   align?: Align;
   className?: string;
+  /**
+   * Displays a button to clear the input when there are selections.
+   */
   clearButton?: boolean;
   disabled?: boolean;
   dropup?: boolean;
   emptyLabel?: ReactNode;
   flip?: boolean;
+  /**
+   * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
+   */
   isInvalid?: boolean;
+  /**
+   * Indicate whether an asynchronous data fetch is happening.
+   */
   isLoading?: boolean;
+  /**
+   * Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`.
+   */
   isValid?: boolean;
   maxHeight?: string;
   newSelectionPrefix?: ReactNode;
@@ -58,66 +67,37 @@ export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
   paginationText?: ReactNode;
   placeholder?: string;
   positionFixed?: boolean;
+  /**
+   * Callback for custom input rendering.
+   */
   renderInput?: (
     inputProps: TypeaheadInputProps,
-    props: TypeaheadManagerChildProps
+    props: TypeaheadChildProps
   ) => JSX.Element;
+  /**
+   * Callback for custom menu rendering.
+   */
   renderMenu?: (
     results: Option[],
     menuProps: RenderMenuProps,
-    state: TypeaheadManagerChildProps
+    state: TypeaheadChildProps
   ) => JSX.Element;
   renderMenuItemChildren?: RenderMenuItemChildren;
+  /**
+   * Callback for custom menu rendering.
+   */
   renderToken?: RenderToken;
+  /**
+   * Specifies the size of the input.
+   */
   size?: Size;
   style?: CSSProperties;
 }
 
-const propTypes = {
-  /**
-   * Displays a button to clear the input when there are selections.
-   */
-  clearButton: PropTypes.bool,
-  /**
-   * Props to be applied directly to the input. `onBlur`, `onChange`,
-   * `onFocus`, and `onKeyDown` are ignored.
-   */
-  // eslint-disable-next-line react/forbid-prop-types
-  inputProps: checkPropType(PropTypes.object, inputPropsType),
-  /**
-   * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
-   */
-  isInvalid: PropTypes.bool,
-  /**
-   * Indicate whether an asynchronous data fetch is happening.
-   */
-  isLoading: PropTypes.bool,
-  /**
-   * Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`.
-   */
-  isValid: PropTypes.bool,
-  /**
-   * Callback for custom input rendering.
-   */
-  renderInput: PropTypes.func,
-  /**
-   * Callback for custom menu rendering.
-   */
-  renderMenu: PropTypes.func,
-  /**
-   * Callback for custom menu rendering.
-   */
-  renderToken: PropTypes.func,
-  /**
-   * Specifies the size of the input.
-   */
-  size: sizeType,
-};
-
 const defaultRenderMenu = (
   results: Option[],
   menuProps: RenderMenuProps,
-  props: TypeaheadManagerChildProps
+  props: TypeaheadChildProps
 ) => (
   <TypeaheadMenu
     {...menuProps}
@@ -142,137 +122,146 @@ const defaultRenderToken = (
   </Token>
 );
 
-function Typeahead(
-  props: TypeaheadComponentProps & TypeaheadManagerChildProps
-) {
-  const {
-    children,
-    clearButton,
-    disabled,
-    emptyLabel,
-    isLoading,
-    id,
-    isInvalid,
-    isValid,
-    maxHeight,
-    multiple,
-    newSelectionPrefix,
-    paginationText,
-    renderMenuItemChildren,
-    results,
-    size,
-  } = props;
+const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
+  (props, ref) => {
+    const { context, ...rest } = useTypeahead(props, ref);
 
-  const rootElementRef = useRootClose(props.hideMenu, {
-    disabled: props.open || !props.isMenuShown,
-  });
-  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
-    null
-  );
-
-  // Menu
-  const overlayProps = useOverlay(referenceElement, props);
-  const renderMenu = props.renderMenu || defaultRenderMenu;
-  const menuProps = {
-    ...overlayProps,
-    emptyLabel,
-    id,
-    maxHeight,
-    newSelectionPrefix,
-    paginationText,
-    renderMenuItemChildren,
-  };
-
-  function renderInput() {
-    const inputProps = {
-      ...props.getInputProps(props.inputProps),
-      referenceElementRef: setReferenceElement,
-    };
-
-    if (props.renderInput) {
-      return props.renderInput(inputProps, props);
-    }
-
-    const commonProps = {
-      ...inputProps,
+    const {
+      children,
+      clearButton,
+      disabled,
+      emptyLabel,
+      isLoading,
       isInvalid,
       isValid,
+      maxHeight,
+      multiple,
+      newSelectionPrefix,
+      paginationText,
+      placeholder,
+      renderMenuItemChildren,
       size,
+    } = props;
+
+    const {
+      getInputProps,
+      getMenuProps,
+      hideMenu,
+      isMenuShown,
+      labelKey,
+      onClear,
+      onRemove,
+      open,
+      results,
+      selected,
+    } = rest;
+
+    const rootElementRef = useRootClose(hideMenu, {
+      disabled: open || !isMenuShown,
+    });
+    const [referenceElement, setReferenceElement] =
+      useState<HTMLElement | null>(null);
+
+    // Menu
+    const overlayProps = useOverlay(referenceElement, props);
+    const renderMenu = props.renderMenu || defaultRenderMenu;
+    const menuProps = {
+      emptyLabel,
+      maxHeight,
+      newSelectionPrefix,
+      paginationText,
+      renderMenuItemChildren,
+      ...overlayProps,
+      ...getMenuProps(),
     };
 
-    if (!multiple) {
-      return <TypeaheadInputSingle {...commonProps} />;
+    function renderInput() {
+      // TODO: Add warnings for conflicting input props.
+      const inputProps = {
+        ...getInputProps({
+          ...props.inputProps,
+          disabled,
+          placeholder,
+        }),
+        referenceElementRef: setReferenceElement,
+      };
+
+      if (props.renderInput) {
+        return props.renderInput(inputProps, rest);
+      }
+
+      const commonProps = {
+        ...inputProps,
+        isInvalid,
+        isValid,
+        size,
+      };
+
+      if (!multiple) {
+        return <TypeaheadInputSingle {...commonProps} />;
+      }
+
+      const renderToken = props.renderToken || defaultRenderToken;
+      const tokenProps = {
+        ...commonProps,
+        labelKey,
+        onRemove,
+      };
+
+      return (
+        <TypeaheadInputMulti
+          {...commonProps}
+          placeholder={selected.length ? '' : inputProps.placeholder}
+          selected={selected}>
+          {selected.map((option, idx) => renderToken(option, tokenProps, idx))}
+        </TypeaheadInputMulti>
+      );
     }
 
-    const { labelKey, onRemove, selected } = props;
-    const renderToken = props.renderToken || defaultRenderToken;
-    const tokenProps = { ...commonProps, labelKey, onRemove };
+    let auxContent;
+    if (isLoading) {
+      auxContent = <Loader />;
+    } else if (clearButton && !disabled && selected?.length) {
+      auxContent = (
+        <ClearButton
+          onClick={onClear}
+          onMouseDown={preventInputBlur}
+          size={size}
+        />
+      );
+    }
 
     return (
-      <TypeaheadInputMulti
-        {...commonProps}
-        placeholder={selected.length ? '' : inputProps.placeholder}
-        selected={selected}>
-        {selected.map((option, idx) => renderToken(option, tokenProps, idx))}
-      </TypeaheadInputMulti>
-    );
-  }
-
-  let auxContent;
-  if (isLoading) {
-    auxContent = <Loader />;
-  } else if (clearButton && !disabled && props.selected.length) {
-    auxContent = (
-      <ClearButton
-        onClick={props.onClear}
-        onMouseDown={preventInputBlur}
-        size={size}
-      />
-    );
-  }
-
-  return (
-    <div
-      className={cx(
-        'rbt',
-        {
-          'has-aux': !!auxContent,
-          'is-invalid': props.isInvalid,
-          'is-valid': props.isValid,
-        },
-        props.className
-      )}
-      ref={rootElementRef}
-      style={{
-        ...props.style,
-        outline: 'none',
-        position: 'relative',
-      }}
-      tabIndex={-1}>
-      {renderInput()}
-      {props.isMenuShown && renderMenu(results, menuProps, props)}
-      {auxContent && (
-        <div className={cx('rbt-aux', { 'rbt-aux-lg': isSizeLarge(size) })}>
-          {auxContent}
+      <TypeaheadContext.Provider value={context}>
+        <div
+          className={cx(
+            'rbt',
+            {
+              'has-aux': !!auxContent,
+              'is-invalid': isInvalid,
+              'is-valid': isValid,
+            },
+            props.className
+          )}
+          ref={rootElementRef}
+          style={{
+            ...props.style,
+            outline: 'none',
+            position: 'relative',
+          }}
+          tabIndex={-1}>
+          {renderInput()}
+          {isMenuShown && renderMenu(results, menuProps, rest)}
+          {auxContent && (
+            <div className={cx('rbt-aux', { 'rbt-aux-lg': isSizeLarge(size) })}>
+              {auxContent}
+            </div>
+          )}
+          {isFunction(children) ? children(rest) : children}
         </div>
-      )}
-      {isFunction(children) ? children(props) : children}
-    </div>
-  );
-}
-
-Typeahead.propTypes = propTypes;
-
-const TypeaheadExport = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
-  (props, ref) => {
-    const typeaheadProps = useTypeahead(props, ref);
-
-    return (
-      <TypeaheadManager {...typeaheadProps}>
-        {(managerProps) => <Typeahead {...props} {...managerProps} />}
-      </TypeaheadManager>
+      </TypeaheadContext.Provider>
     );
   }
 );
 
-export default TypeaheadExport;
+export default Typeahead;

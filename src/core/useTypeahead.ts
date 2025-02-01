@@ -31,7 +31,10 @@ import {
   defaultFilterBy,
   defaultSelectHint,
   getHintText,
+  getInputProps,
+  getInputText,
   getIsOnlyResult,
+  getMenuProps,
   getOptionLabel,
   getOptionProperty,
   getStringLabelKey,
@@ -154,7 +157,7 @@ type InternalProps = Omit<TypeaheadProps, 'onChange'>;
 
 function useTypeahead(
   { onChange, ...partialProps }: Props,
-  ref: Ref<TypeaheadRef>
+  ref?: Ref<TypeaheadRef>
 ) {
   const props: InternalProps = {
     ...defaultProps,
@@ -285,7 +288,7 @@ function useTypeahead(
     setState(clickOrFocusInput, () => handleClick && handleClick(e));
   }
 
-  function onFocus(e: React.SyntheticEvent<HTMLInputElement>) {
+  function onFocus(e: React.FocusEvent<HTMLInputElement>) {
     setState(clickOrFocusInput, () => props.onFocus(e));
   }
 
@@ -436,8 +439,41 @@ function useTypeahead(
     }
   });
 
+  const context = {
+    activeIndex: state.activeIndex,
+    hintText,
+    id: props.id,
+    initialItem: state.initialItem,
+    inputNode,
+    isOnlyResult,
+    onAdd,
+    onInitialItemChange,
+    onMenuItemClick: onMenuItemSelect,
+    setItem,
+  };
+
   return {
     ...mergedPropsAndState,
+    context,
+    getInputProps: getInputProps({
+      activeIndex: state.activeIndex,
+      id: props.id,
+      inputRef: setInputNode,
+      isFocused: state.isFocused,
+      isMenuShown,
+      multiple: props.multiple,
+      onBlur,
+      onChange: onInputChange,
+      onClick,
+      onFocus,
+      onKeyDown,
+      value: getInputText(mergedPropsAndState),
+    }),
+    getMenuProps: getMenuProps({
+      id: props.id,
+    }),
+
+    // TODO: Remove some of these
     hideMenu,
     hintText,
     inputNode,
