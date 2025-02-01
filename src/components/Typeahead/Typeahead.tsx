@@ -2,7 +2,6 @@ import cx from 'classnames';
 import React, { CSSProperties, forwardRef, ReactNode, useState } from 'react';
 
 import { TypeaheadContext } from '../../core/Context';
-import useRootClose from '../../core/useRootClose';
 import useTypeahead, { TypeaheadRef } from '../../core/useTypeahead';
 
 import ClearButton from '../ClearButton';
@@ -146,19 +145,14 @@ const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
     const {
       getInputProps,
       getMenuProps,
-      hideMenu,
       isMenuShown,
       labelKey,
       onClear,
       onRemove,
-      open,
       results,
       selected,
     } = rest;
 
-    const rootElementRef = useRootClose(hideMenu, {
-      disabled: open || !isMenuShown,
-    });
     const [referenceElement, setReferenceElement] =
       useState<HTMLElement | null>(null);
 
@@ -243,7 +237,6 @@ const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
             },
             props.className
           )}
-          ref={rootElementRef}
           style={{
             ...props.style,
             outline: 'none',

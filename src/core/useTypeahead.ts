@@ -264,7 +264,13 @@ function useTypeahead(
   }
 
   function onBlur(e: React.FocusEvent<HTMLInputElement>) {
-    setState({ isFocused: false }, () => props.onBlur(e));
+    setState(
+      {
+        ..._hideMenu(state, props),
+        isFocused: false,
+      },
+      () => props.onBlur(e)
+    );
   }
 
   function onSelect(newSelected: Option[]) {
@@ -473,27 +479,28 @@ function useTypeahead(
       id: props.id,
     }),
 
-    // TODO: Remove some of these
     hideMenu,
-    hintText,
     inputNode,
-    inputRef: setInputNode,
     isMenuShown,
-    isOnlyResult,
-    onAdd,
-    onBlur,
-    onChange: onInputChange,
     onClear,
-    onClick,
-    onFocus,
     onHide: hideMenu,
-    onInitialItemChange,
-    onKeyDown,
-    onMenuItemClick: onMenuItemSelect,
     onRemove,
     results,
-    setItem,
     toggleMenu,
+
+    // TODO: Remove these along with TypeaheadManager
+    // hintText,
+    // inputRef: setInputNode,
+    // isOnlyResult,
+    // onAdd,
+    // onBlur,
+    // onChange: onInputChange,
+    // onClick,
+    // onFocus,
+    // onInitialItemChange,
+    // onKeyDown,
+    // onMenuItemClick: onMenuItemSelect,
+    // setItem,
   };
 }
 
