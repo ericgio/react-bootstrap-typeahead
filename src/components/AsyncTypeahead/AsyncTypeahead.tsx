@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { forwardRef } from 'react';
-import useAsync, { UseAsyncProps } from '../../core/useAsync';
 
-import { TypeaheadRef } from '../../core/useTypeahead';
+import { TypeaheadRef, useAsync, UseAsyncProps } from '../../core';
+
 import Typeahead from '../Typeahead';
 
 const AsyncTypeahead = forwardRef<TypeaheadRef, UseAsyncProps>((props, ref) => {

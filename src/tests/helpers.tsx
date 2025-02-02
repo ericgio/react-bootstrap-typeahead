@@ -9,7 +9,7 @@ import {
   defaultContext,
   TypeaheadContext,
   TypeaheadContextType,
-} from '../core/Context';
+} from '../core';
 
 export { composeStories, composeStory };
 export * from '@testing-library/react';

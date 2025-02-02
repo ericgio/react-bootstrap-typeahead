@@ -32,10 +32,12 @@ import _TypeaheadInputMulti from '../components/TypeaheadInputMulti';
 import _TypeaheadInputSingle from '../components/TypeaheadInputSingle';
 import _TypeaheadMenu from '../components/TypeaheadMenu';
 
-import _useAsync from '../core/useAsync';
-import _useHint from '../core/useHint';
-import _useItem from '../core/useItem';
-import _useToken from '../core/useToken';
+import {
+  useAsync as _useAsync,
+  useHint as _useHint,
+  useItem as _useItem,
+  useToken as _useToken,
+} from '../core';
 
 describe('index.js', () => {
   it('AsyncTypeahead is exported', () => {
