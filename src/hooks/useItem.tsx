@@ -8,7 +8,7 @@ import {
 } from 'react';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
-import { useTypeaheadContext } from './Context';
+import { useTypeaheadContext } from '../core/Context';
 import { getMenuItemId, preventInputBlur } from '../utils';
 
 import { Option } from '../types';

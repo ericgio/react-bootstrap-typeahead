@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React, { forwardRef, HTMLAttributes, MouseEvent } from 'react';
 
-import { useItem, UseItemProps } from '../../core';
+import { useItem, UseItemProps } from '../../hooks';
 
 export interface BaseMenuItemProps extends HTMLAttributes<HTMLAnchorElement> {
   active?: boolean;

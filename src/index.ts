@@ -18,8 +18,4 @@ export { default as TypeaheadInputSingle } from './components/TypeaheadInputSing
 export { default as TypeaheadMenu } from './components/TypeaheadMenu';
 export * from './components/TypeaheadMenu';
 
-// Hooks
-export { default as useAsync } from './core/useAsync';
-export { default as useHint } from './core/useHint';
-export { default as useItem } from './core/useItem';
-export { default as useToken } from './core/useToken';
+export { useAsync, useHint, useItem, useOverlay, useToken } from './hooks';

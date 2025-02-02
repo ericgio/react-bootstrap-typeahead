@@ -1,6 +1,6 @@
 import { CSSProperties, ReactElement, RefCallback } from 'react';
 
-import { OverlayOptions, ReferenceElement, useOverlay } from '../../core';
+import { OverlayOptions, ReferenceElement, useOverlay } from '../../hooks';
 
 export interface OverlayRenderProps {
   innerRef: RefCallback<HTMLElement>;
