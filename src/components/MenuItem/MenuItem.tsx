@@ -1,9 +1,7 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React, { forwardRef, HTMLAttributes, MouseEvent } from 'react';
 
 import { useItem, UseItemProps } from '../../core';
-import { optionType } from '../../propTypes';
 
 export interface BaseMenuItemProps extends HTMLAttributes<HTMLAnchorElement> {
   active?: boolean;
@@ -34,10 +32,5 @@ export type MenuItemProps = UseItemProps<HTMLAnchorElement>;
 function MenuItem(props: MenuItemProps) {
   return <BaseMenuItem {...useItem(props)} />;
 }
-
-MenuItem.propTypes = {
-  option: optionType.isRequired,
-  position: PropTypes.number,
-};
 
 export default MenuItem;

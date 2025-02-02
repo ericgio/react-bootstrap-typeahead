@@ -1,13 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import { getMatchBounds } from '../../utils';
-
-const propTypes = {
-  children: PropTypes.string.isRequired,
-  highlightClassName: PropTypes.string,
-  search: PropTypes.string.isRequired,
-};
 
 export interface HighlighterProps {
   children: string;
@@ -16,8 +9,6 @@ export interface HighlighterProps {
 }
 
 /**
- * Stripped-down version of https://github.com/helior/react-highlighter
- *
  * Results are already filtered by the time the component is used internally so
  * we can safely ignore case and diacritical marks for the purposes of matching.
  */
@@ -65,7 +56,5 @@ const Highlighter = ({
 
   return <>{highlighterChildren}</>;
 };
-
-Highlighter.propTypes = propTypes;
 
 export default Highlighter;

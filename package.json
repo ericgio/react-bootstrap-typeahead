@@ -55,7 +55,6 @@
     "fast-deep-equal": "^3.1.1",
     "invariant": "^2.2.1",
     "lodash.debounce": "^4.0.8",
-    "prop-types": "^15.5.8",
     "scroll-into-view-if-needed": "^3.1.0",
     "warning": "^4.0.1"
   },
