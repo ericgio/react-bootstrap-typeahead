@@ -1,12 +1,10 @@
 import {
   ChangeEvent,
-  ChangeEventHandler,
   FocusEventHandler,
   InputHTMLAttributes,
   KeyboardEvent,
   KeyboardEventHandler,
   MouseEvent,
-  MouseEventHandler,
   ReactNode,
   RefCallback,
 } from 'react';
@@ -219,27 +217,5 @@ export interface TypeaheadChildProps {
   results: Option[];
   selected: Option[];
   text: string;
-  toggleMenu: () => void;
-}
-
-export interface TypeaheadManagerProps extends TypeaheadPropsAndState {
-  disabled?: boolean;
-  hideMenu: () => void;
-  hintText: string;
-  inputNode: HTMLInputElement | null;
-  inputRef: RefCallback<HTMLInputElement>;
-  isMenuShown: boolean;
-  isOnlyResult: boolean;
-  onAdd: OptionHandler;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  onClear: () => void;
-  onClick: MouseEventHandler<HTMLInputElement>;
-  onHide: () => void;
-  onInitialItemChange: (option?: Option) => void;
-  onMenuItemClick: (option: Option, event: SelectEvent<HTMLElement>) => void;
-  onRemove: OptionHandler;
-  placeholder?: string;
-  results: Option[];
-  setItem: (item: Option, position: number) => void;
   toggleMenu: () => void;
 }

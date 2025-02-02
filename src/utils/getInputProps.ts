@@ -1,26 +1,27 @@
 import cx from 'classnames';
+import {
+  ChangeEventHandler,
+  FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  RefCallback,
+} from 'react';
 
 import getMenuItemId from './getMenuItemId';
-import hasOwnProperty from './hasOwnProperty';
-import { TypeaheadManagerProps } from '../types';
+import { Id, InputProps } from '../types';
 
-interface Args
-  extends Pick<
-    TypeaheadManagerProps,
-    | 'activeIndex'
-    | 'id'
-    | 'inputRef'
-    | 'isFocused'
-    | 'isMenuShown'
-    | 'multiple'
-    | 'onBlur'
-    | 'onChange'
-    | 'onClick'
-    | 'onFocus'
-    | 'onKeyDown'
-    | 'placeholder'
-  > {
-  disabled?: boolean;
+interface Args {
+  activeIndex: number;
+  id?: Id;
+  inputRef: RefCallback<HTMLInputElement>;
+  isFocused: boolean;
+  isMenuShown: boolean;
+  multiple: boolean;
+  onBlur: FocusEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  onClick: MouseEventHandler<HTMLInputElement>;
+  onFocus: FocusEventHandler<HTMLInputElement>;
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
   value: string;
 }
 
@@ -33,18 +34,12 @@ const getInputProps =
     multiple,
     onClick,
     onFocus,
-    placeholder,
     ...props
   }: Args) =>
-  (inputProps = {}) => {
-    const className = hasOwnProperty(inputProps, 'className')
-      ? String(inputProps.className)
-      : undefined;
-
+  ({ className, ...inputProps }: InputProps = {}) => {
     return {
       // These props can be overridden by values in `inputProps`.
       autoComplete: 'off',
-      placeholder,
       type: 'text',
 
       ...inputProps,
