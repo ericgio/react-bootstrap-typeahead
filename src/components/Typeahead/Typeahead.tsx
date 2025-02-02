@@ -52,7 +52,7 @@ export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
   emptyLabel?: ReactNode;
   flip?: boolean;
   /**
-   * Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`.
+   * Adds the `is-invalid` classname to the `form-control`.
    */
   isInvalid?: boolean;
   /**
@@ -60,7 +60,7 @@ export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
    */
   isLoading?: boolean;
   /**
-   * Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`.
+   * Adds the `is-valid` classname to the `form-control`.
    */
   isValid?: boolean;
   maxHeight?: string;
