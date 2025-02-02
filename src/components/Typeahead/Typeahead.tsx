@@ -1,8 +1,7 @@
 import cx from 'classnames';
 import React, { CSSProperties, forwardRef, ReactNode, useState } from 'react';
 
-import { TypeaheadContext } from '../../core/Context';
-import useTypeahead, { TypeaheadRef } from '../../core/useTypeahead';
+import { TypeaheadContext, TypeaheadRef, useTypeahead } from '../../core';
 
 import ClearButton from '../ClearButton';
 import Loader from '../Loader';

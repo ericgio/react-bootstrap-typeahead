@@ -1,12 +1,13 @@
 import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import MenuItem, { MenuItemProps } from './MenuItem';
 import {
   defaultContext,
   TypeaheadContext,
   TypeaheadContextType,
-} from '../../core/Context';
+} from '../../core';
+
+import MenuItem, { MenuItemProps } from './MenuItem';
 
 export default {
   title: 'Components/MenuItem/MenuItem',

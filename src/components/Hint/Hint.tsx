@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import useHint from '../../core/useHint';
+import { useHint } from '../../core';
 
 export interface HintProps {
   children: ReactNode;

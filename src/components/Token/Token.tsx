@@ -4,7 +4,7 @@ import React, { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
 import ClearButton from '../ClearButton';
 
-import useToken, { UseTokenProps } from '../../core/useToken';
+import { useToken, UseTokenProps } from '../../core';
 import { optionType } from '../../propTypes';
 import { isFunction } from '../../utils';
 
