@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getMiddleware, getPlacement } from './useOverlay';
+import { getMiddleware, getPlacement } from '../../core';
 import * as stories from './Overlay.stories';
 
 import { Align } from '../../types';

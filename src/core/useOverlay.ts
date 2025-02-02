@@ -8,14 +8,31 @@ import {
 } from '@floating-ui/react-dom';
 import { useState } from 'react';
 
-import { Align } from '../../types';
+import { Align } from '../types';
 
 export type ReferenceElement = HTMLElement | null;
 
 export interface OverlayOptions {
+  /**
+   * Specify menu alignment. The default value is `justify`, which makes the
+   * menu as wide as the input and truncates long values. Specifying `left`
+   * or `right` will align the menu to that side and the width will be
+   * determined by the length of menu item values.
+   */
   align?: Align;
+  /**
+   * Specify whether the menu should appear above the input.
+   */
   dropup?: boolean;
+  /**
+   * Whether or not to automatically adjust the position of the overlay when it
+   * reaches the viewport boundaries.
+   */
   flip?: boolean;
+  /**
+   * Whether to use the fixed position strategy for positioning the overlay, as
+   * opposed to absolute positioning.
+   */
   positionFixed?: boolean;
 }
 

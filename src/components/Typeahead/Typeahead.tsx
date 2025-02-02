@@ -1,12 +1,16 @@
 import cx from 'classnames';
 import React, { CSSProperties, forwardRef, ReactNode, useState } from 'react';
 
-import { TypeaheadContext, TypeaheadRef, useTypeahead } from '../../core';
+import {
+  TypeaheadContext,
+  TypeaheadRef,
+  useOverlay,
+  useTypeahead,
+} from '../../core';
 
 import ClearButton from '../ClearButton';
 import Loader from '../Loader';
-import { useOverlay } from '../Overlay';
-import Token from '../Token/Token';
+import Token from '../Token';
 import TypeaheadInputMulti from '../TypeaheadInputMulti';
 import TypeaheadInputSingle from '../TypeaheadInputSingle';
 import TypeaheadMenu, { RenderMenuItemChildren } from '../TypeaheadMenu';
