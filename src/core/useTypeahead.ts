@@ -487,20 +487,6 @@ function useTypeahead(
     onRemove,
     results,
     toggleMenu,
-
-    // TODO: Remove these along with TypeaheadManager
-    // hintText,
-    // inputRef: setInputNode,
-    // isOnlyResult,
-    // onAdd,
-    // onBlur,
-    // onChange: onInputChange,
-    // onClick,
-    // onFocus,
-    // onInitialItemChange,
-    // onKeyDown,
-    // onMenuItemClick: onMenuItemSelect,
-    // setItem,
   };
 }
 

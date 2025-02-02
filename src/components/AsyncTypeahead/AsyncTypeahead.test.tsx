@@ -1,7 +1,6 @@
 import React, { ChangeEvent, createRef, useState } from 'react';
 
 import AsyncTypeahead from './AsyncTypeahead';
-import Typeahead from '../../core/Typeahead';
 import {
   act,
   findItems,
