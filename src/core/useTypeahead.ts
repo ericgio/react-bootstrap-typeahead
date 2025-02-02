@@ -288,9 +288,8 @@ function useTypeahead(
   }
 
   function onClick(e: React.MouseEvent<HTMLInputElement>) {
-    const handleClick = props.inputProps?.onClick;
-
-    setState(clickOrFocusInput, () => handleClick && handleClick(e));
+    // TODO: Make `onClick` a top-level prop?
+    setState(clickOrFocusInput, () => props.inputProps?.onClick?.(e));
   }
 
   function onFocus(e: React.FocusEvent<HTMLInputElement>) {

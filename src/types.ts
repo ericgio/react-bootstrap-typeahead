@@ -83,7 +83,6 @@ export interface TypeaheadProps {
    * Whether or not filtering should be case-sensitive.
    */
   caseSensitive?: boolean;
-  children?: TypeaheadChildren;
   /**
    * The initial value displayed in the text input.
    */
@@ -199,7 +198,7 @@ type OptionalProps<T, K extends keyof T> = Partial<Pick<T, K>> &
  */
 export type InternalProps = OptionalProps<
   Required<Omit<TypeaheadProps, 'onChange'>>,
-  'children' | 'id' | 'open' | 'selected' | 'selectHint'
+  'id' | 'open' | 'selected' | 'selectHint'
 >;
 
 export interface TypeaheadState {
