@@ -74,39 +74,39 @@ export interface TypeaheadProps {
    * If a function is specified, it will be used to determine whether a custom
    * option should be included. The return value should be true or false.
    */
-  allowNew: AllowNew;
+  allowNew?: AllowNew;
   /**
    * Autofocus the input when the component initially mounts.
    */
-  autoFocus: boolean;
+  autoFocus?: boolean;
   /**
    * Whether or not filtering should be case-sensitive.
    */
-  caseSensitive: boolean;
+  caseSensitive?: boolean;
   children?: TypeaheadChildren;
   /**
    * The initial value displayed in the text input.
    */
-  defaultInputValue: string;
+  defaultInputValue?: string;
   /**
    * Whether or not the menu is displayed upon initial render.
    */
-  defaultOpen: boolean;
+  defaultOpen?: boolean;
   /**
    * Specify any pre-selected options. Use only if you want the component to
    * be uncontrolled.
    */
-  defaultSelected: Option[];
+  defaultSelected?: Option[];
   /**
    * Either an array of fields in `option` to search, or a custom filtering
    * callback.
    */
-  filterBy: string[] | FilterByCallback;
+  filterBy?: string[] | FilterByCallback;
   /**
    * Highlights the menu item if there is only one result and allows selecting
    * that item by hitting enter. Does not work with `allowNew`.
    */
-  highlightOnlyResult: boolean;
+  highlightOnlyResult?: boolean;
   /**
    * An html id attribute, required for assistive technologies such as screen
    * readers.
@@ -115,57 +115,57 @@ export interface TypeaheadProps {
   /**
    * Whether the filter should ignore accents and other diacritical marks.
    */
-  ignoreDiacritics: boolean;
+  ignoreDiacritics?: boolean;
   inputProps?: InputProps;
   /**
    * Specify the option key to use for display or a function returning the
    * display string. By default, the selector will use the `label` key.
    */
-  labelKey: LabelKey;
+  labelKey?: LabelKey;
   /**
    * Maximum number of results to display by default. Mostly done for
    * performance reasons so as not to render too many DOM nodes in the case of
    * large data sets.
    */
-  maxResults: number;
+  maxResults?: number;
   /**
    * Number of input characters that must be entered before showing results.
    */
-  minLength: number;
+  minLength?: number;
   /**
    * Whether or not multiple selections are allowed.
    */
-  multiple: boolean;
+  multiple?: boolean;
   /**
    * Invoked when the input is blurred. Receives an event.
    */
-  onBlur: FocusEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   /**
    * Invoked whenever items are added or removed. Receives an array of the
    * selected options.
    */
-  onChange: (selected: Option[]) => void;
+  onChange?: (selected: Option[]) => void;
   /**
    * Invoked when the input is focused. Receives an event.
    */
-  onFocus: FocusEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
   /**
    * Invoked when the input value changes. Receives the string value of the
    * input.
    */
-  onInputChange: (text: string, event: ChangeEvent<HTMLInputElement>) => void;
+  onInputChange?: (text: string, event: ChangeEvent<HTMLInputElement>) => void;
   /**
    * Invoked when a key is pressed. Receives an event.
    */
-  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
   /**
    * Invoked when menu visibility changes.
    */
-  onMenuToggle: (isOpen: boolean) => void;
+  onMenuToggle?: (isOpen: boolean) => void;
   /**
    * Invoked when the pagination menu item is clicked. Receives an event.
    */
-  onPaginate: (event: SelectEvent<HTMLElement>, shownResults: number) => void;
+  onPaginate?: (event: SelectEvent<HTMLElement>, shownResults: number) => void;
   /**
    * Whether or not the menu should be displayed. `undefined` allows the
    * component to control visibility, while `true` and `false` show and hide
@@ -181,7 +181,7 @@ export interface TypeaheadProps {
    * Give user the ability to display additional results if the number of
    * results exceeds `maxResults`.
    */
-  paginate: boolean;
+  paginate?: boolean;
   /**
    * The selected option(s) displayed in the input. Use this prop if you want
    * to control the component via its parent.
@@ -189,6 +189,18 @@ export interface TypeaheadProps {
   selected?: Option[];
   selectHint?: SelectHint;
 }
+
+type OptionalProps<T, K extends keyof T> = Partial<Pick<T, K>> &
+  Required<Omit<T, K>>;
+
+/**
+ * Most props used internally become "required" since they're given default
+ * values.
+ */
+export type InternalProps = OptionalProps<
+  Required<Omit<TypeaheadProps, 'onChange'>>,
+  'children' | 'id' | 'open' | 'selected' | 'selectHint'
+>;
 
 export interface TypeaheadState {
   activeIndex: number;
@@ -201,8 +213,7 @@ export interface TypeaheadState {
   text: string;
 }
 
-export type TypeaheadPropsAndState = Omit<TypeaheadProps, 'onChange'> &
-  TypeaheadState;
+export type TypeaheadPropsAndState = InternalProps & TypeaheadState;
 
 export interface TypeaheadChildProps {
   getInputProps: (
