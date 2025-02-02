@@ -40,7 +40,7 @@ function reducer(state: State, { checked, name }: Action) {
     case 'open':
       return {
         ...state,
-        [name]: checked ?? undefined,
+        [name]: checked || undefined,
       };
     default:
       return {
@@ -77,7 +77,7 @@ function getCheckboxes({
       label: 'Highlight the only result',
       name: 'highlightOnlyResult',
     },
-    { checked: !!open, label: 'Force the menu to stay open', name: 'open' },
+    { checked: open, label: 'Force the menu to stay open', name: 'open' },
   ];
 }
 
