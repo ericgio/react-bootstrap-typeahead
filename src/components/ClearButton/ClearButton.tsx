@@ -1,18 +1,8 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React, { HTMLProps, KeyboardEvent, MouseEvent } from 'react';
 
 import type { Size } from '../../types';
 import { isSizeLarge, isSizeSmall } from '../../utils';
-
-import { sizeType } from '../../propTypes';
-
-const propTypes = {
-  label: PropTypes.string,
-  onClick: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  size: sizeType,
-};
 
 export interface ClearButtonProps
   extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
@@ -62,7 +52,5 @@ const ClearButton = ({
     <span className="sr-only visually-hidden">{label}</span>
   </button>
 );
-
-ClearButton.propTypes = propTypes;
 
 export default ClearButton;

@@ -1,11 +1,10 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 import React, { Children, HTMLProps, ReactNode, Ref } from 'react';
 
 import { BaseMenuItem } from '../MenuItem';
 
+import { Id } from '../../types';
 import { preventInputBlur } from '../../utils';
-import { checkPropType, isRequiredForA11y } from '../../propTypes';
 
 const MenuDivider = () => <div className="dropdown-divider" role="separator" />;
 
@@ -14,28 +13,19 @@ const MenuHeader = (props: HTMLProps<HTMLDivElement>) => (
   <div {...props} className="dropdown-header" role="heading" />
 );
 
-const propTypes = {
-  'aria-label': PropTypes.string,
+export interface MenuProps extends HTMLProps<HTMLDivElement> {
   /**
    * Message to display in the menu if there are no valid results.
    */
-  emptyLabel: PropTypes.node,
+  emptyLabel?: ReactNode;
   /**
    * Needed for accessibility.
    */
-  id: checkPropType(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    isRequiredForA11y
-  ),
+  id?: Id;
+  innerRef?: Ref<HTMLDivElement>;
   /**
    * Maximum height of the dropdown menu.
    */
-  maxHeight: PropTypes.string,
-};
-
-export interface MenuProps extends HTMLProps<HTMLDivElement> {
-  emptyLabel?: ReactNode;
-  innerRef?: Ref<HTMLDivElement>;
   maxHeight?: string;
 }
 
@@ -82,7 +72,6 @@ const Menu = ({
   );
 };
 
-Menu.propTypes = propTypes;
 Menu.Divider = MenuDivider;
 Menu.Header = MenuHeader;
 

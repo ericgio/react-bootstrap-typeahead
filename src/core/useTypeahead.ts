@@ -18,6 +18,8 @@ import {
   useTypeaheadState,
 } from './TypeaheadState';
 
+import useValidateProps from './useValidateProps';
+
 import {
   FilterByCallback,
   Option,
@@ -174,6 +176,7 @@ function useTypeahead(
   const items: Option[] = [];
   const hintText = getHintText({ ...mergedPropsAndState, isMenuShown });
 
+  useValidateProps(props);
   useDidUpdate(props, state, setState);
   useOnMenuToggle(isMenuShown, props.onMenuToggle);
 

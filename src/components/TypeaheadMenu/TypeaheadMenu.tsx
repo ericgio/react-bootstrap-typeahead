@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { ReactNode } from 'react';
 
 import Highlighter from '../Highlighter';
@@ -16,28 +15,22 @@ export type RenderMenuItemChildren = (
 
 export interface TypeaheadMenuProps extends MenuProps {
   labelKey: LabelKey;
-  newSelectionPrefix?: ReactNode;
-  options: Option[];
-  paginationText?: ReactNode;
-  renderMenuItemChildren?: RenderMenuItemChildren;
-  text: string;
-}
-
-const propTypes = {
   /**
    * Provides the ability to specify a prefix before the user-entered text to
    * indicate that the selection will be new. No-op unless `allowNew={true}`.
    */
-  newSelectionPrefix: PropTypes.node,
+  newSelectionPrefix?: ReactNode;
+  options: Option[];
   /**
    * Prompt displayed when large data sets are paginated.
    */
-  paginationText: PropTypes.node,
+  paginationText?: ReactNode;
   /**
    * Provides a hook for customized rendering of menu item contents.
    */
-  renderMenuItemChildren: PropTypes.func,
-};
+  renderMenuItemChildren?: RenderMenuItemChildren;
+  text: string;
+}
 
 function defaultRenderMenuItemChildren(
   option: Option,
@@ -121,7 +114,5 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
     </Menu>
   );
 };
-
-TypeaheadMenu.propTypes = propTypes;
 
 export default TypeaheadMenu;

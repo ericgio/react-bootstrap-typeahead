@@ -6,8 +6,6 @@ import MenuItem from '../MenuItem';
 
 const options = [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }];
 
-// TODO: Caused by `isRequiredForA11y` validator.
-// @ts-ignore
 export default {
   title: 'Components/Menu',
   component: Menu,

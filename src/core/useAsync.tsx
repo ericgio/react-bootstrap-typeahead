@@ -9,11 +9,30 @@ import { TypeaheadComponentProps } from '../components/Typeahead';
 import type { Option } from '../types';
 
 export interface UseAsyncProps extends TypeaheadComponentProps {
+  /**
+   * Delay, in milliseconds, before performing search.
+   */
   delay?: number;
+  /**
+   * Whether or not a request is currently pending. Necessary for the
+   * container to know when new results are available.
+   */
   isLoading: boolean;
+  /**
+   * Callback to perform when the search is executed.
+   */
   onSearch: (query: string) => void;
+  /**
+   * Message displayed in the menu when there is no user input.
+   */
   promptText?: ReactNode;
+  /**
+   * Message displayed in the menu while the request is pending.
+   */
   searchText?: ReactNode;
+  /**
+   * Whether or not the component should cache query results.
+   */
   useCache?: boolean;
 }
 
