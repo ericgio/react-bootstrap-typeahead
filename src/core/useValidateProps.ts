@@ -28,7 +28,7 @@ function useValidateProps({
   multiple,
   onChange,
   selected,
-}: Partial<TypeaheadProps>) {
+}: TypeaheadProps) {
   useEffect(() => {
     const name = defaultSelected.length ? 'defaultSelected' : 'selected';
 

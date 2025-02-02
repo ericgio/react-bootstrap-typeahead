@@ -22,6 +22,7 @@ import useValidateProps from './useValidateProps';
 
 import {
   FilterByCallback,
+  InternalProps,
   Option,
   SelectEvent,
   TypeaheadProps,
@@ -62,6 +63,7 @@ const defaultProps = {
   filterBy: [],
   highlightOnlyResult: false,
   ignoreDiacritics: true,
+  inputProps: {},
   labelKey: DEFAULT_LABELKEY,
   maxResults: 100,
   minLength: 0,
@@ -138,7 +140,7 @@ function useOnMenuToggle(
       isInitialRender.current = false;
       return;
     }
-    onMenuToggle(isMenuShown);
+    onMenuToggle?.(isMenuShown);
   }, [isMenuShown, onMenuToggle]);
 }
 
@@ -151,14 +153,8 @@ export interface TypeaheadRef {
   toggleMenu: () => void;
 }
 
-interface Props extends Partial<TypeaheadProps> {
-  options: Option[];
-}
-
-type InternalProps = Omit<TypeaheadProps, 'onChange'>;
-
 function useTypeahead(
-  { onChange, ...partialProps }: Props,
+  { onChange, ...partialProps }: TypeaheadProps,
   ref?: Ref<TypeaheadRef>
 ) {
   const props: InternalProps = {

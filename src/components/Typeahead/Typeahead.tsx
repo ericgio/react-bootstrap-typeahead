@@ -36,7 +36,7 @@ export interface RenderMenuProps extends MenuProps {
   renderMenuItemChildren?: RenderMenuItemChildren;
 }
 
-export interface TypeaheadComponentProps extends Partial<TypeaheadProps> {
+export interface TypeaheadComponentProps extends TypeaheadProps {
   align?: Align;
   className?: string;
   /**
