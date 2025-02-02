@@ -15,6 +15,7 @@ import {
   useAsync,
   useHint,
   useItem,
+  useOverlay,
   useToken,
 } from '..';
 
@@ -36,72 +37,32 @@ import {
   useAsync as _useAsync,
   useHint as _useHint,
   useItem as _useItem,
+  useOverlay as _useOverlay,
   useToken as _useToken,
-} from '../core';
+} from '../hooks';
 
-describe('index.js', () => {
-  it('AsyncTypeahead is exported', () => {
+describe('index.ts exports', () => {
+  it('exports the components', () => {
     expect(AsyncTypeahead).toBe(_AsyncTypeahead);
-  });
-
-  it('ClearButton is exported', () => {
     expect(ClearButton).toBe(_ClearButton);
-  });
-
-  it('Highlighter is exported', () => {
     expect(Highlighter).toBe(_Highlighter);
-  });
-
-  it('Hint is exported', () => {
     expect(Hint).toBe(_Hint);
-    expect(useHint).toBe(_useHint);
-  });
-
-  it('Input is exported', () => {
     expect(Input).toBe(_Input);
-  });
-
-  it('Loader is exported', () => {
     expect(Loader).toBe(_Loader);
-  });
-
-  it('Menu is exported', () => {
     expect(Menu).toBe(_Menu);
-  });
-
-  it('MenuItem is exported', () => {
     expect(MenuItem).toBe(_MenuItem);
-  });
-
-  it('Token is exported', () => {
     expect(Token).toBe(_Token);
-  });
-
-  it('Typeahead is exported', () => {
     expect(Typeahead).toBe(_Typeahead);
-  });
-
-  it('TypeaheadInputMulti is exported', () => {
     expect(TypeaheadInputMulti).toBe(_TypeaheadInputMulti);
-  });
-
-  it('TypeaheadInputSingle is exported', () => {
     expect(TypeaheadInputSingle).toBe(_TypeaheadInputSingle);
-  });
-
-  it('TypeaheadMenu is exported', () => {
     expect(TypeaheadMenu).toBe(_TypeaheadMenu);
   });
 
-  it('async exports', () => {
+  it('exports the hooks', () => {
     expect(useAsync).toBe(_useAsync);
-  });
-
-  it('item exports', () => {
+    expect(useHint).toBe(_useHint);
     expect(useItem).toBe(_useItem);
-  });
-
-  it('token exports', () => {
+    expect(useOverlay).toBe(_useOverlay);
     expect(useToken).toBe(_useToken);
   });
 });

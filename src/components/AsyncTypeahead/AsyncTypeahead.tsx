@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 
-import { TypeaheadRef, useAsync, UseAsyncProps } from '../../core';
+import { TypeaheadRef } from '../../core';
+import { useAsync, UseAsyncProps } from '../../hooks';
 
 import Typeahead from '../Typeahead';
 

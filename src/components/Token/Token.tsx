@@ -3,7 +3,7 @@ import React, { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
 import ClearButton from '../ClearButton';
 
-import { useToken, UseTokenProps } from '../../core';
+import { useToken, UseTokenProps } from '../../hooks';
 import { isFunction } from '../../utils';
 
 type HTMLElementProps = Omit<HTMLProps<HTMLDivElement>, 'onBlur' | 'ref'>;

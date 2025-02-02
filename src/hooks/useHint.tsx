@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { useTypeaheadContext } from './Context';
+import { useTypeaheadContext } from '../core/Context';
 
 // IE doesn't seem to get the composite computed value (eg: 'padding',
 // 'borderStyle', etc.), so generate these from the individual values.
