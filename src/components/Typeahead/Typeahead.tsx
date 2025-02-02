@@ -28,6 +28,7 @@ import {
   TypeaheadInputProps,
   TypeaheadProps,
   TypeaheadChildProps,
+  TypeaheadChildren,
 } from '../../types';
 
 export interface RenderMenuProps extends MenuProps {
@@ -38,6 +39,7 @@ export interface RenderMenuProps extends MenuProps {
 
 export interface TypeaheadComponentProps extends TypeaheadProps {
   align?: Align;
+  children?: TypeaheadChildren;
   className?: string;
   /**
    * Displays a button to clear the input when there are selections.
