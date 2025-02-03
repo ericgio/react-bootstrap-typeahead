@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
+import React, { MouseEvent, ReactNode } from 'react';
 
 import Highlighter from '../Highlighter';
 import Menu, { MenuProps } from '../Menu';
 import MenuItem from '../MenuItem';
 
 import { getOptionLabel, getOptionProperty, isString } from '../../utils';
-import { LabelKey, Option } from '../../types';
+import { LabelKey, Option, SelectEvent } from '../../types';
 
 export type RenderMenuItemChildren = (
   option: Option,
@@ -20,6 +20,7 @@ export interface TypeaheadMenuProps extends MenuProps {
    * indicate that the selection will be new. No-op unless `allowNew={true}`.
    */
   newSelectionPrefix?: ReactNode;
+  onItemSelect: (option: Option, e: SelectEvent<HTMLElement>) => void;
   options: Option[];
   /**
    * Prompt displayed when large data sets are paginated.
@@ -47,6 +48,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
   const {
     labelKey,
     newSelectionPrefix = 'New selection: ',
+    onItemSelect,
     options,
     paginationText = 'Display additional results...',
     renderMenuItemChildren = defaultRenderMenuItemChildren,
@@ -60,6 +62,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
     const menuItemProps = {
       disabled: !!getOptionProperty(option, 'disabled'),
       label,
+      onClick: (e: MouseEvent<HTMLAnchorElement>) => onItemSelect(option, e),
       option,
       position,
     };

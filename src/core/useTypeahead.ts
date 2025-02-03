@@ -365,7 +365,7 @@ function useTypeahead(
     );
   }
 
-  function onMenuItemSelect(option: Option, e: SelectEvent<HTMLElement>) {
+  function onItemSelect(option: Option, e: SelectEvent<HTMLElement>) {
     if (getOptionProperty(option, 'paginationOption')) {
       onPaginate(e);
     } else {
@@ -396,7 +396,7 @@ function useTypeahead(
       case 'Enter':
         // Prevent form submission while menu is open.
         e.preventDefault();
-        state.activeItem && onMenuItemSelect(state.activeItem, e);
+        state.activeItem && onItemSelect(state.activeItem, e);
         break;
       case 'Escape':
       case 'Tab':
@@ -452,7 +452,6 @@ function useTypeahead(
     isOnlyResult,
     onAdd,
     onInitialItemChange,
-    onMenuItemClick: onMenuItemSelect,
     setItem,
   };
 
@@ -482,6 +481,7 @@ function useTypeahead(
     isMenuShown,
     onClear,
     onHide: hideMenu,
+    onItemSelect,
     onRemove,
     results,
     toggleMenu,

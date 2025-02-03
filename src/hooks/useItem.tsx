@@ -1,11 +1,4 @@
-import {
-  HTMLProps,
-  MouseEvent,
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import { HTMLProps, useEffect, useRef } from 'react';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
 import { useTypeaheadContext } from '../core/Context';
@@ -14,26 +7,18 @@ import { getMenuItemId, preventInputBlur } from '../utils';
 import { Option } from '../types';
 
 export interface UseItemProps<T> extends HTMLProps<T> {
-  onClick?: MouseEventHandler<T>;
   option: Option;
   position: number;
 }
 
 function useItem<T extends HTMLElement>({
   label,
-  onClick,
   option,
   position,
   ...props
 }: UseItemProps<T>) {
-  const {
-    activeIndex,
-    id,
-    isOnlyResult,
-    onInitialItemChange,
-    onMenuItemClick,
-    setItem,
-  } = useTypeaheadContext();
+  const { activeIndex, id, isOnlyResult, onInitialItemChange, setItem } =
+    useTypeaheadContext();
 
   const itemRef = useRef<T>(null);
 
@@ -56,14 +41,6 @@ function useItem<T extends HTMLElement>({
     }
   }, [activeIndex, option, position]);
 
-  const handleClick = useCallback(
-    (e: MouseEvent<T>) => {
-      onMenuItemClick(option, e);
-      onClick && onClick(e);
-    },
-    [onClick, onMenuItemClick, option]
-  );
-
   const active = isOnlyResult || activeIndex === position;
 
   // Update the item's position in the item stack.
@@ -75,7 +52,6 @@ function useItem<T extends HTMLElement>({
     'aria-label': label,
     'aria-selected': active,
     id: getMenuItemId(id, position),
-    onClick: handleClick,
     onMouseDown: preventInputBlur,
     ref: itemRef,
     role: 'option',

@@ -29,10 +29,12 @@ import {
   TypeaheadProps,
   TypeaheadChildProps,
   TypeaheadChildren,
+  SelectEvent,
 } from '../../types';
 
 export interface RenderMenuProps extends MenuProps {
   newSelectionPrefix?: ReactNode;
+  onItemSelect: (option: Option, e: SelectEvent<HTMLElement>) => void;
   paginationText?: ReactNode;
   renderMenuItemChildren?: RenderMenuItemChildren;
 }
@@ -149,6 +151,7 @@ const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
       isMenuShown,
       labelKey,
       onClear,
+      onItemSelect,
       onRemove,
       results,
       selected,
@@ -164,6 +167,7 @@ const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
       emptyLabel,
       maxHeight,
       newSelectionPrefix,
+      onItemSelect,
       paginationText,
       renderMenuItemChildren,
       ...overlayProps,

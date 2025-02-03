@@ -103,18 +103,11 @@ describe('<MenuItem>', () => {
   it('calls the click handlers', async () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
-    const onMenuItemClick = jest.fn();
 
-    render(
-      <Default
-        context={{ onMenuItemClick }}
-        props={{ onClick, option, position: 0 }}
-      />
-    );
+    render(<Default props={{ onClick, option, position: 0 }} />);
 
     await user.click(screen.getByRole('option'));
     expect(onClick).toHaveBeenCalledTimes(1);
-    expect(onMenuItemClick).toHaveBeenCalledTimes(1);
   });
 
   it('renders a disabled menu item', async () => {
