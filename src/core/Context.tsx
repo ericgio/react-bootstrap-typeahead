@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 import { noop } from '../utils';
-import { Id, Option, OptionHandler } from '../types';
+import { Id, Option } from '../types';
 
 export interface TypeaheadContextType {
   activeIndex: number;
@@ -10,9 +10,8 @@ export interface TypeaheadContextType {
   initialItem?: Option;
   inputNode: HTMLInputElement | null;
   isOnlyResult: boolean;
-  onAdd: OptionHandler;
   onInitialItemChange: (option?: Option) => void;
-  setItem: (option: Option, position: number) => void;
+  setItem: (option: Option, position: number, node: HTMLElement | null) => void;
 }
 
 export const defaultContext = {
@@ -22,7 +21,6 @@ export const defaultContext = {
   initialItem: undefined,
   inputNode: null,
   isOnlyResult: false,
-  onAdd: noop,
   onInitialItemChange: noop,
   setItem: noop,
 };

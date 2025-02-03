@@ -21,6 +21,7 @@ export interface TypeaheadMenuProps extends MenuProps {
    */
   newSelectionPrefix?: ReactNode;
   onItemSelect: (option: Option, e: SelectEvent<HTMLElement>) => void;
+  onPaginate?: (e: SelectEvent<HTMLElement>) => void;
   options: Option[];
   /**
    * Prompt displayed when large data sets are paginated.
@@ -49,6 +50,7 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
     labelKey,
     newSelectionPrefix = 'New selection: ',
     onItemSelect,
+    onPaginate,
     options,
     paginationText = 'Display additional results...',
     renderMenuItemChildren = defaultRenderMenuItemChildren,
@@ -91,7 +93,8 @@ const TypeaheadMenu = (props: TypeaheadMenuProps) => {
               // TODO: Fix how (aria-)labels are passed to `MenuItem`.
               // `paginationText` can be a ReactNode.
               isString(paginationText) ? paginationText : ''
-            }>
+            }
+            onClick={onPaginate}>
             {paginationText}
           </MenuItem>
         </React.Fragment>
