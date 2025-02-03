@@ -44,7 +44,7 @@ function useItem<T extends HTMLElement>({
   const active = isOnlyResult || activeIndex === position;
 
   // Update the item's position in the item stack.
-  setItem(option, position);
+  setItem(option, position, itemRef.current);
 
   return {
     ...props,

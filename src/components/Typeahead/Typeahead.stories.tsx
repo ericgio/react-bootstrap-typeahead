@@ -127,14 +127,18 @@ CustomInput.args = {
 export const CustomMenu = Template.bind({});
 CustomMenu.args = {
   ...defaultProps,
-  renderMenu: (results, menuProps) => (
+  renderMenu: (results, { onItemSelect, ...menuProps }) => (
     <Menu {...menuProps}>
       {/* Use `slice` to avoid mutating the original array */}
       {(results as Option[])
         .slice()
         .reverse()
         .map((r, index) => (
-          <MenuItem key={r.name} option={r} position={index}>
+          <MenuItem
+            key={r.name}
+            onClick={() => onItemSelect(r)}
+            option={r}
+            position={index}>
             {r.name}
           </MenuItem>
         ))}

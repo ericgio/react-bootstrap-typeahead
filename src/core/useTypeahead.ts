@@ -65,7 +65,6 @@ const defaultProps = {
   ignoreDiacritics: true,
   inputProps: {},
   labelKey: DEFAULT_LABELKEY,
-  maxResults: 100,
   minLength: 0,
   multiple: false,
   onBlur: noop,
@@ -73,8 +72,6 @@ const defaultProps = {
   onInputChange: noop,
   onKeyDown: noop,
   onMenuToggle: noop,
-  onPaginate: noop,
-  paginate: true,
 };
 
 /**
@@ -166,10 +163,11 @@ function useTypeahead(
   const [inputNode, setInputNode] = useState<HTMLInputElement | null>(null);
 
   const mergedPropsAndState = { ...props, ...state };
-  const { filterBy, labelKey, options, paginate } = mergedPropsAndState;
+  const { filterBy, labelKey, options } = mergedPropsAndState;
 
   const isMenuShown = isShown(mergedPropsAndState);
   const items: Option[] = [];
+  const itemNodes: (HTMLElement | null)[] = [];
   const hintText = getHintText({ ...mergedPropsAndState, isMenuShown });
 
   useValidateProps(props);
@@ -226,12 +224,6 @@ function useTypeahead(
       cb(option, mergedPropsAndState)
     );
 
-    // This must come before results are truncated.
-    const shouldPaginate = paginate && results.length > state.shownResults;
-
-    // Truncate results if necessary.
-    results = getTruncatedOptions(results, state.shownResults);
-
     // Add the custom option if necessary.
     if (addCustomOption(results, mergedPropsAndState)) {
       results.push({
@@ -239,20 +231,13 @@ function useTypeahead(
         [getStringLabelKey(labelKey)]: state.text,
       });
     }
-
-    // Add the pagination item if necessary.
-    if (shouldPaginate) {
-      results.push({
-        [getStringLabelKey(labelKey)]: '',
-        paginationOption: true,
-      });
-    }
   }
 
   const isOnlyResult = getIsOnlyResult({ ...props, results });
 
-  function setItem(item: Option, position: number) {
+  function setItem(item: Option, position: number, node: HTMLElement | null) {
     items[position] = item;
+    itemNodes[position] = node;
   }
 
   function onActiveIndexChange(index: number) {
@@ -308,14 +293,13 @@ function useTypeahead(
 
     // Clear selections when the input value changes in single-select mode.
     const shouldClearSelections = state.selected.length && !props.multiple;
-    const { activeIndex, activeItem, shownResults } = getInitialState(props);
+    const { activeIndex, activeItem } = getInitialState(props);
 
     setState({
       activeIndex,
       activeItem,
       selected: shouldClearSelections ? [] : state.selected,
       showMenu: true,
-      shownResults,
       text: value,
     });
 
@@ -356,23 +340,6 @@ function useTypeahead(
     );
   }
 
-  function onPaginate(e: SelectEvent<HTMLElement>) {
-    setState(
-      (currentState) => ({
-        shownResults: currentState.shownResults + props.maxResults,
-      }),
-      (newState) => props.onPaginate(e, newState.shownResults)
-    );
-  }
-
-  function onItemSelect(option: Option, e: SelectEvent<HTMLElement>) {
-    if (getOptionProperty(option, 'paginationOption')) {
-      onPaginate(e);
-    } else {
-      onAdd(option);
-    }
-  }
-
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     props.onKeyDown(e);
 
@@ -396,7 +363,7 @@ function useTypeahead(
       case 'Enter':
         // Prevent form submission while menu is open.
         e.preventDefault();
-        state.activeItem && onItemSelect(state.activeItem, e);
+        itemNodes[state.activeIndex]?.click();
         break;
       case 'Escape':
       case 'Tab':
@@ -450,7 +417,6 @@ function useTypeahead(
     initialItem: state.initialItem,
     inputNode,
     isOnlyResult,
-    onAdd,
     onInitialItemChange,
     setItem,
   };
@@ -475,13 +441,12 @@ function useTypeahead(
     getMenuProps: getMenuProps({
       id: props.id,
     }),
-
     hideMenu,
     inputNode,
     isMenuShown,
     onClear,
     onHide: hideMenu,
-    onItemSelect,
+    onItemSelect: onAdd,
     onRemove,
     results,
     toggleMenu,

@@ -7,7 +7,6 @@ interface Props {
   defaultInputValue: string;
   defaultOpen: boolean;
   defaultSelected: Option[];
-  maxResults: number;
   multiple: boolean;
   labelKey: LabelKey;
   selected?: Option[];
@@ -23,7 +22,6 @@ export function getInitialState({
   defaultOpen,
   defaultSelected,
   labelKey,
-  maxResults,
   multiple,
   ...props
 }: Props) {
@@ -50,7 +48,6 @@ export function getInitialState({
     isFocused: false,
     selected,
     showMenu: defaultOpen,
-    shownResults: maxResults,
     text,
   };
 }
@@ -73,8 +70,7 @@ export function clickOrFocusInput(state: State) {
 }
 
 export function hideMenu(state: State, props: Props) {
-  const { activeIndex, activeItem, initialItem, shownResults } =
-    getInitialState(props);
+  const { activeIndex, activeItem, initialItem } = getInitialState(props);
 
   return {
     ...state,
@@ -82,7 +78,6 @@ export function hideMenu(state: State, props: Props) {
     activeItem,
     initialItem,
     showMenu: false,
-    shownResults,
   };
 }
 

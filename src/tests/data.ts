@@ -15,7 +15,6 @@ export const defaultProps = {
   highlightOnlyResult: false,
   ignoreDiacritics: true,
   labelKey: DEFAULT_LABELKEY,
-  maxResults: 100,
   minLength: 0,
   multiple: false,
   onBlur: noop,
@@ -23,9 +22,7 @@ export const defaultProps = {
   onInputChange: noop,
   onKeyDown: noop,
   onMenuToggle: noop,
-  onPaginate: noop,
   options: [],
-  paginate: true,
 };
 
 export const defaultState = {
@@ -35,7 +32,6 @@ export const defaultState = {
   isFocused: false,
   selected: [],
   showMenu: false,
-  shownResults: 100,
   text: '',
 };
 

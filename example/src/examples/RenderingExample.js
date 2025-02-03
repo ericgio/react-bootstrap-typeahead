@@ -50,6 +50,7 @@ const RenderingExample = () => {
         {
           newSelectionPrefix,
           onItemSelect,
+          onPaginate,
           paginationText,
           renderMenuItemChildren,
           ...menuProps

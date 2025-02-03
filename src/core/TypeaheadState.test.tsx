@@ -14,7 +14,6 @@ describe('State modifiers', () => {
       ...defaultProps,
       defaultOpen: false,
       defaultSelected: [],
-      maxResults: 10,
     };
 
     const state = {
@@ -25,7 +24,6 @@ describe('State modifiers', () => {
     expect(clearTypeahead(state, props)).toEqual({
       ...defaultState,
       isFocused: true,
-      shownResults: 10,
     });
   });
 
@@ -50,11 +48,9 @@ describe('State modifiers', () => {
         defaultInputValue: 'foo',
         defaultOpen: false,
         defaultSelected: [],
-        maxResults: 10,
       })
     ).toEqual({
       ...defaultState,
-      shownResults: 10,
       text: 'foo',
     });
 
@@ -64,13 +60,11 @@ describe('State modifiers', () => {
         defaultInputValue: 'foo',
         defaultOpen: true,
         defaultSelected: ['bar', 'foo'],
-        maxResults: 10,
       })
     ).toEqual({
       ...defaultState,
       selected: ['bar'],
       showMenu: true,
-      shownResults: 10,
       text: 'bar',
     });
   });
@@ -79,7 +73,6 @@ describe('State modifiers', () => {
     const props = {
       ...defaultProps,
       defaultSelected: [],
-      maxResults: 10,
     };
 
     expect(hideMenu(defaultState, props)).toEqual({
@@ -88,7 +81,6 @@ describe('State modifiers', () => {
       activeItem: undefined,
       initialItem: undefined,
       showMenu: false,
-      shownResults: props.maxResults,
     });
   });
 
@@ -96,7 +88,6 @@ describe('State modifiers', () => {
     const props = {
       ...defaultProps,
       defaultSelected: [],
-      maxResults: 10,
     };
 
     expect(toggleMenu({ ...defaultState, showMenu: false }, props)).toEqual({
@@ -110,7 +101,6 @@ describe('State modifiers', () => {
       activeItem: undefined,
       initialItem: undefined,
       showMenu: false,
-      shownResults: props.maxResults,
     });
   });
 });

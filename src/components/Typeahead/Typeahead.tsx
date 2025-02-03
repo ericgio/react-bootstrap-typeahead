@@ -12,6 +12,8 @@ import TypeaheadInputSingle from '../TypeaheadInputSingle';
 import TypeaheadMenu, { RenderMenuItemChildren } from '../TypeaheadMenu';
 import { MenuProps } from '../Menu';
 
+import usePagination from './usePagination';
+
 import {
   getOptionLabel,
   isFunction,
@@ -34,7 +36,7 @@ import {
 
 export interface RenderMenuProps extends MenuProps {
   newSelectionPrefix?: ReactNode;
-  onItemSelect: (option: Option, e: SelectEvent<HTMLElement>) => void;
+  onItemSelect: (option: Option) => void;
   paginationText?: ReactNode;
   renderMenuItemChildren?: RenderMenuItemChildren;
 }
@@ -64,8 +66,23 @@ export interface TypeaheadComponentProps extends TypeaheadProps {
    */
   isValid?: boolean;
   maxHeight?: string;
+  /**
+   * Maximum number of results to display by default. Mostly done for
+   * performance reasons so as not to render too many DOM nodes in the case of
+   * large data sets.
+   */
+  maxResults?: number;
   newSelectionPrefix?: ReactNode;
+  /**
+   * Invoked when the pagination menu item is clicked. Receives an event.
+   */
+  onPaginate?: (event: SelectEvent<HTMLElement>, shownResults: number) => void;
   options: Option[];
+  /**
+   * Give user the ability to display additional results if the number of
+   * results exceeds `maxResults`.
+   */
+  paginate?: boolean;
   paginationText?: ReactNode;
   placeholder?: string;
   positionFixed?: boolean;
@@ -137,8 +154,10 @@ const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
       isInvalid,
       isValid,
       maxHeight,
+      maxResults = 100,
       multiple,
       newSelectionPrefix,
+      paginate = true,
       paginationText,
       placeholder,
       renderMenuItemChildren,
@@ -153,9 +172,19 @@ const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
       onClear,
       onItemSelect,
       onRemove,
-      results,
       selected,
+      text,
     } = rest;
+
+    const { onPaginate, results } = usePagination({
+      isMenuShown,
+      labelKey,
+      maxResults,
+      onPaginate: props.onPaginate,
+      paginate,
+      results: rest.results,
+      text,
+    });
 
     const [referenceElement, setReferenceElement] =
       useState<HTMLElement | null>(null);
@@ -168,6 +197,7 @@ const Typeahead = forwardRef<TypeaheadRef, TypeaheadComponentProps>(
       maxHeight,
       newSelectionPrefix,
       onItemSelect,
+      onPaginate,
       paginationText,
       renderMenuItemChildren,
       ...overlayProps,

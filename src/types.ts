@@ -122,12 +122,6 @@ export interface TypeaheadProps {
    */
   labelKey?: LabelKey;
   /**
-   * Maximum number of results to display by default. Mostly done for
-   * performance reasons so as not to render too many DOM nodes in the case of
-   * large data sets.
-   */
-  maxResults?: number;
-  /**
    * Number of input characters that must be entered before showing results.
    */
   minLength?: number;
@@ -161,10 +155,7 @@ export interface TypeaheadProps {
    * Invoked when menu visibility changes.
    */
   onMenuToggle?: (isOpen: boolean) => void;
-  /**
-   * Invoked when the pagination menu item is clicked. Receives an event.
-   */
-  onPaginate?: (event: SelectEvent<HTMLElement>, shownResults: number) => void;
+
   /**
    * Whether or not the menu should be displayed. `undefined` allows the
    * component to control visibility, while `true` and `false` show and hide
@@ -176,11 +167,6 @@ export interface TypeaheadProps {
    * array of objects (recommended) or strings.
    */
   options: Option[];
-  /**
-   * Give user the ability to display additional results if the number of
-   * results exceeds `maxResults`.
-   */
-  paginate?: boolean;
   /**
    * The selected option(s) displayed in the input. Use this prop if you want
    * to control the component via its parent.
@@ -208,7 +194,6 @@ export interface TypeaheadState {
   isFocused: boolean;
   selected: Option[];
   showMenu: boolean;
-  shownResults: number;
   text: string;
 }
 
