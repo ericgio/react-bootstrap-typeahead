@@ -49,6 +49,7 @@ const RenderingExample = () => {
         results,
         {
           newSelectionPrefix,
+          onItemSelect,
           paginationText,
           renderMenuItemChildren,
           ...menuProps
@@ -65,7 +66,11 @@ const RenderingExample = () => {
               <Menu.Header>{region}</Menu.Header>
               {regions[region].map((i) => {
                 const item = (
-                  <MenuItem key={index} option={i} position={index}>
+                  <MenuItem
+                    key={index}
+                    onClick={(e) => onItemSelect(i, e)}
+                    option={i}
+                    position={index}>
                     <Highlighter search={state.text}>{i.name}</Highlighter>
                   </MenuItem>
                 );

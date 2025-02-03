@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
 import { noop } from '../utils';
-import { Id, Option, OptionHandler, SelectEvent } from '../types';
+import { Id, Option, OptionHandler } from '../types';
 
 export interface TypeaheadContextType {
   activeIndex: number;
@@ -12,7 +12,6 @@ export interface TypeaheadContextType {
   isOnlyResult: boolean;
   onAdd: OptionHandler;
   onInitialItemChange: (option?: Option) => void;
-  onMenuItemClick: (option: Option, event: SelectEvent<HTMLElement>) => void;
   setItem: (option: Option, position: number) => void;
 }
 
@@ -25,7 +24,6 @@ export const defaultContext = {
   isOnlyResult: false,
   onAdd: noop,
   onInitialItemChange: noop,
-  onMenuItemClick: noop,
   setItem: noop,
 };
 
