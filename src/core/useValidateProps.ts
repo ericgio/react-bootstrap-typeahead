@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
-import { InputProps, TypeaheadProps } from '../types';
+import { HTMLAttributes, useEffect } from 'react';
+
+import { TypeaheadProps } from './useTypeahead';
 import { isFunction, warn } from '../utils';
 
 interface InputPropItem {
   alt: string;
-  prop: keyof InputProps;
+  prop: keyof HTMLAttributes<HTMLInputElement>;
 }
 
 const INPUT_PROPS_BLACKLIST: InputPropItem[] = [

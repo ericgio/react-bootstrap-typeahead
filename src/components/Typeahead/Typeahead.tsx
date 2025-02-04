@@ -1,7 +1,18 @@
 import cx from 'classnames';
-import React, { CSSProperties, forwardRef, ReactNode, useState } from 'react';
+import React, {
+  CSSProperties,
+  forwardRef,
+  InputHTMLAttributes,
+  ReactNode,
+  useState,
+} from 'react';
 
-import { TypeaheadContext, TypeaheadRef, useTypeahead } from '../../core';
+import {
+  TypeaheadContext,
+  TypeaheadProps,
+  TypeaheadRef,
+  useTypeahead,
+} from '../../core';
 import { useOverlay } from '../../hooks';
 
 import ClearButton from '../ClearButton';
@@ -23,22 +34,32 @@ import {
 
 import {
   Align,
+  LabelKey,
   Option,
-  RenderToken,
-  RenderTokenProps,
+  OptionHandler,
   Size,
   TypeaheadInputProps,
-  TypeaheadProps,
-  TypeaheadChildProps,
-  TypeaheadChildren,
   SelectEvent,
 } from '../../types';
 
-export interface RenderMenuProps extends MenuProps {
-  newSelectionPrefix?: ReactNode;
-  onItemSelect: (option: Option) => void;
-  paginationText?: ReactNode;
-  renderMenuItemChildren?: RenderMenuItemChildren;
+export type TypeaheadChildren =
+  | ReactNode
+  | ((props: TypeaheadChildProps) => ReactNode);
+
+export interface TypeaheadChildProps {
+  getInputProps: (
+    props?: InputHTMLAttributes<HTMLInputElement>
+  ) => Omit<TypeaheadInputProps, 'referenceElementRef'>;
+  hideMenu: () => void;
+  isMenuShown: boolean;
+  labelKey: LabelKey;
+  onClear: () => void;
+  onHide: () => void;
+  onRemove: OptionHandler;
+  results: Option[];
+  selected: Option[];
+  text: string;
+  toggleMenu: () => void;
 }
 
 export interface TypeaheadComponentProps extends TypeaheadProps {
@@ -113,6 +134,13 @@ export interface TypeaheadComponentProps extends TypeaheadProps {
   style?: CSSProperties;
 }
 
+export interface RenderMenuProps extends MenuProps {
+  newSelectionPrefix?: ReactNode;
+  onItemSelect: (option: Option) => void;
+  paginationText?: ReactNode;
+  renderMenuItemChildren?: RenderMenuItemChildren;
+}
+
 const defaultRenderMenu = (
   results: Option[],
   menuProps: RenderMenuProps,
@@ -125,6 +153,19 @@ const defaultRenderMenu = (
     text={props.text}
   />
 );
+
+export interface RenderTokenProps {
+  disabled?: boolean;
+  labelKey: LabelKey;
+  onRemove?: OptionHandler;
+  tabIndex?: number;
+}
+
+export type RenderToken = (
+  option: Option,
+  props: RenderTokenProps,
+  idx: number
+) => JSX.Element;
 
 const defaultRenderToken = (
   option: Option,

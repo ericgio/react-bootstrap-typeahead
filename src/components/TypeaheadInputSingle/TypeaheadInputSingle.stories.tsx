@@ -11,7 +11,7 @@ export default {
   component: TypeaheadInputSingle,
 } as Meta;
 
-interface Args extends Omit<TypeaheadInputProps, 'size'> {
+interface Args extends TypeaheadInputProps {
   hintText?: string;
   isInvalid?: boolean;
   isValid?: boolean;
