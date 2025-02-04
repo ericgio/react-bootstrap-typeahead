@@ -5,7 +5,8 @@ import usePrevious from '@restart/hooks/usePrevious';
 
 import { isFunction } from '../utils';
 
-import type { Option, TypeaheadProps } from '../types';
+import { TypeaheadProps } from '../core';
+import type { Option } from '../types';
 
 export interface UseAsyncProps extends TypeaheadProps {
   /**

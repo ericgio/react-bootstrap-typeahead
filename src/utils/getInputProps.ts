@@ -2,13 +2,14 @@ import cx from 'classnames';
 import {
   ChangeEventHandler,
   FocusEventHandler,
+  InputHTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
   RefCallback,
 } from 'react';
 
 import getMenuItemId from './getMenuItemId';
-import { Id, InputProps } from '../types';
+import { Id } from '../types';
 
 interface Args {
   activeIndex: number;
@@ -36,7 +37,10 @@ const getInputProps =
     onFocus,
     ...props
   }: Args) =>
-  ({ className, ...inputProps }: InputProps = {}) => {
+  ({
+    className,
+    ...inputProps
+  }: InputHTMLAttributes<HTMLInputElement> = {}) => {
     return {
       // These props can be overridden by values in `inputProps`.
       autoComplete: 'off',
