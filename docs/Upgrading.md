@@ -10,6 +10,30 @@
 
 ## v7.0 Breaking Changes
 
+### Explicitly pass `onItemSelect` to `MenuItem`
+Previously, `onItemSelect` was transparently passed to menu item components using `useItem`. With v7, that callback must be explicitly passed to menu items via the `onClick` prop. If you are using `renderMenu` to customize your menu you will need to pass `onItemSelect`, which is now available in `menuProps`, to your menu items:
+
+```tsx
+<Typeahead
+  ...
+  renderMenu={(results, { onItemSelect, ...menuProps }) => (
+    <Menu {...menuProps}>
+      {results.map((result, index) => (
+        <MenuItem
+          key={...}
+          onClick={() => onItemSelect(result)}
+          option={result}
+          position={index}>
+          {result.label}
+        </MenuItem>
+      ))}
+    </Menu>
+  )}
+/>
+```
+
+While this change adds a bit more work for custom rendering cases, it provides much more flexibility in terms of choosing how menu interactions work. You can now choose to have a menu item trigger a different action entirely (eg: select all) by omitting `onItemSelect` and passing your own callback to the given item.
+
 ### HOCs removed in favor of hooks
 The following HOCs were deprecated in a previous version and have been removed:
 

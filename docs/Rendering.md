@@ -53,15 +53,19 @@ Provides flexibility for rendering the typeahead's input. `inputProps` are any i
 ### `renderMenu(results: Array<Object|String>, menuProps: Object, state: Object)`
 Provides flexibility for rendering the typeahead's menu. `results` are the subset of options after they have been filtered and paginated. `menuProps` are any menu-relevant props passed down from the `Typeahead` component. You can also just set props directly on your `Menu`.
 
-Along with stylistic customization, the `renderMenu` hook allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or the [appropriate hook or HOC](API.md#useitem--withitem) to ensure proper behavior.
+Along with stylistic customization, the `renderMenu` hook allows you to do things like re-sort or group your data. Note that if you manipulate data in this way, you *must* use either the provided `MenuItem` component or the [appropriate hook](API.md#useitem) to ensure proper behavior.
 
 ```jsx
 <Typeahead
-  options={options}
-  renderMenu={(results, menuProps) => (
+  ...
+  renderMenu={(results, { onItemSelect, ...menuProps }) => (
     <Menu {...menuProps}>
       {results.map((result, index) => (
-        <MenuItem option={result} position={index}>
+        <MenuItem
+          key={...}
+          onClick={() => onItemSelect(result)}
+          option={result}
+          position={index}>
           {result.label}
         </MenuItem>
       ))}
@@ -99,6 +103,6 @@ Provides the ability to customize rendering of tokens when multiple selections a
 />
 ```
 
-Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `props.onRemove`) yourself. It is highly recommended that you use the provided `Token` component. If you want to use a completely custom token, use either the provided [hook or HOC](API.md#usetoken--withtoken) to retain keystroke behaviors.
+Be careful when using `renderToken`, since you will need to handle things like disabling the tokens and removing them (via `props.onRemove`) yourself. It is highly recommended that you use the provided `Token` component. If you want to use a completely custom token, use either the provided [hook](API.md#usetoken) to retain keystroke behaviors.
 
 [Next: Public Methods](Methods.md)
