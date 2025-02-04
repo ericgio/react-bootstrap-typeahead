@@ -1,4 +1,5 @@
-// Components
+export * from './core';
+
 export { default as AsyncTypeahead } from './components/AsyncTypeahead';
 export { default as ClearButton } from './components/ClearButton';
 export { default as Highlighter } from './components/Highlighter';
