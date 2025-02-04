@@ -9,6 +9,7 @@ import {
   MenuItem,
   Token,
   Typeahead,
+  TypeaheadContext,
   TypeaheadInputMulti,
   TypeaheadInputSingle,
   TypeaheadMenu,
@@ -17,6 +18,7 @@ import {
   useItem,
   useOverlay,
   useToken,
+  useTypeahead,
 } from '..';
 
 import _AsyncTypeahead from '../components/AsyncTypeahead';
@@ -41,6 +43,11 @@ import {
   useToken as _useToken,
 } from '../hooks';
 
+import {
+  useTypeahead as _useTypeahead,
+  TypeaheadContext as _TypeaheadContext,
+} from '../core';
+
 describe('index.ts exports', () => {
   it('exports the components', () => {
     expect(AsyncTypeahead).toBe(_AsyncTypeahead);
@@ -64,5 +71,10 @@ describe('index.ts exports', () => {
     expect(useItem).toBe(_useItem);
     expect(useOverlay).toBe(_useOverlay);
     expect(useToken).toBe(_useToken);
+  });
+
+  it('exports core hooks and context', () => {
+    expect(TypeaheadContext).toBe(_TypeaheadContext);
+    expect(useTypeahead).toBe(_useTypeahead);
   });
 });
