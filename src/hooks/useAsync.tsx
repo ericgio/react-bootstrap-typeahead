@@ -1,14 +1,13 @@
 import debounce from 'lodash.debounce';
-import { ChangeEvent, ReactNode, useCallback, useEffect, useRef } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import useForceUpdate from '@restart/hooks/useForceUpdate';
 import usePrevious from '@restart/hooks/usePrevious';
 
 import { isFunction } from '../utils';
 
-import { TypeaheadComponentProps } from '../components/Typeahead';
-import type { Option } from '../types';
+import type { Option, TypeaheadProps } from '../types';
 
-export interface UseAsyncProps extends TypeaheadComponentProps {
+export interface UseAsyncProps extends TypeaheadProps {
   /**
    * Delay, in milliseconds, before performing search.
    */
@@ -22,14 +21,6 @@ export interface UseAsyncProps extends TypeaheadComponentProps {
    * Callback to perform when the search is executed.
    */
   onSearch: (query: string) => void;
-  /**
-   * Message displayed in the menu when there is no user input.
-   */
-  promptText?: ReactNode;
-  /**
-   * Message displayed in the menu while the request is pending.
-   */
-  searchText?: ReactNode;
   /**
    * Whether or not the component should cache query results.
    */
@@ -54,14 +45,11 @@ function useAsync(props: UseAsyncProps) {
   const {
     allowNew,
     delay = 200,
-    emptyLabel,
     isLoading,
     minLength = 2,
     onInputChange,
     onSearch,
     options = [],
-    promptText = 'Type to search...',
-    searchText = 'Searching...',
     useCache = true,
     ...otherProps
   } = props;
@@ -114,18 +102,6 @@ function useAsync(props: UseAsyncProps) {
     }
   });
 
-  const getEmptyLabel = () => {
-    if (!queryRef.current.length) {
-      return promptText;
-    }
-
-    if (isLoading) {
-      return searchText;
-    }
-
-    return emptyLabel;
-  };
-
   const handleInputChange = useCallback(
     (query: string, e: ChangeEvent<HTMLInputElement>) => {
       onInputChange && onInputChange(query, e);
@@ -142,11 +118,11 @@ function useAsync(props: UseAsyncProps) {
     ...otherProps,
     // Disable custom selections during a search if `allowNew` isn't a function.
     allowNew: isFunction(allowNew) ? allowNew : allowNew && !isLoading,
-    emptyLabel: getEmptyLabel(),
     isLoading,
     minLength,
     onInputChange: handleInputChange,
     options: useCache && cachedQuery ? cachedQuery : options,
+    query: queryRef.current,
   };
 }
 

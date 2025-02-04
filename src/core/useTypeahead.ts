@@ -24,7 +24,6 @@ import {
   FilterByCallback,
   InternalProps,
   Option,
-  SelectEvent,
   TypeaheadProps,
   TypeaheadState,
 } from '../types';
@@ -39,9 +38,7 @@ import {
   getIsOnlyResult,
   getMenuProps,
   getOptionLabel,
-  getOptionProperty,
   getStringLabelKey,
-  getTruncatedOptions,
   getUpdatedActiveIndex,
   isFunction,
   isShown,
