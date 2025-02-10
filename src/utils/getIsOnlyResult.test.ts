@@ -30,7 +30,11 @@ describe('getIsOnlyResult', () => {
   });
 
   it('returns false when the only result is disabled', () => {
-    props.results = [{ disabled: true }];
-    expect(getIsOnlyResult(props)).toBe(false);
+    expect(
+      getIsOnlyResult({
+        ...props,
+        results: [{ disabled: true }],
+      })
+    ).toBe(false);
   });
 });

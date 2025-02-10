@@ -5,6 +5,7 @@ import { Option } from '../types';
 
 const name = 'California';
 const option = { name };
+// @ts-expect-error
 const labelKeyFn = (o: Option) => o.name;
 
 describe('getOptionLabel', () => {

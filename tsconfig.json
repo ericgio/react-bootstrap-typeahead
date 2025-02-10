@@ -17,8 +17,9 @@
     "rootDir": "src",
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*", "**/*.test.*"]
+  "exclude": ["node_modules"]
 }
