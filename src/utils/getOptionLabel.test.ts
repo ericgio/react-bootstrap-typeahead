@@ -31,7 +31,7 @@ describe('getOptionLabel', () => {
     };
 
     const paginationOption = {
-      [getStringLabelKey(labelKeyFn)]: 'bar',
+      name: 'bar',
       paginationOption: true,
     };
 
@@ -47,12 +47,12 @@ describe('getOptionLabel', () => {
 
   it('throws an error when an invalid option is encountered', () => {
     const willThrow = () => getOptionLabel([], 'name');
-    expect(willThrow).toThrowError(Error);
+    expect(willThrow).toThrow(Error);
   });
 
   it('throws an error when `option` is an object and no labelkey is specified', () => {
     // @ts-expect-error
     const willThrow = () => getOptionLabel(option);
-    expect(willThrow).toThrowError(Error);
+    expect(willThrow).toThrow(Error);
   });
 });

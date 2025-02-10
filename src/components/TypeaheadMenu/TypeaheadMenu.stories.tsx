@@ -41,7 +41,7 @@ CustomOption.args = {
 export const Pagination = Template.bind({});
 Pagination.args = {
   ...defaultProps,
-  options: [...options.slice(0, 5), { paginationOption: true }],
+  options: [...options.slice(0, 5), { name: '', paginationOption: true }],
 };
 
 export const CustomChildren = Template.bind({});
