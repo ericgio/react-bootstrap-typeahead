@@ -274,10 +274,9 @@ export type InternalProps = OptionalProps<
   'id' | 'open' | 'selected' | 'selectHint'
 >;
 
-function useTypeahead(
-  { onChange, ...partialProps }: TypeaheadProps,
-  ref?: Ref<TypeaheadRef>
-) {
+function useTypeahead(userProps: TypeaheadProps, ref?: Ref<TypeaheadRef>) {
+  useValidateProps(userProps);
+  const { onChange, ...partialProps } = userProps;
   const props: InternalProps = {
     ...defaultProps,
     ...partialProps,
@@ -294,7 +293,6 @@ function useTypeahead(
   const itemNodes: (HTMLElement | null)[] = [];
   const hintText = getHintText({ ...mergedPropsAndState, isMenuShown });
 
-  useValidateProps(props);
   useDidUpdate(props, state, setState);
   useOnMenuToggle(isMenuShown, props.onMenuToggle);
 
