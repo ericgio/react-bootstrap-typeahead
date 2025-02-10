@@ -1408,8 +1408,8 @@ describe('<Typeahead> `change` events', () => {
     const user = userEvent.setup();
     let event, value;
 
-    onInputChange = jest.fn((v, e) => {
-      value = v;
+    onInputChange = jest.fn((e) => {
+      value = e.target.value;
       event = e;
     });
 
@@ -1447,8 +1447,8 @@ describe('<Typeahead> `change` events', () => {
     let event, selected, value;
     const user = userEvent.setup();
 
-    onInputChange = jest.fn((v, e) => {
-      value = v;
+    onInputChange = jest.fn((e) => {
+      value = e.target.value;
       event = e;
     });
 
@@ -1486,10 +1486,10 @@ describe('<Typeahead> `change` events', () => {
     expect(onInputChange).toHaveBeenCalledTimes(1);
   });
 
-  it('`onInputChange` receives an event as the second param', async () => {
+  it('`onInputChange` receives an event as the argument', async () => {
     let event;
     const user = userEvent.setup();
-    render(<Default onInputChange={(text, e) => (event = e)} />);
+    render(<Default onInputChange={(e) => (event = e)} />);
 
     const input = getInput();
     await user.type(input, 'z');

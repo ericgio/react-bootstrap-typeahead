@@ -226,13 +226,13 @@ describe('<AsyncTypeahead>', () => {
     expect(onSearch).toHaveBeenCalledTimes(1);
   });
 
-  it('receives an event as the second argument of `onInputChange`', async () => {
+  it('receives an event as the argument of `onInputChange`', async () => {
     const user = userEvent.setup();
     render(
       <TestComponent
         minLength={2}
-        onInputChange={(text: string, e: ChangeEvent<HTMLInputElement>) => {
-          expect(text).toBe('x');
+        onInputChange={(e: ChangeEvent<HTMLInputElement>) => {
+          expect(e.target.value).toBe('x');
           expect(e).toBeDefined();
         }}
       />

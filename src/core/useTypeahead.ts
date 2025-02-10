@@ -1,6 +1,6 @@
 import isEqual from 'fast-deep-equal';
 import React, {
-  ChangeEvent,
+  ChangeEventHandler,
   FocusEventHandler,
   InputHTMLAttributes,
   KeyboardEventHandler,
@@ -234,7 +234,7 @@ export interface TypeaheadProps {
    * Invoked when the input value changes. Receives the string value of the
    * input.
    */
-  onInputChange?: (text: string, event: ChangeEvent<HTMLInputElement>) => void;
+  onInputChange?: ChangeEventHandler<HTMLInputElement>;
   /**
    * Invoked when a key is pressed. Receives an event.
    */
@@ -427,7 +427,7 @@ function useTypeahead(
       text: value,
     });
 
-    props.onInputChange(value, e);
+    props.onInputChange(e);
     shouldClearSelections && onSelect([]);
   }
 
