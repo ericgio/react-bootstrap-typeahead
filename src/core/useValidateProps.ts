@@ -61,12 +61,12 @@ function useValidateProps({
     );
 
     warn(
-      !caseSensitive || typeof filterBy !== 'function',
+      !caseSensitive || !isFunction(filterBy),
       'Your `filterBy` function will override the `caseSensitive` prop.'
     );
 
     warn(
-      ignoreDiacritics || typeof filterBy !== 'function',
+      !ignoreDiacritics || !isFunction(filterBy),
       'Your `filterBy` function will override the `ignoreDiacritics` prop.'
     );
 
