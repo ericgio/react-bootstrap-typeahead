@@ -41,6 +41,17 @@ The following HOCs were deprecated in a previous version and have been removed:
 - `withItem` (use `useItem`)
 - `withToken` (use `useToken`)
 
+### `onInputChange` no longer receives the input string as the first argument
+Previously, `onInputChange` received the input string as the first arg and the change event as the second arg. This was done purely for legacy reasons and did not conform to the behavior of handlers on HTML elements. As of v7.0, `onInputChange` behaves like a standard change handler and simply receives the change event:
+
+```tsx
+// v6.0 and below
+<Typeahead ... onInputChange={(text, event) => { console.log(text); } } />
+
+// v7.0
+<Typeahead ... onInputChange={(event) => { console.log(event.target.value); } } />
+```
+
 ### Drop support for Bootstrap 4
 Bootstrap 5 is now over 3 years old. BS4 should still mostly work, but you may need to add some custom CSS in a few cases.
 

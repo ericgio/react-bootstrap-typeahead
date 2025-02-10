@@ -104,8 +104,9 @@ function useAsync(props: UseAsyncProps) {
   });
 
   const handleInputChange = useCallback(
-    (query: string, e: ChangeEvent<HTMLInputElement>) => {
-      onInputChange && onInputChange(query, e);
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const query = e.target.value;
+      onInputChange && onInputChange(e);
 
       handleSearchDebouncedRef.current &&
         handleSearchDebouncedRef.current(query);

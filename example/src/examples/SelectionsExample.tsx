@@ -12,8 +12,8 @@ const SelectionsExample = () => (
     defaultSelected={options.slice(0, 1)}
     id="selections-example"
     labelKey="name"
-    onInputChange={(text: string, e: ChangeEvent<HTMLInputElement>) => {
-      console.log(text, e);
+    onInputChange={(e: ChangeEvent<HTMLInputElement>) => {
+      console.log(e.target.value, e);
     }}
     options={options}
     placeholder="Choose a state..."
