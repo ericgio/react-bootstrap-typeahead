@@ -1,16 +1,14 @@
 import cx from 'classnames';
-import React, { forwardRef, HTMLProps, MouseEventHandler } from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
 
 import ClearButton from '../ClearButton';
 
 import { useToken, UseTokenProps } from '../../hooks';
 import { isFunction } from '../../utils';
 
-type HTMLElementProps = Omit<HTMLProps<HTMLDivElement>, 'onBlur' | 'ref'>;
-
-interface InteractiveTokenProps extends HTMLElementProps {
+interface InteractiveTokenProps extends HTMLAttributes<HTMLDivElement> {
   active?: boolean;
-  onRemove?: MouseEventHandler<HTMLElement>;
+  onRemove?: () => void;
 }
 
 const InteractiveToken = forwardRef<HTMLDivElement, InteractiveTokenProps>(
@@ -38,7 +36,7 @@ const InteractiveToken = forwardRef<HTMLDivElement, InteractiveTokenProps>(
   )
 );
 
-interface StaticTokenProps extends HTMLElementProps {
+interface StaticTokenProps extends HTMLAttributes<HTMLAnchorElement> {
   disabled?: boolean;
   href?: string;
 }
@@ -70,6 +68,7 @@ const StaticToken = ({
 
 export interface TokenProps<T> extends UseTokenProps<T> {
   disabled?: boolean;
+  href?: string;
   readOnly?: boolean;
 }
 
@@ -83,11 +82,11 @@ const Token = ({
   readOnly,
   ...props
 }: TokenProps<HTMLElement>) => {
-  const { ref, ...tokenProps } = useToken({ ...props, option });
+  const tokenProps = useToken({ ...props, option });
   const child = <div className="rbt-token-label">{children}</div>;
 
   return !props.disabled && !readOnly && isFunction(tokenProps.onRemove) ? (
-    <InteractiveToken {...props} {...tokenProps} ref={ref}>
+    <InteractiveToken {...props} {...tokenProps}>
       {child}
     </InteractiveToken>
   ) : (
