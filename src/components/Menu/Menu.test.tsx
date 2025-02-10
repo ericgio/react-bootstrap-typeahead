@@ -38,7 +38,15 @@ describe('<Menu>', () => {
 
     const items = getItems();
     expect(items).toHaveLength(1);
-    expect(items[0]).toHaveClass('disabled');
+    expect(items[0]).toHaveTextContent(emptyLabel);
+  });
+
+  it('renders the empty label when there are falsy children', () => {
+    const emptyLabel = 'No matches.';
+    render(<Empty emptyLabel={emptyLabel}>{false}</Empty>);
+
+    const items = getItems();
+    expect(items).toHaveLength(1);
     expect(items[0]).toHaveTextContent(emptyLabel);
   });
 

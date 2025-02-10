@@ -39,14 +39,13 @@ const Menu = ({
   style,
   ...props
 }: MenuProps) => {
-  const children =
-    Children.count(props.children) === 0 ? (
-      <BaseMenuItem disabled role="option">
-        {emptyLabel}
-      </BaseMenuItem>
-    ) : (
-      props.children
-    );
+  const children = Children.toArray(props.children).filter(Boolean).length ? (
+    props.children
+  ) : (
+    <BaseMenuItem disabled role="option">
+      {emptyLabel}
+    </BaseMenuItem>
+  );
 
   return (
     /* eslint-disable jsx-a11y/interactive-supports-focus */
