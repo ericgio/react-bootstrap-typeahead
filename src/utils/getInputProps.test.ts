@@ -4,11 +4,16 @@ import { noop } from '../tests/helpers';
 const baseProps = {
   activeIndex: -1,
   id: 'id',
+  inputRef: noop,
   isFocused: false,
   isMenuShown: false,
   multiple: false,
+  onBlur: noop,
+  onChange: noop,
   onClick: noop,
   onFocus: noop,
+  onKeyDown: noop,
+  value: '',
 };
 
 const baseMultiProps = {
@@ -27,11 +32,16 @@ const baseReceivedProps = {
   autoComplete: 'off',
   className: '',
   inputClassName: undefined,
+  inputRef: noop,
+  onBlur: noop,
+  onChange: noop,
   onClick: noop,
   onFocus: noop,
+  onKeyDown: noop,
   placeholder: undefined,
   role: 'combobox',
   type: 'text',
+  value: '',
 };
 
 const baseReceivedMultiProps = {

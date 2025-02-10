@@ -1,6 +1,10 @@
 import React, { createRef, forwardRef, ReactNode } from 'react';
 
-import TypeaheadComponent, { TypeaheadComponentProps } from './Typeahead';
+import { TypeaheadRef } from '../../core';
+import TypeaheadComponent, {
+  TypeaheadChildProps,
+  TypeaheadComponentProps,
+} from './Typeahead';
 
 import * as stories from './Typeahead.stories';
 
@@ -24,6 +28,11 @@ import {
 
 import states, { Option } from '../../tests/data';
 
+interface CustomOption {
+  customOption: boolean;
+  id: string;
+}
+
 const ID = 'rbt-id';
 
 const inputProps = {
@@ -36,18 +45,19 @@ const inputProps = {
   type: 'number',
 };
 
-const TestComponent = forwardRef<Typeahead, Partial<TypeaheadComponentProps>>(
-  (props, ref) => (
-    <TypeaheadComponent
-      id={ID}
-      labelKey="name"
-      onChange={noop}
-      options={states}
-      ref={ref}
-      {...props}
-    />
-  )
-);
+const TestComponent = forwardRef<
+  TypeaheadRef,
+  Partial<TypeaheadComponentProps>
+>((props, ref) => (
+  <TypeaheadComponent
+    id={ID}
+    labelKey="name"
+    onChange={noop}
+    options={states}
+    ref={ref}
+    {...props}
+  />
+));
 
 const {
   Default,
@@ -120,7 +130,8 @@ describe('<Typeahead>', () => {
     render(
       <Default defaultSelected={selected}>
         {(state) => {
-          selected = state.selected;
+          selected = state.selected as Option[];
+          return <div />;
         }}
       </Default>
     );
@@ -314,7 +325,12 @@ describe('<Typeahead>', () => {
 
     it('calls `onPaginate` when `labelKey` is a function', async () => {
       const user = userEvent.setup();
-      render(<Pagination labelKey={(o) => o.name} onPaginate={onPaginate} />);
+      render(
+        <Pagination
+          labelKey={(o) => (o as Option).name}
+          onPaginate={onPaginate}
+        />
+      );
 
       getInput().focus();
       await user.keyboard('{ArrowUp}{Enter}');
@@ -418,8 +434,9 @@ describe('<Typeahead>', () => {
     it('acts as a controlled input in single-select mode', () => {
       let selected: Option[] = [];
 
-      const children = (state) => {
-        selected = state.selected;
+      const children = (props: TypeaheadChildProps) => {
+        selected = props.selected as Option[];
+        return <div />;
       };
       const selected1 = states.slice(0, 1);
       const selected2 = states.slice(1, 2);
@@ -470,7 +487,8 @@ describe('<Typeahead>', () => {
       render(
         <Controlled selected={states.slice(0, 1)}>
           {(state) => {
-            selected = state.selected;
+            selected = state.selected as Option[];
+            return <div />;
           }}
         </Controlled>
       );
@@ -1045,6 +1063,7 @@ describe('<Typeahead>', () => {
       <Default
         renderMenuItemChildren={
           // Render the capital instead of the state name.
+          // @ts-expect-error
           (o) => o.capital
         }
       />
@@ -1062,7 +1081,7 @@ describe('<Typeahead>', () => {
         multiple
         renderToken={(option, props, idx) => (
           <div className="custom-token" key={idx}>
-            {option.capital}
+            {(option as Option).capital}
           </div>
         )}
         selected={states.slice(0, 1)}
@@ -1178,7 +1197,7 @@ describe('<Typeahead>', () => {
     });
 
     it('adds the custom option when `allowNew` is set to `true`', async () => {
-      let selected: Option[] = [];
+      let selected: CustomOption[] = [];
       const user = userEvent.setup();
 
       render(
@@ -1186,7 +1205,7 @@ describe('<Typeahead>', () => {
           emptyLabel={emptyLabel}
           newSelectionPrefix={newSelectionPrefix}
           onChange={(s) => {
-            selected = s;
+            selected = s as CustomOption[];
           }}
         />
       );
@@ -1251,7 +1270,7 @@ describe('<Typeahead>', () => {
       const user = userEvent.setup();
       render(
         <AllowNew
-          labelKey={(o) => o.name}
+          labelKey={(o) => (o as Option).name}
           newSelectionPrefix={newSelectionPrefix}
         />
       );
@@ -1268,7 +1287,7 @@ describe('<Typeahead>', () => {
 
 describe('<Typeahead> Public Methods', () => {
   it('exposes the typeahead instance and public methods', () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     render(<TestComponent ref={ref} />);
 
     expect(typeof ref.current?.blur).toBe('function');
@@ -1280,7 +1299,7 @@ describe('<Typeahead> Public Methods', () => {
   });
 
   it('calls the public `focus` and `blur` methods', async () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     render(<TestComponent ref={ref} />);
 
     const input = getInput();
@@ -1296,7 +1315,7 @@ describe('<Typeahead> Public Methods', () => {
 
   it('calls the public `clear` method', async () => {
     const user = userEvent.setup();
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     const { container } = render(
       <TestComponent multiple ref={ref} defaultSelected={states.slice(0, 3)} />
     );
@@ -1317,13 +1336,13 @@ describe('<Typeahead> Public Methods', () => {
   });
 
   it('calls the public `getInput` method', () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     render(<TestComponent ref={ref} />);
     expect(ref.current?.getInput()).toEqual(getInput());
   });
 
   it('calls the public `hideMenu` method', async () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     render(<TestComponent ref={ref} />);
 
     getInput()?.focus();
@@ -1337,7 +1356,7 @@ describe('<Typeahead> Public Methods', () => {
   });
 
   it('calls the public `toggleMenu` method', async () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     render(<TestComponent ref={ref} />);
 
     expect(getMenu()).not.toBeInTheDocument();
@@ -1355,7 +1374,7 @@ describe('<Typeahead> Public Methods', () => {
 
   it('clears the typeahead after a selection', async () => {
     const user = userEvent.setup();
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     const onChange = jest.fn(() => {
       ref.current?.clear();
     });
@@ -1541,7 +1560,7 @@ describe('<Typeahead> `change` events', () => {
   });
 
   it('does not call either when `clear()` is called externally', async () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
     const selected = states.slice(0, 1);
     render(
       <TestComponent

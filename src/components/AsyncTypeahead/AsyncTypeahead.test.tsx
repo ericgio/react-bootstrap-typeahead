@@ -1,6 +1,7 @@
 import React, { ChangeEvent, createRef, useState } from 'react';
 
-import AsyncTypeahead from './AsyncTypeahead';
+import { TypeaheadRef } from '../../core';
+import AsyncTypeahead, { AsyncTypeaheadProps } from './AsyncTypeahead';
 import {
   act,
   findItems,
@@ -11,7 +12,7 @@ import {
   userEvent,
 } from '../../tests/helpers';
 
-const TestComponent = (props) => {
+const TestComponent = (props: Partial<AsyncTypeaheadProps>) => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
@@ -20,6 +21,7 @@ const TestComponent = (props) => {
       id="async-test"
       minLength={0}
       onChange={noop}
+      options={[]}
       selected={[]}
       {...props}
       isLoading={isLoading}
@@ -270,7 +272,7 @@ describe('<AsyncTypeahead>', () => {
   });
 
   it('exposes the typeahead instance and public methods', () => {
-    const ref = createRef<Typeahead>();
+    const ref = createRef<TypeaheadRef>();
 
     render(
       <AsyncTypeahead

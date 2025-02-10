@@ -35,6 +35,7 @@ describe('addCustomOption', () => {
   it('adds a custom option when `labelKey` is a function', () => {
     const props = {
       ...defaultMerged,
+      // @ts-expect-error
       labelKey: (o) => o.name,
     };
     expect(addCustomOption(options, props)).toBe(true);

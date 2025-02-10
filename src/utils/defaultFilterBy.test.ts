@@ -1,5 +1,7 @@
+// @ts-nocheck
+
 import defaultFilterBy from './defaultFilterBy';
-import states from '../tests/data';
+import states, { Option } from '../tests/data';
 
 const FILTERED_RESULTS = [
   /* eslint-disable sort-keys */
@@ -27,7 +29,7 @@ const FILTERED_RESULTS = [
 const defaultOptions = states;
 const languageOptions = ['Español', 'Français'];
 
-const labelKeyFn = (o) => o.name;
+const labelKeyFn = (o: Option) => o.name;
 
 const defaultProps = {
   caseSensitive: false,
