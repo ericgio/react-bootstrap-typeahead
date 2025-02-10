@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved,no-console */
-
 import React, { ChangeEvent } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 

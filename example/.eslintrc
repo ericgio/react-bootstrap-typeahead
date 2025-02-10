@@ -1,8 +1,17 @@
 {
   "extends": ["../.eslintrc"],
+  "overrides": [
+    {
+      "files": ["**/*"],
+      "rules": {
+        "import/no-unresolved": "off",
+        "no-console": "off",
+      },
+    },
+  ],
   "rules": {
     "@typescript-eslint/no-var-requires": "off",
     "import/no-extraneous-dependencies": "off",
-    "sort-keys": "off"
-  }
+    "sort-keys": "off",
+  },
 }

@@ -13,6 +13,10 @@
     "moduleResolution": "node",
     "noEmit": false,
     "outDir": "types",
+    "paths": {
+      "react-bootstrap-typeahead": ["../../src"],
+      "react-bootstrap-typeahead/types": ["../../src/types"]
+    },
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved,no-console */
-
 import { range } from 'lodash';
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';

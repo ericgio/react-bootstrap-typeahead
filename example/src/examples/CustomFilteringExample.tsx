@@ -1,8 +1,7 @@
-/* eslint-disable import/no-unresolved */
-
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import { TypeaheadState } from 'react-bootstrap-typeahead/types';
 
 import options, { Option } from '../data';
 
@@ -15,7 +14,7 @@ const CustomFilteringExample = () => {
     { label: 'Use data fields', value: 'fields' },
   ];
 
-  const filterByCallback = (option: Option, props) =>
+  const filterByCallback = (option: Option, props: TypeaheadState) =>
     option.capital.toLowerCase().indexOf(props.text.toLowerCase()) !== -1 ||
     option.name.toLowerCase().indexOf(props.text.toLowerCase()) !== -1;
 
@@ -29,14 +28,17 @@ const CustomFilteringExample = () => {
         labelKey="name"
         options={options}
         placeholder="Filter by state name or capital..."
-        renderMenuItemChildren={(option: Option) => (
-          <div>
-            {option.name}
+        renderMenuItemChildren={(o) => {
+          const option = o as Option;
+          return (
             <div>
-              <small>Capital: {option.capital}</small>
+              {option.name}
+              <div>
+                <small>Capital: {option.capital}</small>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        }}
       />
       <Form.Group className="mt-3">
         {radios.map(({ label, value }) => (

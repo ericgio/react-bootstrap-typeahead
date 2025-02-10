@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 import { sortBy } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';

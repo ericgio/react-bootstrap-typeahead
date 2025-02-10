@@ -1,15 +1,15 @@
-/* eslint-disable import/no-unresolved */
-
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
+
+import { Option } from 'react-bootstrap-typeahead/types';
 
 import options from '../data';
 
 /* example-start */
 const BasicExample = () => {
-  const [singleSelections, setSingleSelections] = useState([]);
-  const [multiSelections, setMultiSelections] = useState([]);
+  const [singleSelections, setSingleSelections] = useState<Option[]>([]);
+  const [multiSelections, setMultiSelections] = useState<Option[]>([]);
 
   return (
     <>

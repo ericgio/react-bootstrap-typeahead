@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 import React, { ChangeEvent, useReducer } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';

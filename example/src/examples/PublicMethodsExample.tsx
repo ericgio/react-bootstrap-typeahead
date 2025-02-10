@@ -1,12 +1,10 @@
-/* eslint-disable import/no-unresolved */
-
 import React, { useRef } from 'react';
 import {
   Button as RBButton,
   ButtonProps,
   ButtonToolbar,
 } from 'react-bootstrap';
-import { Typeahead } from 'react-bootstrap-typeahead';
+import { Typeahead, TypeaheadRef } from 'react-bootstrap-typeahead';
 
 import options from '../data';
 
@@ -16,7 +14,7 @@ const Button = (props: ButtonProps) => (
 
 /* example-start */
 const PublicMethodsExample = () => {
-  const ref = useRef<Typeahead>(null);
+  const ref = useRef<TypeaheadRef>(null);
 
   return (
     <>

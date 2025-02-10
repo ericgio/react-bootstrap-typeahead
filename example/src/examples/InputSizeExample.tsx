@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
