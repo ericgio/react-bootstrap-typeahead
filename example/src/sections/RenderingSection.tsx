@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 import React from 'react';
 
 import LabelKeyExample from '../examples/LabelKeyExample';

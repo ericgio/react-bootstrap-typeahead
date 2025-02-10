@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 import React, { useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 

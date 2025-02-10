@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 import React from 'react';
 
 import CustomFilteringExample from '../examples/CustomFilteringExample';

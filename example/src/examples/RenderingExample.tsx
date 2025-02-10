@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unresolved, react/no-array-index-key */
+/* eslint-disable react/no-array-index-key */
 
 import { groupBy } from 'lodash';
 import React, { Fragment, useState } from 'react';
@@ -10,9 +10,10 @@ import {
   MenuItem,
   Token,
   Typeahead,
+  TypeaheadComponentProps,
 } from 'react-bootstrap-typeahead';
 
-import options from '../data';
+import options, { Option } from '../data';
 
 const RADIO_OPTIONS = [
   'Custom input',
@@ -24,13 +25,14 @@ const RADIO_OPTIONS = [
 /* example-start */
 const RenderingExample = () => {
   const [selectedOption, setSelectedOption] = useState(0);
-  const props = {};
+  const props: Partial<TypeaheadComponentProps> = {};
 
   switch (selectedOption) {
     case 0:
       props.renderInput = ({
         inputRef,
         referenceElementRef,
+        value,
         ...inputProps
       }) => (
         <Hint>
@@ -50,7 +52,6 @@ const RenderingExample = () => {
         {
           newSelectionPrefix,
           onItemSelect,
-          onPaginate,
           paginationText,
           renderMenuItemChildren,
           ...menuProps
@@ -58,7 +59,7 @@ const RenderingExample = () => {
         state
       ) => {
         let index = 0;
-        const regions = groupBy(results, 'region');
+        const regions = groupBy(results as Option[], 'region');
         const items = Object.keys(regions)
           .sort()
           .map((region) => (
@@ -69,7 +70,7 @@ const RenderingExample = () => {
                 const item = (
                   <MenuItem
                     key={index}
-                    onClick={(e) => onItemSelect(i, e)}
+                    onClick={() => onItemSelect(i)}
                     option={i}
                     position={index}>
                     <Highlighter search={state.text}>{i.name}</Highlighter>
@@ -97,7 +98,7 @@ const RenderingExample = () => {
       break;
     case 3:
       props.multiple = true;
-      props.renderToken = (option, { onRemove }, index) => (
+      props.renderToken = (option, { onRemove }, index: number) => (
         <Token key={index} onRemove={onRemove} option={option}>
           {`${option.name} (Pop: ${option.population.toLocaleString()})`}
         </Token>

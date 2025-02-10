@@ -1,20 +1,20 @@
-/* eslint-disable import/no-unresolved */
-
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 import options from '../data';
 
+type Align = 'justify' | 'left' | 'right' | undefined;
+
 /* example-start */
 const MenuAlignExample = () => {
-  const [align, setAlign] = useState('justify');
+  const [align, setAlign] = useState<Align>('justify');
 
   const radios = [
     { label: 'Justify (default)', value: 'justify' },
     { label: 'Align left', value: 'left' },
     { label: 'Align right', value: 'right' },
-  ];
+  ] as const;
 
   return (
     <>
