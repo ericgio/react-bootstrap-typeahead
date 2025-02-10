@@ -1015,6 +1015,7 @@ describe('<Typeahead>', () => {
 
       await user.click(closeButtons[0]);
       expect(screen.getAllByRole('button')).toHaveLength(3);
+      expect(getInput()).toHaveFocus();
     });
 
     it('adds selections', async () => {
@@ -1027,6 +1028,7 @@ describe('<Typeahead>', () => {
 
       expect(screen.getAllByRole('button')).toHaveLength(5);
       expect(input).toHaveValue('');
+      expect(getInput()).toHaveFocus();
     });
   });
 

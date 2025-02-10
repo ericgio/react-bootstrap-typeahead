@@ -519,6 +519,7 @@ function useTypeahead(userProps: TypeaheadProps, ref?: Ref<TypeaheadRef>) {
     setState(
       {
         ..._hideMenu(state, props),
+        isFocused: true,
         selected,
       },
       () => onSelect(selected)
