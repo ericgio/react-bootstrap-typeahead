@@ -13,11 +13,7 @@ import type { LabelKey, Option } from '../types';
  */
 function getOptionLabel(option: Option, labelKey: LabelKey): string {
   // Handle internally created options first.
-  if (
-    !isString(option) &&
-    (hasOwnProperty(option, 'paginationOption') ||
-      hasOwnProperty(option, 'customOption'))
-  ) {
+  if (!isString(option) && hasOwnProperty(option, 'customOption')) {
     return option[getStringLabelKey(labelKey)] as string;
   }
 

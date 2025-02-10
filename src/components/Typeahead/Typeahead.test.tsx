@@ -325,12 +325,7 @@ describe('<Typeahead>', () => {
 
     it('calls `onPaginate` when `labelKey` is a function', async () => {
       const user = userEvent.setup();
-      render(
-        <Pagination
-          labelKey={(o) => (o as Option).name}
-          onPaginate={onPaginate}
-        />
-      );
+      render(<Pagination labelKey={() => 'label'} onPaginate={onPaginate} />);
 
       getInput().focus();
       await user.keyboard('{ArrowUp}{Enter}');
