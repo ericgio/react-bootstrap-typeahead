@@ -243,7 +243,6 @@ export interface TypeaheadProps {
    * Invoked when menu visibility changes.
    */
   onMenuToggle?: (isOpen: boolean) => void;
-
   /**
    * Whether or not the menu should be displayed. `undefined` allows the
    * component to control visibility, while `true` and `false` show and hide

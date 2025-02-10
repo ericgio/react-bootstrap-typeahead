@@ -47,6 +47,9 @@ Bootstrap 5 is now over 3 years old. BS4 should still mostly work, but you may n
 ### Use `gap` CSS property in multi-select component
 The use of `gap` in flexbox is [widely supported](https://caniuse.com/flexbox-gap) and much cleaner than using negative margins.
 
+### Falsy children filtered out from `Menu` and `TypeaheadMenu`
+The condition for whether to show the empty label now ignores falsy children (`null`, `undefined`, `false`, `0`, `""`, `NaN`). This should make conditionally adding menu items a bit easier.
+
 ## v6.0 Breaking Changes
 
 ### `"small"` and `"large"` are no longer valid `size` values
