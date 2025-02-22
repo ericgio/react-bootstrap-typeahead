@@ -232,7 +232,7 @@ href | string | | If provided, the token will be rendered with an `<a>` tag and 
 readOnly | boolean | `false` | Whether the token is in a read-only state. If `true` it will not be removeable, but it will be interactive if provided an `href`.
 tabIndex | number | `0` | Allows the tabindex to be set if something other than the default is desired.
 
-## Higher-Order Components & Hooks
+## Hooks
 
 ### `useAsync`
 The hook used in [`AsyncTypeahead`](#asynctypeahead).
