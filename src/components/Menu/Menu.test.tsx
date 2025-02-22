@@ -5,9 +5,9 @@ import * as stories from './Menu.stories';
 import {
   composeStories,
   fireEvent,
+  generateSnapshots,
   getItems,
   getMenu,
-  generateSnapshots,
   render,
   screen,
 } from '../../tests/helpers';

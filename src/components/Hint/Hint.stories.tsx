@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import Hint, { HintProps } from './Hint';
 import { HintProvider, noop } from '../../tests/helpers';

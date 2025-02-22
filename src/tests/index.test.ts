@@ -44,8 +44,8 @@ import {
 } from '../hooks';
 
 import {
-  useTypeahead as _useTypeahead,
   TypeaheadContext as _TypeaheadContext,
+  useTypeahead as _useTypeahead,
 } from '../core';
 
 describe('index.ts exports', () => {

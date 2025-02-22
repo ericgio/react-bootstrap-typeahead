@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import React, { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import Typeahead, { TypeaheadComponentProps } from './Typeahead';
 import Hint from '../Hint';

@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import {
-  Button as RBButton,
   ButtonProps,
   ButtonToolbar,
+  Button as RBButton,
 } from 'react-bootstrap';
 import { Typeahead, TypeaheadRef } from 'react-bootstrap-typeahead';
 

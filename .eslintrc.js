@@ -55,6 +55,16 @@ module.exports = {
     ],
     'react/jsx-fragments': [2, 'syntax'],
     'react/static-property-placement': [2, 'static public field'],
+    'sort-imports': [
+      'error',
+      {
+        allowSeparatedGroups: true,
+        ignoreCase: true,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+      },
+    ],
   },
   settings: {
     'import/resolver': {

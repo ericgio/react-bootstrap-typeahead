@@ -6,8 +6,8 @@ import * as stories from './MenuItem.stories';
 import {
   composeStories,
   generateSnapshots,
-  screen,
   render,
+  screen,
   userEvent,
 } from '../../tests/helpers';
 

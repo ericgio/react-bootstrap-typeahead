@@ -37,9 +37,9 @@ import {
   LabelKey,
   Option,
   OptionHandler,
+  SelectEvent,
   Size,
   TypeaheadInputProps,
-  SelectEvent,
 } from '../../types';
 
 export type TypeaheadChildren =

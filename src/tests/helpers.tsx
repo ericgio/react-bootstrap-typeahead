@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 
 import React, { ReactNode } from 'react';
-import { Meta, composeStories, composeStory } from '@storybook/react';
-import { render, screen, RenderResult } from '@testing-library/react';
+import { composeStories, composeStory, Meta } from '@storybook/react';
+import { render, RenderResult, screen } from '@testing-library/react';
 
 import {
   defaultContext,

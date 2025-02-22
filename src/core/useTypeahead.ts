@@ -14,11 +14,11 @@ import React, {
 import usePrevious from '@restart/hooks/usePrevious';
 
 import {
+  hideMenu as _hideMenu,
+  toggleMenu as _toggleMenu,
   clearTypeahead,
   clickOrFocusInput,
   getInitialState,
-  hideMenu as _hideMenu,
-  toggleMenu as _toggleMenu,
   useTypeaheadState,
 } from './TypeaheadState';
 
