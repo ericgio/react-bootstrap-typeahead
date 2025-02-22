@@ -303,7 +303,6 @@ function useTypeahead(userProps: TypeaheadProps, ref?: Ref<TypeaheadRef>) {
 
   function blur() {
     inputNode?.blur();
-    hideMenu();
   }
 
   function clear() {
