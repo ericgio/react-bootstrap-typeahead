@@ -1,28 +1,33 @@
-import React, { ReactNode } from 'react';
+import cx from 'classnames';
+import React, { CSSProperties, ReactNode } from 'react';
 
 import { useHint } from '../../hooks';
 
 export interface HintProps {
   children: ReactNode;
   className?: string;
+  hintClassName?: string;
+  hintStyle?: CSSProperties;
+  style?: CSSProperties;
 }
 
-const Hint = ({ children, className }: HintProps) => {
+const Hint = (props: HintProps) => {
   const { hintRef, hintText } = useHint();
 
   return (
     <div
-      className={className}
+      className={props.className}
       style={{
         display: 'flex',
         flex: 1,
         height: '100%',
         position: 'relative',
+        ...props.style,
       }}>
-      {children}
+      {props.children}
       <input
         aria-hidden
-        className="rbt-input-hint"
+        className={cx('rbt-input-hint', props.hintClassName)}
         ref={hintRef}
         readOnly
         style={{
@@ -35,6 +40,7 @@ const Hint = ({ children, className }: HintProps) => {
           position: 'absolute',
           top: 0,
           width: '100%',
+          ...props.hintStyle,
         }}
         tabIndex={-1}
         value={hintText}
