@@ -173,7 +173,11 @@ The `Hint` component can be used to wrap custom inputs.
 #### Props
 Name | Type | Default | Description
 -----|------|---------|------------
-children `(required)` | node | |
+children `(required)` | `ReactNode` | |
+className | `string` | Class names applied to the containing element. |
+hintClassName | `string` | Class names applied to the the hint element. |
+hintStyle | `CSSProperties` | Inline styles applied to the hint element. |
+style | `CSSProperties` | Inline styl;es applied to the containing element. |
 
 ### `<Input>`
 Abstract `<input>` component that handles an `inputRef` prop and is used as the basis for both single- and multi-select input components.
