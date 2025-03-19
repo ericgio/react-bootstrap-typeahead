@@ -50,6 +50,7 @@
     "@babel/runtime": "^7.14.6",
     "@floating-ui/react-dom": "^2.1.2",
     "@restart/hooks": "^0.4.0",
+    "@restart/ui": "^1.9.4",
     "classnames": "^2.2.0",
     "fast-deep-equal": "^3.1.1",
     "invariant": "^2.2.1",
