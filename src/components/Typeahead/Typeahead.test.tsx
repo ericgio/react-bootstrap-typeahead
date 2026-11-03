@@ -63,6 +63,20 @@ const {
 } = composeStories(stories);
 
 describe('<Typeahead>', () => {
+  it('ignores an option after becoming disabled while open', async () => {
+    const onChange = jest.fn();
+    const props = { onChange, options: ['Apple', 'Orange'] };
+    const { rerender } = render(<TestComponent {...props} />);
+
+    await userEvent.click(getInput());
+    const option = await screen.findByRole('option', { name: 'Orange' });
+    rerender(<TestComponent {...props} disabled />);
+    await userEvent.click(option);
+
+    expect(onChange).not.toHaveBeenCalled();
+    expect(getInput()).toHaveValue('');
+  });
+
   generateSnapshots(stories);
 
   it('auto-focuses the typeahead input', async () => {

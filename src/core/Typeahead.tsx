@@ -508,6 +508,10 @@ class Typeahead extends React.Component<Props, TypeaheadState> {
   };
 
   _handleSelectionAdd = (option: Option) => {
+    if (this.props.disabled) {
+      return;
+    }
+
     const { multiple, labelKey } = this.props;
 
     let selected: Option[];
