@@ -76,6 +76,7 @@ export interface TypeaheadProps {
   defaultInputValue: string;
   defaultOpen: boolean;
   defaultSelected: Option[];
+  disabled?: boolean;
   emptyLabel?: ReactNode;
   filterBy: string[] | FilterByCallback;
   highlightOnlyResult: boolean;
